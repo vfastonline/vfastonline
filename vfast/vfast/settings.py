@@ -11,10 +11,34 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import ConfigParser
+import api
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+config = ConfigParser.ConfigParser()
+config.read(os.path.join(BASE_DIR, 'vfast.conf'))
 
+#mail config
+MAIL_ENABLE = config.get('mail', 'mail_enable')
+EMAIL_HOST  = config.get('mail', 'email_host')
+EMAIL_PORT = config.get('mail', 'email_port')
+EMAIL_HOST_USER = config.get('mail', 'email_host_user')
+EMAIL_HOST_PASSWORD = config.get('mail', 'email_host_password')
+EMAIL_USE_TLS = config.get('mail', 'email_use_tls')
+try:
+    EMAIL_USE_SSL = config.getboolean('mail', 'email_use_ssl')
+except ConfigParser.NoOptionError:
+    EMAIL_USE_SSL = False
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend' if EMAIL_USE_SSL else 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_TIMEOUT = 5
+
+
+#host
+HOST = config.get('host', 'host')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -37,6 +61,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'vuser',
+    'vcourse',
 ]
 
 MIDDLEWARE = [
@@ -72,13 +98,41 @@ WSGI_APPLICATION = 'vfast.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASES = {}
+if config.get('db', 'engine') == 'mysql':
+    DB_HOST = config.get('db', 'host')
+    DB_PORT = config.get('db', 'port')
+    DB_USER = config.get('db', 'user')
+    DB_PASSWORD = config.get('db', 'password')
+    DB_DATABASE = config.get('db', 'database')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': DB_DATABASE,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT,
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+            }
+        }
+    }
+elif config.get('db', 'engine') == 'sqlite':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
 
 
 # Password validation
@@ -122,5 +176,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'templates/static'),
 )
 
-MEDIA_URL = '/media'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR)
+
+api.set_logging(config.get('log', 'logpath'), config.get('log', 'log_level'))

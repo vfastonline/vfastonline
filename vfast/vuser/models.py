@@ -59,3 +59,6 @@ class UserBadge(models.Model):
     userid = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='用户ID')
     badgeid = models.ForeignKey(Badge, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='勋章ID')
     gain_time = models.BigIntegerField('勋章获取时间', null=True, blank=True, default=0)
+
+    def __unicode__(self):
+        return self.userid.username
