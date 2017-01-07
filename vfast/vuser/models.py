@@ -8,18 +8,22 @@ from django.db import models
 class User(models.Model):
     SEX = (
         (0, '女'),
-        (1, '男')
+        (1, '男'),
+        (2, '保密')
     )
     IS_OPEN = (
         (0, '公开'),
         (1, '不公开')
     )
-
+    STATUS = (
+        (0, '未激活'),
+        (1, '激活')
+    )
     username = models.CharField('用户名称', max_length=50, null=True, blank=True, default=' ')
     realname = models.CharField('用户真实姓名', max_length=30, null=True, blank=True, default=' ')
     email = models.EmailField('邮箱', max_length=50)
     password = models.CharField('密码', max_length=100)
-    sex = models.IntegerField('性别', choices=SEX)
+    sex = models.IntegerField('性别', choices=SEX, default=3)
     totalscore = models.IntegerField('用户总得分', null=True, blank=True, default=0)
     location = models.CharField('所在城市', max_length=50, null=True, blank=True, default=' ')
     intro = models.CharField('个人简介', max_length=500, null=True, blank=True, default=' ')
@@ -28,6 +32,7 @@ class User(models.Model):
     program_exp = models.CharField('计算机编程经验', max_length=50, null=True, blank=True, default=' ')
     into_it = models.CharField('是否从事IT行业', max_length=10, null=True, blank=True, default=' ')
     comp_use_time_day = models.CharField('使用电脑频率', max_length=50, null=True, blank=True, default=' ')
+    learn_habit = models.CharField('学习习惯', max_length=50, null=True, blank=True, default=' ')
     githuburl = models.CharField('github主页', max_length=50, null=True, blank=True, default=' ')
     linkinurl = models.CharField('linkin主页', max_length=50, null=True, blank=True, default=' ')
     stackoverflowurl = models.CharField('stackoverflow主页', max_length=50, null=True, blank=True, default=' ')
@@ -39,7 +44,8 @@ class User(models.Model):
     mugshot = models.CharField('头像URL', max_length=100, null=True, blank=True, default=' ')
     mugshotframe = models.CharField('画框URL', max_length=100, null=True, blank=True, default=' ')
     createtime = models.BigIntegerField('创建时间', null=True, blank=True, default=0)
-    # pathid = models.ForeignKey(Path)
+    active = models.CharField('激活账号', max_length=100, null=True, blank=True)
+    status = models.IntegerField('是否激活', default=0)
 
     def __unicode__(self):
         return self.email
