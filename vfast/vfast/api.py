@@ -116,3 +116,22 @@ def get_object(model, **kwargs):
             return None
     the_object = model.objects.get(**kwargs)
     return the_object
+
+
+def get_result(model, **kwargs):
+    for value in kwargs.values():
+        if not value:
+            return None
+    result = model.objects.filter(**kwargs).values().first()
+    return result
+
+
+def get_results(model):
+    """获取list  包含id, name字段"""
+    results = model.objects.filter().values('id', 'name')
+    return results
+
+def get_all_results(model):
+    """获取所用信息"""
+    results = model.objects.filter().values()
+    return results

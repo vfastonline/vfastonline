@@ -10,7 +10,7 @@ from vcourse.models import TypeFunc, TypeProgram, Course, Video, Path
 from vfast.api import get_object
 from django.shortcuts import render
 from django.http import HttpResponse
-from vfast.api import get_object
+from vfast.api import get_object, get_results, get_all_results
 
 
 # Create your views here.
@@ -144,6 +144,24 @@ def path_add(request):
 
             return HttpResponse(json.dumps({'code': 0, 'msg': u'创建路线成功'}, ensure_ascii=False))
 
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+
+
+def getvideo(request):
+    try:
+        id = request.GET.get('id')
+        video = Video.objects.get(id=id)
+        return render(request, 'video.html', {'video':video})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+
+
+def getcourse(request):
+    try:
+        id = request.GET.get('id')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
