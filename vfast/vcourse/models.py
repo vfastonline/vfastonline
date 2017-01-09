@@ -1,8 +1,8 @@
 #!encoding:utf-8
 from __future__ import unicode_literals
-
 from django.db import models
 from vuser.models import User
+
 
 # Create your models here.
 class CourseType(models.Model):
@@ -30,7 +30,7 @@ class Course(models.Model):
     totaltime = models.CharField('课程总时长', max_length=50, null=True, blank=True, default=' ')
     difficult = models.IntegerField('课程难度', null=True, blank=True)
     type = models.ForeignKey(CourseType, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='语言分类')
-    cl =  models.ForeignKey(CourseClass, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='功能分类')
+    cl = models.ForeignKey(CourseClass, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='功能分类')
     color = models.CharField('颜色', max_length=30, null=True, blank=True)
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True)
@@ -71,31 +71,3 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.name
-
-#
-# class Score(models.Model):
-#     createtime = models.DateField('获得积分的日期')
-#     userid = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
-#     courseid = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='课程ID')
-#     score = models.IntegerField('获得积分')
-#
-#     def __unicode__(self):
-#         return self.userid.username
-#
-#
-# class WatchRecord(models.Model):
-#     STATUS = (
-#         (0, '已看完'),
-#         (1, '未看完')
-#     )
-#     userid = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
-#     videoid = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True, verbose_name='视频ID')
-#     courseid = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
-#     video_progress = models.IntegerField('观看时间进度')
-#     status = models.IntegerField('观看状态', choices=STATUS)
-#     recordtime = models.BigIntegerField('记录时间')
-#
-#     def __unicode__(self):
-#         return self.userid.username
-
-

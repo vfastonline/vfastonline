@@ -4,6 +4,7 @@ from django.db import models
 from vcourse.models import Course
 from vuser.models import User
 
+
 # Create your models here.
 class Badge(models.Model):
     badgename = models.CharField('勋章名称', max_length=100, null=True, blank=True, default=' ')
