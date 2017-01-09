@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'vuser',
     'vcourse',
     'badge',
+    'record',
 ]
 
 MIDDLEWARE = [
