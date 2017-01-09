@@ -6,6 +6,7 @@ import logging.handlers
 import time, os, json, base64
 from django.core.mail import send_mail
 
+
 def get_validate(email, uid, role, fix_pwd):
     t = int(time.time())
     validate_key = hashlib.md5('%s%s%s' % (email, t, fix_pwd)).hexdigest()
@@ -19,18 +20,18 @@ def validate(key, fix_pwd):
     print x
     if len(x) != 5:
         logging.getLogger().warning('token参数数量不足')
-        return json.dumps({'code':1, 'msg':u'token参数不足'}, ensure_ascii=False)
+        return json.dumps({'code': 1, 'msg': u'token参数不足'}, ensure_ascii=False)
     validate_key = hashlib.md5('%s%s%s' % (x[0], x[1], fix_pwd)).hexdigest()
     if validate_key == x[4]:
         logging.getLogger().info('认证通过')
-        return json.dumps({'code':0, 'email':x[0], 'uid':x[1], 'role':x[2]})
+        return json.dumps({'code': 0, 'email': x[0], 'uid': x[1], 'role': x[2]})
     else:
         logging.getLogger().warning('密码不正确')
-        return json.dumps({'code':1, 'msg':'密码不正确'}, ensure_ascii=False)
+        return json.dumps({'code': 1, 'msg': '密码不正确'}, ensure_ascii=False)
 
 
 def encry_password(password, salt='salt'):
-    string = password+salt
+    string = password + salt
     return hashlib.new('md5', string).hexdigest()
 
 
@@ -41,7 +42,9 @@ def require_role(role='1'):
             if role != request.session['role']:
                 return HttpResponse(json.dumps({'errmsg': '权限不够'}, ensure_ascii=False))
             return func(request, *args, **kwargs)
+
         return __deco
+
     return _deco
 
 
@@ -83,10 +86,10 @@ def set_logging(log_path, log_level='error'):
         logger.setLevel(level)
 
     LOG_LEVELS = {
-                  'critical': logging.CRITICAL, 'error': logging.ERROR,
-                  'warning': logging.WARNING, 'info': logging.INFO,
-                  'debug': logging.DEBUG
-                 }
+        'critical': logging.CRITICAL, 'error': logging.ERROR,
+        'warning': logging.WARNING, 'info': logging.INFO,
+        'debug': logging.DEBUG
+    }
 
     if not os.path.isdir(log_path):
         os.makedirs(log_path)
@@ -103,4 +106,17 @@ def set_logging(log_path, log_level='error'):
 
 def write_log(user, msg):
     logging.getLogger('record').debug('%s %s %s' % (int(time.time()), user, msg))
+
+
+def get_object(model, **kwargs):
+    """use this function for query"""
+    for value in kwargs.values():
+        if not value:
+            return None
+        the_object = model.objects.filter(**kwargs)
+        if len(the_object) == 1:
+            the_object == the_object[0]
+        else:
+            the_object = None
+        return the_object
 
