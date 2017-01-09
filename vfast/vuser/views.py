@@ -84,14 +84,13 @@ def register(request):
 
 def useractive(request):
     try:
-        if request.method == 'GET':
-            active = request.GET.get('active', ' ')
-            user = models.User.objects.get(active=active)
-            if user:
-                user.status = 1
-                print user.status
-                user.save()
-                return HttpResponse(json.dumps({'code': 0, 'msg': u'激活成功'}, ensure_ascii=False))
+        active = request.GET.get('active', ' ')
+        user = models.User.objects.get(active=active)
+        if user:
+            user.status = 1
+            print user.status
+            user.save()
+            return HttpResponse(json.dumps({'code': 0, 'msg': u'激活成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))

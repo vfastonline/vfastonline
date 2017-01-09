@@ -35,6 +35,7 @@ class Course(models.Model):
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True)
     order = models.IntegerField('课程顺序', unique=True)
+    createtime = models.BigIntegerField('课程创建时间', default=0)
 
     def __unicode__(self):
         return self.name
@@ -46,12 +47,13 @@ class Path(models.Model):
     introvideourl = models.CharField('路线介绍视频', max_length=100, blank=True, null=True, default=' ')
     jobscount = models.IntegerField('岗位数', null=True, blank=True, default=5555)
     salary = models.CharField('岗位起薪', null=True, blank=True, max_length=50, default=' ')
-    jobtime = models.DateField('岗位&起薪统计时间', null=True, blank=True)
+    jobtime = models.CharField('岗位&起薪统计时间', null=True, blank=True, max_length=50)
     difficult = models.IntegerField('路径难度', null=True, blank=True)
     pathimg = models.CharField('路线展示图片', null=True, blank=True, default=' ', max_length=100)
     totaltime = models.CharField('路线总时间', null=True, blank=True, default=' ', max_length=50)
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
     course = models.ManyToManyField(Course, verbose_name='路线包含的课程')
+    createtime = models.BigIntegerField('路线创建时间', default=0)
 
     def __unicode__(self):
         return self.name
@@ -59,15 +61,17 @@ class Path(models.Model):
 
 class Video(models.Model):
     name = models.CharField('视频名称', max_length=100)
-    time = models.IntegerField('视频时长')
-    location = models.CharField('视频存放位置', max_length=100)
-    subtitle = models.CharField('字幕存放位置', max_length=100)
+    videotime = models.IntegerField('视频时长')
+    video = models.CharField('视频存放位置', max_length=100)
+    zimu = models.CharField('字幕存放位置', max_length=100)
     order = models.IntegerField('视频播放顺序', unique=True)
     teacher_note = models.CharField('讲师笔记', max_length=100, default=' ', null=True, blank=True)
-    appraise = models.IntegerField('总评星', null=True, blank=True, default=0)
+    score = models.IntegerField('总评星', null=True, blank=True, default=0)
+    scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)
     teacher = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='讲师ID')
     courseid = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
     watchpeople = models.IntegerField('观看视频人数', null=True, blank=True, default=0)
+    createtime = models.BigIntegerField('视频上传时间', default=0)
 
     def __unicode__(self):
         return self.name
