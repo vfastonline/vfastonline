@@ -5,14 +5,14 @@ from vuser.models import User
 
 
 # Create your models here.
-class CourseType(models.Model):
+class TypeProgram(models.Model):
     typename = models.CharField('课程分类技术', max_length=50)
 
     def __unicode__(self):
         return self.typename
 
 
-class CourseClass(models.Model):
+class TypeFunc(models.Model):
     classname = models.CharField('课程分类功能', max_length=50)
 
     def __unicode__(self):
@@ -29,8 +29,8 @@ class Course(models.Model):
     desc = models.CharField('课程描述', max_length=1000, null=True, blank=True, default=' ')
     totaltime = models.CharField('课程总时长', max_length=50, null=True, blank=True, default=' ')
     difficult = models.IntegerField('课程难度', null=True, blank=True)
-    type = models.ForeignKey(CourseType, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='语言分类')
-    cl = models.ForeignKey(CourseClass, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='功能分类')
+    type_lang = models.ForeignKey(TypeProgram, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='语言分类')
+    type_func = models.ForeignKey(TypeFunc, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='功能分类')
     color = models.CharField('颜色', max_length=30, null=True, blank=True)
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True)
