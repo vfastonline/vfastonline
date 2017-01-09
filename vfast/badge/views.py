@@ -20,10 +20,14 @@ def badge_add(request):
             cid = request.POST.get('cid')
             cid_object = get_object(Course, id=cid)
             createtime = int(time.time())
-            fs = FileSystemStorage(os.path.join(settings.MEDIA_ROOT, 'img'))
-            filename = fs.save(badgeimg.name, badgeimg)
-            uploaded_file_url = '/img'+fs.url(filename)
-            print badgename, cid_object.name, filename, uploaded_file_url, createtime
+
+            uploaded_file_url = 'img/' + badgeimg.name
+            dest = open(os.path.join(settings.MEDIA_ROOT, uploaded_file_url), 'wb+')
+            for chunk in badgeimg.chunks():
+                dest.write(chunk)
+            dest.close()
+
+            print badgename, cid_object.name, uploaded_file_url, createtime
             Badge.objects.get_or_create(badgename=badgename, cid=cid_object, createtime=createtime, badgeurl=uploaded_file_url)
             return HttpResponse(json.dumps({'code':0 ,'msg': u'创建勋章成功'}, ensure_ascii=False))
     except:
@@ -53,18 +57,40 @@ def badge_get(request):
 def badge_edit(request):
     try:
         if request.method == 'GET':
+            id = request.GET.get('id')
+            badge = Badge.objects.get(id=id)
             return render(request, 'badgetest.html')
         else:
-            pass
+            id = request.POST.get('id', '')
+            badgename = request.POST.get('badgename')
+            cid = request.POST.get('cid', None)
+            cid_object = Course.objects.get(id=cid)
+            Badge.objects.filter(id=id).update(cid=cid_object, badgename=badgename)
+            return HttpResponse(json.dumps({'code':0, 'msg': u'修改勋章信息成功'}))
     except:
         logging.getLogger().error(traceback)
         return HttpResponse(json.dumps({'code':1, 'msg': '服务器错误'}, ensure_ascii=False))
 
 
 def badge_del(request):
-    pass
+    try:
+        if request.method == "GET":
+            id = request.GET.get('id')
+        else:
+            id = request.POST.get('id')
+        Badge.objects.get(id=id).delete()
+        return HttpResponse(json.dumps({'code':0, 'msg': u'删除成功'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code':1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def badge_getall(request):
-    pass
+    try:
+        badges = Badge.objects.filter().all()
+        print badges
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code':1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
