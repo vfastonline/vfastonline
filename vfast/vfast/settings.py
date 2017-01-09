@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vuser',
     'vcourse',
+    'badge',
 ]
 
 MIDDLEWARE = [
