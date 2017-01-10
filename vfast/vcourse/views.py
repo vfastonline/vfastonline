@@ -19,6 +19,7 @@ def test(request):
 
 
 def course_add(request):
+    """添加课程系列"""
     try:
         if request.method == 'GET':
             return render(request, 'coursetest.html')
@@ -52,6 +53,7 @@ def course_add(request):
 
 
 def video_add(request):
+    """添加视频"""
     try:
         if request.method == 'GET':
             return render(request, 'coursetest.html')
@@ -100,6 +102,7 @@ def video_add(request):
 
 
 def path_add(request):
+    """添加学习路线"""
     try:
         if request.method == 'GET':
             return render(request, 'coursetest.html')
@@ -123,7 +126,6 @@ def path_add(request):
             introvideourl = os.path.join('video/%s/%s' % (day, video.name)) if video else ' '
             pathimg = os.path.join('img/%s/%s' % (day, img.name)) if img else ' '
             print introvideourl, pathimg
-
 
             for file in [video, img]:
                 try:
@@ -150,18 +152,60 @@ def path_add(request):
 
 
 def getvideo(request):
+    """获取单个视频视频信息"""
     try:
         id = request.GET.get('id')
         video = Video.objects.get(id=id)
-        return render(request, 'video.html', {'video':video})
+        return render(request, 'videodu.html', {'video': video})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def getcourse(request):
+    """获取课程详细信息, 以及该课程下面所有的视频"""
     try:
         id = request.GET.get('id')
+        course = Course.objects.get(id=id)
+        videos = Video.objects.filter(courseid=course).all()
+        print videos
+        print course.name
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+
+
+def getpath(request):
+    """获取学习路线详细信息, 学习路线下包含的所有课程"""
+    try:
+        id = request.GET.get('id')
+        path = Path.objects.get(id=id)
+        results = path.course.filter().values().all()  # 获取路线下面的所有课程
+        print path.name, results
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+
+
+def getcourseall(request):
+    """获取所有课程, 可以按照语言, 功能分类进行检索"""
+    try:
+        type_lang = request.GET.get('lang', None)
+        type_func = request.GET.get('func', None)
+        type_lang_object = TypeProgram.objects.get(id=type_lang) if type_lang else None
+        type_func_object = TypeFunc.objects.get(id=type_func) if type_func else None
+        if type_func_object and type_lang_object:
+            courses = get_all_results(Course, type_lang=type_lang_object, type_func=type_func_object)
+        elif type_func_object:
+            courses = get_all_results(Course, type_func = type_func_object)
+        elif type_lang_object:
+            courses = get_all_results(Course, type_lang=type_lang_object)
+        else:
+            courses = get_all_results(Course)
+        print courses
+        return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))

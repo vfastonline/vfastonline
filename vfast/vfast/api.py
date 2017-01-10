@@ -131,7 +131,10 @@ def get_results(model):
     results = model.objects.filter().values('id', 'name')
     return results
 
-def get_all_results(model):
+def get_all_results(model, **kwargs):
     """获取所用信息"""
-    results = model.objects.filter().values()
+    for value in kwargs.values():
+        if not value:
+            return None
+    results = model.objects.filter(**kwargs).values()
     return results
