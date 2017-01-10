@@ -11,6 +11,7 @@ import os, time , json
 # Create your views here.
 
 def badge_add(request):
+    """添加勋章"""
     try:
         if request.method == 'GET':
             return render(request, 'badgetest.html')
@@ -36,6 +37,7 @@ def badge_add(request):
 
 
 def badge_get(request):
+    """获取勋章"""
     try:
         id = request.GET.get('id', None)
         print id
@@ -55,6 +57,7 @@ def badge_get(request):
 
 
 def badge_edit(request):
+    """编辑勋章"""
     try:
         if request.method == 'GET':
             id = request.GET.get('id')
@@ -73,6 +76,7 @@ def badge_edit(request):
 
 
 def badge_del(request):
+    """删除勋章"""
     try:
         if request.method == "GET":
             id = request.GET.get('id')
@@ -86,6 +90,7 @@ def badge_del(request):
 
 
 def badge_getall(request):
+    """获取所有勋章"""
     try:
         badges = Badge.objects.filter().all()
         print badges

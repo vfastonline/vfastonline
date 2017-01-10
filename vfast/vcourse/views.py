@@ -199,7 +199,7 @@ def getcourseall(request):
         if type_func_object and type_lang_object:
             courses = get_all_results(Course, type_lang=type_lang_object, type_func=type_func_object)
         elif type_func_object:
-            courses = get_all_results(Course, type_func = type_func_object)
+            courses = get_all_results(Course, type_func=type_func_object)
         elif type_lang_object:
             courses = get_all_results(Course, type_lang=type_lang_object)
         else:

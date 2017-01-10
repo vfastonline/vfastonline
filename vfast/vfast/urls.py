@@ -25,6 +25,7 @@ urlpatterns = [
     url('^user/', include('vuser.urls')),
     url('^course/', include('vcourse.urls')),
     url('^badge/', include('badge.urls')),
+    url('^record/', include('record.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
