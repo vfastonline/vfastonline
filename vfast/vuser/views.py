@@ -45,7 +45,7 @@ def register(request):
         if request.method == 'GET':
             return render(request, 'usertest.html')
         else:
-            t = int(time.time())
+            t = time.strftime('%Y-%m-%d %H:%M:%S')
             email = request.POST.get('email', None)
             username = request.POST.get('username', None)
             password = request.POST.get('password', None)

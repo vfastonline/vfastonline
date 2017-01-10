@@ -36,7 +36,7 @@ def course_add(request):
             type_lang = request.POST.get('type_lang')
             typefunc = TypeFunc.objects.get(id=type_func).id
             typelang = TypeProgram.objects.get(id=type_lang).id
-            t = int(time.time())
+            t = time.strftime('%Y-%m-%d %H:%M:%S')
 
             print name, desc, totaltime, difficult, color, pubstatus, subscibe, order, type_func, type_lang
             print typefunc, typelang
@@ -67,7 +67,7 @@ def video_add(request):
             teacherid = request.POST.get('teacherid', 1)
             course = Course.objects.get(id=courseid)
             teacher = User.objects.get(id=teacherid)
-            createtime = int(time.time())
+            createtime = time.strftime('%Y-%m-%d %H:%M:%S')
             print teacher.username, course.name
 
             videofile = request.FILES.get('video', None)
@@ -114,7 +114,7 @@ def path_add(request):
             jobtime = request.POST.get('jobtime', ' ')
             difficult = request.POST.get('difficult', 4)
             totaltime = request.POST.get('totaltime', ' ')
-            createtime = int(time.time())
+            createtime = time.strftime('%Y-%m-%d %H:%M:%S')
             course = request.POST.getlist('course', [])
 
             day = time.strftime('%Y%m')

@@ -44,7 +44,7 @@ class User(models.Model):
     company_location = models.CharField('公司所在地', max_length=100, null=True, blank=True, default=' ')
     mugshot = models.CharField('头像URL', max_length=100, null=True, blank=True, default=' ')
     mugshotframe = models.CharField('画框URL', max_length=100, null=True, blank=True, default=' ')
-    createtime = models.BigIntegerField('创建时间', null=True, blank=True, default=0)
+    createtime = models.DateTimeField('创建时间', null=True, blank=True, default=0)
     active = models.CharField('激活账号', max_length=100, null=True, blank=True)
     status = models.IntegerField('是否激活', default=0)
 

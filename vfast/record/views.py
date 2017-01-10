@@ -59,7 +59,7 @@ def record_score(request):
             uid = request.POST.get('uid')
             cid = request.POST.get('cid', None)
             score = request.POST.get('score')
-            createtime = time.strftime('%Y-%m-%d')
+            createtime = time.strftime('%Y-%m-%d %H:%M:%S')
 
             user = User.objects.get(id=uid)
             course = Course.objects.get(id=cid) if cid else None

@@ -35,7 +35,7 @@ class Course(models.Model):
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
     order = models.IntegerField('课程顺序', unique=True)
-    createtime = models.BigIntegerField('课程创建时间', default=0)
+    createtime = models.DateTimeField('课程创建时间', default=0)
 
     def __unicode__(self):
         return self.name
@@ -53,7 +53,7 @@ class Path(models.Model):
     totaltime = models.CharField('路线总时间', null=True, blank=True, default=' ', max_length=50)
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
     course = models.ManyToManyField(Course, verbose_name='路线包含的课程')
-    createtime = models.BigIntegerField('路线创建时间', default=0)
+    createtime = models.DateTimeField('路线创建时间', default=0)
 
     def __unicode__(self):
         return self.name
@@ -71,7 +71,7 @@ class Video(models.Model):
     teacher = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='讲师ID')
     courseid = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
     watchpeople = models.IntegerField('观看视频人数', null=True, blank=True, default=0)
-    createtime = models.BigIntegerField('视频上传时间', default=0)
+    createtime = models.DateTimeField('视频上传时间', default=0)
 
     def __unicode__(self):
         return self.name

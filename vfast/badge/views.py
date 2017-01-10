@@ -20,7 +20,7 @@ def badge_add(request):
             badgeimg = request.FILES['badgeimg']
             cid = request.POST.get('cid')
             cid_object = get_object(Course, id=cid)
-            createtime = int(time.time())
+            createtime = time.strftime('%Y-%m-%d %H:%M:%D')
 
             uploaded_file_url = 'img/' + badgeimg.name
             dest = open(os.path.join(settings.MEDIA_ROOT, uploaded_file_url), 'wb+')
