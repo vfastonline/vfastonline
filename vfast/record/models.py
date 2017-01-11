@@ -9,8 +9,8 @@ from vcourse.models import Course, Video
 # Create your models here.
 class Score(models.Model):
     createtime = models.DateField('获得积分的日期')
-    userid = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
-    courseid = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='课程ID')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='课程ID')
     score = models.IntegerField('获得积分')
 
     def __unicode__(self):
@@ -22,9 +22,9 @@ class WatchRecord(models.Model):
         (0, '已看完'),
         (1, '未看完')
     )
-    userid = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
-    videoid = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True, verbose_name='视频ID')
-    courseid = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
+    video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True, verbose_name='视频ID')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
     video_progress = models.IntegerField('观看时间进度')
     status = models.IntegerField('观看状态', choices=STATUS)
     recordtime = models.DateTimeField('记录时间')

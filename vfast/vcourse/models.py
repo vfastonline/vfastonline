@@ -69,7 +69,7 @@ class Video(models.Model):
     score = models.IntegerField('总评星', null=True, blank=True, default=0)
     scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)
     teacher = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='讲师ID')
-    courseid = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
     watchpeople = models.IntegerField('观看视频人数', null=True, blank=True, default=0)
     createtime = models.DateTimeField('视频上传时间')
 
