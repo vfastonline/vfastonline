@@ -21,7 +21,7 @@ def record_video(request):
             cid = request.POST.get('cid')
             video_progress = request.POST.get('video_progress', 0)
             status = request.POST.get('status')
-            t = int(time.time())
+            t = time.strftime('%Y-%m-%d %H:%M:%S')
 
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
@@ -30,12 +30,14 @@ def record_video(request):
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
                 if obj.status == 0:
-                    return HttpResponse(json.dumps({'code':0, 'msg':u'视频已看完'}))
+                    return HttpResponse(json.dumps({'code':0, 'msg':u'视频已看完'}, ensure_ascii=False))
                 else:
                     obj.status = status
                     obj.video_progress = video_progress
                     obj.recordtime = t
                     obj.save()
+                    # WatchRecord.objects.filter(user=user, video=video, course=course).update(status=status, video_progress=video_progress,
+                    #                                                                          recordtime=t)
                     return HttpResponse(json.dumps({'code':0, 'msg':u'video update'}))
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video,

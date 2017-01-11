@@ -10,11 +10,11 @@ from vcourse.models import Course, Video
 class Score(models.Model):
     createtime = models.DateField('获得积分的日期')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='课程ID')
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='课程ID', blank=True)
     score = models.IntegerField('获得积分')
 
     def __unicode__(self):
-        return self.userid.username
+        return self.user.username
 
 
 class WatchRecord(models.Model):
@@ -30,4 +30,4 @@ class WatchRecord(models.Model):
     recordtime = models.DateTimeField('记录时间')
 
     def __unicode__(self):
-        return self.userid.username
+        return self.user.username
