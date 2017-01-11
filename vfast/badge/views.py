@@ -19,7 +19,7 @@ def badge_add(request):
             badgename = request.POST.get('badgename')
             badgeimg = request.FILES['badgeimg']
             cid = request.POST.get('cid')
-            cid_object = get_object(Course, id=cid)
+            course = get_object(Course, id=cid)
             createtime = time.strftime('%Y-%m-%d %H:%M:%D')
 
             uploaded_file_url = 'img/' + badgeimg.name
@@ -28,8 +28,8 @@ def badge_add(request):
                 dest.write(chunk)
             dest.close()
 
-            print badgename, cid_object.name, uploaded_file_url, createtime
-            Badge.objects.get_or_create(badgename=badgename, cid=cid_object, createtime=createtime, badgeurl=uploaded_file_url)
+            print badgename, course.name, uploaded_file_url, createtime
+            Badge.objects.get_or_create(badgename=badgename, course=course, createtime=createtime, badgeurl=uploaded_file_url)
             return HttpResponse(json.dumps({'code':0 ,'msg': u'创建勋章成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -67,8 +67,8 @@ def badge_edit(request):
             id = request.POST.get('id', '')
             badgename = request.POST.get('badgename')
             cid = request.POST.get('cid', None)
-            cid_object = Course.objects.get(id=cid)
-            Badge.objects.filter(id=id).update(cid=cid_object, badgename=badgename)
+            course = Course.objects.get(id=cid)
+            Badge.objects.filter(id=id).update(course=course, badgename=badgename)
             return HttpResponse(json.dumps({'code':0, 'msg': u'修改勋章信息成功'}))
     except:
         logging.getLogger().error(traceback)

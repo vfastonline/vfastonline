@@ -28,7 +28,7 @@ def record_video(request):
             course = Course.objects.get(id=cid)
 
             try:
-                obj = WatchRecord.objects.get(userid=user, videoid=video, courseid=course)
+                obj = WatchRecord.objects.get(user=user, video=video, course=course)
                 if obj.status == 0:
                     return HttpResponse(json.dumps({'code':0, 'msg':u'视频已看完'}))
                 else:
@@ -38,8 +38,8 @@ def record_video(request):
                     obj.save()
                     return HttpResponse(json.dumps({'code':0, 'msg':u'video update'}))
             except WatchRecord.DoesNotExist:
-                WatchRecord.objects.create(userid=user, videoid=video,
-                                           courseid=course,
+                WatchRecord.objects.create(user=user, video=video,
+                                           course=course,
                                            status=status,
                                            video_progress=video_progress,
                                            recordtime=t)
@@ -64,7 +64,7 @@ def record_score(request):
             user = User.objects.get(id=uid)
             course = Course.objects.get(id=cid) if cid else None
 
-            result = Score.objects.create(userid=user, courseid=course, score=score,
+            result = Score.objects.create(user=user, course=course, score=score,
                                           createtime=createtime) if course else Score.objects.create(userid=user,
                                                                                                      score=score,
                                                                                                      createtime=createtime)

@@ -94,7 +94,7 @@ def video_add(request):
                     pass
             Video.objects.create(name=name, video=video, zimu=zimu, order=order, videotime=videotime,
                                  teacher_note=teacher_note,
-                                 courseid=course, teacher=teacher, createtime=createtime)
+                                 course=course, teacher=teacher, createtime=createtime)
             return HttpResponse(json.dumps({'code': 0, u'msg': '上传视频成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
