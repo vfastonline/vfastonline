@@ -176,7 +176,52 @@ def userdetail(request):
         return HttpResponse(json.dumps({'code':1, 'msg': u'用户不存在'}))
 
 
-def logout(reuqest):
+def logout(request):
     pass
+
+
+def comapny_add(request):
+    try:
+        pass
+    except:
+        pass
+
+
+def company_verify(request):
+    try:
+        pass
+    except:
+        pass
+
+
+def company_info(request):
+    try:
+        pass
+    except:
+        pass
+
+
+def company_edit(request):
+    try:
+        pass
+    except:
+        pass
+
+
+def company_del(request):
+    try:
+        pass
+    except:
+        pass
+
+
+def hr_register(request):
+    try:
+        pass
+    except:
+        pass
+
+
+
 
 
