@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db.models import Q
 import json, logging, traceback, base64
 import time
+import os
 from vuser import models
 from vfast.api import encry_password, send_mail
 
@@ -122,13 +123,13 @@ def resetpw(request):
 
                                                 ''' % (settings.HOST, active)
                 send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
-                return HttpResponse(json.dumps({'code':0, 'msg': u'重置密码邮件已发送'}, ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 0, 'msg': u'重置密码邮件已发送'}, ensure_ascii=False))
             else:
-                return HttpResponse(json.dumps({'code':1 , 'msg': u'用户不存在'}, ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 1, 'msg': u'用户不存在'}, ensure_ascii=False))
 
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code':2, 'msg': u'服务器错误'}))
+        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}))
 
 
 def resetpassword(request):
@@ -143,7 +144,7 @@ def resetpassword(request):
             return HttpResponse('update password successful')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code':2, 'msg': u'服务器错误'}))
+        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}))
 
 
 def login(request):
@@ -161,7 +162,7 @@ def login(request):
                 return HttpResponse('login successful')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code':2, 'msg': u'服务器错误'}))
+        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}))
 
 
 def userdetail(request):
@@ -173,7 +174,7 @@ def userdetail(request):
             return HttpResponse()
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code':1, 'msg': u'用户不存在'}))
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'用户不存在'}))
 
 
 def logout(request):
@@ -182,9 +183,60 @@ def logout(request):
 
 def comapny_add(request):
     try:
-        pass
+        fullname = request.GET.get('fullname', ' ')
+        name = request.GET.get('name', ' ')
+        trade = request.GET.get('trade', ' ')
+        scale = request.GET.get('scale', ' ')
+        intro = request.GET.get('intro', ' ')
+        forwho = request.GET.get('forwho', ' ')
+        period = request.GET.get('period', ' ')
+        technology_type = request.GET.get('technology_type', ' ')
+        wanted_exp = request.GET.get('wanted_exp', ' ')
+        work_address = request.GET.get('work_address', ' ')
+        homepage = request.GET.get('homepage', ' ')
+        finacing = request.GET.get('finacing', ' ')
+        logofile = request.FILES.get('logo', None)
+        business_license_file = request.FILES.get('business_license', None)
+        manager_id = request.GET.get('manager_id')
+
+        createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+        manager = models.User.objects.get(id=manager_id)
+        day = time.strftime('%Y%m%d')
+        comppath = os.path.join(settings.MEDIA_ROOT, 'company/%s' % day)
+        os.system('mkdir -p %s' % comppath)
+
+        # 获取需要保存的logo, business_license的相对路径
+        logo = 'company/%s/%s' % (day, logofile.name) if logofile else ' '
+        business_license = 'company/%s/%s' % (day, business_license_file.name) if business_license_file else ' '
+
+        for f in [logofile, business_license_file]:
+            try:
+                filename = open(os.path.join(comppath, f.name), 'wb+')
+                for chunk in f.chunks():
+                    filename.write(chunk)
+                filename.close()
+            except AttributeError:
+                logging.getLogger().error('创建公司时, 保存logo图片, 营业执照错误')
+
+        subject = u'您申请HR注册公司资质信息正在审核中......'
+        message = u'''
+                                HR注册信息,重在审核中.......
+                    '''
+        send_mail(subject, message, settings.EMAIL_HOST_USER, manager.email)
+
+        result = models.Company.objects.create(createtime=createtime, fullname=fullname, name=name, trade=trade, scale=scale,
+                                      intro=intro, forwho=forwho, period=period, technology_type=technology_type,
+                                      wanted_exp=wanted_exp,
+                                      work_address=work_address, logo=logo, homepage=homepage, finacing=finacing,
+                                      business_license=business_license,
+                                      audit_status=0, manager_id=manager)
+        if result:
+            return HttpResponse('company register ok')
+        else:
+            return HttpResponse('company register failed')
     except:
-        pass
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('company error')
 
 
 def company_verify(request):
@@ -220,8 +272,3 @@ def hr_register(request):
         pass
     except:
         pass
-
-
-
-
-

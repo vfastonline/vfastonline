@@ -70,6 +70,7 @@ class Company(models.Model):
         (0, '未通过'),
         (1, '已通过'),
     )
+    createtime = models.DateTimeField('创建时间')
     fullname = models.CharField('公司全称', max_length=100)
     name = models.CharField('公司简称', max_length=50, null=True)
     trade = models.CharField('公司行业', max_length=20, null=True)
