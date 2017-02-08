@@ -22,10 +22,9 @@ from vfast import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.test),
-    url('^user/', include('vuser.urls')),
-    url('^course/', include('vcourse.urls')),
-    url('^badge/', include('badge.urls')),
-    url('^record/', include('record.urls')),
+    url('^u/', include('vuser.urls')),
+    url('^head/', include('vgrade.urls')),
+    url('^course/', include('vcourse.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

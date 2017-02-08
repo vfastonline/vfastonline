@@ -42,9 +42,7 @@ def require_role(role='1'):
             if role != request.session['role']:
                 return HttpResponse(json.dumps({'errmsg': '权限不够'}, ensure_ascii=False))
             return func(request, *args, **kwargs)
-
         return __deco
-
     return _deco
 
 
@@ -108,33 +106,3 @@ def write_log(user, msg):
     logging.getLogger('record').debug('%s %s %s' % (int(time.time()), user, msg))
 
 
-def get_object(model, **kwargs):
-    """use this function for query"""
-    print kwargs
-    for value in kwargs.values():
-        if not value:
-            return None
-    the_object = model.objects.get(**kwargs)
-    return the_object
-
-
-def get_result(model, **kwargs):
-    for value in kwargs.values():
-        if not value:
-            return None
-    result = model.objects.filter(**kwargs).values().first()
-    return result
-
-
-def get_results(model):
-    """获取list  包含id, name字段"""
-    results = model.objects.filter().values('id', 'name')
-    return results
-
-def get_all_results(model, **kwargs):
-    """获取所用信息"""
-    for value in kwargs.values():
-        if not value:
-            return None
-    results = model.objects.filter(**kwargs).values()
-    return results

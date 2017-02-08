@@ -61,10 +61,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'vperm',
     'vuser',
+    'vcompany',
+    'vgrade',
     'vcourse',
-    'badge',
-    'record',
+    # 'vbadge',
+    # 'vrecord',
 ]
 
 MIDDLEWARE = [
@@ -177,6 +180,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'templates/static'),
 )
+
+IMG_ROOT = os.path.join(BASE_DIR, 'templates/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

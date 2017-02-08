@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" action="{% url 'hframeadd' %}">
+        name: <input type="text" name="name"><br>
+        picture: <input type="file" name="headframe"><br>
+        <input type="submit" value="submit">
+    </form>
+
+    <h3></h3>
+    <form method="post" enctype="multipart/form-data" action="{% url 'headadd' %}">
+        name: <input type="text" name="name"><br>
+        picture: <input type="file" name="headimg"><br>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>

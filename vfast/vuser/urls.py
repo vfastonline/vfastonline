@@ -8,7 +8,8 @@ urlpatterns = [
     url(r'^register', views.register, name='register'),
     url(r'^active', views.useractive, name='useractive'),
     url(r'^resetpw', views.resetpw, name='resetpw'),
-    url(r'^resetpassword', views.resetpassword, name='resetpassword'),
+    url(r'^resetpassword', views.resetpwd_verify, name='resetpwd_verify'),
     url(r'^login', views.login, name='login'),
-    url(r'^userdetail', views.userdetail, name='userdetail'),
+    url(r'^detail', views.userdetail, name='userdetail'),
+
 ]
