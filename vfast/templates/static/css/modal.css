@@ -1,0 +1,47 @@
+#myModal .modal-dialog{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+#myModal{
+    padding: 0px!important;
+}
+#myModal .modal-content{
+    border-radius: 0px;
+    height: 900px;
+    background-color: transparent;
+    position: relative;
+}
+.close{
+    font-size: 50px!important;
+}
+/*modal_left Start*/
+.modal_left{
+    position: absolute;
+    left: 0px;
+    width: 39%;
+    height: 100%;
+    background: #4DB6AC;
+    padding-top: 6%;
+    padding-left: 6%;
+}
+.modal_left{
+    color: #FFFFFF;
+}
+.modal_left p{
+    opacity: 0.6;
+}
+.modal_left>div{
+    margin-top: 10%;
+}
+/*modal_left END*/
+
+/*modal_right_1 Start*/
+.modal_right_1{
+    position: absolute;
+    right: 0px;
+    width: 61%;
+    height: 100%;
+    background: #FFFFFF;
+}
+/*modal_right_1 END*/

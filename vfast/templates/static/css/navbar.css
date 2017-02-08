@@ -1,0 +1,66 @@
+.head_cont{
+    background-color: #303948;
+    box-shadow: 0 2px 1px rgba(0,0,0,0.5);
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+.navbar1{
+    background-color:#303948 ;
+    height: 70px;
+}
+.not_logged_in{
+    color:#8C96A5;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 70px;
+}
+.not_logged_in>a{
+    color: #FFFFFF;
+    font-weight: bolder;
+    float: left;
+    margin-left: 30px;
+    font-size: 36px;
+}
+.not_logged_in>div{
+    float: right;
+    margin-right: 30px;
+    font-weight: 400;
+    font-size: 22px;
+}
+.not_logged_in>div>ul:after{content: "";display: block;clear: both}
+.not_logged_in>div>ul li{
+    height: 70px;
+    line-height: 70px;
+    margin-left: 30px;
+    color:#8A95A3;
+}
+.not_logged_in>div>ul li a{
+    color:#8A95A3;
+}
+.not_logged_in>div>ul li:last-child{
+    margin-left: 80px;
+    color: #5ACD91;
+}
+.not_logged_in>div>ul li:last-child:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.not_logged_in a:hover{
+    color: #FFFFFF;
+}
+.not_logged_in li{
+    float: left;
+    height:70px;
+    line-height: 70px;
+}
+.navLeft_a{
+    color: #FFFFFF!important;
+    font-size: 36px;
+}
+.navLeft_a:hover{
+    opacity: 0.8;
+}
+.navLeft_a:active{
+    opacity:1;
+}

@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "GothamRnd";
+    src: url("../fonts/GothamRnd-Light.otf");
+}
+
+@font-face {
+    font-family: "gothamrounded-book";
+    src: url("../fonts/gothamrounded-book.otf");
+}
+
+@font-face {
+    font-family: "JiaLi";
+    src: url("../fonts/JiaLi-Light.ttf");
+}
+
+@font-face {
+    font-family: "JiaLi-Regular";
+    src: url("../fonts/JiaLi-Regular.ttf");
+}
+
+body{
+    background-color: #FAFAFA;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family:"gothamrounded-book","JiaLi-Regular";
+}
+li{
+    list-style: none;
+}
+.opacity{
+    opacity: 0;
+}
+.t_opacity_height{
+    transition: opacity 0.35s ease-in-out,height 0.35s ease-in-out;
+}
+.container1{
+    width: 1200px;
+    margin: 0 auto;
+}
+a{
+    text-decoration: none!important;
+}

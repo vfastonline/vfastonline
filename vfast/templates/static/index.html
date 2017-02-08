@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/modal.css"/>
+    <link rel="stylesheet" href="css/layout.css"/>
+    <link rel="stylesheet" href="css/navbar.css"/>
+    <link rel="stylesheet" href="css/footer.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .head_cont{
+            box-shadow: none;
+            position: relative;
+        }
+        body{
+            background: #FAFAFA;
+        }
+        /*banner Start*/
+        .banner_cont{
+            background-color: #303948;
+            height: 1120px;
+            position: relative;
+        }
+        .banner{
+            background-image: url("imgs/banner.png");
+            background-size: 100% 100%;
+        }
+        .banner>h2{
+            color: #FFFFFF;
+            font-weight: 100;
+            text-align: center;
+            padding-top: 50px;
+            font-size: 30px;
+            margin-top: 0px;
+        }
+        .banner>h5{
+            color: #AAABAD;
+            font-weight: 100;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .banner>a{
+            display: block;
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 30px;
+            border: 2px solid #FFFFFF;
+            color: #FFFFFF;
+            margin:0px auto ;
+            transition: all 0.5s ease-in-out;
+            text-decoration: none;
+            margin-top: 25%;
+            font-size: 26px;
+        }
+        .banner>a:hover{
+            color: #303948;
+            background-color: #FFFFFF;
+            font-weight: bolder;
+            cursor: pointer;
+        }
+        .banner>a:active{
+            transition: none;
+            color: #FFFFFF;
+            background-color: transparent;
+        }
+        .banner_cut{
+            width: 100%;
+            height: 200px;
+            background: #FFFFFF;
+            transform:skewY(-4deg);
+            -webkit-transform: skewY(-4deg);
+            -moz-transform: skewY(-4deg);
+            -ms-transform: skewY(-4deg);
+            -o-transform: skewY(-4deg);
+            position: absolute;
+            bottom: -100px;
+        }
+        .banner_content{
+            width: 1200px;
+            margin: 100px auto 0px;
+            text-align: center;
+            position: relative;
+            color: #5B656F;
+        }
+        .banner_content>h2{
+            position: relative;
+            top: -80px;
+            font-size: 28px;
+        }
+        .banner_content>p{
+            position: relative;
+            top: -55px;
+            width: 600px;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+        /*banner  END*/
+        /*content_video Start*/
+        .content_video{
+            text-align: center;
+            position: relative;
+            padding-top: 200px;
+            padding-bottom: 100px;
+        }
+        .video_start{
+            width: 120px;
+            height: 120px;
+            margin: -40px auto 0px;
+            position: relative;
+            top: -220px;
+        }
+        .video_bofang:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        /*content_video END*/
+        /*content_point  Start*/
+        .content_point{
+            position: relative;
+            height: 600px;
+        }
+        .content_point_cut{
+            width: 100%;
+            height: 600px;
+            background: #FFFFFF;
+            transform:skewY(-4deg);
+            -webkit-transform: skewY(-4deg);
+            -moz-transform: skewY(-4deg);
+            -ms-transform: skewY(-4deg);
+            -o-transform: skewY(-4deg);
+            position: absolute;
+            z-index: 1;
+        }
+        .point{
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            top: 50px;
+        }
+        .point>ul:after{content: "";display: block;clear: both;}
+        .point>ul>li{
+            float: left;
+            width: 33%;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .point>ul>li>img{
+            width: 130px;
+            height: 130px;
+        }
+        .point>ul>li>h3{
+            font-weight: 400;
+            color: #5B656F;
+            margin-top: 10px;
+        }
+        .point>ul>li>p{
+            color: #ABABAB;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        /*content_point  END*/
+        /*company Start*/
+        .company{
+            width:1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: #5B656F;
+            padding-top: 200px;
+            padding-bottom: 200px;
+        }
+        /*company END*/
+        /*join Start*/
+        .join{
+            position: relative;
+            padding-top: 50px;
+        }
+        .join .joinBG{
+            width: 100%;
+            height: 200px;
+            background: #FFFFFF;
+            transform:skewY(-4deg);
+            -webkit-transform: skewY(-4deg);
+            -moz-transform: skewY(-4deg);
+            -ms-transform: skewY(-4deg);
+            -o-transform: skewY(-4deg);
+            position: absolute;
+            z-index: 1;
+        }
+        .join>.container{
+            position: relative;
+            z-index: 2;
+        }
+        .join h3{
+            color: #5B656F;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .join a{
+            display: block;
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 30px;
+            color: #FFFFFF;
+            text-decoration: none;
+            margin: 0 auto;
+            background-color: #4DB6AC;
+            font-size: 24px;
+            box-shadow: 0 2px 1px rgba(0,0,0,0.25);
+        }
+        .join a:hover{
+            position: relative;
+            top: -2px;
+            box-shadow: 0 4px 1px rgba(0,0,0,0.25);
+            cursor: pointer;
+        }
+        .join a:active{
+            top:0;
+            box-shadow: 0 0px 0px rgba(0,0,0,0.25);
+        }
+        /*join END*/
+    </style>
+
+</head>
+<body>
+<header id="navbar1" class="navbar1"></header>
+<script>
+    var navbarURL = "navbar.html";
+    if(localStorage.vfastName){
+        navbarURL = "navbarLogin.html";
+    }
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("get",navbarURL,true);
+    xmlhttp.onreadystatechange = function(){
+        if(xmlhttp.readyState == 4 && xmlhttp.status==200){
+            navbar1.innerHTML = xmlhttp.responseText;
+        }
+    };
+    xmlhttp.send(null);
+</script>
+<section class="banner_cont">
+    <div class="container">
+        <div class="banner">
+            <h2>知识从未如此简单</h2>
+            <h5>生命在学习中延展</h5>
+    <a onclick="show_re()">立即注册</a>
+    </div>
+    </div>
+    <div class="banner_cut"></div>
+    <div class="banner_content">
+        <img src="imgs/首页图片.png" width="785px" height="542px" alt=""/>
+        <h2>学习网页设计、应用开发 & 更多</h2>
+        <p>在这里你可以免费观看我们课程库里绝大部分的课程！横跨 JavaScript、Python、PHP、IOS 等上千课时课程内容。我们追求的是将复杂的知识体系以最简单易懂的方式让成千上万的人理解</p>
+    </div>
+</section>
+<section class="content_video">
+    <video class="video"  onended="video_ended()" onclick="video_Pause()" id="example_video_1">
+        <source src="video/1.mp4" type="video/mp4">
+        您的浏览器不支持 video 标签。
+    </video>
+    <div id="video_start" class="video_start">
+        <img src="svg/play.svg" alt="" onclick="video_play()" id="video_bofang" class="video_bofang"/>
+    </div>
+</section>
+<section class="content_point">
+    <div class="content_point_cut"></div>
+    <div class="point">
+        <ul>
+            <li>
+                <img src="imgs/QualityIcon.png" alt=""/>
+                <h3>课程质量</h3>
+                <p>课程均以视觉引导为主、简短、精巧、易懂</p>
+            </li>
+            <li>
+                <img src="imgs/UpToDateIcon.png" alt=""/>
+                <h3>课程更新速度</h3>
+                <p>知识点及时更新、确保你随时获知业界最前沿、最新锐的技能</p>
+            </li>
+            <li>
+                <img src="imgs/EvaluetationIcon.png" alt=""/>
+                <h3>实时智能测评</h3>
+                <p>成熟的机器学习算法、实时反馈你最真实的情况</p>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <img src="imgs/Test.png" alt=""/>
+                <h3>严格考核</h3>
+                <p>线下考核机制、不放过任何一点瑕疵</p>
+            </li>
+            <li>
+                <img src="imgs/Certification.png" alt=""/>
+                <h3>企业认可</h3>
+                <p>数十家知名企业签约合作、不愁就业出口窄</p>
+            </li>
+            <li>
+                <img src="imgs/style.png" alt=""/>
+                <h3>一体化设计风格</h3>
+                <p>全站设计简洁、无干扰、每一点像素体现对极致的追求</p>
+            </li>
+        </ul>
+    </div>
+</section>
+<section class="company">
+    <h3>智量酷已经受到9名企业、2500+名学员的青睐</h3>
+</section>
+<section class="join">
+    <div class="joinBG"></div>
+    <div class="container">
+        <h3>加入智量酷</h3>
+        <a onclick="show_re()">即刻开始</a>
+    </div>
+</section>
+<footer class="footer_cont" id="footer_cont"></footer>
+<script>
+    var xmlhttp1 = new XMLHttpRequest();
+    xmlhttp1.open("get","footer.html",true);
+    xmlhttp1.onreadystatechange = function(){
+        if(xmlhttp1.readyState == 4 && xmlhttp1.status==200){
+            footer_cont.innerHTML = xmlhttp1.responseText;
+        }
+    };
+    xmlhttp1.send(null);
+</script>
+
+<section class="login_register">
+
+</section>
+
+<script>
+    function video_play(){
+        var elem = document.getElementsByTagName("video")[0];
+        elem.play();
+        video_start.style.display = "none";
+    }
+    function video_Pause(){
+        var elem = document.getElementsByTagName("video")[0];
+        if(elem.paused){
+            video_start.style.display = "none";
+            elem.play();
+        }else{
+            video_start.style.display = "block";
+            elem.pause();
+        }
+    }
+    function video_ended(){
+        video_start.style.display = "block";
+    }
+</script>
+</body>
+</html>
