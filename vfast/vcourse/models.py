@@ -52,7 +52,7 @@ class Path(models.Model):
     pathimg = models.CharField('路线展示图片', null=True, blank=True, default=' ', max_length=100)
     totaltime = models.CharField('路线总时间', null=True, blank=True, default=' ', max_length=50)
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
-    createtime = models.DateTimeField('路线创建时间')
+    createtime = models.CharField('路线创建时间', max_length=20)
     orders = models.CharField('课程顺序', null=True, blank=True, max_length=30)
 
     def __unicode__(self):

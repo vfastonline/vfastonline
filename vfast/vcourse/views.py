@@ -28,8 +28,6 @@ def course_add(request):
             difficult = request.POST.get('difficult', ' ')
             color = request.POST.get('color', ' ')
             pubstatus = request.POST.get('pubstatus')
-            pubstatus = int(pubstatus)
-            print pubstatus, type(pubstatus)
             icon = request.POST.get('icon')
             tech = request.POST.get('tech')
             teach = request.POST.get('teach')
@@ -37,7 +35,6 @@ def course_add(request):
             teachobj = User.objects.get(id=teach)
             t = time.strftime('%Y-%m-%d %H:%M:%S')
 
-            print name, desc, totaltime, difficult, color, pubstatus, icon, techobj, teachobj
             result = Course.objects.create(name=name, desc=desc, totaltime=totaltime, difficult=difficult, icon=icon,
                                            color=color, pubstatus=pubstatus, createtime=t, tech=techobj, teach=teachobj)
             if result:
@@ -87,6 +84,7 @@ def video_add(request):
                     filename.close()
                 except AttributeError:
                     logging.getLogger().error('上传视频是保存文件出错')
+
             Video.objects.create(name=name, vurl=vurl, cc=cc, vtime=vtime, notes=notes, order=order,
                                  course=course, teacher=teacher, createtime=createtime)
             return HttpResponse(json.dumps({'code': 0, u'msg': '上传视频成功'}, ensure_ascii=False))
@@ -143,9 +141,10 @@ def path_add(request):
 def getvideo(request):
     """获取单个视频视频信息"""
     try:
-        id = request.GET.get('id')
-        video = Video.objects.get(id=id)
-        return render(request, 'videodu.html', {'video': video})
+        vid = request.GET.get('vid')
+        video = Video.objects.filter(id=vid).values()[0]
+        print video
+        return render(request, 'du/videodu.html', {'video': video})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -154,12 +153,13 @@ def getvideo(request):
 def getcourse(request):
     """获取课程详细信息, 以及该课程下面所有的视频"""
     try:
-        id = request.GET.get('id')
-        course = Course.objects.get(id=id)
-        videos = Video.objects.filter(courseid=course).all()
+        cid = request.GET.get('cid')
+        course = Course.objects.filter(id=cid).values()[0]
+        courseobj = Course.objects.get(id=cid)
+        videos = Video.objects.filter(course=courseobj).all().values()[0]
         print videos
-        print course.name
-        return HttpResponse('ok')
+        print course
+        return HttpResponse(json.dumps({'videos':videos, 'course':course}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -168,11 +168,16 @@ def getcourse(request):
 def getpath(request):
     """获取学习路线详细信息, 学习路线下包含的所有课程"""
     try:
-        id = request.GET.get('id')
-        path = Path.objects.get(id=id)
-        results = path.course.filter().values().all()  # 获取路线下面的所有课程
-        print path.name, results
-        return HttpResponse('ok')
+        pid = request.GET.get('pid')
+        orders = Path.objects.get(id=pid).orders
+        course = orders.split(',')
+        courseall = []
+        for cid in course:
+            c = Course.objects.filter(id=cid).values()[0]
+            courseall.append(c)
+        path =  Path.objects.filter(id=pid).values()[0]
+        print path, courseall
+        return HttpResponse(json.dumps({'path':path, 'courses':courseall}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
