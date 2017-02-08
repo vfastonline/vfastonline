@@ -66,9 +66,9 @@ def register(request):
             role = Role.objects.get(id=1)  # 取角色表里面普通用户的ID
             headimg = random.choice(headimg_urls().values())
             active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()[:64]
-            subject = u'智乐酷账号激活'
+            subject = u'智量酷账号激活'
             message = u'''
-                                    恭喜您,注册智乐酷账号成功!
+                                    恭喜您,注册智量酷账号成功!
                                     您的账号为: %s
                                     V-fast账号需要激活才能正常使用!
                                     点我激活账号
@@ -116,9 +116,9 @@ def resetpw(request):
                 t = int(time.time())
                 active = base64.b64encode('%s|%s' % (email, t)).strip()
                 User.objects.filter(email=email).update(active=active)
-                subject = u'智乐酷用户账号密码重置'
+                subject = u'智量酷用户账号密码重置'
                 message = u'''
-                            您在使用智乐酷时点击了“忘记密码”链接，这是一封密码重置确认邮件。
+                            您在使用智量酷时点击了“忘记密码”链接，这是一封密码重置确认邮件。
 
 您可以通过点击以下链接重置帐户密码:
 %s/u/resetpw?active=%s
