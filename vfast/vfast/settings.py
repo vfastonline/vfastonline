@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'vperm',
     'vuser',
     'vcompany',
+    'vgrade',
     # 'vcourse',
     # 'vbadge',
     # 'vrecord',
