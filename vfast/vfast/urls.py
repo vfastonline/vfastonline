@@ -22,7 +22,7 @@ from vfast import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.test),
-    url('^user/', include('vuser.urls')),
+    url('^u/', include('vuser.urls')),
     url('^course/', include('vcourse.urls')),
     url('^badge/', include('badge.urls')),
     url('^record/', include('record.urls')),

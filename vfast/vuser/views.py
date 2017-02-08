@@ -183,57 +183,63 @@ def logout(request):
 
 def comapny_add(request):
     try:
-        fullname = request.GET.get('fullname', ' ')
-        name = request.GET.get('name', ' ')
-        trade = request.GET.get('trade', ' ')
-        scale = request.GET.get('scale', ' ')
-        intro = request.GET.get('intro', ' ')
-        forwho = request.GET.get('forwho', ' ')
-        period = request.GET.get('period', ' ')
-        technology_type = request.GET.get('technology_type', ' ')
-        wanted_exp = request.GET.get('wanted_exp', ' ')
-        work_address = request.GET.get('work_address', ' ')
-        homepage = request.GET.get('homepage', ' ')
-        finacing = request.GET.get('finacing', ' ')
-        logofile = request.FILES.get('logo', None)
-        business_license_file = request.FILES.get('business_license', None)
-        manager_id = request.GET.get('manager_id')
-
-        createtime = time.strftime('%Y-%m-%d %H:%M:%S')
-        manager = models.User.objects.get(id=manager_id)
-        day = time.strftime('%Y%m%d')
-        comppath = os.path.join(settings.MEDIA_ROOT, 'company/%s' % day)
-        os.system('mkdir -p %s' % comppath)
-
-        # 获取需要保存的logo, business_license的相对路径
-        logo = 'company/%s/%s' % (day, logofile.name) if logofile else ' '
-        business_license = 'company/%s/%s' % (day, business_license_file.name) if business_license_file else ' '
-
-        for f in [logofile, business_license_file]:
-            try:
-                filename = open(os.path.join(comppath, f.name), 'wb+')
-                for chunk in f.chunks():
-                    filename.write(chunk)
-                filename.close()
-            except AttributeError:
-                logging.getLogger().error('创建公司时, 保存logo图片, 营业执照错误')
-
-        subject = u'您申请HR注册公司资质信息正在审核中......'
-        message = u'''
-                                HR注册信息,重在审核中.......
-                    '''
-        send_mail(subject, message, settings.EMAIL_HOST_USER, manager.email)
-
-        result = models.Company.objects.create(createtime=createtime, fullname=fullname, name=name, trade=trade, scale=scale,
-                                      intro=intro, forwho=forwho, period=period, technology_type=technology_type,
-                                      wanted_exp=wanted_exp,
-                                      work_address=work_address, logo=logo, homepage=homepage, finacing=finacing,
-                                      business_license=business_license,
-                                      audit_status=0, manager_id=manager)
-        if result:
-            return HttpResponse('company register ok')
+        if request.method == 'GET':
+            return render(request, 'test.html')
         else:
-            return HttpResponse('company register failed')
+            fullname = request.POST.get('fullname', ' ')
+            name = request.POST.get('name', ' ')
+            trade = request.POST.get('trade', ' ')
+            scale = request.POST.get('scale', ' ')
+            intro = request.POST.get('intro', ' ')
+            forwho = request.POST.get('forwho', ' ')
+            period = request.POST.get('period', ' ')
+            technology_type = request.POST.get('technology_type', ' ')
+            wanted_exp = request.POST.get('wanted_exp', ' ')
+            work_address = request.POST.get('work_address', ' ')
+            homepage = request.POST.get('homepage', ' ')
+            finacing = request.POST.get('finacing', ' ')
+            logofile = request.FILES.get('logo', None)
+            business_license_file = request.FILES.get('business_license', None)
+            manager_id = request.POST.get('manager_id', 1)
+
+            createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+            manager = models.User.objects.get(id=manager_id)
+            day = time.strftime('%Y%m%d')
+            comppath = os.path.join(settings.MEDIA_ROOT, 'company/%s' % day)
+            os.system('mkdir -p %s' % comppath)
+
+            # 获取需要保存的logo, business_license的相对路径
+            logo = 'company/%s/%s' % (day, logofile.name) if logofile else ' '
+            business_license = 'company/%s/%s' % (day, business_license_file.name) if business_license_file else ' '
+
+            for f in [logofile, business_license_file]:
+                try:
+                    filename = open(os.path.join(comppath, f.name), 'wb+')
+                    for chunk in f.chunks():
+                        filename.write(chunk)
+                    filename.close()
+                except AttributeError:
+                    logging.getLogger().error('创建公司时, 保存logo图片, 营业执照错误')
+
+            subject = u'您申请HR注册公司资质信息正在审核中......'
+            message = u'''
+                                    HR注册信息, 正在审核中.......
+                        '''
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [manager.email, ])
+
+            result = models.Company.objects.create(createtime=createtime, fullname=fullname, name=name, trade=trade,
+                                                   scale=scale,
+                                                   intro=intro, forwho=forwho, period=period,
+                                                   technology_type=technology_type,
+                                                   wanted_exp=wanted_exp,
+                                                   work_address=work_address, logo=logo, homepage=homepage,
+                                                   finacing=finacing,
+                                                   business_license=business_license,
+                                                   audit_status=0, manager_id=manager.id)
+            if result:
+                return HttpResponse('company register ok')
+            else:
+                return HttpResponse('company register failed')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('company error')
@@ -241,14 +247,20 @@ def comapny_add(request):
 
 def company_verify(request):
     try:
-        pass
+        compid = request.GET.get('id')
+        result = models.Company.objects.filter(id=compid).update(audit_status=1)
+        if result:
+            return HttpResponse('comp audit_status successful')
     except:
-        pass
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('comp verify error')
 
 
 def company_info(request):
     try:
-        pass
+        compid = request.GET.get('id')
+        company = models.Company.objects.get(id=compid)
+        return  render(request)
     except:
         pass
 

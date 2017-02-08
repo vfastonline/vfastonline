@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^resetpassword', views.resetpassword, name='resetpassword'),
     url(r'^login', views.login, name='login'),
     url(r'^userdetail', views.userdetail, name='userdetail'),
+    url(r'^company', views.comapny_add, name='company_add'),
 ]
