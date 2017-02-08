@@ -10,6 +10,6 @@ class Role(models.Model):
         return self.rolename
 
 
-class Perm(models.Model):
-    pass
+# class Perm(models.Model):
+#     pass
 

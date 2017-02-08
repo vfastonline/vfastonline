@@ -23,9 +23,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.test),
     url('^u/', include('vuser.urls')),
-    url('^course/', include('vcourse.urls')),
-    url('^badge/', include('badge.urls')),
-    url('^record/', include('record.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
