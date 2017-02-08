@@ -5,18 +5,11 @@ from vuser.models import User
 
 
 # Create your models here.
-class TypeProgram(models.Model):
-    typename = models.CharField('课程分类技术', max_length=50)
+class Program(models.Model):
+    name = models.CharField('技术类别', max_length=50)
 
     def __unicode__(self):
-        return self.typename
-
-
-class TypeFunc(models.Model):
-    classname = models.CharField('课程分类功能', max_length=50)
-
-    def __unicode__(self):
-        return self.classname
+        return self.name
 
 
 class Course(models.Model):
@@ -25,17 +18,24 @@ class Course(models.Model):
         (1, '已发布'),
         (2, '默认')
     )
+    ICON_STATUS = (
+        (0, '视频'),
+        (1, '题库'),
+        (2, '项目'),
+        (3, '默认')
+    )
     name = models.CharField('课程名称', max_length=50)
-    desc = models.CharField('课程描述', max_length=1000, null=True, blank=True, default=' ')
+    desc = models.TextField('课程描述', null=True, blank=True, default=' ')
     totaltime = models.CharField('课程总时长', max_length=50, null=True, blank=True, default=' ')
     difficult = models.IntegerField('课程难度', null=True, blank=True, default=4)
-    type_lang = models.ForeignKey(TypeProgram, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='语言分类')
-    type_func = models.ForeignKey(TypeFunc, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='功能分类')
+    tech = models.ForeignKey(Program, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='技术分类')
+    icon = models.IntegerField('课程对应的图标', choices=ICON_STATUS, default=3)
+    pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, default=2)
     color = models.CharField('颜色', max_length=30, null=True, blank=True)
-    pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
-    order = models.IntegerField('课程顺序', unique=True)
-    createtime = models.DateTimeField('课程创建时间', default=0)
+    createtime = models.CharField('课程创建时间', max_length=30)
+    teach = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='作者')
+    people = models.IntegerField('学习课程的人数', default=500)
 
     def __unicode__(self):
         return self.name
@@ -44,16 +44,16 @@ class Course(models.Model):
 class Path(models.Model):
     name = models.CharField('路线名称', max_length=50)
     desc = models.CharField('路线简介', max_length=1000, blank=True, null=True, default=' ')
-    introvideourl = models.CharField('路线介绍视频', max_length=100, blank=True, null=True, default=' ')
-    jobscount = models.IntegerField('岗位数', null=True, blank=True, default=5555)
+    intrv = models.CharField('路线介绍视频', max_length=100, blank=True, null=True, default=' ')
+    jobscount = models.CharField('岗位数', max_length=10)
     salary = models.CharField('岗位起薪', null=True, blank=True, max_length=50, default=' ')
-    jobtime = models.CharField('岗位&起薪统计时间', null=True, blank=True, max_length=50)
+    jstime = models.CharField('岗位&起薪统计时间', null=True, blank=True, max_length=50)
     difficult = models.IntegerField('路径难度', null=True, blank=True)
     pathimg = models.CharField('路线展示图片', null=True, blank=True, default=' ', max_length=100)
     totaltime = models.CharField('路线总时间', null=True, blank=True, default=' ', max_length=50)
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
-    course = models.ManyToManyField(Course, verbose_name='路线包含的课程')
     createtime = models.DateTimeField('路线创建时间')
+    orders = models.CharField('课程顺序', null=True, blank=True, max_length=30)
 
     def __unicode__(self):
         return self.name
@@ -61,17 +61,18 @@ class Path(models.Model):
 
 class Video(models.Model):
     name = models.CharField('视频名称', max_length=100)
-    videotime = models.IntegerField('视频时长')
-    video = models.CharField('视频存放位置', max_length=100)
-    zimu = models.CharField('字幕存放位置', max_length=100)
+    vtime = models.IntegerField('视频时长')
+    vurl = models.CharField('视频存放位置', max_length=100)
+    cc = models.CharField('字幕存放位置', max_length=100)
     order = models.IntegerField('视频播放顺序', unique=True)
-    teacher_note = models.CharField('讲师笔记', max_length=100, default=' ', null=True, blank=True)
+    notes = models.CharField('讲师笔记', max_length=100, default=' ', null=True, blank=True)
     score = models.IntegerField('总评星', null=True, blank=True, default=0)
     scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)
     teacher = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='讲师ID')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
-    watchpeople = models.IntegerField('观看视频人数', null=True, blank=True, default=0)
-    createtime = models.DateTimeField('视频上传时间')
+    watched = models.IntegerField('观看视频人数', null=True, blank=True, default=0)
+    createtime = models.CharField('视频上传时间', max_length=20, null=True, blank=True)
+    end = models.IntegerField('是否为课程的最后一节', default=0)    #0不是, 1是
 
     def __unicode__(self):
         return self.name

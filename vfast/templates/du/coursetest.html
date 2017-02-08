@@ -7,54 +7,56 @@
 <body>
 <h2>路线, 课程, 视频测试页面</h2>
 <h3 style="color: red">课程添加</h3>
-<form action="{% url 'courseadd' %}" method="post", enctype="multipart/form-data">
+<form action="{% url 'cadd' %}" method="post", enctype="multipart/form-data">
     name:<input type="text" name="name"><br>
     desc:<input type="text" name="desc"><br>
     totaltime:<input type="text" name="totaltime"><br>
-    难度:<input type="text" name="difficult"><br>
+    difficult:<input type="text" name="difficult"><br>
     color:<input type="text" name="color"><br>
     pubstatus:<input type="text" name="pubstatus"><br>
-    subscibe:<input type="text" name="subscibe"><br>
-    order:<input type="text" name="order"><br>
-    功能分类:<input type="text" name="type_func"><br>
-    语言分类:<input type="text" name="type_lang"><br>
+    icon:<input type="text" name="icon"><br>
+    func:<input type="text" name="func"><br>
+    teach:<input type="text" name="teach"><br>
+    tech:<input type="text" name="tech"><br>
     <input type="submit" value="submit">
 </form>
 
 
 <br><br><h3 style="color: red;">视频添加</h3>
-<form action="{% url 'videoadd' %}"  method="post" enctype="multipart/form-data">
+<form action="{% url 'vadd' %}"  method="post" enctype="multipart/form-data">
     name: <input type="text" name="name"><br>
-    videotime: <input type="text" name="videotime"><br>
-    视频: <input type="file" name="video"><br>
-    字幕: <input type="file" name="zimu"><br>
+    vtime: <input type="text" name="vtime"><br>
     order: <input type="text" name="order"><br>
-    讲师笔记: <input type="file" name="teacher_note"><br>
-    teacher: <input type="text" name="teacherid"><br>
-    courseid:
-    <select name="courseid">
-        <option value="1">python</option>
+    视频: <input type="file" name="video"><br>
+    字幕: <input type="file" name="cc"><br>
+    讲师笔记: <input type="file" name="notes"><br>
+    teacher: <input type="text" name="teacher"><br>
+    course:
+    <select name="course">
+        <option value="1">shell</option>
         <option value="2">nagios</option>
     </select><br>
+    end:
+    <select name="end">
+        <option value="0">不是</option>
+        <option value="1">是</option>
+    </select>
     <input type="submit" value="submit">
 </form>
 </body>
 </html>
 
 <br><br><h3 style="color: red;">路线添加</h3>
-<form action="{% url 'pathadd' %}"  method="post" enctype="multipart/form-data">
+<form action="{% url 'padd' %}"  method="post" enctype="multipart/form-data">
     name: <input type="text" name="name"><br>
     desc: <input type="text" name="desc"><br>
     介绍视频: <input type="file" name="video"><br>
     difficult: <input type="text" name="difficult"><br>
     jobscount: <input type="text" name="jobscount"><br>
     salary: <input type="text" name="salary"><br>
-    岗位收录时间: <input type="text" name="jobtime"><br>
+    岗位收录时间: <input type="text" name="jstime"><br>
     pathimg: <input type="file" name="pathimg"><br>
     总时间: <input type="text" name="totaltime"><br>
-    包含的课程: <select multiple="multiple" name="course">
-                <option value="1">python</option>
-                <option value="2">nagios</option>
-            </select><br>
+    orders: <input type="text" name="orders"><br>
     <input type="submit" value="submit">
 </form>
