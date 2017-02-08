@@ -56,6 +56,8 @@ def register(request):
             comp_use_time_day = request.POST.get('comp_use_time_day', '')
             into_it = request.POST.get('into_it', '')
             learn_habit = request.POST.get('learn_habit', '')
+
+            role = models.Role.objects.get(id=1)
             active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()
             subject = u'Vfast用户账号激活'
             message = u'''
@@ -71,7 +73,7 @@ def register(request):
             result = models.User.objects.get_or_create(email=email, username=username, password=password,
                                                        program_exp=program_exp,
                                                        comp_use_time_day=comp_use_time_day, into_it=into_it,
-                                                       learn_habit=learn_habit, active=active)
+                                                       learn_habit=learn_habit, active=active, role=role)
             if result:
                 return HttpResponse(json.dumps({'code': 0, 'msg': u'注册成功, 请激活账号!'}, ensure_ascii=False))
             else:
@@ -322,6 +324,7 @@ def hr_register(request):
                     filename.close()
                 except AttributeError:
                     logging.getLogger().error('HR注册, 保存身份证, 工牌, 在职证明文件时出错')
+
             models.User.objects.create(email=email, password=password, gongpai=gongpai, idcard=idcard,
                                        on_job_verify=on_job_verify, active=active,
                                        createtime=createtime, joblevel=joblevel)
