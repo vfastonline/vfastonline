@@ -9,6 +9,6 @@ def test(request):
     # print get_score(Score)
     # print get_watchtime(WatchRecord, uid=1)
     # print get_watchtime(WatchRecord, uid=4)
-    print get_watchtime(WatchRecord)
+    # print get_watchtime(WatchRecord)
     return render(request, 'testdu.html')
 

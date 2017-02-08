@@ -42,9 +42,7 @@ def require_role(role='1'):
             if role != request.session['role']:
                 return HttpResponse(json.dumps({'errmsg': '权限不够'}, ensure_ascii=False))
             return func(request, *args, **kwargs)
-
         return __deco
-
     return _deco
 
 

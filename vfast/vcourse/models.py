@@ -35,7 +35,7 @@ class Course(models.Model):
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
     order = models.IntegerField('课程顺序', unique=True)
-    createtime = models.DateTimeField('课程创建时间')
+    createtime = models.DateTimeField('课程创建时间', default=0)
 
     def __unicode__(self):
         return self.name

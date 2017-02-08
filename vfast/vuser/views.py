@@ -7,7 +7,7 @@ import json, logging, traceback, base64
 import time
 import os
 from vuser import models
-from vfast.api import encry_password, send_mail
+from vfast.api import encry_password, send_mail, get_validate
 
 
 # Create your views here.
@@ -21,16 +21,14 @@ def userexists(request):
             email = request.POST.get('email', None)
             username = request.POST.get('username', None)
             if email:
-                result = models.User.objects.filter(email=email).exists()
-                print result
-                if result:
+                retemail = models.User.objects.filter(email=email).exists()
+                if retemail:
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'用户已存在'}, ensure_ascii=False))
                 else:
                     return HttpResponse(json.dumps({'code': 0, 'msg': u'还未注册'}, ensure_ascii=False))
             else:
-                result = models.User.objects.filter(username=username).exists()
-                print result
-                if result:
+                retusername = models.User.objects.filter(username=username).exists()
+                if retusername:
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'用户已存在'}, ensure_ascii=False))
                 else:
                     return HttpResponse(json.dumps({'code': 0, 'msg': u'还未注册'}, ensure_ascii=False))
@@ -50,7 +48,7 @@ def register(request):
             email = request.POST.get('email', None)
             username = request.POST.get('username', None)
             password = request.POST.get('password', None)
-            if (email and username and password):
+            if (email and password):
                 password = encry_password(password)
             else:
                 return HttpResponse(json.dumps({'code': 1, 'msg': u'参数错误'}))
@@ -67,7 +65,7 @@ def register(request):
                                     点我激活账号
 
                                     如果无法点击请复制一下链接到浏览器地址
-                                    %s/user/active?active=%s
+                                    %s/u/active?active=%s
                                 ''' % (email, settings.HOST, active)
             send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
             result = models.User.objects.get_or_create(email=email, username=username, password=password,
@@ -113,12 +111,8 @@ def resetpw(request):
                             您在访问Vfast时点击了“忘记密码”链接，这是一封密码重置确认邮件。
 
 您可以通过点击以下链接重置帐户密码:
-
-%s/user/active?active=%s
-
+%s/u/resetpw?active=%s
 为保障您的帐号安全，请在24小时内点击该链接，您也可以将链接复制到浏览器地址栏访问。 若如果您并未尝试修改密码，请忽略本邮件，由此给您带来的不便请谅解。
-
-
 本邮件由系统自动发出，请勿直接回复！
 
                                                 ''' % (settings.HOST, active)
@@ -135,10 +129,12 @@ def resetpw(request):
 def resetpassword(request):
     try:
         if request.method == 'GET':
-            return render(request, 'usertest.html')
+            active = request.GET.get('active')
+            user = models.User.objects.get(active=active)
+            return render(request, 'usertest.html', {'user': user})
         else:
             email = request.POST.get('email', ' ')
-            password = request.POST.get('password', ' ')
+            password = request.POST.get('npw', ' ')
             password = encry_password(password)
             models.User.objects.filter(email=email).update(password=password)
             return HttpResponse('update password successful')
@@ -155,14 +151,26 @@ def login(request):
             email = request.POST.get('email', ' ')
             password = request.POST.get('password', ' ')
             password = encry_password(password)
-            user = models.User.objects.get(Q(email=email) | Q(username=email), password=password)
-            if user.status == 0:
-                return HttpResponse(u'账号未激活')
+            ret = models.User.objects.filter(Q(email=email) | Q(username=email), password=password, status=1).exists()
+            if ret:
+                # 账号登陆成功之后需要将用户的相关信息保存到session里面
+                user = models.User.objects.get(Q(email=email) | Q(username=email), password=password, status=1)
+                token = get_validate(email=user.email, uid=user.id, role=user.role,
+                                     fix_pwd=settings.SECRET_KEY)
+                request.session['token'] = token
+                response = HttpResponse('login, ok')
+                response.set_cookie('token', token, 3600 * 24 * 30)
+                return response
             else:
-                return HttpResponse('login successful')
+                if models.User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
+                    return HttpResponse(u'jihuo  zhanghao')
+                elif models.User.objects.filter(Q(email=email) | Q(username=email)).exists() == False:
+                    return HttpResponse(u'zhanghao bu cunzai')
+                else:
+                    return HttpResponse(u'mima cuowu!')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}))
+        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def userdetail(request):
@@ -178,13 +186,14 @@ def userdetail(request):
 
 
 def logout(request):
+    # 销毁session信息
     pass
 
 
-def comapny_add(request):
+def company_add(request):
     try:
         if request.method == 'GET':
-            return render(request, 'test.html')
+            return render(request, 'testdu.html')
         else:
             fullname = request.POST.get('fullname', ' ')
             name = request.POST.get('name', ' ')
@@ -204,13 +213,12 @@ def comapny_add(request):
 
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
             manager = models.User.objects.get(id=manager_id)
-            day = time.strftime('%Y%m%d')
-            comppath = os.path.join(settings.MEDIA_ROOT, 'company/%s' % day)
+            comppath = os.path.join(settings.IMG_ROOT, 'company/')
             os.system('mkdir -p %s' % comppath)
 
             # 获取需要保存的logo, business_license的相对路径
-            logo = 'company/%s/%s' % (day, logofile.name) if logofile else ' '
-            business_license = 'company/%s/%s' % (day, business_license_file.name) if business_license_file else ' '
+            logo = 'company/%s' % logofile.name if logofile else ' '
+            business_license = 'company/%s' % business_license_file.name if business_license_file else ' '
 
             for f in [logofile, business_license_file]:
                 try:
@@ -259,10 +267,13 @@ def company_verify(request):
 def company_info(request):
     try:
         compid = request.GET.get('id')
-        company = models.Company.objects.get(id=compid)
-        return  render(request)
+        company = models.Company.objects.filter(id=compid).values()[0]
+        print company['createtime']
+        print company
+        return HttpResponse(json.dumps({'comp': company}, ensure_ascii=False))
     except:
-        pass
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
 
 
 def company_edit(request):
@@ -281,6 +292,58 @@ def company_del(request):
 
 def hr_register(request):
     try:
-        pass
+        if request.method == 'POST':
+            email = request.POST.get('email')
+            password = request.POST.get('password', '123456')
+            idfile = request.FILES.get('idcard', None)
+            gpfile = request.FILES.get('gongpai', None)
+            onjobfile = request.FILES.get('joblevel', None)
+            joblevel = request.POST.get('joblevel')
+            createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+            password = encry_password(password, settings.SECRET_KEY)
+
+            t = int(time.time())
+            active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()
+
+            # 获取需要保存的图片的目录
+            hrpath = os.path.join(settings.IMG_ROOT, 'static/hr')
+            print hrpath
+            os.system('mkdir -p %s' % hrpath)
+            idcard = os.path.join('/static/hr', idfile.name) if idfile else ' '
+            gongpai = os.path.join('/static/hr', gpfile.name) if gpfile else ' '
+            on_job_verify = os.path.join('/static/hr', onjobfile.name) if onjobfile else ' '
+
+            # 保存图片
+            for f in [idfile, gpfile, onjobfile]:
+                try:
+                    filename = open(os.path.join(hrpath, f.name), 'wb+')
+                    for chunk in f.chunks():
+                        filename.write(chunk)
+                    filename.close()
+                except AttributeError:
+                    logging.getLogger().error('HR注册, 保存身份证, 工牌, 在职证明文件时出错')
+            models.User.objects.create(email=email, password=password, gongpai=gongpai, idcard=idcard,
+                                       on_job_verify=on_job_verify, active=active,
+                                       createtime=createtime, joblevel=joblevel)
+            # sendmail
+            # subject = u'Vfast HR用户账号激活'
+            # message = u'''
+            #                                     恭喜您,注册V-fast HR账号成功!
+            #                                     您的账号为: %s
+            #                                     V-fast账号需要激活才能正常使用!
+            #                                     点我激活账号
+            #
+            #                                     如果无法点击请复制一下链接到浏览器地址
+            #                                     %s/u/active?active=%s
+            #                                 ''' % (email, settings.HOST, active)
+            # send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
+            hr = models.User.objects.filter(email=email).values('id', 'email')[0]
+            print hr
+            return HttpResponse(json.dumps(hr, ensure_ascii=False))
+
+        else:
+            return render(request, 'testdu.html')
+
     except:
-        pass
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('failed')
