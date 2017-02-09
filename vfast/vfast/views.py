@@ -17,6 +17,6 @@ def dictfetchall(cursor):
 
 def test(request):
     print 'test'
-    course_watched_all(1,2)
+    print course_watched_all(1,2)
     return render(request, 'du/testdu.html')
 
