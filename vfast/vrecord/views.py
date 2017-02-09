@@ -13,9 +13,11 @@ import logging, traceback
 
 
 def course_watched_all(user, course, tech, t):
-    """判断用户是否看完一个课程的全部视频"""
+    # 用户看完一个视频获得一个积分
+    Score.objects.create(user=user, technology=tech, createtime=t, score=1)
     c_videos = Video.objects.filter(course=course).__len__()
     w_videos = WatchRecord.objects.filter(user=user, course=course, status=0).__len__()
+    # 用户看完一个课程系类, 获得30积分, 以及对应的勋章
     if c_videos == w_videos:
         Score.objects.create(user=user, technology=tech, createtime=t, score=30)
         logging.getLogger().info('用户%s获得积分30分' % user.username)
@@ -28,7 +30,6 @@ def course_watched_all(user, course, tech, t):
 def record_video(request):
     """记录用户观看课程视频的时间点, 以及课程是否观看完成
     uid=1&vid=2&video_process=1500&status=0
-    后台需要查找cid, techid,
     """
     try:
         if request.method == 'POST':
@@ -36,14 +37,11 @@ def record_video(request):
             vid = request.POST.get('vid')
             video_process = request.POST.get('video_process')
             status = request.POST.get('status')
-            # print type(status), status
             t = time.strftime('%Y-%m-%d %H:%M:%S')
-
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
             tech = Program.objects.get(id=course.tech_id)
-
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
                 if obj.status == 0:
@@ -55,21 +53,15 @@ def record_video(request):
                     obj.video_process = 0
                     obj.createtime = t
                     if int(status) == 0:
-                        print 'video_time'
                         obj.video_time = video_process
                         obj.save()
-                        Score.objects.create(user=user, technology=tech, createtime=t, score=1)
-                        #如果用户看完了一个课程所有的视频,给用户发勋章
                         course_watched_all(user, course, tech, t)
                     return HttpResponse(json.dumps({'code': 0, 'msg': u'video update'}))
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video, course=course, status=status,
-                                           video_process=video_process, video_time=video_process,
-                                           createtime=t)
+                                           video_process=video_process, video_time=video_process, createtime=t)
                 if int(status) == 0:
-                    print 'not exits add'
-                    Score.objects.create(user=user,technology=tech, createtime=t, score=1)
-                    course_watched_all(user, course)
+                    course_watched_all(user, course, tech, t)
                 return HttpResponse('create record ok')
         else:
             return HttpResponse('get method~!')
@@ -77,8 +69,3 @@ def record_video(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
-
-
-
-
-
