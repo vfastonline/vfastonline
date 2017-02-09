@@ -1,6 +1,6 @@
 #!encoding:utf-8
 from django.conf.urls import url
-from badge import views
+from vbadge import views
 
 urlpatterns = [
     url(r'^add', views.badge_add, name='badgeadd'),

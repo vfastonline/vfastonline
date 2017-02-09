@@ -19,7 +19,7 @@ class Badge(models.Model):
 class UserBadge(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='用户ID')
     badge = models.ForeignKey(Badge, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='勋章ID')
-    gain_time = models.CharField('勋章获取时间', max_length=20)
+    createtime = models.CharField('勋章获取时间', max_length=20)
 
     def __unicode__(self):
         return self.userid.username
