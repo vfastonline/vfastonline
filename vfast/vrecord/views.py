@@ -12,7 +12,7 @@ import logging, traceback
 # Create your views here.
 def record_video(request):
     """记录用户观看课程视频的时间点
-    uid=1&vid=2&cid=1&video_progress=14433111&status=0
+    uid=1&vid=2&cid=1&video_process=14433111&status=0
     """
     try:
         if request.method == 'POST':
@@ -34,10 +34,10 @@ def record_video(request):
                 else:
                     obj.status = status
                     obj.video_progress = video_progress
-                    obj.recordtime = t
+                    obj.createtime = t
                     obj.save()
                     # WatchRecord.objects.filter(user=user, video=video, course=course).update(status=status, video_progress=video_progress,
-                    #                                                                          recordtime=t)
+                    #                                                                          createtime=t)
                     return HttpResponse(json.dumps({'code':0, 'msg':u'video update'}))
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video,

@@ -8,7 +8,7 @@ from vcourse.models import Course, Video
 
 # Create your models here.
 class Score(models.Model):
-    createtime = models.DateField('获得积分的日期')
+    createtime = models.DateField('获得积分的日期', max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='课程ID', blank=True)
     score = models.IntegerField('获得积分')
@@ -27,7 +27,7 @@ class WatchRecord(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
     video_process = models.IntegerField('观看时间进度')
     status = models.IntegerField('观看状态', choices=STATUS)
-    recordtime = models.CharField('记录时间')
+    createtime = models.CharField('记录时间', max_length=20)
 
     def __unicode__(self):
         return self.user.username

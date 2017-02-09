@@ -46,7 +46,7 @@ class Path(models.Model):
     name = models.CharField('路线名称', max_length=50)
     desc = models.CharField('路线简介', max_length=1000, blank=True, null=True, default=' ')
     intrv = models.CharField('路线介绍视频', max_length=100, blank=True, null=True, default=' ')
-    jobscount = models.CharField('岗位数', null=True, blank=True, default=' ')
+    jobscount = models.CharField('岗位数', null=True, blank=True, default=' ', max_length=20)
     salary = models.CharField('岗位起薪', null=True, blank=True, max_length=50, default=' ')
     jstime = models.CharField('岗位&起薪统计时间', null=True, blank=True, max_length=50)
     difficult = models.IntegerField('路径难度', null=True, blank=True)
