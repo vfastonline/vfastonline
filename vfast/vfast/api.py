@@ -106,3 +106,6 @@ def write_log(user, msg):
     logging.getLogger('record').debug('%s %s %s' % (int(time.time()), user, msg))
 
 
+def get_id_name(model, **kwargs):
+    result = model.objects.filter(**kwargs).values('id', 'name')
+    return result

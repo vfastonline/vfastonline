@@ -1,13 +1,14 @@
 #!encoding: utf-8
-from vfast.api import get_object
 from vcourse.models import Course
-from badge.models import Badge
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
-import logging, traceback
-import os, time , json
+from vbadge.models import Badge, UserBadge
+import logging
+import traceback
+import os
+import time
+import json
 # Create your views here.
 
 def badge_add(request):
@@ -19,10 +20,10 @@ def badge_add(request):
             badgename = request.POST.get('badgename')
             badgeimg = request.FILES['badgeimg']
             cid = request.POST.get('cid')
-            course = get_object(Course, id=cid)
-            createtime = time.strftime('%Y-%m-%d %H:%M:%D')
+            # course = get_object(Course, id=cid)
+            createtime = time.strftime('%Y-%m-%d %H:%M:%S')
 
-            uploaded_file_url = 'img/' + badgeimg.name
+            uploaded_file_url = '/static/badge/' + badgeimg.name
             dest = open(os.path.join(settings.MEDIA_ROOT, uploaded_file_url), 'wb+')
             for chunk in badgeimg.chunks():
                 dest.write(chunk)

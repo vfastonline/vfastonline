@@ -6,9 +6,11 @@ import time
 
 from django.conf import settings
 from vuser.models import User
+from vperm.models import Role
 from vcourse.models import Program, Course, Video, Path
 from django.shortcuts import render
 from django.http import HttpResponse
+from vfast.api import get_id_name
 
 
 # Create your views here.
@@ -20,7 +22,10 @@ def course_add(request):
     """添加课程系列"""
     try:
         if request.method == 'GET':
-            return render(request, 'du/coursetest.html')
+            techs = get_id_name(Program)
+            roleobj = Role.objects.get(name='teacher')
+            teachers = get_id_name(User, role=roleobj)
+            return render(request, 'du/coursetest.html', {'tech':techs, 'teacher':teachers})
         else:
             name = request.POST.get('name')
             desc = request.POST.get('desc', ' ')
@@ -48,7 +53,10 @@ def video_add(request):
     """添加视频"""
     try:
         if request.method == 'GET':
-            return render(request, 'du/coursetest.html')
+            roleobj = Role.objects.get(name='teacher')
+            teachers = get_id_name(User, role=roleobj)
+            courses = get_id_name(Course)
+            return render(request, 'du/coursetest.html', {'courses':courses, 'teachers':teachers})
         else:
             print request.POST
             print request.FILES
