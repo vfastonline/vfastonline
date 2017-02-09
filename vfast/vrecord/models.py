@@ -25,9 +25,9 @@ class WatchRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
     video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True, verbose_name='视频ID')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
-    video_progress = models.IntegerField('观看时间进度')
+    video_process = models.IntegerField('观看时间进度')
     status = models.IntegerField('观看状态', choices=STATUS)
-    recordtime = models.DateTimeField('记录时间')
+    recordtime = models.CharField('记录时间')
 
     def __unicode__(self):
         return self.user.username
