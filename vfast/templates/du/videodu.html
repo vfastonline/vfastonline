@@ -5,7 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-    {{ video.name }} {{ video.cc }}
-    <a href="/media/{{ video.vurl }}">{{ video.vurl }}</a>
+    {{ video.name }}<br>
+    {{ video.vtime }}<br>
+    {{ video.cc }}<br>
+    {{ video.notes }}<br>
+    {{ video.score }}<br>
+    {{ video.createtime }}<br>
+    {{ video.end }}<br>
+    <a href="{{ video.vurl }}">{{ video.vurl }}</a><br>
+    {{ video.teacher.username }}<br>
+    {{ video.course.name }}<br>
 </body>
 </html>

@@ -142,7 +142,7 @@ def getvideo(request):
     """获取单个视频视频信息"""
     try:
         vid = request.GET.get('vid')
-        video = Video.objects.filter(id=vid).values()[0]
+        video = Video.objects.get(id=vid)
         print video
         return render(request, 'du/videodu.html', {'video': video})
     except:
@@ -154,30 +154,49 @@ def getcourse(request):
     """获取课程详细信息, 以及该课程下面所有的视频"""
     try:
         cid = request.GET.get('cid')
-        course = Course.objects.filter(id=cid).values()[0]
-        courseobj = Course.objects.get(id=cid)
-        videos = Video.objects.filter(course=courseobj).all().values()[0]
-        print videos
-        print course
-        return HttpResponse(json.dumps({'videos':videos, 'course':course}))
+        course = Course.objects.get(id=cid)
+        videos = Video.objects.filter(course=course).all().values()
+        print course, videos
+        return render(request, 'du/courselist.html', {'course':course, 'videos':videos})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def getpath(request):
-    """获取学习路线详细信息, 学习路线下包含的所有课程"""
+    """获取学习路线详细信息, 学习路线下包含的所有课程
+        path为path对象, courseall包含所有的course对象
+    """
     try:
         pid = request.GET.get('pid')
         orders = Path.objects.get(id=pid).orders
         course = orders.split(',')
         courseall = []
         for cid in course:
-            c = Course.objects.filter(id=cid).values()[0]
+            c = Course.objects.get(id=cid)
             courseall.append(c)
-        path =  Path.objects.filter(id=pid).values()[0]
+        path =  Path.objects.get(id=pid)
         print path, courseall
-        return HttpResponse(json.dumps({'path':path, 'courses':courseall}, ensure_ascii=False))
+        return render(request, 'du/pathlist.html', {'path':path, 'courses': courseall})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+
+
+def getcourses(request):
+    """获取所有的课程"""
+    try:
+        call = []
+        type = request.GET.get('type', None)
+        print type
+        if type:
+            techobj = Program.objects.get(name=type)
+            courses = Course.objects.filter(tech=techobj).values('id')
+        else:
+            courses = Course.objects.filter().values('id')
+        for c in courses:
+            call.append(Course.objects.get(id=c['id']))
+        return render(request, 'du/courseall.html', {'courses':call})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
