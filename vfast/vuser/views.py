@@ -63,7 +63,7 @@ def register(request):
             into_it = request.POST.get('into_it', '')
             learn_habit = request.POST.get('learn_habit', '')
 
-            role = Role.objects.get(name='student')  # 取角色表里面普通用户的name
+            role = Role.objects.get(rolename='student')  # 取角色表里面普通用户的name
             headimg = random.choice(headimg_urls())
             active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()[:64]
             subject = u'智量酷账号激活'

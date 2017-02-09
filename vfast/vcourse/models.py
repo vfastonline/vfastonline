@@ -65,7 +65,6 @@ class Video(models.Model):
     vtime = models.IntegerField('视频时长')
     vurl = models.CharField('视频存放位置', max_length=100)
     cc = models.CharField('字幕存放位置', max_length=100)
-    order = models.IntegerField('视频播放顺序', unique=True)
     notes = models.CharField('讲师笔记', max_length=100, default=' ', null=True, blank=True)
     score = models.IntegerField('总评星', null=True, blank=True, default=0)
     scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)

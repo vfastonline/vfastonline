@@ -10,9 +10,9 @@ from vperm.models import Role
 from vcourse.models import Program, Course, Video, Path
 from django.shortcuts import render
 from django.http import HttpResponse
-from vfast.api import get_id_name
 
 
+"""现已完成的功能  课程添加, 视频添加, 路线添加, 获取单个视频详情, 单个课程以及所有视频, 所有课程, 路线详情"""
 # Create your views here.
 def test(request):
     return HttpResponse('hello,world~!')
@@ -22,10 +22,11 @@ def course_add(request):
     """添加课程系列"""
     try:
         if request.method == 'GET':
-            techs = get_id_name(Program)
-            roleobj = Role.objects.get(name='teacher')
-            teachers = get_id_name(User, role=roleobj)
-            return render(request, 'du/coursetest.html', {'tech':techs, 'teacher':teachers})
+            techs = Program.objects.filter().values('id','name')
+            roleobj = Role.objects.get(rolename='teacher')
+            teachers = User.objects.filter(role=roleobj).values('id', 'username')
+            print techs, teachers
+            return render(request, 'du/coursetest.html', {'techs':techs, 'teachers':teachers})
         else:
             name = request.POST.get('name')
             desc = request.POST.get('desc', ' ')
@@ -40,6 +41,7 @@ def course_add(request):
             teachobj = User.objects.get(id=teach)
             t = time.strftime('%Y-%m-%d %H:%M:%S')
 
+            print pubstatus, icon, teach, tech
             result = Course.objects.create(name=name, desc=desc, totaltime=totaltime, difficult=difficult, icon=icon,
                                            color=color, pubstatus=pubstatus, createtime=t, tech=techobj, teach=teachobj)
             if result:
@@ -53,22 +55,18 @@ def video_add(request):
     """添加视频"""
     try:
         if request.method == 'GET':
-            roleobj = Role.objects.get(name='teacher')
-            teachers = get_id_name(User, role=roleobj)
-            courses = get_id_name(Course)
-            return render(request, 'du/coursetest.html', {'courses':courses, 'teachers':teachers})
+            roleobj = Role.objects.get(rolename='teacher')
+            courses = Course.objects.filter().values('id', 'name')
+            return render(request, 'du/coursetest.html', {'courses':courses})
         else:
             print request.POST
             print request.FILES
             name = request.POST.get('name')
             vtime = request.POST.get('vtime')
             courseid = request.POST.get('course')
-            order = request.POST.get('order')
-            teacherid = request.POST.get('teacher', 1)
             course = Course.objects.get(id=courseid)
-            teacher = User.objects.get(id=teacherid)
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
-            print teacher.username, course.name
+            print course.name
 
             videofile = request.FILES.get('video', None)
             ccfile = request.FILES.get('cc', None)
@@ -92,9 +90,12 @@ def video_add(request):
                     filename.close()
                 except AttributeError:
                     logging.getLogger().error('上传视频是保存文件出错')
+            try:
+                Video.objects.create(name=name, vurl=vurl, cc=cc, vtime=vtime, notes=notes,
+                                 course=course, createtime=createtime)
+            except:
+                return HttpResponse(json.dumps({'code':1, 'msg': '顺序不能重复'}, ensure_ascii=False))
 
-            Video.objects.create(name=name, vurl=vurl, cc=cc, vtime=vtime, notes=notes, order=order,
-                                 course=course, teacher=teacher, createtime=createtime)
             return HttpResponse(json.dumps({'code': 0, u'msg': '上传视频成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -210,4 +211,16 @@ def getcourses(request):
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
+def getpaths(request):
+    """获取所有的路线"""
+    try:
+        pall = []
+        paths = Path.objects.filter().values('id')
+        for p in paths:
+            pall.append(Path.objects.get(id=p['id']))
+        print pall
+        return render(request, 'du/pathlist.html', {'pahts':pall})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
