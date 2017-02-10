@@ -63,7 +63,7 @@ def record_video(request):
             video_process = request.POST.get('video_process')  # 观看视频时间点
             status = request.POST.get('status')  # 视频是否观看完成
             t = time.strftime('%Y-%m-%d %H:%M:%S')
-            user = User.objects.get(id=uid).id
+            user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
             try:
@@ -81,6 +81,7 @@ def record_video(request):
                     if int(status) == 0:
                         obj.video_process = 0
                         obj.save()
+                        tech = Program.objects.get(id=course.tech_id)
                         Score.objects.create(user=user, technology=tech, createtime=t, score=1)
                         r_badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
                         r_level = user_level(user)  # 等级是否变更
