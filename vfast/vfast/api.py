@@ -1,6 +1,7 @@
 # encoding: utf8
 import hashlib
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 import logging
 import logging.handlers
 import time, os, json, base64
@@ -33,17 +34,6 @@ def validate(key, fix_pwd):
 def encry_password(password, salt='salt'):
     string = password + salt
     return hashlib.new('md5', string).hexdigest()
-
-
-def require_role(role='1'):
-    def _deco(func):
-        def __deco(request, *args, **kwargs):
-            # request.session['pre_url'] = request.path
-            if role != request.session['role']:
-                return HttpResponse(json.dumps({'errmsg': '权限不够'}, ensure_ascii=False))
-            return func(request, *args, **kwargs)
-        return __deco
-    return _deco
 
 
 class ConcurrentDayRotatingFileHandler(logging.handlers.BaseRotatingHandler):
@@ -109,3 +99,27 @@ def write_log(user, msg):
 def get_id_name(model, **kwargs):
     result = model.objects.filter(**kwargs).values('id', 'name')
     return result
+
+def require_role(role=2):
+    def _deco(func):
+        def __deco(request, *args, **kwargs):
+            request.session['pre_url'] = request.path
+            try:
+                if role != request.session.get('user')['role']:
+                    return HttpResponse(json.dumps({'errmsg': '权限不够'}, ensure_ascii=False))
+            except TypeError:
+                HttpResponseRedirect(reverse('login'))
+            return func(request, *args, **kwargs)
+        return __deco
+    return _deco
+
+
+def require_login():
+    def _deco(func):
+        def __deco(request, *args, **kwargs):
+            request.session['pre_url'] = request.path
+            if not request.session.get('token', None):
+                return HttpResponseRedirect(reverse('login'))
+            return func(request, *args, **kwargs)
+        return __deco
+    return _deco

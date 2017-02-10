@@ -4,6 +4,7 @@ import json
 import os
 import time
 
+from vfast.api import require_role, require_login
 from django.conf import settings
 from vuser.models import User
 from vperm.models import Role
@@ -18,6 +19,7 @@ def test(request):
     return HttpResponse('hello,world~!')
 
 
+@require_login()
 def course_add(request):
     """添加课程系列"""
     try:
@@ -51,6 +53,7 @@ def course_add(request):
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
+@require_role(role=1)
 def video_add(request):
     """添加视频"""
     try:
