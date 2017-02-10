@@ -55,7 +55,6 @@ def video_add(request):
     """添加视频"""
     try:
         if request.method == 'GET':
-            roleobj = Role.objects.get(rolename='teacher')
             courses = Course.objects.filter().values('id', 'name')
             return render(request, 'du/coursetest.html', {'courses':courses})
         else:
