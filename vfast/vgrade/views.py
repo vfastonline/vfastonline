@@ -67,3 +67,18 @@ def headimg_add(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
+
+
+def hframs(request):
+    try:
+        results = Headframe.objects.all().values()
+        return render(request, 'du/testdu.html', {'hframes':results})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
+
+def hdimgs(request):
+    try:
+        pass
+    except:
+        pass

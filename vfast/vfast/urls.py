@@ -24,7 +24,9 @@ urlpatterns = [
     url(r'^$', views.test),
     url('^u/', include('vuser.urls')),
     url('^head/', include('vgrade.urls')),
-    url('^course/', include('vcourse.urls'))
+    url('^course/', include('vcourse.urls')),
+    url('^r/', include('vrecord.urls')),
+    url('^badge/', include('vbadge.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

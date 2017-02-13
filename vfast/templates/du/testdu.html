@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="static/js/test.js"></script>
-    <link href="static/css/test.css" rel="stylesheet">
+    <script src="/static/js/test.js"></script>
+    <link href="/static/css/test.css" rel="stylesheet">
 </head>
 <body>
     <h2>test page</h2>
@@ -14,5 +14,10 @@
         gongpai: <input type="file" name="gongpai"><br>
         <input type="submit" value="submit"><br>
     </form>
+
+    <h2>courses</h2>
+    {% for c in courses %}
+        {{ c.name }} {{ c.id }} {{ c.totaltime }} {{ c.tech.name }} <br>
+    {% endfor %}
 </body>
 </html>

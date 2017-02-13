@@ -66,8 +66,8 @@ INSTALLED_APPS = [
     'vcompany',
     'vgrade',
     'vcourse',
-    # 'vbadge',
-    # 'vrecord',
+    'vbadge',
+    'vrecord',
 ]
 
 MIDDLEWARE = [

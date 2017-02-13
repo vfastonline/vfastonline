@@ -1,6 +1,6 @@
 #!encoding:utf-8
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q
 from vuser.models import User
@@ -63,8 +63,8 @@ def register(request):
             into_it = request.POST.get('into_it', '')
             learn_habit = request.POST.get('learn_habit', '')
 
-            role = Role.objects.get(id=1)  # 取角色表里面普通用户的ID
-            headimg = random.choice(headimg_urls().values())
+            role = Role.objects.get(rolename='student')  # 取角色表里面普通用户的name
+            headimg = random.choice(headimg_urls())
             active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()[:64]
             subject = u'智量酷账号激活'
             message = u'''
@@ -79,7 +79,7 @@ def register(request):
             send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
 
             result = User.objects.get_or_create(email=email, username=username, password=password,
-                                                program_exp=program_exp,createtime=t,
+                                                program_exp=program_exp, createtime=t,
                                                 comp_use_time_day=comp_use_time_day, into_it=into_it,
                                                 learn_habit=learn_habit, active=active, role=role, headimg=headimg)
             if result:
@@ -164,20 +164,22 @@ def login(request):
             ret = User.objects.filter(Q(email=email) | Q(username=email), password=password, status=1).exists()
             if ret:
                 # 账号登陆成功之后需要将用户的相关信息保存到session里面
-                user = User.objects.get(Q(email=email) | Q(username=email), password=password, status=1)
-                token = get_validate(email=user.email, uid=user.id, role=user.role,
+                user = User.objects.filter(Q(email=email) | Q(username=email), password=password, status=1).values(
+                    'email', 'id', 'role', 'username', 'totalscore', 'headimg', 'headimgframe').first()
+                print user['email']
+                token = get_validate(email=user['email'], uid=user['id'], role=user['role'],
                                      fix_pwd=settings.SECRET_KEY)
                 request.session['token'] = token
-                response = HttpResponse('login, ok')
-                response.set_cookie('token', token, 3600 * 24 * 30)
-                return response
+                request.session['user'] = user
+                pre_url = request.session.get('pre_url', '/')
+                return HttpResponseRedirect(pre_url)
             else:
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
-                    return HttpResponse(u'jihuo  zhanghao')
+                    return HttpResponse(json.dumps({'code': 1, 'msg': u'账号未激活'}, ensure_ascii=False))
                 elif User.objects.filter(Q(email=email) | Q(username=email)).exists() == False:
-                    return HttpResponse(u'zhanghao bu cunzai')
+                    return HttpResponse(json.dumps({'code': 1, 'msg': u'账号不存在'}, ensure_ascii=False))
                 else:
-                    return HttpResponse(u'mima cuowu!')
+                    return HttpResponse(json.dumps({'code': 1, 'msg': u'密码错误'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}, ensure_ascii=False))

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ course.name }}  {{ course.tech.name }}  {{ course.teach.username }} {{ course.difficult }}<br>
+    {% for video in videos %}
+        {{ video.name }} &nbsp;   <a href="{{ video.vurl }}"> {{ video.vurl }}</a><br>
+    {% endfor %}
+
+</body>
+</html>

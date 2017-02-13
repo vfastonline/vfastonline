@@ -1,35 +1,45 @@
 #!encoding: utf-8
-from vfast.api import get_object
 from vcourse.models import Course
-from badge.models import Badge
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
-import logging, traceback
-import os, time , json
+from vbadge.models import Badge, UserBadge
+from vcourse.models import Course
+
+import logging
+import traceback
+import os
+import time
+import json
 # Create your views here.
 
 def badge_add(request):
     """添加勋章"""
     try:
         if request.method == 'GET':
-            return render(request, 'badgetest.html')
+            courses = Course.objects.filter().values('id', 'name')
+            print courses
+            return render(request, 'du/badgetest.html', {'courses': courses})
         else:
             badgename = request.POST.get('badgename')
-            badgeimg = request.FILES['badgeimg']
+            badgeimg = request.FILES.get('badgeimg', None)
             cid = request.POST.get('cid')
-            course = get_object(Course, id=cid)
-            createtime = time.strftime('%Y-%m-%d %H:%M:%D')
+            course = Course.objects.get(id=cid)
+            createtime = time.strftime('%Y-%m-%d %H:%M:%S')
 
-            uploaded_file_url = 'img/' + badgeimg.name
-            dest = open(os.path.join(settings.MEDIA_ROOT, uploaded_file_url), 'wb+')
-            for chunk in badgeimg.chunks():
-                dest.write(chunk)
-            dest.close()
+            url = '/static/badge/' + badgeimg.name if badgename else ' '
+            bpath = os.path.join(settings.IMG_ROOT, 'static/badge')
+            os.system('mkdir -p %s' % bpath)
+            try:
+                filename = open(os.path.join(bpath, badgeimg.name), 'wb+')
+                for chunk in badgeimg.chunks():
+                    filename.write(chunk)
+                filename.close()
+            except AttributeError:
+                logging.getLogger().error(u'保存上传勋章图片时错误')
 
-            print badgename, course.name, uploaded_file_url, createtime
-            Badge.objects.get_or_create(badgename=badgename, course=course, createtime=createtime, badgeurl=uploaded_file_url)
+            print badgename, course.name, url, createtime
+            Badge.objects.get_or_create(badgename=badgename, course=course, createtime=createtime, badgeurl=url)
             return HttpResponse(json.dumps({'code':0 ,'msg': u'创建勋章成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())

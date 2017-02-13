@@ -10,7 +10,14 @@
     <form action="{% url 'badgeadd' %}" method="post" enctype="multipart/form-data">
         勋章名字: <input type="text" name="badgename"><br>
         勋章图片: <input type="file" name="badgeimg"><br>
-        关联课程: <input type="text" name="cid"><br>
+        关联课程:
+        <select name="cid">
+            {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+
+        </select>
+        <br>
         <input type="submit" value="submit">
     </form>
 
