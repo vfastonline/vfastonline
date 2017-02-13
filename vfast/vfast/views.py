@@ -31,5 +31,5 @@ def logout(request):
     return HttpResponse('del session ok')
 
 def index(request):
-    return render(request, 'static/index.html')
+    return render(request, 'index.html')
 
