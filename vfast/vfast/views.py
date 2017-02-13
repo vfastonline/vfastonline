@@ -30,3 +30,6 @@ def logout(request):
     del request.session['token']
     return HttpResponse('del session ok')
 
+def index(request):
+    return render(request, 'static/index.html')
+
