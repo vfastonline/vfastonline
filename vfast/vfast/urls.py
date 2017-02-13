@@ -21,7 +21,8 @@ from vfast import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.test),
+    url(r'^$', views.index),
+    url(r'^logout', views.logout),
     url('^u/', include('vuser.urls')),
     url('^head/', include('vgrade.urls')),
     url('^course/', include('vcourse.urls')),
