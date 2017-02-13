@@ -85,7 +85,7 @@ ROOT_URLCONF = 'vfast.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/static')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -180,6 +180,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'templates/static'),
 )
+
 
 IMG_ROOT = os.path.join(BASE_DIR, 'templates/')
 

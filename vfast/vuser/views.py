@@ -26,16 +26,17 @@ def userexists(request):
         if request.method == 'POST':
             email = request.POST.get('email', None)
             username = request.POST.get('username', None)
+            print email, username
             if email:
                 retemail = User.objects.filter(email=email).exists()
                 if retemail:
-                    return HttpResponse(json.dumps({'code': 1, 'msg': u'用户已存在'}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 1, 'msg': u'邮箱已注册'}, ensure_ascii=False))
                 else:
                     return HttpResponse(json.dumps({'code': 0, 'msg': u'还未注册'}, ensure_ascii=False))
             else:
                 retusername = User.objects.filter(username=username).exists()
                 if retusername:
-                    return HttpResponse(json.dumps({'code': 1, 'msg': u'用户已存在'}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 1, 'msg': u'用户名已使用'}, ensure_ascii=False))
                 else:
                     return HttpResponse(json.dumps({'code': 0, 'msg': u'还未注册'}, ensure_ascii=False))
         else:
