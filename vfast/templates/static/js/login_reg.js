@@ -91,3 +91,19 @@ function check_name(str){
         return 'error';
     }
 }
+function reg_submit(){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("post","/u/register",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function(){
+        if(xmlhttp.readyState == 4 && xmlhttp.status==200){
+            var jsonStr = JSON.parse(xmlhttp.responseText);
+            if(jsonStr.code == "0"){
+
+            }else{
+
+            }
+        }
+    };
+    xmlhttp.send();
+}
