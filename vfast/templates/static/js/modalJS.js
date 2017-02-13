@@ -92,7 +92,7 @@ function change_reg(){
     modal_left.style.animationFillMode = "forwards";
     modal_right.style.animationFillMode = "forwards";
     setTimeout(function(){
-        login_reg_img.src = "../static/svg/登陆账户.svg";
+        login_reg_img.src = "../static/svg/loginSVG.svg";
     },800)
     login_reg_svg.style.animation = "change_reg_svg_animation_1 0.8s";
     login_reg_svg.style.animationFillMode = "forwards";
@@ -129,7 +129,7 @@ function change_login(){
     modal_left.style.animationFillMode = "forwards";
     modal_right.style.animationFillMode = "forwards";
     setTimeout(function(){
-        login_reg_img.src = "../static/svg/注册账户.svg";
+        login_reg_img.src = "../static/svg/regSVG.svg";
     },800)
     login_reg_svg.style.animation = "change_login_svg_animation_1 0.8s";
     login_reg_svg.style.animationFillMode = "forwards";
