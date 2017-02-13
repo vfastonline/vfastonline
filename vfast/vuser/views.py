@@ -26,6 +26,7 @@ def userexists(request):
         if request.method == 'POST':
             email = request.POST.get('email', None)
             username = request.POST.get('username', None)
+            print username
             if email:
                 retemail = User.objects.filter(email=email).exists()
                 if retemail:
