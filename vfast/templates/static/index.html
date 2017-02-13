@@ -5,13 +5,16 @@
     <title></title>
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <script src="js/jquery-labelauty.js"></script>
     <link rel="stylesheet" href="css/modal.css"/>
     <link rel="stylesheet" href="css/layout.css"/>
     <link rel="stylesheet" href="css/navbar.css"/>
+    <link rel="stylesheet" href="css/navbarLogin.css"/>
     <link rel="stylesheet" href="css/footer.css"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/jquery-labelauty.css">
 
+    <script src="js/modalJS.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         .head_cont{
@@ -256,7 +259,7 @@
         <div class="banner">
             <h2>知识从未如此简单</h2>
             <h5>生命在学习中延展</h5>
-    <a onclick="show_re()">立即注册</a>
+    <a onclick="register_show()" data-toggle="modal" data-target="#myModal">立即注册</a>
     </div>
     </div>
     <div class="banner_cut"></div>
@@ -321,7 +324,7 @@
     <div class="joinBG"></div>
     <div class="container">
         <h3>加入智量酷</h3>
-        <a onclick="show_re()">即刻开始</a>
+        <a onclick="register_show()" data-toggle="modal" data-target="#myModal">即刻开始</a>
     </div>
 </section>
 <footer class="footer_cont" id="footer_cont"></footer>
@@ -335,10 +338,6 @@
     };
     xmlhttp1.send(null);
 </script>
-
-<section class="login_register">
-
-</section>
 
 <script>
     function video_play(){

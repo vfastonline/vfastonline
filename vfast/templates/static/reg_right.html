@@ -1,0 +1,68 @@
+<div class="reg_right_div" id="reg_right_div">
+    <button type="button" class="close"  data-dismiss="modal" aria-hidden="true">&times;</button>
+    <div>
+        <h4>我们应该怎么称呼你？</h4>
+        <strong>必填</strong>
+        <p>这将用于交流、展示和其他的一些地方！</p>
+        <input type="text" class="reg_input" name="username" placeholder="请输入您的用户名"/>
+        <span id="username_span"></span>
+    </div>
+    <div>
+        <h4>你常用的电子邮箱是？</h4>
+        <strong>必填</strong>
+        <p>让我们与你保持联系，在你不忙的时候悄悄告诉你刚上架的课程和其他好玩的东西！</p>
+        <input type="email" class="reg_input" name="email" placeholder="请输入您的邮箱"/>
+        <span id="email_span"></span>
+    </div>
+    <div>
+        <h4>设置一个密码</h4>
+        <strong>必填</strong>
+        <p>密码用于登陆，你可以通过邮箱验证修改</p>
+        <input type="password" class="reg_input" placeholder="请输入您的密码"/>
+    </div>
+    <button type="button" class="continue" onclick="continue_animation()">继续</button>
+</div>
+<div class="reg_right_div_2" id="reg_right_div_2">
+    <div>
+        <h4>你是否拥有计算机编程经验？</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="radio1" checked value="没有经验" data-labelauty="没有经验"></li>
+            <li><input type="radio" name="radio1" value="初学者" data-labelauty="初学者"></li>
+            <li><input type="radio" name="radio1" value="经验丰富" data-labelauty="经验丰富"></li>
+        </ul>
+    </div>
+    <div>
+        <h4>你将来是否打算从事 IT 相关行业？</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="radio2" checked value="有这个想法" data-labelauty="有这个想法"></li>
+            <li><input type="radio" name="radio2" value="我是IT从业人员" data-labelauty="我是IT从业人员"></li>
+            <li><input type="radio" name="radio2" value="不打算从事" data-labelauty="不打算从事"></li>
+            <li><input type="radio" name="radio2" value="我也不确定" data-labelauty="我也不确定"></li>
+        </ul>
+    </div>
+    <div>
+        <h4>你的学习习惯是怎样的？</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="radio3" checked value="我非常独立" data-labelauty="我非常独立"></li>
+            <li><input type="radio" name="radio3" value="我需要同学的帮助" data-labelauty="我需要同学的帮助"></li>
+            <li><input type="radio" name="radio3" value="我需要导师的单独辅导" data-labelauty="我需要导师的单独辅导"></li>
+        </ul>
+    </div>
+    <div>
+        <h4>你在一天内使用电脑的频率是？</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="radio4" checked value="≤1 小时" data-labelauty="≤1 小时"></li>
+            <li><input type="radio" name="radio4" value="2-4 小时" data-labelauty="2-4 小时"></li>
+            <li><input type="radio" name="radio4" value="4-8 小时" data-labelauty="4-8 小时"></li>
+            <li><input type="radio" name="radio4" value="≥8 小时" data-labelauty="≥8 小时"></li>
+        </ul>
+    </div>
+    <div>
+        <h4>你的性别是？</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="radio5" checked value="男" data-labelauty="男"></li>
+            <li><input type="radio" name="radio5" value="女" data-labelauty="女"></li>
+        </ul>
+    </div>
+    <button type="button" class="finish">完成</button>
+</div>

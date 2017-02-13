@@ -35,10 +35,6 @@ li{
 .t_opacity_height{
     transition: opacity 0.35s ease-in-out,height 0.35s ease-in-out;
 }
-.container1{
-    width: 1200px;
-    margin: 0 auto;
-}
 a{
     text-decoration: none!important;
 }
