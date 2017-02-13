@@ -2,12 +2,12 @@ function register_show(){
     modal_left.style.width = "39%";
     modal_right.style.width = "61%";
     var xmlhttp2 = new XMLHttpRequest();
-    xmlhttp2.open("get","reg_left.html",true);
+    xmlhttp2.open("get","../static/reg_left.html",true);
     xmlhttp2.onreadystatechange = function(){
         if(xmlhttp2.readyState == 4 && xmlhttp2.status==200){
             modal_left.innerHTML = xmlhttp2.responseText;
             var xmlhttp3 = new XMLHttpRequest();
-            xmlhttp3.open("get","reg_right.html",true);
+            xmlhttp3.open("get","../static/reg_right.html",true);
             xmlhttp3.onreadystatechange = function(){
                 if(xmlhttp3.readyState == 4 && xmlhttp3.status==200){
                     modal_right.innerHTML = xmlhttp3.responseText;
@@ -29,12 +29,12 @@ function login_show(){
     modal_left.style.width = "60%";
     modal_right.style.width = "40%";
     var xmlhttp2 = new XMLHttpRequest();
-    xmlhttp2.open("get","login_left.html",true);
+    xmlhttp2.open("get","../static/login_left.html",true);
     xmlhttp2.onreadystatechange = function(){
         if(xmlhttp2.readyState == 4 && xmlhttp2.status==200){
             modal_left.innerHTML = xmlhttp2.responseText;
             var xmlhttp3 = new XMLHttpRequest();
-            xmlhttp3.open("get","login_right.html",true);
+            xmlhttp3.open("get","../static/login_right.html",true);
             xmlhttp3.onreadystatechange = function(){
                 if(xmlhttp3.readyState == 4 && xmlhttp3.status==200){
                     modal_right.innerHTML = xmlhttp3.responseText;
@@ -65,7 +65,7 @@ function change_reg(){
     login_left_div_div.style.opacity = 0;
     setTimeout(function(){
         var xmlhttp2 = new XMLHttpRequest();
-        xmlhttp2.open("get","reg_left.html",true);
+        xmlhttp2.open("get","../static/reg_left.html",true);
         xmlhttp2.onreadystatechange = function(){
             if(xmlhttp2.readyState == 4 && xmlhttp2.status==200){
                 modal_left.innerHTML = xmlhttp2.responseText;
@@ -73,7 +73,7 @@ function change_reg(){
                 login_reg_svg.style.animationFillMode = "forwards";
                 reg_left_div_div.style.animation = "show_modal_right_animation 0.4s";
                 var xmlhttp3 = new XMLHttpRequest();
-                xmlhttp3.open("get","reg_right.html",true);
+                xmlhttp3.open("get","../static/reg_right.html",true);
                 xmlhttp3.onreadystatechange = function(){
                     if(xmlhttp3.readyState == 4 && xmlhttp3.status==200){
                         modal_right.innerHTML = xmlhttp3.responseText;
@@ -92,7 +92,7 @@ function change_reg(){
     modal_left.style.animationFillMode = "forwards";
     modal_right.style.animationFillMode = "forwards";
     setTimeout(function(){
-        login_reg_img.src = "svg/登陆账户.svg";
+        login_reg_img.src = "../static/svg/登陆账户.svg";
     },800)
     login_reg_svg.style.animation = "change_reg_svg_animation_1 0.8s";
     login_reg_svg.style.animationFillMode = "forwards";
@@ -103,7 +103,7 @@ function change_login(){
     reg_left_div_div.style.opacity = 0;
     setTimeout(function(){
         var xmlhttp2 = new XMLHttpRequest();
-        xmlhttp2.open("get","login_left.html",true);
+        xmlhttp2.open("get","../static/login_left.html",true);
         xmlhttp2.onreadystatechange = function(){
             if(xmlhttp2.readyState == 4 && xmlhttp2.status==200){
                 modal_left.innerHTML = xmlhttp2.responseText;
@@ -111,7 +111,7 @@ function change_login(){
                 login_reg_svg.style.animationFillMode = "forwards";
                 login_left_div_div.style.animation = "show_modal_right_animation 0.4s";
                 var xmlhttp3 = new XMLHttpRequest();
-                xmlhttp3.open("get","login_right.html",true);
+                xmlhttp3.open("get","../static/login_right.html",true);
                 xmlhttp3.onreadystatechange = function(){
                     if(xmlhttp3.readyState == 4 && xmlhttp3.status==200){
                         modal_right.innerHTML = xmlhttp3.responseText;
@@ -129,7 +129,7 @@ function change_login(){
     modal_left.style.animationFillMode = "forwards";
     modal_right.style.animationFillMode = "forwards";
     setTimeout(function(){
-        login_reg_img.src = "svg/注册账户.svg";
+        login_reg_img.src = "../static/svg/注册账户.svg";
     },800)
     login_reg_svg.style.animation = "change_login_svg_animation_1 0.8s";
     login_reg_svg.style.animationFillMode = "forwards";

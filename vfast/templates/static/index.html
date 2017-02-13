@@ -5,16 +5,16 @@
     <title></title>
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="js/jquery-labelauty.js"></script>
-    <link rel="stylesheet" href="css/modal.css"/>
-    <link rel="stylesheet" href="css/layout.css"/>
-    <link rel="stylesheet" href="css/navbar.css"/>
-    <link rel="stylesheet" href="css/navbarLogin.css"/>
-    <link rel="stylesheet" href="css/footer.css"/>
+    <script src="../static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="../static/css/modal.css"/>
+    <link rel="stylesheet" href="../static/css/layout.css"/>
+    <link rel="stylesheet" href="../static/css/navbar.css"/>
+    <link rel="stylesheet" href="../static/css/navbarLogin.css"/>
+    <link rel="stylesheet" href="../static/css/footer.css"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/jquery-labelauty.css">
+    <link rel="stylesheet" href="../static/css/jquery-labelauty.css">
 
-    <script src="js/modalJS.js"></script>
+    <script src="../static/js/modalJS.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         .head_cont{
@@ -31,7 +31,7 @@
             position: relative;
         }
         .banner{
-            background-image: url("imgs/banner.png");
+            background-image: url("../static/imgs/banner.png");
             background-size: 100% 100%;
         }
         .banner>h2{
@@ -241,9 +241,9 @@
 <body>
 <header id="navbar1" class="navbar1"></header>
 <script>
-    var navbarURL = "navbar.html";
+    var navbarURL = "../static/navbar.html";
     if(localStorage.vfastName){
-        navbarURL = "navbarLogin.html";
+        navbarURL = "../static/navbarLogin.html";
     }
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("get",navbarURL,true);
@@ -264,18 +264,18 @@
     </div>
     <div class="banner_cut"></div>
     <div class="banner_content">
-        <img src="imgs/首页图片.png" width="785px" height="542px" alt=""/>
+        <img src="../static/imgs/首页图片.png" width="785px" height="542px" alt=""/>
         <h2>学习网页设计、应用开发 & 更多</h2>
         <p>在这里你可以免费观看我们课程库里绝大部分的课程！横跨 JavaScript、Python、PHP、IOS 等上千课时课程内容。我们追求的是将复杂的知识体系以最简单易懂的方式让成千上万的人理解</p>
     </div>
 </section>
 <section class="content_video">
     <video class="video"  onended="video_ended()" onclick="video_Pause()" id="example_video_1">
-        <source src="video/1.mp4" type="video/mp4">
+        <source src="../static/video/1.mp4" type="video/mp4">
         您的浏览器不支持 video 标签。
     </video>
     <div id="video_start" class="video_start">
-        <img src="svg/play.svg" alt="" onclick="video_play()" id="video_bofang" class="video_bofang"/>
+        <img src="../static/svg/play.svg" alt="" onclick="video_play()" id="video_bofang" class="video_bofang"/>
     </div>
 </section>
 <section class="content_point">
@@ -283,34 +283,34 @@
     <div class="point">
         <ul>
             <li>
-                <img src="imgs/QualityIcon.png" alt=""/>
+                <img src="../static/imgs/QualityIcon.png" alt=""/>
                 <h3>课程质量</h3>
                 <p>课程均以视觉引导为主、简短、精巧、易懂</p>
             </li>
             <li>
-                <img src="imgs/UpToDateIcon.png" alt=""/>
+                <img src="../static/imgs/UpToDateIcon.png" alt=""/>
                 <h3>课程更新速度</h3>
                 <p>知识点及时更新、确保你随时获知业界最前沿、最新锐的技能</p>
             </li>
             <li>
-                <img src="imgs/EvaluetationIcon.png" alt=""/>
+                <img src="../static/imgs/EvaluetationIcon.png" alt=""/>
                 <h3>实时智能测评</h3>
                 <p>成熟的机器学习算法、实时反馈你最真实的情况</p>
             </li>
         </ul>
         <ul>
             <li>
-                <img src="imgs/Test.png" alt=""/>
+                <img src="../static/imgs/Test.png" alt=""/>
                 <h3>严格考核</h3>
                 <p>线下考核机制、不放过任何一点瑕疵</p>
             </li>
             <li>
-                <img src="imgs/Certification.png" alt=""/>
+                <img src="../static/imgs/Certification.png" alt=""/>
                 <h3>企业认可</h3>
                 <p>数十家知名企业签约合作、不愁就业出口窄</p>
             </li>
             <li>
-                <img src="imgs/style.png" alt=""/>
+                <img src="../static/imgs/style.png" alt=""/>
                 <h3>一体化设计风格</h3>
                 <p>全站设计简洁、无干扰、每一点像素体现对极致的追求</p>
             </li>
@@ -330,7 +330,7 @@
 <footer class="footer_cont" id="footer_cont"></footer>
 <script>
     var xmlhttp1 = new XMLHttpRequest();
-    xmlhttp1.open("get","footer.html",true);
+    xmlhttp1.open("get","../static/footer.html",true);
     xmlhttp1.onreadystatechange = function(){
         if(xmlhttp1.readyState == 4 && xmlhttp1.status==200){
             footer_cont.innerHTML = xmlhttp1.responseText;
