@@ -287,6 +287,14 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 .login_left_div_div{
     transition: opacity 0.4s ease-in-out;
 }
+.login_left_div_div span{
+    display: block;
+    position: relative;
+    top: -20px;
+    font-size: 16px;
+    font-weight: bolder;
+    color: red;
+}
 .login_left_div p{
     font-size: 18px;
     position: relative;
