@@ -185,12 +185,12 @@ def login(request):
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'账号未激活'}, ensure_ascii=False))
                 elif User.objects.filter(Q(email=email) | Q(username=email)).exists() == False:
-                    return HttpResponse(json.dumps({'code': 1, 'msg': u'账号不存在'}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 2, 'msg': u'账号不存在'}, ensure_ascii=False))
                 else:
-                    return HttpResponse(json.dumps({'code': 1, 'msg': u'密码错误'}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 3, 'msg': u'密码错误'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 4, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def userdetail(request):
