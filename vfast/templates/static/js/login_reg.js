@@ -92,9 +92,9 @@ function check_name(str){
     }
 }
 function reg_submit(){
-    var username = username.value;
-    var email = email.value;
-    var password = password.value;
+    var username = $("#username").val();
+    var email = $("#email").val();
+    var password = $("#password").val();
     var program_exp =$("input:radio[name='program_exp']:checked").val();
     var into_it =$("input:radio[name='into_it']:checked").val();
     var learn_habit =$("input:radio[name='learn_habit']:checked").val();

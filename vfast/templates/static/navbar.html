@@ -1,6 +1,6 @@
 <div class="head_cont" id="head_cont">
     <div class="container">
-        {% if False  %}
+        {% if request.session.login != True  %}
         <header id="not_logged_in" class="not_logged_in">
             <a class="navLeft_a" href="../static/index.html">VFast Online</a>
             <div>
