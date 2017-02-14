@@ -245,21 +245,7 @@
 
 </head>
 <body>
-<header id="navbar1" class="navbar1"></header>
-<script>
-    var navbarURL = "../static/navbar.html";
-    if(localStorage.vfastName){
-        navbarURL = "../static/navbarLogin.html";
-    }
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("get",navbarURL,true);
-    xmlhttp.onreadystatechange = function(){
-        if(xmlhttp.readyState == 4 && xmlhttp.status==200){
-            navbar1.innerHTML = xmlhttp.responseText;
-        }
-    };
-    xmlhttp.send(null);
-</script>
+<header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
 <section class="banner_cont">
     <div class="container">
         <div class="banner">
@@ -333,18 +319,7 @@
         <a onclick="register_show()" data-toggle="modal" data-target="#myModal">即刻开始</a>
     </div>
 </section>
-<footer class="footer_cont" id="footer_cont"></footer>
-<script>
-    var xmlhttp1 = new XMLHttpRequest();
-    xmlhttp1.open("get","../static/footer.html",true);
-    xmlhttp1.onreadystatechange = function(){
-        if(xmlhttp1.readyState == 4 && xmlhttp1.status==200){
-            footer_cont.innerHTML = xmlhttp1.responseText;
-        }
-    };
-    xmlhttp1.send(null);
-</script>
-
+<footer class="footer_cont" id="footer_cont">{% include "footer.html" %}</footer>
 <script>
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];

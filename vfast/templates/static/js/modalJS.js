@@ -52,7 +52,6 @@ function login_show(){
     xmlhttp2.send(null);
 }
 function continue_animation(){
-
     if(usernameCheck&&emailCheck&&passwordCheck){
         reg_right_div.style.animation = "continue_animation 0.8s";
         reg_right_div_2.style.animation = "continue_animation 0.8s";
@@ -63,7 +62,6 @@ function continue_animation(){
         login_reg_svg.style.animation = "login_svg_close_animation 0.6s";
     }else{
         swal("注册错误", "请您补全所有必填信息，确保格式正确后继续~", "error");
-
     }
 }
 function change_reg(){
