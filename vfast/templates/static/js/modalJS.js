@@ -26,6 +26,7 @@ function register_show(){
     xmlhttp2.send(null);
 }
 function login_show(){
+    console.log(111);
     modal_left.style.width = "60%";
     modal_right.style.width = "40%";
     var xmlhttp2 = new XMLHttpRequest();

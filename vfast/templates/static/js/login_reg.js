@@ -168,3 +168,23 @@ function reg_submit(){
             "sex="+sex;
     xmlhttp.send(str);
 }
+function login(){
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("post","/u/register",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.onreadystatechange = function(){
+        if(xmlhttp.readyState == 4 && xmlhttp.status==200){
+            var jsonStr = JSON.parse(xmlhttp.responseText);
+            if(jsonStr.code == "1" || jsonStr.code == "2"){
+                $("#usernameSpan").html(jsonStr.msg);
+            }else if (jsonStr.code = "3"){
+                $("#passwordSpan").html(jsonStr.msg);
+            }
+        }
+    };
+    var str = "username="+username+"&" +
+            "password="+password;
+    xmlhttp.send(str);
+}
