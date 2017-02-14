@@ -99,7 +99,12 @@ def useractive(request):
             user.status = 1
             print user.status
             user.save()
-            return HttpResponse(json.dumps({'code': 0, 'msg': u'激活成功'}, ensure_ascii=False))
+            user = User.objects.filter(active=active, status=1).values(
+                'email', 'id', 'role', 'username', 'totalscore', 'headimg', 'headimgframe').first()
+            print user
+            request.session['user'] = user
+            request.session['login'] = True
+            return HttpResponseRedirect('/')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'邮件已过期失效'}, ensure_ascii=False))
@@ -171,6 +176,7 @@ def login(request):
                                      fix_pwd=settings.SECRET_KEY)
                 request.session['token'] = token
                 request.session['user'] = user
+                request.session['login'] = True
                 pre_url = request.session.get('pre_url', '/')
                 return HttpResponseRedirect(pre_url)
             else:

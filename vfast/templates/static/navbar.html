@@ -1,6 +1,7 @@
 <div class="head_cont" id="head_cont">
     <div class="container">
-        {% if 0 %}
+    <script>  alert( {{ request.session.login }})</script>
+        {% if  request.session.login != True  %}
         <header id="not_logged_in" class="not_logged_in">
             <a class="navLeft_a" href="../static/index.html">VFast Online</a>
             <div>
@@ -65,7 +66,7 @@
     </div>
 </div>
 <!-- 模态框（Modal） -->
-{% if True %}
+{% if request.session.login != True %}
 <section>
     <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
