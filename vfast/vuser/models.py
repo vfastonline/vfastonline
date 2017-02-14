@@ -7,11 +7,6 @@ from vperm.models import Role
 # Create your models here.
 
 class User(models.Model):
-    SEX = (
-        (0, '女'),
-        (1, '男'),
-        (2, '保密')
-    )
     IS_OPEN = (
         (0, '公开'),
         (1, '不公开')
@@ -25,7 +20,7 @@ class User(models.Model):
     realname = models.CharField('用户真实姓名', max_length=30, null=True, blank=True, default=' ')
     email = models.EmailField('邮箱', max_length=50, null=True, unique=True)
     password = models.CharField('密码', max_length=100, null=True)
-    sex = models.IntegerField('性别', choices=SEX, default=3)
+    sex = models.CharField('性别', max_length=4)
     totalscore = models.IntegerField('用户总得分', null=True, blank=True, default=0)
     location = models.CharField('所在城市', max_length=50, null=True, blank=True, default=' ')
     intro = models.CharField('个人简介', max_length=500, null=True, blank=True, default=' ')

@@ -81,9 +81,9 @@ def register(request):
             send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
 
             result = User.objects.get_or_create(email=email, username=username, password=password,
-                                                program_exp=program_exp, createtime=t,
+                                                program_exp=program_exp, createtime=t,sex=sex,
                                                 comp_use_time_day=comp_use_time_day, into_it=into_it,
-                                                learn_habit=learn_habit, active=active, role=role, headimg=headimg,sex=sex)
+                                                learn_habit=learn_habit, active=active, role=role, headimg=headimg)
             if result:
                 return HttpResponse(json.dumps({'code': 0, 'msg': u'注册成功, 请激活账号!'}, ensure_ascii=False))
             else:
