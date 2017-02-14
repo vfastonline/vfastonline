@@ -163,9 +163,9 @@ def resetpwd_verify(request):
 def login(request):
     try:
         if request.method == 'GET':
-            return render(request, 'du/usertest.html')
+            return render(request, 'usertest.html')
         else:
-            email = request.POST.get('email', ' ')
+            email = request.POST.get('username', ' ')
             password = request.POST.get('password', ' ')
             password = encry_password(password)
             ret = User.objects.filter(Q(email=email) | Q(username=email), password=password, status=1).exists()
@@ -180,7 +180,8 @@ def login(request):
                 request.session['user'] = user
                 request.session['login'] = True
                 pre_url = request.session.get('pre_url', '/')
-                return HttpResponseRedirect(pre_url)
+                # print pre_url, email, password
+                return HttpResponse(json.dumps({'code':0, 'pre_url':pre_url},ensure_ascii=False))
             else:
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'账号未激活'}, ensure_ascii=False))
