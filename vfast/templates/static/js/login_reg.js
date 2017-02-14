@@ -172,7 +172,7 @@ function login(){
     var username = $("#username").val();
     var password = $("#password").val();
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("post","/u/register",true);
+    xmlhttp.open("post","/u/login",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = function(){
         if(xmlhttp.readyState == 4 && xmlhttp.status==200){

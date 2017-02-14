@@ -289,10 +289,11 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 }
 .login_left_div_div span{
     display: block;
+    width: 110px;
     position: relative;
-    top: -20px;
+    top: -60px;
+    left: 360px;
     font-size: 16px;
-    font-weight: bolder;
     color: red;
 }
 .login_left_div p{
