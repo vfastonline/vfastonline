@@ -58,10 +58,12 @@ def register(request):
                 password = encry_password(password)
             else:
                 return HttpResponse(json.dumps({'code': 1, 'msg': u'参数错误'}))
+
             program_exp = request.POST.get('program_exp', '')
             comp_use_time_day = request.POST.get('comp_use_time_day', '')
             into_it = request.POST.get('into_it', '')
             learn_habit = request.POST.get('learn_habit', '')
+            sex = request.POST.get('sex', '')
 
             role = Role.objects.get(rolename='student')  # 取角色表里面普通用户的name
             headimg = random.choice(headimg_urls())
@@ -81,7 +83,7 @@ def register(request):
             result = User.objects.get_or_create(email=email, username=username, password=password,
                                                 program_exp=program_exp, createtime=t,
                                                 comp_use_time_day=comp_use_time_day, into_it=into_it,
-                                                learn_habit=learn_habit, active=active, role=role, headimg=headimg)
+                                                learn_habit=learn_habit, active=active, role=role, headimg=headimg,sex=sex)
             if result:
                 return HttpResponse(json.dumps({'code': 0, 'msg': u'注册成功, 请激活账号!'}, ensure_ascii=False))
             else:

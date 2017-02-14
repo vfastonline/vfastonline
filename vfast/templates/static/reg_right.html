@@ -4,21 +4,21 @@
         <h4>我们应该怎么称呼你？</h4>
         <strong>必填</strong>
         <p>这将用于交流、展示和其他的一些地方！</p>
-        <input type="text" onfocus="username_span.innerHTML = '';username_span.style.color='#4DB6AC';" onblur="blur_username(this)" class="reg_input" name="username" placeholder="请输入您的用户名"/>
+        <input type="text" onfocus="username_span.innerHTML = '';username_span.style.color='#4DB6AC';" onblur="blur_username(this)" class="reg_input" id="username" name="username" placeholder="请输入您的用户名"/>
         <span id="username_span"></span>
     </div>
     <div>
         <h4>你常用的电子邮箱是？</h4>
         <strong>必填</strong>
         <p>让我们与你保持联系，在你不忙的时候悄悄告诉你刚上架的课程和其他好玩的东西！</p>
-        <input type="email" onfocus="email_span.innerHTML = '';email_span.style.color='#4DB6AC';" onblur="blur_email(this)" class="reg_input" name="email" placeholder="请输入您的邮箱"/>
+        <input type="email" onfocus="email_span.innerHTML = '';email_span.style.color='#4DB6AC';" onblur="blur_email(this)" class="reg_input" id="email" name="email" placeholder="请输入您的邮箱"/>
         <span id="email_span"></span>
     </div>
     <div>
         <h4>设置一个密码</h4>
         <strong>必填</strong>
         <p>密码用于登陆，你可以通过邮箱验证修改</p>
-        <input type="password" onfocus="password_span.innerHTML = '';password_span.style.color='#4DB6AC';" onblur="blur_password(this)" class="reg_input" name="password" placeholder="请输入您的密码"/>
+        <input type="password" onfocus="password_span.innerHTML = '';password_span.style.color='#4DB6AC';" onblur="blur_password(this)" class="reg_input" id="password" name="password" placeholder="请输入您的密码"/>
         <span id="password_span"></span>
     </div>
     <button type="button" class="continue" onclick="continue_animation()">继续</button>

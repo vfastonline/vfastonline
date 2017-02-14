@@ -51,6 +51,7 @@ function login_show(){
     };
     xmlhttp2.send(null);
 }
+
 function continue_animation(){
     if(usernameCheck&&emailCheck&&passwordCheck){
         reg_right_div.style.animation = "continue_animation 0.8s";

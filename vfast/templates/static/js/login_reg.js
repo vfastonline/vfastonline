@@ -92,6 +92,15 @@ function check_name(str){
     }
 }
 function reg_submit(){
+    var username = username.value;
+    var email = email.value;
+    var password = password.value;
+    var program_exp =$("input:radio[name='program_exp']:checked").val();
+    var into_it =$("input:radio[name='into_it']:checked").val();
+    var learn_habit =$("input:radio[name='learn_habit']:checked").val();
+    var comp_use_time_day =$("input:radio[name='comp_use_time_day']:checked").val();
+    var sex =$("input:radio[name='sex']:checked").val();
+
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("post","/u/register",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -99,11 +108,63 @@ function reg_submit(){
         if(xmlhttp.readyState == 4 && xmlhttp.status==200){
             var jsonStr = JSON.parse(xmlhttp.responseText);
             if(jsonStr.code == "0"){
-
+                var hash = {
+                    'qq.com': 'http://mail.qq.com',
+                    'gmail.com': 'http://mail.google.com',
+                    'sina.com': 'http://mail.sina.com.cn',
+                    '163.com': 'http://mail.163.com',
+                    '126.com': 'http://mail.126.com',
+                    'yeah.net': 'http://www.yeah.net/',
+                    'sohu.com': 'http://mail.sohu.com/',
+                    'tom.com': 'http://mail.tom.com/',
+                    'sogou.com': 'http://mail.sogou.com/',
+                    '139.com': 'http://mail.10086.cn/',
+                    'hotmail.com': 'http://www.hotmail.com',
+                    'live.com': 'http://login.live.com/',
+                    'live.cn': 'http://login.live.cn/',
+                    'live.com.cn': 'http://login.live.com.cn',
+                    '189.com': 'http://webmail16.189.cn/webmail/',
+                    'yahoo.com.cn': 'http://mail.cn.yahoo.com/',
+                    'yahoo.cn': 'http://mail.cn.yahoo.com/',
+                    'eyou.com': 'http://www.eyou.com/',
+                    '21cn.com': 'http://mail.21cn.com/',
+                    '188.com': 'http://www.188.com/',
+                    'foxmail.com': 'http://www.foxmail.com',
+                    'outlook.com': 'http://www.outlook.com'
+                }
+                swal({
+                    title: "注册成功！",
+                    text: "激活邮件已经发送至您的邮箱，请前去激活！",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "邮箱激活",
+                    cancelButtonColor: "#4DB6AC",
+                    cancelButtonText: "完成",
+                    closeOnConfirm: false
+                },
+                function(){
+                    // 点击登录邮箱
+                    var _mail = $("#email").val().split('@')[1];    //获取邮箱域
+                    for (var j in hash){
+                        if(j == _mail){
+                            //跳转邮箱链接
+                            window.open(hash[_mail],"_self");
+                        }
+                    }
+                });
             }else{
-
+                swal("错误！", "注册失败！", "warning");
             }
         }
     };
-    xmlhttp.send();
+    var str = "username="+username+"&" +
+            "email="+email+"&" +
+            "password="+password+"&" +
+            "program_exp="+program_exp+"&" +
+            "into_it="+into_it+"&" +
+            "learn_habit="+learn_habit+"&" +
+            "comp_use_time_day="+comp_use_time_day+"&" +
+            "sex="+sex;
+    xmlhttp.send(str);
 }
