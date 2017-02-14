@@ -26,10 +26,12 @@ def test(request):
     return render(request, 'du/testdu.html')
 
 def logout(request):
-    print 'del session'
-    del request.session['token']
+    # print 'del session'
+    # del request.session['token']
+    del request.session['login']
     return HttpResponse('del session ok')
 
 def index(request):
+    print request.session.get('login')
     return render(request, 'index.html')
 
