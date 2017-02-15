@@ -118,7 +118,7 @@ def require_login():
     def _deco(func):
         def __deco(request, *args, **kwargs):
             request.session['pre_url'] = request.path
-            if not request.session.get('token', None):
+            if not request.session.get('login', None):
                 return HttpResponseRedirect(reverse('login'))
             return func(request, *args, **kwargs)
         return __deco

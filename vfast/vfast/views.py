@@ -23,7 +23,7 @@ def test(request):
     print 'test'
     # print request.session.get('token', 'bucunzai')
     # user = request.session.get('user')
-    return render(request, 'du/testdu.html')
+    return render(request, 'navbar.html')
 
 def logout(request):
     # print 'del session'
@@ -31,6 +31,7 @@ def logout(request):
     del request.session['login']
     return HttpResponse('del session ok')
 
+# @require_login()
 def index(request):
     print request.session.get('login')
     return render(request, 'index.html')

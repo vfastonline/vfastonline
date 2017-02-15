@@ -81,7 +81,7 @@ def register(request):
             send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
 
             result = User.objects.get_or_create(email=email, username=username, password=password,
-                                                program_exp=program_exp, createtime=t,sex=sex,
+                                                program_exp=program_exp, createtime=t, sex=sex,
                                                 comp_use_time_day=comp_use_time_day, into_it=into_it,
                                                 learn_habit=learn_habit, active=active, role=role, headimg=headimg)
             if result:
@@ -168,6 +168,7 @@ def login(request):
             email = request.POST.get('username', ' ')
             password = request.POST.get('password', ' ')
             password = encry_password(password)
+            print email, password
             ret = User.objects.filter(Q(email=email) | Q(username=email), password=password, status=1).exists()
             if ret:
                 # 账号登陆成功之后需要将用户的相关信息保存到session里面
@@ -181,7 +182,7 @@ def login(request):
                 request.session['login'] = True
                 pre_url = request.session.get('pre_url', '/')
                 # print pre_url, email, password
-                return HttpResponse(json.dumps({'code':0, 'pre_url':pre_url},ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 0, 'pre_url': pre_url}, ensure_ascii=False))
             else:
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'账号未激活'}, ensure_ascii=False))
