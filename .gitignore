@@ -91,3 +91,7 @@ ENV/
 #pycharm
 .idea
 .DS_Store
+
+#zidingyi
+vfast.conf
+00*.py
