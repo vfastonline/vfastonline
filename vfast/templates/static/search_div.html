@@ -16,8 +16,7 @@
         <script>
             var auto_str;
             if(sessionStorage.auto_str){
-                auto_str = sessionStorage.auto_str;
-                console.log(auto_str);
+                auto_str = sessionStorage.auto_str.split(",");
                 $('.search__input').AutoComplete({
                     'data': auto_str,
                     'itemHeight': 24,
@@ -31,7 +30,6 @@
                         var classJSON = JSON.parse(xmlhttpStr.responseText);
                         auto_str = classJSON.name;
                         sessionStorage.auto_str = classJSON.name;
-                        console.log(auto_str);
                         $('.search__input').AutoComplete({
                             'data': auto_str,
                             'itemHeight': 24,
