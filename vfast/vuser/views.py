@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db.models import Q
 from vuser.models import User
 from vperm.models import Role
+from vcourse.models import Path, Course, Video
 from vgrade.api import headimg_urls
 from vfast.api import encry_password, send_mail, get_validate
 
@@ -210,3 +211,29 @@ def userdetail(request):
 def logout(request):
     # 销毁session信息
     pass
+
+
+def dashboard(request, param):
+    try:
+        # print param, type(param)
+        param = int(param)
+        # print param, type(param)
+        user = User.objects.get(uniqeid=param)
+        # pathid = [int(i) for i in user.pathid.split(',')]      #获取path下面所有的course
+        pathid = user.pathid
+        print pathid
+        pathid = Path.objects.get(id=pathid)
+        courses = [int(i) for i in pathid.orders.split(',')]
+        print courses
+        cobjs = []
+        videos = []
+        for cid in courses:
+            course = Course.objects.get(id=cid)
+            cobjs.append(course)
+            videos.append(Video.objects.get(course=course))
+        print cobjs
+        print videos
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('failed')

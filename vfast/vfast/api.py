@@ -81,10 +81,11 @@ def set_logging(log_path, log_level='error'):
 
     if not os.path.isdir(log_path):
         os.makedirs(log_path)
-    log_name = os.path.join(log_path, 'record.log')
-    logger = logging.getLogger('record')
-    formatter = '%(asctime)s %(message)s'
-    add_handler(log_name, formatter, logging.DEBUG, logger)
+
+    # log_name = os.path.join(log_path, 'record.log')
+    # logger = logging.getLogger('record')
+    # formatter = '%(asctime)s %(message)s'
+    # add_handler(log_name, formatter, logging.DEBUG, logger)
 
     log_name = os.path.join(log_path, 'service.log')
     logger = logging.getLogger()

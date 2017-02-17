@@ -16,7 +16,8 @@ import logging, traceback
 
 def user_level(user):
     try:
-        score = Score.objects.filter(user=user).aggregate(score=Sum('score'))['score']
+        # score = Score.objects.filter(user=user).aggregate(score=Sum('score'))['score']
+        score = user.totalscore
         level = score / 150 + 1
         headframobj = Headframe.objects.get(id=level)
         print score, level, headframobj.url, user.headimgframe
@@ -25,11 +26,12 @@ def user_level(user):
             return False
         else:
             user.headimgframe = headframobj.url
-            user.save()
+            # user.save()
             logging.getLogger().info('用户等级增加为%s' % level)
             return {'level': level}
     except:
         logging.getLogger().error(traceback.format_exc())
+        return False
 
 
 def course_watched_all(user, course, tech, t):
@@ -39,6 +41,8 @@ def course_watched_all(user, course, tech, t):
         # 用户看完一个课程系类, 获得30积分, 以及对应的勋章
         if c_videos == w_videos:
             Score.objects.create(user=user, technology=tech, createtime=t, score=30)
+            user.totalscore = user.totalscore + 30
+            # user.save()
             logging.getLogger().info('用户%s获得积分30分' % user.username)
             badge = Badge.objects.get(course=course)
             UserBadge.objects.create(createtime=t, badge=badge, user=user)
@@ -77,14 +81,16 @@ def record_video(request):
                     obj.status = status
                     obj.createtime = t
                     obj.video_time = video_process
-                    tech = Program.objects.get(id=course.tech_id).id
+                    # tech = Program.objects.get(id=course.tech_id).id
                     if int(status) == 0:
                         obj.video_process = 0
                         obj.save()
                         tech = Program.objects.get(id=course.tech_id)
                         Score.objects.create(user=user, technology=tech, createtime=t, score=1)
+                        user.totalscore = user.totalscore + 1
                         r_badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
                         r_level = user_level(user)  # 等级是否变更
+                        user.save()
                         # logging.getLogger().info(connection.queries)
                         return HttpResponse(
                             json.dumps({'code': 0, 'result': {'badge': r_badge, 'level': r_level}}, ensure_ascii=False))
@@ -100,8 +106,10 @@ def record_video(request):
                     tech = Program.objects.get(id=course.tech_id)
                     course = Course.objects.get(id=video.course_id)
                     Score.objects.create(user=user, technology=tech, createtime=t, score=1)
+                    user.totalscore = user.totalscore + 1
                     r_badge = course_watched_all(user, course, tech, t)
                     r_level = user_level(user=user)
+                    user.save()
                     # logging.getLogger().info(connection.queries)
                     return HttpResponse(
                         json.dumps({'code': 0, 'result': {'badge': r_badge, 'level': r_level}}, ensure_ascii=False))

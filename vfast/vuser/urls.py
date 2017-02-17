@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^resetpassword', views.resetpwd_verify, name='resetpwd_verify'),
     url(r'^login', views.login, name='login'),
     url(r'^detail', views.userdetail, name='userdetail'),
+    url(r'^(\d+)/$', views.dashboard, name='dashboard'),
 
 ]

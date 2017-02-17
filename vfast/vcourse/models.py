@@ -31,6 +31,7 @@ class Course(models.Model):
     difficult = models.IntegerField('课程难度', null=True, blank=True, default=4)
     tech = models.ForeignKey(Program, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='技术分类')
     icon = models.IntegerField('课程对应的图标', choices=ICON_STATUS, default=0)
+    icon_url = models.CharField('课程图标URL', max_length=50, default=' ', null=True)
     color = models.CharField('颜色', max_length=30, null=True, blank=True)
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
