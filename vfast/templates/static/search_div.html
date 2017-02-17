@@ -1,0 +1,62 @@
+{% if request.session.login == True %}
+<!-- search -->
+<div class="search">
+    <svg id="btn-search-close" class="btn btn--search-close"  width="40px" height="40px" viewBox="134 130 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="x-symble" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(137.000000, 130.000000)">
+            <path d="M7.20576489,5.31058741 L2.61295973,0.717782253 C2.03812111,0.142943636 1.08708004,0.139700026 0.502496327,0.724283738 C-0.0861629951,1.31294306 -0.0849981989,2.2537541 0.495994842,2.83474714 L5.0888,7.4275523 L0.496158495,12.0201938 C-0.0786801222,12.5950324 -0.0819970018,13.5460002 0.502496327,14.1304935 C1.09106464,14.7190619 2.03180304,14.7178244 2.61279608,14.1368314 L7.20543758,9.54418988 L11.7984742,14.1372265 C12.3733128,14.7120651 13.3243539,14.7153087 13.9089376,14.130725 C14.4975969,13.5420657 14.4964321,12.6012546 13.9154391,12.0202616 L9.32240247,7.42722499 L13.9152754,2.83435205 C14.490114,2.25951343 14.4934309,1.30854563 13.9089376,0.724052298 C13.3203693,0.135483989 12.3796309,0.136721425 11.7986378,0.717714465 L7.20576489,5.31058741 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+        </g>
+    </svg>
+
+    <div class="search__inner search__inner--up">
+        <form class="search__form" action="search">
+            <input class="search__input" name="query" type="text" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <span class="search__info">Hit enter to search or ESC to close</span>
+        </form>
+        <script src="../static/js/jquery.autocomplete.min.js"></script>
+        <script>
+            var auto_str;
+            if(sessionStorage.auto_str){
+                auto_str = sessionStorage.auto_str;
+                console.log(auto_str);
+                $('.search__input').AutoComplete({
+                    'data': auto_str,
+                    'itemHeight': 24,
+                    'width': 529
+                }).AutoComplete('show');
+            }else{
+                var xmlhttpStr = new XMLHttpRequest();
+                xmlhttpStr.open("get","navtabs",true);
+                xmlhttpStr.onreadystatechange = function(){
+                    if(xmlhttpStr.readyState == 4 && xmlhttpStr.status==200){
+                        var classJSON = JSON.parse(xmlhttpStr.responseText);
+                        auto_str = classJSON.name;
+                        sessionStorage.auto_str = classJSON.name;
+                        console.log(auto_str);
+                        $('.search__input').AutoComplete({
+                            'data': auto_str,
+                            'itemHeight': 24,
+                            'width': 529
+                        }).AutoComplete('show');
+                    }
+                };
+                xmlhttpStr.send(null);
+            }
+            //搜索框自动补全; 文档地址：http://autocomplete.jiani.info/doc/
+        </script>
+    </div>
+    <div class="search__inner search__inner--down">
+        <div class="search__related">
+            <div class="search__suggestion">
+                <h3>May We Suggest?</h3>
+                <p>#drone #funny #catgif #broken #lost #hilarious #good #red #blue #nono #why #yes #yesyes #aliens #green</p>
+            </div>
+            <div class="search__suggestion">
+                <h3>Needle, Where Art Thou?</h3>
+                <p>#broken #lost #good #red #funny #hilarious #catgif #blue #nono #why #yes #yesyes #aliens #green #drone</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /search -->
+<script src="../static/js/demo9.js"></script>
+{% endif %}

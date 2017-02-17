@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="../static/js/jquery-2.1.4.js"></script>
     <script src="../static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
     <script src="../static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="../static/css/jquery-labelauty.css">
 
     <link rel="stylesheet" href="../static/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/modal.css"/>
     <link rel="stylesheet" href="../static/css/layout.css"/>
     <link rel="stylesheet" href="../static/css/navbar.css"/>
-    <link rel="stylesheet" href="../static/css/navbarLogin.css"/>
     <link rel="stylesheet" href="../static/css/footer.css"/>
-    <link rel="stylesheet" href="../static/css/jquery-labelauty.css">
 
     <script src="../static/js/modalJS.js"></script>
     <script src="../static/js/login_reg.js"></script>
@@ -21,20 +25,30 @@
     <link rel="stylesheet" href="../static/css/sweet-alert.css"/>
     <script src="../static/js/sweet-alert.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/style9.css" />
+
+    <!--[if IE]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className = 'js';</script>
     <style>
         .head_cont{
             box-shadow: none;
             position: relative;
+            min-width: 1200px;
         }
         body{
             background: #FAFAFA;
+            opacity:0;
+            transition: opacity 0.35s ease-in-out;
         }
         /*banner Start*/
         .banner_cont{
             background-color: #303948;
             height: 1120px;
             position: relative;
+            min-width: 1200px;
         }
         .banner{
             background-image: url("../static/imgs/banner.png");
@@ -148,6 +162,7 @@
             -o-transform: skewY(-4deg);
             position: absolute;
             z-index: 1;
+            min-width: 1200px;
         }
         .point{
             width: 1200px;
@@ -204,6 +219,7 @@
             -o-transform: skewY(-4deg);
             position: absolute;
             z-index: 1;
+            min-width: 1200px;
         }
         .join>.container{
             position: relative;
@@ -242,85 +258,90 @@
         }
         /*join END*/
     </style>
-
 </head>
 <body>
-<header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
-<section class="banner_cont">
-    <div class="container">
-        <div class="banner">
-            <h2>知识从未如此简单</h2>
-            <h5>生命在学习中延展</h5>
-    <a onclick="register_show()" data-toggle="modal" data-target="#myModal">立即注册</a>
-    </div>
-    </div>
-    <div class="banner_cut"></div>
-    <div class="banner_content">
-        <img src="../static/imgs/首页图片.png" width="785px" height="542px" alt=""/>
-        <h2>学习网页设计、应用开发 & 更多</h2>
-        <p>在这里你可以免费观看我们课程库里绝大部分的课程！横跨 JavaScript、Python、PHP、IOS 等上千课时课程内容。我们追求的是将复杂的知识体系以最简单易懂的方式让成千上万的人理解</p>
-    </div>
-</section>
-<section class="content_video">
-    <video class="video"  onended="video_ended()" onclick="video_Pause()" id="example_video_1">
-        <source src="../static/video/1.mp4" type="video/mp4">
-        您的浏览器不支持 video 标签。
-    </video>
-    <div id="video_start" class="video_start">
-        <img src="../static/svg/play.svg" alt="" onclick="video_play()" id="video_bofang" class="video_bofang"/>
-    </div>
-</section>
-<section class="content_point">
-    <div class="content_point_cut"></div>
-    <div class="point">
-        <ul>
-            <li>
-                <img src="../static/imgs/QualityIcon.png" alt=""/>
-                <h3>课程质量</h3>
-                <p>课程均以视觉引导为主、简短、精巧、易懂</p>
-            </li>
-            <li>
-                <img src="../static/imgs/UpToDateIcon.png" alt=""/>
-                <h3>课程更新速度</h3>
-                <p>知识点及时更新、确保你随时获知业界最前沿、最新锐的技能</p>
-            </li>
-            <li>
-                <img src="../static/imgs/EvaluetationIcon.png" alt=""/>
-                <h3>实时智能测评</h3>
-                <p>成熟的机器学习算法、实时反馈你最真实的情况</p>
-            </li>
-        </ul>
-        <ul>
-            <li>
-                <img src="../static/imgs/Test.png" alt=""/>
-                <h3>严格考核</h3>
-                <p>线下考核机制、不放过任何一点瑕疵</p>
-            </li>
-            <li>
-                <img src="../static/imgs/Certification.png" alt=""/>
-                <h3>企业认可</h3>
-                <p>数十家知名企业签约合作、不愁就业出口窄</p>
-            </li>
-            <li>
-                <img src="../static/imgs/style.png" alt=""/>
-                <h3>一体化设计风格</h3>
-                <p>全站设计简洁、无干扰、每一点像素体现对极致的追求</p>
-            </li>
-        </ul>
-    </div>
-</section>
-<section class="company">
-    <h3>智量酷已经受到9名企业、2500+名学员的青睐</h3>
-</section>
-<section class="join">
-    <div class="joinBG"></div>
-    <div class="container">
-        <h3>加入智量酷</h3>
-        <a onclick="register_show()" data-toggle="modal" data-target="#myModal">即刻开始</a>
-    </div>
-</section>
-<footer class="footer_cont" id="footer_cont">{% include "footer.html" %}</footer>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <section class="banner_cont">
+        <div class="container">
+            <div class="banner">
+                <h2>知识从未如此简单</h2>
+                <h5>生命在学习中延展</h5>
+        <a onclick="register_show()" data-toggle="modal" data-target="#myModal">立即注册</a>
+        </div>
+        </div>
+        <div class="banner_cut"></div>
+        <div class="banner_content">
+            <img src="../static/imgs/首页图片.png" width="785px" height="542px" alt=""/>
+            <h2>学习网页设计、应用开发 & 更多</h2>
+            <p>在这里你可以免费观看我们课程库里绝大部分的课程！横跨 JavaScript、Python、PHP、IOS 等上千课时课程内容。我们追求的是将复杂的知识体系以最简单易懂的方式让成千上万的人理解</p>
+        </div>
+    </section>
+    <section class="content_video">
+        <video class="video"  onended="video_ended()" onclick="video_Pause()" id="example_video_1">
+            <source src="../static/video/1.mp4" type="video/mp4">
+            您的浏览器不支持 video 标签。
+        </video>
+        <div id="video_start" class="video_start">
+            <img src="../static/svg/play.svg" alt="" onclick="video_play()" id="video_bofang" class="video_bofang"/>
+        </div>
+    </section>
+    <section class="content_point">
+        <div class="content_point_cut"></div>
+        <div class="point">
+            <ul>
+                <li>
+                    <img src="../static/imgs/QualityIcon.png" alt=""/>
+                    <h3>课程质量</h3>
+                    <p>课程均以视觉引导为主、简短、精巧、易懂</p>
+                </li>
+                <li>
+                    <img src="../static/imgs/UpToDateIcon.png" alt=""/>
+                    <h3>课程更新速度</h3>
+                    <p>知识点及时更新、确保你随时获知业界最前沿、最新锐的技能</p>
+                </li>
+                <li>
+                    <img src="../static/imgs/EvaluetationIcon.png" alt=""/>
+                    <h3>实时智能测评</h3>
+                    <p>成熟的机器学习算法、实时反馈你最真实的情况</p>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <img src="../static/imgs/Test.png" alt=""/>
+                    <h3>严格考核</h3>
+                    <p>线下考核机制、不放过任何一点瑕疵</p>
+                </li>
+                <li>
+                    <img src="../static/imgs/Certification.png" alt=""/>
+                    <h3>企业认可</h3>
+                    <p>数十家知名企业签约合作、不愁就业出口窄</p>
+                </li>
+                <li>
+                    <img src="../static/imgs/style.png" alt=""/>
+                    <h3>一体化设计风格</h3>
+                    <p>全站设计简洁、无干扰、每一点像素体现对极致的追求</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="company">
+        <h3>智量酷已经受到9名企业、2500+名学员的青睐</h3>
+    </section>
+    <section class="join">
+        <div class="joinBG"></div>
+        <div class="container">
+            <h3>加入智量酷</h3>
+            <a onclick="register_show()" data-toggle="modal" data-target="#myModal">即刻开始</a>
+        </div>
+    </section>
+    <footer class="footer_cont" id="footer_cont">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
 <script>
+    $(function(){
+        $("body").css("opacity","1");
+    })
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];
         elem.play();

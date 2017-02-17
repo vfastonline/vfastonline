@@ -41,6 +41,10 @@ def test(request):
     # user = request.session.get('user')
     return render(request, 'navbar.html')
 
+
+def dashBoard(request):
+    return render(request, 'DashBoard.html')
+
 def logout(request):
     # print 'del session'
     # del request.session['token']
