@@ -28,7 +28,7 @@ urlpatterns = [
     url('^course/', include('vcourse.urls')),
     url('^r/', include('vrecord.urls')),
     url('^badge/', include('vbadge.urls')),
-    url('^test', views.test),
+    url('^dashBoard', views.dashBoard),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

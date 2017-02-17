@@ -19,11 +19,8 @@ def dictfetchall(cursor):
 
 @require_login()
 # @require_role(role=1)
-def test(request):
-    print 'test'
-    # print request.session.get('token', 'bucunzai')
-    # user = request.session.get('user')
-    return render(request, 'navbar.html')
+def dashBoard(request):
+    return render(request, 'DashBoard.html')
 
 def logout(request):
     # print 'del session'

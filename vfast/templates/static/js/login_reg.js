@@ -182,7 +182,8 @@ function login(){
                 var jsonStr = JSON.parse(xmlhttp.responseText);
                 if(jsonStr.code == "0"){
                     if(jsonStr.pre_url == "/"){
-                        location.href = "";
+                        console.log(jsonStr.pre_url);
+                        location.href = "/dashBoard";
                     }else{
                         location.reload();
                     }
