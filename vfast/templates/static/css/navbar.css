@@ -143,13 +143,3 @@
 .remind a:hover path{
     fill: #FFFFFF;
 }
-div.ac {border: 1px solid #ccc;position: absolute;display: none;overflow: auto;background-color: #ffffff;z-index: 1000!important;}
-div.ac > ul > li {word-break: break-all;}
-div.ac > ul > li > div {display: table-row;width: 100%;}
-div.ac > ul > li > div em {color:#333;font-style: normal;}
-div.ac > ul > li.normal {padding: 2px 0px 2px 5px;}
-div.ac > ul > li.normal > div > span,div.ac > ul > li.iconList > div > span{display: table-cell;vertical-align: middle;color:#333;}
-div.ac > ul > li.iconList {padding: 0px 0px 0px 2px;}
-div.ac > ul > li.iconList > div > div {display: table-cell;vertical-align: middle;padding-right: 5px;}
-div.ac > ul > li.iconList > div > div > img {display: table;display: table-cell\9;}
-div.ac > ul > li.selected {background-color: #eeeeee;}
