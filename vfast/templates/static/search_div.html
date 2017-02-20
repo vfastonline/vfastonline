@@ -9,8 +9,8 @@
 
     <div class="search__inner search__inner--up">
         <form class="search__form" action="search">
-            <input class="search__input" name="query" type="text" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-            <span class="search__info">Hit enter to search or ESC to close</span>
+            <input class="search__input" name="query" type="text" placeholder="搜索" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <span class="search__info">按enter搜索 esc关闭</span>
         </form>
         <script src="../static/js/jquery.autocomplete.min.js"></script>
         <script>
@@ -20,7 +20,7 @@
                 $('.search__input').AutoComplete({
                     'data': auto_str,
                     'itemHeight': 24,
-                    'width': 529
+                    'item' : 7
                 }).AutoComplete('show');
             }else{
                 var xmlhttpStr = new XMLHttpRequest();
@@ -33,11 +33,12 @@
                         $('.search__input').AutoComplete({
                             'data': auto_str,
                             'itemHeight': 24,
-                            'width': 529
+                            'item' : 7
                         }).AutoComplete('show');
                     }
                 };
                 xmlhttpStr.send(null);
+
             }
             //搜索框自动补全; 文档地址：http://autocomplete.jiani.info/doc/
         </script>
@@ -56,5 +57,5 @@
     </div>
 </div>
 <!-- /search -->
-<script src="../static/js/demo9.js"></script>
+<script src="../static/js/searchModal.js"></script>
 {% endif %}
