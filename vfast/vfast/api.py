@@ -93,10 +93,6 @@ def set_logging(log_path, log_level='error'):
     add_handler(log_name, formatter, LOG_LEVELS.get(log_level.lower(), logging.ERROR), logger)
 
 
-def write_log(user, msg):
-    logging.getLogger('record').debug('%s %s %s' % (int(time.time()), user, msg))
-
-
 def get_id_name(model, **kwargs):
     result = model.objects.filter(**kwargs).values('id', 'name')
     return result
@@ -124,3 +120,14 @@ def require_login():
             return func(request, *args, **kwargs)
         return __deco
     return _deco
+
+
+def time_To_unixtime(str):
+    """2015-09-08 10:10:10 时间转换成为时间戳"""
+    t = time.mktime(time.strptime(str, '%Y-%m-%d %H:%M:%S'))
+    return t
+
+
+def time_cmpto_now(unixtime):
+    now = int(time.time())
+    interval = now - unixtime

@@ -53,7 +53,9 @@ def logout(request):
 
 # @require_login()
 def index(request):
-    print request.session.get('login')
+    logger = logging.getLogger('server.log')
+    logger.info('somemessage')
+    # return HttpResponse('ok')
     return render(request, 'index.html')
 
 
