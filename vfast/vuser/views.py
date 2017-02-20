@@ -5,9 +5,11 @@ from django.conf import settings
 from django.db.models import Q
 from vuser.models import User
 from vperm.models import Role
-from vcourse.models import Path, Course, Video
+from vcourse.models import Path, Course
+from vrecord.models import WatchCourse, WatchRecord
 from vgrade.api import headimg_urls
-from vfast.api import encry_password, send_mail, get_validate
+from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
+from django.db import connection
 
 import json
 import logging
@@ -216,18 +218,56 @@ def logout(request):
 def dashboard(request, param):
     try:
         param = int(param)
-        # print param, type(param)
         user = User.objects.get(uniqeid=param)
         pathid = user.pathid
-        path = Path.objects.get(id=pathid)
-        courses = [int(i) for i in path.orders.split(',')]
+        orders = Path.objects.get(id=pathid).orders
+
+        sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (orders, orders)
+        print sql
+        courses = dictfetchall(sql)
+
+        sql2 = 'select * from vrecord_watchcourse where user_id = %s' % user.id
+        courses_wathced = dictfetchall(sql2)
+
+        for i in courses:
+            for j in courses_wathced:
+                try:
+                    if i['id'] == j['course_id']:
+                        i['viewtime'] = time_comp_now(j['createtime'])
+                    else:
+                        i['viewtime'] = i['totaltime']
+                except:
+                    logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
+
         print courses
-        cobjs = []
-        for cid in courses:
-            course = Course.objects.filter(id=cid).values()
-            cobjs.append(course)
-        print cobjs
-        return HttpResponse('ok')
+
+        sql3 = """select * from (select vw. *, vv.name from vrecord_watchrecord as vw, vcourse_video as vv where vw.video_id = vv.id and vw.course_id in (%s) and vw.user_id = %s order by vw.createtime desc) as t group by course_id;
+""" % (orders, user.id)
+        print sql3
+        videos = dictfetchall(sql3)
+        # print videos
+
+        for cour in courses:
+            for v in videos:
+                if cour['id'] == v['course_id']:
+                    cour['video_id'] = v['id']
+                    cour['video_name'] = v['name']
+        print courses
+
+        for k in courses:
+            k['createtime'] = int(time.mktime(time.strptime(k['createtime'], '%Y-%m-%d %H:%M:%S')))
+        tmp = []
+        for z in courses:
+            tmp.append(z['createtime'])
+        tmp.sort()
+        maxdate = tmp.pop()
+        for z in courses:
+            if z['createtime'] == maxdate:
+                z['flag'] = 1
+            else:
+                z['flag'] = 0
+        logging.getLogger().info(connection.queries)
+        return HttpResponse(json.dumps({'result': courses}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('failed')
