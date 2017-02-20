@@ -32,3 +32,11 @@ class WatchRecord(models.Model):
 
     def __unicode__(self):
         return self.user.username
+
+
+class WatchCourse(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
+    createtime = models.CharField('记录时间', max_length=20, default='2015-09-08 12:00:00')
+
+

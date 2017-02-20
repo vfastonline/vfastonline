@@ -215,24 +215,18 @@ def logout(request):
 
 def dashboard(request, param):
     try:
-        # print param, type(param)
         param = int(param)
         # print param, type(param)
         user = User.objects.get(uniqeid=param)
-        # pathid = [int(i) for i in user.pathid.split(',')]      #获取path下面所有的course
         pathid = user.pathid
-        print pathid
-        pathid = Path.objects.get(id=pathid)
-        courses = [int(i) for i in pathid.orders.split(',')]
+        path = Path.objects.get(id=pathid)
+        courses = [int(i) for i in path.orders.split(',')]
         print courses
         cobjs = []
-        videos = []
         for cid in courses:
-            course = Course.objects.get(id=cid)
+            course = Course.objects.filter(id=cid).values()
             cobjs.append(course)
-            videos.append(Video.objects.get(course=course))
         print cobjs
-        print videos
         return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())

@@ -2,9 +2,8 @@
 # from django.shortcuts import render
 from vuser.models import User
 from vcourse.models import Course, Video, Program
-from vrecord.models import WatchRecord, Score
+from vrecord.models import WatchRecord, Score, WatchCourse
 from django.http import HttpResponse
-from django.db.models import Sum
 from django.db import connection
 from vbadge.models import UserBadge, Badge
 from vgrade.models import Headframe
@@ -46,6 +45,7 @@ def course_watched_all(user, course, tech, t):
             logging.getLogger().info('用户%s获得积分30分' % user.username)
             badge = Badge.objects.get(course=course)
             UserBadge.objects.create(createtime=t, badge=badge, user=user)
+            WatchCourse.objects.create(createtime=t, user=user, course=course)
             logging.getLogger().info('用户%s获得%s勋章' % (user.username, badge.badgename))
             print badge.badgename, badge.badgeurl
             return {'badgename': badge.badgename, 'badgeurl': badge.badgeurl}
