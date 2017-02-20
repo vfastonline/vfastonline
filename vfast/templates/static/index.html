@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="../static/css/modal.css"/>
     <link rel="stylesheet" href="../static/css/layout.css"/>
     <link rel="stylesheet" href="../static/css/navbar.css"/>
-    <link rel="stylesheet" href="../static/css/footer.css"/>
 
     <script src="../static/js/modalJS.js"></script>
     <script src="../static/js/login_reg.js"></script>
@@ -32,6 +31,8 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <script>document.documentElement.className = 'js';</script>
+
+    <link rel="stylesheet" href="../static/css/indexFooter.css"/>
     <style>
         .head_cont{
             box-shadow: none;
@@ -51,8 +52,10 @@
             min-width: 1200px;
         }
         .banner{
-            background-image: url("../static/imgs/banner.png");
-            background-size: 100% 100%;
+            background-image: url("../static/svg/首页顶图.svg");
+            background-size: 85% 85%;
+            background-repeat: no-repeat;
+            background-position: center center;
         }
         .banner>h2{
             color: #FFFFFF;
@@ -81,7 +84,7 @@
             margin:0px auto ;
             transition: all 0.5s ease-in-out;
             text-decoration: none;
-            margin-top: 25%;
+            margin-top: 30%;
             font-size: 26px;
         }
         .banner>a:hover{
@@ -335,7 +338,7 @@
             <a onclick="register_show()" data-toggle="modal" data-target="#myModal">即刻开始</a>
         </div>
     </section>
-    <footer class="footer_cont" id="footer_cont">{% include "footer.html" %}</footer>
+    <footer class="footer_cont" id="footer_cont">{% include "indexFooter.html" %}</footer>
 </main>
 {% include "search_div.html" %}
 <script>

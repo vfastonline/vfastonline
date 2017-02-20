@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="99px" height="104px" viewBox="0 0 99 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>9</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="66.6753944 20.5337886 84.6253944 15.2337886 93.8253944 4.83378856 78.0253944 9.48378856 75.0753944 12.3337886"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-3" points="32.2749817 20.5337886 14.2749817 15.1837886 5.12498169 4.83378856 20.9249817 9.48378856 23.8249817 12.3337886"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-5" points="70.55 15.9750011 89.2 10.4750011 98.7 -0.324998931 82.35 4.52500107 79.3 7.47500107"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-7" points="28.45 15.9750011 9.8 10.4750011 0.3 -0.324998931 16.65 4.52500107 19.7 7.47500107"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="frame_120" transform="translate(-298.000000, -296.000000)">
+            <g id="9" transform="translate(297.750821, 298.776410)">
+                <g id="rank" transform="translate(0.000000, 56.000000)">
+                    <g id="Shape">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#80DEEA" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="Shape">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#80DEEA" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    </g>
+                    <g id="Shape">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                        <use fill="#B2EBF2" fill-rule="evenodd" xlink:href="#path-5"></use>
+                    </g>
+                    <g id="Shape">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                        <use fill="#B2EBF2" fill-rule="evenodd" xlink:href="#path-7"></use>
+                    </g>
+                </g>
+                <circle id="Oval-3" stroke="#8C96A5" stroke-width="5.5" cx="49" cy="39" r="39"></circle>
+                <g id="star" transform="translate(13.500000, 78.000000)" fill="#FFCA28">
+                    <g id="Group">
+                        <path d="M46.2358842,11.0172647 C47.2328424,9.99323891 46.6845154,8.20119378 45.2389259,7.99638863 L40.3538304,7.33077186 C39.8553513,7.27957057 39.456568,6.97236284 39.2073284,6.51155123 L36.7647807,1.54502616 C36.2164536,0.41859779 34.6213204,0.41859779 34.0729934,1.54502616 L31.7301415,6.56275252 C31.5307498,7.02356413 31.0821186,7.33077186 30.5836395,7.43317444 L25.698544,8.20119378 C24.3028024,8.40599894 23.7544754,10.1980441 24.7514337,11.2220699 L28.3404834,14.7549588 C28.6894188,15.1133679 28.8389625,15.6253808 28.7891146,16.1373936 L27.991548,21.15512 C27.7423084,22.5887561 29.2377458,23.6639832 30.4839437,22.9983664 L34.87056,20.5919058 C35.3191912,20.3358994 35.8176703,20.3358994 36.2663016,20.5919058 L40.6529179,22.9471651 C41.8991157,23.6127819 43.3945531,22.4863535 43.1453136,21.0527174 L42.2480511,16.0349911 C42.1483553,15.5229782 42.297899,15.0109653 42.6468344,14.6525563 L46.2358842,11.0172647 Z" id="Shape"></path>
+                        <path d="M18.2435846,10.0895649 C19.0788722,9.28157747 18.6366611,7.81710019 17.5065662,7.66560254 L13.624936,7.00911272 C13.2318595,6.9586135 12.8879176,6.70611742 12.7405139,6.30212369 L10.8734006,2.31268557 C10.4311896,1.40369967 9.15369102,1.35320046 8.71147998,2.26218636 L6.74609758,6.20112525 C6.54955934,6.55461977 6.20561742,6.80711585 5.81254094,6.85761507 L1.88177613,7.41310645 C0.751681252,7.5646041 0.260335652,8.97858217 1.09562317,9.83706885 L3.8962931,12.7155242 C4.19110046,13.0185195 4.28936958,13.4225132 4.24023502,13.826507 L3.50321662,17.8664443 C3.30667837,19.0279263 4.48590782,19.886413 5.46859902,19.3814208 L9.00628734,17.5129498 C9.35022926,17.3109529 9.7924403,17.3109529 10.1363822,17.5129498 L13.624936,19.43192 C14.6076272,19.9874114 15.8359912,19.1289247 15.6394529,17.9674427 L15.0007037,13.9275054 C14.9515691,13.5235117 15.0498382,13.1195179 15.3446456,12.8165226 L18.2435846,10.0895649 Z" id="Shape"></path>
+                        <path d="M69.7433396,9.82598796 C70.5786271,8.96867883 70.0872815,7.55664027 68.9571867,7.40535042 L65.0755564,6.85062099 C64.6824799,6.80019104 64.338538,6.54804129 64.1419998,6.19503165 L62.1766174,2.26149565 C61.7344063,1.35375657 60.4569078,1.35375657 60.0146967,2.26149565 L58.1475835,6.2454616 C58.0001798,6.59847124 57.6562379,6.85062099 57.2631614,6.95148088 L53.3323966,7.55664027 C52.2023017,7.75836006 51.7600906,9.17039863 52.5953782,9.97727781 L55.4451826,12.8013549 C55.73999,13.1039346 55.8873937,13.5073742 55.7891246,13.9108138 L55.1503753,17.9452097 C54.953837,19.1050985 56.1330665,19.9624077 57.1648923,19.4076782 L60.653446,17.4913402 C60.9973879,17.2896204 61.439599,17.2896204 61.7835409,17.4913402 L65.3212292,19.3572483 C66.353055,19.9119777 67.4831499,19.0042386 67.2866116,17.8443498 L66.5987278,13.8603839 C66.5495932,13.4569443 66.6478623,13.0535047 66.9426697,12.750925 L69.7433396,9.82598796 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

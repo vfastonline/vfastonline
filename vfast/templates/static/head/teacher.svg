@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="84px" height="85px" viewBox="0 0 84 85" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>teacher</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="frame_120" transform="translate(-170.000000, -693.000000)">
+            <g id="teacher" transform="translate(171.939231, 695.888871)">
+                <circle id="Oval-3" stroke="#FFB74D" stroke-width="5.5" cx="39.9392308" cy="39.8240404" r="39"></circle>
+                <rect id="BG" fill="#FFB74D" x="17.4392308" y="64.8240404" width="45" height="17" rx="5"></rect>
+                <text id="讲师" font-family="Tensentype-JiaLiZhongYuanJ, Tensentype JiaLiZhongYuanJ" font-size="12.6" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="26.9392308" y="77.8240404">讲师</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
