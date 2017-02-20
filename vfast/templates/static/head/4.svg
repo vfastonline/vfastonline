@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="91px" height="103px" viewBox="0 0 91 103" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="63.6753944 16.5337886 81.6253944 11.2337886 90.8253944 0.833788562 75.0253944 5.48378856 72.0753944 8.33378856"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-3" points="27.2749817 16.5337886 9.27498169 11.1837886 0.124981689 0.833788562 15.9249817 5.48378856 18.8249817 8.33378856"></polygon>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="frame_120" transform="translate(-30.000000, -161.000000)">
+            <g id="4" transform="translate(29.877641, 163.790402)">
+                <g id="rank" transform="translate(0.000000, 60.000000)">
+                    <g id="Group">
+                        <g id="Shape">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#B2EBF2" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="Shape">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                            <use fill="#B2EBF2" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        </g>
+                    </g>
+                </g>
+                <ellipse id="Oval-3" stroke="#8C96A5" stroke-width="5.5" cx="45.5" cy="39" rx="39" ry="39"></ellipse>
+                <path d="M56.2358842,88.0172647 C57.2328424,86.9932389 56.6845154,85.2011938 55.2389259,84.9963886 L50.3538304,84.3307719 C49.8553513,84.2795706 49.456568,83.9723628 49.2073284,83.5115512 L46.7647807,78.5450262 C46.2164536,77.4185978 44.6213204,77.4185978 44.0729934,78.5450262 L41.7301415,83.5627525 C41.5307498,84.0235641 41.0821186,84.3307719 40.5836395,84.4331744 L35.698544,85.2011938 C34.3028024,85.4059989 33.7544754,87.1980441 34.7514337,88.2220699 L38.3404834,91.7549588 C38.6894188,92.1133679 38.8389625,92.6253808 38.7891146,93.1373936 L37.991548,98.15512 C37.7423084,99.5887561 39.2377458,100.663983 40.4839437,99.9983664 L44.87056,97.5919058 C45.3191912,97.3358994 45.8176703,97.3358994 46.2663016,97.5919058 L50.6529179,99.9471651 C51.8991157,100.612782 53.3945531,99.4863535 53.1453136,98.0527174 L52.2480511,93.0349911 C52.1483553,92.5229782 52.297899,92.0109653 52.6468344,91.6525563 L56.2358842,88.0172647 Z" id="Shape" fill="#FFCA28"></path>
+            </g>
+        </g>
+    </g>
+</svg>

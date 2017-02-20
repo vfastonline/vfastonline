@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>facebook</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="VfastOnline-Unified" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="欢迎页" transform="translate(-1204.000000, -3553.000000)">
+            <g id="底栏" transform="translate(0.000000, 3415.000000)">
+                <g id="reference" transform="translate(1176.000000, 138.000000)">
+                    <g id="facebook" transform="translate(28.000000, 0.000000)">
+                        <path d="M12,1 C5.92530612,1 1,5.92530612 1,12 C1,18.0746939 5.92530612,23 12,23 C18.0746939,23 23,18.0746939 23,12 C23,5.92530612 18.0746939,1 12,1 L12,1 L12,1 L12,1 Z" id="Path-Copy-4" fill="#FFFFFF"></path>
+                        <path d="M10.32,18.52 L13,18.52 L13,12 L14.8,12 L15.04,9.76 L13,9.76 L13,8.64 C13,8.04 13.04,7.72 13.88,7.72 L15,7.72 L15,5.48 L13.2,5.48 C11.04,5.48 10.28,6.56 10.28,8.4 L10.28,9.76 L8.92,9.76 L8.92,12 L10.28,12 L10.28,18.52 L10.32,18.52 L10.32,18.52 Z M12,24 C5.36,24 0,18.64 0,12 C0,5.36 5.36,0 12,0 C18.64,0 24,5.36 24,12 C24,18.64 18.64,24 12,24 L12,24 Z" id="Shape" fill="#B0BEC5"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

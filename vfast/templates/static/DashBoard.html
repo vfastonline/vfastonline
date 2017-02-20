@@ -3,16 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="../static/js/jquery-2.1.4.js"></script>
     <script src="../static/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
+    <script src="../static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="../static/css/jquery-labelauty.css">
+
     <link rel="stylesheet" href="../static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/modal.css"/>
     <link rel="stylesheet" href="../static/css/layout.css"/>
     <link rel="stylesheet" href="../static/css/navbar.css"/>
+    <link rel="stylesheet" href="../static/css/footer.css"/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../static/js/modalJS.js"></script>
+    <script src="../static/js/login_reg.js"></script>
+
+    <link rel="stylesheet" href="../static/css/sweet-alert.css"/>
+    <script src="../static/js/sweet-alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/searchModal.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/search.css" />
+
+    <!--[if IE]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className = 'js';</script>
 </head>
 <body>
+<main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
     <div class="" style="height:50px;"></div>
     <article>
@@ -21,7 +43,9 @@
                 <path d="M7.20576489,5.31058741 L2.61295973,0.717782253 C2.03812111,0.142943636 1.08708004,0.139700026 0.502496327,0.724283738 C-0.0861629951,1.31294306 -0.0849981989,2.2537541 0.495994842,2.83474714 L5.0888,7.4275523 L0.496158495,12.0201938 C-0.0786801222,12.5950324 -0.0819970018,13.5460002 0.502496327,14.1304935 C1.09106464,14.7190619 2.03180304,14.7178244 2.61279608,14.1368314 L7.20543758,9.54418988 L11.7984742,14.1372265 C12.3733128,14.7120651 13.3243539,14.7153087 13.9089376,14.130725 C14.4975969,13.5420657 14.4964321,12.6012546 13.9154391,12.0202616 L9.32240247,7.42722499 L13.9152754,2.83435205 C14.490114,2.25951343 14.4934309,1.30854563 13.9089376,0.724052298 C13.3203693,0.135483989 12.3796309,0.136721425 11.7986378,0.717714465 L7.20576489,5.31058741 Z" id="Combined-Shape" fill="#FFFFFF"></path>
             </g>
         </svg>
-
     </article>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
 </body>
 </html>

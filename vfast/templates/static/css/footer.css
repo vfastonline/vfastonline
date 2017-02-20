@@ -1,47 +1,35 @@
 /*footer Start*/
-.footer_cont{
-    background-color: #3E474F;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: -50px;
+.footer_curr{
     min-width: 1200px;
 }
-.footer_cont .container{
-    background-color: #3E474F;
-    margin-top: 50px;
-    height: 200px;
+.footer_curr .container{
+    border-top: 2px solid #E0E0E0;
+    padding-top: 10px;
 }
-.footer_cont .container:after{content: "";display: block;clear: both;}
-.footer_cont .container a{
-    color: #6F7C83;
-    text-decoration: none;
-}
-.footer_cont .container a:hover{
-    color: #FFFFFF;
-}
-.footer_cont .container div,.footer_cont .container ul{
+.footer_curr .container:after{content: "";display: block;clear: both;}
+.footer_curr .container div,.footer_curr .container ul,.footer_curr .container li{
     float: left;
-    margin-top: 70px;
+    font-size: 14px;
+    color: #B7C0C7;
 }
-.footer_cont .container div:first-child{
-    color: white;
+.footer_curr .container div:first-child{
+    width:20%;
 }
-.footer_cont .container div:first-child>p{
-    color: #6F7C83;
-    margin-top: 10px;
-    font-size:18px;
+.footer_curr .container ul{
+    width:60%;
 }
-.footer_cont .container ul{
-    margin-left: 16%;
-    line-height: 24px;
-    font-size:18px;
+.footer_curr .container ul li{
+    margin-right: 20px;
 }
-.footer_cont .container ul li{
-    margin-top: 5px;
+.footer_curr .container div:last-child{
+    width:20%;
+    text-align: right;
 }
-
-.footer_cont .container div:last-child{
-    margin-left: 16%;
-    margin-top: 120px;
+.footer_curr a{
+    font-size: 14px;
+    color: #B7C0C7;
+}
+.footer_curr a:hover{
+    color: #607D8B;
 }
 /*footer END*/
