@@ -47,10 +47,10 @@
                         </svg>
                     </li>
                     <li class="navshuxian"></li>
-                    <li>470</li>
+                    <li>{{ request.session.user.totalscore }}</li>
                     <li class="headPLI">
                         <a href="personal_info.html" >
-                            <img src="../static/head/defaultIMG.svg"alt="">
+                            <img src="{{ request.session.user.headimg }}"alt="">
                             <img src="../static/head/120_without_rank.svg" alt="">
                             <img src="../static/head/在线.svg" alt="">
                         </a>
