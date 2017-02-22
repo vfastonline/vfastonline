@@ -25,25 +25,20 @@ def dictfetchall(cursor):
         for row in cursor.fetchall()
     ]
 
+
 # @require_login()
 # @require_role(role=1)
 def test(request):
     print 'test'
-    # User.objects.filter(id=1).update(totalscore=F('totalscore')+100)
-    user = User.objects.get(id=1)
-    print user.totalscore
-    user.totalscore = user.totalscore + 5
-
-    print user.totalscore
-    user.save()
-    print user.totalscore
-    # print request.session.get('token', 'bucunzai')
-    # user = request.session.get('user')
-    return render(request, 'navbar.html')
-
+    course = connection.cursor()
+    course.execute('select * from vuser_user')
+    a = dictfetchall(cursor=course)
+    return HttpResponse(json.dumps({'result': a},ensure_ascii=False))
+    return HttpResponse('test')
 
 def dashBoard(request):
     return render(request, 'DashBoard.html')
+
 
 def logout(request):
     # print 'del session'
@@ -51,11 +46,9 @@ def logout(request):
     del request.session['login']
     return HttpResponse('del session ok')
 
+
 # @require_login()
 def index(request):
-    logger = logging.getLogger('server.log')
-    logger.info('somemessage')
-    # return HttpResponse('ok')
     return render(request, 'index.html')
 
 

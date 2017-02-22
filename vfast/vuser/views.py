@@ -6,8 +6,10 @@ from django.db.models import Q
 from vuser.models import User
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
+from vrecord.models import WatchCourse, WatchRecord
 from vgrade.api import headimg_urls
-from vfast.api import encry_password, send_mail, get_validate
+from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
+from django.db import connection
 
 import json
 import logging
@@ -216,18 +218,69 @@ def logout(request):
 def dashboard(request, param):
     try:
         param = int(param)
-        # print param, type(param)
         user = User.objects.get(uniqeid=param)
         pathid = user.pathid
-        path = Path.objects.get(id=pathid)
-        courses = [int(i) for i in path.orders.split(',')]
-        print courses
-        cobjs = []
-        for cid in courses:
-            course = Course.objects.filter(id=cid).values()
-            cobjs.append(course)
-        print cobjs
-        return HttpResponse('ok')
+        print pathid
+        if pathid == 0:
+            courses_learn = WatchRecord.objects.filter(user=user).values().order_by('-createtime')[0:6]
+            print courses_learn
+            return HttpResponse('ok')
+
+        else:
+
+            orders = Path.objects.get(id=pathid).orders
+
+            sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (orders, orders)
+            print sql
+            courses = dictfetchall(sql)
+
+            sql2 = 'select * from vrecord_watchcourse where user_id = %s' % user.id
+            courses_wathced = dictfetchall(sql2)
+
+            for i in courses:
+                for j in courses_wathced:
+                    try:
+                        if i['id'] == j['course_id']:
+                            i['viewtime'] = time_comp_now(j['createtime'])
+                        else:
+                            i['viewtime'] = i['totaltime']
+                    except:
+                        logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
+
+            # print courses
+            sql3 = """select * from (select vw. *, vv.name from vrecord_watchrecord as vw, vcourse_video as vv where vw.video_id = vv.id and vw.course_id in (%s) and vw.user_id = %s order by vw.createtime desc) as t group by course_id;
+    """ % (orders, user.id)
+            print sql3
+            videos = dictfetchall(sql3)
+            # print videos
+
+            for cour in courses:
+                for v in videos:
+                    if cour['id'] == v['course_id']:
+                        cour['video_id'] = v['id']
+                        cour['video_name'] = v['name']
+            # print courses
+            tmp = []
+            for z in courses:
+                tmp.append(z['createtime'])
+            tmp.sort()
+            maxdate = tmp.pop()
+            for z in courses:
+                if z['createtime'] == maxdate:
+                    z['flag'] = 1
+                    c_id = z['id']
+                else:
+                    z['flag'] = 0
+            course_obj = Course.objects.get(id=c_id)
+            len_v = Video.objects.filter(course=course_obj).__len__()
+            len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user).__len__()
+            print len_v, len_v_wathc
+            print maxdate, type(maxdate)
+            for item in courses:
+                if item['createtime'] == maxdate:
+                    item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
+            logging.getLogger().info(connection.queries)
+            return HttpResponse(json.dumps({'result': courses}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('failed')

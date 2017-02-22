@@ -2,10 +2,13 @@
 import hashlib
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
+from django.db import connection
+
+
 import logging
 import logging.handlers
 import time, os, json, base64
-from django.core.mail import send_mail
 
 
 def get_validate(email, uid, role, fix_pwd):
@@ -128,6 +131,35 @@ def time_To_unixtime(str):
     return t
 
 
-def time_cmpto_now(unixtime):
+def time_To_unixtime(str):
+    """2015-09-08 10:10:10 时间转换成为时间戳"""
+    t = time.mktime(time.strptime(str, '%Y-%m-%d %H:%M:%S'))
+    return int(t)
+
+
+def time_comp_now(str):
+    """时间与当前时间比较,转换为几分钟前, 几小时前, 几天前, 几月前, 时间"""
     now = int(time.time())
-    interval = now - unixtime
+    interval = now - time_To_unixtime(str)
+    # print interval
+    if interval / 60 < 60:
+        return '%s分钟前完成' % (interval / 60)
+    elif interval / 60 / 60 < 24:
+        return '%s小时前完成' % (interval / 60 / 60)
+    elif interval / 60 / 60 / 24 < 30:
+        return '%s天前完成' % (interval / 60 / 60 / 24)
+    elif interval / 60 / 60 / 24 / 30 < 5:
+        return '%s月前完成' % (interval / 60 / 60 / 24 / 30)
+    else:
+        return str
+
+
+def dictfetchall(sql):
+    "Returns all rows from a cursor as a dict"
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    desc = cursor.description
+    return [
+        dict(zip([col[0] for col in desc], row))
+        for row in cursor.fetchall()
+    ]
