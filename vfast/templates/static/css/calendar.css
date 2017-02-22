@@ -41,12 +41,14 @@
 	opacity: 0.25;
 }
 .item {
-	color: #FFFFFF;
 	float: left;
 	text-align: center;
 	cursor: pointer;
 	margin: 0;
 	font-size: 14px;
+}
+.item>a{
+	color: #FFFFFF;
 }
 .item:hover {
     background: #A6DAD5;
@@ -55,7 +57,9 @@
 .currentItem {
     background: #FFFFFF;
     border-radius: 32px;
-    color: #4DB6AC;
+}
+.currentItem a{
+	color: #4DB6AC;
 }
 #Container {
 	overflow: hidden;

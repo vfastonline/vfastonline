@@ -36,6 +36,9 @@
 
     <link rel="stylesheet" href="/static/css/progressBar.css">
     <script src="/static/js/dashBoard.js"></script>
+    <link rel="stylesheet" href="/static/css/calendar.css">
+    <script src="/static/js/calendar.js"></script>
+
     <style>
         /*prompt Start*/
         .prompt{
@@ -266,13 +269,13 @@
         <div class="contentBody_right pull-right">
             <div id="CalendarMain">
                 <div id="title">
-                    <img src="../static/svg/minus.svg" alt="" onclick="CalendarHandler.CalculateLastMonthDays();">
+                    <img src="static/svg/minus.svg" alt="" onclick="CalendarHandler.CalculateLastMonthDays();">
                     <div>
                         <span class=" selectYear">2014年</span>
                         <span class=" selectMonth">6月</span>
                     </div>
                     <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>
-                    <img src="../static/svg/plus.svg" alt="" onClick="CalendarHandler.CalculateNextMonthDays();">
+                    <img src="static/svg/plus.svg" alt="" onClick="CalendarHandler.CalculateNextMonthDays();">
                 </div>
                 <div id="context">
                 <div class="week">
@@ -301,4 +304,9 @@
 </main>
 {% include "search_div.html" %}
 </body>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    CalendarHandler.initialize();
+});
+</script>
 </html>
