@@ -218,7 +218,7 @@ def logout(request):
 def dashboard(request, param):
     try:
         param = int(param)
-        user = User.objects.get(uniqeid=param)
+        user = User.objects.get(id=param)
         pathid = user.pathid
         print pathid
         if pathid == 0:
@@ -281,13 +281,15 @@ def dashboard(request, param):
 
             p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % orders
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
-            orders, user.id)
+                orders, user.id)
             p_num = dictfetchall(p_num_sql)
             v_num = dictfetchall(v_num_sql)
             jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
             jindu = '%.2f%%' % (jindu * 100)
             logging.getLogger().info(connection.queries)
-            return HttpResponse(json.dumps({'courses': courses, 'jindu': jindu}, ensure_ascii=False))
+            print courses
+            # return HttpResponse(json.dumps({'courses': courses, 'jindu': jindu}, ensure_ascii=False))
+            return render(request, 'DashBoard.html', {'courses': courses, 'jindu': jindu})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('failed')

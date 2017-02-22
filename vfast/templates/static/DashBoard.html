@@ -7,35 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="../static/js/jquery-2.1.4.js"></script>
-    <script src="../static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="/static/js/jquery-2.1.4.js"></script>
+    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-    <script src="../static/js/jquery-labelauty.js"></script>
-    <link rel="stylesheet" href="../static/css/jquery-labelauty.css">
+    <script src="/static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
 
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/modal.css"/>
-    <link rel="stylesheet" href="../static/css/layout.css"/>
-    <link rel="stylesheet" href="../static/css/navbar.css"/>
-    <link rel="stylesheet" href="../static/css/footer.css"/>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/modal.css"/>
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    <link rel="stylesheet" href="/static/css/navbar.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
 
-    <script src="../static/js/modalJS.js"></script>
-    <script src="../static/js/login_reg.js"></script>
-    <script src="../static/js/common.js"></script>
+    <script src="/static/js/modalJS.js"></script>
+    <script src="/static/js/login_reg.js"></script>
+    <script src="/static/js/common.js"></script>
 
-    <link rel="stylesheet" href="../static/css/sweet-alert.css"/>
-    <script src="../static/js/sweet-alert.js"></script>
+    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
+    <script src="/static/js/sweet-alert.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../static/css/searchModal.css" />
-    <link rel="stylesheet" type="text/css" href="../static/css/search.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/searchModal.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
 
     <!--[if IE]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <script>document.documentElement.className = 'js';</script>
 
-    <link rel="stylesheet" href="../static/css/progressBar.css">
-    <script src="../static/js/dashBoard.js"></script>
+    <link rel="stylesheet" href="/static/css/progressBar.css">
+    <script src="/static/js/dashBoard.js"></script>
     <style>
         /*prompt Start*/
         .prompt{
@@ -225,63 +225,66 @@
             <div class="contentBody_left_head">
                 <h3>正在进行的路线</h3>
                 <h2>Python 后台开发</h2>
-                <h4>80%</h4>
+                <h4>{{ jindu }}</h4>
                 <div class="progressBar">
-                  <span class="blue" style="width: 80%;"></span>
+                  <span class="blue" style="width: {{ jindu }};"></span>
                 </div>
             </div>
             <div class="contentBody_left_body">
                 <ul>
-                    <a href="#">
-                        <li>
-                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
-                            <span>欢迎来到Python后台开发</span>
-                            <time>7 天前完成</time>
-                        </li>
-                    </a>
-                    <a href="#" class="courseIN">
-                        <div></div>
-                        <li>
-                            <div>
-                                <img src="../static/svg/videoCourse_1.svg" width="24px" height="24px" alt="">
-                                <span>Python 3.5 基础语法</span>
-                                <time>10/15</time>
-                            </div>
-                            <div>
-                                <img src="../static/svg/quiz_1.svg" width="24px" height="24px" alt="">
-                                <span>函数：第二部分</span>
-                                <img src="../static/svg/arrow.svg" width="16px" height="16px" alt="">
-                            </div>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
-                            <span>欢迎来到Python后台开发</span>
-                            <time>5 小时</time>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
-                            <span>阿斯的骄傲is的</span>
-                            <time>11小时</time>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
-                            <span>爱上大声大声道发</span>
-                            <time>15小时</time>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li>
-                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
-                            <span>去去去去去前去去去发</span>
-                            <time>1 小时</time>
-                        </li>
-                    </a>
+{#                    <a href="#">#}
+{#                        <li>#}
+{#                            <img src="/static/svg/videoCourse.svg" width="24px" height="24px" alt="">#}
+{#                            <span>欢迎来到Python后台开发</span>#}
+{#                            <time>7 天前完成</time>#}
+{#                        </li>#}
+{#                    </a>#}
+{##}
+{##}
+{#                    <a href="#" class="courseIN">#}
+{#                        <div></div>#}
+{#                        <li>#}
+{#                            <div>#}
+{#                                <img src="/static/svg/videoCourse_1.svg" width="24px" height="24px" alt="">#}
+{#                                <span>Python 3.5 基础语法</span>#}
+{#                                <time>10/15</time>#}
+{#                            </div>#}
+{#                            <div>#}
+{#                                <img src="/static/svg/quiz_1.svg" width="24px" height="24px" alt="">#}
+{#                                <span>函数：第二部分</span>#}
+{#                                <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">#}
+{#                            </div>#}
+{#                        </li>#}
+{#                    </a>#}
+
+                    {% for course in courses %}
+                        {% if course.flag == 1 %}
+                            <a href="#" class="courseIN">
+                                <div></div>
+                                <li>
+                                    <div>
+                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                        <span>{{ course.name }}</span>
+                                        <time>{{ course.viewtime }}</time>
+                                    </div>
+                                    <div>
+                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                        <span>{{ course.video_name }}</span>
+                                        <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">
+                                    </div>
+                                </li>
+                            </a>
+                        {% else %}
+                            <a href="#">
+                                <li>
+                                    <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                    <span>{{ course.name }}</span>
+                                    <time>{{ course.viewtime }}</time>
+                                </li>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+
                     <div></div>
                 </ul>
             </div>
