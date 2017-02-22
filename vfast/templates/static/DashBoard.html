@@ -21,6 +21,7 @@
 
     <script src="../static/js/modalJS.js"></script>
     <script src="../static/js/login_reg.js"></script>
+    <script src="../static/js/common.js"></script>
 
     <link rel="stylesheet" href="../static/css/sweet-alert.css"/>
     <script src="../static/js/sweet-alert.js"></script>
@@ -32,18 +33,261 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <script>document.documentElement.className = 'js';</script>
+
+    <link rel="stylesheet" href="../static/css/progressBar.css">
+    <script src="../static/js/dashBoard.js"></script>
+    <style>
+        /*prompt Start*/
+        .prompt{
+            width: 1200px;
+            height: 60px;
+            background: #4DB6AC;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            margin: 50px auto 0px;
+            position: relative;
+        }
+        .prompt svg{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .prompt svg:hover{
+            cursor: pointer;
+        }
+        .prompt svg:hover path{
+            fill: #607D8B;
+        }
+        .prompt svg:active path{
+            fill: #FFFFFF;
+        }
+        .prompt p{
+            height: 60px;
+            line-height: 60px;
+            font-size: 18px;
+            color: #FFFFFF;
+            padding-left: 70px;
+        }
+        /*prompt END*/
+        /*contentBody Start*/
+        .contentBody{
+            width: 1200px;
+            margin: 50px auto 0px;
+        }
+        .contentBody_left{
+            width:60%;
+            background: #FFFFFF;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+        .contentBody_left_head{
+            padding: 10px 30px 30px;
+        }
+        .contentBody_left_head h3{
+            font-size: 20px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .contentBody_left_head h2{
+            font-size: 24px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .contentBody_left_head h4{
+            font-size: 18px;
+            color: #384047;
+            font-weight: bolder;
+            float: right;
+            position: relative;
+            top: -40px;
+        }
+        .contentBody_right{
+            width:38%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+        }
+        /*contentBody END*/
+        /*contentBody_left_body--0-- Start*/
+        .contentBody_left_body a{
+            -webkit-transition: background 0.35s,opacity 0.35s;
+            -moz-transition: background 0.35s,opacity 0.35s;
+            -ms-transition: background 0.35s,opacity 0.35s;
+            -o-transition: background 0.35s,opacity 0.35s;
+            transition: background 0.35s,opacity 0.35s;
+        }
+        .contentBody_left_body ul{
+            margin-bottom: 0px;
+        }
+        .contentBody_left_body ul a{
+            display: block;
+            background: #F0F2F4;
+            box-shadow: inset 0 1px 0 0 #D4D9DD;
+            height: 56px;
+        }
+        .contentBody_left_body ul a li{
+            position: relative;
+            height: 56px;
+            line-height: 56px;
+            padding: 0px 50px;
+        }
+        .contentBody_left_body ul a li span{
+            font-size: 14px;
+            color: #607D8B;
+            margin-left: 20px;
+        }
+        .contentBody_left_body ul a li time{
+            font-size: 14px;
+            color: #7B8B8E;
+            position: absolute;
+            right: 50px;
+        }
+        .contentBody_left_body ul a:hover{
+            background: #FFFFFF;
+            box-shadow: inset 0 2px 5px #D4D9DD;
+        }
+        /*contentBody_left_body--0-- End*/
+        /*contentBody_left_body--1-- Start*/
+        .contentBody_left_body ul .courseIN{
+            position: relative;
+            height:136px;
+            background: #607D8B;
+            box-shadow: inset 0 1px 0 0 #848484;
+        }
+        .contentBody_left_body ul .courseIN>div{
+            background: #4DB6AC;
+            height: 136px;
+            width:60%;
+            position: absolute;
+            z-index: 1;
+        }
+        .contentBody_left_body ul .courseIN li{
+            position: relative;
+        }
+        .contentBody_left_body ul .courseIN li div span{
+            color: #FFFFFF;
+        }
+        .contentBody_left_body ul .courseIN li div:first-child{
+            position: relative;
+            z-index: 1;
+        }
+        .contentBody_left_body ul .courseIN li div:first-child time{
+            right: 0px;
+            color: #FFFFFF;
+        }
+        .contentBody_left_body ul .courseIN li div:last-child{
+            position: relative;
+            z-index: 1;
+            padding: 0px 50px;
+        }
+        .contentBody_left_body ul .courseIN li div:last-child span{
+            font-size: 18px;
+        }
+        .contentBody_left_body ul .courseIN li div:last-child img:last-child{
+            position: absolute;
+            right: 50px;
+            height: 56px;
+            line-height: 56px;
+        }
+        .contentBody_left_body ul .courseIN:hover{
+            background: #607D8B;
+            box-shadow: inset 0 0px 0px #D4D9DD;
+            opacity:0.8;
+        }
+        /*contentBody_left_body--1-- End*/
+        .contentBody_left_body ul>div{
+            height: 10px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+    </style>
 </head>
 <body>
+<script>
+
+</script>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
-    <div class="" style="height:50px;"></div>
-    <article>
-        <svg onclick="article_close()" width="15px" height="15px" viewBox="134 130 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="slideDIV" style="height:50px;"></div>
+    <article class="prompt" id="prompt">
+        <svg onclick="article_close()" width="20px" height="20px" viewBox="134 130 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="x-symble" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(137.000000, 130.000000)">
                 <path d="M7.20576489,5.31058741 L2.61295973,0.717782253 C2.03812111,0.142943636 1.08708004,0.139700026 0.502496327,0.724283738 C-0.0861629951,1.31294306 -0.0849981989,2.2537541 0.495994842,2.83474714 L5.0888,7.4275523 L0.496158495,12.0201938 C-0.0786801222,12.5950324 -0.0819970018,13.5460002 0.502496327,14.1304935 C1.09106464,14.7190619 2.03180304,14.7178244 2.61279608,14.1368314 L7.20543758,9.54418988 L11.7984742,14.1372265 C12.3733128,14.7120651 13.3243539,14.7153087 13.9089376,14.130725 C14.4975969,13.5420657 14.4964321,12.6012546 13.9154391,12.0202616 L9.32240247,7.42722499 L13.9152754,2.83435205 C14.490114,2.25951343 14.4934309,1.30854563 13.9089376,0.724052298 C13.3203693,0.135483989 12.3796309,0.136721425 11.7986378,0.717714465 L7.20576489,5.31058741 Z" id="Combined-Shape" fill="#FFFFFF"></path>
             </g>
         </svg>
+        <p>恭喜！你所填写的背景资料中的硬性指标优于本站 59% 的注册用户，加油，做更好的自己！</p>
     </article>
+    <div class="slideDIV" style="height:100px;"></div>
+    <section class="contentBody clearfix">
+        <div class="contentBody_left pull-left">
+            <div class="contentBody_left_head">
+                <h3>正在进行的路线</h3>
+                <h2>Python 后台开发</h2>
+                <h4>80%</h4>
+                <div class="progressBar">
+                  <span class="blue" style="width: 80%;"></span>
+                </div>
+            </div>
+            <div class="contentBody_left_body">
+                <ul>
+                    <a href="#">
+                        <li>
+                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
+                            <span>欢迎来到Python后台开发</span>
+                            <time>7 天前完成</time>
+                        </li>
+                    </a>
+                    <a href="#" class="courseIN">
+                        <div></div>
+                        <li>
+                            <div>
+                                <img src="../static/svg/videoCourse_1.svg" width="24px" height="24px" alt="">
+                                <span>Python 3.5 基础语法</span>
+                                <time>10/15</time>
+                            </div>
+                            <div>
+                                <img src="../static/svg/quiz_1.svg" width="24px" height="24px" alt="">
+                                <span>函数：第二部分</span>
+                                <img src="../static/svg/arrow.svg" width="16px" height="16px" alt="">
+                            </div>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
+                            <span>欢迎来到Python后台开发</span>
+                            <time>5 小时</time>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
+                            <span>阿斯的骄傲is的</span>
+                            <time>11小时</time>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
+                            <span>爱上大声大声道发</span>
+                            <time>15小时</time>
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                            <img src="../static/svg/videoCourse.svg" width="24px" height="24px" alt="">
+                            <span>去去去去去前去去去发</span>
+                            <time>1 小时</time>
+                        </li>
+                    </a>
+                    <div></div>
+                </ul>
+            </div>
+        </div>
+        <div class="contentBody_right pull-right">222</div>
+    </section>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
 {% include "search_div.html" %}
