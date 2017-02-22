@@ -44,6 +44,7 @@ def logout(request):
     # print 'del session'
     # del request.session['token']
     del request.session['login']
+    del request.session['user']
     return HttpResponse('del session ok')
 
 

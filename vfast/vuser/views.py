@@ -227,16 +227,12 @@ def dashboard(request, param):
             return HttpResponse('ok')
 
         else:
-
             orders = Path.objects.get(id=pathid).orders
-
             sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (orders, orders)
             print sql
             courses = dictfetchall(sql)
-
             sql2 = 'select * from vrecord_watchcourse where user_id = %s' % user.id
             courses_wathced = dictfetchall(sql2)
-
             for i in courses:
                 for j in courses_wathced:
                     try:
@@ -246,14 +242,12 @@ def dashboard(request, param):
                             i['viewtime'] = i['totaltime']
                     except:
                         logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
-
             # print courses
             sql3 = """select * from (select vw. *, vv.name from vrecord_watchrecord as vw, vcourse_video as vv where vw.video_id = vv.id and vw.course_id in (%s) and vw.user_id = %s order by vw.createtime desc) as t group by course_id;
     """ % (orders, user.id)
             print sql3
             videos = dictfetchall(sql3)
             # print videos
-
             for cour in courses:
                 for v in videos:
                     if cour['id'] == v['course_id']:
@@ -279,8 +273,21 @@ def dashboard(request, param):
             for item in courses:
                 if item['createtime'] == maxdate:
                     item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
+                    icon_url = item['icon_url'].split('.')
+                    icon_url[0] = icon_url[0] + '_1'
+                    icon_url = '.'.join(icon_url)
+                    print icon_url
+                    item['icon_url'] = icon_url
+
+            p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % orders
+            v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
+            orders, user.id)
+            p_num = dictfetchall(p_num_sql)
+            v_num = dictfetchall(v_num_sql)
+            jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
+            jindu = '%.2f%%' % (jindu * 100)
             logging.getLogger().info(connection.queries)
-            return HttpResponse(json.dumps({'result': courses}, ensure_ascii=False))
+            return HttpResponse(json.dumps({'courses': courses, 'jindu': jindu}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('failed')
