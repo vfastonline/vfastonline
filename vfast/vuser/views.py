@@ -273,11 +273,14 @@ def dashboard(request, param):
             for item in courses:
                 if item['createtime'] == maxdate:
                     item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
+                    item['video_jindu'] = '%.2f%%' % ((len_v_wathc/1.0/len_v)*100)
                     icon_url = item['icon_url'].split('.')
                     icon_url[0] = icon_url[0] + '_1'
                     icon_url = '.'.join(icon_url)
                     print icon_url
                     item['icon_url'] = icon_url
+                    print item['video_jindu']
+                    # logging.getLogger().info(item['video_jindu'])
 
             p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % orders
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
@@ -287,7 +290,7 @@ def dashboard(request, param):
             jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
             jindu = '%.2f%%' % (jindu * 100)
             logging.getLogger().info(connection.queries)
-            print courses
+            # print courses
             # return HttpResponse(json.dumps({'courses': courses, 'jindu': jindu}, ensure_ascii=False))
             return render(request, 'DashBoard.html', {'courses': courses, 'jindu': jindu})
     except:
