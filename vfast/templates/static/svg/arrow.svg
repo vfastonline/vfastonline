@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="VfastOnline-Unified" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主控板" transform="translate(-729.000000, -555.000000)" fill="#F0F2F4">
+            <g id="正在进行路线" transform="translate(120.000000, 200.000000)">
+                <g id="cell3" transform="translate(0.000000, 280.000000)">
+                    <polygon id="Shape" points="609 81.989899 609 84.010101 621.121212 84.010101 615.565657 89.5656566 617 91 625 83 617 75 615.565657 76.4343434 621.121212 81.989899"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

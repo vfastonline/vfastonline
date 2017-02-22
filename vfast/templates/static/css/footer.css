@@ -1,6 +1,7 @@
 /*footer Start*/
 .footer_curr{
     min-width: 1200px;
+    margin-top: 40px;
 }
 .footer_curr .container{
     border-top: 2px solid #E0E0E0;

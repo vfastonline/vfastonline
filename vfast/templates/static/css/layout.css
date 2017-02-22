@@ -19,7 +19,9 @@
 }
 
 body{
-    background-color: #FAFAFA;
+    background: #FAFAFA;
+    opacity:0;
+    transition: opacity 0.35s ease-in-out;
 }
 *{
     margin: 0;

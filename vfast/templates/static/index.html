@@ -20,6 +20,7 @@
 
     <script src="../static/js/modalJS.js"></script>
     <script src="../static/js/login_reg.js"></script>
+    <script src="../static/js/common.js"></script>
 
     <link rel="stylesheet" href="../static/css/sweet-alert.css"/>
     <script src="../static/js/sweet-alert.js"></script>
@@ -31,18 +32,12 @@
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <script>document.documentElement.className = 'js';</script>
-
     <link rel="stylesheet" href="../static/css/indexFooter.css"/>
     <style>
         .head_cont{
             box-shadow: none;
             position: relative;
             min-width: 1200px;
-        }
-        body{
-            background: #FAFAFA;
-            opacity:0;
-            transition: opacity 0.35s ease-in-out;
         }
         /*banner Start*/
         .banner_cont{
@@ -270,8 +265,8 @@
             <div class="banner">
                 <h2>知识从未如此简单</h2>
                 <h5>生命在学习中延展</h5>
-        <a onclick="register_show()" data-toggle="modal" data-target="#myModal">立即注册</a>
-        </div>
+                <a onclick="register_show()" data-toggle="modal" data-target="#myModal">立即注册</a>
+            </div>
         </div>
         <div class="banner_cut"></div>
         <div class="banner_content">
@@ -342,9 +337,6 @@
 </main>
 {% include "search_div.html" %}
 <script>
-    $(function(){
-        $("body").css("opacity","1");
-    })
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];
         elem.play();

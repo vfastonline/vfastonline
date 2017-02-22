@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>video</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="VfastOnline-Unified" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主控板" transform="translate(-917.000000, -720.000000)" fill="#B4BEC8">
+            <g id="日常" transform="translate(875.000000, 545.000000)">
+                <g id="内容" transform="translate(0.000000, 103.000000)">
+                    <g id="video" transform="translate(42.000000, 72.000000)">
+                        <path d="M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z M9.2728058,8.57781036 L9.2728058,16.38429 C9.2728058,16.9309046 9.65774897,17.1548483 10.1326004,16.8806927 L16.8932101,12.9774528 C17.3665923,12.7041455 17.3680616,12.2588031 16.8932101,11.9846475 L10.1326004,8.08140769 C9.65921827,7.80810036 9.2728058,8.02949911 9.2728058,8.57781036 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
