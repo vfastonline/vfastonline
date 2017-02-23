@@ -246,7 +246,7 @@
                                         <time>{{ course.viewtime }}</time>
                                     </div>
                                     <div>
-                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                        <img src="{{ course.vtype_url }}" width="24px" height="24px" alt="">
                                         <span>{{ course.video_name }}</span>
                                         <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">
                                     </div>
@@ -269,13 +269,13 @@
         <div class="contentBody_right pull-right">
             <div id="CalendarMain">
                 <div id="title">
-                    <img src="static/svg/minus.svg" alt="" onclick="CalendarHandler.CalculateLastMonthDays();">
+                    <img src="/static/svg/minus.svg" alt="" onclick="CalendarHandler.CalculateLastMonthDays();">
                     <div>
                         <span class=" selectYear">2014年</span>
                         <span class=" selectMonth">6月</span>
                     </div>
                     <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>
-                    <img src="static/svg/plus.svg" alt="" onClick="CalendarHandler.CalculateNextMonthDays();">
+                    <img src="/static/svg/plus.svg" alt="" onClick="CalendarHandler.CalculateNextMonthDays();">
                 </div>
                 <div id="context">
                 <div class="week">
