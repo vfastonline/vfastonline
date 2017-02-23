@@ -1,5 +1,4 @@
 #CalendarMain {
-	width: 445px;
 	height: 346px;
 }
 #title {
@@ -123,8 +122,6 @@
 }
 #title>img{
     position: absolute;
-    width: 15px;
-    height: 15px;
     padding: 10px;
     top:15px;
 }

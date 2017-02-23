@@ -119,7 +119,6 @@ var CalendarHandler = {
             "line-height": itemPaddintTop + "px",
             "height": itemPaddintTop + "px"
         });
-        $(".currentItem>a").css("margin-left", ($(".item").width() - 25) / 2 + "px").css("margin-top", ($(".item").height() - 25) / 2 + "px");
     },
     CalculateNextMonthDays: function() {
         if (this.isRunning == false) {
