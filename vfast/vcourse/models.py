@@ -62,6 +62,10 @@ class Path(models.Model):
 
 
 class Video(models.Model):
+    VTYPE = (
+        (0, '视频'),
+        (1, '题目'),
+    )
     name = models.CharField('视频名称', max_length=100)
     vtime = models.IntegerField('视频时长')
     vurl = models.CharField('视频存放位置', max_length=100)
@@ -73,6 +77,8 @@ class Video(models.Model):
     watched = models.IntegerField('观看视频人数', null=True, blank=True, default=0)
     createtime = models.CharField('视频上传时间', max_length=20, null=True, blank=True)
     end = models.IntegerField('是否为最后一节视频', default=0)  #0不是, 1是
+    vtype = models.IntegerField('类型, 视频, 题目', default=0)
+    vtype_url = models.CharField('类型图标', max_length=50, default='/static/svg/video.svg')
 
     def __unicode__(self):
         return self.name

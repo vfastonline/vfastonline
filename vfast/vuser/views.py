@@ -243,9 +243,9 @@ def dashboard(request, param):
                     except:
                         logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
             # print courses
-            sql3 = """select * from (select vw. *, vv.name from vrecord_watchrecord as vw, vcourse_video as vv where vw.video_id = vv.id and vw.course_id in (%s) and vw.user_id = %s order by vw.createtime desc) as t group by course_id;
+            sql3 = """select * from (select vw. *, vv.name, vv.vtype_url from vrecord_watchrecord as vw, vcourse_video as vv where vw.video_id = vv.id and vw.course_id in (%s) and vw.user_id = %s order by vw.createtime desc) as t group by course_id;
     """ % (orders, user.id)
-            print sql3
+            # print sql3
             videos = dictfetchall(sql3)
             # print videos
             for cour in courses:
@@ -253,6 +253,7 @@ def dashboard(request, param):
                     if cour['id'] == v['course_id']:
                         cour['video_id'] = v['id']
                         cour['video_name'] = v['name']
+                        cour['vtype_url'] = v['vtype_url']
             # print courses
             tmp = []
             for z in courses:
