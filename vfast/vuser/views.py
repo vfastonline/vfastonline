@@ -185,7 +185,7 @@ def login(request):
                 request.session['login'] = True
                 pre_url = request.session.get('pre_url', '/')
                 # print pre_url, email, password
-                return HttpResponse(json.dumps({'code': 0, 'pre_url': pre_url}, ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 0, 'pre_url': pre_url, 'id': user['id']}, ensure_ascii=False))
             else:
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'账号未激活'}, ensure_ascii=False))
