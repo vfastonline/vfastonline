@@ -11,6 +11,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from vuser.models import User
 from django.db.models import F
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from vcourse.models import Video
 
 import logging
 import traceback
@@ -26,14 +28,14 @@ def dictfetchall(cursor):
     ]
 
 
+
 # @require_login()
 # @require_role(role=1)
 def test(request):
     print 'test'
-    course = connection.cursor()
-    course.execute('select * from vuser_user')
-    a = dictfetchall(cursor=course)
-    return HttpResponse(json.dumps({'result': a},ensure_ascii=False))
+    # course = connection.cursor()
+    # course.execute('select * from vcourse_video')
+    # a = dictfetchall(cursor=course)
     return HttpResponse('test')
 
 def dashBoard(request):

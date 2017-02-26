@@ -7,6 +7,7 @@ from vuser.models import User
 # Create your models here.
 class Program(models.Model):
     name = models.CharField('技术类别', max_length=50)
+    color = models.CharField('颜色', max_length=10, default='#FFFFFF')
 
     def __unicode__(self):
         return self.name

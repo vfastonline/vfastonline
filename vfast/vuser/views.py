@@ -184,7 +184,7 @@ def login(request):
                 request.session['user'] = user
                 request.session['login'] = True
                 pre_url = request.session.get('pre_url', '/')
-                # print pre_url, email, password
+                print pre_url, email, password, user['id']
                 return HttpResponse(json.dumps({'code': 0, 'pre_url': pre_url, 'id': user['id']}, ensure_ascii=False))
             else:
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
@@ -274,7 +274,7 @@ def dashboard(request, param):
             for item in courses:
                 if item['createtime'] == maxdate:
                     item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
-                    item['video_jindu'] = '%.2f%%' % ((len_v_wathc/1.0/len_v)*100)
+                    item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
                     icon_url = item['icon_url'].split('.')
                     icon_url[0] = icon_url[0] + '_1'
                     icon_url = '.'.join(icon_url)
