@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="/static/js/jquery-2.1.4.js"></script>
+    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script src="/static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/modal.css"/>
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    <link rel="stylesheet" href="/static/css/navbar.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
+
+    <script src="/static/js/modalJS.js"></script>
+    <script src="/static/js/login_reg.js"></script>
+    <script src="/static/js/common.js"></script>
+
+    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
+    <script src="/static/js/sweet-alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/searchModal.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
+
+    <!--[if IE]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className = 'js';</script>
+
+    <style>
+        #head_cont{
+            box-shadow: none;
+        }
+        .path_head{
+            width: 1200px;
+            height: 281px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            position: relative;
+            top: 80px;
+        }
+        .path_head_X>svg:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        .path_head>h1{
+            color: #5A646E;
+            font-size: 28px;
+            margin-left: 54px;
+            padding-top: 20px;
+            font-weight: 600;
+            position: absolute;
+        }
+        .path_head>p{
+            width: 70%;
+            color: #5A646E;
+            font-size: 14px;
+            position: absolute;
+            top: 78px;
+            left: 54px;
+        }
+        .path_head_leftDIV,.path_head_rightDIV{
+            width: 33%;
+            color: #5A646E;
+            position: absolute;
+        }
+        .path_head_leftDIV{
+            top:140px;
+            left: 54px;
+        }
+        .path_head_rightDIV{
+            top:140px;
+            left: 480px;
+        }
+        .path_head_leftDIV>h2,.path_head_rightDIV>h2{
+            font-size: 18px;
+        }
+        .path_head_leftDIV>p,.path_head_rightDIV>p{
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .path_head_rightDIV>p>a{
+            text-decoration: none;
+            font-weight: bold;
+            color: #5A646E;
+        }
+        .path_head_rightDIV>p>a:hover{
+            opacity: 0.8;
+        }
+        .path_head_rightDIV>p>a:active{
+            opacity: 1;
+        }
+        .path_head>img{
+            position: absolute;
+            top: 40px;
+            right: 30px;
+        }
+        /*path_head END*/
+
+        /*path_head Start*/
+        .path_head_BG{
+            background-color: #303948;
+            position: relative;
+            padding: 50px 0px 0px;
+        }
+        .path_head_BG>h1{
+            width: 1200px;
+            margin: 0 auto;
+            color: #FFFFFF;
+            font-size: 55px;
+        }
+        /*path_head End*/
+
+        /*path_content Start*/
+        .path_content{
+            width: 1200px;
+            margin: 130px auto 50px;
+        }
+        .path_content>a{
+            display: block;
+            float: left;
+            width:30%;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .path_content>a:hover{
+            opacity: 0.8;
+        }
+        .path_content>a>div{
+            height:170px;
+            background-color: #22d2d2;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        .path_content>a>div>img{
+            width:80%;
+            height:80%;
+        }
+        .path_content>a:nth-child(3n+2){
+            margin: 0px 5%;
+        }
+        .path_content>a>h2{
+            background: #FFFFFF;
+            margin: 0px;
+            height: 67px;
+            line-height: 67px;
+            font-size: 20px;
+            color: #5A646E;
+            text-indent: 2em ;
+        }
+        /*path_content End*/
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <div class="path_head_BG">
+        <h1>学习路线</h1>
+        <section id="path_head" class="path_head">
+            <h1>欢迎来到学习路径</h1>
+            <p>这里使我们提供的所有学习路线，我们将所有的课程系列安插排列在每段学习路线中最恰当的位置，<br/>指导您从零开始一最平缓的学习曲线掌握新的技能。在下方选择进入意向你感兴趣的学习路线开始吧！</p>
+            <div class="path_head_leftDIV">
+                <h2>不知道该学什么？</h2>
+                <p>如果您拿不定注意，不妨试试填写一份小小的问卷，我们将以一套独到的大数据分析配合机器学习算法，为您找到IT行业中最适合您学习的课程</p>
+            </div>
+            <div class="path_head_rightDIV">
+                <h2>找不到你想学的课程？</h2>
+                <p>我们时刻都在时序制作新的课程内容，扩展新的课程方向，使我们的学员一直涉足于最新锐的IT技术领域。您也可以提交一份<a href="#">课程申请</a>，符合的课程内容将会加入到研发计划</p>
+            </div>
+            <img src="/static/svg/map.svg" alt=""/>
+        </section>
+    </div>
+    <div class="slideDIV" style="height:150px;"></div>
+    <section class="path_content clearfix">
+            <a href="#">
+                <div style="background-image: url('/static/svg/MacBook.svg');background-color: #4DD0E1;"></div>
+                <h2>计算机科学导论</h2>
+            </a>
+            <a href="#">
+                <div style="background-image: url('/static/svg/iMac.svg');background-color: #22d2d2;"></div>
+                <h2>大数据</h2>
+            </a>
+            <a href="#">
+                <div style="background-image: url('/static/svg/webFrontIcon.svg');background-color: #00AFE6;"></div>
+                <h2>Web前端开发</h2>
+            </a>
+            <a href="#">
+                <div style="background-image: url('/static/svg/webFrontIcon.svg');background-color: #00AFE6;"></div>
+                <h2>大数据</h2>
+            </a>
+            <a href="#">
+                <div style="background-image: url('/static/svg/webFrontIcon.svg');background-color: #00AFE6;"></div>
+                <h2>大数据</h2>
+            </a>
+        </section>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+</body>
+<script>
+    window.onscroll = function(){
+        if(scrollY == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+</script>
+</html>

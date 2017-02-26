@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="/static/js/jquery-2.1.4.js"></script>
+    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script src="/static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/modal.css"/>
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    <link rel="stylesheet" href="/static/css/navbar.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
+
+    <script src="/static/js/modalJS.js"></script>
+    <script src="/static/js/login_reg.js"></script>
+    <script src="/static/js/common.js"></script>
+
+    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
+    <script src="/static/js/sweet-alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/searchModal.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
+
+    <!--[if IE]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className = 'js';</script>
+
+    <style>
+        #head_cont{
+            box-shadow: none;
+        }
+        .course_head{
+            width: 1200px;
+            height: 281px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            position: relative;
+            top: 80px;
+        }
+        .course_head_X>svg:hover{
+            cursor: pointer;
+        }
+        .course_head>h1{
+            color: #5A646E;
+            font-size: 28px;
+            margin-left: 54px;
+            padding-top: 30px;
+            font-weight: 600;
+            position: absolute;
+        }
+        .course_head>p{
+            width: 70%;
+            color: #5A646E;
+            font-size: 14px;
+            position: absolute;
+            top: 78px;
+            left: 54px;
+        }
+        .course_head_leftDIV,.course_head_rightDIV{
+            width: 32%;
+            color: #5A646E;
+            position: absolute;
+        }
+        .course_head_leftDIV{
+            top:140px;
+            left: 54px;
+        }
+        .course_head_rightDIV{
+            top:140px;
+            left: 450px;
+        }
+        .course_head_leftDIV>h2,.course_head_rightDIV>h2{
+            font-size: 18px;
+        }
+        .course_head_leftDIV>p,.course_head_rightDIV>p{
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .course_head_rightDIV>p>a{
+            text-decoration: none;
+            font-weight: bold;
+            color: #5A646E;
+        }
+        .course_head_rightDIV>p>a:hover{
+            opacity: 0.8;
+        }
+        .course_head_rightDIV>p>a:active{
+            opacity: 1;
+        }
+        .course_head>img{
+            width: 295px;
+            height: 194px;
+            position: absolute;
+            top: 40px;
+            right: 30px;
+        }
+        /*course_head END*/
+        /*course_head_BG Start*/
+        .course_head_BG{
+            background-color: #303948;
+            position: relative;
+            padding: 50px 0px 0px;
+        }
+        .course_head_BG>h1{
+            width: 1200px;
+            margin: 0 auto;
+            color: #FFFFFF;
+            font-size: 55px;
+        }
+        /*course_head_BG End*/
+        /*contentBody_course Start*/
+        .contentBody_course:after{content: "";display: block;clear: both;}
+        .contentBody_course{
+            width: 1200px;
+            margin: 150px auto 50px;
+            color: #5A646E;
+        }
+        .contentBody_course>div{
+            float: left;
+            width: 30%;
+            margin-bottom: 30px;
+            transition: all 0s linear;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .contentBody_course>div:hover{
+            position: relative;
+            top:-1px;
+        }
+        .contentBody_course>div>div:first-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div>div:last-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div:hover>div:first-child{
+            cursor: pointer;
+            opacity: 0.8!important;
+        }
+        .contentBody_course>div:hover>div:last-child{
+            background-color: #FAFAFA;
+            cursor: pointer;
+        }
+        .contentBody_course>div:nth-child(3n+2){
+            margin-left:  5%;
+            margin-right: 5%;
+        }
+        .contentBody_course>div>div:first-child{
+            /*背景色 数据库取*/
+            background-color: #EF5350;
+            height: 54px;
+            padding-top: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .contentBody_course>div>div:first-child{content:"";display: block;clear: both;}
+        .contentBody_course>div>div:first-child>div:first-child{
+            float: left;
+        }
+        .contentBody_course>div>div:first-child>div:last-child{
+            float: right;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        .contentBody_course>div>div:last-child{
+            padding: 20px 30px 30px 20px ;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            height:220px;
+            position: relative;
+        }
+        .contentBody_course>div>div:last-child>p:first-child{
+            color: #B4BEC8;
+        }
+        .contentBody_course>div>div:last-child>h1{
+            font-size: 20px;
+            color: #5A646E;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        .contentBody_course>div>div:last-child>p:nth-child(3){
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            height: 60px;
+            line-height: 20px;
+            font-size: 14px;
+            color: #5A646E;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(4){
+            color: #FFFFFF;
+            height: 24px;
+            font-size: 16px;
+            border-radius: 12px;
+            line-height: 24px;
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            transition: all 0s;
+            position: absolute;
+            bottom:20px;
+            -moz-user-select:none;/*火狐*/
+            -webkit-user-select:none;/*webkit浏览器*/
+            -ms-user-select:none;/*IE10*/
+            -khtml-user-select:none;/*早期浏览器*/
+            user-select:none;
+        }
+        .groupHover:hover{
+            box-shadow: 0px 1px 1px black;
+            bottom: 21px!important;
+        }
+        .groupHover:active{
+            box-shadow: 0px 0px 0px black;
+            bottom: 20px!important;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5){
+            height: 20px;
+            line-height: 20px;
+            font-size: 17px;
+            display: inline-block;
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            vertical-align: middle;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5)>img{
+            padding-bottom: 5px;
+        }
+        /*contentBody_course  End*/
+        .upcoming_release{
+            font-size: 16px;
+            color: #384047;
+            letter-spacing: 1px;
+            font-weight: bolder;
+            width: 1200px;
+            margin: 0px auto 30px;
+        }
+        .ur_course{
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <div class="course_head_BG">
+        <h1>课程库</h1>
+        <section id="course_head" class="course_head">
+            <h1>欢迎来到课程库</h1>
+            <p>这里存放的是我们所有课程系列的编目，课程库适用于有自我导向能力的学员查找子级所需的技能</p>
+            <div class="course_head_leftDIV">
+                <h2>不知道该学什么？</h2>
+                <p>如果你需要学习引导，不妨试试学习路径</p>
+            </div>
+            <div class="course_head_rightDIV">
+                <h2>找不到你想学的课程？</h2>
+                <p>我们时刻都在时序制作新的课程内容，扩展新的课程方向，使我们的学员一直涉足于最新锐的IT技术领域。您也可以提交一份<a href="#">课程申请</a>，符合的课程内容将会加入到研发计划</p>
+            </div>
+            <img src="/static/imgs/Library.png" alt=""/>
+        </section>
+    </div>
+    <div class="slideDIV" style="height:100px;"></div>
+    <section class="contentBody_course">
+        <div>
+            <div style="background-color: #C25975;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>难易度：
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #C25975;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>难易度：
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #C25975;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>难易度：
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #C25975;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>难易度：
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #C25975;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>难易度：
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="slideDIV" style="height:150px;"></div>
+    <h2 class="upcoming_release">即将发布</h2>
+    <section class="contentBody_course ur_course">
+        <div>
+            <div style="background-color: #00AFE6;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>预计发布时间：2016/11</div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #00AFE6;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>预计发布时间：2016/11</div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #00AFE6;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>预计发布时间：2016/11</div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #00AFE6;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>预计发布时间：2016/11</div>
+            </div>
+        </div>
+
+        <div>
+            <div style="background-color: #00AFE6;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>预计发布时间：2016/11</div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+</body>
+<script>
+    window.onscroll = function(){
+        if(scrollY == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+</script>
+</html>
