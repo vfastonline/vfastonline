@@ -41,6 +41,12 @@ def test(request):
 def dashBoard(request):
     return render(request, 'DashBoard.html')
 
+def learning_path(request):
+    return render(request, 'learning_path.html')
+
+def course_library(request):
+    return render(request, 'course_library.html')
+
 
 def logout(request):
     # print 'del session'

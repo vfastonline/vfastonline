@@ -40,38 +40,40 @@
     <script src="/static/js/calendar.js"></script>
 
     <style>
-        /*prompt Start*/
-        .prompt{
+        /*promptEL Start*/
+        .promptEL{
             width: 1200px;
             height: 60px;
+            overflow: hidden;
             background: #4DB6AC;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
             border-radius: 4px;
             margin: 50px auto 0px;
             position: relative;
+            transition: all 0.35s ease-in-out;
         }
-        .prompt svg{
+        .promptEL svg{
             position: absolute;
             top: 20px;
             left: 20px;
         }
-        .prompt svg:hover{
+        .promptEL svg:hover{
             cursor: pointer;
         }
-        .prompt svg:hover path{
+        .promptEL svg:hover path{
             fill: #607D8B;
         }
-        .prompt svg:active path{
+        .promptEL svg:active path{
             fill: #FFFFFF;
         }
-        .prompt p{
+        .promptEL p{
             height: 60px;
             line-height: 60px;
             font-size: 18px;
             color: #FFFFFF;
             padding-left: 70px;
         }
-        /*prompt END*/
+        /*promptEL END*/
         /*contentBody Start*/
         .contentBody{
             width: 1200px;
@@ -110,6 +112,7 @@
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
             border-radius: 4px;
+            padding-bottom: 10px;
         }
         /*contentBody END*/
         /*contentBody_left_body--0-- Start*/
@@ -215,16 +218,192 @@
             color: #5A646E;
         }
         /*plan_head End*/
+        /*plan_body Start*/
+        .plan_body ul li{
+            position: relative;
+            height: 56px;
+            line-height: 56px;
+            padding-left: 50px;
+            padding-right: 20px;
+            background: #F0F2F4;
+            box-shadow: inset 0 1px 0 0 #D4D9DD;
+            -webkit-transition: background 0.35s,opacity 0.35s;
+            -moz-transition: background 0.35s,opacity 0.35s;
+            -ms-transition: background 0.35s,opacity 0.35s;
+            -o-transition: background 0.35s,opacity 0.35s;
+            transition: background 0.35s,opacity 0.35s;
+        }
+        .plan_body ul li:hover{
+            background: #FFFFFF;
+            box-shadow: inset 0 2px 5px #D4D9DD;
+            cursor: pointer;
+        }
+        .plan_body ul li:first-child:hover{
+            opacity: 0.8;
+            background: #4DB6AC;
+            box-shadow: none;
+        }
+        .plan_body ul li span{
+            font-size: 14px;
+            color: #5A646E;
+            margin-left: 30px;
+        }
+        .plan_body ul li time{
+            position: absolute;
+            right: 20px;
+            font-size: 14px;
+            color: #96AAAF;
+        }
+        .plan_body ul li:first-child{
+            background: #4DB6AC;
+        }
+        .plan_body ul li:first-child span{
+            color: #FFFFFF;
+        }
+        .plan_body ul li:first-child time{
+            color: #FFFFFF;
+        }
+        .plan_body ul{
+            margin-bottom: 0px;
+        }
+        /*plan_body End*/
+
+        .courseING{
+            font-size: 20px;
+            font-weight: bolder;
+            color: #384047;
+            width:1200px;
+            margin: 50px auto 0px;
+        }
+        /*contentBody_course Start*/
+        .contentBody_course:after{content: "";display: block;clear: both;}
+        .contentBody_course{
+            width: 1200px;
+            margin: 0 auto;
+            margin-top: 30px;
+            color: #5A646E;
+        }
+        .contentBody_course>div{
+            float: left;
+            width: 30%;
+            margin-bottom: 30px;
+            transition: all 0s linear;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .contentBody_course>div:hover{
+            position: relative;
+            top:-1px;
+        }
+        .contentBody_course>div>div:first-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div>div:last-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div:hover>div:first-child{
+            cursor: pointer;
+            opacity: 0.8!important;
+        }
+        .contentBody_course>div:hover>div:last-child{
+            background-color: #FAFAFA;
+            cursor: pointer;
+        }
+        .contentBody_course>div:nth-child(3n+2){
+            margin-left:  5%;
+            margin-right: 5%;
+        }
+        .contentBody_course>div>div:first-child{
+            /*背景色 数据库取*/
+            background-color: #EF5350;
+            height: 54px;
+            padding-top: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .contentBody_course>div>div:first-child{content:"";display: block;clear: both;}
+        .contentBody_course>div>div:first-child>div:first-child{
+            float: left;
+        }
+        .contentBody_course>div>div:first-child>div:last-child{
+            float: right;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        .contentBody_course>div>div:last-child{
+            padding: 20px 30px 30px 20px ;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            height:220px;
+            position: relative;
+        }
+        .contentBody_course>div>div:last-child>p:first-child{
+            color: #B4BEC8;
+        }
+        .contentBody_course>div>div:last-child>h1{
+            font-size: 20px;
+            color: #5A646E;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        .contentBody_course>div>div:last-child>p:nth-child(3){
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            height: 60px;
+            line-height: 20px;
+            font-size: 14px;
+            color: #5A646E;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(4){
+            color: #FFFFFF;
+            height: 24px;
+            font-size: 16px;
+            border-radius: 12px;
+            line-height: 24px;
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            transition: all 0s;
+            position: absolute;
+            bottom:20px;
+            -moz-user-select:none;/*火狐*/
+            -webkit-user-select:none;/*webkit浏览器*/
+            -ms-user-select:none;/*IE10*/
+            -khtml-user-select:none;/*早期浏览器*/
+            user-select:none;
+        }
+        .groupHover:hover{
+            box-shadow: 0px 1px 1px black;
+            bottom: 21px!important;
+        }
+        .groupHover:active{
+            box-shadow: 0px 0px 0px black;
+            bottom: 20px!important;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5){
+            height: 20px;
+            line-height: 20px;
+            font-size: 17px;
+            display: inline-block;
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            vertical-align: middle;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5)>img{
+            padding-bottom: 5px;
+        }
+        /*contentBody_course  End*/
     </style>
 </head>
 <body>
-<script>
-
-</script>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
     <div class="slideDIV" style="height:50px;"></div>
-    <article class="prompt" id="prompt">
+    <article class="promptEL" id="promptEL">
         <svg onclick="article_close()" width="20px" height="20px" viewBox="134 130 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="x-symble" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(137.000000, 130.000000)">
                 <path d="M7.20576489,5.31058741 L2.61295973,0.717782253 C2.03812111,0.142943636 1.08708004,0.139700026 0.502496327,0.724283738 C-0.0861629951,1.31294306 -0.0849981989,2.2537541 0.495994842,2.83474714 L5.0888,7.4275523 L0.496158495,12.0201938 C-0.0786801222,12.5950324 -0.0819970018,13.5460002 0.502496327,14.1304935 C1.09106464,14.7190619 2.03180304,14.7178244 2.61279608,14.1368314 L7.20543758,9.54418988 L11.7984742,14.1372265 C12.3733128,14.7120651 13.3243539,14.7153087 13.9089376,14.130725 C14.4975969,13.5420657 14.4964321,12.6012546 13.9154391,12.0202616 L9.32240247,7.42722499 L13.9152754,2.83435205 C14.490114,2.25951343 14.4934309,1.30854563 13.9089376,0.724052298 C13.3203693,0.135483989 12.3796309,0.136721425 11.7986378,0.717714465 L7.20576489,5.31058741 Z" id="Combined-Shape" fill="#FFFFFF"></path>
@@ -233,45 +412,133 @@
         <p>恭喜！你所填写的背景资料中的硬性指标优于本站 59% 的注册用户，加油，做更好的自己！</p>
     </article>
     <div class="slideDIV" style="height:100px;"></div>
+{#    <section class="contentBody clearfix">#}
+{#        <div class="contentBody_left pull-left">#}
+{#            <div class="contentBody_left_head">#}
+{#                <h3>正在进行的路线</h3>#}
+{#                <h2>Python 后台开发</h2>#}
+{#                <h4>{{ jindu }}</h4>#}
+{#                <div class="progressBar">#}
+{#                  <span class="blue" style="width: {{ jindu }};"></span>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="contentBody_left_body">#}
+{#                <ul>#}
+{#                    {% for course in courses %}#}
+{#                        {% if course.flag == 1 %}#}
+{#                            <a href="#" class="courseIN">#}
+{#                                <div style="width: {{ course.video_jindu }};"></div>#}
+{#                                <li>#}
+{#                                    <div>#}
+{#                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">#}
+{#                                        <span>{{ course.name }}</span>#}
+{#                                        <time>{{ course.viewtime }}</time>#}
+{#                                    </div>#}
+{#                                    <div>#}
+{#                                        <img src="{{ course.vtype_url }}" width="24px" height="24px" alt="">#}
+{#                                        <span>{{ course.video_name }}</span>#}
+{#                                        <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">#}
+{#                                    </div>#}
+{#                                </li>#}
+{#                            </a>#}
+{#                        {% else %}#}
+{#                            <a href="#">#}
+{#                                <li>#}
+{#                                    <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">#}
+{#                                    <span>{{ course.name }}</span>#}
+{#                                    <time>{{ course.viewtime }}</time>#}
+{#                                </li>#}
+{#                            </a>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="contentBody_right pull-right">#}
+{#            <div id="CalendarMain">#}
+{#                <div id="title">#}
+{#                    <img src="/static/svg/minus.svg" onclick="CalendarHandler.CalculateLastMonthDays();">#}
+{#                    <div>#}
+{#                        <span class=" selectYear">2014年</span>#}
+{#                        <span class=" selectMonth">6月</span>#}
+{#                    </div>#}
+{#                    <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>#}
+{#                    <img src="/static/svg/plus.svg" onClick="CalendarHandler.CalculateNextMonthDays();">#}
+{#                </div>#}
+{#                <div id="context">#}
+{#                    <div class="week">#}
+{#                        <h3> 一 </h3>#}
+{#                        <h3> 二 </h3>#}
+{#                        <h3> 三 </h3>#}
+{#                        <h3> 四 </h3>#}
+{#                        <h3> 五 </h3>#}
+{#                        <h3> 六 </h3>#}
+{#                        <h3> 日 </h3>#}
+{#                    </div>#}
+{#                    <div id="center">#}
+{#                        <div id="centerMain">#}
+{#                        <div id="selectYearDiv"></div>#}
+{#                        <div id="centerCalendarMain">#}
+{#                            <div id="Container"></div>#}
+{#                        </div>#}
+{#                        <div id="selectMonthDiv"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="plan_head">#}
+{#                <h3>今日学习计划</h3>#}
+{#                <p>下午好，王鹏！根据你的最近学习情况，我们向你推荐数字文学学习路线。建议你今天完成下面的学习内容</p>#}
+{#            </div>#}
+{#            <div class="plan_body">#}
+{#                <ul>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/video_1.svg" alt="">#}
+{#                        <span>集合的创建</span>#}
+{#                        <time>3:24</time>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/video.svg" alt="">#}
+{#                        <span>可变的集合</span>#}
+{#                        <time>4:50</time>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/quiz.svg" alt="">#}
+{#                        <span>什么是数据？</span>#}
+{#                        <time>5</time>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </section>#}
     <section class="contentBody clearfix">
         <div class="contentBody_left pull-left">
-            <div class="contentBody_left_head">
-                <h3>正在进行的路线</h3>
-                <h2>Python 后台开发</h2>
-                <h4>{{ jindu }}</h4>
-                <div class="progressBar">
-                  <span class="blue" style="width: {{ jindu }};"></span>
-                </div>
+            <div class="plan_head">
+                <h3>今日学习计划</h3>
+                <p>下午好，王鹏！根据你的最近学习情况，我们向你推荐数字文学学习路线。建议你今天完成下面的学习内容</p>
             </div>
-            <div class="contentBody_left_body">
+            <div class="plan_body">
                 <ul>
-                    {% for course in courses %}
-                        {% if course.flag == 1 %}
-                            <a href="#" class="courseIN">
-                                <div style="width: {{ course.video_jindu }};"></div>
-                                <li>
-                                    <div>
-                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
-                                        <span>{{ course.name }}</span>
-                                        <time>{{ course.viewtime }}</time>
-                                    </div>
-                                    <div>
-                                        <img src="{{ course.vtype_url }}" width="24px" height="24px" alt="">
-                                        <span>{{ course.video_name }}</span>
-                                        <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">
-                                    </div>
-                                </li>
-                            </a>
-                        {% else %}
-                            <a href="#">
-                                <li>
-                                    <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
-                                    <span>{{ course.name }}</span>
-                                    <time>{{ course.viewtime }}</time>
-                                </li>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
+                    <li>
+                        <img src="/static/svg/video_1.svg" alt="">
+                        <span>集合的创建</span>
+                        <time>3:24</time>
+                    </li>
+                    <li>
+                        <img src="/static/svg/video.svg" alt="">
+                        <span>可变的集合</span>
+                        <time>4:50</time>
+                    </li>
+                    <li>
+                        <img src="/static/svg/video.svg" alt="">
+                        <span>可变的集合</span>
+                        <time>4:50</time>
+                    </li>
+                    <li>
+                        <img src="/static/svg/quiz.svg" alt="">
+                        <span>什么是数据？</span>
+                        <time>5</time>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -307,9 +574,30 @@
                     </div>
                 </div>
             </div>
-            <div class="plan_head">
-                <h3>今日学习计划</h3>
-                <p>下午好，王鹏！根据你的最近学习情况，我们向你推荐数字文学学习路线。建议你今天完成下面的学习内容</p>
+        </div>
+    </section>
+    <div class="slideDIV" style="height:150px;"></div>
+    <h2 class="courseING">正在进行的课程</h2>
+    <section class="contentBody_course">
+        <div>
+            <div style="background-color: #C25975;">
+                <div>
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <div onclick="play_video('/')">
+                <p>系列课程</p>
+                <h1>jQuery 入门</h1>
+                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
+                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
+                <div>难易度：
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                </div>
             </div>
         </div>
     </section>

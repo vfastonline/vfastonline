@@ -32,6 +32,8 @@ urlpatterns = [
     url('^search', views.search, name='search'),
     url('^navtabs', views.search_js, name='navtabs'),
     url('^dashBoard', views.dashBoard),
+    url('^learning_path', views.learning_path),
+    url('^course_library', views.course_library),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

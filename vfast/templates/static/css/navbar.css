@@ -18,12 +18,10 @@
     color: #FFFFFF;
     font-weight: bolder;
     float: left;
-    margin-left: 30px;
     font-size: 36px;
 }
 .not_logged_in>div{
     float: right;
-    margin-right: 30px;
     font-weight: 400;
     font-size: 22px;
 }
@@ -66,7 +64,6 @@
 
 /*。。。。。。。*/
 .logins{
-    height: 80px;
     line-height: 70px;
     color:#8C96A5;
     font-size: 22px;
