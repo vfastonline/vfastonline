@@ -23,7 +23,7 @@
                 }).AutoComplete('show');
             }else{
                 var xmlhttpStr = new XMLHttpRequest();
-                xmlhttpStr.open("get","navtabs",true);
+                xmlhttpStr.open("get","/navtabs",true);
                 xmlhttpStr.onreadystatechange = function(){
                     if(xmlhttpStr.readyState == 4 && xmlhttpStr.status==200){
                         var classJSON = JSON.parse(xmlhttpStr.responseText);

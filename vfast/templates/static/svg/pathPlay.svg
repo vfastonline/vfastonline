@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="74px" height="74px" viewBox="0 0 74 74" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>课程路径播放</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="33" cy="33" r="33"></circle>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="VfastOnline-Unified" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="路线欢迎页" transform="translate(-683.000000, -321.000000)">
+            <g id="课程路径播放" transform="translate(687.000000, 323.000000)">
+                <g id="Oval">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#2F3746" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <path d="M22.7163774,46.4686502 C21.0617186,46.4686502 20.3896841,45.3093341 21.2183651,43.8740166 L34.7736746,20.3955318 C35.601004,18.9625552 36.9410184,18.9602142 37.7696993,20.3955318 L51.3250089,43.8740166 C52.1523383,45.3069932 51.4843584,46.4686502 49.8269965,46.4686502 L22.7163774,46.4686502 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(36.271634, 32.894286) rotate(90.000000) translate(-36.271634, -32.894286) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

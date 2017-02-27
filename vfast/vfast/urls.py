@@ -34,6 +34,7 @@ urlpatterns = [
     url('^dashBoard', views.dashBoard),
     url('^learning_path', views.learning_path),
     url('^course_library', views.course_library),
+    url('^learnPath_show', views.learnPath_show),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

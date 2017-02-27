@@ -45,6 +45,8 @@ def learning_path(request):
 def course_library(request):
     return render(request, 'course_library.html')
 
+def learnPath_show(request):
+    return render(request, 'learnPath_show.html')
 
 def logout(request):
     # print 'del session'

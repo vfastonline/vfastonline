@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="/static/js/jquery-2.1.4.js"></script>
+    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script src="/static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/modal.css"/>
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    <link rel="stylesheet" href="/static/css/navbar.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
+
+    <script src="/static/js/modalJS.js"></script>
+    <script src="/static/js/login_reg.js"></script>
+    <script src="/static/js/common.js"></script>
+
+    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
+    <script src="/static/js/sweet-alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/searchModal.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
+
+    <!--[if IE]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className = 'js';</script>
+
+    <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+
+    <!-- If you'd like to support IE8 -->
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <style>
+        #head_cont{
+            box-shadow: none;
+        }
+        /*path_head Start*/
+        .path_head_BG{
+            background-color: #303948;
+            position: relative;
+            padding: 50px 0px 180px;
+        }
+        /*path_head End*/
+        /*video_section Start*/
+        .vjs-big-play-button{
+            display: none!important;
+        }
+        .vjs-fullscreen-control{
+            display: none!important;
+        }
+        .video_section{
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .video_section>img {
+            position: absolute;
+            top: 45%;
+            left: 47.2%;
+            border-radius: 30px;
+        }
+        .video_section>img:hover{
+            cursor: pointer;
+            opacity:0.9;
+        }
+        .video_section>.video_section_left{
+            position: absolute;
+            top:0px;
+            width: 50%;
+            height:600px;
+            background:url("/static/imgs/Bitmap.png") no-repeat;
+
+        }
+        .video_section>.video_section_right{
+            position: absolute;
+            top:0px;
+            right:0px;
+            width: 50%;
+            height:600px;
+            background-color: #FFFFFF;
+            padding: 0px 40px;
+        }
+        .video_section_right>h1{
+            font-size: 28px;
+            color: #5A646E;
+        }
+        .video_section_right>p{
+            font-size: 16px;
+            font-family: Tensentype-JiaLiXiYuanJ;
+            color: #8C96A5;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            height:200px;
+            line-height: 20px;
+        }
+        .video_section_right>h2{
+            font-size: 24px;
+            color: #5A646E;
+            text-align: center;
+            text-indent: 1em;
+            margin-bottom: 20px;
+        }
+        .video_section_right>h2>span{
+            font-size: 32px;
+        }
+        .video_section_right>span{
+            float: right;
+            margin-right: 64px;
+            font-family: Tensentype-JiaLiZhongYuanJ;
+            font-size: 16px;
+            color: #8C96A5;
+        }
+        .video_section_right>.startLearnPath{
+            background: #2F3746;
+            border-radius: 4px;
+            font-size: 24px;
+            color: #FFFFFF;
+            width: 141px;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            margin: 100px auto 50px;
+        }
+        .video_section_right>.startLearnPath:hover{
+            position: relative;
+            top:-1px;
+            box-shadow: 0 2px 1px 0 rgba(0,0,0,0.50);
+            cursor: pointer;
+            opacity: 0.9;
+        }
+        .video_section_right>.startLearnPath:active{
+            position: relative;
+            top:0px;
+            box-shadow: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+        .video_section_right>div:last-child{
+            font-family: Tensentype-JiaLiXiYuanJ;
+            font-size: 16px;
+            color: #5A646E;
+            line-height: 22px;
+            text-align: right;
+        }
+        .video_section_right>div:last-child>img{
+            padding-bottom: 5px;
+        }
+        .video_section_right>div:last-child>span:last-child{
+            margin-left: 40px;
+        }
+
+
+        /*video_section End*/
+
+        /*section_2 Start*/
+        .section_2{
+            width: 1200px;
+            margin: -150px auto 0px;
+            position: relative;
+        }
+        .section_2 p{
+            margin: 0;
+        }
+        .section_2>div:after{content: "";display: block;clear:both;}
+        .section_2>div{
+            margin-top: 30px;
+        }
+        .section_2>div>div:first-child{
+            float: left;
+            width: 10%;
+            height: 100%;
+            position: relative;
+        }
+        .section_2>div>div:first-child>b{
+            display: block;
+            width: 4px;
+            height: 100%;
+            border-radius: 2px;
+            background-color: #D4D9DD;
+            margin: 0 auto;
+            position: relative;
+        }
+        .section_2>div:first-child>div:first-child>b:before{
+            content: "";
+            display: block;
+            width: 4px;
+            height: 34px;
+            background-color: #303948;
+            margin: 0 auto;
+            position: absolute;
+            top: 0px;
+            z-index: 1;
+        }
+        .section_2>div>div:first-child>b>s{
+            display: block;
+            width: 4px;
+            height: 34px;
+            border-radius: 2px;
+            background-color: #D4D9DD;
+            margin: 0 auto;
+            position: absolute;
+            bottom: -32px;
+        }
+        .section_2>div>div:first-child>i{
+            display: block;
+            width: 44px;
+            height: 44px;
+            background-color: #FFFFFF;
+            border-radius: 22px;
+            text-align: center;
+            line-height: 44px;
+            box-shadow: 0 2px 1px rgba(0,0,0,0.25);
+            margin: 0 auto;
+            position: absolute;
+            top: 30px;
+            left: 38px;
+            z-index: 1;
+        }
+        .section_2>div>div:first-child>i>svg{
+            margin-top: 10px;
+        }
+        .section_2>div:first-child>div:last-child{
+            /*margin-top: 0px;*/
+        }
+        .section_2>div>div:last-child{
+            float: left;
+            width: 90%;
+            /*margin-top: 30px;*/
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0px 2px 1px rgba(0,0,0,0.25);
+            /*padding-bottom: 14px;*/
+            overflow: hidden;
+            height: 100%;
+
+        }
+        .section_2>div>div:last-child>div:first-child{
+            padding-top: 20px;
+        }
+        .section_2>div>div:last-child>div:first-child:hover{
+            transition: all 0s;
+            background-color: #FAFAFA;
+            cursor: pointer;
+        }
+        .section_2>div>div:last-child>div:first-child>h2{
+            font-size: 20px;
+            color: #384047;
+            float: left;
+            margin-left: 30px;
+        }
+        .section_2>div>div:last-child>div:first-child>h3{
+            font-size: 18px;
+            color: #7B8B8E;
+            float: right;
+            margin-right: 44px;
+        }
+        .section_2>div>div:last-child>div:first-child>b{
+            width: 10px;
+            height: 18px;
+            display: block;
+            clear: both;
+            color: #D4C9DD;
+            position: relative;
+            top: 18px;
+            left: 40px;
+            transition: all 0.35s ease-in-out;
+        }
+        .section_2>div>div:last-child>div:first-child>p{
+            width: 85%;
+            margin: 0 auto;
+            color: #9e9e9e;
+            font-size: 14px;
+            line-height: 20px;
+        }
+        .section_2>div>div:last-child>div:first-child>div{
+            clear: both;
+        }
+        .section_2>div>div:last-child>div:first-child:after{content: "";display: block;clear: both;}
+        .section_2>div>div:last-child>div:first-child>div:last-child{
+            clear: both;
+            float: right;
+            color: #384047;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            margin-right: 44px;
+        }
+        .section_2>div>div:last-child>div:last-child>div{
+            background-color: #F0F2F4;
+            height: 56px;
+            border-top: 1px solid #D4D9DD;
+            color: #7B8B8E;
+        }
+        .section_2>div>div:last-child>div:last-child>div:hover{
+            transition: 0s;
+            background-color: #FFFFFF;
+            cursor: pointer;
+        }
+        .section_2>div>div:last-child>div:last-child>div:active{
+            background-color: #F0F2F4;
+        }
+        .section_2>div>div:last-child>div:last-child>div>i{
+            display: block;
+            float: left;
+            height: 56px;
+            line-height: 56px;
+            width: 10%;
+            text-align: center;
+        }
+        .section_2>div>div:last-child>div:last-child>div>i>svg{
+            margin-top: 15px;
+        }
+        .section_2>div>div:last-child>div:last-child>div>p{
+            float: left;
+            height: 56px;
+            line-height: 56px;
+            width: 80%;
+        }
+        .section_2>div>div:last-child>div:last-child>div>p:last-child{
+            float: right;
+            height: 56px;
+            line-height: 56px;
+            width: 10%;
+        }
+        .section_2 .trophy{
+            height: 200px!important;
+            background-color: #607D8B!important;
+            text-align: center;
+        }
+        .section_2 .trophy>img{
+            width: 180px;
+            height: 160px;
+            margin-top: 20px;
+        }
+        .section_2_div{
+            transition: height 0.35s ease-in-out;
+        }
+        .section_2_div>div:first-child{
+            transition: height 0.35s ease-in-out;
+        }
+        .section_2_div_div{
+            transition: height 0.35s ease-in-out;
+        }
+        /*section_2 End*/
+        @keyframes video_left_animation {
+            0%{
+                left:0px;
+            }
+            100%{
+                left:-600px;
+            }
+        }
+        @keyframes video_right_animation {
+            0%{
+                right:0px;
+            }
+            100%{
+                right:-600px;
+            }
+        }
+        @keyframes video_left_animation_back {
+            0%{
+                left:-600px;
+            }
+            100%{
+                left:0px;
+            }
+        }
+        @keyframes video_right_animation_back {
+            0%{
+                right:-600px;
+            }
+            100%{
+                right:0px;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <div class="path_head_BG">
+        <section class="video_section">
+            <video data-setup="{}" id="my-video" width="1200px" height="600px" class="video-js" controls preload="auto"
+                   onplay="show_Play()" onpause="video_Pause()"  onended="video_Ended()" >
+                <source src="/static/video/1.mp4" type="video/mp4">
+                您的浏览器不支持 video 标签。
+            </video>
+            <div class="video_section_left" id="video_section_left"></div>
+            <div class="video_section_right" id="video_section_right">
+                <h1>IOS 开发工程师</h1>
+                <p>在移动端应用程序已经高度融入我们日常生活的今天，世界各地几乎全数的产业链都依赖于它；大多数公司都在制作自己的移动端应用程序。<br/><br/>
+在本学习路线课程中，我们将从零开始使用 Swift 编程语言，从基本概念到项目开发。不需要任何编程基础。完成本路线后，你将具备在使用Swift的公司谋求一职以及上架你自己项目的能力，这无疑将会是一场非凡之旅！</p>
+                <h2><span>1379</span>&nbsp;个岗位招聘&nbsp;&nbsp;&nbsp;<span>8K</span>&nbsp;入门起薪</h2>
+                <span>2017年3月</span>
+                <div class="startLearnPath" id="startLearnPath">开始学习</div>
+                <div>
+                    <span>岗位空缺度：</span>
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <img src="/static/svg/xingxing.svg" alt="">
+                    <span>平均入门级薪资：<span>￥9000/月</span></span>
+                </div>
+            </div>
+            <img src="/static/svg/pathPlay.svg" width="65px" height="65px" alt="" onclick="video_Play()" id="video_start" class="video_start"/>
+        </section>
+    </div>
+    <div class="slideDIV" style="height:150px;"></div>
+    <section class="section_2">
+        <div class="section_2_div">
+            <div>
+                <b>
+                    <s></s>
+                </b>
+                <i>
+                    <svg width="18px" height="24px" viewBox="147 526 18 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M152.76817,526.220903 C151.239447,525.415229 148.224766,526.971649 147.358786,528.341165 C146.972214,528.953071 147.000459,529.395065 147.000459,529.645049 L147.138037,542.63873 C147.147452,542.914653 147.494854,543.286733 147.791886,543.469328 C148.411149,543.849285 157.788922,549.703709 158.055458,549.869532 C158.198388,549.958277 158.367011,550 158.533822,550 C158.675736,550 158.818145,549.968707 158.947103,549.90464 C159.228901,549.766294 159.404633,549.497233 159.404633,549.205005 L159.404633,535.557226 C159.404633,535.273398 159.23881,535.01043 158.96898,534.868516 L148.822893,529.205086 C148.937578,528.982305 149.389508,528.510529 150.218596,528.075645 C151.092948,527.618115 151.747319,527.7908 151.897606,527.848801 C151.897606,527.848801 161.634721,533.059807 161.932796,533.21443 C162.229582,533.369301 162.234934,533.392468 162.234934,533.657467 L162.234934,546.607915 C162.234934,547.253887 162.890815,547.518391 163.372254,547.518391 C163.853171,547.518391 164.366121,547.047136 164.366121,546.607915 L164.366121,532.663325 C164.366396,532.379249 164.199557,532.116556 163.930743,531.974367 L152.76817,526.220903 Z" id="Shape" stroke="none" fill="#D4D9DD" fill-rule="evenodd"></path>
+                    </svg>
+                </i>
+            </div>
+            <div class="section_2_div_div">
+                <div onclick="class_onclick(this)" class="class_hidden" name="section_2_div_div_div" >
+                    <h2>Swift 3.0 基础</h2>
+                    <h3>2 小时</h3>
+                    <b>></b>
+                    <p>Today,many people rely on computers to do homework,work,and create or store useful information,Therefore,it is important for the information on the computer to be stroed and kept properly.it is also extremely improtant for people on computers to protect their</p>
+                    <div>难易度：
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <div class="class_video" onclick="play_video()">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>集合</p>
+                        <p>3:32</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>集合的创建</p>
+                        <p>3:24</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>可变的集合</p>
+                        <p>4:50</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 1078 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="问题图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 1078.000000)">
+                                    <circle id="Oval" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M10.5233258,16.8916854 L10.5233258,17.0642697 C10.5233258,17.7373483 11.0410787,18.2551011 11.7486742,18.2551011 C12.4562697,18.2551011 12.9740225,17.7373483 12.9740225,17.0642697 L12.9740225,16.8916854 C12.9740225,16.2186067 12.4562697,15.7008539 11.7486742,15.7008539 C11.0410787,15.7008539 10.5233258,16.2186067 10.5233258,16.8916854 L10.5233258,16.8916854 Z" id="?" fill="#FFFFFF"></path>
+                                    <path d="M11.8522247,14.1713258 C12.2491685,14.1713258 12.5253034,13.8606742 12.5943371,13.4809888 L12.6633708,12.956764 C14.5790562,12.6288539 16.149573,11.6451236 16.149573,9.4705618 L16.149573,9.43604494 C16.149573,7.27874157 14.5100225,5.93258427 12.0938427,5.93258427 C10.5060674,5.93258427 9.34975281,6.50211236 8.43505618,7.36503371 C8.1934382,7.57213483 8.08988764,7.84826966 8.08988764,8.10714607 C8.08988764,8.62489888 8.52134831,9.05635955 9.05635955,9.05635955 C9.29797753,9.05635955 9.52233708,8.95280899 9.69492135,8.81474157 C10.3852584,8.1934382 11.1273708,7.86552809 12.0420674,7.86552809 C13.2846742,7.86552809 14.0267865,8.53860674 14.0267865,9.50507865 L14.0267865,9.53959551 C14.0267865,10.6268764 13.1293483,11.2481798 11.5070562,11.4035056 C11.0410787,11.4552809 10.7649438,11.8004494 10.8339775,12.266427 L11.0065618,13.4809888 C11.0583371,13.8779326 11.3517303,14.1713258 11.7486742,14.1713258 L11.8522247,14.1713258 Z" id="?" fill="#FFFFFF"></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>集合</p>
+                        <p>5 题</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>控制流</p>
+                        <p>7:20</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>if、switch与guard语句</p>
+                        <p>4:38</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 1078 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="问题图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 1078.000000)">
+                                    <circle id="Oval" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M10.5233258,16.8916854 L10.5233258,17.0642697 C10.5233258,17.7373483 11.0410787,18.2551011 11.7486742,18.2551011 C12.4562697,18.2551011 12.9740225,17.7373483 12.9740225,17.0642697 L12.9740225,16.8916854 C12.9740225,16.2186067 12.4562697,15.7008539 11.7486742,15.7008539 C11.0410787,15.7008539 10.5233258,16.2186067 10.5233258,16.8916854 L10.5233258,16.8916854 Z" id="?" fill="#FFFFFF"></path>
+                                    <path d="M11.8522247,14.1713258 C12.2491685,14.1713258 12.5253034,13.8606742 12.5943371,13.4809888 L12.6633708,12.956764 C14.5790562,12.6288539 16.149573,11.6451236 16.149573,9.4705618 L16.149573,9.43604494 C16.149573,7.27874157 14.5100225,5.93258427 12.0938427,5.93258427 C10.5060674,5.93258427 9.34975281,6.50211236 8.43505618,7.36503371 C8.1934382,7.57213483 8.08988764,7.84826966 8.08988764,8.10714607 C8.08988764,8.62489888 8.52134831,9.05635955 9.05635955,9.05635955 C9.29797753,9.05635955 9.52233708,8.95280899 9.69492135,8.81474157 C10.3852584,8.1934382 11.1273708,7.86552809 12.0420674,7.86552809 C13.2846742,7.86552809 14.0267865,8.53860674 14.0267865,9.50507865 L14.0267865,9.53959551 C14.0267865,10.6268764 13.1293483,11.2481798 11.5070562,11.4035056 C11.0410787,11.4552809 10.7649438,11.8004494 10.8339775,12.266427 L11.0065618,13.4809888 C11.0583371,13.8779326 11.3517303,14.1713258 11.7486742,14.1713258 L11.8522247,14.1713258 Z" id="?" fill="#FFFFFF"></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>控制流</p>
+                        <p>6 题</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section_2_div">
+            <div>
+                <b>
+                    <s></s>
+                </b>
+                <i>
+                    <svg width="18px" height="24px" viewBox="147 526 18 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M152.76817,526.220903 C151.239447,525.415229 148.224766,526.971649 147.358786,528.341165 C146.972214,528.953071 147.000459,529.395065 147.000459,529.645049 L147.138037,542.63873 C147.147452,542.914653 147.494854,543.286733 147.791886,543.469328 C148.411149,543.849285 157.788922,549.703709 158.055458,549.869532 C158.198388,549.958277 158.367011,550 158.533822,550 C158.675736,550 158.818145,549.968707 158.947103,549.90464 C159.228901,549.766294 159.404633,549.497233 159.404633,549.205005 L159.404633,535.557226 C159.404633,535.273398 159.23881,535.01043 158.96898,534.868516 L148.822893,529.205086 C148.937578,528.982305 149.389508,528.510529 150.218596,528.075645 C151.092948,527.618115 151.747319,527.7908 151.897606,527.848801 C151.897606,527.848801 161.634721,533.059807 161.932796,533.21443 C162.229582,533.369301 162.234934,533.392468 162.234934,533.657467 L162.234934,546.607915 C162.234934,547.253887 162.890815,547.518391 163.372254,547.518391 C163.853171,547.518391 164.366121,547.047136 164.366121,546.607915 L164.366121,532.663325 C164.366396,532.379249 164.199557,532.116556 163.930743,531.974367 L152.76817,526.220903 Z" id="Shape" stroke="none" fill="#D4D9DD" fill-rule="evenodd"></path>
+                    </svg>
+                </i>
+            </div>
+            <div class="section_2_div_div">
+                <div onclick="class_onclick(this)" class="class_hidden" name="section_2_div_div_div">
+                    <h2>Swift 3.0 基础</h2>
+                    <h3>2 小时</h3>
+                    <b>></b>
+                    <p>Today,many people rely on computers to do homework,work,and create or store useful information,Therefore,it is important for the information on the computer to be stroed and kept properly.it is also extremely improtant for people on computers to protect their</p>
+                    <div>难易度：
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                        <svg width="15px" height="17px" viewBox="1078 753 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" stroke="black" fill-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>集合</p>
+                        <p>3:32</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>集合的创建</p>
+                        <p>3:24</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>可变的集合</p>
+                        <p>4:50</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 1078 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="问题图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 1078.000000)">
+                                    <circle id="Oval" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M10.5233258,16.8916854 L10.5233258,17.0642697 C10.5233258,17.7373483 11.0410787,18.2551011 11.7486742,18.2551011 C12.4562697,18.2551011 12.9740225,17.7373483 12.9740225,17.0642697 L12.9740225,16.8916854 C12.9740225,16.2186067 12.4562697,15.7008539 11.7486742,15.7008539 C11.0410787,15.7008539 10.5233258,16.2186067 10.5233258,16.8916854 L10.5233258,16.8916854 Z" id="?" fill="#FFFFFF"></path>
+                                    <path d="M11.8522247,14.1713258 C12.2491685,14.1713258 12.5253034,13.8606742 12.5943371,13.4809888 L12.6633708,12.956764 C14.5790562,12.6288539 16.149573,11.6451236 16.149573,9.4705618 L16.149573,9.43604494 C16.149573,7.27874157 14.5100225,5.93258427 12.0938427,5.93258427 C10.5060674,5.93258427 9.34975281,6.50211236 8.43505618,7.36503371 C8.1934382,7.57213483 8.08988764,7.84826966 8.08988764,8.10714607 C8.08988764,8.62489888 8.52134831,9.05635955 9.05635955,9.05635955 C9.29797753,9.05635955 9.52233708,8.95280899 9.69492135,8.81474157 C10.3852584,8.1934382 11.1273708,7.86552809 12.0420674,7.86552809 C13.2846742,7.86552809 14.0267865,8.53860674 14.0267865,9.50507865 L14.0267865,9.53959551 C14.0267865,10.6268764 13.1293483,11.2481798 11.5070562,11.4035056 C11.0410787,11.4552809 10.7649438,11.8004494 10.8339775,12.266427 L11.0065618,13.4809888 C11.0583371,13.8779326 11.3517303,14.1713258 11.7486742,14.1713258 L11.8522247,14.1713258 Z" id="?" fill="#FFFFFF"></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>集合</p>
+                        <p>5 题</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>控制流</p>
+                        <p>7:20</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 881 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="视频课程图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 881.000000)">
+                                    <circle id="Oval-2" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M9.3575282,16.4690801 C8.80921695,16.4690801 8.5878182,16.0826676 8.86112553,15.6092855 L12.7643654,8.84867579 C13.038521,8.37382431 13.4838634,8.37529361 13.7571707,8.84867579 L17.6604105,15.6092855 C17.9345661,16.0841369 17.7106225,16.4690801 17.1640078,16.4690801 L9.3575282,16.4690801 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" transform="translate(13.260802, 12.481084) rotate(90.000000) translate(-13.260802, -12.481084) "></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>if、switch与guard语句</p>
+                        <p>4:38</p>
+                    </div>
+                    <div class="class_video">
+                        <i>
+                            <svg width="24px" height="24px" viewBox="253 1078 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="问题图标" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(253.000000, 1078.000000)">
+                                    <circle id="Oval" fill="#B4BEC8" cx="12" cy="12" r="12"></circle>
+                                    <path d="M10.5233258,16.8916854 L10.5233258,17.0642697 C10.5233258,17.7373483 11.0410787,18.2551011 11.7486742,18.2551011 C12.4562697,18.2551011 12.9740225,17.7373483 12.9740225,17.0642697 L12.9740225,16.8916854 C12.9740225,16.2186067 12.4562697,15.7008539 11.7486742,15.7008539 C11.0410787,15.7008539 10.5233258,16.2186067 10.5233258,16.8916854 L10.5233258,16.8916854 Z" id="?" fill="#FFFFFF"></path>
+                                    <path d="M11.8522247,14.1713258 C12.2491685,14.1713258 12.5253034,13.8606742 12.5943371,13.4809888 L12.6633708,12.956764 C14.5790562,12.6288539 16.149573,11.6451236 16.149573,9.4705618 L16.149573,9.43604494 C16.149573,7.27874157 14.5100225,5.93258427 12.0938427,5.93258427 C10.5060674,5.93258427 9.34975281,6.50211236 8.43505618,7.36503371 C8.1934382,7.57213483 8.08988764,7.84826966 8.08988764,8.10714607 C8.08988764,8.62489888 8.52134831,9.05635955 9.05635955,9.05635955 C9.29797753,9.05635955 9.52233708,8.95280899 9.69492135,8.81474157 C10.3852584,8.1934382 11.1273708,7.86552809 12.0420674,7.86552809 C13.2846742,7.86552809 14.0267865,8.53860674 14.0267865,9.50507865 L14.0267865,9.53959551 C14.0267865,10.6268764 13.1293483,11.2481798 11.5070562,11.4035056 C11.0410787,11.4552809 10.7649438,11.8004494 10.8339775,12.266427 L11.0065618,13.4809888 C11.0583371,13.8779326 11.3517303,14.1713258 11.7486742,14.1713258 L11.8522247,14.1713258 Z" id="?" fill="#FFFFFF"></path>
+                                </g>
+                            </svg>
+                        </i>
+                        <p>控制流</p>
+                        <p>6 题</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section_2_div">
+            <div style="height: 60%;">
+                <b>
+                    <s></s>
+                </b>
+                <i>
+                    <svg width="24px" height="20px" viewBox="144 2881 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M148.363636,2892.10545 L148.363636,2896.46909 L156,2900.63636 L163.636364,2896.46909 L163.636364,2892.10545 L156,2896.27273 L148.363636,2892.10545 L148.363636,2892.10545 Z M156,2881 L144,2887.54545 L156,2894.09091 L165.818182,2888.73455 L165.818182,2896.27273 L168,2896.27273 L168,2887.54545 L156,2881 L156,2881 Z" id="Shape" stroke="none" fill="#D4D9DD" fill-rule="evenodd"></path>
+                    </svg>
+                </i>
+            </div>
+            <div class="trophy">
+                <img src="/static/imgs/dajiangbei.png" />
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+</body>
+<script>
+    window.onscroll = function(){
+        if(scrollY == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+    function show_Play(){
+        video_section_left.style.animation = "video_left_animation 0.35s";
+        video_section_right.style.animation = "video_right_animation 0.35s";
+        video_section_left.style.animationFillMode = "forwards";
+        video_section_right.style.animationFillMode = "forwards";
+        document.getElementById("video_start").style.display = "none";
+    }
+    function video_Play(){
+        if(video_section_left.style.animation != 'video_left_animation 0.35s forwards'){
+            video_section_left.style.animation = "video_left_animation 0.35s";
+            video_section_right.style.animation = "video_right_animation 0.35s";
+            video_section_left.style.animationFillMode = "forwards";
+            video_section_right.style.animationFillMode = "forwards";
+            setTimeout(function(){
+                document.getElementsByTagName("video")[0].play();
+            },100)
+        }else{
+            document.getElementsByTagName("video")[0].play();
+        }
+    }
+    function video_Pause(){
+        video_section_left.style.animation = "video_left_animation_back 0.35s";
+        video_section_right.style.animation = "video_right_animation_back 0.35s";
+        document.getElementById("video_start").style.display = "block";
+    }
+    function video_Ended(){
+        document.getElementById("video_start").style.display = "block";
+    }
+    var up_down_animation = false;
+    function class_onclick(t){
+        if(!up_down_animation){
+            up_down_animation = true;
+            var parentHeight = document.defaultView.getComputedStyle(t.parentNode,null).height;
+            var class_video_count = t.parentNode.getElementsByClassName("class_video").length;
+            class_video_count = class_video_count * 57;
+            parentHeight = parentHeight.substring(0,parentHeight.indexOf('px'));
+            if(t.className == "class_hidden"){
+                t.parentNode.style.height = parseInt(parentHeight) + parseInt(class_video_count) + 20 + "px";
+                t.parentNode.parentNode.style.height = parseInt(parentHeight) + parseInt(class_video_count) + 20 + "px";
+                t.className = "class_show";
+                var bObject = t.getElementsByTagName("b")[0];
+                bObject.style.transform = "rotate(90deg)";
+            }else{
+                t.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+                t.parentNode.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+                t.className = "class_hidden";
+                var bObject = t.getElementsByTagName("b")[0];
+                bObject.style.transform = "rotate(0deg)";
+            }
+            setTimeout(function(){
+                up_down_animation = false;
+            },350);
+        }
+    }
+
+    var section_2_divArr = document.getElementsByClassName("section_2_div");
+    for(var i = 0 ; i < section_2_divArr.length ; i++){
+        section_2_divArr[i].style.height = section_2_divArr[i].offsetHeight+ 20 + "px";
+    }
+
+    var section_2_divArr = document.getElementsByClassName("section_2_div_div");
+    for(var i = 0 ; i < section_2_divArr.length ; i++){
+        var t = section_2_divArr[i].getElementsByClassName("class_hidden")[0];
+        var parentHeight = document.defaultView.getComputedStyle(t.parentNode,null).height;
+        var class_video_count = t.parentNode.getElementsByClassName("class_video").length;
+        class_video_count = class_video_count * 57;
+        parentHeight = parentHeight.substring(0,parentHeight.indexOf('px'));
+        t.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+        t.parentNode.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+    }
+</script>
+<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+</html>
