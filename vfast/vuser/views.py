@@ -221,18 +221,22 @@ def dashboard(request, param):
         user = User.objects.get(id=param)
         pathid = user.pathid
         print pathid
+        #当没有正在学习的路线的时候, 显示已经学过的课程
         if pathid == 0:
-            courses_learn = WatchRecord.objects.filter(user=user).values().order_by('-createtime')[0:6]
-            print courses_learn
-            return HttpResponse('ok')
-
+            sql = "select vr.video_id, vv.vtype as video_type, vc.*, vp.color as tech_color, vp.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_program as vp where vp.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id" % user.id
+            courses = dictfetchall(sql)
+            print courses
+            # return HttpResponse('ok')
+            return render(request, 'DashBoard.html', {'courses':courses, 'path_flag': False})
+        #显示正在学习的路线
         else:
             orders = Path.objects.get(id=pathid).orders
             sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (orders, orders)
             print sql
-            courses = dictfetchall(sql)
+            courses = dictfetchall(sql)             #获取路线在的所有课程, 按orders排序
             sql2 = 'select * from vrecord_watchcourse where user_id = %s' % user.id
-            courses_wathced = dictfetchall(sql2)
+            courses_wathced = dictfetchall(sql2)    #获取用户观看过的课程
+            #课程时间显示转换
             for i in courses:
                 for j in courses_wathced:
                     try:
@@ -243,18 +247,19 @@ def dashboard(request, param):
                     except:
                         logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
             # print courses
+            #查找出用户观看过的视频
             sql3 = """select * from (select vw. *, vv.name, vv.vtype_url from vrecord_watchrecord as vw, vcourse_video as vv where vw.video_id = vv.id and vw.course_id in (%s) and vw.user_id = %s order by vw.createtime desc) as t group by course_id;
     """ % (orders, user.id)
-            # print sql3
             videos = dictfetchall(sql3)
-            # print videos
+            #给每个课程加上需要跳转的video信息
             for cour in courses:
                 for v in videos:
                     if cour['id'] == v['course_id']:
                         cour['video_id'] = v['id']
                         cour['video_name'] = v['name']
                         cour['vtype_url'] = v['vtype_url']
-            # print courses
+
+            #给正在进行观看的视频标记出来
             tmp = []
             for z in courses:
                 tmp.append(z['createtime'])
@@ -279,10 +284,16 @@ def dashboard(request, param):
                     icon_url[0] = icon_url[0] + '_1'
                     icon_url = '.'.join(icon_url)
                     print icon_url
+                    vicon_url = item['vtype_url'].split('.')
+                    vicon_url[0] = vicon_url[0] + '_1'
+                    vicon_url = '.'.join(vicon_url)
                     item['icon_url'] = icon_url
+                    item['vtype_url'] = vicon_url
                     print item['video_jindu']
                     # logging.getLogger().info(item['video_jindu'])
 
+
+            #进行路线的百分比
             p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % orders
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
                 orders, user.id)
@@ -293,7 +304,7 @@ def dashboard(request, param):
             logging.getLogger().info(connection.queries)
             # print courses
             # return HttpResponse(json.dumps({'courses': courses, 'jindu': jindu}, ensure_ascii=False))
-            return render(request, 'DashBoard.html', {'courses': courses, 'jindu': jindu})
+            return render(request, 'DashBoard.html', {'courses': courses, 'jindu': jindu, 'path_flag': True})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('failed')

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title></title>
@@ -412,105 +412,108 @@
         <p>恭喜！你所填写的背景资料中的硬性指标优于本站 59% 的注册用户，加油，做更好的自己！</p>
     </article>
     <div class="slideDIV" style="height:100px;"></div>
-{#    <section class="contentBody clearfix">#}
-{#        <div class="contentBody_left pull-left">#}
-{#            <div class="contentBody_left_head">#}
-{#                <h3>正在进行的路线</h3>#}
-{#                <h2>Python 后台开发</h2>#}
-{#                <h4>{{ jindu }}</h4>#}
-{#                <div class="progressBar">#}
-{#                  <span class="blue" style="width: {{ jindu }};"></span>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="contentBody_left_body">#}
-{#                <ul>#}
-{#                    {% for course in courses %}#}
-{#                        {% if course.flag == 1 %}#}
-{#                            <a href="#" class="courseIN">#}
-{#                                <div style="width: {{ course.video_jindu }};"></div>#}
-{#                                <li>#}
-{#                                    <div>#}
-{#                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">#}
-{#                                        <span>{{ course.name }}</span>#}
-{#                                        <time>{{ course.viewtime }}</time>#}
-{#                                    </div>#}
-{#                                    <div>#}
-{#                                        <img src="{{ course.vtype_url }}" width="24px" height="24px" alt="">#}
-{#                                        <span>{{ course.video_name }}</span>#}
-{#                                        <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">#}
-{#                                    </div>#}
-{#                                </li>#}
-{#                            </a>#}
-{#                        {% else %}#}
-{#                            <a href="#">#}
-{#                                <li>#}
-{#                                    <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">#}
-{#                                    <span>{{ course.name }}</span>#}
-{#                                    <time>{{ course.viewtime }}</time>#}
-{#                                </li>#}
-{#                            </a>#}
-{#                        {% endif %}#}
-{#                    {% endfor %}#}
-{#                </ul>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="contentBody_right pull-right">#}
-{#            <div id="CalendarMain">#}
-{#                <div id="title">#}
-{#                    <img src="/static/svg/minus.svg" onclick="CalendarHandler.CalculateLastMonthDays();">#}
-{#                    <div>#}
-{#                        <span class=" selectYear">2014年</span>#}
-{#                        <span class=" selectMonth">6月</span>#}
-{#                    </div>#}
-{#                    <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>#}
-{#                    <img src="/static/svg/plus.svg" onClick="CalendarHandler.CalculateNextMonthDays();">#}
-{#                </div>#}
-{#                <div id="context">#}
-{#                    <div class="week">#}
-{#                        <h3> 一 </h3>#}
-{#                        <h3> 二 </h3>#}
-{#                        <h3> 三 </h3>#}
-{#                        <h3> 四 </h3>#}
-{#                        <h3> 五 </h3>#}
-{#                        <h3> 六 </h3>#}
-{#                        <h3> 日 </h3>#}
-{#                    </div>#}
-{#                    <div id="center">#}
-{#                        <div id="centerMain">#}
-{#                        <div id="selectYearDiv"></div>#}
-{#                        <div id="centerCalendarMain">#}
-{#                            <div id="Container"></div>#}
-{#                        </div>#}
-{#                        <div id="selectMonthDiv"></div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="plan_head">#}
-{#                <h3>今日学习计划</h3>#}
-{#                <p>下午好，王鹏！根据你的最近学习情况，我们向你推荐数字文学学习路线。建议你今天完成下面的学习内容</p>#}
-{#            </div>#}
-{#            <div class="plan_body">#}
-{#                <ul>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/video_1.svg" alt="">#}
-{#                        <span>集合的创建</span>#}
-{#                        <time>3:24</time>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/video.svg" alt="">#}
-{#                        <span>可变的集合</span>#}
-{#                        <time>4:50</time>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/quiz.svg" alt="">#}
-{#                        <span>什么是数据？</span>#}
-{#                        <time>5</time>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </div>#}
-{#        </div>#}
-{#    </section>#}
+
+    {% if path_flag == True %}
+    <section class="contentBody clearfix">
+        <div class="contentBody_left pull-left">
+            <div class="contentBody_left_head">
+                <h3>正在进行的路线</h3>
+                <h2>Python 后台开发</h2>
+                <h4>{{ jindu }}</h4>
+                <div class="progressBar">
+                  <span class="blue" style="width: {{ jindu }};"></span>
+                </div>
+            </div>
+            <div class="contentBody_left_body">
+                <ul>
+                    {% for course in courses %}
+                        {% if course.flag == 1 %}
+                            <a href="#" class="courseIN">
+                                <div style="width: {{ course.video_jindu }};"></div>
+                                <li>
+                                    <div>
+                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                        <span>{{ course.name }}</span>
+                                        <time>{{ course.viewtime }}</time>
+                                    </div>
+                                    <div>
+                                        <img src="{{ course.vtype_url }}" width="24px" height="24px" alt="">
+                                        <span>{{ course.video_name }}</span>
+                                        <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">
+                                    </div>
+                                </li>
+                            </a>
+                        {% else %}
+                            <a href="#">
+                                <li>
+                                    <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                    <span>{{ course.name }}</span>
+                                    <time>{{ course.viewtime }}</time>
+                                </li>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="contentBody_right pull-right">
+            <div id="CalendarMain">
+                <div id="title">
+                    <img src="/static/svg/minus.svg" onclick="CalendarHandler.CalculateLastMonthDays();">
+                    <div>
+                        <span class=" selectYear">2014年</span>
+                        <span class=" selectMonth">6月</span>
+                    </div>
+                    <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>
+                    <img src="/static/svg/plus.svg" onClick="CalendarHandler.CalculateNextMonthDays();">
+                </div>
+                <div id="context">
+                    <div class="week">
+                        <h3> 一 </h3>
+                        <h3> 二 </h3>
+                        <h3> 三 </h3>
+                        <h3> 四 </h3>
+                        <h3> 五 </h3>
+                        <h3> 六 </h3>
+                        <h3> 日 </h3>
+                    </div>
+                    <div id="center">
+                        <div id="centerMain">
+                        <div id="selectYearDiv"></div>
+                        <div id="centerCalendarMain">
+                            <div id="Container"></div>
+                        </div>
+                        <div id="selectMonthDiv"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="plan_head">
+                <h3>今日学习计划</h3>
+                <p>下午好，王鹏！根据你的最近学习情况，我们向你推荐数字文学学习路线。建议你今天完成下面的学习内容</p>
+            </div>
+            <div class="plan_body">
+                <ul>
+                    <li>
+                        <img src="/static/svg/video_1.svg" alt="">
+                        <span>集合的创建</span>
+                        <time>3:24</time>
+                    </li>
+                    <li>
+                        <img src="/static/svg/video.svg" alt="">
+                        <span>可变的集合</span>
+                        <time>4:50</time>
+                    </li>
+                    <li>
+                        <img src="/static/svg/quiz.svg" alt="">
+                        <span>什么是数据？</span>
+                        <time>5</time>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+{% else %}
     <section class="contentBody clearfix">
         <div class="contentBody_left pull-left">
             <div class="plan_head">
@@ -600,7 +603,37 @@
                 </div>
             </div>
         </div>
+
+        {% for course in courses %}
+            <div>
+            <div style="background-color: {{ course.color }};">
+                <div>
+                    <img src="{{ course.icon_url }}" alt="">
+                </div>
+                <div>72小时</div>
+            </div>
+            <!--判断是跳转视频, 还是题目-->
+            {% if course.video_type == 0 %}      <!--跳转到视频-->
+                <div onclick="play_video('/v')">
+            {% else %}
+                <div onclick="play_video('/t')">   <!--跳转到题目-->
+            {% endif %}
+        <p>系列课程</p>
+        <h1>{{ course.name }}</h1>
+        <p>{{ course.desc }}</p>
+            <div style="background-color: {{ course.tech_color }};" class="groupHover" onclick="stopPPG(this)">{{ course.tech_name }}</div>
+        <div>难易度:
+            <img src="/static/svg/xingxing_1.svg" alt="">
+            <img src="/static/svg/xingxing_1.svg" alt="">
+            <img src="/static/svg/xingxing_1.svg" alt="">
+            <img src="/static/svg/xingxing.svg" alt="">
+            <img src="/static/svg/xingxing.svg" alt="">
+        </div>
+        </div>
+        </div>
+        {% endfor %}
     </section>
+{% endif %}
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
 {% include "search_div.html" %}
