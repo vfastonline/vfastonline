@@ -83,6 +83,7 @@ class Video(models.Model):
     end = models.IntegerField('是否为最后一节视频', default=0)  #0不是, 1是
     vtype = models.IntegerField('类型, 视频, 题目', default=0)
     vtype_url = models.CharField('类型图标', max_length=50, default='/static/svg/video.svg')
+    order = models.IntegerField('视频播放顺序', default=0)
 
     def __unicode__(self):
         return self.name
