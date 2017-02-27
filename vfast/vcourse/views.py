@@ -4,7 +4,7 @@ import json
 import os
 import time
 
-from vfast.api import require_role, require_login
+from vfast.api import require_role, require_login, dictfetchall
 from django.conf import settings
 from vuser.models import User
 from vperm.models import Role
@@ -12,8 +12,9 @@ from vcourse.models import Program, Course, Video, Path
 from django.shortcuts import render
 from django.http import HttpResponse
 
-
 """现已完成的功能  课程添加, 视频添加, 路线添加, 获取单个视频详情, 单个课程以及所有视频, 所有课程, 路线详情"""
+
+
 # Create your views here.
 def test(request):
     return HttpResponse('hello,world~!')
@@ -24,11 +25,11 @@ def course_add(request):
     """添加课程系列"""
     try:
         if request.method == 'GET':
-            techs = Program.objects.filter().values('id','name')
+            techs = Program.objects.filter().values('id', 'name')
             roleobj = Role.objects.get(rolename='teacher')
             teachers = User.objects.filter(role=roleobj).values('id', 'username')
             print techs, teachers
-            return render(request, 'du/coursetest.html', {'techs':techs, 'teachers':teachers})
+            return render(request, 'du/coursetest.html', {'techs': techs, 'teachers': teachers})
         else:
             name = request.POST.get('name')
             desc = request.POST.get('desc', ' ')
@@ -59,7 +60,7 @@ def video_add(request):
     try:
         if request.method == 'GET':
             courses = Course.objects.filter().values('id', 'name')
-            return render(request, 'du/coursetest.html', {'courses':courses})
+            return render(request, 'du/coursetest.html', {'courses': courses})
         else:
             print request.POST
             print request.FILES
@@ -94,9 +95,9 @@ def video_add(request):
                     logging.getLogger().error('上传视频是保存文件出错')
             try:
                 Video.objects.create(name=name, vurl=vurl, cc=cc, vtime=vtime, notes=notes,
-                                 course=course, createtime=createtime)
+                                     course=course, createtime=createtime)
             except:
-                return HttpResponse(json.dumps({'code':1, 'msg': '顺序不能重复'}, ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 1, 'msg': '顺序不能重复'}, ensure_ascii=False))
 
             return HttpResponse(json.dumps({'code': 0, u'msg': '上传视频成功'}, ensure_ascii=False))
     except:
@@ -114,7 +115,7 @@ def path_add(request):
             desc = request.POST.get('desc')
             jobscount = request.POST.get('jobscount')
             salary = request.POST.get('salary', ' ')
-            jstime = request.POST.get('jstime', ' ')   #job salary调查时间
+            jstime = request.POST.get('jstime', ' ')  # job salary调查时间
             difficult = request.POST.get('difficult', 4)
             totaltime = request.POST.get('totaltime', ' ')
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
@@ -168,7 +169,7 @@ def getcourse(request):
         course = Course.objects.get(id=cid)
         videos = Video.objects.filter(course=course).all().values()
         print course, videos
-        return render(request, 'du/courselist.html', {'course':course, 'videos':videos})
+        return render(request, 'du/courselist.html', {'course': course, 'videos': videos})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -186,9 +187,9 @@ def getpath(request):
         for cid in course:
             c = Course.objects.get(id=cid)
             courseall.append(c)
-        path =  Path.objects.get(id=pid)
+        path = Path.objects.get(id=pid)
         print path, courseall
-        return render(request, 'du/pathlist.html', {'path':path, 'courses': courseall})
+        return render(request, 'du/pathlist.html', {'path': path, 'courses': courseall})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -197,7 +198,7 @@ def getpath(request):
 def getcourses(request):
     """获取所有的课程"""
     try:
-        call = []
+        pubs, not_pubs = [], []
         type = request.GET.get('type', None)
         print type
         if type:
@@ -206,8 +207,12 @@ def getcourses(request):
         else:
             courses = Course.objects.filter().values('id')
         for c in courses:
-            call.append(Course.objects.get(id=c['id']))
-        return render(request, 'du/courseall.html', {'courses':call})
+            try:
+                pubs.append(Course.objects.get(id=c['id'], pubstatus=0))
+            except:
+                not_pubs.append(Course.objects.get(id=c['id'], pubstatus=1))
+        print pubs, not_pubs
+        return render(request, 'course_library.html', {'pubs': pubs, 'not_pubs': not_pubs, 'xingxing': [0,1,2,3,4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -216,13 +221,10 @@ def getcourses(request):
 def getpaths(request):
     """获取所有的路线"""
     try:
-        pall = []
-        paths = Path.objects.filter().values('id')
-        for p in paths:
-            pall.append(Path.objects.get(id=p['id']))
-        print pall
-        return render(request, 'du/pathlist.html', {'pahts':pall})
+        sql = "select id, name, pathimg, color from vcourse_path"
+        paths = dictfetchall(sql)
+        print paths
+        return render(request, 'learning_path.html', {'paths': paths})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
-

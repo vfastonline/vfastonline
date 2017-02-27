@@ -8,6 +8,7 @@ from vcourse.models import Course, Video, Program
 
 # Create your models here.
 class Score(models.Model):
+    """用户得分记录表"""
     createtime = models.CharField('获得积分的日期', max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
     technology = models.ForeignKey(Program, on_delete=models.CASCADE, null=True, verbose_name='类别ID', blank=True)
@@ -18,6 +19,7 @@ class Score(models.Model):
 
 
 class WatchRecord(models.Model):
+    """用户观看记录表"""
     STATUS = (
         (0, '已看完'),
         (1, '未看完')
@@ -35,6 +37,7 @@ class WatchRecord(models.Model):
 
 
 class WatchCourse(models.Model):
+    """记录用户那些课程都已经观看完成"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
     createtime = models.CharField('记录时间', max_length=20, default='2015-09-08 12:00:00')

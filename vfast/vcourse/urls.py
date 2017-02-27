@@ -8,7 +8,8 @@ urlpatterns = [
     url(r'^vadd', views.video_add, name='vadd'),
     url(r'^padd', views.path_add, name='padd'),
     url(r'^video', views.getvideo, name='getvideo'),
-    url(r'^course', views.getcourse, name='getcourse'),
-    url(r'^path', views.getpath, name='getpath'),
-    url(r'^list', views.getcourses, name='courselist'),
+    url(r'^courses$', views.getcourses, name='courses'),
+    url(r'^course$', views.getcourse, name='course_detail'),
+    url(r'^tracks$', views.getpaths, name='getpaths'),
+    url(r'^track$', views.getpath, name='getpath'),
 ]

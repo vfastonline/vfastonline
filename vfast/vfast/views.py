@@ -11,29 +11,22 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from vuser.models import User
 from django.db.models import F
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from vcourse.models import Video
 
 import logging
 import traceback
 import json
 
 
-def dictfetchall(cursor):
-    "Returns all rows from a cursor as a dict"
-    desc = cursor.description
-    return [
-        dict(zip([col[0] for col in desc], row))
-        for row in cursor.fetchall()
-    ]
-
 
 # @require_login()
 # @require_role(role=1)
 def test(request):
     print 'test'
-    course = connection.cursor()
-    course.execute('select * from vuser_user')
-    a = dictfetchall(cursor=course)
-    return HttpResponse(json.dumps({'result': a},ensure_ascii=False))
+    # course = connection.cursor()
+    # course.execute('select * from vcourse_video')
+    # a = dictfetchall(cursor=course)
     return HttpResponse('test')
 
 def dashBoard(request):
