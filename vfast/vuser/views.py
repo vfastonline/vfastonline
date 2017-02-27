@@ -223,11 +223,11 @@ def dashboard(request, param):
         print pathid
         #当没有正在学习的路线的时候, 显示已经学过的课程
         if pathid == 0:
-            sql = "select vr.video_id, vv.vtype as video_type, vc.*, vp.color as tech_color, vp.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_program as vp where vp.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id" % user.id
+            sql = "select vr.video_id, vv.vtype as video_type, vc.*, vp.color as tech_color, vp.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_program as vp where vp.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
             courses = dictfetchall(sql)
             print courses
             # return HttpResponse('ok')
-            return render(request, 'DashBoard.html', {'courses':courses, 'path_flag': False})
+            return render(request, 'DashBoard.html', {'courses':courses, 'path_flag': False, 'xingxing': [0,1,2,3,4]})
         #显示正在学习的路线
         else:
             orders = Path.objects.get(id=pathid).orders

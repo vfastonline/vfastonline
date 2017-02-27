@@ -17,8 +17,8 @@ class Program(models.Model):
 
 class Course(models.Model):
     PUB_STATUS = (
-        (0, '即将发布'),
-        (1, '已发布'),
+        (0, '已发布'),
+        (1, '即将发布'),
         (2, '默认')
     )
     ICON_STATUS = (
@@ -39,6 +39,7 @@ class Course(models.Model):
     createtime = models.CharField('课程创建时间', max_length=20)
     teach = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='作者')
     people = models.IntegerField('学习课程的人数', default=500)
+    pubdate = models.CharField('课程发布时间', max_length=50, default='即将发布')
 
     def __unicode__(self):
         return self.name
@@ -53,10 +54,12 @@ class Path(models.Model):
     jstime = models.CharField('岗位&起薪统计时间', null=True, blank=True, max_length=50)
     difficult = models.IntegerField('路径难度', null=True, blank=True)
     pathimg = models.CharField('路线展示图片', null=True, blank=True, default=' ', max_length=100)
+    pathwel = models.CharField('路线介绍页面图面', null=True, blank=True, default=' ', max_length=100)
     totaltime = models.CharField('路线总时间', null=True, blank=True, default=' ', max_length=50)
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
     createtime = models.CharField('路线创建时间', max_length=20)
     orders = models.CharField('课程顺序', null=True, blank=True, max_length=30)
+    color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
 
     def __unicode__(self):
         return self.name

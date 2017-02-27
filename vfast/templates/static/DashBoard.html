@@ -623,11 +623,13 @@
         <p>{{ course.desc }}</p>
             <div style="background-color: {{ course.tech_color }};" class="groupHover" onclick="stopPPG(this)">{{ course.tech_name }}</div>
         <div>难易度:
-            <img src="/static/svg/xingxing_1.svg" alt="">
-            <img src="/static/svg/xingxing_1.svg" alt="">
-            <img src="/static/svg/xingxing_1.svg" alt="">
-            <img src="/static/svg/xingxing.svg" alt="">
-            <img src="/static/svg/xingxing.svg" alt="">
+            {% for xx in xingxing %}
+                {% if course.difficult > xx%}
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                {% else %}
+                    <img src="/static/svg/xingxing.svg" alt="">
+                {% endif %}
+            {% endfor %}
         </div>
         </div>
         </div>

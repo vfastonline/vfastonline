@@ -191,18 +191,15 @@
                 <div style="background-image: url('/static/svg/iMac.svg');background-color: #22d2d2;"></div>
                 <h2>大数据</h2>
             </a>
-            <a href="#">
-                <div style="background-image: url('/static/svg/webFrontIcon.svg');background-color: #00AFE6;"></div>
-                <h2>Web前端开发</h2>
+
+            {% for path in paths %}
+                <a href="/course/track?id={{ path.id }}">
+                <div style="background-image: url('{{ path.pathimg }}');background-color: {{ path.color }};"></div>
+                <h2>{{ path.name }}</h2>
             </a>
-            <a href="#">
-                <div style="background-image: url('/static/svg/webFrontIcon.svg');background-color: #00AFE6;"></div>
-                <h2>大数据</h2>
-            </a>
-            <a href="#">
-                <div style="background-image: url('/static/svg/webFrontIcon.svg');background-color: #00AFE6;"></div>
-                <h2>大数据</h2>
-            </a>
+            {% endfor %}
+
+
         </section>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
