@@ -227,7 +227,7 @@ def dashboard(request, param):
             courses = dictfetchall(sql)
             print courses
             # return HttpResponse('ok')
-            return render(request, 'DashBoard.html', {'courses':courses, 'path_flag': False, 'xingxing': [0,1,2,3,4]})
+            return render(request, 'dashBoard.html', {'courses':courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4]})
         #显示正在学习的路线
         else:
             orders = Path.objects.get(id=pathid).orders
@@ -304,7 +304,7 @@ def dashboard(request, param):
             logging.getLogger().info(connection.queries)
             # print courses
             # return HttpResponse(json.dumps({'courses': courses, 'jindu': jindu}, ensure_ascii=False))
-            return render(request, 'DashBoard.html', {'courses': courses, 'jindu': jindu, 'path_flag': True})
+            return render(request, 'dashBoard.html', {'courses': courses, 'jindu': jindu, 'path_flag': True})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('failed')

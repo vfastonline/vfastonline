@@ -180,16 +180,20 @@ def getpath(request):
         path为path对象, courseall包含所有的course对象
     """
     try:
-        pid = request.GET.get('pid')
-        orders = Path.objects.get(id=pid).orders
+        pid = request.GET.get('id')
+        print pid, type(pid)
+        path = Path.objects.get(id=pid)
+        orders = path.orders
         course = orders.split(',')
-        courseall = []
+
+        courses = []
         for cid in course:
             c = Course.objects.get(id=cid)
-            courseall.append(c)
-        path = Path.objects.get(id=pid)
-        print path, courseall
-        return render(request, 'learnPath_show.html', {'path': path, 'courses': courseall})
+            videos = Video.objects.filter(course=c).values()
+            courses.append(dict(course=c, video=videos))
+
+        print courses
+        return render(request, 'learnPath_show.html', {'path': path, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))

@@ -60,6 +60,8 @@ class Path(models.Model):
     createtime = models.CharField('路线创建时间', max_length=20)
     orders = models.CharField('课程顺序', null=True, blank=True, max_length=30)
     color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
+    avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='1W')
+
 
     def __unicode__(self):
         return self.name
