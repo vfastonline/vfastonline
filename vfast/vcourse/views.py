@@ -189,7 +189,7 @@ def getpath(request):
             courseall.append(c)
         path = Path.objects.get(id=pid)
         print path, courseall
-        return render(request, 'du/pathlist.html', {'path': path, 'courses': courseall})
+        return render(request, 'learnPath_show.html', {'path': path, 'courses': courseall})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="/static/js/jquery-2.1.4.js"></script>
+    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script src="/static/js/jquery-labelauty.js"></script>
+    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/modal.css"/>
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    <link rel="stylesheet" href="/static/css/navbar.css"/>
+    <link rel="stylesheet" href="/static/css/footer.css"/>
+
+    <script src="/static/js/modalJS.js"></script>
+    <script src="/static/js/login_reg.js"></script>
+    <script src="/static/js/common.js"></script>
+
+    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
+    <script src="/static/js/sweet-alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/searchModal.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
+
+    <!--[if IE]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className = 'js';</script>
+
+    <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+
+    <!-- If you'd like to support IE8 -->
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <style>
+        #head_cont{
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+</body>
+<script>
+    window.onscroll = function(){
+        if(scrollY == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+    function show_Play(){
+        video_section_left.style.animation = "video_left_animation 0.35s";
+        video_section_right.style.animation = "video_right_animation 0.35s";
+        video_section_left.style.animationFillMode = "forwards";
+        video_section_right.style.animationFillMode = "forwards";
+        document.getElementById("video_start").style.display = "none";
+    }
+    function video_Play(){
+        if(video_section_left.style.animation != 'video_left_animation 0.35s forwards'){
+            video_section_left.style.animation = "video_left_animation 0.35s";
+            video_section_right.style.animation = "video_right_animation 0.35s";
+            video_section_left.style.animationFillMode = "forwards";
+            video_section_right.style.animationFillMode = "forwards";
+            setTimeout(function(){
+                document.getElementsByTagName("video")[0].play();
+            },100)
+        }else{
+            document.getElementsByTagName("video")[0].play();
+        }
+    }
+    function video_Pause(){
+        video_section_left.style.animation = "video_left_animation_back 0.35s";
+        video_section_right.style.animation = "video_right_animation_back 0.35s";
+        document.getElementById("video_start").style.display = "block";
+    }
+    function video_Ended(){
+        document.getElementById("video_start").style.display = "block";
+    }
+    var up_down_animation = false;
+    function class_onclick(t){
+        if(!up_down_animation){
+            up_down_animation = true;
+            var parentHeight = document.defaultView.getComputedStyle(t.parentNode,null).height;
+            var class_video_count = t.parentNode.getElementsByClassName("class_video").length;
+            class_video_count = class_video_count * 57;
+            parentHeight = parentHeight.substring(0,parentHeight.indexOf('px'));
+            if(t.className == "class_hidden"){
+                t.parentNode.style.height = parseInt(parentHeight) + parseInt(class_video_count) + 20 + "px";
+                t.parentNode.parentNode.style.height = parseInt(parentHeight) + parseInt(class_video_count) + 20 + "px";
+                t.className = "class_show";
+                var bObject = t.getElementsByTagName("b")[0];
+                bObject.style.transform = "rotate(90deg)";
+            }else{
+                t.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+                t.parentNode.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+                t.className = "class_hidden";
+                var bObject = t.getElementsByTagName("b")[0];
+                bObject.style.transform = "rotate(0deg)";
+            }
+            setTimeout(function(){
+                up_down_animation = false;
+            },350);
+        }
+    }
+
+    var section_2_divArr = document.getElementsByClassName("section_2_div");
+    for(var i = 0 ; i < section_2_divArr.length ; i++){
+        section_2_divArr[i].style.height = section_2_divArr[i].offsetHeight+ 20 + "px";
+    }
+
+    var section_2_divArr = document.getElementsByClassName("section_2_div_div");
+    for(var i = 0 ; i < section_2_divArr.length ; i++){
+        var t = section_2_divArr[i].getElementsByClassName("class_hidden")[0];
+        var parentHeight = document.defaultView.getComputedStyle(t.parentNode,null).height;
+        var class_video_count = t.parentNode.getElementsByClassName("class_video").length;
+        class_video_count = class_video_count * 57;
+        parentHeight = parentHeight.substring(0,parentHeight.indexOf('px'));
+        t.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+        t.parentNode.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+    }
+</script>
+<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+</html>
