@@ -90,3 +90,12 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class UserPath(models.Model):
+    createtime = models.CharField('用户加入学习路线时间', max_length=20)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
+    path = models.ForeignKey(Path, on_delete=models.CASCADE, verbose_name='路线ID')
+
+    def __unicode__(self):
+        return '%s,%s' % (self.user.username, self.path.name)
