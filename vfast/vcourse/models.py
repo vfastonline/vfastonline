@@ -52,7 +52,7 @@ class Path(models.Model):
     jobscount = models.CharField('岗位数', null=True, blank=True, default=' ', max_length=20)
     salary = models.CharField('岗位起薪', null=True, blank=True, max_length=50, default=' ')
     jstime = models.CharField('岗位&起薪统计时间', null=True, blank=True, max_length=50)
-    difficult = models.IntegerField('路径难度', null=True, blank=True)
+    difficult = models.IntegerField('路径难度', null=True, blank=True, default=5)
     pathimg = models.CharField('路线展示图片', null=True, blank=True, default=' ', max_length=100)
     pathwel = models.CharField('路线介绍页面图面', null=True, blank=True, default=' ', max_length=100)
     totaltime = models.CharField('路线总时间', null=True, blank=True, default=' ', max_length=50)
@@ -61,6 +61,7 @@ class Path(models.Model):
     orders = models.CharField('课程顺序', null=True, blank=True, max_length=30)
     color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
     avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='1W')
+    job_wanted = models.IntegerField('岗位空缺度', null=True, default=5)
 
 
     def __unicode__(self):
@@ -89,3 +90,12 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class UserPath(models.Model):
+    createtime = models.CharField('用户加入学习路线时间', max_length=20)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
+    path = models.ForeignKey(Path, on_delete=models.CASCADE, verbose_name='路线ID')
+
+    def __unicode__(self):
+        return '%s,%s' % (self.user.username, self.path.name)

@@ -8,7 +8,7 @@ from vfast.api import require_role, require_login, dictfetchall
 from django.conf import settings
 from vuser.models import User
 from vperm.models import Role
-from vcourse.models import Program, Course, Video, Path
+from vcourse.models import Program, Course, Video, Path, UserPath
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -215,7 +215,7 @@ def getcourses(request):
             except:
                 not_pubs.append(Course.objects.get(id=c['id'], pubstatus=1))
         print pubs, not_pubs
-        return render(request, 'course_library.html', {'pubs': pubs, 'not_pubs': not_pubs, 'xingxing': [0,1,2,3,4]})
+        return render(request, 'course_library.html', {'pubs': pubs, 'not_pubs': not_pubs, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -228,6 +228,28 @@ def getpaths(request):
         paths = dictfetchall(sql)
         print paths
         return render(request, 'learning_path.html', {'paths': paths})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+
+
+# @require_login
+def join_path(request):
+    try:
+        pid = request.GET.get('pid')
+        vid = request.GET.get('vid')
+        # uid = request.session['user']['id']
+        uid = 1
+        print pid, vid, uid
+        user = User.objects.get(id=uid)
+        path = Path.objects.get(id=pid)
+        if UserPath.objects.filter(user=user, path=path).exists():
+            return HttpResponse(json.dumps({'code': 1, 'msg': u'你已经加入该学习路线'}, ensure_ascii=False))
+        else:
+            t = time.strftime('%Y-%m-%d %H:%M:%S')
+            UserPath.objects.create(user=user, path=path, createtime=t)
+            User.objects.filter(id=uid).update(pathid=pid)
+            return HttpResponse(json.dumps({'code': 0, 'url': '/video/%s' % vid}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))

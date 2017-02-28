@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^course$', views.getcourse, name='course_detail'),
     url(r'^tracks$', views.getpaths, name='getpaths'),
     url(r'^track$', views.getpath, name='getpath'),
+    url(r'^join_track$', views.join_path, name='joinpath'),
 ]
