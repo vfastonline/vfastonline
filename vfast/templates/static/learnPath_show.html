@@ -411,7 +411,17 @@
                 {% endautoescape %}
                 <h2><span>{{ path.jobscount }} </span>&nbsp;个岗位招聘&nbsp;&nbsp;&nbsp;<span>{{ path.salary }}</span>&nbsp;入门起薪</h2>
                 <span>{{ path.jstime }}</span>
-                <div class="startLearnPath" id="startLearnPath">开始学习</div>
+                <div class="startLearnPath" id="startLearnPath"
+                     onclick="startPath({% for item in courses %}
+                                 {% with forloop as rowloop %}
+                                     {% for v in item.video %}
+                                         {% if rowloop.first and forloop.first %}
+                                             {{ v.id }},{{ path.id }}
+                                         {% endif %}
+                                     {% endfor %}
+                                 {% endwith %}
+                             {% endfor %})
+                             ">开始学习</div>
                 <div>
                     <span>岗位空缺度：</span>
                     {% for xx in xingxing %}
@@ -554,6 +564,7 @@
 {#                </div>#}
 {#            </div>#}
 {#        </div>#}
+
 
 
         {% for item in courses %}
