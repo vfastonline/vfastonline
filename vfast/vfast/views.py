@@ -30,7 +30,7 @@ def test(request):
     return HttpResponse('test')
 
 def dashBoard(request):
-    return render(request, 'DashBoard.html')
+    return render(request, 'dashBoard.html')
 
 def learning_path(request):
     return render(request, 'learning_path.html')
