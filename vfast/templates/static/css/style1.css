@@ -1,0 +1,121 @@
+.lineChart--svg{
+  margin: 125px 135px 105px;
+}
+.charts--container svg text{
+  fill: #FFFFFF;
+}
+.charts--container {
+  background-color: #2F3646;
+  width: 1200px!important;
+  height: 680px!important;
+  position: absolute;
+  top:0;
+  z-index: -1;
+  opacity: 0;
+}
+.lineChart--area {
+  fill:transparent;
+}
+.lineChart--areaLine {
+  fill: none;
+  stroke: #00BCD4;
+  stroke-width: 7;
+}
+.lineChart--bubble--label {
+  fill: none;
+  stroke: #00BCD4;
+  font-size: 12.6px;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.lineChart--bubble--value {
+  fill: #7C828C;
+  stroke: #7C828C;
+  font-size: 21px;
+  font-weight: 100;
+}
+
+.lineChart--circle {
+  fill: #FFF;
+  stroke: #00BCD4;
+  stroke-width: 6;
+}
+
+.lineChart--circle__highlighted {
+  fill: #00BCD4;
+  stroke: #FFFFFF;
+  stroke-width: 6;
+}
+
+.lineChart--gradientBackgroundArea--top {
+  stop-color: #FDFFFE;
+  stop-opacity: 0.1;
+}
+
+.lineChart--gradientBackgroundArea--bottom {
+  stop-color: #FDFFFE;
+  stop-opacity: 0.6;
+}
+
+.lineChart--xAxisTicks .domain, .lineChart--xAxis .domain, .lineChart--yAxisTicks .domain {
+  display: none;
+}
+
+.lineChart--xAxis .tick line {
+  display: none;
+}
+
+.lineChart--xAxisTicks .tick line, .lineChart--yAxisTicks .tick line {
+  fill: none;
+  stroke: #CDD7D8;
+  stroke-width: 1;
+  stroke-dasharray: 8,8;
+}
+.hidden {
+  display: none;
+}
+
+.charts--container_div{
+  position: absolute;
+  top: 100px;
+  left: 500px;
+  width: 200px;
+  text-align: center;
+  opacity: 0;
+  transition:all 1s ease-in-out;
+}
+.charts--container_div>p:first-child{
+  color:#7A88A1;
+  font-size: 20px;
+}
+.charts--container_div>p:last-child{
+  color:#FFFFFF;
+  font-size: 24px;
+  margin-top: 15px;
+}
+.charts_container_div_1{
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  position: absolute;
+  left: 550px;
+  color: #FFFFFF;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+@keyframes charts_container_div_1_animation {
+  0%{
+    top: 400px;
+    opacity: 0;
+  }
+  1%{
+    top:360px;
+    opacity: 1;
+  }
+  100%{
+    top:300px;
+  }
+}
