@@ -48,6 +48,8 @@ def logout(request):
     del request.session['user']
     return HttpResponse('del session ok')
 
+def playVideo(request):
+    return render(request,'playVideo.html')
 
 # @require_login()
 def index(request):

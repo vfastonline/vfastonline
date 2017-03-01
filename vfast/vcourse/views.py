@@ -19,7 +19,6 @@ from django.http import HttpResponse
 def test(request):
     return HttpResponse('hello,world~!')
 
-
 @require_login()
 def course_add(request):
     """添加课程系列"""
