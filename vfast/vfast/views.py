@@ -13,11 +13,11 @@ from vuser.models import User
 from django.db.models import F
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from vcourse.models import Video
+from vfast.api import dictfetchall
 
 import logging
 import traceback
 import json
-
 
 
 # @require_login()
@@ -29,17 +29,22 @@ def test(request):
     # a = dictfetchall(cursor=course)
     return HttpResponse('test')
 
+
 def dashBoard(request):
     return render(request, 'dashBoard.html')
+
 
 def learning_path(request):
     return render(request, 'learning_path.html')
 
+
 def course_library(request):
     return render(request, 'course_library.html')
 
+
 def learnPath_show(request):
     return render(request, 'learnPath_show.html')
+
 
 def logout(request):
     # print 'del session'
@@ -48,8 +53,6 @@ def logout(request):
     del request.session['user']
     return HttpResponse('del session ok')
 
-def playVideo(request):
-    return render(request,'playVideo.html')
 
 # @require_login()
 def index(request):
@@ -58,7 +61,7 @@ def index(request):
 
 def search(request):
     try:
-        key_words =request.GET.get('query')
+        key_words = request.GET.get('query')
         print key_words
         results = Course.objects.filter(name__contains=key_words).values()
         print results
@@ -78,3 +81,25 @@ def search_js(request):
         return HttpResponse('error')
 
 
+def playVideo(request, params):
+    try:
+        print params, type(params)
+        video_obj = Video.objects.get(id=int(params))
+        try:
+            userid = request.session['user']['id']
+        except:
+            return HttpResponse(u'请先登录')
+        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (userid, video_obj.id)
+        videos = dictfetchall(sql)
+        print sql
+        print videos
+
+        return render(request, 'playVideo.html', {'videos':videos, 'video_obj':video_obj})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
+
+
+def practice(request, params):
+    print params
+    return render(request, 'playVideo.html')
