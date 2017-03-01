@@ -234,23 +234,27 @@ def dashboard(request, param):
             sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (orders, orders)
             print sql
             courses = dictfetchall(sql)             #获取路线在的所有课程, 按orders排序
-            sql2 = 'select * from vrecord_watchcourse where user_id = %s' % user.id
-            courses_wathced = dictfetchall(sql2)    #获取用户观看过的课程
-            #课程时间显示转换
-            for i in courses:
-                for j in courses_wathced:
-                    try:
-                        if i['id'] == j['course_id']:
-                            i['viewtime'] = time_comp_now(j['createtime'])
-                        else:
+            sql2 = 'select * from vrecord_watchcourse where user_id = %s AND course_id in (%s)' % (user.id, orders)
+            courses_wathced = dictfetchall(sql2)    #获取用户观看过当前路线的课程,是否观看完成
+
+            # 课程时间显示转换
+            if len(courses_wathced) != 0:
+                for i in courses:
+                    for j in courses_wathced:
+                        try:
+                            if i['id'] == j['course_id']:
+                                i['viewtime'] = time_comp_now(j['createtime'])
+                        except:
                             i['viewtime'] = i['totaltime']
-                    except:
-                        logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
-            # print courses
+                            logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
+            else:
+                for i in courses:
+                    i['viewtime'] = i['totaltime']
+
             #查找出用户观看过的视频
-            sql3 = """select * from (select vw. *, vv.name, vv.vtype_url from vrecord_watchrecord as vw, vcourse_video as vv where vw.video_id = vv.id and vw.course_id in (%s) and vw.user_id = %s order by vw.createtime desc) as t group by course_id;
-    """ % (orders, user.id)
+            sql3 = """select * from (select vv.vtype, vv.name, vv.order, vv.id, vv.course_id, vv.vtype_url, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.order asc) as t group by t.course_id""" % ( user.id, orders)
             videos = dictfetchall(sql3)
+            logging.getLogger().info(videos)
             #给每个课程加上需要跳转的video信息
             for cour in courses:
                 for v in videos:
@@ -258,15 +262,19 @@ def dashboard(request, param):
                         cour['video_id'] = v['id']
                         cour['video_name'] = v['name']
                         cour['vtype_url'] = v['vtype_url']
+                        if v['createtime'] == 'NULL':
+                            cour['video_watch_time'] = '2000-00-00 00:00:00'  # 视频观看时间
+                        else:
+                            cour['video_watch_time'] = v['createtime']
 
             #给正在进行观看的视频标记出来
             tmp = []
             for z in courses:
-                tmp.append(z['createtime'])
+                tmp.append(z['video_watch_time'])
             tmp.sort()
             maxdate = tmp.pop()
             for z in courses:
-                if z['createtime'] == maxdate:
+                if z['video_watch_time'] == maxdate:
                     z['flag'] = 1
                     c_id = z['id']
                 else:
@@ -274,10 +282,11 @@ def dashboard(request, param):
             course_obj = Course.objects.get(id=c_id)
             len_v = Video.objects.filter(course=course_obj).__len__()
             len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user).__len__()
-            print len_v, len_v_wathc
-            print maxdate, type(maxdate)
+            # print len_v, len_v_wathc
+            # print maxdate, type(maxdate)
             for item in courses:
-                if item['createtime'] == maxdate:
+                # logging.getLogger().info(item)
+                if item['video_watch_time'] == maxdate:
                     item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
                     item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
                     icon_url = item['icon_url'].split('.')
@@ -302,8 +311,7 @@ def dashboard(request, param):
             jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
             jindu = '%.2f%%' % (jindu * 100)
             logging.getLogger().info(connection.queries)
-            # print courses
-            # return HttpResponse(json.dumps({'courses': courses, 'jindu': jindu}, ensure_ascii=False))
+            print courses
             return render(request, 'dashBoard.html', {'courses': courses, 'jindu': jindu, 'path_flag': True})
     except:
         logging.getLogger().error(traceback.format_exc())
