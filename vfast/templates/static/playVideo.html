@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="/static/css/style1.css" media="screen" type="text/css" />
     <link href="/static/css/video-js.css" rel="stylesheet">
     <script src="/static/js/video.js"></script>
+    <script src="/static/js/svg1.js"></script>
     <style>
         #head_cont{
             box-shadow: none;
@@ -325,6 +326,7 @@
             margin: 0 auto;
             background-color: #FAFAFA;
             padding: 30px 20px 20px;
+            display: none;
         }
         .tab_QA>div{
             margin: 0 auto;
@@ -372,7 +374,7 @@
             border:none;
         }
         .tab_NOTE{
-            width: 1160px;
+            width: 1200px;
             margin: 0 auto;
             background-color: #FAFAFA;
             padding: 30px 20px 20px;
@@ -402,11 +404,10 @@
         }
 
         .tab_Course{
-            width: 1160px;
+            width: 1200px;
             margin: 0 auto;
             background-color: #FAFAFA;
             padding: 30px 20px 20px;
-            display: none;
         }
         .tab_Course>div{
             background-color: #FFFFFF;
@@ -423,10 +424,21 @@
         }
 
         .tab_Course>div>div:last-child{
-            width: 70%;
+            width: 85%;
             line-height: 100px;
             color: #7C828C;
         }
+        .tab_Course>div>div:last-child:after{content: "";display: block;clear: both;}
+        .tab_Course>div>div:last-child>p{
+            float: left;
+            width: 85%;
+        }
+        .tab_Course>div>div:last-child>span{
+            display: block;
+            float: right;
+            width: 15%;
+        }
+
         .tab_Course>div:first-child>div:first-child>div{
             width: 38px;
             height: 38px;
@@ -809,12 +821,11 @@
 </div>
 
 <div class="slideDIV" style="height: 150px;"></div>
-
 <div class="tab_menu" id="tab_menu">
     <ul>
-        <li class="tab_menu_li" onclick="tab_sel(this,'tab_QA')">问答版</li>
+        <li class="tab_menu_li" onclick="tab_sel(this,'tab_Course')">课程系列</li>
+        <li onclick="tab_sel(this,'tab_QA')">问答版</li>
         <li onclick="tab_sel(this,'tab_NOTE')">讲师笔记</li>
-        <li onclick="tab_sel(this,'tab_Course')">课程系列</li>
     </ul>
     <div>提问</div>
 </div>
@@ -880,8 +891,12 @@
         </div>
         <div>
             <p>IOS 开发 - Swift 3.0 基础</p>
+            <span>5:35</span>
         </div>
     </div>
+
+    <!--视频列表-->
+
     <div onclick="tab_video_play('video_play_1.html')">
         <div>
             <i></i>
@@ -894,8 +909,24 @@
         </div>
         <div>
             <p>Swift 编程语言概要</p>
+            <span>5:35</span>
         </div>
     </div>
+
+    <div class="tab_Course_viewNO" onclick="tab_video_play('video_play_2.html')">
+        <div>
+            <i></i>
+            <div>
+                <b>3</b>
+            </div>
+            <i></i>
+        </div>
+        <div>
+            <p>变量</p>
+            <span>5:35</span>
+        </div>
+    </div>
+
     <div class="tab_Course_ongoing" onclick="tab_video_play('video_play.html')">
         <div>
             <i></i>
@@ -908,8 +939,26 @@
         </div>
         <div>
             <p>Swift 开发环境配置</p>
+            <span>5:35</span>
         </div>
     </div>
+
+    <div onclick="tab_video_play('video_play_1.html')">
+        <div>
+            <i></i>
+            <div>
+                <svg width="14px" height="11px" viewBox="7 9 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <polygon id="Path" stroke="#7C828C" stroke-width="1" fill="#7C828C" fill-rule="evenodd" points="12.2857143 18.9314286 8 14.6457143 9.20857143 13.4371429 12.2857143 16.5057143 18.7914286 10 20 11.2171429"></polygon>
+                </svg>
+            </div>
+            <i></i>
+        </div>
+        <div>
+            <p>Swift 编程语言概要</p>
+            <span>5 题</span>
+        </div>
+    </div>
+
     <div class="tab_Course_viewNO" onclick="tab_video_play('video_play_2.html')">
         <div>
             <i></i>
@@ -920,8 +969,12 @@
         </div>
         <div>
             <p>变量</p>
+            <span>5:35</span>
         </div>
     </div>
+
+    <!--视频列表 END-->
+
     <div>
         <div>
             <i></i>
@@ -1089,13 +1142,54 @@
                 charts_container_div_1.style.opacity = 0;
             },1200)
             if(svgJS){
-                var svriptEL = document.createElement("script");
-                svriptEL.src = "/static/js/svg1.js";
-                document.body.appendChild(svriptEL);
+{#                var svriptEL = document.createElement("script");#}
+{#                svriptEL.src = "/static/js/svg1.js";#}
+{#                document.body.appendChild(svriptEL);#}
+                drawLineChart('lineChart',data.lineChart);
                 svgJS = false;
             }
         }
     }
+
+    var data = {
+    lineChart : [
+      {
+        date  : '2016-09-22',
+        label : '2016-09-22',
+        value : 20
+      },
+      {
+        date  : '2016-09-23',
+        label : '2016-09-23',
+        value : 2
+      },
+      {
+        date  : '2016-09-24',
+        label : '2016-09-24',
+        value : 3
+      },
+      {
+        date  : '2016-09-25',
+        label : '2016-09-25',
+        value : 3
+      },
+      {
+        date  : '2016-09-26',
+        label : '2016-09-26',
+        value : 3
+      },
+      {
+        date  : '2016-09-27',
+        label : '2016-09-27',
+        value : 2
+      },
+      {
+        date  : '2016-09-28',
+        label : '2016-09-28',
+        value : 1
+      }
+    ]
+  };
 
     function video_cc(t){
         if(t.style.color != "rgb(124, 130, 140)"){

@@ -1,46 +1,5 @@
-;( function() {
-  var data = {
-    lineChart : [
-      {
-        date  : '2016-09-22',
-        label : '2016-09-22',
-        value : 0
-      },
-      {
-        date  : '2016-09-23',
-        label : '2016-09-23',
-        value : 2
-      },
-      {
-        date  : '2016-09-24',
-        label : '2016-09-24',
-        value : 3
-      },
-      {
-        date  : '2016-09-25',
-        label : '2016-09-25',
-        value : 3
-      },
-      {
-        date  : '2016-09-26',
-        label : '2016-09-26',
-        value : 3
-      },
-      {
-        date  : '2016-09-27',
-        label : '2016-09-27',
-        value : 2
-      },
-      {
-        date  : '2016-09-28',
-        label : '2016-09-28',
-        value : 1
-      }
-    ]
-  };
-  
+// ;( function() {
   var DURATION = 1000;
-
   /**
    * draw the fancy line chart
    *
@@ -48,6 +7,7 @@
    * @param {Array}  data      data
    */
   function drawLineChart( elementId, data ) {
+    console.log(111);
     // parse helper functions on top
     var parse = d3.time.format( '%Y-%m-%d' ).parse;
     // data manipulation first
@@ -283,10 +243,10 @@
     }
   }
 
-  function svgSHOW() {
-    drawLineChart(    'lineChart',    data.lineChart );
-  }
+  // function svgSHOW() {
+  //   drawLineChart(    'lineChart',    data.lineChart );
+  // }
 
   // yeah, let's kick things off!!!
-    svgSHOW();
-})();
+  //   svgSHOW();
+// })();
