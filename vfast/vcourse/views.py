@@ -150,13 +150,14 @@ def path_add(request):
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
-def getvideo(request):
-    """获取单个视频视频信息"""
+def play_video(request):
+    """视频播放页面"""
     try:
         vid = request.GET.get('vid')
-        video = Video.objects.get(id=vid)
-        print video
-        return render(request, 'du/videodu.html', {'video': video})
+        uid = request.session['user']['id']
+        sql = 'select vv.id as videoid, vv.order as video_order, vv.name as video_name, vv.course_id, vw.status from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=2  where vv.course_id=2'
+
+        return render(request, 'du/videodu.html', {'video': 'video'})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
