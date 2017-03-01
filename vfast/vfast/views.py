@@ -89,11 +89,10 @@ def playVideo(request, params):
             userid = request.session['user']['id']
         except:
             return HttpResponse(u'请先登录')
-        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (userid, video_obj.id)
+        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (userid, video_obj.course.id)
         videos = dictfetchall(sql)
         print sql
         print videos
-
         return render(request, 'playVideo.html', {'videos':videos, 'video_obj':video_obj})
     except:
         logging.getLogger().error(traceback.format_exc())

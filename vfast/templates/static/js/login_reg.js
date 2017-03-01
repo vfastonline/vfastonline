@@ -181,11 +181,8 @@ function login(){
             if(xmlhttp.readyState == 4 && xmlhttp.status==200){
                 var jsonStr = JSON.parse(xmlhttp.responseText);
                 if(jsonStr.code == "0"){
-                    if(jsonStr.pre_url == "/"){
-                        location.href = "/u/1";
-                    }else{
-                        location.reload();
-                    }
+                    console.log(jsonStr.url)
+                    location.href = jsonStr.url;
                 }else if(jsonStr.code == "1" || jsonStr.code == "2"){
                     $("#usernameSpan").html(jsonStr.msg);
                 }else if (jsonStr.code = "3"){
