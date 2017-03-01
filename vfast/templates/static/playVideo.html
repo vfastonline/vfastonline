@@ -45,9 +45,6 @@
     </style>
 
     <style>
-        body{
-            background-color: #FFFFFF!important;
-        }
         .video_div{
             width: 1200px;
             height: 680px;
@@ -60,7 +57,8 @@
             line-height: 60px;
             margin: 0 auto;
             position: relative;
-            background-color:#eeeeee ;
+            background: #EEEEEE;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
         }
         .video_div1:after{content: "";display: block;clear:both;}
         .video_div1 ul:after{content: "";display: block;clear:both;}
@@ -282,16 +280,18 @@
             height: 34px;
             line-height: 34px;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 4px;
             background-color: #7C828C;
             margin-right: 10px;
             letter-spacing: 1.5px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
         }
         .tab_menu_li{
             height: 39px!important;
-            border-radius: 8px 8px 0 0!important;
-            background-color: #FAFAFA!important;
+            background-color: #FFFFFF!important;
             color: #5A646E!important;
+            box-shadow: none!important;
+            border-radius: 4px 4px 0 0!important;
         }
         .tab_menu>ul>li:hover{
             opacity: 0.8;
@@ -316,7 +316,7 @@
             height: 34px;
             line-height: 34px;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 4px;
             background-color: #00BCD4;
             letter-spacing: 2px;
         }
@@ -324,7 +324,7 @@
         .tab_QA{
             width: 1200px;
             margin: 0 auto;
-            background-color: #FAFAFA;
+            background-color: #FFFFFF;
             padding: 30px 20px 20px;
             display: none;
         }
@@ -376,7 +376,7 @@
         .tab_NOTE{
             width: 1200px;
             margin: 0 auto;
-            background-color: #FAFAFA;
+            background-color: #FFFFFF;
             padding: 30px 20px 20px;
             display: none;
         }
@@ -406,7 +406,7 @@
         .tab_Course{
             width: 1200px;
             margin: 0 auto;
-            background-color: #FAFAFA;
+            background-color: #FFFFFF;
             padding: 30px 20px 20px;
         }
         .tab_Course>div{
@@ -432,19 +432,21 @@
         .tab_Course>div>div:last-child>p{
             float: left;
             width: 85%;
+            font-size: 20px;
+            color: #B4BEC8;
         }
         .tab_Course>div>div:last-child>span{
             display: block;
             float: right;
             width: 15%;
+            font-size: 18px;
+            color: #B4BEC8;
         }
-
         .tab_Course>div:first-child>div:first-child>div{
-            width: 38px;
-            height: 38px;
-            line-height: 38px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
             text-align: center;
-            border: 2px solid #B7C0C7;
             border-radius: 20px;
             margin: 0 auto;
             margin-top: 30px;
@@ -462,11 +464,17 @@
             margin: 0 auto;
             height: 38px;
         }
+        .tab_Course>div:last-child>div:first-child>i:last-child{
+            display: none;
+        }
         .tab_Course_ongoing{
-            background-color: #607D8B!important;
+            background: #B4BEC8!important;
         }
         .tab_Course_ongoing p{
-            color: #FFFFFF;
+            color: #FFFFFF!important;
+        }
+        .tab_Course_ongoing span{
+            color: #FFFFFF!important;
         }
         .tab_Course_ongoing i{
             height: 24px!important;
@@ -474,37 +482,30 @@
         .tab_Course_ongoing>div:first-child>div{
             width: 52px!important;
             height: 52px!important;
-            background-color: #6F808E;
+            background-color: #FFFFFF!important;
             border-radius: 30px!important;
             text-align: center;
             line-height: 52px!important;
         }
         .tab_Course_ongoing>div:first-child>div svg{
-            margin-top: 6px!important;
-            margin-left: 10px!important;
+            margin-top: 11px!important;
         }
         .tab_Course_viewNO>div:first-child>div{
             padding-top: 1px;
-        }
-        .tab_Course>div:last-child>div:first-child>i{
-            height: 30px;
+            padding-left: 2px;
         }
         .tab_Course>div>div:first-child>div{
-            width: 26px;
-            height: 26px;
-            border: 2px solid #B7C0C7;
+            width: 28px;
+            height: 28px;
             border-radius: 20px;
             color: #7C828C;
             margin: 0 auto;
+            background: #B4BEC8;
+            border: 2px solid #B4BEC8;
+            text-align: center;
         }
         .tab_Course>div>div:first-child>div>svg{
-            margin-top: 6px;
-        }
-        .tab_Course>div:last-child>div:first-child>div{
-            width: 38px;
-            height: 38px;
-            line-height: 38px;
-            text-align: center;
+            margin-top: 4px;
         }
         .tab_Course>div:hover{
             cursor: pointer;
@@ -602,6 +603,15 @@
             bottom: 130px;
             left: 180px;
             transform: rotate(15deg);
+        }
+        .video_name{
+            position: absolute;
+            top:30px;
+            left: 30px;
+            font-size: 24px;
+            color: #F0F2F4;
+            letter-spacing: 2px;
+            display: none;
         }
         @keyframes medal_div_animation {
             0%{
@@ -730,6 +740,7 @@
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
     </svg>
+    <span class="video_name" id="video_name">Swift 开发环境配置</span>
     <div id="charts_container" class="charts--container">
         <ul>
             <li class="chart">
@@ -883,8 +894,8 @@
     <div>
         <div>
             <div>
-                <svg width="20px" height="28px" viewBox="40 10 20 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path d="M59.5,15.88 L47.5,10 L47.5,37 L44.5,37 L44.5,34.405 C41.815,34.93 40,35.89 40,37 C40,38.65 44.035,40 49,40 C53.965,40 58,38.65 58,37 C58,35.515 54.76,34.285 50.5,34.045 L50.5,20.47 L59.5,15.88 L59.5,15.88 Z" id="Shape" stroke="none" fill="#7C828C" fill-rule="evenodd"></path>
+                <svg width="20" height="30" viewBox="0 0 20 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path fill="#FFF" fill-rule="evenodd" d="M102.5,88.88 L90.5,83 L90.5,110 L87.5,110 L87.5,107.405 C84.815,107.93 83,108.89 83,110 C83,111.65 87.035,113 92,113 C96.965,113 101,111.65 101,110 C101,108.515 97.76,107.285 93.5,107.045 L93.5,93.47 L102.5,88.88 L102.5,88.88 Z" transform="translate(-83 -83)"/>
                 </svg>
             </div>
             <i></i>
@@ -901,8 +912,8 @@
         <div>
             <i></i>
             <div>
-                <svg width="14px" height="11px" viewBox="7 9 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polygon id="Path" stroke="#7C828C" stroke-width="1" fill="#7C828C" fill-rule="evenodd" points="12.2857143 18.9314286 8 14.6457143 9.20857143 13.4371429 12.2857143 16.5057143 18.7914286 10 20 11.2171429"></polygon>
+                <svg width="14" height="16" viewBox="0 0 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path fill="#FFF" fill-rule="evenodd" stroke="#FFF" d="M87.7076985,195.353413 C87.3168474,194.962562 87.3175379,194.328176 87.703031,193.942683 L87.5055404,194.140174 C87.8938137,193.751901 88.5262898,193.753976 88.9222642,194.148848 L90.5720215,195.794009 C90.9661831,196.187073 91.5994984,196.19193 91.9943242,195.797104 L97.0828187,190.70861 C97.4741731,190.317255 98.1089665,190.31979 98.4944596,190.708017 L98.296969,190.509126 C98.6852423,190.900153 98.6880364,191.529106 98.2880859,191.929057 L91.9976283,198.219515 C91.6044491,198.612694 90.9635892,198.609303 90.5780157,198.22373 L87.7076985,195.353413 Z" transform="translate(-86 -189)"/>
                 </svg>
             </div>
             <i></i>
@@ -913,26 +924,12 @@
         </div>
     </div>
 
-    <div class="tab_Course_viewNO" onclick="tab_video_play('video_play_2.html')">
-        <div>
-            <i></i>
-            <div>
-                <b>3</b>
-            </div>
-            <i></i>
-        </div>
-        <div>
-            <p>变量</p>
-            <span>5:35</span>
-        </div>
-    </div>
-
     <div class="tab_Course_ongoing" onclick="tab_video_play('video_play.html')">
         <div>
             <i></i>
             <div>
-                <svg width="36px" height="36px" viewBox="252 10 39 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path d="M267,40 C275.284271,40 282,33.2842712 282,25 C282,16.7157288 275.284271,10 267,10 C258.715729,10 252,16.7157288 252,25 C252,33.2842712 258.715729,40 267,40 Z M279.059726,33.9214164 C280.907303,31.4280342 282,28.3416236 282,25 C282,21.6245053 280.88504,18.5094236 279.003312,16.0029471 L274.765294,19.1589288 L267.000588,24.9411765 L274.765294,30.7234242 L279.059726,33.9214164 Z M269.117647,18.1176471 C270.189729,18.1176471 271.058824,17.2485527 271.058824,16.1764706 C271.058824,15.1043884 270.189729,14.2352941 269.117647,14.2352941 C268.045565,14.2352941 267.176471,15.1043884 267.176471,16.1764706 C267.176471,17.2485527 268.045565,18.1176471 269.117647,18.1176471 Z" id="Combined-Shape-Copy-2" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+                <svg width="26" height="26" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path fill="#7C828C" fill-rule="evenodd" d="M93,307 C85.8202983,307 80,301.179702 80,294 C80,286.820298 85.8202983,281 93,281 C100.179702,281 106,286.820298 106,294 C106,301.179702 100.179702,307 93,307 Z M103.40287,286.202554 L99.7299213,288.937738 L93.0005095,293.94902 L99.7299213,298.960301 L103.451762,301.731894 C105.052996,299.570963 106,296.896074 106,294 C106,291.074571 105.033701,288.374834 103.40287,286.202554 Z M94.8352941,288.035294 C95.764432,288.035294 96.5176471,287.282079 96.5176471,286.352941 C96.5176471,285.423803 95.764432,284.670588 94.8352941,284.670588 C93.9061562,284.670588 93.1529412,285.423803 93.1529412,286.352941 C93.1529412,287.282079 93.9061562,288.035294 94.8352941,288.035294 Z" transform="translate(-80 -281)"/>
                 </svg>
             </div>
             <i></i>
@@ -947,8 +944,10 @@
         <div>
             <i></i>
             <div>
-                <svg width="14px" height="11px" viewBox="7 9 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polygon id="Path" stroke="#7C828C" stroke-width="1" fill="#7C828C" fill-rule="evenodd" points="12.2857143 18.9314286 8 14.6457143 9.20857143 13.4371429 12.2857143 16.5057143 18.7914286 10 20 11.2171429"></polygon>
+                <svg width="12" height="18" viewBox="0 0 12 18">
+                  <g fill="#FFF" fill-rule="evenodd" transform="translate(.667 .667)">
+                    <path d="M3.36443446 14.8555805L3.36443446 15.0856929C3.36443446 15.9831311 4.05477154 16.6734682 4.99823221 16.6734682 5.94169288 16.6734682 6.63202996 15.9831311 6.63202996 15.0856929L6.63202996 14.8555805C6.63202996 13.9581423 5.94169288 13.2678052 4.99823221 13.2678052 4.05477154 13.2678052 3.36443446 13.9581423 3.36443446 14.8555805L3.36443446 14.8555805zM5.13629963 11.2284345C5.66555805 11.2284345 6.03373783 10.8142322 6.12578277 10.307985L6.21782772 9.60901873C8.77207491 9.17180524 10.8660974 7.86016479 10.8660974 4.96074906L10.8660974 4.91472659C10.8660974 2.0383221 8.68002996.243445693 5.45845693.243445693 3.34142322.243445693 1.79967041 1.00281648.580074906 2.15337828.257917603 2.42951311.119850187 2.79769288.119850187 3.14286142.119850187 3.8331985.695131086 4.4084794 1.4084794 4.4084794 1.7306367 4.4084794 2.02978277 4.27041199 2.25989513 4.0863221 3.18034457 3.2579176 4.16982772 2.82070412 5.38942322 2.82070412 7.04623221 2.82070412 8.03571536 3.71814232 8.03571536 5.00677154L8.03571536 5.05279401C8.03571536 6.50250187 6.83913109 7.33090637 4.67607491 7.53800749 4.05477154 7.6070412 3.68659176 8.06726592 3.7786367 8.68856929L4.00874906 10.307985C4.07778277 10.8372434 4.46897378 11.2284345 4.99823221 11.2284345L5.13629963 11.2284345z"/>
+                  </g>
                 </svg>
             </div>
             <i></i>
@@ -963,7 +962,9 @@
         <div>
             <i></i>
             <div>
-                <b>3</b>
+                <svg width="14" height="16" viewBox="0 0 15 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path fill="#FFF" fill-rule="evenodd" stroke="#FFF" stroke-width="3" d="M12.1557766,21.9587735 C11.6019384,21.9587735 11.3776744,21.5695633 11.6543702,21.0903121 L17.1796176,11.5203029 C17.4565367,11.0406649 17.9057346,11.0410517 18.1824304,11.5203029 L23.7076778,21.0903121 C23.9845969,21.5699501 23.759663,21.9587735 23.2062714,21.9587735 L12.1557766,21.9587735 Z" transform="rotate(90 17.181 7.141)"/>
+                </svg>
             </div>
             <i></i>
         </div>
@@ -975,18 +976,6 @@
 
     <!--视频列表 END-->
 
-    <div>
-        <div>
-            <i></i>
-            <div>
-                <svg width="22px" height="22px" viewBox="1130 10 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path d="M1159.9844,14.2857143 L1154.57134,14.2857143 C1154.6758,11.9676116 1154.60563,10 1154.60563,10 L1135.35346,10 C1135.35346,10 1135.28328,11.9676116 1135.38775,14.2857143 L1130.01554,14.2857143 C1130,19 1130.34426,20.5133259 1131.50629,22.9059598 C1132.49188,24.9354464 1133.91112,26.6334598 1135.72478,27.9528571 C1137.22625,29.0451786 1138.94181,29.8321429 1140.82779,30.3022321 C1141.91696,31.4646652 1142.99107,32.1055134 1143.92857,32.363192 L1143.92857,34.7487946 C1143.79464,35.4574777 1142.9817,37.8571429 1137.31478,37.8571429 L1136.42857,37.8571429 L1136.42857,40 L1153.57143,40 L1153.57143,37.8571429 L1152.68897,37.8571429 C1146.04049,37.8571429 1146.07143,34.5535268 1146.07143,34.75 L1146.07143,32.3628571 C1147.00893,32.1055134 1148.06228,31.4672768 1149.14576,30.3108036 C1151.04547,29.8417857 1152.76665,29.051808 1154.27743,27.9527902 C1156.09096,26.6333929 1157.50926,24.9353795 1158.49484,22.9058929 C1160.08056,19.6406473 1160,19 1159.9844,14.2857143 Z M1133.43272,21.9695313 C1132.46442,19.9754018 1132.21103,17.9684821 1132.15538,16.4285714 L1135.53621,16.4285714 C1135.59433,17.0254911 1135.66786,17.6139063 1135.76094,18.1683036 C1136.331,21.5639955 1137.11449,24.5629241 1138.59714,27.2090848 C1136.33121,26.06125 1134.55156,24.2733705 1133.43272,21.9695313 L1133.43272,21.9695313 Z M1151.36214,27.2295759 C1152.84975,24.5783929 1153.62661,21.5727679 1154.19821,18.1683705 C1154.29129,17.6139063 1154.36482,17.0254911 1154.42295,16.4286384 L1157.84455,16.4286384 C1157.78891,17.9684821 1157.53558,19.9754018 1156.56721,21.9695313 C1155.44174,24.2871652 1153.64737,26.0825446 1151.36214,27.2295759 Z" id="Shape" stroke="none" fill="#7C828C" fill-rule="evenodd"></path>
-                </svg>
-            </div>
-        </div>
-        <div>
-        </div>
-    </div>
 </div>
 <script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
@@ -1065,14 +1054,17 @@
         var elem = document.getElementsByTagName("video")[0];
         if(elem.paused){
             video_bofang.style.display = "block";
+            video_name.style.display = "block";
         }else{
             video_bofang.style.display = "none";
+            video_name.style.display = "none";
         }
     }
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];
         elem.play();
         video_bofang.style.display = "none";
+        video_name.style.display = "none";
     }
     function video_speed(t,video_speed){
         var liArr = video_div1.getElementsByTagName("li");
