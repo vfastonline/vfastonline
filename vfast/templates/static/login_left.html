@@ -4,7 +4,7 @@
         <input type="text" class="input_text" id="username" name="username" tabindex="1" placeholder="请输入您的用户名"/>
         <span id="usernameSpan"></span>
         <p>密码<a href="#" tabindex="4">忘记密码了？</a></p>
-        <input type="password" class="input_text" id="password" tabindex="2" placeholder="请输入您的密码"/>
+        <input type="password" class="input_text" id="password" onkeydown="login_enter(event)" tabindex="2" placeholder="请输入您的密码"/>
         <span id="passwordSpan"></span>
         <button class="login" onclick="login()" tabindex="3">登陆</button>
     </div>

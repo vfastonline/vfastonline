@@ -7,7 +7,6 @@
    * @param {Array}  data      data
    */
   function drawLineChart( elementId, data ) {
-    console.log(111);
     // parse helper functions on top
     var parse = d3.time.format( '%Y-%m-%d' ).parse;
     // data manipulation first

@@ -2,7 +2,7 @@
     <div class="container">
         {% if request.session.login != True  %}
         <header id="not_logged_in" class="not_logged_in">
-            <a class="navLeft_a" href="/">VFast Online</a>
+            <a class="navLeft_a" href="/"><img class="log" src="/static/imgs/log.jpg"/></a>
             <div>
                 <ul>
                     <li><a href="/course/tracks">学习路线</a></li>
@@ -19,7 +19,7 @@
                 <ul>
                     <li>
                         <a class="navLeft_a" href="/u/1" target="_top">
-                            VFast Online
+                            <img class="log" width="230px" height="70px" src="/static/imgs/log.jpg"/>
                         </a>
                     </li>
                     <div style="float: left;">

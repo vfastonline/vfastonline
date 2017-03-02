@@ -38,87 +38,6 @@
         #head_cont{
             box-shadow: none;
         }
-        .course_head{
-            width: 1200px;
-            height: 281px;
-            margin: 0 auto;
-            background-color: #FFFFFF;
-            border-radius: 4px;
-            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
-            position: relative;
-            top: 80px;
-        }
-        .course_head_X>svg:hover{
-            cursor: pointer;
-        }
-        .course_head>h1{
-            color: #5A646E;
-            font-size: 28px;
-            margin-left: 54px;
-            padding-top: 30px;
-            font-weight: 600;
-            position: absolute;
-        }
-        .course_head>p{
-            width: 70%;
-            color: #5A646E;
-            font-size: 14px;
-            position: absolute;
-            top: 78px;
-            left: 54px;
-        }
-        .course_head_leftDIV,.course_head_rightDIV{
-            width: 32%;
-            color: #5A646E;
-            position: absolute;
-        }
-        .course_head_leftDIV{
-            top:140px;
-            left: 54px;
-        }
-        .course_head_rightDIV{
-            top:140px;
-            left: 450px;
-        }
-        .course_head_leftDIV>h2,.course_head_rightDIV>h2{
-            font-size: 18px;
-        }
-        .course_head_leftDIV>p,.course_head_rightDIV>p{
-            font-size: 14px;
-            margin-top: 10px;
-        }
-        .course_head_rightDIV>p>a{
-            text-decoration: none;
-            font-weight: bold;
-            color: #5A646E;
-        }
-        .course_head_rightDIV>p>a:hover{
-            opacity: 0.8;
-        }
-        .course_head_rightDIV>p>a:active{
-            opacity: 1;
-        }
-        .course_head>img{
-            width: 295px;
-            height: 194px;
-            position: absolute;
-            top: 40px;
-            right: 30px;
-        }
-        /*course_head END*/
-        /*course_head_BG Start*/
-        .course_head_BG{
-            background-color: #303948;
-            position: relative;
-            padding: 50px 0px 0px;
-        }
-        .course_head_BG>h1{
-            width: 1200px;
-            margin: 0 auto;
-            color: #FFFFFF;
-            font-size: 55px;
-        }
-        /*course_head_BG End*/
         /*contentBody_course Start*/
         .contentBody_course:after{content: "";display: block;clear: both;}
         .contentBody_course{
@@ -255,7 +174,7 @@
         /*search_TypeList Start*/
         .search_TypeList{
             width:1200px;
-            margin: 130px auto 0px;
+            margin: 50px auto 0px;
             background: #FFFFFF;
             box-shadow: 0 1px 0 0 rgba(0,0,0,0.10);
             border-radius: 4px;
@@ -292,27 +211,26 @@
             color: #FFFFFF;
         }
         /*search_TypeList End*/
+        .type_Describe{
+            width: 1200px;
+            margin: 30px auto;
+        }
+        .type_Describe>h3{
+            font-size: 18px;
+            color: #5A646E;
+            font-weight: bolder;
+        }
+        .type_Describe>p{
+            font-size: 14px;
+            color: #002800;
+            line-height: 17px;
+        }
+
     </style>
 </head>
 <body>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
-    <div class="course_head_BG">
-        <h1>课程库</h1>
-        <section id="course_head" class="course_head">
-            <h1>欢迎来到课程库</h1>
-            <p>这里存放的是我们所有课程系列的编目，课程库适用于有自我导向能力的学员查找子级所需的技能</p>
-            <div class="course_head_leftDIV">
-                <h2>不知道该学什么？</h2>
-                <p>如果你需要学习引导，不妨试试学习路径</p>
-            </div>
-            <div class="course_head_rightDIV">
-                <h2>找不到你想学的课程？</h2>
-                <p>我们时刻都在时序制作新的课程内容，扩展新的课程方向，使我们的学员一直涉足于最新锐的IT技术领域。您也可以提交一份<a href="#">课程申请</a>，符合的课程内容将会加入到研发计划</p>
-            </div>
-            <img src="/static/imgs/Library.png" alt=""/>
-        </section>
-    </div>
     <div class="slideDIV" style="height:80px;"></div>
     <div class="search_TypeList">
         <ul class="clearfix">
@@ -346,7 +264,7 @@
             </li>
             <li>
                 <b style="background-color:  #C80A64;"></b>
-                <span onmouseover="this.style.background='#C80A64'" onmouseout="this.style.background='transparent'">IOS</span>
+                <span style="background:#C80A64;color: #FFFFFF;" onmouseover="this.style.background='#C80A64'" onmouseout="this.style.background='transparent'">IOS</span>
             </li>
             <li>
                 <b style="background-color:  #642476;"></b>
@@ -379,6 +297,10 @@
         </ul>
     </div>
     <div class="slideDIV" style="height:100px;"></div>
+    <div class="type_Describe">
+        <h3>JavaScript</h3>
+        <p>是一门网络脚本语言，广泛用于Web应用开发，为网页添加各式各样的动态特效与交互功能</p>
+    </div>
     <section class="contentBody_course">
         <div>
             <div style="background-color: #C25975;">

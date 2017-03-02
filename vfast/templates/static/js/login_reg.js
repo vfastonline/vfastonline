@@ -198,3 +198,8 @@ function login(){
         xmlhttp.send(str);
     }
 }
+function login_enter(e){
+    if(e.keyCode == 13){
+        login();
+    }
+}

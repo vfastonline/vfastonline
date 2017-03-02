@@ -27,7 +27,7 @@ def test(request):
     # course = connection.cursor()
     # course.execute('select * from vcourse_video')
     # a = dictfetchall(cursor=course)
-    return HttpResponse('test')
+    return render(request, "search_Result.html")
 
 def dashBoard(request):
     return render(request, 'dashBoard.html')

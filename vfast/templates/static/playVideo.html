@@ -472,6 +472,9 @@
         .tab_Course_ongoing{
             background: #B4BEC8!important;
         }
+        .tab_Course_ongoing:hover{
+            opacity: 0.8;
+        }
         .tab_Course_ongoing p{
             color: #FFFFFF!important;
         }
@@ -513,7 +516,7 @@
             cursor: pointer;
             background-color: #EEEEEE;
         }
-        .tab_Course>div:last-child:hover,.tab_Course>div:first-child:hover{
+        .tab_Course>div:first-child:hover{
             cursor:default;
             background-color: #FFFFFF;
         }
@@ -735,9 +738,9 @@
 <div style="height: 50px;"></div>
 
 <div class="video_div">
-    <video onended="video_ended()" onclick="video_Pause()" autoplay  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
+    <video onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
-        <source id="video_source" src="/static/video/1.mp4" type="video/mp4" />
+        <source id="video_source" src='http://127.0.0.1:8000/static/video/1.mp4'type="video/mp4" />
     </video>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
@@ -1095,7 +1098,7 @@
         video_div2.style.display = "block";
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
-        if(elem.src.substring(elem.src.length-5,elem.src.length+1)=="3.mp4"){
+        if(document.getElementById("forloop_last")){
 //            勋章获取
             medal_div.style.zIndex = "1";
             medal_div_p.style.animation = "medal_div_animation 1.2s";
@@ -1136,9 +1139,9 @@
                 charts_container_div_1.style.opacity = 0;
             },1200)
             if(svgJS){
-{#                var svriptEL = document.createElement("script");#}
-{#                svriptEL.src = "/static/js/svg1.js";#}
-{#                document.body.appendChild(svriptEL);#}
+                //var svriptEL = document.createElement("script");
+                //svriptEL.src = "/static/js/svg1.js";
+               //document.body.appendChild(svriptEL);
                 drawLineChart('lineChart',data.lineChart);
                 svgJS = false;
             }
