@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from django.db import connection
 
-
 import logging
 import logging.handlers
 import time, os, json, base64
@@ -163,3 +162,5 @@ def dictfetchall(sql):
         dict(zip([col[0] for col in desc], row))
         for row in cursor.fetchall()
     ]
+
+from django.template import defaultfilters

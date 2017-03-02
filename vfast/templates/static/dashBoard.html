@@ -427,8 +427,9 @@
             <div class="contentBody_left_body">
                 <ul>
                     {% for course in courses %}
+                        {% load mytags %}
                         {% if course.flag == 1 %}
-                            <a href="#" class="courseIN">
+                            <a href="{{ course| dashboard_get_lession_url}}" class="courseIN">
                                 <div style="width: {{ course.video_jindu }};"></div>
                                 <li>
                                     <div>
@@ -444,7 +445,7 @@
                                 </li>
                             </a>
                         {% else %}
-                            <a href="#">
+                            <a href="{{ course | dashboard_get_lession_url}}">
                                 <li>
                                     <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
                                     <span>{{ course.name }}</span>

@@ -237,19 +237,14 @@ def dashboard(request, param):
             sql2 = 'select * from vrecord_watchcourse where user_id = %s AND course_id in (%s)' % (user.id, orders)
             courses_wathced = dictfetchall(sql2)    #获取用户观看过当前路线的课程,是否观看完成
 
-            # 课程时间显示转换
+            # 课程时间显示转换, 如果以看完课程,显示课程观看时间, 如果没有看完课程,显示课程总时间
             if len(courses_wathced) != 0:
                 for i in courses:
                     for j in courses_wathced:
-                        try:
-                            if i['id'] == j['course_id']:
-                                i['viewtime'] = time_comp_now(j['createtime'])
-                        except:
-                            i['viewtime'] = i['totaltime']
-                            logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
-            else:
-                for i in courses:
-                    i['viewtime'] = i['totaltime']
+                        if i['id'] == j['course_id']:
+                            i['viewtime'] = time_comp_now(j['createtime'])
+                    if not i.has_key('viewtime'):
+                        i['viewtime'] = i['totaltime']
 
             #查找出用户观看过的视频
             sql3 = """select * from (select vv.vtype, vv.name, vv.order, vv.id, vv.course_id, vv.vtype_url, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.order asc) as t group by t.course_id""" % ( user.id, orders)
@@ -262,7 +257,8 @@ def dashboard(request, param):
                         cour['video_id'] = v['id']
                         cour['video_name'] = v['name']
                         cour['vtype_url'] = v['vtype_url']
-                        if v['createtime'] == 'NULL':
+                        cour['vtype'] = v['vtype']
+                        if v['createtime'] == None:
                             cour['video_watch_time'] = '2000-00-00 00:00:00'  # 视频观看时间
                         else:
                             cour['video_watch_time'] = v['createtime']
