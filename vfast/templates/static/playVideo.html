@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -740,7 +740,7 @@
 <div class="video_div">
     <video onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
-        <source id="video_source" src='http://127.0.0.1:8000/static/video/1.mp4'type="video/mp4" />
+        <source id="video_source" src="{{ video_obj.vurl }}" type="video/mp4" />
     </video>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
@@ -825,15 +825,28 @@
             <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
         </svg>
     </div>
+    {% load mytags %}
+    {% for video in videos %}
+        {% if video.id == video_obj.id and not forloop.last %}
+            <div onclick="location.href='{{ videos| get_next_lession_url:forloop.counter0 }}'">
+                下一节
+                <svg width="13px" height="12px" viewBox="100 14 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <path d="M111.250294,14.3771894 C110.743844,13.8722144 109.920016,13.874915 109.411992,14.3814586 L109.433335,14.3601786 C108.924519,14.8675114 108.920198,15.6864815 109.424873,16.1905879 L115.719509,22.4781299 L101.299767,22.4781299 C100.581926,22.4781299 100,23.0626174 100,23.7811191 L100,23.7509347 C100,24.4705557 100.578108,25.0539238 101.299767,25.0539238 L115.719509,25.0539238 L109.424873,31.3414659 C108.920731,31.8450402 108.925311,32.6653315 109.433335,33.1718752 L109.411992,33.1505951 C109.920808,33.657928 110.751159,33.6525449 111.250294,33.1548644 L119.251436,25.1770361 C120.032992,24.3977572 120.03573,23.1370268 119.251436,22.3550177 L111.250294,14.3771894 Z"
+                          id="Shape" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+        {% endif %}
+        {% if video.id == video_obj.id and forloop.last %}
+            <div id="forloop_last">
 
-    <div>
-        下一节
-        <svg width="13px" height="12px" viewBox="100 14 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <path d="M111.250294,14.3771894 C110.743844,13.8722144 109.920016,13.874915 109.411992,14.3814586 L109.433335,14.3601786 C108.924519,14.8675114 108.920198,15.6864815 109.424873,16.1905879 L115.719509,22.4781299 L101.299767,22.4781299 C100.581926,22.4781299 100,23.0626174 100,23.7811191 L100,23.7509347 C100,24.4705557 100.578108,25.0539238 101.299767,25.0539238 L115.719509,25.0539238 L109.424873,31.3414659 C108.920731,31.8450402 108.925311,32.6653315 109.433335,33.1718752 L109.411992,33.1505951 C109.920808,33.657928 110.751159,33.6525449 111.250294,33.1548644 L119.251436,25.1770361 C120.032992,24.3977572 120.03573,23.1370268 119.251436,22.3550177 L111.250294,14.3771894 Z" id="Shape" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
-        </svg>
-    </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+
 </div>
 
 <div class="slideDIV" style="height: 150px;"></div>
@@ -906,30 +919,23 @@
             <i></i>
         </div>
         <div>
-            <p>IOS 开发 - Swift 3.0 基础</p>
-            <span>5:35</span>
+            <p>{{ video_obj.course.name }}</p>
+            <span>{{ video_obj.course.totaltime }}</span>
         </div>
     </div>
 
     <!--视频列表-->
 
-    <div onclick="tab_video_play('video_play_1.html')">
-        <div>
-            <i></i>
-            <div>
-                <svg width="14" height="16" viewBox="0 0 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <path fill="#FFF" fill-rule="evenodd" stroke="#FFF" d="M87.7076985,195.353413 C87.3168474,194.962562 87.3175379,194.328176 87.703031,193.942683 L87.5055404,194.140174 C87.8938137,193.751901 88.5262898,193.753976 88.9222642,194.148848 L90.5720215,195.794009 C90.9661831,196.187073 91.5994984,196.19193 91.9943242,195.797104 L97.0828187,190.70861 C97.4741731,190.317255 98.1089665,190.31979 98.4944596,190.708017 L98.296969,190.509126 C98.6852423,190.900153 98.6880364,191.529106 98.2880859,191.929057 L91.9976283,198.219515 C91.6044491,198.612694 90.9635892,198.609303 90.5780157,198.22373 L87.7076985,195.353413 Z" transform="translate(-86 -189)"/>
-                </svg>
-            </div>
-            <i></i>
-        </div>
-        <div>
-            <p>Swift 编程语言概要</p>
-            <span>5:35</span>
-        </div>
-    </div>
 
-    <div class="tab_Course_ongoing" onclick="tab_video_play('video_play.html')">
+
+
+    {% for video in videos %}
+        {% if  video.id == video_obj.id %}   <!--正在看的视频 或者正在做的题目-->
+            {% if video.vtype == 0 %}
+                <div class="tab_Course_ongoing" onclick="tab_video_play('/video/{{ video.id }}')">
+            {% else %}
+                <div class="tab_Course_ongoing" onclick="tab_video_play('/practice/{{ video.id }}')">
+            {% endif %}
         <div>
             <i></i>
             <div>
@@ -940,12 +946,49 @@
             <i></i>
         </div>
         <div>
-            <p>Swift 开发环境配置</p>
-            <span>5:35</span>
+            <p>{{ video.name }}</p>
+            <span>{{ video.vtime }}</span>
         </div>
     </div>
+            {% elif video.status == 0 %}   <!--已经完成的视频, 题目-->
 
-    <div onclick="tab_video_play('video_play_1.html')">
+            {% if video.vtype == 0 %}
+                <div  onclick="tab_video_play('/video/{{ video.id }}')">
+            {% else %}
+                <div  onclick="tab_video_play('/practice/{{ video.id }}')">
+            {% endif %}
+        <div>
+            <i></i>
+            <div>
+                <svg width="14" height="16" viewBox="0 0 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path fill="#FFF" fill-rule="evenodd" stroke="#FFF" d="M87.7076985,195.353413 C87.3168474,194.962562 87.3175379,194.328176 87.703031,193.942683 L87.5055404,194.140174 C87.8938137,193.751901 88.5262898,193.753976 88.9222642,194.148848 L90.5720215,195.794009 C90.9661831,196.187073 91.5994984,196.19193 91.9943242,195.797104 L97.0828187,190.70861 C97.4741731,190.317255 98.1089665,190.31979 98.4944596,190.708017 L98.296969,190.509126 C98.6852423,190.900153 98.6880364,191.529106 98.2880859,191.929057 L91.9976283,198.219515 C91.6044491,198.612694 90.9635892,198.609303 90.5780157,198.22373 L87.7076985,195.353413 Z" transform="translate(-86 -189)"/>
+                </svg>
+            </div>
+            <i></i>
+        </div>
+        <div>
+            <p>{{ video.name }}</p>
+            <span>{{ video.vtime }}</span>
+        </div>
+    </div>
+            {% elif video.vtype == 0 %}
+                       <div class="tab_Course_viewNO" onclick="tab_video_play('/video/{{ video.id }}')">
+        <div>
+            <i></i>
+            <div>
+                <svg width="14" height="16" viewBox="0 0 15 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <path fill="#FFF" fill-rule="evenodd" stroke="#FFF" stroke-width="3" d="M12.1557766,21.9587735 C11.6019384,21.9587735 11.3776744,21.5695633 11.6543702,21.0903121 L17.1796176,11.5203029 C17.4565367,11.0406649 17.9057346,11.0410517 18.1824304,11.5203029 L23.7076778,21.0903121 C23.9845969,21.5699501 23.759663,21.9587735 23.2062714,21.9587735 L12.1557766,21.9587735 Z" transform="rotate(90 17.181 7.141)"/>
+                </svg>
+            </div>
+            <i></i>
+        </div>
+        <div>
+            <p>{{ video.name }}</p>
+            <span>{{ video.vtime }}</span>
+        </div>
+    </div>
+            {% else %}
+                    <div onclick="tab_video_play('/practice/{{ video.id }}')">
         <div>
             <i></i>
             <div>
@@ -958,27 +1001,12 @@
             <i></i>
         </div>
         <div>
-            <p>Swift 编程语言概要</p>
-            <span>5 题</span>
+            <p>{{ video.name }}</p>
+            <span>{{ video.vtime }}</span>
         </div>
     </div>
-
-    <div class="tab_Course_viewNO" onclick="tab_video_play('video_play_2.html')">
-        <div>
-            <i></i>
-            <div>
-                <svg width="14" height="16" viewBox="0 0 15 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <path fill="#FFF" fill-rule="evenodd" stroke="#FFF" stroke-width="3" d="M12.1557766,21.9587735 C11.6019384,21.9587735 11.3776744,21.5695633 11.6543702,21.0903121 L17.1796176,11.5203029 C17.4565367,11.0406649 17.9057346,11.0410517 18.1824304,11.5203029 L23.7076778,21.0903121 C23.9845969,21.5699501 23.759663,21.9587735 23.2062714,21.9587735 L12.1557766,21.9587735 Z" transform="rotate(90 17.181 7.141)"/>
-                </svg>
-            </div>
-            <i></i>
-        </div>
-        <div>
-            <p>变量</p>
-            <span>5:35</span>
-        </div>
-    </div>
-
+        {% endif %}
+    {% endfor %}
     <!--视频列表 END-->
 
 </div>

@@ -380,27 +380,27 @@
     </div>
     <div class="slideDIV" style="height:100px;"></div>
     <section class="contentBody_course">
-        <div>
-            <div style="background-color: #C25975;">
-                <div>
-                    <img src="/static/svg/videoCourse_1.svg" alt="">
-                </div>
-                <div>72小时</div>
-            </div>
-            <div onclick="play_video('/')">
-                <p>系列课程</p>
-                <h1>jQuery 入门</h1>
-                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
-                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
-                <div>难易度：
-                    <img src="/static/svg/xingxing_1.svg" alt="">
-                    <img src="/static/svg/xingxing_1.svg" alt="">
-                    <img src="/static/svg/xingxing_1.svg" alt="">
-                    <img src="/static/svg/xingxing.svg" alt="">
-                    <img src="/static/svg/xingxing.svg" alt="">
-                </div>
-            </div>
-        </div>
+{#        <div>#}
+{#            <div style="background-color: #C25975;">#}
+{#                <div>#}
+{#                    <img src="/static/svg/videoCourse_1.svg" alt="">#}
+{#                </div>#}
+{#                <div>72小时</div>#}
+{#            </div>#}
+{#            <div onclick="play_video('/')">#}
+{#                <p>系列课程</p>#}
+{#                <h1>jQuery 入门</h1>#}
+{#                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>#}
+{#                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>#}
+{#                <div>难易度：#}
+{#                    <img src="/static/svg/xingxing_1.svg" alt="">#}
+{#                    <img src="/static/svg/xingxing_1.svg" alt="">#}
+{#                    <img src="/static/svg/xingxing_1.svg" alt="">#}
+{#                    <img src="/static/svg/xingxing.svg" alt="">#}
+{#                    <img src="/static/svg/xingxing.svg" alt="">#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
 
         {% for pub in pubs %}
@@ -411,11 +411,15 @@
                 </div>
                 <div>{{ pub.totaltime }}</div>
             </div>
-            <div onclick="play_video('/')">
+            {% if pub.vtype == 0 %}
+                <div onclick="location.href='/video/{{ pub.video_id }}'">
+            {% else %}
+                <div onclick="location.href='/practice/{{ pub.video_id }}'">
+            {% endif %}
                 <p>系列课程</p>
                 <h1>{{ pub.name }}</h1>
                 <p>{{ pub.desc }}</p>
-                <div style="background-color: {{ pub.tech.color }};" class="groupHover" onclick="stopPPG(this)">{{ pub.tech.name }}</div>
+                <div style="background-color: {{ pub.vp_color }};" class="groupHover" onclick="stopPPG(this)">{{ pub.vp_name }}</div>
                 <div>难易度：
 
                     {% for n in xingxing %}
@@ -439,21 +443,6 @@
     <div class="slideDIV" style="height:150px;"></div>
     <h2 class="upcoming_release">即将发布</h2>
     <section class="contentBody_course ur_course">
-        <div>
-            <div style="background-color: #00AFE6;">
-                <div>
-                    <img src="/static/svg/videoCourse_1.svg" alt="">
-                </div>
-                <div>72小时</div>
-            </div>
-            <div onclick="play_video('/')">
-                <p>系列课程</p>
-                <h1>jQuery 入门</h1>
-                <p>Buying the rasda asdfgwrg qw qwd asdila sdiah sdip hsiudh aipbvip hwsipwid qwpf hqiuh weqh fia sdh as fhiq efioqhsdagci  qishfua isudh iashd oaihsdf iosd asd asd as dasd asd asd asd asd as dasd qfs gsfdg ight telescope take your lover of astooia qojw qoj dq wgoiqedqi ofqoi gqojqo wdjqoiwqoiwfj qoiwfj oiqweg oqjwdf oqjw ofwq egoiq wfoig qeughv soidfh oaqfogiw eogiqwe igfo </p>
-                <div style="background-color: red;" class="groupHover" onclick="stopPPG(this)">JavaScript</div>
-                <div>预计发布时间：2016/11</div>
-            </div>
-        </div>
 
         {% for not_pub in not_pubs %}
             <div>

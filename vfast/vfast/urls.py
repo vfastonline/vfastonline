@@ -32,7 +32,8 @@ urlpatterns = [
     url('^search', views.search, name='search'),
     url('^navtabs', views.search_js, name='navtabs'),
     url('^dashBoard', views.dashBoard),
-    url('^playVideo', views.playVideo),
+    url('^video/(\d+)/$', views.playVideo),
+    url('^practice/(\d+)/$', views.practice,),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -183,9 +183,9 @@ def login(request):
                 request.session['token'] = token
                 request.session['user'] = user
                 request.session['login'] = True
-                pre_url = request.session.get('pre_url', '/')
-                print pre_url, email, password, user['id']
-                return HttpResponse(json.dumps({'code': 0, 'pre_url': pre_url, 'id': user['id']}, ensure_ascii=False))
+                # pre_url = request.session.get('pre_url', '/')
+                print  email, password, user['id']
+                return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))
             else:
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'账号未激活'}, ensure_ascii=False))
@@ -230,29 +230,24 @@ def dashboard(request, param):
             return render(request, 'dashBoard.html', {'courses':courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4]})
         #显示正在学习的路线
         else:
-            orders = Path.objects.get(id=pathid).orders
-            sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (orders, orders)
+            sequence = Path.objects.get(id=pathid).sequence
+            sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (sequence, sequence)
             print sql
-            courses = dictfetchall(sql)             #获取路线在的所有课程, 按orders排序
-            sql2 = 'select * from vrecord_watchcourse where user_id = %s AND course_id in (%s)' % (user.id, orders)
+            courses = dictfetchall(sql)             #获取路线在的所有课程, sequence
+            sql2 = 'select * from vrecord_watchcourse where user_id = %s AND course_id in (%s)' % (user.id, sequence)
             courses_wathced = dictfetchall(sql2)    #获取用户观看过当前路线的课程,是否观看完成
 
-            # 课程时间显示转换
+            # 课程时间显示转换, 如果以看完课程,显示课程观看时间, 如果没有看完课程,显示课程总时间
             if len(courses_wathced) != 0:
                 for i in courses:
                     for j in courses_wathced:
-                        try:
-                            if i['id'] == j['course_id']:
-                                i['viewtime'] = time_comp_now(j['createtime'])
-                        except:
-                            i['viewtime'] = i['totaltime']
-                            logging.getLogger().warning('dashboard, 匹配是否看完课程时候, keyerror错误')
-            else:
-                for i in courses:
-                    i['viewtime'] = i['totaltime']
+                        if i['id'] == j['course_id']:
+                            i['viewtime'] = time_comp_now(j['createtime'])
+                    if not i.has_key('viewtime'):
+                        i['viewtime'] = i['totaltime']
 
             #查找出用户观看过的视频
-            sql3 = """select * from (select vv.vtype, vv.name, vv.order, vv.id, vv.course_id, vv.vtype_url, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.order asc) as t group by t.course_id""" % ( user.id, orders)
+            sql3 = """select * from (select vv.vtype, vv.name, vv.sequence, vv.id, vv.course_id, vv.vtype_url, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.sequence asc) as t group by t.course_id""" % ( user.id, sequence)
             videos = dictfetchall(sql3)
             logging.getLogger().info(videos)
             #给每个课程加上需要跳转的video信息
@@ -262,7 +257,8 @@ def dashboard(request, param):
                         cour['video_id'] = v['id']
                         cour['video_name'] = v['name']
                         cour['vtype_url'] = v['vtype_url']
-                        if v['createtime'] == 'NULL':
+                        cour['vtype'] = v['vtype']
+                        if v['createtime'] == None:
                             cour['video_watch_time'] = '2000-00-00 00:00:00'  # 视频观看时间
                         else:
                             cour['video_watch_time'] = v['createtime']
@@ -303,9 +299,9 @@ def dashboard(request, param):
 
 
             #进行路线的百分比
-            p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % orders
+            p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % sequence
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
-                orders, user.id)
+                sequence, user.id)
             p_num = dictfetchall(p_num_sql)
             v_num = dictfetchall(v_num_sql)
             jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']

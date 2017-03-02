@@ -58,7 +58,7 @@ class Path(models.Model):
     totaltime = models.CharField('路线总时间', null=True, blank=True, default=' ', max_length=50)
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
     createtime = models.CharField('路线创建时间', max_length=20)
-    orders = models.CharField('课程顺序', null=True, blank=True, max_length=30)
+    sequence = models.CharField('课程顺序', null=True, blank=True, max_length=30)
     color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
     avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='1W')
     job_wanted = models.IntegerField('岗位空缺度', null=True, default=5)
@@ -86,7 +86,7 @@ class Video(models.Model):
     end = models.IntegerField('是否为最后一节视频', default=0)  #0不是, 1是
     vtype = models.IntegerField('类型, 视频, 题目', default=0)
     vtype_url = models.CharField('类型图标', max_length=50, default='/static/svg/video.svg')
-    order = models.IntegerField('视频播放顺序', default=0)
+    sequence = models.IntegerField('视频播放顺序', default=0)
 
     def __unicode__(self):
         return self.name
