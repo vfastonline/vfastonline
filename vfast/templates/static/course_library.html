@@ -305,11 +305,15 @@
                 </div>
                 <div>{{ pub.totaltime }}</div>
             </div>
-            <div onclick="play_video('/')">
+            {% if pub.vtype == 0 %}
+                <div onclick="location.href='/video/{{ pub.video_id }}'">
+            {% else %}
+                <div onclick="location.href='/practice/{{ pub.video_id }}'">
+            {% endif %}
                 <p>系列课程</p>
                 <h1>{{ pub.name }}</h1>
                 <p>{{ pub.desc }}</p>
-                <div style="background-color: {{ pub.tech.color }};" class="groupHover" onclick="stopPPG(this)">{{ pub.tech.name }}</div>
+                <div style="background-color: {{ pub.vp_color }};" class="groupHover" onclick="stopPPG(this)">{{ pub.vp_name }}</div>
                 <div>难易度：
 
                     {% for n in xingxing %}

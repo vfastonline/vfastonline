@@ -191,18 +191,18 @@ def getcourses(request):
     try:
         pubs, not_pubs = [], []
         type = request.GET.get('type', None)
-        print type
-        if type:
+        try:
             techobj = Program.objects.get(name=type)
             courses = Course.objects.filter(tech=techobj).values('id')
-        else:
+        except:
             courses = Course.objects.filter().values('id')
         for c in courses:
-            try:
-                pubs.append(Course.objects.get(id=c['id'], pubstatus=0))
-            except:
-                not_pubs.append(Course.objects.get(id=c['id'], pubstatus=1))
-        print pubs, not_pubs
+            sql_pub = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % c['id']
+            ret = dictfetchall(sql_pub)
+            if len(ret) != 0:
+                pubs.append(ret[0])
+            else:
+                not_pubs.append(Course.objects.get(id=c['id']))
         return render(request, 'course_library.html', {'pubs': pubs, 'not_pubs': not_pubs, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
