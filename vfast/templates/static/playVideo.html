@@ -836,6 +836,11 @@
                 </svg>
             </div>
         {% endif %}
+        {% if video.id == video_obj.id and forloop.last %}
+            <div id="forloop_last">
+
+            </div>
+        {% endif %}
     {% endfor %}
 
 

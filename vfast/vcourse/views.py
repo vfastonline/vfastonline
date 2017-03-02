@@ -118,7 +118,7 @@ def path_add(request):
             difficult = request.POST.get('difficult', 4)
             totaltime = request.POST.get('totaltime', ' ')
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
-            orders = request.POST.get('orders')
+            sequence = request.POST.get('sequence')
 
             day = time.strftime('%Y%m%d')
             intrvfile = request.FILES.get('video', None)
@@ -140,23 +140,10 @@ def path_add(request):
                     pass
 
             sql = Path(name=name, desc=desc, intrv=intrv, jobscount=jobscount, salary=salary, jstime=jstime,
-                       orders=orders,
+                       sequence=sequence,
                        difficult=difficult, pathimg=pathimg, totaltime=totaltime, createtime=createtime)
             sql.save()
             return HttpResponse(json.dumps({'code': 0, 'msg': u'创建路线成功'}, ensure_ascii=False))
-    except:
-        logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
-
-
-def play_video(request):
-    """视频播放页面"""
-    try:
-        vid = request.GET.get('vid')
-        uid = request.session['user']['id']
-        sql = 'select vv.id as videoid, vv.order as video_order, vv.name as video_name, vv.course_id, vw.status from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=2  where vv.course_id=2'
-
-        return render(request, 'du/videodu.html', {'video': 'video'})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -183,8 +170,8 @@ def getpath(request):
         pid = request.GET.get('id')
         print pid, type(pid)
         path = Path.objects.get(id=pid)
-        orders = path.orders
-        course = orders.split(',')
+        sequence = path.sequence
+        course = sequence.split(',')
 
         courses = []
         for cid in course:
