@@ -267,8 +267,8 @@
             float: left;
             height: 54px;
             line-height: 54px;
-            width:10%;
             position: relative;
+            margin-left: 40px;
         }
         .search_TypeList li>b{
             position: absolute;
@@ -316,66 +316,17 @@
     <div class="slideDIV" style="height:80px;"></div>
     <div class="search_TypeList">
         <ul class="clearfix">
-            <li>
-                <b style="background-color: #329577;"></b>
-                <span onmouseover="this.style.background='#329577'" onmouseout="this.style.background='transparent'">Android</span>
-            </li>
-            <li>
-                <b style="background-color: #647A90;"></b>
-                <span onmouseover="this.style.background='#647A90'" onmouseout="this.style.background='transparent'">IOS</span>
-            </li>
-            <li>
-                <b style="background-color: #4DD0E1;"></b>
-                <span onmouseover="this.style.background='#4DD0E1'" onmouseout="this.style.background='transparent'">CSS</span>
-            </li>
-            <li>
-                <b style="background-color: #59769F;"></b>
-                <span onmouseover="this.style.background='#59769F'" onmouseout="this.style.background='transparent'">Android</span>
-            </li>
-            <li>
-                <b style="background-color: #FFC32A;"></b>
-                <span onmouseover="this.style.background='#FFC32A'" onmouseout="this.style.background='transparent'">IOS</span>
-            </li>
-            <li>
-                <b style="background-color: #4DD0E1;"></b>
-                <span onmouseover="this.style.background='#4DD0E1'" onmouseout="this.style.background='transparent'">CSS</span>
-            </li>
-            <li>
-                <b style="background-color:  #00AFE6;"></b>
-                <span onmouseover="this.style.background='#00AFE6'" onmouseout="this.style.background='transparent'">Android</span>
-            </li>
-            <li>
-                <b style="background-color:  #C80A64;"></b>
-                <span onmouseover="this.style.background='#C80A64'" onmouseout="this.style.background='transparent'">IOS</span>
-            </li>
-            <li>
-                <b style="background-color:  #642476;"></b>
-                <span onmouseover="this.style.background='#642476'" onmouseout="this.style.background='transparent'">CSS</span>
-            </li>
-            <li>
-                <b style="background-color:  #647A90;"></b>
-                <span onmouseover="this.style.background='#647A90'" onmouseout="this.style.background='transparent'">Android</span>
-            </li>
-            <li>
-                <b style="background-color: #329577;"></b>
-                <span onmouseover="this.style.background='#329577'" onmouseout="this.style.background='transparent'">IOS</span>
-            </li>
-            <li>
-                <b style="background-color: #4DD0E1;"></b>
-                <span onmouseover="this.style.background='#4DD0E1'" onmouseout="this.style.background='transparent'">CSS</span>
-            </li>
-            <li>
-                <b style="background-color: #329577;"></b>
-                <span onmouseover="this.style.background='#329577'" onmouseout="this.style.background='transparent'">Android</span>
-            </li>
-            <li>
-                <b style="background-color: #647A90;"></b>
-                <span onmouseover="this.style.background='#647A90'" onmouseout="this.style.background='transparent'">IOS</span>
-            </li>
-            <li>
-                <b style="background-color: #4DD0E1;"></b>
-                <span onmouseover="this.style.background='#4DD0E1'" onmouseout="this.style.background='transparent'">CSS</span>
-            </li>
+            {% for vp in vps %}
+                <li onclick="location.href='/course/courses?type={{ vp.name }}'">
+                    <b style="background-color: {{ vp.color }};"></b>
+                    {% if vp.name == tech_obj.name %}
+                    <span style="background-color: {{ tech_obj.color }};color:#FFFFFF" >{{ vp.name }}</span>
+                    {% else %}
+                        <span  onmouseover="this.style.background='{{ vp.color }}'" onmouseout="this.style.background='transparent'">{{ vp.name }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
         </ul>
     </div>
     <div class="slideDIV" style="height:100px;"></div>

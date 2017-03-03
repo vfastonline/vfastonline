@@ -65,7 +65,8 @@ def search(request):
         print key_words
         results = Course.objects.filter(name__contains=key_words).values()
         print results
-        return HttpResponse('ok')
+        vps = Program.objects.all()
+        return render(request, 'search_Result.html', {'results':results, 'vps':vps, })
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
@@ -96,7 +97,7 @@ def playVideo(request, params):
         return render(request, 'playVideo.html', {'videos':videos, 'video_obj':video_obj})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return HttpResponse(status=404)
 
 
 def practice(request, params):
