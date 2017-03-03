@@ -8,6 +8,7 @@ from vuser.models import User
 class Program(models.Model):
     name = models.CharField('技术类别', max_length=50)
     color = models.CharField('颜色', max_length=10, default='#FFFFFF')
+    desc = models.TextField('技术简介', default=' ')
 
     def __unicode__(self):
         return self.name

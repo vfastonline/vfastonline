@@ -191,11 +191,13 @@ def getcourses(request):
     try:
         pubs, not_pubs = [], []
         type = request.GET.get('type', None)
+        vps = Program.objects.all().values()
         try:
             techobj = Program.objects.get(name=type)
             courses = Course.objects.filter(tech=techobj).values('id')
         except:
             courses = Course.objects.filter().values('id')
+            techobj = ''
         for c in courses:
             sql_pub = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % c['id']
             ret = dictfetchall(sql_pub)
@@ -203,7 +205,7 @@ def getcourses(request):
                 pubs.append(ret[0])
             else:
                 not_pubs.append(Course.objects.get(id=c['id']))
-        return render(request, 'course_library.html', {'pubs': pubs, 'not_pubs': not_pubs, 'xingxing': [0, 1, 2, 3, 4]})
+        return render(request, 'course_library.html', {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
