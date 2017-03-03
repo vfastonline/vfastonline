@@ -421,7 +421,7 @@
                                      {% endfor %}
                                  {% endwith %}
                              {% endfor %})
-                             ">开始学习</div>
+                             ">{% if path.id == user.user_pathid%}继续学习{% else %}切换路线{% endif %}</div>
                 <div>
                     <span>岗位空缺度：</span>
                     {% for xx in xingxing %}
@@ -721,6 +721,10 @@
         parentHeight = parentHeight.substring(0,parentHeight.indexOf('px'));
         t.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
         t.parentNode.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
+    }
+
+    function startPath(vid,pid){
+        location.href = "/course/join_track?pid="+pid+"&vid="+vid;
     }
 </script>
 <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
