@@ -1141,8 +1141,8 @@
         video_div2.style.display = "block";
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
-        console.log(elem.duration)
-        $.get("/r/video?vid="+video_source.title+"&video_process="+elem.duration+"&status=0",function(data){
+        console.log(parseInt(elem.duration))
+        $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
             console.log(data);
         });
         if(document.getElementById("forloop_last")){
