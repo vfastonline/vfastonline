@@ -166,8 +166,9 @@ def resetpwd_verify(request):
 def login(request):
     try:
         if request.method == 'GET':
-            return render(request, 'usertest.html')
+            return render(request, 'login_left.html')
         else:
+            print request.META
             email = request.POST.get('username', ' ')
             password = request.POST.get('password', ' ')
             password = encry_password(password)
@@ -176,7 +177,7 @@ def login(request):
             if ret:
                 # 账号登陆成功之后需要将用户的相关信息保存到session里面
                 user = User.objects.filter(Q(email=email) | Q(username=email), password=password, status=1).values(
-                    'email', 'id', 'role', 'username', 'totalscore', 'headimg', 'headimgframe').first()
+                    'email', 'id', 'role', 'username', 'totalscore', 'headimg', 'headimgframe', 'pathid').first()
                 print user['email']
                 token = get_validate(email=user['email'], uid=user['id'], role=user['role'],
                                      fix_pwd=settings.SECRET_KEY)
@@ -185,7 +186,12 @@ def login(request):
                 request.session['login'] = True
                 # pre_url = request.session.get('pre_url', '/')
                 print  email, password, user['id']
-                return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))
+                pre_url = request.META.get('HTTP_REFERER')
+                print pre_url
+                if len(pre_url.split('/'))==2:
+                    return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))
+                else:
+                    return HttpResponse(json.dumps({'code':0 , 'url':pre_url}, ensure_ascii=False))
             else:
                 if User.objects.filter(Q(email=email) | Q(username=email), password=password, status=0).exists():
                     return HttpResponse(json.dumps({'code': 1, 'msg': u'账号未激活'}, ensure_ascii=False))
@@ -230,7 +236,8 @@ def dashboard(request, param):
             return render(request, 'dashBoard.html', {'courses':courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4]})
         #显示正在学习的路线
         else:
-            sequence = Path.objects.get(id=pathid).sequence
+            path = Path.objects.get(id=pathid)
+            sequence = path.sequence
             sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (sequence, sequence)
             print sql
             courses = dictfetchall(sql)             #获取路线在的所有课程, sequence
@@ -308,7 +315,7 @@ def dashboard(request, param):
             jindu = '%.2f%%' % (jindu * 100)
             logging.getLogger().info(connection.queries)
             print courses
-            return render(request, 'dashBoard.html', {'courses': courses, 'jindu': jindu, 'path_flag': True})
+            return render(request, 'dashBoard.html', {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name':path.name})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('failed')
