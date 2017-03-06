@@ -543,7 +543,7 @@
             color: #FFFFFF;
             position: relative;
         }
-        .video_div .medal_div>.medal_shouji{
+        .video_div .medal_div>.medal_badge{
             margin-top: 20px;
             width: 220px;
             height: 240px;
@@ -782,8 +782,8 @@
     </div>
     <div id="medal_div" class="medal_div">
        <p id="medal_div_p">干得漂亮，王鹏</p>
-       <h2 id="medal_div_h2">你已获得移动端应用界面制作勋章</h2>
-       <img id="medal_shouji" src="/static/imgs/badges-design-sketch-stage4.png" class="medal_shouji" />
+       <h2 id="medal_div_h2">你已获得<span id="badge_name">移动端应用界面制作</span>勋章</h2>
+       <img id="medal_badge" src="/static/imgs/badges-design-sketch-stage4.png" class="medal_badge" />
        <img id="medal_30" src="/static/imgs/+30.png" class="medal_30"/>
        <img id="medal_circle_1" src="/static/imgs/Oval%204.png" class="medal_circle_1 shapes" />
        <img id="medal_circle_2" src="/static/imgs/Oval%204.png" class="medal_circle_2 shapes" />
@@ -1072,7 +1072,7 @@
 
 //        重置勋章获取
         medal_div.style.zIndex = "0";
-        medal_shouji.style.opacity = 0;
+        medal_badge.style.opacity = 0;
         medal_30.style.opacity = 0;
     }
 
@@ -1142,57 +1142,58 @@
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
         console.log(parseInt(elem.duration))
-        $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
+        $.getJSON("/r/video?vid="+video_source.title+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
             console.log(data);
-        });
-        if(document.getElementById("forloop_last")){
-//            勋章获取
-            medal_div.style.zIndex = "1";
-            medal_div_p.style.animation = "medal_div_animation 1.2s";
-            medal_div_h2.style.animation = "medal_div_animation 1.2s";
-            setTimeout(function(){
-                medal_div_p.style.animation = "";
-                medal_div_h2.style.animation = "";
-            },1200)
-            setTimeout(function(){
-                medal_shouji.style.animation = "medal_div_shouji_animation 0.5s";
+            if(data.b_flag){
+                badge_name.innerHTML = data.badge.badge_name;
+                medal_badge.src = data.badge.badge_url;
+    //            勋章获取
+                medal_div.style.zIndex = "1";
+                medal_div_p.style.animation = "medal_div_animation 1.2s";
+                medal_div_h2.style.animation = "medal_div_animation 1.2s";
                 setTimeout(function(){
-                    medal_shouji.style.animation = "";
-                    medal_shouji.style.opacity = 1;
+                    medal_div_p.style.animation = "";
+                    medal_div_h2.style.animation = "";
+                },1200)
+                setTimeout(function(){
+                    medal_badge.style.animation = "medal_div_shouji_animation 0.5s";
+                    setTimeout(function(){
+                        medal_badge.style.animation = "";
+                        medal_badge.style.opacity = 1;
+                    },500)
                 },500)
-            },500)
 
-            setTimeout(function(){
-                medal_30.style.animation = "medal_30_animation 0.35s";
                 setTimeout(function(){
-                    medal_30.style.animation = "";
-                    medal_30.style.opacity = 1;
-                },350)
-            },650)
+                    medal_30.style.animation = "medal_30_animation 0.35s";
+                    setTimeout(function(){
+                        medal_30.style.animation = "";
+                        medal_30.style.opacity = 1;
+                    },350)
+                },650)
 
-            var shapesArr = medal_div.getElementsByClassName("shapes");
-            for(var i = 0 ; i < shapesArr.length ; i++){
-                shapesArr[i].style.opacity = 1;
+                var shapesArr = medal_div.getElementsByClassName("shapes");
+                for(var i = 0 ; i < shapesArr.length ; i++){
+                    shapesArr[i].style.opacity = 1;
+                }
+            }else{
+    //            积分详情
+                charts_container_div.style.opacity = 1;
+                charts_container_div.style.top = "70px";
+                charts_container.style.opacity = 1;
+                charts_container.style.zIndex = 1;
+                charts_container_div_1.style.animation = "charts_container_div_1_animation 1.2s";
+                setTimeout(function(){
+                    charts_container_div_1.style.animation = "";
+                    charts_container_div_1.style.opacity = 0;
+                },1200)
+                if(svgJS){
+                    $.getJSON("/r/weekscore",function(data,status){
+                        drawLineChart('lineChart',data.weekscore);
+                        svgJS = false;
+                    });
+                }
             }
-        }else{
-//            积分详情
-            charts_container_div.style.opacity = 1;
-            charts_container_div.style.top = "70px";
-            charts_container.style.opacity = 1;
-            charts_container.style.zIndex = 1;
-            charts_container_div_1.style.animation = "charts_container_div_1_animation 1.2s";
-            setTimeout(function(){
-                charts_container_div_1.style.animation = "";
-                charts_container_div_1.style.opacity = 0;
-            },1200)
-            if(svgJS){
-                $.getJSON("/r/weekscore",function(data,status){
-                    console.log(data.weekscore);
-                    drawLineChart('lineChart',data.weekscore);
-                    svgJS = false;
-                });
-            }
-        }
+        });
     }
 
     function video_cc(t){
