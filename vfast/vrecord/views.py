@@ -63,11 +63,12 @@ def record_video(request):
     """记录用户观看课程视频的时间点, 以及课程是否观看完成
     """
     try:
-        if request.method == 'POST':
-            uid = request.POST.get('uid')  # userid
-            vid = request.POST.get('vid')  # videoid
-            video_process = request.POST.get('video_process')  # 观看视频时间点
-            status = request.POST.get('status')  # 视频是否观看完成
+        if request.method == 'GET':
+            uid = request.session["user"]["id"]  # userid
+            vid = request.GET.get('vid')  # videoid
+            video_process = request.GET.get('video_process')  # 观看视频时间点
+            status = request.GET.get('status')  # 视频是否观看完成
+            print uid, vid, video_process, status
             t = time.strftime('%Y-%m-%d')
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
@@ -122,7 +123,7 @@ def record_video(request):
             return HttpResponse('get method~!')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 1, 'msg': traceback.format_exc()}, ensure_ascii=False))
 
 
 def get_score_seven_day(request):
@@ -140,7 +141,7 @@ def get_score_seven_day(request):
             if ret[0]['score'] is None:
                 tmp['value'] = 0
             else:
-                tmp['value'] = ret[0]['score']
+                tmp['value'] = int(ret[0]['score'])
             seven_day.append(tmp)
         print seven_day
         return HttpResponse(json.dumps({'weekscore':seven_day}, ensure_ascii=False))

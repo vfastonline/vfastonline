@@ -750,9 +750,9 @@
 <div style="height: 50px;"></div>
 
 <div class="video_div">
-    <video  onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
+    <video onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
-        <source id="video_source" src="{{ video_obj.vurl }}" type="video/mp4" />
+        <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl }}" type="video/mp4" />
         <track kind="subtitles" src="{{ video_obj.cc }}" srclang="en" label="English" default>
     </video>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -799,7 +799,7 @@
         <li onclick="video_speed(this,0.75)">0.75x</li>
         <li onclick="video_speed(this,1)">1.0x</li>
         <li onclick="video_speed(this,1.1)">1.1x</li>
-        <li onclick="video_speed(this,1.25)">1.25x</li>
+        <li onclick="video_speed(this,10)">1.25x</li>
     </ul>
     <svg onclick="video_skip()" class="video_tiaoguo" width="29px" height="16px" viewBox="377 753 29 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M390.828427,758.656854 L379,758.656854 C377.895431,758.656854 377,759.552285 377,760.656854 C377,761.761424 377.895431,762.656854 379,762.656854 L390.828427,762.656854 L388.585786,764.899495 C387.804738,765.680544 387.804738,766.946873 388.585786,767.727922 C389.366835,768.508971 390.633165,768.508971 391.414214,767.727922 L397.071068,762.071068 C397.852116,761.290019 397.852116,760.023689 397.071068,759.242641 L391.414214,753.585786 C390.633165,752.804738 389.366835,752.804738 388.585786,753.585786 C387.804738,754.366835 387.804738,755.633165 388.585786,756.414214 L390.828427,758.656854 Z M406,760.656854 C406,759 404.656854,757.656854 403,757.656854 C401.343146,757.656854 400,759 400,760.656854 C400,762.313708 401.343146,763.656854 403,763.656854 C404.656854,763.656854 406,762.313708 406,760.656854 Z" id="Combined-Shape" stroke="none" fill="#7C828C" fill-rule="evenodd"></path>
@@ -850,11 +850,6 @@
                     <path d="M111.250294,14.3771894 C110.743844,13.8722144 109.920016,13.874915 109.411992,14.3814586 L109.433335,14.3601786 C108.924519,14.8675114 108.920198,15.6864815 109.424873,16.1905879 L115.719509,22.4781299 L101.299767,22.4781299 C100.581926,22.4781299 100,23.0626174 100,23.7811191 L100,23.7509347 C100,24.4705557 100.578108,25.0539238 101.299767,25.0539238 L115.719509,25.0539238 L109.424873,31.3414659 C108.920731,31.8450402 108.925311,32.6653315 109.433335,33.1718752 L109.411992,33.1505951 C109.920808,33.657928 110.751159,33.6525449 111.250294,33.1548644 L119.251436,25.1770361 C120.032992,24.3977572 120.03573,23.1370268 119.251436,22.3550177 L111.250294,14.3771894 Z"
                           id="Shape" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
                 </svg>
-            </div>
-        {% endif %}
-        {% if video.id == video_obj.id and forloop.last %}
-            <div id="forloop_last">
-
             </div>
         {% endif %}
     {% endfor %}
@@ -1146,6 +1141,10 @@
         video_div2.style.display = "block";
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
+        console.log(elem.duration)
+        $.get("/r/video?vid="+video_source.title+"&video_process="+elem.duration+"&status=0",function(data){
+            console.log(data);
+        });
         if(document.getElementById("forloop_last")){
 //            勋章获取
             medal_div.style.zIndex = "1";
@@ -1187,7 +1186,8 @@
                 charts_container_div_1.style.opacity = 0;
             },1200)
             if(svgJS){
-                $.getJSON("",function(data,status){
+                $.getJSON("/r/weekscore",function(data,status){
+                    console.log(data.weekscore);
                     drawLineChart('lineChart',data.weekscore);
                     svgJS = false;
                 });
