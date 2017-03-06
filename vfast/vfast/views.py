@@ -62,11 +62,18 @@ def index(request):
 def search(request):
     try:
         key_words = request.GET.get('query')
-        print key_words
-        results = Course.objects.filter(name__contains=key_words).values()
-        print results
         vps = Program.objects.all()
-        return render(request, 'search_Result.html', {'results':results, 'vps':vps, })
+        print key_words
+        courses = Course.objects.filter(name__contains=key_words).values('id')
+        print courses
+        result = []
+        for c in courses:
+            sql = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
+                  c['id']
+            ret = dictfetchall(sql)[0]
+            result.append(ret)
+        print result
+        return render(request, 'search_Result.html', {'results':result, 'vps':vps, 'xingxing': [0,1,2,3,4] })
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
