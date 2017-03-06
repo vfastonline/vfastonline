@@ -83,22 +83,18 @@ def search_js(request):
 
 
 def playVideo(request, params):
-    try:
-        print params, type(params)
-        video_obj = Video.objects.get(id=int(params))
-        try:
-            userid = request.session['user']['id']
-        except:
-            return HttpResponse(u'请先登录')
-        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (userid, video_obj.course.id)
-        videos = dictfetchall(sql)
-        print sql
-        print videos
-        return render(request, 'playVideo.html', {'videos':videos, 'video_obj':video_obj})
-    except:
-        logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(status=404)
 
+    print params, type(params)
+    video_obj = Video.objects.get(id=int(params))
+    try:
+        userid = request.session['user']['id']
+    except:
+        return HttpResponse(u'请先登录')
+    sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (userid, video_obj.course.id)
+    videos = dictfetchall(sql)
+    print sql
+    print videos
+    return render(request, 'playVideo.html', {'videos':videos, 'video_obj':video_obj})
 
 def practice(request, params):
     print params
