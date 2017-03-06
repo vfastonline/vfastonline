@@ -1012,6 +1012,7 @@
 </div>
 <script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
+
     window.onload = function(){
         var vjs_volume_bar = document.getElementsByClassName("vjs-volume-bar")[0];
         var strong = document.createElement("strong");
@@ -1362,3 +1363,7 @@
     }
 </script>
 </html>
+
+{% if request.session.login != True %}
+    <script> login_button.click();</script>
+{%  endif %}
