@@ -23,15 +23,15 @@ def user_level(user):
         print score, level, headframobj.url, user.headimgframe
         if headframobj.url == user.headimgframe:
             logging.getLogger().info('用户等级没有改变')
-            return False
+            return False, None
         else:
             user.headimgframe = headframobj.url
             # user.save()
             logging.getLogger().info('用户等级增加为%s' % level)
-            return {'level': level}
+            return True, level
     except:
         logging.getLogger().error(traceback.format_exc())
-        return False
+        return False, None
 
 
 def course_watched_all(user, course, tech, t):
@@ -49,12 +49,12 @@ def course_watched_all(user, course, tech, t):
             WatchCourse.objects.create(createtime=t, user=user, course=course)
             logging.getLogger().info('用户%s获得%s勋章' % (user.username, badge.badgename))
             print badge.badgename, badge.badgeurl
-            return {'badgename': badge.badgename, 'badgeurl': badge.badgeurl}
+            return True, {'badge_name':badge.badgename, 'badge_url':badge.badgeurl}
         else:
-            return False
+            return False, None
     except:
         logging.getLogger().error(traceback.format_exc())
-        return False
+        return False, None
 
 
 # Create your views here.
@@ -78,7 +78,7 @@ def record_video(request):
                     obj.video_process = video_process
                     obj.save()
                     # logging.getLogger().info(connection.queries)
-                    return HttpResponse(json.dumps({'code': 0, 'msg': u'视频已看完'}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}, ensure_ascii=False))
                 else:
                     obj.status = status
                     obj.createtime = t
@@ -90,17 +90,17 @@ def record_video(request):
                         tech = Program.objects.get(id=course.tech_id)
                         Score.objects.create(user=user, technology=tech, createtime=t, score=1)
                         user.totalscore = user.totalscore + 1
-                        r_badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
-                        r_level = user_level(user)  # 等级是否变更
+                        b_flag, badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
+                        l_flag, rlevel = user_level(user)  # 等级是否变更
                         user.save()
                         # logging.getLogger().info(connection.queries)
                         return HttpResponse(
-                            json.dumps({'code': 0, 'result': {'badge': r_badge, 'level': r_level}}, ensure_ascii=False))
+                            json.dumps({'code': 0, 'b_flag':b_flag, 'badge':badge, 'l_flag':l_flag, 'rlevel':rlevel}, ensure_ascii=False))
                     else:
                         obj.video_process = video_process
                         obj.save()
                         logging.getLogger().info(connection.queries)
-                        return HttpResponse(json.dumps({'code': 0, 'result': {}}))
+                        return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}))
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video, course=course, status=status,
                                            video_process=video_process, video_time=video_process, createtime=t)
@@ -109,15 +109,15 @@ def record_video(request):
                     course = Course.objects.get(id=video.course_id)
                     Score.objects.create(user=user, technology=tech, createtime=t, score=1)
                     user.totalscore = user.totalscore + 1
-                    r_badge = course_watched_all(user, course, tech, t)
-                    r_level = user_level(user=user)
+                    b_flag, badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
+                    l_flag, rlevel = user_level(user)  # 等级是否变更
                     user.save()
                     # logging.getLogger().info(connection.queries)
                     return HttpResponse(
-                        json.dumps({'code': 0, 'result': {'badge': r_badge, 'level': r_level}}, ensure_ascii=False))
+                        json.dumps({'code': 0, 'b_flag':b_flag, 'badge':badge, 'l_flag':l_flag, 'rlevel':rlevel}, ensure_ascii=False))
                 else:
                     # logging.getLogger().info(connection.queries)
-                    return HttpResponse(json.dumps({'code': 0, 'result': {}}))
+                    return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False},ensure_ascii=False))
         else:
             return HttpResponse('get method~!')
     except:
