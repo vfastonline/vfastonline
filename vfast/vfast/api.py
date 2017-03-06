@@ -8,7 +8,7 @@ from django.db import connection
 import logging
 import logging.handlers
 import time, os, json, base64
-
+from datetime import timedelta, date
 
 def get_validate(email, uid, role, fix_pwd):
     t = int(time.time())
@@ -163,4 +163,15 @@ def dictfetchall(sql):
         for row in cursor.fetchall()
     ]
 
-from django.template import defaultfilters
+
+def get_day_of_day(n=0):
+    '''''
+    if n>=0,date is larger than today
+    if n<0,date is less than today
+    date format = "YYYY-MM-DD"
+    '''
+    if (n < 0):
+        n = abs(n)
+        return date.today() - timedelta(days=n)
+    else:
+        return date.today() + timedelta(days=n)

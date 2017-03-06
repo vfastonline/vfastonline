@@ -758,7 +758,7 @@
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
     </svg>
-    <span class="video_name" id="video_name">Swift 开发环境配置</span>
+    <span class="video_name" id="video_name">{{ video_obj.name }}</span>
     <div id="charts_container" class="charts--container">
         <ul>
             <li class="chart">
@@ -1025,6 +1025,7 @@
 </div>
 <script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
+
     window.onload = function(){
         var vjs_volume_bar = document.getElementsByClassName("vjs-volume-bar")[0];
         var strong = document.createElement("strong");
@@ -1328,3 +1329,7 @@
     }
 </script>
 </html>
+
+{% if request.session.login != True %}
+    <script> login_button.click();</script>
+{%  endif %}

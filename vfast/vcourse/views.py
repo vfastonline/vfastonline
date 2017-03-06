@@ -10,7 +10,7 @@ from vuser.models import User
 from vperm.models import Role
 from vcourse.models import Program, Course, Video, Path, UserPath
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 """现已完成的功能  课程添加, 视频添加, 路线添加, 获取单个视频详情, 单个课程以及所有视频, 所有课程, 路线详情"""
 
@@ -18,6 +18,7 @@ from django.http import HttpResponse
 # Create your views here.
 def test(request):
     return render(request, "search_Result.html")
+
 
 @require_login()
 def course_add(request):
@@ -179,8 +180,8 @@ def getpath(request):
             videos = Video.objects.filter(course=c).values()
             courses.append(dict(course=c, video=videos))
 
-        print courses
-        return render(request, 'learnPath_show.html', {'path': path, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
+        return render(request, 'learnPath_show.html',
+                      {'path': path, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -199,13 +200,16 @@ def getcourses(request):
             courses = Course.objects.filter().values('id')
             techobj = ''
         for c in courses:
-            sql_pub = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % c['id']
+            sql_pub = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
+                      c['id']
             ret = dictfetchall(sql_pub)
             if len(ret) != 0:
                 pubs.append(ret[0])
             else:
                 not_pubs.append(Course.objects.get(id=c['id']))
-        return render(request, 'course_library.html', {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj, 'xingxing': [0, 1, 2, 3, 4]})
+        return render(request, 'course_library.html',
+                      {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj,
+                       'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -223,23 +227,31 @@ def getpaths(request):
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
-# @require_login
+@require_login()
 def join_path(request):
     try:
         pid = request.GET.get('pid')
-        vid = request.GET.get('vid')
-        # uid = request.session['user']['id']
-        uid = 1
-        print pid, vid, uid
+        uid = request.session['user']['id']
         user = User.objects.get(id=uid)
         path = Path.objects.get(id=pid)
+        sequence = path.sequence
         if UserPath.objects.filter(user=user, path=path).exists():
-            return HttpResponse(json.dumps({'code': 1, 'msg': u'你已经加入该学习路线'}, ensure_ascii=False))
+            User.objects.filter(id=uid).update(pathid=pid)
+            sql = """select * from (select vv.vtype, vv.name, vv.sequence, vv.id, vv.course_id, vv.vtype_url, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.sequence asc) as t group by t.course_id order by t.createtime desc limit 1""" % (
+                uid, sequence)
+            video = dictfetchall(sql)[0]
+            url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
+            return HttpResponseRedirect(url)
         else:
             t = time.strftime('%Y-%m-%d %H:%M:%S')
             UserPath.objects.create(user=user, path=path, createtime=t)
             User.objects.filter(id=uid).update(pathid=pid)
-            return HttpResponse(json.dumps({'code': 0, 'url': '/video/%s' % vid}, ensure_ascii=False))
+            seq = path.sequence
+            course = seq.split(',')[0]
+            sql = 'select id, sequence from vcourse_video where course_id =%s order by sequence limit 1' % course
+            video = dictfetchall(sql)[0]
+            url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
+            return HttpResponseRedirect(url)
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))

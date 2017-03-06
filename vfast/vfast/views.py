@@ -62,11 +62,18 @@ def index(request):
 def search(request):
     try:
         key_words = request.GET.get('query')
-        print key_words
-        results = Course.objects.filter(name__contains=key_words).values()
-        print results
         vps = Program.objects.all()
-        return render(request, 'search_Result.html', {'results':results, 'vps':vps, })
+        print key_words
+        courses = Course.objects.filter(name__contains=key_words).values('id')
+        print courses
+        result = []
+        for c in courses:
+            sql = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
+                  c['id']
+            ret = dictfetchall(sql)[0]
+            result.append(ret)
+        print result
+        return render(request, 'search_Result.html', {'results':result, 'vps':vps, 'xingxing': [0,1,2,3,4] })
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
@@ -83,18 +90,22 @@ def search_js(request):
 
 
 def playVideo(request, params):
-
-    print params, type(params)
-    video_obj = Video.objects.get(id=int(params))
     try:
-        userid = request.session['user']['id']
+        print params, type(params)
+        video_obj = Video.objects.get(id=int(params))
+        try:
+            userid = request.session['user']['id']
+        except:
+            return render(request, 'playVideo.html')
+        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (
+        userid, video_obj.course.id)
+        videos = dictfetchall(sql)
+        print sql
+        print videos
+        return render(request, 'playVideo.html', {'videos': videos, 'video_obj': video_obj})
     except:
-        return HttpResponse(u'请先登录')
-    sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (userid, video_obj.course.id)
-    videos = dictfetchall(sql)
-    print sql
-    print videos
-    return render(request, 'playVideo.html', {'videos':videos, 'video_obj':video_obj})
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(status=404)
 
 def practice(request, params):
     print params
