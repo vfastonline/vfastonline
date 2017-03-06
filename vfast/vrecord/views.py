@@ -9,7 +9,6 @@ from vbadge.models import UserBadge, Badge
 from vgrade.models import Headframe
 from vfast.api import get_day_of_day, dictfetchall
 
-
 import time
 import json
 import logging, traceback
@@ -24,15 +23,15 @@ def user_level(user):
         print score, level, headframobj.url, user.headimgframe
         if headframobj.url == user.headimgframe:
             logging.getLogger().info('用户等级没有改变')
-            return False
+            return False, None
         else:
             user.headimgframe = headframobj.url
             # user.save()
             logging.getLogger().info('用户等级增加为%s' % level)
-            return {'level': level}
+            return True, level
     except:
         logging.getLogger().error(traceback.format_exc())
-        return False
+        return False, None
 
 
 def course_watched_all(user, course, tech, t):
@@ -50,12 +49,12 @@ def course_watched_all(user, course, tech, t):
             WatchCourse.objects.create(createtime=t, user=user, course=course)
             logging.getLogger().info('用户%s获得%s勋章' % (user.username, badge.badgename))
             print badge.badgename, badge.badgeurl
-            return {'badgename': badge.badgename, 'badgeurl': badge.badgeurl}
+            return True, {'badge_name':badge.badgename, 'badge_url':badge.badgeurl}
         else:
-            return False
+            return False, None
     except:
         logging.getLogger().error(traceback.format_exc())
-        return False
+        return False, None
 
 
 # Create your views here.
@@ -68,7 +67,7 @@ def record_video(request):
             vid = request.GET.get('vid')  # videoid
             video_process = request.GET.get('video_process')  # 观看视频时间点
             status = request.GET.get('status')  # 视频是否观看完成
-            print uid, vid, video_process, status
+            print uid, vid, video_process, status, type(video_process)
             t = time.strftime('%Y-%m-%d')
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
@@ -79,7 +78,7 @@ def record_video(request):
                     obj.video_process = video_process
                     obj.save()
                     # logging.getLogger().info(connection.queries)
-                    return HttpResponse(json.dumps({'code': 0, 'msg': u'视频已看完'}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}, ensure_ascii=False))
                 else:
                     obj.status = status
                     obj.createtime = t
@@ -91,17 +90,17 @@ def record_video(request):
                         tech = Program.objects.get(id=course.tech_id)
                         Score.objects.create(user=user, technology=tech, createtime=t, score=1)
                         user.totalscore = user.totalscore + 1
-                        r_badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
-                        r_level = user_level(user)  # 等级是否变更
+                        b_flag, badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
+                        l_flag, rlevel = user_level(user)  # 等级是否变更
                         user.save()
                         # logging.getLogger().info(connection.queries)
                         return HttpResponse(
-                            json.dumps({'code': 0, 'result': {'badge': r_badge, 'level': r_level}}, ensure_ascii=False))
+                            json.dumps({'code': 0, 'b_flag':b_flag, 'badge':badge, 'l_flag':l_flag, 'rlevel':rlevel}, ensure_ascii=False))
                     else:
                         obj.video_process = video_process
                         obj.save()
                         logging.getLogger().info(connection.queries)
-                        return HttpResponse(json.dumps({'code': 0, 'result': {}}))
+                        return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}))
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video, course=course, status=status,
                                            video_process=video_process, video_time=video_process, createtime=t)
@@ -110,15 +109,15 @@ def record_video(request):
                     course = Course.objects.get(id=video.course_id)
                     Score.objects.create(user=user, technology=tech, createtime=t, score=1)
                     user.totalscore = user.totalscore + 1
-                    r_badge = course_watched_all(user, course, tech, t)
-                    r_level = user_level(user=user)
+                    b_flag, badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
+                    l_flag, rlevel = user_level(user)  # 等级是否变更
                     user.save()
                     # logging.getLogger().info(connection.queries)
                     return HttpResponse(
-                        json.dumps({'code': 0, 'result': {'badge': r_badge, 'level': r_level}}, ensure_ascii=False))
+                        json.dumps({'code': 0, 'b_flag':b_flag, 'badge':badge, 'l_flag':l_flag, 'rlevel':rlevel}, ensure_ascii=False))
                 else:
                     # logging.getLogger().info(connection.queries)
-                    return HttpResponse(json.dumps({'code': 0, 'result': {}}))
+                    return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False},ensure_ascii=False))
         else:
             return HttpResponse('get method~!')
     except:
@@ -130,23 +129,21 @@ def get_score_seven_day(request):
     try:
         uid = request.session['user']['id']
         seven_day = []
-        for i in range(-7,1):
+        for i in range(-7, 1):
             tmp = {}
             tmp['date'] = str(get_day_of_day(i))
             tmp['label'] = str(get_day_of_day(i))
-            #获取最近七天的得分
-            sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (str(get_day_of_day(i)),uid)
-            print sql
-            ret =  dictfetchall(sql)
+            # 获取最近七天的得分
+            sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (
+            str(get_day_of_day(i)), uid)
+            ret = dictfetchall(sql)
             if ret[0]['score'] is None:
                 tmp['value'] = 0
             else:
                 tmp['value'] = int(ret[0]['score'])
             seven_day.append(tmp)
-        print seven_day
-        return HttpResponse(json.dumps({'weekscore':seven_day}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'weekscore': seven_day}, ensure_ascii=False))
 
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
-
+        return HttpResponse(' error')
