@@ -287,7 +287,6 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     padding-left: 10%;
     padding-right: 25%;
     padding-top: 18%;
-    min-width: 650px;
 }
 .login_left_div_div{
     transition: opacity 0.4s ease-in-out;
