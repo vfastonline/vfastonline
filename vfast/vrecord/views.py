@@ -67,7 +67,7 @@ def record_video(request):
             vid = request.GET.get('vid')  # videoid
             video_process = request.GET.get('video_process')  # 观看视频时间点
             status = request.GET.get('status')  # 视频是否观看完成
-            print uid, vid, video_process, status
+            print uid, vid, video_process, status, type(video_process)
             t = time.strftime('%Y-%m-%d')
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
@@ -136,14 +136,12 @@ def get_score_seven_day(request):
             # 获取最近七天的得分
             sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (
             str(get_day_of_day(i)), uid)
-            print sql
             ret = dictfetchall(sql)
             if ret[0]['score'] is None:
                 tmp['value'] = 0
             else:
                 tmp['value'] = int(ret[0]['score'])
             seven_day.append(tmp)
-        print seven_day
         return HttpResponse(json.dumps({'weekscore': seven_day}, ensure_ascii=False))
 
     except:
