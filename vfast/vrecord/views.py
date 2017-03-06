@@ -9,7 +9,6 @@ from vbadge.models import UserBadge, Badge
 from vgrade.models import Headframe
 from vfast.api import get_day_of_day, dictfetchall
 
-
 import time
 import json
 import logging, traceback
@@ -64,7 +63,7 @@ def record_video(request):
     """
     try:
         if request.method == 'POST':
-            uid = request.POST.get('uid')  # userid
+            uid = request.session['user']['id']  # userid
             vid = request.POST.get('vid')  # videoid
             video_process = request.POST.get('video_process')  # 观看视频时间点
             status = request.POST.get('status')  # 视频是否观看完成
@@ -129,23 +128,23 @@ def get_score_seven_day(request):
     try:
         uid = request.session['user']['id']
         seven_day = []
-        for i in range(-7,1):
+        for i in range(-7, 1):
             tmp = {}
             tmp['date'] = str(get_day_of_day(i))
             tmp['label'] = str(get_day_of_day(i))
-            #获取最近七天的得分
-            sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (str(get_day_of_day(i)),uid)
+            # 获取最近七天的得分
+            sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (
+            str(get_day_of_day(i)), uid)
             print sql
-            ret =  dictfetchall(sql)
+            ret = dictfetchall(sql)
             if ret[0]['score'] is None:
                 tmp['value'] = 0
             else:
                 tmp['value'] = ret[0]['score']
             seven_day.append(tmp)
         print seven_day
-        return HttpResponse(json.dumps({'weekscore':seven_day}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'weekscore': seven_day}, ensure_ascii=False))
 
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
-
+        return HttpResponse(' error')
