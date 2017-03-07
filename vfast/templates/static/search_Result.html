@@ -235,24 +235,22 @@
     <div class="slideDIV" style="height:80px;"></div>
     <div class="search_TypeList">
         <ul class="clearfix">
-           <ul class="clearfix">
-{#            {% for vp in vps %}#}
-{#                <li onclick="location.href='/search?query={{ vp.name }}'">#}
-{#                    <b style="background-color: {{ vp.color }};"></b>#}
-{#                    {% if vp.name == tech_obj.name %}#}
-{#                    <span style="background-color: {{ tech_obj.color }};color:#FFFFFF" >{{ vp.name }}</span>#}
-{#                    {% else %}#}
-{#                        <span  onmouseover="this.style.background='{{ vp.color }}'" onmouseout="this.style.background='transparent'">{{ vp.name }}</span>#}
-{#                    {% endif %}#}
-{#                </li>#}
-{#            {% endfor %}#}
-        </ul>
+            {% for vp in vps %}
+                <li onclick="location.href='/search?query={{ key_words }}&type={{ vp.name }}'">
+                    <b style="background-color: {{ vp.color }};"></b>
+                    {% if vp.name == tech_obj.name %}
+                    <span style="background-color: {{ tech_obj.color }};color:#FFFFFF" >{{ vp.name }}</span>
+                    {% else %}
+                        <span  onmouseover="this.style.background='{{ vp.color }}'" onmouseout="this.style.background='transparent'">{{ vp.name }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
         </ul>
     </div>
     <div class="slideDIV" style="height:100px;"></div>
     <div class="type_Describe">
-        <h3>JavaScript</h3>
-        <p>是一门网络脚本语言，广泛用于Web应用开发，为网页添加各式各样的动态特效与交互功能</p>
+        <h3>{{ tech_obj.name }}</h3>
+        <p>{{ tech_obj.desc }}</p>
     </div>
     <section class="contentBody_course">
 

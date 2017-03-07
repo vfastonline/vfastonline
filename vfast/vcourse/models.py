@@ -41,6 +41,7 @@ class Course(models.Model):
     teach = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='作者')
     people = models.IntegerField('学习课程的人数', default=500)
     pubdate = models.CharField('课程发布时间', max_length=50, default='即将发布')
+    tag = models.CharField('标签', max_length=50, default='')
 
     def __unicode__(self):
         return self.name

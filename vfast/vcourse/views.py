@@ -248,7 +248,7 @@ def join_path(request):
             User.objects.filter(id=uid).update(pathid=pid)
             seq = path.sequence
             course = seq.split(',')[0]
-            sql = 'select id, sequence from vcourse_video where course_id =%s order by sequence limit 1' % course
+            sql = 'select id, sequence, vtype from vcourse_video where course_id =%s order by sequence limit 1' % course
             video = dictfetchall(sql)[0]
             url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
             return HttpResponseRedirect(url)
