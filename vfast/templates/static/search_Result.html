@@ -186,7 +186,6 @@
             float: left;
             height: 54px;
             line-height: 54px;
-            width:6%;
             position: relative;
             margin-left: 40px;
         }
@@ -226,7 +225,13 @@
             color: #002800;
             line-height: 17px;
         }
-
+        .contentBody_course>h4{
+            text-align: center;
+        }
+        .contentBody_course>h4>span{
+            color: #EF5350;
+            font-size: 26px;
+        }
     </style>
 </head>
 <body>
@@ -254,7 +259,10 @@
     </div>
     <section class="contentBody_course">
 
+        {% if results == Flase %}
+            <h4>您搜索的 <span>{{ key_words }}</span> 找不到任何相关信息！</h4>
 
+        {% endif %}
         {% for pub in results %}
             <div>
             <div style="background-color: {{ pub.color }};">

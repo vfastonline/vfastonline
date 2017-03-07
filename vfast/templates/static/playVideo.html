@@ -1031,9 +1031,11 @@
     function saveTime(t){
         $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
     }
+    var vtimeS;
     function durationChange(t){
         var vtime = parseInt(t.currentTime);
-        if(vtime%5 == 0 && vtime != 0){
+        if(vtime%10 == 0 && vtime != 0 && vtimeS!= vtime){
+            vtimeS = vtime;
             $.get("/r/video?vid="+video_source.title+"&video_process="+vtime+"&status=1",function(data){});
         }
     }
