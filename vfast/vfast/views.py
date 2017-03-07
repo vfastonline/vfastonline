@@ -126,7 +126,14 @@ def playVideo(request, params):
         sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (
             userid, video_obj.course.id)
         videos = dictfetchall(sql)
-        return render(request, 'playVideo.html', {'videos': videos, 'video_obj': video_obj})
+        sql_video_process = "select video_process from vrecord_watchrecord where user_id = %s and video_id =%s;" % (userid, video_obj.id)
+        ret = dictfetchall(sql_video_process)
+        try:
+            video_process = ret[0]['video_process']
+        except:
+            video_process = 0
+        print video_process
+        return render(request, 'playVideo.html', {'videos': videos, 'video_obj': video_obj, 'video_process':video_process})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)
