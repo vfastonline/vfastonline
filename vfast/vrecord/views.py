@@ -34,8 +34,9 @@ def user_level(user):
         return False, None
 
 
-def course_watched_all(user, course, tech, t):
+def course_watched_all(user, course, tech):
     try:
+        t = time.strftime('%Y-%m-%d %H:%M:%S')
         c_videos = Video.objects.filter(course=course).__len__()
         w_videos = WatchRecord.objects.filter(user=user, course=course, status=0).__len__()
         # 用户看完一个课程系类, 获得30积分, 以及对应的勋章
@@ -90,7 +91,7 @@ def record_video(request):
                         tech = Program.objects.get(id=course.tech_id)
                         Score.objects.create(user=user, technology=tech, createtime=t, score=1)
                         user.totalscore = user.totalscore + 1
-                        b_flag, badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
+                        b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
                         l_flag, rlevel = user_level(user)  # 等级是否变更
                         user.save()
                         # logging.getLogger().info(connection.queries)
@@ -109,7 +110,7 @@ def record_video(request):
                     course = Course.objects.get(id=video.course_id)
                     Score.objects.create(user=user, technology=tech, createtime=t, score=1)
                     user.totalscore = user.totalscore + 1
-                    b_flag, badge = course_watched_all(user, course, tech, t)  # 增加分数,查看是否获得勋章
+                    b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
                     l_flag, rlevel = user_level(user)  # 等级是否变更
                     user.save()
                     # logging.getLogger().info(connection.queries)
