@@ -36,7 +36,7 @@ def user_level(user):
 
 def course_watched_all(user, course, tech):
     try:
-        t = time.strftime('%Y-%m-%d %H:%M:%S')
+        t = time.strftime('%Y-%m-%d')
         c_videos = Video.objects.filter(course=course).__len__()
         w_videos = WatchRecord.objects.filter(user=user, course=course, status=0).__len__()
         # 用户看完一个课程系类, 获得30积分, 以及对应的勋章
@@ -47,7 +47,7 @@ def course_watched_all(user, course, tech):
             logging.getLogger().info('用户%s获得积分30分' % user.username)
             badge = Badge.objects.get(course=course)
             UserBadge.objects.create(createtime=t, badge=badge, user=user)
-            WatchCourse.objects.create(createtime=t, user=user, course=course)
+            WatchCourse.objects.create(createtime=time.strftime('%Y-%m-%d %H:%M:%S'), user=user, course=course)
             logging.getLogger().info('用户%s获得%s勋章' % (user.username, badge.badgename))
             print badge.badgename, badge.badgeurl
             return True, {'badge_name':badge.badgename, 'badge_url':badge.badgeurl}
@@ -69,7 +69,8 @@ def record_video(request):
             video_process = request.GET.get('video_process')  # 观看视频时间点
             status = request.GET.get('status')  # 视频是否观看完成
             print uid, vid, video_process, status, type(video_process)
-            t = time.strftime('%Y-%m-%d')
+            t1 = time.strftime('%Y-%m-%d %H:%M:%S')
+            t2 = time.strftime('%Y-%m-%d')
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
@@ -82,14 +83,14 @@ def record_video(request):
                     return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}, ensure_ascii=False))
                 else:
                     obj.status = status
-                    obj.createtime = t
+                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.video_time = video_process
                     # tech = Program.objects.get(id=course.tech_id).id
                     if int(status) == 0:
                         obj.video_process = 0
                         obj.save()
                         tech = Program.objects.get(id=course.tech_id)
-                        Score.objects.create(user=user, technology=tech, createtime=t, score=1)
+                        Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
                         user.totalscore = user.totalscore + 1
                         b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
                         l_flag, rlevel = user_level(user)  # 等级是否变更
@@ -104,11 +105,11 @@ def record_video(request):
                         return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}))
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video, course=course, status=status,
-                                           video_process=video_process, video_time=video_process, createtime=t)
+                                           video_process=video_process, video_time=video_process, createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
                 if int(status) == 0:
                     tech = Program.objects.get(id=course.tech_id)
                     course = Course.objects.get(id=video.course_id)
-                    Score.objects.create(user=user, technology=tech, createtime=t, score=1)
+                    Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
                     user.totalscore = user.totalscore + 1
                     b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
                     l_flag, rlevel = user_level(user)  # 等级是否变更
