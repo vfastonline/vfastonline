@@ -29,6 +29,7 @@
 			// escape key.
 			if( ev.keyCode == 27 ) {
 				closeSearch();
+				$('#search').css('visibility','hidden');
 			}
 		});
 	}

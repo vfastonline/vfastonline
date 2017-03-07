@@ -725,20 +725,38 @@
             padding: 7px 30px;
         }
     </style>
+    <script>
+        function saveTime(t){
+            $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
+        }
+        var vtimeS;
+        function durationChange(t){
+            var vtime = parseInt(t.currentTime);
+            if(vtime%10 == 0 && vtime != 0 && vtimeS!= vtime){
+                vtimeS = vtime;
+                $.get("/r/video?vid="+video_source.title+"&video_process="+vtime+"&status=1",function(data){});
+            }
+        }
+        function setVideo_process(){
+            setTimeout(function(){
+                var video = document.getElementsByTagName("video")[0];
+                video.currentTime = $("#video_process").val();
+            },200)
+        }
+    </script>
 </head>
 <body>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
 <!---->
-
 <div class="slideDIV" style="height: 130px;"></div>
 <div style="height: 50px;"></div>
-
 <div class="video_div">
-    <video ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
+    <video ondurationchange="setVideo_process()" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl }}" type="video/mp4" />
         <track kind="subtitles" src="{{ video_obj.cc }}" srclang="en" label="English" default>
+        <input id="video_process" type="hidden" value="{{ video_process }}"/>
     </video>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
@@ -1026,18 +1044,6 @@
 
         var vjs_play = document.getElementsByClassName("vjs-play-control")[0];
         vjs_play.addEventListener('click',video_Pause);
-    }
-
-    function saveTime(t){
-        $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
-    }
-    var vtimeS;
-    function durationChange(t){
-        var vtime = parseInt(t.currentTime);
-        if(vtime%10 == 0 && vtime != 0 && vtimeS!= vtime){
-            vtimeS = vtime;
-            $.get("/r/video?vid="+video_source.title+"&video_process="+vtime+"&status=1",function(data){});
-        }
     }
 
     function video_div2_svg_show(sum){
