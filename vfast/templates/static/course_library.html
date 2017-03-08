@@ -356,7 +356,11 @@
 
         {% for pub in pubs %}
             <div>
-            <div style="background-color: {{ pub.color }};">
+            {% if pub.vtype == 0 %}
+                <div style="background-color: {{ pub.color }};"  onclick="location.href='/video/{{ pub.video_id }}'">
+            {% else %}
+                <div style="background-color: {{ pub.color }};"  onclick="location.href='/practice/{{ pub.video_id }}'">
+            {% endif %}
                 <div>
                     <img src="{{ pub.icon_url }}" alt="">
                 </div>
