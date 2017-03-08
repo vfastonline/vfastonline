@@ -76,7 +76,7 @@ class Video(models.Model):
         (1, '题目'),
     )
     name = models.CharField('视频名称', max_length=100)
-    vtime = models.IntegerField('视频时长')
+    vtime = models.CharField('视频时长', max_length=10, default='')
     vurl = models.CharField('视频存放位置', max_length=100)
     cc = models.CharField('字幕存放位置', max_length=100)
     notes = models.CharField('讲师笔记', max_length=100, default=' ', null=True, blank=True)
