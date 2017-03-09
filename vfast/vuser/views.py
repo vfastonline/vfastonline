@@ -216,7 +216,6 @@ def dashboard(request, param):
         if pathid == 0:
             sql = "select vr.video_id, vv.vtype as video_type, vc.*, vp.color as tech_color, vp.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_program as vp where vp.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
             courses = dictfetchall(sql)
-            # return HttpResponse('ok')
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4]})
 

@@ -22,22 +22,6 @@ def test(request):
     return render(request, "search_Result.html")
 
 
-def dashBoard(request):
-    return render(request, 'dashBoard.html')
-
-
-def learning_path(request):
-    return render(request, 'learning_path.html')
-
-
-def course_library(request):
-    return render(request, 'course_library.html')
-
-
-def learnPath_show(request):
-    return render(request, 'learnPath_show.html')
-
-
 def logout(request):
     try:
         del request.session['login']
@@ -47,7 +31,6 @@ def logout(request):
         return HttpResponseRedirect('/')
 
 
-# @require_login()
 def index(request):
     return render(request, 'index.html')
 
@@ -66,7 +49,6 @@ def search_course(request):
             sql = "select id from vcourse_course  WHERE (`vcourse_course`.`name` LIKE BINARY '%%%s%%' OR (%s))" % (
                 key_words, ' AND '.join(conditions))
             courses = dictfetchall(sql)
-        print courses
         result = []
         for c in courses:
             sql = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
@@ -76,7 +58,6 @@ def search_course(request):
                 result.append(ret)
             except:
                 pass
-        print result
         tech = request.GET.get('type', None)
         if tech:
             tech_obj = Program.objects.get(name=tech)
@@ -110,7 +91,6 @@ def search_js(request):
 
 def playVideo(request, params):
     try:
-        print params, type(params)
         video_obj = Video.objects.get(id=int(params))
         try:
             userid = request.session['user']['id']
@@ -126,7 +106,6 @@ def playVideo(request, params):
             video_process = ret[0]['video_process']
         except:
             video_process = 0
-        print video_process
         return render(request, 'playVideo.html',
                       {'videos': videos, 'video_obj': video_obj, 'video_process': video_process})
     except:
