@@ -169,11 +169,14 @@ def getpath(request):
     """
     try:
         pid = request.GET.get('id')
-        print pid, type(pid)
         path = Path.objects.get(id=pid)
         sequence = path.sequence
         course = sequence.split(',')
-
+        try:
+            uid = request.session['user']['id']
+            path_id = User.objects.get(id=uid).pathid
+        except:
+            path_id = ''
         courses = []
         for cid in course:
             c = Course.objects.get(id=cid)
@@ -181,7 +184,7 @@ def getpath(request):
             courses.append(dict(course=c, video=videos))
 
         return render(request, 'learnPath_show.html',
-                      {'path': path, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
+                      {'path': path, 'path_id': path_id, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))

@@ -199,14 +199,12 @@ def login(request):
 
 def userdetail(request):
     try:
-        if request.method == 'GET':
-            uid = request.GET.get('uid', ' ')
-            user = User.objects.filter(id=uid).values()[0]
-            return HttpResponse(json.dumps(user, ensure_ascii=False))
+        uid = request.session['user']['id']
+        user = User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe')[0]
+        return HttpResponse(json.dumps(user, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'用户不存在'}))
-
 
 
 def dashboard(request, param):
@@ -241,7 +239,7 @@ def dashboard(request, param):
 
                 # 查找出用户观看过的视频
                 sql3 = "select vv.*, t.createtime  from (select * from vrecord_watchrecord where user_id=%s and course_id=%s order by createtime desc limit 1) as t,vcourse_video as vv where vv.id = t.video_id" % (
-                user.id, item['id'])
+                    user.id, item['id'])
                 ret3 = dictfetchall(sql3)
                 if len(ret3) == 1:
                     item['video_id'] = ret3[0]['id']
@@ -257,39 +255,9 @@ def dashboard(request, param):
                     item['video_name'] = ret_video[0]['name']
                     item['vtype_url'] = ret_video[0]['vtype_url']
                     item['vtype'] = ret_video[0]['vtype']
-                    item['createtime'] = 0  # 为观看视频, 跳转到course的第一个视频
+                    item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
 
-
-                    # videos = dictfetchall(sql3)
-                    # print sql3
-                    # # logging.getLogger().info(videos)
-                    # # print courses
-                    # print videos
-                    # # 给每个课程加上需要跳转的video信息
-                    # for cour in courses:
-                    #     for v in videos:
-                    #         if cour['id'] == v['course_id']:
-                    #             cour['video_id'] = v['id']
-                    #             cour['video_name'] = v['name']
-                    #             cour['vtype_url'] = v['vtype_url']
-                    #             cour['vtype'] = v['vtype']
-                    #             if v['createtime'] == None:
-                    #                 cour['video_watch_time'] = 1  # 视频观看时间
-                    #             else:
-                    #                 cour['video_watch_time'] = v['createtime']
-                    #         else:
-                    #             sql_course_video_first = 'select * from vcourse_video  WHERE course_id = %s ORDER BY sequence' % \
-                    #                                      cour['id']
-                    #             # print sql_course_video_first
-                    #             video = dictfetchall(sql_course_video_first)[0]
-                    #             cour['video_id'] = video['id']
-                    #             cour['video_name'] = video['name']
-                    #             cour['vtype_url'] = video['vtype_url']
-                    #             cour['vtype'] = video['vtype']
-                    #             cour['video_watch_time'] = 1
-                    # 给正在进行观看的视频标记出来
             tmp = []
-            print courses
             for z in courses:
                 tmp.append(z['createtime'])
             tmp.sort()
@@ -313,25 +281,6 @@ def dashboard(request, param):
                 else:
                     item['flag'] = 0
 
-            # # 取出需要标记的哪一个课程系列
-            # course_obj = Course.objects.get(id=c_id)
-            # len_v = Video.objects.filter(course=course_obj).__len__()
-            # len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user).__len__()
-            # for item in courses:
-            #     if item['video_watch_time'] == maxdate and maxdate != 1:
-            #         item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
-            #         item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
-            #         icon_url = item['icon_url'].split('.')
-            #         icon_url[0] = icon_url[0] + '_1'
-            #         icon_url = '.'.join(icon_url)
-            #         vicon_url = item['vtype_url'].split('.')
-            #         vicon_url[0] = vicon_url[0] + '_1'
-            #         vicon_url = '.'.join(vicon_url)
-            #         item['icon_url'] = icon_url
-            #         item['vtype_url'] = vicon_url
-
-
-
             # 进行路线的百分比
             p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % sequence
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
@@ -345,4 +294,4 @@ def dashboard(request, param):
 
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('failed')
+        return HttpResponse(u'页面错误')
