@@ -20,13 +20,11 @@ def user_level(user):
         score = user.totalscore
         level = score / 150 + 1
         headframobj = Headframe.objects.get(id=level)
-        print score, level, headframobj.url, user.headimgframe
         if headframobj.url == user.headimgframe:
             logging.getLogger().info('用户等级没有改变')
             return False, None
         else:
             user.headimgframe = headframobj.url
-            # user.save()
             logging.getLogger().info('用户等级增加为%s' % level)
             return True, level
     except:
@@ -39,18 +37,17 @@ def course_watched_all(user, course, tech):
         t = time.strftime('%Y-%m-%d')
         c_videos = Video.objects.filter(course=course).__len__()
         w_videos = WatchRecord.objects.filter(user=user, course=course, status=0).__len__()
+
         # 用户看完一个课程系类, 获得30积分, 以及对应的勋章
         if c_videos == w_videos:
             Score.objects.create(user=user, technology=tech, createtime=t, score=30)
             user.totalscore = user.totalscore + 30
-            # user.save()
             logging.getLogger().info('用户%s获得积分30分' % user.username)
             badge = Badge.objects.get(course=course)
             UserBadge.objects.create(createtime=t, badge=badge, user=user)
             WatchCourse.objects.create(createtime=time.strftime('%Y-%m-%d %H:%M:%S'), user=user, course=course)
             logging.getLogger().info('用户%s获得%s勋章' % (user.username, badge.badgename))
-            print badge.badgename, badge.badgeurl
-            return True, {'badge_name':badge.badgename, 'badge_url':badge.badgeurl}
+            return True, {'badge_name': badge.badgename, 'badge_url': badge.badgeurl}
         else:
             return False, None
     except:
@@ -58,7 +55,6 @@ def course_watched_all(user, course, tech):
         return False, None
 
 
-# Create your views here.
 def record_video(request):
     """记录用户观看课程视频的时间点, 以及课程是否观看完成
     """
@@ -68,64 +64,45 @@ def record_video(request):
             vid = request.GET.get('vid')  # videoid
             video_process = request.GET.get('video_process')  # 观看视频时间点
             status = request.GET.get('status')  # 视频是否观看完成
-            print uid, vid, video_process, status, type(video_process)
+            status = int(status)
+
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
-                if obj.status == 0:
-                    obj.video_process = video_process
+                if status == 0 and obj.status == 0:
+                    obj.video_process = 0
                     obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.save()
-                    # logging.getLogger().info(connection.queries)
-                    return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}, ensure_ascii=False))
-                else:
+                    return HttpResponse(json.dumps({'code': 0, 'b_flag': False, 'l_flag': False}, ensure_ascii=False))
+
+                elif status == 0 and obj.status == 1:
                     obj.status = status
-                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.video_time = video_process
-                    # tech = Program.objects.get(id=course.tech_id).id
-                    if int(status) == 0:
-                        obj.video_process = 0
-                        obj.save()
-                        tech = Program.objects.get(id=course.tech_id)
-                        Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
-                        user.totalscore = user.totalscore + 1
-                        b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
-                        l_flag, rlevel = user_level(user)  # 等级是否变更
-                        user.save()
-                        # logging.getLogger().info(connection.queries)
-                        return HttpResponse(
-                            json.dumps({'code': 0, 'b_flag':b_flag, 'badge':badge, 'l_flag':l_flag, 'rlevel':rlevel}, ensure_ascii=False))
-                    else:
-                        obj.video_process = video_process
-                        obj.save()
-                        logging.getLogger().info(connection.queries)
-                        return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}))
-            except WatchRecord.DoesNotExist:
-                if int(status) == 0:
-                    WatchRecord.objects.create(user=user, video=video, course=course, status=status,
-                                               video_process=0, video_time=video_process,
-                                               createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+                    obj.video_process = 0
+                    obj.save()
                     tech = Program.objects.get(id=course.tech_id)
-                    course = Course.objects.get(id=video.course_id)
                     Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
                     user.totalscore = user.totalscore + 1
                     b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
                     l_flag, rlevel = user_level(user)  # 等级是否变更
                     user.save()
-                    # logging.getLogger().info(connection.queries)
                     return HttpResponse(
-                        json.dumps({'code': 0, 'b_flag':b_flag, 'badge':badge, 'l_flag':l_flag, 'rlevel':rlevel}, ensure_ascii=False))
+                        json.dumps({'code': 0, 'b_flag': b_flag, 'badge': badge, 'l_flag': l_flag, 'rlevel': rlevel},
+                                   ensure_ascii=False))
                 else:
-                    WatchRecord.objects.create(user=user, video=video, course=course, status=status,
-                                               video_process=video_process, video_time=video_process,
-                                               createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+                    obj.video_process = video_process
+                    obj.video_time = video_process
+                    obj.save()
+                    return HttpResponse(json.dumps({'code': 0, 'b_flag': False, 'l_flag': False}, ensure_ascii=False))
 
-                    # logging.getLogger().info(connection.queries)
-                    return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False},ensure_ascii=False))
-        else:
-            return HttpResponse('get method~!')
+            except WatchRecord.DoesNotExist:
+                WatchRecord.objects.create(user=user, video=video, course=course, status=status,
+                                           video_process=video_process, video_time=video_process,
+                                           createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+                return HttpResponse(json.dumps({'code': 0, 'b_flag': False, 'l_flag': False}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': traceback.format_exc()}, ensure_ascii=False))
@@ -141,7 +118,7 @@ def get_score_seven_day(request):
             tmp['label'] = str(get_day_of_day(i))
             # 获取最近七天的得分
             sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (
-            str(get_day_of_day(i)), uid)
+                str(get_day_of_day(i)), uid)
             ret = dictfetchall(sql)
             if ret[0]['score'] is None:
                 tmp['value'] = 0
@@ -149,7 +126,6 @@ def get_score_seven_day(request):
                 tmp['value'] = int(ret[0]['score'])
             seven_day.append(tmp)
         return HttpResponse(json.dumps({'weekscore': seven_day}, ensure_ascii=False))
-
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(' error')

@@ -1,18 +1,9 @@
 #!encoding:utf-8
 from vcourse.models import Course
 from django.shortcuts import render
-from django.db import connection
-from django.db.models import Q
-from vgrade.api import headimg_urls
-import random
 from vcourse.models import Program
-from vfast.api import get_id_name, require_role, require_login
-from vrecord.views import course_watched_all
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse
-from vuser.models import User
-from django.db.models import F
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponse, HttpResponseRedirect
 from vcourse.models import Video
 from vfast.api import dictfetchall
 
@@ -48,11 +39,12 @@ def learnPath_show(request):
 
 
 def logout(request):
-    # print 'del session'
-    # del request.session['token']
-    del request.session['login']
-    del request.session['user']
-    return HttpResponse('del session ok')
+    try:
+        del request.session['login']
+        del request.session['user']
+        return HttpResponseRedirect('/')
+    except:
+        return HttpResponseRedirect('/')
 
 
 # @require_login()
