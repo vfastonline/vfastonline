@@ -1191,13 +1191,12 @@
                 //升级
 
             }
+            $.getJSON("/u/detail",function(data){
+                console.log(data);
+                console.log($("#totalscore"))
+                $("#totalscore").html(data.totalscore);
+            })
         });
-
-        $.getJSON("/u/detail",function(data){
-            console.log(data);
-            console.log($("#totalscore"))
-            $("#totalscore").html(data.totalscore);
-        })
     }
 
     function video_cc(t){
