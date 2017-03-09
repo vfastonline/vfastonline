@@ -77,15 +77,16 @@
             font-size: 28px;
             color: #5A646E;
         }
-        .video_section_right>p{
+        .video_section_right>pre{
             font-size: 16px;
             font-family: Tensentype-JiaLiXiYuanJ;
             color: #8C96A5;
             font-weight: 400;
             letter-spacing: 1px;
-            margin-top: 20px;
             height:200px;
-            line-height: 20px;
+            overflow:hidden;
+            background-color: transparent;
+            border: none;
         }
         .video_section_right>h2{
             font-size: 24px;
@@ -387,7 +388,7 @@
             <div class="video_section_right" id="video_section_right">
                 <h1>{{ path.name }}</h1>
                 {% autoescape on %}
-                <p>{{ path.desc | linebreaksbr}}</p>
+                <pre>{{ path.desc | linebreaksbr}}</pre>
                 {% endautoescape %}
                 <h2><span>{{ path.jobscount }} </span>&nbsp;个岗位招聘&nbsp;&nbsp;&nbsp;<span>{{ path.salary }}</span>&nbsp;入门起薪</h2>
                 <span>{{ path.jstime }}</span>
