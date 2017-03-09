@@ -576,9 +576,9 @@
             </div>
             <!--判断是跳转视频, 还是题目-->
             {% if course.video_type == 0 %}      <!--跳转到视频-->
-                <div onclick="play_video('/v')">
+                <div onclick="play_video('/video/{{ course.video_id }}')">
             {% else %}
-                <div onclick="play_video('/t')">   <!--跳转到题目-->
+                <div onclick="play_video('/practice/{{ course.video_id }}')">   <!--跳转到题目-->
             {% endif %}
         <p>系列课程</p>
         <h1>{{ course.name }}</h1>
