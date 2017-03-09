@@ -10,35 +10,17 @@
     <script src="/static/js/jquery-2.1.4.js"></script>
     <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-    <script src="/static/js/jquery-labelauty.js"></script>
     <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
-
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/modal.css"/>
     <link rel="stylesheet" href="/static/css/layout.css"/>
-    <link rel="stylesheet" href="/static/css/navbar.css"/>
-    <link rel="stylesheet" href="/static/css/footer.css"/>
-
-    <script src="/static/js/modalJS.js"></script>
-    <script src="/static/js/login_reg.js"></script>
-    <script src="/static/js/common.js"></script>
-
     <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
-    <script src="/static/js/sweet-alert.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="/static/css/searchModal.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
-
     <!--[if IE]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <script>document.documentElement.className = 'js';</script>
-
     <link rel="stylesheet" href="/static/css/progressBar.css">
-    <script src="/static/js/dashBoard.js"></script>
     <link rel="stylesheet" href="/static/css/calendar.css">
-    <script src="/static/js/calendar.js"></script>
-
     <style>
         /*promptEL Start*/
         .promptEL{
@@ -620,9 +602,20 @@
 </main>
 {% include "search_div.html" %}
 </body>
+<script src="/static/js/jquery-labelauty.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/sweet-alert.js"></script>
+<script src="/static/js/calendar.js"></script>
 <script type="text/javascript">
 $(document).ready(function(e) {
     CalendarHandler.initialize();
 });
+function article_close(){
+    promptEL.style.height = 0;
+    promptEL.style.marginTop = 0;
+}
+function play_video(urlStr){
+	window.open(urlStr,"_blank ");
+}
 </script>
 </html>

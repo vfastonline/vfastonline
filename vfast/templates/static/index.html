@@ -10,29 +10,16 @@
     <script src="/static/js/jquery-2.1.4.js"></script>
     <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-    <script src="/static/js/jquery-labelauty.js"></script>
     <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
-
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/modal.css"/>
     <link rel="stylesheet" href="/static/css/layout.css"/>
-    <link rel="stylesheet" href="/static/css/navbar.css"/>
-
-    <script src="/static/js/modalJS.js"></script>
-    <script src="/static/js/login_reg.js"></script>
-    <script src="/static/js/common.js"></script>
-
     <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
-    <script src="/static/js/sweet-alert.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="/static/css/searchModal.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
 
     <!--[if IE]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <script>document.documentElement.className = 'js';</script>
-    <link rel="stylesheet" href="/static/css/indexFooter.css"/>
     <style>
         .head_cont{
             box-shadow: none;
@@ -277,7 +264,7 @@
     </section>
     <section class="content_video">
         <video class="video"  onended="video_ended()" onclick="video_Pause()" id="example_video_1">
-            <source src="/static/video/1.mp4" type="video/mp4">
+            <source src="/static/video/宣传片.mp4" type="video/mp4">
             您的浏览器不支持 video 标签。
         </video>
         <div id="video_start" class="video_start">
@@ -336,6 +323,10 @@
     <footer class="footer_cont" id="footer_cont">{% include "indexFooter.html" %}</footer>
 </main>
 {% include "search_div.html" %}
+</body>
+<script src="/static/js/sweet-alert.js"></script>
+<script src="/static/js/jquery-labelauty.js"></script>
+<script src="/static/js/common.js"></script>
 <script>
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];
@@ -356,5 +347,4 @@
         video_start.style.display = "block";
     }
 </script>
-</body>
 </html>
