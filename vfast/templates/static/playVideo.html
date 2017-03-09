@@ -9,11 +9,7 @@
     <script src="/static/js/jquery-2.1.4.js"></script>
     <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/modal.css"/>
     <link rel="stylesheet" href="/static/css/layout.css"/>
-    <link rel="stylesheet" href="/static/css/navbar.css"/>
-    <link rel="stylesheet" href="/static/css/footer.css"/>
-    <link rel="stylesheet" href="/static/css/searchModal.css" />
     <link rel="stylesheet" href="/static/css/search.css" />
     <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
     <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
@@ -738,6 +734,7 @@
             }
         }
         function setVideo_process(){
+            $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
             setTimeout(function(){
                 var video = document.getElementsByTagName("video")[0];
                 video.currentTime = $("#video_process").val();
@@ -802,7 +799,7 @@
         <li onclick="video_speed(this,0.75)">0.75x</li>
         <li onclick="video_speed(this,1)">1.0x</li>
         <li onclick="video_speed(this,1.1)">1.1x</li>
-        <li onclick="video_speed(this,10)">1.25x</li>
+        <li onclick="video_speed(this,1.25)">1.25x</li>
     </ul>
     <svg onclick="video_skip()" class="video_tiaoguo" width="29px" height="16px" viewBox="377 753 29 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M390.828427,758.656854 L379,758.656854 C377.895431,758.656854 377,759.552285 377,760.656854 C377,761.761424 377.895431,762.656854 379,762.656854 L390.828427,762.656854 L388.585786,764.899495 C387.804738,765.680544 387.804738,766.946873 388.585786,767.727922 C389.366835,768.508971 390.633165,768.508971 391.414214,767.727922 L397.071068,762.071068 C397.852116,761.290019 397.852116,760.023689 397.071068,759.242641 L391.414214,753.585786 C390.633165,752.804738 389.366835,752.804738 388.585786,753.585786 C387.804738,754.366835 387.804738,755.633165 388.585786,756.414214 L390.828427,758.656854 Z M406,760.656854 C406,759 404.656854,757.656854 403,757.656854 C401.343146,757.656854 400,759 400,760.656854 C400,762.313708 401.343146,763.656854 403,763.656854 C404.656854,763.656854 406,762.313708 406,760.656854 Z" id="Combined-Shape" stroke="none" fill="#7C828C" fill-rule="evenodd"></path>
@@ -1324,8 +1321,6 @@
 <script src="/static/js/common.js"></script>
 <script src="/static/js/jquery-labelauty.js"></script>
 <script src="/static/js/sweet-alert.js"></script>
-<script src="/static/js/modalJS.js"></script>
-<script src="/static/js/login_reg.js"></script>
 <script src="/static/js/score.js"></script>
 <script>
     window.onscroll = function(){

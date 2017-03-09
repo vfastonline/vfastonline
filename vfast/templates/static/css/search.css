@@ -67,7 +67,6 @@
 	max-width: 900px;
 	margin: 50px auto 250px;
 }
-
 .search__input {
 	font-family: inherit;
 	font-size: 26px;
@@ -77,7 +76,12 @@
 	width: 100%;
 	padding: 0 0 0.1em 0;
 	color: inherit;
+	border: 0;
 	border-bottom: 4px solid;
+	background: transparent;
+	border-radius: 0;
+	-webkit-appearance: none;
+	outline: none;
 }
 
 .search__input::-webkit-input-placeholder {
@@ -154,8 +158,9 @@
 /************************/
 /* Transitions 			*/
 /************************/
-
 .js .main-wrap {
+	position: relative;
+	height: 100vh;
 	transition: transform 0.6s, opacity 0.6s;
 	transition-timing-function: cubic-bezier(0.2,1,0.3,1);
 }
@@ -271,3 +276,15 @@ div.ac > ul > li.selected {background: rgba(140,150,165,0.40);}
 div.ac > ul > li.selected span {color:#FFFFFF!important;}
 
 
+
+/* Buttons */
+.btn {
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	border: none;
+	background: none;
+	outline: none;
+	text-decoration: none;
+	color: #d17c78;
+}
