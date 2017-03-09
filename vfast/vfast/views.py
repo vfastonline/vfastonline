@@ -64,7 +64,7 @@ def search_course(request):
             for i in key_words.split():
                 conditions.append("`vcourse_course`.`tag` like BINARY '%%%s%%'" % i)
             sql = "select id from vcourse_course  WHERE (`vcourse_course`.`name` LIKE BINARY '%%%s%%' OR (%s))" % (
-            key_words, ' AND '.join(conditions))
+                key_words, ' AND '.join(conditions))
             courses = dictfetchall(sql)
         print courses
         result = []
@@ -85,7 +85,8 @@ def search_course(request):
             tmp = [course for course in result if course['tech_id'] == tech_id]
             result = tmp
             return render(request, 'search_Result.html',
-                          {'results': result, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'tech_obj':tech_obj})
+                          {'results': result, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'tech_obj': tech_obj,
+                           'key_words': key_words})
         elif len(result) != 0:
             return render(request, 'search_Result.html',
                           {'results': result, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'desc': '',
@@ -118,14 +119,16 @@ def playVideo(request, params):
         sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (
             userid, video_obj.course.id)
         videos = dictfetchall(sql)
-        sql_video_process = "select video_process from vrecord_watchrecord where user_id = %s and video_id =%s;" % (userid, video_obj.id)
+        sql_video_process = "select video_process from vrecord_watchrecord where user_id = %s and video_id =%s;" % (
+        userid, video_obj.id)
         ret = dictfetchall(sql_video_process)
         try:
             video_process = ret[0]['video_process']
         except:
             video_process = 0
         print video_process
-        return render(request, 'playVideo.html', {'videos': videos, 'video_obj': video_obj, 'video_process':video_process})
+        return render(request, 'playVideo.html',
+                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)
