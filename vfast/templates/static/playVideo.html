@@ -733,7 +733,7 @@
                 $.get("/r/video?vid="+video_source.title+"&video_process="+vtime+"&status=1",function(data){});
             }
         }
-        function setVideo_process(){
+        function setVideo_process(t){
             $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
             setTimeout(function(){
                 var video = document.getElementsByTagName("video")[0];
@@ -749,7 +749,7 @@
 <div class="slideDIV" style="height: 130px;"></div>
 <div style="height: 50px;"></div>
 <div class="video_div">
-    <video ondurationchange="setVideo_process()" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
+    <video ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl }}" type="video/mp4" />
         <track kind="subtitles" src="{{ video_obj.cc }}" srclang="en" label="English" default>
