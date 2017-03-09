@@ -69,8 +69,6 @@ def record_video(request):
             video_process = request.GET.get('video_process')  # 观看视频时间点
             status = request.GET.get('status')  # 视频是否观看完成
             print uid, vid, video_process, status, type(video_process)
-            t1 = time.strftime('%Y-%m-%d %H:%M:%S')
-            t2 = time.strftime('%Y-%m-%d')
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
@@ -78,6 +76,7 @@ def record_video(request):
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
                 if obj.status == 0:
                     obj.video_process = video_process
+                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.save()
                     # logging.getLogger().info(connection.queries)
                     return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}, ensure_ascii=False))
@@ -104,9 +103,10 @@ def record_video(request):
                         logging.getLogger().info(connection.queries)
                         return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False}))
             except WatchRecord.DoesNotExist:
-                WatchRecord.objects.create(user=user, video=video, course=course, status=status,
-                                           video_process=video_process, video_time=video_process, createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
                 if int(status) == 0:
+                    WatchRecord.objects.create(user=user, video=video, course=course, status=status,
+                                               video_process=0, video_time=video_process,
+                                               createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
                     tech = Program.objects.get(id=course.tech_id)
                     course = Course.objects.get(id=video.course_id)
                     Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
@@ -118,6 +118,10 @@ def record_video(request):
                     return HttpResponse(
                         json.dumps({'code': 0, 'b_flag':b_flag, 'badge':badge, 'l_flag':l_flag, 'rlevel':rlevel}, ensure_ascii=False))
                 else:
+                    WatchRecord.objects.create(user=user, video=video, course=course, status=status,
+                                               video_process=video_process, video_time=video_process,
+                                               createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+
                     # logging.getLogger().info(connection.queries)
                     return HttpResponse(json.dumps({'code': 0, 'b_flag':False, 'l_flag':False},ensure_ascii=False))
         else:
