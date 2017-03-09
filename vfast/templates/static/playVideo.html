@@ -1194,6 +1194,8 @@
         });
 
         $.getJSON("/u/detail",function(data){
+            console.log(data);
+            console.log($("#totalscore"))
             $("#totalscore").html(data.totalscore);
         })
     }
