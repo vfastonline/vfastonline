@@ -734,11 +734,11 @@
             }
         }
         function setVideo_process(t){
-            $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
             setTimeout(function(){
                 var video = document.getElementsByTagName("video")[0];
                 video.currentTime = $("#video_process").val();
             },200)
+            $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
         }
     </script>
 </head>
