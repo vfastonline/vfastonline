@@ -1,6 +1,9 @@
 $(function(){
 	$("body").css("opacity","1");
 	$(".slideDIV").slideUp(350);
+	$.getJSON("/u/detail",function(data){
+        $("#totalscore").html(data.totalscore);
+    })
 })
 
 function stopPPG(e){
