@@ -101,12 +101,12 @@
         }
         .banner_content>h2{
             position: relative;
-            top: -80px;
+            top: -120px;
             font-size: 28px;
         }
         .banner_content>p{
             position: relative;
-            top: -55px;
+            top: -100px;
             width: 600px;
             margin: 0 auto;
             font-size: 18px;
@@ -122,9 +122,12 @@
         .video_start{
             width: 120px;
             height: 120px;
-            margin: 0px auto;
-            position: relative;
-            top: -420px;
+            margin: auto;
+            position: absolute;
+            top: 100px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
         }
         .video_bofang:hover{
             opacity: 0.8;
@@ -263,7 +266,7 @@
         </div>
     </section>
     <section class="content_video">
-        <video class="video"  onended="video_ended()" onclick="video_Pause()" id="example_video_1">
+        <video ondblclick="video_FullScreen()" width="800px" height="500px" class="video"  onended="video_ended()" onclick="video_Pause()" id="example_video_1">
             <source src="/static/video/宣传片.mp4" type="video/mp4">
             您的浏览器不支持 video 标签。
         </video>
@@ -345,6 +348,28 @@
     }
     function video_ended(){
         video_start.style.display = "block";
+    }
+
+    function video_FullScreen(){
+        var elem = document.getElementById("example_video_1");
+        if (document.fullscreenElement ||
+                document.mozFullScreenElement || document.webkitFullscreenElement) {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+        } else {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            }
+        }
     }
 </script>
 </html>

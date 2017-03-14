@@ -24,7 +24,6 @@
             box-shadow: none;
         }
     </style>
-
     <style>
         .video_div{
             width: 1200px;
@@ -280,9 +279,10 @@
         .tab_menu>div:hover{
             opacity: 0.8;
             cursor: pointer;
-            box-shadow: 0px 1px 1px black;
+{#            box-shadow: 0px 1px 1px black;#}
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
             position: relative;
-            top: -2px;
+            top: -1px;
         }
         .tab_menu>div:active{
             box-shadow: none;
@@ -299,6 +299,16 @@
             border-radius: 4px;
             background-color: #00BCD4;
             letter-spacing: 2px;
+            margin-left: 10px;
+        }
+        .tab_menu>.close_quiz{
+            border: 2px solid #F0F2F4;
+            background: #FFFFFF;
+            color: #5A646E;
+            display: none;
+        }
+        .tab_menu>.publish_quiz{
+            display: none;
         }
 
         .tab_QA{
@@ -307,10 +317,13 @@
             background-color: #FFFFFF;
             padding: 30px 20px 20px;
             display: none;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius:0px 0px 8px 8px;
         }
         .tab_QA>div{
             margin: 0 auto;
             background-color: #FFFFFF;
+            border-top: 1px solid #E0E0E0;
         }
         .tab_QA>div:hover{
             background-color: #EEEEEE;
@@ -319,7 +332,7 @@
         .tab_QA>div:after{content: "";display: block;clear: both;}
         .tab_QA>div>div:first-child{
             float: left;
-            width: 7%;
+            width: 12%;
             padding: 20px;
             text-align: center;
             font-size: 14px;
@@ -328,7 +341,7 @@
         }
         .tab_QA>div>div:nth-child(2){
             float: left;
-            width: 80%;
+            width: 88%;
             padding: 20px;
             font-size: 14px;
             letter-spacing: 1.2px;
@@ -349,7 +362,98 @@
         .tab_QA>div>hr{
             clear: both;
         }
-        pre{
+        .quiz_section{
+            position: relative;
+            background-color: #FAFAFA;
+            padding: 10px 50px;
+            display: none;
+        }
+
+        .quiz_section>input[type="text"]{
+            border: 2px solid #F0F2F4;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border-radius: 4px;
+            font-size: 14px;
+            color: #BAC4CA;
+            width:600px;
+            height:40px;
+            padding: 0px 30px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .quiz_section>div{
+            position: absolute;
+            right: 50px;
+            top:10px;
+            height: 40px;
+        }
+        .quiz_section>div>span{
+            font-size: 14px;
+            color: #7C828C;
+            letter-spacing: 1.17px;
+            display: inline-block;
+            margin-top: 10px;
+            height:20px;
+            margin-right: 10px;
+        }
+        .quiz_section>.quiz_content{
+            background: #F0F2F4;
+            border: 1px solid #F0F2F4;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border-radius: 4px;
+            font-size: 14px;
+            color: #BAC4CA;
+            resize: none;
+            width: 100%;
+            height:128px;
+            padding: 10px 30px;
+        }
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+        .quiz_checkbox {
+            width: 20px;
+            height:20px;
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .quiz_checkbox label {
+            cursor: pointer;
+            position: absolute;
+            width: 20px;
+            height:20px;
+            top: 0;
+            left: 0;
+            background: #00BCD4;
+            margin: 0px;
+            border-radius: 4px;
+        }
+        .quiz_checkbox label:after {
+            opacity: 0.4;
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 8px;
+            top: 4px;
+            left: 3px;
+            border: 3px solid #FFFFFF;
+            border-top: none;
+            border-right: none;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+        .quiz_checkbox label:hover::after {
+            opacity: 0.6;
+        }
+        .quiz_checkbox input[type=checkbox]:checked + label:after {
+            opacity: 1;
+        }
+
+        .note_pre{
             background-color: transparent;
             border:none;
         }
@@ -359,6 +463,8 @@
             background-color: #FFFFFF;
             padding: 30px 20px 20px;
             display: none;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius:0px 0px 8px 8px;
         }
 
         .tab_NOTE>div{
@@ -720,17 +826,49 @@
             background-color: rgba(64, 64, 64, 0.8) !important;
             padding: 7px 30px;
         }
+        .vjs-subtitles-button{
+            display: none;
+        }
+        .vjs-current-time,.vjs-time-divider,.vjs-duration{
+            display: none;
+        }
+        .vjs-progress-control{
+            width:80%!important;
+            top: 12px!important;
+            left:10%!important;
+            border-radius: 10px!important;
+        }
+        .vjs-load-progress{
+            border-radius: 10px!important;
+            background-color: #FFFFFF!important;
+            opacity: 0.4;
+        }
+        .vjs-progress-holder{
+            border-radius: 10px!important;
+        }
+        .vjs-control-bar{
+            background-color: transparent!important;
+        }
+        .vjs-seek-handle{
+            background-color: #FFFFFF!important;
+            border-radius: 10px!important;
+        }
+        .vjs-play-progress{
+            background-color: #00BCD4!important;
+            background-image: none!important;
+            border-radius: 10px!important;
+        }
     </style>
     <script>
         function saveTime(t){
-            $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
+            $.get("/r/video?vid="+video_id.value+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
         }
         var vtimeS;
         function durationChange(t){
             var vtime = parseInt(t.currentTime);
             if(vtime%10 == 0 && vtime != 0 && vtimeS!= vtime){
                 vtimeS = vtime;
-                $.get("/r/video?vid="+video_source.title+"&video_process="+vtime+"&status=1",function(data){});
+                $.get("/r/video?vid="+video_id.value+"&video_process="+vtime+"&status=1",function(data){});
             }
         }
         function setVideo_process(t){
@@ -738,7 +876,7 @@
                 var video = document.getElementsByTagName("video")[0];
                 video.currentTime = $("#video_process").val();
             },200)
-            $.get("/r/video?vid="+video_source.title+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
+            $.get("/r/video?vid="+video_id.value+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
         }
     </script>
 </head>
@@ -749,11 +887,12 @@
 <div class="slideDIV" style="height: 130px;"></div>
 <div style="height: 50px;"></div>
 <div class="video_div">
-    <video ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
+    <video ondblclick="video_FullScreen()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl }}" type="video/mp4" />
         <track kind="subtitles" src="{{ video_obj.cc }}" srclang="en" label="English" default>
         <input id="video_process" type="hidden" value="{{ video_process }}"/>
+        <input id="video_id" type="hidden" value="{{ video_obj.id }}"/>
     </video>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
@@ -860,13 +999,28 @@
 <div class="tab_menu" id="tab_menu">
     <ul>
         <li class="tab_menu_li" onclick="tab_sel(this,'tab_Course')">课程系列</li>
-        <li onclick="tab_sel(this,'tab_QA')">问答版</li>
+        <li id="button_QA" onclick="tab_sel(this,'tab_QA')">问答版</li>
         <li onclick="tab_sel(this,'tab_NOTE')">讲师笔记</li>
     </ul>
-    <div>提问</div>
+    <div id="quiz" onclick="quiz()">提问</div>
+    <div id="publish_quiz" class="publish_quiz" onclick="quiz_submit()">发布问题</div>
+    <div id="close_quiz" class="close_quiz" onclick="close_quiz()">取消提问</div>
 </div>
 
 <div class="tab_QA" id="tab_QA">
+    <section class="quiz_section" id="quiz_section">
+        <input type="text" placeholder="写一个问题标题..." id="quiz_title">
+        <div>
+            <span>收到回复时给我发个Email</span>
+            <div class="quiz_checkbox">
+                <input type="checkbox" value="0" id="quiz_email" />
+	  	        <label for="quiz_email"></label>
+            </div>
+        </div>
+        <br/>
+        <textarea class="quiz_content" id="quiz_describe" placeholder="问题描述..."></textarea>
+    </section>
+
     <div>
         <div>
             <p>1</p>
@@ -883,7 +1037,6 @@
             <p>aosj dajsdoaoisjd oqwj doaj sdajoi sdoijqwji ofqwfji qwfiaoi soajsdohasoiu fhaiushf aihsfiasdhg ygwq uwyfdqwdg aiwud iuahd iuahsd as dhaisha hsd a sdasd a sf as fw eg e hrt h </p>
             <p>jackback 在 2 周前提问</p>
         </div>
-        <hr style="width:95%;margin: 0 auto;border: 1px solid #E0E0E0;"/>
     </div>
 
     <div>
@@ -902,12 +1055,11 @@
             <p>aosj dajsdoaoisjd oqwj doaj sdajoi sdoijqwji ofqwfji qwfiaoi soajsdohasoiu fhaiushf aihsfiasdhg ygwq uwyfdqwdg aiwud iuahd iuahsd as dhaisha hsd a sdasd a sf as fw eg e hrt h </p>
             <p>jackback 在 2 周前提问</p>
         </div>
-        <hr style="width:95%;margin: 0 auto;border: 1px solid #E0E0E0;"/>
     </div>
 </div>
 <div class="tab_NOTE" id="tab_NOTE">
     <div>
-        <pre>
+        <pre class="note_pre">
 词汇
 * IDE - oinqoifqoiwdnoaijsdoijoiwqjdoiqjw doija soidj oqiwjf qoiwj fdoiqwjf oiqwj foiqj fwoiwqif oqwjfoiqw fj
 
@@ -1032,13 +1184,11 @@
         strong.style.height = "0";
         vjs_volume_bar.appendChild(strong);
 
-        example_video_1.ondblclick = video_FullScreen;
-
         var vjs_volume_handle = document.getElementsByClassName("vjs-volume-handle")[0];
         vjs_volume_handle.style.display="none";
 
-        var vjs_subtitles = document.getElementsByClassName("vjs-subtitles-button")[0];
-        vjs_subtitles.style.display="none";
+{#        var vjs_subtitles = document.getElementsByClassName("vjs-subtitles-button")[0];#}
+{#        vjs_subtitles.style.display="none";#}
 
         var vjs_play = document.getElementsByClassName("vjs-play-control")[0];
         vjs_play.addEventListener('click',video_Pause);
@@ -1137,7 +1287,7 @@
         video_div2.style.display = "block";
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
-        $.getJSON("/r/video?vid="+video_source.title+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
+        $.getJSON("/r/video?vid="+video_id.value+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
             if(data.b_flag){
                 badge_name.innerHTML = data.badge.badge_name;
                 medal_badge.src = data.badge.badge_url;
@@ -1192,8 +1342,6 @@
 
             }
             $.getJSON("/u/detail",function(data){
-                console.log(data);
-                console.log($("#totalscore"))
                 $("#totalscore").html(data.totalscore);
             })
         });
@@ -1316,6 +1464,36 @@
             },5000)
         },5100)
     },3000)
+
+
+    function quiz(){
+        $("#close_quiz").show(200);
+        $("#publish_quiz").show(200);
+        $("#quiz_section").show(200);
+        $("#quiz").hide(200);
+        $("#button_QA").click();
+    }
+    function close_quiz(){
+        $("#close_quiz").hide(200);
+        $("#publish_quiz").hide(200);
+        $("#quiz_section").hide(200);
+        $("#quiz").show(200);
+
+        quiz_title.value = "";
+        quiz_describe.value = "";
+        quiz_email.checked = false;
+    }
+    function quiz_submit(){
+        if(quiz_title.value != "" && uiz_describe.value != ""){
+            if(quiz_email.checked){
+                $.get("/add_question?vid="+video_id.value+"&title="+quiz_title.value+"&desc="+quiz_describe.value+"&email=0",function(data){});
+            }else{
+                $.get("/add_question?vid="+video_id.value+"&title="+quiz_title.value+"&desc="+quiz_describe.value+"&email=1",function(data){});
+            }
+        }else{
+            swal("发布失败", "请您填写问题标题与问题描述，确保内容后发布~", "error");
+        }
+    }
 </script>
 
 <!---->

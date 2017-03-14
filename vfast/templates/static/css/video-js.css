@@ -52,7 +52,7 @@ The control icons are from a custom font. Each icon corresponds to a character
   top: 0;
 }
 .vjs-default-skin .vjs-slider-handle:before {
-  content: "\e009";
+  /*content: "\e009";*/
   font-family: VideoJS;
   font-size: 1em;
   line-height: 1;
@@ -184,10 +184,16 @@ fonts to show/hide properly.
   cursor: pointer;
 }
 .vjs-default-skin .vjs-play-control:before {
-  content: "\e001";
+  content: " ";
+  background-image: url("/static/svg/video_play.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 .vjs-default-skin.vjs-playing .vjs-play-control:before {
-  content: "\e002";
+  content: " ";
+  background-image: url("/static/svg/video_pause.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 /* Volume/Mute
 -------------------------------------------------------------------------------- */
@@ -350,11 +356,17 @@ fonts to show/hide properly.
   float: right;
 }
 .vjs-default-skin .vjs-fullscreen-control:before {
-  content: "\e000";
+  content: " ";
+  background-image: url("/static/svg/video_FullScreen.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 /* Switch to the exit icon when the player is in fullscreen */
 .vjs-default-skin.vjs-fullscreen .vjs-fullscreen-control:before {
-  content: "\e00b";
+  content: " ";
+  background-image: url("/static/svg/video_FullScreen.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 /* Big Play Button (play button at start)
 --------------------------------------------------------------------------------
