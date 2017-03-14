@@ -29,12 +29,37 @@
             margin: 50px auto 0px;
             position: relative;
             transition: all 0.35s ease-in-out;
-            height: 100px;
             overflow: hidden;
+            padding: 10px 50px;
+        }
+        .promptEL>svg{
+            position: absolute;
+            top:10px;
+            left:15px;
         }
         .promptEL>svg:hover{
             cursor: pointer;
             opacity: 0.8;
+        }
+        .promptEL>h2{
+            font-size: 28px;
+            color: #5A646E;
+            letter-spacing: 2px;
+        }
+        .promptEL>h4{
+            font-size: 18px;
+            color: #5A646E;
+            letter-spacing: 0.4px;
+        }
+        .promptEL>p{
+            font-size: 14px;
+            color: #5A646E;
+            letter-spacing: 0.4px;
+        }
+        .promptEL>img{
+            position:absolute;
+            top:5px;
+            right:50px;
         }
     </style>
 </head>
@@ -48,9 +73,40 @@
                 <path d="M7.20576489,5.31058741 L2.61295973,0.717782253 C2.03812111,0.142943636 1.08708004,0.139700026 0.502496327,0.724283738 C-0.0861629951,1.31294306 -0.0849981989,2.2537541 0.495994842,2.83474714 L5.0888,7.4275523 L0.496158495,12.0201938 C-0.0786801222,12.5950324 -0.0819970018,13.5460002 0.502496327,14.1304935 C1.09106464,14.7190619 2.03180304,14.7178244 2.61279608,14.1368314 L7.20543758,9.54418988 L11.7984742,14.1372265 C12.3733128,14.7120651 13.3243539,14.7153087 13.9089376,14.130725 C14.4975969,13.5420657 14.4964321,12.6012546 13.9154391,12.0202616 L9.32240247,7.42722499 L13.9152754,2.83435205 C14.490114,2.25951343 14.4934309,1.30854563 13.9089376,0.724052298 C13.3203693,0.135483989 12.3796309,0.136721425 11.7986378,0.717714465 L7.20576489,5.31058741 Z" id="Combined-Shape" fill="#5A646E"></path>
             </g>
         </svg>
+        <h2>欢迎来到你的个人中心</h2>
+        <p>这里的是你在智量酷的全部信息。停下来休息一会，将自己打理一下，让趣味相投的小伙伴看到最佳的自己</p>
+        <h4>一个用于向小伙伴展示自己的地方</h4>
+        <p>这里陈列了你获得的所有勋章，完成的项目，课程进度等还有你的个人简介</p>
+        <p>填写之后其他用户也可以查看你的这些信息，当然，你也可以看到别人的。</p>
+        <img src="/static/imgs/个人中心图.png" alt="">
     </article>
+
     <div class="slideDIV" style="height:100px;"></div>
 
+    <section class="info_1">
+        <div>
+            <div>
+                <img src="{{ request.session.user.headimg }}" alt=""/>
+                <img src="/static/head/120_without_rank.svg" alt=""/>
+                <img src="/static/head/在线.svg" alt=""/>
+            </div>
+            <div>
+                <h3>Mr.Rabbit</h3>
+                <span>北京-海淀</span>
+                <p>It really is amazing when you think about it that just by looking up on any given night, you could see virtually hundreds of thousands of stars, star systems, planets, moons, asteroids, comets and maybe a even an occasional space shuttle might wander by.</p>
+                <div>
+                    <img src="" alt="">
+                    <img src="" alt="">
+                    <img src="" alt="">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div>笔</div>
+        </div>
+
+    </section>
+
+    <div class="slideDIV" style="height:150px;"></div>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
 {% include "search_div.html" %}

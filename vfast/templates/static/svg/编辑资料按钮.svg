@@ -1,0 +1,14 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="47" viewBox="0 0 45 47">
+  <defs>
+    <circle id="编辑资料按钮-b" cx="22.5" cy="23.234" r="22.5"/>
+    <filter id="编辑资料按钮-a" width="200%" height="200%" x="-50%" y="-50%" filterUnits="objectBoundingBox">
+      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(0 -.734)">
+    <use fill="#000" filter="url(#编辑资料按钮-a)" xlink:href="#编辑资料按钮-b"/>
+    <use fill="#5A646E" xlink:href="#编辑资料按钮-b"/>
+    <path fill="#FFF" d="M14.5,27.9009165 L14.5,31.233787 L17.8328704,31.233787 L27.6626163,21.4040411 L24.3297459,18.0711707 L14.5,27.9009165 L14.5,27.9009165 Z M30.2400361,18.8266213 C30.5866546,18.4800028 30.5866546,17.9200806 30.2400361,17.573462 L28.160325,15.4937509 C27.8137064,15.1471324 27.2537842,15.1471324 26.9071657,15.4937509 L25.2807249,17.1201916 L28.6135953,20.4530621 L30.2400361,18.8266213 L30.2400361,18.8266213 Z"/>
+  </g>
+</svg>

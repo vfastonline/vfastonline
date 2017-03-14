@@ -355,6 +355,18 @@
             color: #7C828C;
             margin-top: 20px;
         }
+        .tab_QA>div>div:nth-child(2)>pre{
+            color: #7C828C;
+            margin-top: 20px;
+            background-color: transparent;
+            border: none;
+            overflow: hidden;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
         .tab_QA>div>div:nth-child(2)>p:last-child{
             text-align: right;
         }
@@ -1039,7 +1051,7 @@
             </div>
             <div>
                 <h5>{{ question.title }}</h5>
-                <p>{{ question.desc }}</p>
+                <pre>{{ question.desc }}</pre>
                 <p>{{ question.username }}在{{ question.createtime }} </p>
             </div>
         </div>
@@ -1472,12 +1484,14 @@
         quiz_email.checked = false;
     }
     function quiz_submit(){
-        if(quiz_title.value != "" && quiz_describe.value != ""){
+        if(quiz_title.value.trim() != "" && quiz_describe.value.trim() != ""){
             var email = 1;
             if(quiz_email.checked){
                 var email = 0;
             }
-            $.get("/add_question?vid="+video_id.value+"&title="+quiz_title.value+"&desc="+quiz_describe.value+"&email="+email,function(data){
+            var str = $("#quiz_describe").val();
+            var dbstr =  str.replace(/\n|\r\n/g,'_@^');
+            $.getJSON("/add_question?vid="+video_id.value+"&title="+quiz_title.value+"&desc="+dbstr+"&email="+email,function(data){
                 if(data.code == 0){
                     swal("发布成功", "请您等候其他人的回复~", "success");
                     close_quiz();
