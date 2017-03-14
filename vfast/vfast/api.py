@@ -141,16 +141,18 @@ def time_comp_now(str):
     now = int(time.time())
     interval = now - time_To_unixtime(str)
     # print interval
-    if interval / 60 < 60:
-        return '%s分钟前完成' % (interval / 60)
+    if interval < 60:
+        return '%s秒前' % interval
+    elif interval / 60 < 60:
+        return '%s分钟前' % (interval / 60)
     elif interval / 60 / 60 < 24:
-        return '%s小时前完成' % (interval / 60 / 60)
+        return '%s小时前' % (interval / 60 / 60)
     elif interval / 60 / 60 / 24 < 30:
-        return '%s天前完成' % (interval / 60 / 60 / 24)
+        return '%s天前' % (interval / 60 / 60 / 24)
     elif interval / 60 / 60 / 24 / 30 < 5:
-        return '%s月前完成' % (interval / 60 / 60 / 24 / 30)
+        return '%s月前' % (interval / 60 / 60 / 24 / 30)
     else:
-        return str
+        return interval
 
 
 def dictfetchall(sql):

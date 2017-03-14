@@ -199,8 +199,7 @@ def login(request):
 
 def userdetail(request):
     try:
-        # uid = request.session['user']['id']
-        uid = 1
+        uid = request.session['user']['id']
         user = User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe')[0]
         return HttpResponse(json.dumps(user, ensure_ascii=False))
     except:
@@ -233,7 +232,7 @@ def dashboard(request, param):
             for item in courses:
                 for j in courses_wathced:
                     if item['id'] == j['course_id']:
-                        item['viewtime'] = time_comp_now(j['createtime'])
+                        item['viewtime'] = '%s%s' % (time_comp_now(j['createtime']), '完成')
                 if not item.has_key('viewtime'):
                     item['viewtime'] = item['totaltime']
 

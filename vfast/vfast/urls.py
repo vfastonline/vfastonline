@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from vfast import views
 from oauth.views import github_auth, github_login
-from vpractice.views import  add_question
+from vpractice.views import add_question
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

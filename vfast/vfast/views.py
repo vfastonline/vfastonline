@@ -5,7 +5,8 @@ from vcourse.models import Program
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from vcourse.models import Video
-from vfast.api import dictfetchall
+from vpractice.models import Question
+from vfast.api import dictfetchall, time_comp_now
 
 import logging
 import traceback
@@ -106,8 +107,13 @@ def playVideo(request, params):
             video_process = ret[0]['video_process']
         except:
             video_process = 0
+        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(params)
+        questions = dictfetchall(q_sql)
+        for item in questions:
+            item['createtime'] = '%s%s' % (time_comp_now(item['createtime']), '提问')
+        print questions
         return render(request, 'playVideo.html',
-                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process})
+                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process, 'questions':questions})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)
