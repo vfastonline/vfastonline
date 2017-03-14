@@ -199,7 +199,8 @@ def login(request):
 
 def userdetail(request):
     try:
-        uid = request.session['user']['id']
+        # uid = request.session['user']['id']
+        uid = 1
         user = User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe')[0]
         return HttpResponse(json.dumps(user, ensure_ascii=False))
     except:

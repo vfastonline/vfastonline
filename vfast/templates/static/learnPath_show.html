@@ -398,7 +398,7 @@
                 {% else %}
                     <div class="startLearnPath" id="startLearnPath"
                      onclick="location.href ='/course/join_track?pid={{ path.id }}'"
-                    >{% if path.id == path_id%}继续学习{% else %}切换路线{% endif %}</div>
+                    >{% if path.id == path_id%}继续学习{% elif path_id == 0 %}参加路线{% else %}切换路线{% endif %}</div>
                 {% endif %}
                 <div>
                     <span>岗位空缺度：</span>
