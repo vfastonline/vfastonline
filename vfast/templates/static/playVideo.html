@@ -1478,8 +1478,12 @@
                 var email = 0;
             }
             $.get("/add_question?vid="+video_id.value+"&title="+quiz_title.value+"&desc="+quiz_describe.value+"&email="+email,function(data){
-                swal("发布成功", "请您等候其他人的回复~", "success");
-                close_quiz();
+                if(data.code == 0){
+                    swal("发布成功", "请您等候其他人的回复~", "success");
+                    close_quiz();
+                }else{
+                    swal("发布失败", "服务器故障，请您稍后再试~", "error");
+                }
             });
         }else{
             swal("发布失败", "请您填写问题标题与问题描述，确保内容后发布~", "error");
