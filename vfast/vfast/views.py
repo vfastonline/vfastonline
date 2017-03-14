@@ -19,7 +19,7 @@ def test(request):
     # course = connection.cursor()
     # course.execute('select * from vcourse_video')
     # a = dictfetchall(cursor=course)
-    return render(request, "question.html")
+    return render(request, "personalCenter.html")
 
 
 def logout(request):
