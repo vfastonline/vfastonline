@@ -22,6 +22,7 @@ def add_question(request):
                 return HttpResponse('用户未登录')
             title = request.GET.get('title')
             desc = request.GET.get('desc')
+            desc = desc.replace('_@^','\n');
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
             vid = request.GET.get('vid')
             video = Video.objects.get(id=vid)
