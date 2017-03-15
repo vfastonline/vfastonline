@@ -101,13 +101,14 @@ def playVideo(request, params):
             userid, video_obj.course.id)
         videos = dictfetchall(sql)
         sql_video_process = "select video_process from vrecord_watchrecord where user_id = %s and video_id =%s;" % (
-        userid, video_obj.id)
+            userid, video_obj.id)
         ret = dictfetchall(sql_video_process)
         try:
             video_process = ret[0]['video_process']
         except:
             video_process = 0
-        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(params)
+        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
+            params)
         questions = dictfetchall(q_sql)
         for item in questions:
             item['createtime'] = '%s%s' % (time_comp_now(item['createtime']), '提问')
@@ -116,7 +117,8 @@ def playVideo(request, params):
             item['replay'] = res['replay']
         print questions
         return render(request, 'playVideo.html',
-                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process, 'questions':questions})
+                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process,
+                       'questions': questions})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)
@@ -133,13 +135,14 @@ def practice(request, params):
             userid, video_obj.course.id)
         videos = dictfetchall(sql)
         sql_video_process = "select video_process from vrecord_watchrecord where user_id = %s and video_id =%s;" % (
-        userid, video_obj.id)
+            userid, video_obj.id)
         ret = dictfetchall(sql_video_process)
         try:
             video_process = ret[0]['video_process']
         except:
             video_process = 0
-        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(params)
+        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
+            params)
         questions = dictfetchall(q_sql)
         for item in questions:
             item['createtime'] = '%s%s' % (time_comp_now(item['createtime']), '提问')
@@ -148,28 +151,34 @@ def practice(request, params):
             item['replay'] = res['replay']
 
         ####重看一遍 上个视频的URL
-        sql_replay = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (video_obj.course_id, video_obj.sequence-1)
+        sql_replay = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (
+        video_obj.course_id, video_obj.sequence - 1)
         ret_replay = dictfetchall(sql_replay)
         print  ret_replay
         if len(ret_replay) != 0:
-            replay_url = '/video/%s/' % ret_replay[0]['id'] if ret_replay[0]['vtype'] == 0 else '/practice/%s/' % ret_replay[0]['id']
+            replay_url = '/video/%s/' % ret_replay[0]['id'] if ret_replay[0]['vtype'] == 0 else '/practice/%s/' % \
+                                                                                                ret_replay[0]['id']
         else:
             replay_url = False
         print replay_url
         ####跳过问题 下个视频的URL, 如果没有下个视频, 按钮不显示
-        sql_skip = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (video_obj.course_id, video_obj.sequence+1)
+        sql_skip = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (
+        video_obj.course_id, video_obj.sequence + 1)
         ret_skip = dictfetchall(sql_skip)
         if len(ret_skip) == 0:
             skip_url = False
         else:
-            skip_url = '/video/%s/' % ret_skip[0]['id'] if ret_skip[0]['vtype'] == 0 else '/practice/%s/' % ret_skip[0]['id']
+            skip_url = '/video/%s/' % ret_skip[0]['id'] if ret_skip[0]['vtype'] == 0 else '/practice/%s/' % ret_skip[0][
+                'id']
         print ret_skip, skip_url
         ####下一题,  获取下一个题目,如果没有下一个题目了, 按钮不显示
         timus = Timu.objects.filter(video=video_obj).values()
         print timus
         print timus.count()
-        return render(request, 'playVideo.html',
-                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process, 'questions':questions})
+        return render(request, 'question.html',
+                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process, 'questions': questions,
+                       'replay_url': replay_url,
+                       'skip_url': skip_url, 'timus': timus})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)
