@@ -915,7 +915,7 @@
              font-size: 18px;
              font-weight: bolder;
          }
-         .error{
+         .wrong{
             color: #E57373;
          }
          .correct{
@@ -973,23 +973,75 @@
         }
     </style>
     <script>
-        function saveTime(t){
-            $.get("/r/video?vid="+video_id.value+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
-        }
-        var vtimeS;
-        function durationChange(t){
-            var vtime = parseInt(t.currentTime);
-            if(vtime%10 == 0 && vtime != 0 && vtimeS!= vtime){
-                vtimeS = vtime;
-                $.get("/r/video?vid="+video_id.value+"&video_process="+vtime+"&status=1",function(data){});
+        function confirm_QA(t){
+            var answer = $("#answer_Q").val();
+            var option = t.getElementsByTagName("span")[0].innerHTML.substr(0,1);
+            t.style.backgroundColor = "#FFFFFF";
+            $("#option_div>div").removeAttr("onclick");
+
+            if(answer == option){
+                $("#right_wrong").html(option+". 恭喜~您答对了！");
+                $("#right_wrong").removeClass().addClass("correct");
+            }else{
+                $("#right_wrong").html(option+". 哎呀，选择错了！");
+                $("#right_wrong").removeClass().addClass("wrong");
+                $("#tips_content").html($("#tips_Q").val());
+            }
+
+            if($("#curr_Q").html() == $("#sum_Q").html()){
+                $.get("/r/video?vid="+video_id.value+"&video_process="+$("#sum_Q").html()+"&status=0",function(data){});
             }
         }
-        function setVideo_process(t){
-            setTimeout(function(){
-                var video = document.getElementsByTagName("video")[0];
-                video.currentTime = $("#video_process").val();
-            },200)
-            $.get("/r/video?vid="+video_id.value+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
+        function next_Q(){
+            var next_QA = parseInt($("#curr_Q").html())+1;
+            var title = $("#question_"+next_QA+" #title").val();
+            var answer = $("#question_"+next_QA+" #answer").val();
+            var tips = $("#question_"+next_QA+" #tips").val();
+            var order = $("#question_"+next_QA+" #order").val();
+            $("#title_Q").html(title);
+            $("#curr_Q").html(next_QA);
+            $("#answer_Q").val(answer);
+            $("#tips_Q").val(tips);
+            $("#right_wrong").html("");
+            $("#tips_content").html("");
+            var optionArr = document.getElementById("option_"+next_QA);
+            optionArr = optionArr.getElementsByTagName("input");
+            var str = "";
+            for(var i = 0 ; i < optionArr.length; i++){
+                if(optionArr[i].value != "None"){
+                    switch (i){
+                        case 0:
+                            str+="<div onclick='confirm_QA(this)'><span>A.</span><span>"+optionArr[i].value+"</span></div>";
+                            break;
+                        case 1:
+                            str+="<div onclick='confirm_QA(this)'><span>B.</span><span>"+optionArr[i].value+"</span></div>";
+                            break;
+                        case 2:
+                            str+="<div onclick='confirm_QA(this)'><span>C.</span><span>"+optionArr[i].value+"</span></div>";
+                            break;
+                        case 3:
+                            str+="<div onclick='confirm_QA(this)'><span>D.</span><span>"+optionArr[i].value+"</span></div>";
+                            break;
+                        case 4:
+                            str+="<div onclick='confirm_QA(this)'><span>E.</span><span>"+optionArr[i].value+"</span></div>";
+                            break;
+                        case 5:
+                            str+="<div onclick='confirm_QA(this)'><span>F.</span><span>"+optionArr[i].value+"</span></div>";
+                            break;
+                    }
+                }
+            }
+            $("#option_div").html(str);
+            var sum = parseInt($("#sum_Q").html());
+            if(sum == next_QA){
+                $("#next_btn").html("下一节<img src='/static/svg/arrow.svg'/>");
+                $("#next_btn").removeAttr("click");
+                $("#next_btn").bind("click",next_video);
+            }
+        }
+
+        function next_video(){
+            location.href = $("#skip_url_Q").val();
         }
     </script>
 </head>
@@ -1002,23 +1054,25 @@
 
 <section class="question">
     <div>
-        <h3>{{ timus.first.title }}</h3>
-        <span>问题 <span>1</span>/<span>{{ timus.count }}</span></span>
+        <h3 id="title_Q">{{ timus.first.title }}</h3>
+        <span>问题 <span id="curr_Q">1</span>/<span id="sum_Q">{{ timus.count }}</span></span>
     </div>
     <div class="question_fun clearfix">
         <div>
-            <span class="error"></span>
-            <span></span>
-            <input type="hidden" value="{{ timus.first.answer }}" id="answer" />
-            <input type="hidden" value="{{ timus.first.tips }}" id="tips" />
+            <span id="right_wrong" class="wrong"></span>
+            <span id="tips_content"></span>
+            <input type="hidden" value="{{ timus.first.answer }}" id="answer_Q" />
+            <input type="hidden" value="{{ timus.first.tips }}" id="tips_Q" />
+            <input type="hidden" value="{{ skip_url }}" id="skip_url_Q" />
+            <input id="video_id" type="hidden" value="{{ video_obj.id }}"/>
         </div>
         <div>
             <button class="btn" onclick="location.href='{{ replay_url }}'"><img src="/static/svg/Shape.svg" alt="" >重看一遍</button>
             <button class="btn" onclick="location.href='{{ skip_url }}'">跳过问题</button>
-            <button class="btn">下一题<img src="/static/svg/arrow.svg"/></button>
+            <button class="btn" onclick="next_Q()" id="next_btn">下一题<img src="/static/svg/arrow.svg"/></button>
         </div>
     </div>
-    <div class="option_div">
+    <div class="option_div" id="option_div">
         {% if timus.first.A %}
         <div onclick="confirm_QA(this)">
             <span>A.</span>
@@ -1285,22 +1339,20 @@
 {% include "search_div.html" %}
 
 {% for timu in timus %}
-    <section>
-        <div id="question_{{ timu.sequence }}">
-            <input type="hidden" name="title" id="title" value="{{ timu.title }}">
-            <input type="hidden" name="answer" id="answer" value="{{ timu.answer }}">
-            <input type="hidden" name="tips" id="tips" value="{{ timu.tips }}">
-            <input type="hidden" name="order" id="order" value="{{ timu.sequence }}">
-        </div>
-        <div id="option_{{ timu.sequence }}">
-            <input type="hidden" name="A" id="A" value="{{ timu.A }}">
-            <input type="hidden" name="B" id="B" value="{{ timu.B }}">
-            <input type="hidden" name="C" id="C" value="{{ timu.C }}">
-            <input type="hidden" name="D" id="D" value="{{ timu.D }}">
-            <input type="hidden" name="E" id="E" value="{{ timu.E }}">
-            <input type="hidden" name="F" id="F" value="{{ timu.F }}">
-        </div>
-    </section>
+    <div id="question_{{ timu.sequence }}">
+        <input type="hidden" name="title" id="title" value="{{ timu.title }}">
+        <input type="hidden" name="answer" id="answer" value="{{ timu.answer }}">
+        <input type="hidden" name="tips" id="tips" value="{{ timu.tips }}">
+        <input type="hidden" name="order" id="order" value="{{ timu.sequence }}">
+    </div>
+    <div id="option_{{ timu.sequence }}">
+        <input type="hidden" name="A" id="A" value="{{ timu.A }}">
+        <input type="hidden" name="B" id="B" value="{{ timu.B }}">
+        <input type="hidden" name="C" id="C" value="{{ timu.C }}">
+        <input type="hidden" name="D" id="D" value="{{ timu.D }}">
+        <input type="hidden" name="E" id="E" value="{{ timu.E }}">
+        <input type="hidden" name="F" id="F" value="{{ timu.F }}">
+    </div>
 {% endfor %}
 
 </body>
