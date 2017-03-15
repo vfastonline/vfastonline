@@ -85,10 +85,10 @@ class Video(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
     watched = models.IntegerField('观看视频人数', null=True, blank=True, default=0)
     createtime = models.CharField('视频上传时间', max_length=20, null=True, blank=True)
-    end = models.IntegerField('是否为最后一节视频', default=0)  #0不是, 1是
+    end = models.IntegerField('是否为最后一节视频', default=0)  #0是最后一个, 1不是最后一个
     vtype = models.IntegerField('类型, 视频, 题目', default=0)
     vtype_url = models.CharField('类型图标', max_length=50, default='/static/svg/video.svg')
-    sequence = models.IntegerField('视频播放顺序', default=0)
+    sequence = models.IntegerField('视频播放顺序', default=1)
 
     def __unicode__(self):
         return self.name

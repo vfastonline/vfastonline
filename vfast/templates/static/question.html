@@ -1002,47 +1002,59 @@
 
 <section class="question">
     <div>
-        <h3>视频游戏都是实时刷新的，是意指什么？</h3>
-        <span>问题 <span>1</span>/<span>4</span></span>
+        <h3>{{ timus.first.title }}</h3>
+        <span>问题 <span>1</span>/<span>{{ timus.count }}</span></span>
     </div>
     <div class="question_fun clearfix">
         <div>
-            <span class="error">哎呀，选择错了！</span>
-            <span>视频游戏的帧数是按需渲染的</span>
-            <input type="hidden" value="" id="answer" />
-            <input type="hidden" value="" id="tips" />
+            <span class="error"></span>
+            <span></span>
+            <input type="hidden" value="{{ timus.first.answer }}" id="answer" />
+            <input type="hidden" value="{{ timus.first.tips }}" id="tips" />
         </div>
         <div>
-            <button class="btn"><img src="/static/svg/Shape.svg" alt="" onclick="location.href=''">重看一遍</button>
-            <button class="btn" onclick="location.href=''">跳过问题</button>
+            <button class="btn" onclick="location.href='{{ replay_url }}'"><img src="/static/svg/Shape.svg" alt="" >重看一遍</button>
+            <button class="btn" onclick="location.href='{{ skip_url }}'">跳过问题</button>
             <button class="btn">下一题<img src="/static/svg/arrow.svg"/></button>
         </div>
     </div>
     <div class="option_div">
+        {% if timus.first.A %}
         <div onclick="confirm_QA(this)">
             <span>A.</span>
-            <span>大多数视频游戏都是动作游戏，高速刺激的游戏风格。这不同于回合制类型的游戏。</span>
+            <span>{{ timus.first.A }}</span>
         </div>
+        {% endif %}
+        {% if timus.first.B %}
         <div onclick="confirm_QA(this)">
             <span>B.</span>
-            <span>视频游戏是通过每秒钟渲染一幅画面来呈现出运动的幻觉，这项技术叫做实时渲染。</span>
+            <span>{{ timus.first.B }}</span>
         </div>
+        {% endif %}
+        {% if timus.first.C %}
         <div onclick="confirm_QA(this)">
             <span>C.</span>
-            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
+            <span>{{ timus.first.C }}</span>
         </div>
+        {% endif %}
+        {% if timus.first.D %}
         <div onclick="confirm_QA(this)">
             <span>D.</span>
-            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
+            <span>{{ timus.first.D }}</span>
         </div>
+        {% endif %}
+        {% if timus.first.E %}
         <div onclick="confirm_QA(this)">
             <span>E.</span>
-            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
+            <span>{{ timus.first.E }}</span>
         </div>
+        {% endif %}
+        {% if timus.first.F %}
         <div onclick="confirm_QA(this)">
             <span>F.</span>
-            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
+            <span>{{ timus.first.F }}</span>
         </div>
+        {% endif %}
     </div>
 </section>
 
@@ -1272,22 +1284,24 @@
 </main>
 {% include "search_div.html" %}
 
-<section>
-    <div id="question_1">
-        <input type="hidden" name="title" id="title" value="">
-        <input type="hidden" name="answer" id="answer" value="">
-        <input type="hidden" name="tips" id="tips" value="">
-        <input type="hidden" name="order" id="order" value="">
-    </div>
-    <div id="option_1">
-        <input type="hidden" name="A" id="A" value="">
-        <input type="hidden" name="B" id="B" value="">
-        <input type="hidden" name="C" id="C" value="">
-        <input type="hidden" name="D" id="D" value="">
-        <input type="hidden" name="E" id="E" value="">
-        <input type="hidden" name="F" id="F" value="">
-    </div>
-</section>
+{% for timu in timus %}
+    <section>
+        <div id="question_{{ timu.sequence }}">
+            <input type="hidden" name="title" id="title" value="{{ timu.title }}">
+            <input type="hidden" name="answer" id="answer" value="{{ timu.answer }}">
+            <input type="hidden" name="tips" id="tips" value="{{ timu.tips }}">
+            <input type="hidden" name="order" id="order" value="{{ timu.sequence }}">
+        </div>
+        <div id="option_{{ timu.sequence }}">
+            <input type="hidden" name="A" id="A" value="{{ timu.A }}">
+            <input type="hidden" name="B" id="B" value="{{ timu.B }}">
+            <input type="hidden" name="C" id="C" value="{{ timu.C }}">
+            <input type="hidden" name="D" id="D" value="{{ timu.D }}">
+            <input type="hidden" name="E" id="E" value="{{ timu.E }}">
+            <input type="hidden" name="F" id="F" value="{{ timu.F }}">
+        </div>
+    </section>
+{% endfor %}
 
 </body>
 <script src="/static/js/video.js"></script>
