@@ -5,7 +5,7 @@ from vcourse.models import Program
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from vcourse.models import Video
-from vpractice.models import Question
+from vpractice.models import Timu
 from vfast.api import dictfetchall, time_comp_now
 
 import logging
@@ -123,5 +123,53 @@ def playVideo(request, params):
 
 
 def practice(request, params):
-    print params
-    return render(request, 'playVideo.html')
+    try:
+        video_obj = Video.objects.get(id=int(params))
+        try:
+            userid = request.session['user']['id']
+        except:
+            return render(request, 'playVideo.html')
+        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtype_url, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s""" % (
+            userid, video_obj.course.id)
+        videos = dictfetchall(sql)
+        sql_video_process = "select video_process from vrecord_watchrecord where user_id = %s and video_id =%s;" % (
+        userid, video_obj.id)
+        ret = dictfetchall(sql_video_process)
+        try:
+            video_process = ret[0]['video_process']
+        except:
+            video_process = 0
+        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(params)
+        questions = dictfetchall(q_sql)
+        for item in questions:
+            item['createtime'] = '%s%s' % (time_comp_now(item['createtime']), '提问')
+            r_sql = 'select count(1) as replay from vpractice_replay where question_id = %s;' % item['id']
+            res = dictfetchall(r_sql)[0]
+            item['replay'] = res['replay']
+
+        ####重看一遍 上个视频的URL
+        sql_replay = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (video_obj.course_id, video_obj.sequence-1)
+        ret_replay = dictfetchall(sql_replay)
+        print  ret_replay
+        if len(ret_replay) != 0:
+            replay_url = '/video/%s/' % ret_replay[0]['id'] if ret_replay[0]['vtype'] == 0 else '/practice/%s/' % ret_replay[0]['id']
+        else:
+            replay_url = False
+        print replay_url
+        ####跳过问题 下个视频的URL, 如果没有下个视频, 按钮不显示
+        sql_skip = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (video_obj.course_id, video_obj.sequence+1)
+        ret_skip = dictfetchall(sql_skip)
+        if len(ret_skip) == 0:
+            skip_url = False
+        else:
+            skip_url = '/video/%s/' % ret_skip[0]['id'] if ret_skip[0]['vtype'] == 0 else '/practice/%s/' % ret_skip[0]['id']
+        print ret_skip, skip_url
+        ####下一题,  获取下一个题目,如果没有下一个题目了, 按钮不显示
+        timus = Timu.objects.filter(video=video_obj).values()
+        print timus
+        print timus.count()
+        return render(request, 'playVideo.html',
+                      {'videos': videos, 'video_obj': video_obj, 'video_process': video_process, 'questions':questions})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(status=404)

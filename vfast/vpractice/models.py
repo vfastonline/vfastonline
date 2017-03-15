@@ -18,6 +18,7 @@ class Timu(models.Model):
     E = models.CharField('选项E', max_length=60, null=True, blank=True)
     F = models.CharField('选项F', max_length=60, null=True, blank=True)
     video = models.ForeignKey(Video, on_delete=models.CASCADE, verbose_name='视频ID')
+    end = models.IntegerField('是否最后一个', default=1)   #0是最后一个, 1不是最后一个
 
     def __unicode__(self):
         return self.title
