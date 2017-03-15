@@ -111,6 +111,9 @@ def playVideo(request, params):
         questions = dictfetchall(q_sql)
         for item in questions:
             item['createtime'] = '%s%s' % (time_comp_now(item['createtime']), '提问')
+            r_sql = 'select count(1) as replay from vpractice_replay where question_id = %s;' % item['id']
+            res = dictfetchall(r_sql)[0]
+            item['replay'] = res['replay']
         print questions
         return render(request, 'playVideo.html',
                       {'videos': videos, 'video_obj': video_obj, 'video_process': video_process, 'questions':questions})
