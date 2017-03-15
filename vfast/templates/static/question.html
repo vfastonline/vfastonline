@@ -24,8 +24,224 @@
             box-shadow: none;
         }
     </style>
+    <style>
+        .video_div{
+            width: 1200px;
+            height: 680px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .video_div1{
+            width: 1200px;
+            height: 60px;
+            line-height: 60px;
+            margin: 0 auto;
+            position: relative;
+            background: #EEEEEE;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+        }
+        .video_div1:after{content: "";display: block;clear:both;}
+        .video_div1 ul:after{content: "";display: block;clear:both;}
+        .video_div1 ul{
+            margin-left: 27px;
+            float: left;
+            height: 60px;
+            line-height: 60px;
+        }
+        .video_div1 ul li{
+            background-color: #D8D8D8;
+            float: left;
+            color: #FFFFFF;
+            font-size: 14px;
+            text-align: center;
+            height: 28px;
+            width: 50px;
+            line-height: 28px;
+            margin-top: 16px;
+            font-family: gothamrounded-book;
+        }
+        .video_div1 ul li:nth-child(2){
+            background-color: #7C828C;
+        }
+        .video_div1 ul li:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_div1>div{
+            float: right;
+            height: 60px;
+            line-height: 60px;
+            margin-right: 27px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        .video_div1>div:after{content: "";display: block;clear:both;}
+        .video_div1>div>svg{
+            float: left;
+            margin-top: 16px;
+        }
+        .video_div1>div>svg:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_div1>div>svg:active path{
+            fill:#FFFFFF;
+        }
+        .video_div1>div>p{
+            float: left;
+            width: 45px;
+            line-height: 24px;
+            text-align: center;
+            margin-top: 16px;
+            margin-right: 50px;
+            margin-left: 30px;
+            background-color: #7C828C;
+            border: 2px solid #7C828C;
+        }
+        .video_div1>div>p:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_div1>div>div{
+            float: left;
+            width: 200px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            margin-top: 16px;
+        }
 
-     <style>
+        .video_div2{
+            width: 1200px;
+            height: 60px;
+            line-height: 60px;
+            margin: 0 auto;
+            position: relative;
+            background-color:#eeeeee ;
+            display: none;
+        }
+        .video_div2>div{
+            display: inline-block;
+            width: 100px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            color: #FFFFFF;
+            background-color: #7C828C;
+            font-size: 14px;
+        }
+        .video_div2>div:first-child{
+            margin-left: 27px;
+            margin-right: 66%;
+        }
+        .video_div2>div:first-child:hover{
+            transition: opacity 0s;
+            cursor: pointer;
+            opacity: 0.8!important;
+        }
+        .video_div2>div:last-child{
+            background-color: #00BCD4;
+            margin-left: 30px;
+        }
+        .video_div2>div:last-child:hover{
+            transition: opacity 0s;
+            cursor: pointer;
+            opacity: 0.7!important;
+        }
+        .video_div2>div:nth-child(2)>svg{
+            position: relative;
+            top: 6px;
+            float: right;
+            margin-right: 12%;
+        }
+        .video_div2>div:nth-child(2)>svg:last-child:hover path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:nth-child(2):hover path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:nth-child(2):hover+svg path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:first-child:hover path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:first-child:hover+svg path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:first-child:hover+svg+svg path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        #video_div2_svg:after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        #video_div2_svg{
+            vertical-align: middle;
+        }
+        .video_bofang{
+            position: absolute;top: 300px;left: 580px;
+            z-index: 1;
+            display: none;
+        }
+        .video_bofang:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_tiaoguo{
+            margin-top: 22px;
+            margin-left: 30px;
+        }
+        .video_tiaoguo:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_tiaoguo:active path{
+            fill: #FFFFFF;
+        }
+
+        .vjs-volume-control{
+            top: 100%;
+            left: 25px;
+            z-index: 1;
+            height: 60px!important;
+            line-height: 60px!important;
+            width: 200px!important;
+        }
+        .vjs-volume-control>div{
+            margin-top: 16px!important;
+            width: 200px!important;
+            height: 28px!important;
+            background-color: #D8D8D8!important;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+        .vjs-volume-control>div>div:first-child{
+            height: 28px;
+            width: 200px;
+            background: none;
+            background-color: #7C828C!important;
+        }
+        .vjs-volume-control>div>div:last-child{
+            display: none!important;
+        }
+        .vjs-mute-control{
+            left: 20px;
+            top: 146%;
+            z-index: 1;
+        }
+        .vjs-volume-bar{
+            transition:  none;
+        }
+
         .tab_menu{
             width: 1200px;
             margin: 0 auto;
@@ -63,9 +279,10 @@
         .tab_menu>div:hover{
             opacity: 0.8;
             cursor: pointer;
-            box-shadow: 0px 1px 1px black;
+{#            box-shadow: 0px 1px 1px black;#}
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
             position: relative;
-            top: -2px;
+            top: -1px;
         }
         .tab_menu>div:active{
             box-shadow: none;
@@ -82,6 +299,16 @@
             border-radius: 4px;
             background-color: #00BCD4;
             letter-spacing: 2px;
+            margin-left: 10px;
+        }
+        .tab_menu>.close_quiz{
+            border: 2px solid #F0F2F4;
+            background: #FFFFFF;
+            color: #5A646E;
+            display: none;
+        }
+        .tab_menu>.publish_quiz{
+            display: none;
         }
 
         .tab_QA{
@@ -96,6 +323,7 @@
         .tab_QA>div{
             margin: 0 auto;
             background-color: #FFFFFF;
+            border-top: 1px solid #E0E0E0;
         }
         .tab_QA>div:hover{
             background-color: #EEEEEE;
@@ -104,7 +332,7 @@
         .tab_QA>div:after{content: "";display: block;clear: both;}
         .tab_QA>div>div:first-child{
             float: left;
-            width: 7%;
+            width: 12%;
             padding: 20px;
             text-align: center;
             font-size: 14px;
@@ -113,7 +341,7 @@
         }
         .tab_QA>div>div:nth-child(2){
             float: left;
-            width: 80%;
+            width: 88%;
             padding: 20px;
             font-size: 14px;
             letter-spacing: 1.2px;
@@ -127,6 +355,18 @@
             color: #7C828C;
             margin-top: 20px;
         }
+        .tab_QA>div>div:nth-child(2)>pre{
+            color: #7C828C;
+            margin-top: 20px;
+            background-color: transparent;
+            border: none;
+            overflow: hidden;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
         .tab_QA>div>div:nth-child(2)>p:last-child{
             text-align: right;
         }
@@ -134,7 +374,99 @@
         .tab_QA>div>hr{
             clear: both;
         }
-        pre{
+
+        .quiz_section{
+            position: relative;
+            background-color: #FAFAFA;
+            padding: 10px 50px;
+            display: none;
+        }
+
+        .quiz_section>input[type="text"]{
+            border: 2px solid #F0F2F4;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border-radius: 4px;
+            font-size: 14px;
+            color: #BAC4CA;
+            width:600px;
+            height:40px;
+            padding: 0px 30px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .quiz_section>div{
+            position: absolute;
+            right: 50px;
+            top:10px;
+            height: 40px;
+        }
+        .quiz_section>div>span{
+            font-size: 14px;
+            color: #7C828C;
+            letter-spacing: 1.17px;
+            display: inline-block;
+            margin-top: 10px;
+            height:20px;
+            margin-right: 10px;
+        }
+        .quiz_section>.quiz_content{
+            background: #F0F2F4;
+            border: 1px solid #F0F2F4;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border-radius: 4px;
+            font-size: 14px;
+            color: #BAC4CA;
+            resize: none;
+            width: 100%;
+            height:128px;
+            padding: 10px 30px;
+        }
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+        .quiz_checkbox {
+            width: 20px;
+            height:20px;
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .quiz_checkbox label {
+            cursor: pointer;
+            position: absolute;
+            width: 20px;
+            height:20px;
+            top: 0;
+            left: 0;
+            background: #00BCD4;
+            margin: 0px;
+            border-radius: 4px;
+        }
+        .quiz_checkbox label:after {
+            opacity: 0.4;
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 8px;
+            top: 4px;
+            left: 3px;
+            border: 3px solid #FFFFFF;
+            border-top: none;
+            border-right: none;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+        .quiz_checkbox label:hover::after {
+            opacity: 0.6;
+        }
+        .quiz_checkbox input[type=checkbox]:checked + label:after {
+            opacity: 1;
+        }
+
+        .note_pre{
             background-color: transparent;
             border:none;
         }
@@ -287,12 +619,264 @@
             cursor:default;
             background-color: #FFFFFF;
         }
+        .video_div .medal_div{
+            width: 1200px;
+            height: 680px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #2F3646;
+            text-align: center;
+            z-index: -1;
+        }
+        .video_div .medal_div>p{
+            text-align: center;
+            margin-top: 88px;
+            font-size: 20px;
+            color: #7A88A1;
+            position: relative;
+        }
+        .video_div .medal_div>h2{
+            text-align: center;
+            margin-top: 10px;
+            font-size: 32px;
+            color: #FFFFFF;
+            position: relative;
+        }
+        .video_div .medal_div>.medal_badge{
+            margin-top: 20px;
+            width: 220px;
+            height: 240px;
+            opacity: 0;
+        }
+        .video_div .medal_div>.medal_30{
+            width: 75px;
+            height: 75px;
+            position: absolute;
+            top: 270px;
+            left: 455px;
+            opacity: 0;
+        }
+        .shapes{
+            position: absolute;
+            transition: all 1s ease-in-out;
+            opacity: 0;
+        }
+        .medal_circle_1{
+            width: 40px;
+            height: 40px;
+            top: 100px;
+            left: 250px;
+        }
+        .medal_circle_2{
+            width: 100px;
+            height: 100px;
+            top: 170px;
+            right: 200px;
+        }
+        .medal_circle_3{
+            width: 40px;
+            height: 40px;
+            bottom: 50px;
+            right: 350px;
+        }
+        .medal_stars_1{
+            width: 120px;
+            height: 120px;
+            top: 250px;
+            left: 100px;
+            transform: rotate(-15deg);
+        }
+        .medal_stars_2{
+            width: 75px;
+            height: 75px;
+            bottom: 230px;
+            right: 230px;
+            transform: rotate(-15deg);
+        }
+        .medal_square_1{
+            width: 30px;
+            height: 30px;
+            top: 330px;
+            right: 320px;
+            transform: rotate(-15deg);
+        }
+        .medal_square_2{
+            width: 60px;
+            height: 60px;
+            bottom: 130px;
+            left: 180px;
+            transform: rotate(15deg);
+        }
+        .video_name{
+            position: absolute;
+            top:30px;
+            left: 30px;
+            font-size: 24px;
+            color: #F0F2F4;
+            letter-spacing: 2px;
+            display: none;
+        }
+        @keyframes medal_div_animation {
+            0%{
+                top: 80px;
+                opacity: 0;
+            }
+            100%{
+                top:0px;
+            }
+        }
+        @keyframes medal_div_shouji_animation {
+            0%{
+                transform: scale(0);
+            }
+            60%{
+                transform: scale(1.2);
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes medal_30_animation{
+            0%{
+                transform: rotate(360deg) scale(0) ;
+            }
+            100%{
+                transform:rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes medal_circle_1_animation{
+            0%{
+                transform:rotate(15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,100px);
+            }
+            100%{
+                transform:rotate(15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_circle_2_animation{
+            0%{
+                transform:rotate(15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_circle_3_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_stars_1_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_stars_2_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,100px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_square_1_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-50px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_square_2_animation{
+            0%{
+                transform:rotate(15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(15deg) translate(0,0);
+            }
+        }
+
+        .vjs-tt-cue{
+            font-size: 18px!important;
+            letter-spacing: 1px;
+        }
+        .video-js .vjs-text-track{
+            background-color: transparent!important;
+        }
+        .vjs-tt-cue{
+            display: inline-block;
+            background-color: rgba(64, 64, 64, 0.8) !important;
+            padding: 7px 30px;
+        }
+        .vjs-subtitles-button{
+            display: none;
+        }
+        .vjs-current-time,.vjs-time-divider,.vjs-duration{
+            display: none;
+        }
+        .vjs-progress-control{
+            width:80%!important;
+            top: 12px!important;
+            left:10%!important;
+            border-radius: 10px!important;
+        }
+        .vjs-load-progress{
+            border-radius: 10px!important;
+            background-color: #FFFFFF!important;
+            opacity: 0.4;
+        }
+        .vjs-progress-holder{
+            border-radius: 10px!important;
+        }
+        .vjs-control-bar{
+            background-color: transparent!important;
+        }
+        .vjs-seek-handle{
+            background-color: #FFFFFF!important;
+            border-radius: 10px!important;
+        }
+        .vjs-play-progress{
+            background-color: #00BCD4!important;
+            background-image: none!important;
+            border-radius: 10px!important;
+        }
 
         .question{
             width: 1200px;
             margin: 0 auto;
             background-color: #FFFFFF;
-            border-radius: 4px 4px 0px 0px;
+            border-radius: 4px;
             box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
         }
         .question>div:first-child{
@@ -323,7 +907,7 @@
         }
          .question_fun>div:first-child{
              float: left;
-             width:70%;
+             width:60%;
              height:60px;
              overflow: hidden;
          }
@@ -343,7 +927,7 @@
          }
          .question_fun>div:last-child{
              float: right;
-             width:30%;
+             width:40%;
              height:60px;
          }
          .question_fun>div:last-child>button{
@@ -351,11 +935,63 @@
              height:28px;
              background: #7C828C;
              color: #FFFFFF;
-            outline: none;
+             outline: none;
              border: none;
              border-radius: 0px;
+             margin-left: 30px;
          }
+         .question_fun>div:last-child>button:first-child>img{
+             margin-right: 5px;
+             margin-bottom: 2px;
+         }
+         .question_fun>div:last-child>button:last-child>img{
+             margin-left: 5px;
+             margin-bottom: 2px;
+         }
+        .option_div{
+
+        }
+        .option_div>div{
+            height: 80px;
+            background: #F0F2F4;
+            box-shadow: inset 0 1px 0 0 rgba(0,0,0,0.10);
+            line-height: 80px;
+        }
+        .option_div>div:hover{
+            background-color: #FFFFFF;
+            cursor: pointer;
+        }
+        .option_div>div>span:first-child{
+            font-size: 24px;
+            color: #7C828C;
+            margin-left: 100px;
+        }
+        .option_div>div>span:last-child{
+            font-size: 20px;
+            color: #7C828C;
+            margin-left: 50px;
+        }
     </style>
+    <script>
+        function saveTime(t){
+            $.get("/r/video?vid="+video_id.value+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
+        }
+        var vtimeS;
+        function durationChange(t){
+            var vtime = parseInt(t.currentTime);
+            if(vtime%10 == 0 && vtime != 0 && vtimeS!= vtime){
+                vtimeS = vtime;
+                $.get("/r/video?vid="+video_id.value+"&video_process="+vtime+"&status=1",function(data){});
+            }
+        }
+        function setVideo_process(t){
+            setTimeout(function(){
+                var video = document.getElementsByTagName("video")[0];
+                video.currentTime = $("#video_process").val();
+            },200)
+            $.get("/r/video?vid="+video_id.value+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
+        }
+    </script>
 </head>
 <body>
 <main class="main-wrap">
@@ -367,17 +1003,45 @@
 <section class="question">
     <div>
         <h3>视频游戏都是实时刷新的，是意指什么？</h3>
-        <span>问题1/4</span>
+        <span>问题 <span>1</span>/<span>4</span></span>
     </div>
     <div class="question_fun clearfix">
         <div>
             <span class="error">哎呀，选择错了！</span>
             <span>视频游戏的帧数是按需渲染的</span>
+            <input type="hidden" value="" id="answer" />
+            <input type="hidden" value="" id="tips" />
         </div>
         <div>
-            <button class="btn"><img src="/static/svg/Shape.svg" alt="">重看一遍</button>
-            <button class="btn">跳过问题</button>
-            <button class="btn">下一题</button>
+            <button class="btn"><img src="/static/svg/Shape.svg" alt="" onclick="location.href=''">重看一遍</button>
+            <button class="btn" onclick="location.href=''">跳过问题</button>
+            <button class="btn">下一题<img src="/static/svg/arrow.svg"/></button>
+        </div>
+    </div>
+    <div class="option_div">
+        <div onclick="confirm_QA(this)">
+            <span>A.</span>
+            <span>大多数视频游戏都是动作游戏，高速刺激的游戏风格。这不同于回合制类型的游戏。</span>
+        </div>
+        <div onclick="confirm_QA(this)">
+            <span>B.</span>
+            <span>视频游戏是通过每秒钟渲染一幅画面来呈现出运动的幻觉，这项技术叫做实时渲染。</span>
+        </div>
+        <div onclick="confirm_QA(this)">
+            <span>C.</span>
+            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
+        </div>
+        <div onclick="confirm_QA(this)">
+            <span>D.</span>
+            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
+        </div>
+        <div onclick="confirm_QA(this)">
+            <span>E.</span>
+            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
+        </div>
+        <div onclick="confirm_QA(this)">
+            <span>F.</span>
+            <span>视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。</span>
         </div>
     </div>
 </section>
@@ -386,54 +1050,55 @@
 <div class="tab_menu" id="tab_menu">
     <ul>
         <li class="tab_menu_li" onclick="tab_sel(this,'tab_Course')">课程系列</li>
-        <li onclick="tab_sel(this,'tab_QA')">问答版</li>
+        <li id="button_QA" onclick="tab_sel(this,'tab_QA')">问答版</li>
         <li onclick="tab_sel(this,'tab_NOTE')">讲师笔记</li>
     </ul>
-    <div>提问</div>
+    <div id="quiz" onclick="quiz()">提问</div>
+    <div id="publish_quiz" class="publish_quiz" onclick="quiz_submit()">发布问题</div>
+    <div id="close_quiz" class="close_quiz" onclick="close_quiz()">取消提问</div>
 </div>
 
 <div class="tab_QA" id="tab_QA">
-    <div>
+    <section class="quiz_section" id="quiz_section">
+        <input type="text" placeholder="写一个问题标题..." id="quiz_title">
         <div>
-            <p>1</p>
-            <svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path d="M16,25 C16,24.3583333 15.475,23.8333333 14.8333333,23.8333333 L8.79,23.8333333 L9.56,20.1233333 L9.58333333,19.855 C9.58333333,19.4933333 9.43166667,19.1666667 9.19833333,18.9216667 L8.27666667,18 L2.51333333,23.7633333 C2.19833333,24.0783333 2,24.5216667 2,25 L2,32.5833333 C2,33.5516667 2.78166667,34.3333333 3.75,34.3333333 L11.625,34.3333333 C12.3483333,34.3333333 12.9666667,33.89 13.235,33.2716667 L15.8716667,27.1 C15.9533333,26.9016667 16,26.68 16,26.4583333 L16,25 L16,25 Z M28.25,29.6666667 L20.375,29.6666667 C19.6516667,29.6666667 19.0333333,30.11 18.765,30.7283333 L16.1283333,36.9 C16.0466667,37.0983333 16,37.32 16,37.5416667 L16,39 C16,39.6416667 16.525,40.1666667 17.1666667,40.1666667 L23.21,40.1666667 L22.44,43.8766667 L22.4166667,44.1566667 C22.4166667,44.5183333 22.5683333,44.845 22.8016667,45.09 L23.7233333,46 L29.4866667,40.2366667 C29.8016667,39.9216667 30,39.4783333 30,39 L30,31.4166667 C30,30.4483333 29.2183333,29.6666667 28.25,29.6666667 L28.25,29.6666667 Z" id="Shape" stroke="none" fill="#D8D8D8" fill-rule="evenodd"></path>
-            </svg>
-            <p>2</p>
-            <svg width="32px" height="23px" viewBox="0 77 32 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path d="M4.00119139,77 L19.2710928,77 C21.4708112,77 23.2708221,78.8000108 23.2708221,81.0011914 L23.2708221,88.3931008 C23.2708221,90.5942814 21.4708112,92.3926676 19.2710928,92.3926676 L7.81820642,92.3926676 L4.54559731,95.6652767 L4.54559731,92.3926676 L4.00119139,92.3926676 C1.80001084,92.3926676 0,90.5942813 0,88.3931008 L1.50408285e-15,81.0011914 C1.50408285e-15,78.8000108 1.79995665,77 4.00119139,77 L4.00119139,77 L4.00119139,77 Z M6.05913571,83.0293513 C5.28192351,83.0293513 4.65260478,83.65867 4.65260478,84.4358822 C4.65260478,85.2130944 5.28192351,85.8440377 6.05913571,85.8440377 C6.8379725,85.8440377 7.46745369,85.2130943 7.46745369,84.4358822 C7.46745369,83.65867 6.8379725,83.0293513 6.05913571,83.0293513 L6.05913571,83.0293513 L6.05913571,83.0293513 Z M18.0721867,83.0293513 C17.2949745,83.0293513 16.6640312,83.65867 16.6640312,84.4358822 C16.6640312,85.2130944 17.2949746,85.8440377 18.0721867,85.8440377 C18.8493989,85.8440377 19.4787176,85.2130943 19.4787176,84.4358822 C19.4787718,83.65867 18.849453,83.0293513 18.0721867,83.0293513 L18.0721867,83.0293513 L18.0721867,83.0293513 Z M11.9249431,83.0293513 C11.1475685,83.0293513 10.5166252,83.65867 10.5166252,84.4358822 C10.5166252,85.2130944 11.1475685,85.8440377 11.9249431,85.8440377 C12.7021553,85.8440377 13.3330987,85.2130943 13.3330987,84.4358822 C13.3330987,83.65867 12.7021553,83.0293513 11.9249431,83.0293513 L11.9249431,83.0293513 L11.9249431,83.0293513 Z M28.0004332,80.6407993 L24.9573811,80.6407993 C25.0297303,80.9949095 25.0692083,81.3582801 25.0692083,81.7328604 L25.0692083,89.126232 C25.0692083,92.1157804 22.6271526,94.5562114 19.6377667,94.5562114 L9.63078089,94.5562114 C10.365645,95.4576519 11.4826708,96.0335211 12.7289072,96.0335211 L24.1834182,96.0335211 L27.4544027,99.3062926 L27.4544027,96.0335211 L28.0004332,96.0335211 C30.1999892,96.0335211 32,94.2336727 32,92.0339543 L31.9999999,84.6419907 C31.9999999,82.4408101 30.1999891,80.6407993 28.0004332,80.6407993 L28.0004332,80.6407993 Z" id="Shape" stroke="none" fill="#D8D8D8" fill-rule="evenodd"></path>
-            </svg>
+            <span>收到回复时给我发个Email</span>
+            <div class="quiz_checkbox">
+                <input type="checkbox" value="0" id="quiz_email" />
+	  	        <label for="quiz_email"></label>
+            </div>
         </div>
-        <div>
-            <h5>怎么获取导航栏标题字符串的子字符串？</h5>
-            <p>aosj dajsdoaoisjd oqwj doaj sdajoi sdoijqwji ofqwfji qwfiaoi soajsdohasoiu fhaiushf aihsfiasdhg ygwq uwyfdqwdg aiwud iuahd iuahsd as dhaisha hsd a sdasd a sf as fw eg e hrt h </p>
-            <p>jackback 在 2 周前提问</p>
-        </div>
-        <hr style="width:95%;margin: 0 auto;border: 1px solid #E0E0E0;"/>
-    </div>
+        <br/>
+        <textarea class="quiz_content" id="quiz_describe" placeholder="问题描述..."></textarea>
+    </section>
 
-    <div>
+    {% for question in questions %}
         <div>
-            <p>-1</p>
-            <svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path d="M16,25 C16,24.3583333 15.475,23.8333333 14.8333333,23.8333333 L8.79,23.8333333 L9.56,20.1233333 L9.58333333,19.855 C9.58333333,19.4933333 9.43166667,19.1666667 9.19833333,18.9216667 L8.27666667,18 L2.51333333,23.7633333 C2.19833333,24.0783333 2,24.5216667 2,25 L2,32.5833333 C2,33.5516667 2.78166667,34.3333333 3.75,34.3333333 L11.625,34.3333333 C12.3483333,34.3333333 12.9666667,33.89 13.235,33.2716667 L15.8716667,27.1 C15.9533333,26.9016667 16,26.68 16,26.4583333 L16,25 L16,25 Z M28.25,29.6666667 L20.375,29.6666667 C19.6516667,29.6666667 19.0333333,30.11 18.765,30.7283333 L16.1283333,36.9 C16.0466667,37.0983333 16,37.32 16,37.5416667 L16,39 C16,39.6416667 16.525,40.1666667 17.1666667,40.1666667 L23.21,40.1666667 L22.44,43.8766667 L22.4166667,44.1566667 C22.4166667,44.5183333 22.5683333,44.845 22.8016667,45.09 L23.7233333,46 L29.4866667,40.2366667 C29.8016667,39.9216667 30,39.4783333 30,39 L30,31.4166667 C30,30.4483333 29.2183333,29.6666667 28.25,29.6666667 L28.25,29.6666667 Z" id="Shape" stroke="none" fill="#D8D8D8" fill-rule="evenodd"></path>
-            </svg>
-            <p>2</p>
-            <svg width="32px" height="23px" viewBox="0 77 32 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path d="M4.00119139,77 L19.2710928,77 C21.4708112,77 23.2708221,78.8000108 23.2708221,81.0011914 L23.2708221,88.3931008 C23.2708221,90.5942814 21.4708112,92.3926676 19.2710928,92.3926676 L7.81820642,92.3926676 L4.54559731,95.6652767 L4.54559731,92.3926676 L4.00119139,92.3926676 C1.80001084,92.3926676 0,90.5942813 0,88.3931008 L1.50408285e-15,81.0011914 C1.50408285e-15,78.8000108 1.79995665,77 4.00119139,77 L4.00119139,77 L4.00119139,77 Z M6.05913571,83.0293513 C5.28192351,83.0293513 4.65260478,83.65867 4.65260478,84.4358822 C4.65260478,85.2130944 5.28192351,85.8440377 6.05913571,85.8440377 C6.8379725,85.8440377 7.46745369,85.2130943 7.46745369,84.4358822 C7.46745369,83.65867 6.8379725,83.0293513 6.05913571,83.0293513 L6.05913571,83.0293513 L6.05913571,83.0293513 Z M18.0721867,83.0293513 C17.2949745,83.0293513 16.6640312,83.65867 16.6640312,84.4358822 C16.6640312,85.2130944 17.2949746,85.8440377 18.0721867,85.8440377 C18.8493989,85.8440377 19.4787176,85.2130943 19.4787176,84.4358822 C19.4787718,83.65867 18.849453,83.0293513 18.0721867,83.0293513 L18.0721867,83.0293513 L18.0721867,83.0293513 Z M11.9249431,83.0293513 C11.1475685,83.0293513 10.5166252,83.65867 10.5166252,84.4358822 C10.5166252,85.2130944 11.1475685,85.8440377 11.9249431,85.8440377 C12.7021553,85.8440377 13.3330987,85.2130943 13.3330987,84.4358822 C13.3330987,83.65867 12.7021553,83.0293513 11.9249431,83.0293513 L11.9249431,83.0293513 L11.9249431,83.0293513 Z M28.0004332,80.6407993 L24.9573811,80.6407993 C25.0297303,80.9949095 25.0692083,81.3582801 25.0692083,81.7328604 L25.0692083,89.126232 C25.0692083,92.1157804 22.6271526,94.5562114 19.6377667,94.5562114 L9.63078089,94.5562114 C10.365645,95.4576519 11.4826708,96.0335211 12.7289072,96.0335211 L24.1834182,96.0335211 L27.4544027,99.3062926 L27.4544027,96.0335211 L28.0004332,96.0335211 C30.1999892,96.0335211 32,94.2336727 32,92.0339543 L31.9999999,84.6419907 C31.9999999,82.4408101 30.1999891,80.6407993 28.0004332,80.6407993 L28.0004332,80.6407993 Z" id="Shape" stroke="none" fill="#D8D8D8" fill-rule="evenodd"></path>
-            </svg>
+            <div>
+                <p>{{ question.like }}</p>
+                <svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M16,25 C16,24.3583333 15.475,23.8333333 14.8333333,23.8333333 L8.79,23.8333333 L9.56,20.1233333 L9.58333333,19.855 C9.58333333,19.4933333 9.43166667,19.1666667 9.19833333,18.9216667 L8.27666667,18 L2.51333333,23.7633333 C2.19833333,24.0783333 2,24.5216667 2,25 L2,32.5833333 C2,33.5516667 2.78166667,34.3333333 3.75,34.3333333 L11.625,34.3333333 C12.3483333,34.3333333 12.9666667,33.89 13.235,33.2716667 L15.8716667,27.1 C15.9533333,26.9016667 16,26.68 16,26.4583333 L16,25 L16,25 Z M28.25,29.6666667 L20.375,29.6666667 C19.6516667,29.6666667 19.0333333,30.11 18.765,30.7283333 L16.1283333,36.9 C16.0466667,37.0983333 16,37.32 16,37.5416667 L16,39 C16,39.6416667 16.525,40.1666667 17.1666667,40.1666667 L23.21,40.1666667 L22.44,43.8766667 L22.4166667,44.1566667 C22.4166667,44.5183333 22.5683333,44.845 22.8016667,45.09 L23.7233333,46 L29.4866667,40.2366667 C29.8016667,39.9216667 30,39.4783333 30,39 L30,31.4166667 C30,30.4483333 29.2183333,29.6666667 28.25,29.6666667 L28.25,29.6666667 Z"
+                          id="Shape" stroke="none" fill="#D8D8D8" fill-rule="evenodd"></path>
+                </svg>
+                <p>2</p>
+                <svg width="32px" height="23px" viewBox="0 77 32 23" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M4.00119139,77 L19.2710928,77 C21.4708112,77 23.2708221,78.8000108 23.2708221,81.0011914 L23.2708221,88.3931008 C23.2708221,90.5942814 21.4708112,92.3926676 19.2710928,92.3926676 L7.81820642,92.3926676 L4.54559731,95.6652767 L4.54559731,92.3926676 L4.00119139,92.3926676 C1.80001084,92.3926676 0,90.5942813 0,88.3931008 L1.50408285e-15,81.0011914 C1.50408285e-15,78.8000108 1.79995665,77 4.00119139,77 L4.00119139,77 L4.00119139,77 Z M6.05913571,83.0293513 C5.28192351,83.0293513 4.65260478,83.65867 4.65260478,84.4358822 C4.65260478,85.2130944 5.28192351,85.8440377 6.05913571,85.8440377 C6.8379725,85.8440377 7.46745369,85.2130943 7.46745369,84.4358822 C7.46745369,83.65867 6.8379725,83.0293513 6.05913571,83.0293513 L6.05913571,83.0293513 L6.05913571,83.0293513 Z M18.0721867,83.0293513 C17.2949745,83.0293513 16.6640312,83.65867 16.6640312,84.4358822 C16.6640312,85.2130944 17.2949746,85.8440377 18.0721867,85.8440377 C18.8493989,85.8440377 19.4787176,85.2130943 19.4787176,84.4358822 C19.4787718,83.65867 18.849453,83.0293513 18.0721867,83.0293513 L18.0721867,83.0293513 L18.0721867,83.0293513 Z M11.9249431,83.0293513 C11.1475685,83.0293513 10.5166252,83.65867 10.5166252,84.4358822 C10.5166252,85.2130944 11.1475685,85.8440377 11.9249431,85.8440377 C12.7021553,85.8440377 13.3330987,85.2130943 13.3330987,84.4358822 C13.3330987,83.65867 12.7021553,83.0293513 11.9249431,83.0293513 L11.9249431,83.0293513 L11.9249431,83.0293513 Z M28.0004332,80.6407993 L24.9573811,80.6407993 C25.0297303,80.9949095 25.0692083,81.3582801 25.0692083,81.7328604 L25.0692083,89.126232 C25.0692083,92.1157804 22.6271526,94.5562114 19.6377667,94.5562114 L9.63078089,94.5562114 C10.365645,95.4576519 11.4826708,96.0335211 12.7289072,96.0335211 L24.1834182,96.0335211 L27.4544027,99.3062926 L27.4544027,96.0335211 L28.0004332,96.0335211 C30.1999892,96.0335211 32,94.2336727 32,92.0339543 L31.9999999,84.6419907 C31.9999999,82.4408101 30.1999891,80.6407993 28.0004332,80.6407993 L28.0004332,80.6407993 Z"
+                          id="Shape" stroke="none" fill="#D8D8D8" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div>
+                <h5>{{ question.title }}</h5>
+                <pre>{{ question.desc }}</pre>
+                <p>{{ question.username }}在{{ question.createtime }} </p>
+            </div>
         </div>
-        <div>
-            <h5>怎么获取导航栏标题字符串的子字符串？</h5>
-            <p>aosj dajsdoaoisjd oqwj doaj sdajoi sdoijqwji ofqwfji qwfiaoi soajsdohasoiu fhaiushf aihsfiasdhg ygwq uwyfdqwdg aiwud iuahd iuahsd as dhaisha hsd a sdasd a sf as fw eg e hrt h </p>
-            <p>jackback 在 2 周前提问</p>
-        </div>
-        <hr style="width:95%;margin: 0 auto;border: 1px solid #E0E0E0;"/>
-    </div>
+    {% endfor %}
 </div>
 <div class="tab_NOTE" id="tab_NOTE">
     <div>
-        <pre>
+        <pre class="note_pre">
 词汇
 * IDE - oinqoifqoiwdnoaijsdoijoiwqjdoiqjw doija soidj oqiwjf qoiwj fdoiqwjf oiqwj foiqj fwoiwqif oqwjfoiqw fj
 
@@ -519,7 +1184,7 @@
         </div>
     </div>
             {% else %}
-            <div onclick="tab_video_play('/practice/{{ video.id }}')">
+                    <div onclick="tab_video_play('/practice/{{ video.id }}')">
         <div>
             <i></i>
             <div>
@@ -539,8 +1204,11 @@
         {% endif %}
     {% endfor %}
     <!--视频列表 END-->
+
 </div>
+<script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
+
     window.onload = function(){
 
     }
@@ -559,15 +1227,74 @@
     function tab_video_play(source){
         window.location.href = source;
     }
+
+    function quiz(){
+        $("#close_quiz").show(200);
+        $("#publish_quiz").show(200);
+        $("#quiz_section").show(200);
+        $("#quiz").hide(200);
+        $("#button_QA").click();
+    }
+    function close_quiz(){
+        $("#close_quiz").hide(200);
+        $("#publish_quiz").hide(200);
+        $("#quiz_section").hide(200);
+        $("#quiz").show(200);
+
+        quiz_title.value = "";
+        quiz_describe.value = "";
+        quiz_email.checked = false;
+    }
+    function quiz_submit(){
+        if(quiz_title.value.trim() != "" && quiz_describe.value.trim() != ""){
+            var email = 1;
+            if(quiz_email.checked){
+                var email = 0;
+            }
+            var str = $("#quiz_describe").val();
+            var dbstr =  str.replace(/\n|\r\n/g,'_@^');
+            $.getJSON("/add_question?vid="+video_id.value+"&title="+quiz_title.value+"&desc="+dbstr+"&email="+email,function(data){
+                if(data.code == 0){
+                    swal("发布成功", "请您等候其他人的回复~", "success");
+                    close_quiz();
+                }else{
+                    swal("发布失败", "服务器故障，请您稍后再试~", "error");
+                }
+            });
+        }else{
+            swal("发布失败", "请您填写问题标题与问题描述，确保内容后发布~", "error");
+        }
+    }
 </script>
+
 <!---->
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
 {% include "search_div.html" %}
+
+<section>
+    <div id="question_1">
+        <input type="hidden" name="title" id="title" value="">
+        <input type="hidden" name="answer" id="answer" value="">
+        <input type="hidden" name="tips" id="tips" value="">
+        <input type="hidden" name="order" id="order" value="">
+    </div>
+    <div id="option_1">
+        <input type="hidden" name="A" id="A" value="">
+        <input type="hidden" name="B" id="B" value="">
+        <input type="hidden" name="C" id="C" value="">
+        <input type="hidden" name="D" id="D" value="">
+        <input type="hidden" name="E" id="E" value="">
+        <input type="hidden" name="F" id="F" value="">
+    </div>
+</section>
+
 </body>
+<script src="/static/js/video.js"></script>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/jquery-labelauty.js"></script>
 <script src="/static/js/sweet-alert.js"></script>
+<script src="/static/js/score.js"></script>
 <script>
     window.onscroll = function(){
         if(scrollY == 0){
@@ -576,8 +1303,10 @@
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
     }
+
 </script>
 </html>
+
 {% if request.session.login != True %}
     <script> login_button.click();</script>
 {%  endif %}
