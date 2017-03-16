@@ -9,16 +9,16 @@ var CalendarHandler = {
         $("#Container").append($calendarItem);
 
         $("#context").css("height", $("#CalendarMain").height() - 65 + "px");
-        $("#center").css("height", $("#context").height() - 30 + "px");
-        $("#selectYearDiv").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-        $("#selectMonthDiv").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-        $("#centerCalendarMain").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
+        $("#center").css("height", $("#context").height() - 38 + "px");
+        $("#selectYearDiv").css("height", $("#context").height() - 38 + "px").css("width", $("#context").width() + "px");
+        $("#selectMonthDiv").css("height", $("#context").height() - 38 + "px").css("width", $("#context").width() + "px");
+        $("#centerCalendarMain").css("height", $("#context").height() - 38 + "px").css("width", $("#context").width() + "px");
 
-        $calendarItem.css("height", $("#context").height() - 30 + "px"); //.css("visibility","hidden");
+        $calendarItem.css("height", $("#context").height() - 38 + "px"); //.css("visibility","hidden");
         $("#Container").css("height", "0px").css("width", "0px").css("margin-left", $("#context").width() / 2 + "px").css("margin-top", ($("#context").height() - 30) / 2 + "px");
         $("#Container").animate({
             width: $("#context").width() + "px",
-            height: ($("#context").height() - 30) * 2 + "px",
+            height: ($("#context").height() - 38) * 2 + "px",
             marginLeft: "0px",
             marginTop: "0px"
         }, 300, function() {
@@ -143,6 +143,7 @@ var CalendarHandler = {
                 CalendarHandler.isRunning = false;
             });
         }
+        getScore();
     },
     CalculateLastMonthDays: function() {
         if (this.isRunning == false) {
@@ -166,6 +167,7 @@ var CalendarHandler = {
                 CalendarHandler.isRunning = false;
             });
         }
+        getScore();
     },
     CreateCurrentCalendar: function() {
         if (this.isRunning == false) {
