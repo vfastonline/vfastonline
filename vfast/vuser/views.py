@@ -181,7 +181,7 @@ def login(request):
                 request.session['login'] = True
                 # pre_url = request.session.get('pre_url', '/')
                 pre_url = request.META.get('HTTP_REFERER')
-                if len(pre_url.split('/')) == 2:
+                if pre_url.split('/')[3] == '':
                     return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))
                 else:
                     return HttpResponse(json.dumps({'code': 0, 'url': pre_url}, ensure_ascii=False))
@@ -218,7 +218,6 @@ def dashboard(request, param):
             courses = dictfetchall(sql)
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4]})
-
         # 显示正在学习的路线
         else:
             path = Path.objects.get(id=pathid)
@@ -255,7 +254,6 @@ def dashboard(request, param):
                     item['vtype_url'] = ret_video[0]['vtype_url']
                     item['vtype'] = ret_video[0]['vtype']
                     item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
-
             tmp = []
             for z in courses:
                 tmp.append(z['createtime'])
@@ -290,7 +288,8 @@ def dashboard(request, param):
             jindu = '%.2f%%' % (jindu * 100)
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name})
-
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(u'页面错误')
+
+

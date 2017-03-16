@@ -33,7 +33,14 @@ def logout(request):
 
 
 def index(request):
-    return render(request, 'index.html')
+    try:
+        if request.session.get('user'):
+            return HttpResponseRedirect('/u/%s' % request.session['user']['id'])
+        else:
+            return render(request, 'index.html')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
 
 
 def search_course(request):

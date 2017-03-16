@@ -1068,7 +1068,9 @@
         </div>
         <div>
             <button class="btn" onclick="location.href='{{ replay_url }}'"><img src="/static/svg/Shape.svg" alt="" >重看一遍</button>
+            {% if skip_url %}
             <button class="btn" onclick="location.href='{{ skip_url }}'">跳过问题</button>
+            {% endif %}
             <button class="btn" onclick="next_Q()" id="next_btn">下一题<img src="/static/svg/arrow.svg"/></button>
         </div>
     </div>
