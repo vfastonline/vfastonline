@@ -6,7 +6,7 @@ from django.db.models import Q
 from vuser.models import User, DailyTask
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
-from vrecord.models import WatchCourse, WatchRecord
+from vrecord.models import WatchCourse, WatchRecord, Score
 from vgrade.api import headimg_urls
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
 
@@ -215,8 +215,15 @@ def dashboard(request, param):
         if pathid == 0:
             sql = "select vr.video_id, vv.vtype as video_type, vc.*, vp.color as tech_color, vp.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_program as vp where vp.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
             courses = dictfetchall(sql)
+            task_create = task_daily(user)
+            if task_create:
+                flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
+            else:
+                flag, tasks = False, []
+            print tasks
             return render(request, 'dashBoard.html',
-                          {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4]})
+                          {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
+                           'tasks': tasks})
         # 显示正在学习的路线
         else:
             path = Path.objects.get(id=pathid)
@@ -286,9 +293,12 @@ def dashboard(request, param):
             jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
             jindu = '%.2f%%' % (jindu * 100)
 
-            task_daily(user)  # 检测推荐任务, 没有就创建
-            flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
-            print flag, tasks
+            task_create = task_daily(user)  # 检测推荐任务, 没有就创建
+            if task_create:
+                flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
+            else:
+                flag, tasks = False, []
+            # print flag, tasks
             # courses 路线下所有的课程, jindu 路线进度, path_flag 显示路线, tasks 推荐任务, flag 今日任务是否完成
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
@@ -301,22 +311,27 @@ def dashboard(request, param):
 def task_daily(user):
     try:
         ret = WatchRecord.objects.filter(user=user).exists()
-        if ret and not DailyTask.objects.filter(createtime__contains=time.strftime('%Y-%m-%d')).exists():
+        d_ret = DailyTask.objects.filter(createtime__contains=time.strftime('%Y-%m-%d'),
+                                 user_id=user.id).exists()
+        if ret and not d_ret:
             sql = 'select vw.*, vv.sequence from vrecord_watchrecord as vw, vcourse_video as vv where user_id = %s and vw.video_id=vv.id order by createtime desc limit 1;' % user.id
             result = dictfetchall(sql)
+            print result
             seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
             sql_recommand = "select * from vcourse_video where course_id = %s and sequence in (%s)" % (
                 result[0]['course_id'], ','.join(seqs))
             # print sql, seqs, sql_recommand
             recommand = dictfetchall(sql_recommand)
+            print recommand
             if len(recommand) != 0:
                 for item in recommand:
-                    # print 'ok', item
                     DailyTask.objects.create(user_id=user.id, video_id=item['id'], createtime=time.strftime('%Y-%m-%d'),
-                                             vtime=item['vtime'], vtype=item['vtype'])
+                                             vtime=item['vtime'], vtype=item['vtype'], video_name=item['name'])
+                return True
+        elif ret and d_ret:
             return True
         else:
-            return True
+            return False
     except:
         logging.getLogger().error(traceback.format_exc())
         return False
@@ -324,7 +339,8 @@ def task_daily(user):
 
 def task_finish(user):
     try:
-        dt_all = DailyTask.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d')).values().order_by('video_id')
+        dt_all = DailyTask.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d')).values().order_by(
+            'video_id')
         wr = WatchRecord.objects.filter(user=user, createtime__contains=time.strftime('%Y-%m-%d'),
                                         status=0).values_list('video_id').order_by('video_id')
         dt = DailyTask.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d')).values_list('video_id')
@@ -333,11 +349,18 @@ def task_finish(user):
                 # logging.getLogger().info(d)
                 if item['video_id'] == d[0]:
                     item['status'] = 0
+                    item['vtime'] = '已完成'
                     break
                 else:
                     item['status'] = 1
         if set(dt).issubset(set(wr)):
-            return True, dt_all
+            if Score.objects.filter(user_id=user.id, score=10, createtime=time.strftime('%Y-%m-%d')).exists():
+                return True, dt_all
+            else:
+                Score.objects.create(user_id=user.id, score=10, createtime=time.strftime('%Y-%m-%d'))
+                user.totalscore += 10
+                user.save()
+                return True, dt_all
         else:
             return False, dt_all
     except:

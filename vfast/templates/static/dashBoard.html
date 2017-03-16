@@ -444,6 +444,7 @@
         <p>恭喜！你所填写的背景资料中的硬性指标优于本站 59% 的注册用户，加油，做更好的自己！</p>
     </article>
 
+    {% if flag %}
     <article class="promptEL_plan" id="promptEL_plan">
         <svg onclick="article_close_plan()" width="20px" height="20px" viewBox="134 130 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="x-symble" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(137.000000, 130.000000)">
@@ -454,10 +455,11 @@
         <p>是时候去休息一下了，分散你的学习时间，可以得到最佳的学习效果！加油</p>
         <div>获得积分：<strong>+10</strong></div>
     </article>
+    {% endif %}
 
     <div class="slideDIV" style="height:100px;"></div>
 
-    {% if path_flag == True %}
+{% if path_flag == True %}
     <section class="contentBody clearfix">
         <div class="contentBody_left pull-left">
             <div class="contentBody_left_head">
@@ -536,30 +538,28 @@
             </div>
             <div class="plan_head">
                 <h3>今日学习计划</h3>
-                <p>下午好，王鹏！根据你的最近学习情况，我们向你推荐数字文学学习路线。建议你今天完成下面的学习内容</p>
+                <p>您好，{{ request.session.user.username }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
             </div>
             <div class="plan_body">
                 <ul>
-                    <li class="plan_finish">
-                        <img src="/static/svg/video_1.svg" alt="">
-                        <span>集合的创建</span>
-                        <time>3:24</time>
+                    {% for task in tasks %}
+                        {% if task.vtype == 0 and task.status == 0 %}
+                            <li class="plan_finish" onclick="location.href='/video/{{ task.video_id }}'">
+                            <img src="/static/svg/video_1.svg" alt="">
+                        {% elif task.vtype == 0 and task.status == 1 %}
+                            <li onclick="location.href='/video/{{ task.video_id }}'">
+                            <img src="/static/svg/video.svg" alt="">
+                        {% elif task.vtype == 1 and task.status == 0 %}
+                            <li class="plan_finish" onclick="location.href='/practice/{{ task.video_id }}'">
+                            <img src="/static/svg/quiz_1.svg" alt="">
+                        {% else %}
+                            <li onclick="location.href='/practice/{{ task.video_id }}'">
+                            <img src="/static/svg/quiz.svg" alt="">
+                        {% endif %}
+                        <span>{{ task.video_name }}</span>
+                        <time>{{ task.vtime }}</time>
                     </li>
-                    <li>
-                        <img src="/static/svg/video.svg" alt="">
-                        <span>可变的集合</span>
-                        <time>4:50</time>
-                    </li>
-                    <li>
-                        <img src="/static/svg/quiz.svg" alt="">
-                        <span>什么是数据？</span>
-                        <time>5</time>
-                    </li>
-                    <li class="plan_finish">
-                        <img src="/static/svg/quiz_1.svg" alt="">
-                        <span>爱是否能丢</span>
-                        <time>5</time>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -569,30 +569,28 @@
         <div class="contentBody_left pull-left">
             <div class="plan_head">
                 <h3>今日学习计划</h3>
-                <p>下午好，王鹏！根据你的最近学习情况，我们向你推荐数字文学学习路线。建议你今天完成下面的学习内容</p>
+                <p>您好，{{ request.session.user.username }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
             </div>
             <div class="plan_body">
                 <ul>
-                    <li>
-                        <img src="/static/svg/video_1.svg" alt="">
-                        <span>集合的创建</span>
-                        <time>3:24</time>
+                    {% for task in tasks %}
+                        {% if task.vtype == 0 and task.status == 0 %}
+                            <li class="plan_finish" onclick="location.href='/video/{{ task.video_id }}'">
+                            <img src="/static/svg/video_1.svg" alt="">
+                        {% elif task.vtype == 0 and task.status == 1 %}
+                            <li onclick="location.href='/video/{{ task.video_id }}'">
+                            <img src="/static/svg/video.svg" alt="">
+                        {% elif task.vtype == 1 and task.status == 0 %}
+                            <li class="plan_finish" onclick="location.href='/practice/{{ task.video_id }}'">
+                            <img src="/static/svg/quiz_1.svg" alt="">
+                        {% else %}
+                            <li onclick="location.href='/practice/{{ task.video_id }}'">
+                            <img src="/static/svg/quiz.svg" alt="">
+                        {% endif %}
+                        <span>{{ task.video_name }}</span>
+                        <time>{{ task.vtime }}</time>
                     </li>
-                    <li>
-                        <img src="/static/svg/video.svg" alt="">
-                        <span>可变的集合</span>
-                        <time>4:50</time>
-                    </li>
-                    <li>
-                        <img src="/static/svg/video.svg" alt="">
-                        <span>可变的集合</span>
-                        <time>4:50</time>
-                    </li>
-                    <li>
-                        <img src="/static/svg/quiz.svg" alt="">
-                        <span>什么是数据？</span>
-                        <time>5</time>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -666,6 +664,7 @@
         {% endfor %}
     </section>
 {% endif %}
+
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
 {% include "search_div.html" %}

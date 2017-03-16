@@ -63,5 +63,6 @@ class DailyTask(models.Model):
     video_id = models.IntegerField('视频ID')
     vtype = models.IntegerField('视频类型', default=0)
     vtime = models.CharField('视频时长', max_length=20, default=' ')
+    video_name = models.CharField('视频名称', max_length=50, default=' ')
 
 
