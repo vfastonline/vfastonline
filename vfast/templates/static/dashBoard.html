@@ -56,6 +56,55 @@
             padding-left: 70px;
         }
         /*promptEL END*/
+        .promptEL_plan{
+            width: 1200px;
+            height: 110px;
+            overflow: hidden;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            margin: 50px auto 0px;
+            position: relative;
+            transition: all 0.35s ease-in-out;
+            background: #5ACD91;
+        }
+        .promptEL_plan svg{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .promptEL_plan svg:hover{
+            cursor: pointer;
+        }
+        .promptEL_plan svg:hover path{
+            fill: #607D8B;
+        }
+        .promptEL_plan svg:active path{
+            fill: #FFFFFF;
+        }
+        .promptEL_plan>h3{
+            padding-left: 70px;
+            color: #FFFFFF;
+            font-size: 24px;
+            padding-top: 5px;
+        }
+        .promptEL_plan>p{
+            font-size: 18px;
+            color: #FFFFFF;
+            padding-left: 70px;
+        }
+        .promptEL_plan>div{
+            position: absolute;
+            right: 80px;
+            top: 61px;
+            font-size: 18px;
+            color: #FFFFFF;
+        }
+        .promptEL_plan>div>strong{
+            font-size: 36px;
+            line-height: 22px;
+        }
+
+
         /*contentBody Start*/
         .contentBody{
             width: 1200px;
@@ -220,7 +269,7 @@
             box-shadow: inset 0 2px 5px #D4D9DD;
             cursor: pointer;
         }
-        .plan_body ul li:first-child:hover{
+        .plan_body ul .plan_finish:hover{
             opacity: 0.8;
             background: #4DB6AC;
             box-shadow: none;
@@ -236,13 +285,13 @@
             font-size: 14px;
             color: #96AAAF;
         }
-        .plan_body ul li:first-child{
+        .plan_body ul .plan_finish{
             background: #4DB6AC;
         }
-        .plan_body ul li:first-child span{
+        .plan_body ul .plan_finish span{
             color: #FFFFFF;
         }
-        .plan_body ul li:first-child time{
+        .plan_body ul .plan_finish time{
             color: #FFFFFF;
         }
         .plan_body ul{
@@ -394,6 +443,18 @@
         </svg>
         <p>恭喜！你所填写的背景资料中的硬性指标优于本站 59% 的注册用户，加油，做更好的自己！</p>
     </article>
+
+    <article class="promptEL_plan" id="promptEL_plan">
+        <svg onclick="article_close_plan()" width="20px" height="20px" viewBox="134 130 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="x-symble" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(137.000000, 130.000000)">
+                <path d="M7.20576489,5.31058741 L2.61295973,0.717782253 C2.03812111,0.142943636 1.08708004,0.139700026 0.502496327,0.724283738 C-0.0861629951,1.31294306 -0.0849981989,2.2537541 0.495994842,2.83474714 L5.0888,7.4275523 L0.496158495,12.0201938 C-0.0786801222,12.5950324 -0.0819970018,13.5460002 0.502496327,14.1304935 C1.09106464,14.7190619 2.03180304,14.7178244 2.61279608,14.1368314 L7.20543758,9.54418988 L11.7984742,14.1372265 C12.3733128,14.7120651 13.3243539,14.7153087 13.9089376,14.130725 C14.4975969,13.5420657 14.4964321,12.6012546 13.9154391,12.0202616 L9.32240247,7.42722499 L13.9152754,2.83435205 C14.490114,2.25951343 14.4934309,1.30854563 13.9089376,0.724052298 C13.3203693,0.135483989 12.3796309,0.136721425 11.7986378,0.717714465 L7.20576489,5.31058741 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+            </g>
+        </svg>
+        <h3>日常任务已完成</h3>
+        <p>是时候去休息一下了，分散你的学习时间，可以得到最佳的学习效果！加油</p>
+        <div>获得积分：<strong>+10</strong></div>
+    </article>
+
     <div class="slideDIV" style="height:100px;"></div>
 
     {% if path_flag == True %}
@@ -447,6 +508,7 @@
                     <div>
                         <span class=" selectYear"></span>
                         <span class=" selectMonth"></span>
+                        <input id="date_score" type="hidden" value='{"2":13,"7":3,"13":2,"17":54,"23":11,"27":31,"30":8}'>
                     </div>
                     <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>
                     <img src="/static/svg/plus.svg" onClick="CalendarHandler.CalculateNextMonthDays();">
@@ -478,7 +540,7 @@
             </div>
             <div class="plan_body">
                 <ul>
-                    <li>
+                    <li class="plan_finish">
                         <img src="/static/svg/video_1.svg" alt="">
                         <span>集合的创建</span>
                         <time>3:24</time>
@@ -611,10 +673,25 @@
 <script type="text/javascript">
 $(document).ready(function(e) {
     CalendarHandler.initialize();
+
+    var dScore = JSON.parse($("#date_score").val());
+    var itemArr = $("div[class='item'],.currentItem");
+    for(var i = 0 ; i<itemArr.length;i++){
+        for(var item in dScore){
+            if(itemArr[i].getElementsByTagName("a")[0].innerHTML == item){
+                console.log(itemArr[i].getElementsByTagName("a")[0].innerHTML + "---" + item + "=====" + dScore[item])
+            }
+        }
+    }
+
 });
 function article_close(){
     promptEL.style.height = 0;
     promptEL.style.marginTop = 0;
+}
+function article_close_plan(){
+    promptEL_plan.style.height = 0;
+    promptEL_plan.style.marginTop = 0;
 }
 function play_video(urlStr){
 	window.open(urlStr,"_blank ");

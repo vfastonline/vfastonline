@@ -27,9 +27,10 @@ var CalendarHandler = {
         $(".dayItem").css("width", $("#context").width() + "px");
         var itemPaddintTop = $(".dayItem").height() / 6;
         $(".item").css({
-            "width": $(".week").width() / 7 + "px",
-            "line-height": itemPaddintTop + "px",
-            "height": itemPaddintTop + "px"
+            "width": $(".week").width() / 7 -24 + "px",
+            "line-height": itemPaddintTop-3 + "px",
+            "height": itemPaddintTop-3 + "px",
+            "margin":"3px 12px 0px 12px"
         });
         $(".week>h3").css("width", $(".week").width() / 7 + "px");
     },
@@ -115,9 +116,10 @@ var CalendarHandler = {
     CSS: function() {
         var itemPaddintTop = $(".dayItem").height() / 6;
         $(".item").css({
-            "width": $(".week").width() / 7 + "px",
-            "line-height": itemPaddintTop + "px",
-            "height": itemPaddintTop + "px"
+            "width": $(".week").width() / 7 -24 + "px",
+            "line-height": itemPaddintTop-3 + "px",
+            "height": itemPaddintTop-3 + "px",
+            "margin":"3px 12px 0px 12px"
         });
     },
     CalculateNextMonthDays: function() {
