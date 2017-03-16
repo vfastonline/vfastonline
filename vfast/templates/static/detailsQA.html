@@ -23,6 +23,222 @@
         }
     </style>
     <style>
+        .video_div{
+            width: 1200px;
+            height: 680px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .video_div1{
+            width: 1200px;
+            height: 60px;
+            line-height: 60px;
+            margin: 0 auto;
+            position: relative;
+            background: #EEEEEE;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+        }
+        .video_div1:after{content: "";display: block;clear:both;}
+        .video_div1 ul:after{content: "";display: block;clear:both;}
+        .video_div1 ul{
+            margin-left: 27px;
+            float: left;
+            height: 60px;
+            line-height: 60px;
+        }
+        .video_div1 ul li{
+            background-color: #D8D8D8;
+            float: left;
+            color: #FFFFFF;
+            font-size: 14px;
+            text-align: center;
+            height: 28px;
+            width: 50px;
+            line-height: 28px;
+            margin-top: 16px;
+            font-family: gothamrounded-book;
+        }
+        .video_div1 ul li:nth-child(2){
+            background-color: #7C828C;
+        }
+        .video_div1 ul li:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_div1>div{
+            float: right;
+            height: 60px;
+            line-height: 60px;
+            margin-right: 27px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+        .video_div1>div:after{content: "";display: block;clear:both;}
+        .video_div1>div>svg{
+            float: left;
+            margin-top: 16px;
+        }
+        .video_div1>div>svg:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_div1>div>svg:active path{
+            fill:#FFFFFF;
+        }
+        .video_div1>div>p{
+            float: left;
+            width: 45px;
+            line-height: 24px;
+            text-align: center;
+            margin-top: 16px;
+            margin-right: 50px;
+            margin-left: 30px;
+            background-color: #7C828C;
+            border: 2px solid #7C828C;
+        }
+        .video_div1>div>p:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_div1>div>div{
+            float: left;
+            width: 200px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .video_div2{
+            width: 1200px;
+            height: 60px;
+            line-height: 60px;
+            margin: 0 auto;
+            position: relative;
+            background-color:#eeeeee ;
+            display: none;
+        }
+        .video_div2>div{
+            display: inline-block;
+            width: 100px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            color: #FFFFFF;
+            background-color: #7C828C;
+            font-size: 14px;
+        }
+        .video_div2>div:first-child{
+            margin-left: 27px;
+            margin-right: 66%;
+        }
+        .video_div2>div:first-child:hover{
+            transition: opacity 0s;
+            cursor: pointer;
+            opacity: 0.8!important;
+        }
+        .video_div2>div:last-child{
+            background-color: #00BCD4;
+            margin-left: 30px;
+        }
+        .video_div2>div:last-child:hover{
+            transition: opacity 0s;
+            cursor: pointer;
+            opacity: 0.7!important;
+        }
+        .video_div2>div:nth-child(2)>svg{
+            position: relative;
+            top: 6px;
+            float: right;
+            margin-right: 12%;
+        }
+        .video_div2>div:nth-child(2)>svg:last-child:hover path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:nth-child(2):hover path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:nth-child(2):hover+svg path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:first-child:hover path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:first-child:hover+svg path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        .video_div2>div:nth-child(2)>svg:first-child:hover+svg+svg path{
+            fill:#FBFFCE;
+            cursor: pointer;
+        }
+        #video_div2_svg:after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        #video_div2_svg{
+            vertical-align: middle;
+        }
+        .video_bofang{
+            position: absolute;top: 300px;left: 580px;
+            z-index: 1;
+            display: none;
+        }
+        .video_bofang:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_tiaoguo{
+            margin-top: 22px;
+            margin-left: 30px;
+        }
+        .video_tiaoguo:hover{
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .video_tiaoguo:active path{
+            fill: #FFFFFF;
+        }
+
+        .vjs-volume-control{
+            top: 100%;
+            left: 25px;
+            z-index: 1;
+            height: 60px!important;
+            line-height: 60px!important;
+            width: 200px!important;
+        }
+        .vjs-volume-control>div{
+            margin-top: 16px!important;
+            width: 200px!important;
+            height: 28px!important;
+            background-color: #D8D8D8!important;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+        .vjs-volume-control>div>div:first-child{
+            height: 28px;
+            width: 200px;
+            background: none;
+            background-color: #7C828C!important;
+        }
+        .vjs-volume-control>div>div:last-child{
+            display: none!important;
+        }
+        .vjs-mute-control{
+            left: 20px;
+            top: 146%;
+            z-index: 1;
+        }
+        .vjs-volume-bar{
+            transition:  none;
+        }
 
         .tab_menu{
             width: 1200px;
@@ -400,6 +616,258 @@
         .tab_Course>div:first-child:hover{
             cursor:default;
             background-color: #FFFFFF;
+        }
+        .video_div .medal_div{
+            width: 1200px;
+            height: 680px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #2F3646;
+            text-align: center;
+            z-index: -1;
+        }
+        .video_div .medal_div>p{
+            text-align: center;
+            margin-top: 88px;
+            font-size: 20px;
+            color: #7A88A1;
+            position: relative;
+        }
+        .video_div .medal_div>h2{
+            text-align: center;
+            margin-top: 10px;
+            font-size: 32px;
+            color: #FFFFFF;
+            position: relative;
+        }
+        .video_div .medal_div>.medal_badge{
+            margin-top: 20px;
+            width: 220px;
+            height: 240px;
+            opacity: 0;
+        }
+        .video_div .medal_div>.medal_30{
+            width: 75px;
+            height: 75px;
+            position: absolute;
+            top: 270px;
+            left: 455px;
+            opacity: 0;
+        }
+        .shapes{
+            position: absolute;
+            transition: all 1s ease-in-out;
+            opacity: 0;
+        }
+        .medal_circle_1{
+            width: 40px;
+            height: 40px;
+            top: 100px;
+            left: 250px;
+        }
+        .medal_circle_2{
+            width: 100px;
+            height: 100px;
+            top: 170px;
+            right: 200px;
+        }
+        .medal_circle_3{
+            width: 40px;
+            height: 40px;
+            bottom: 50px;
+            right: 350px;
+        }
+        .medal_stars_1{
+            width: 120px;
+            height: 120px;
+            top: 250px;
+            left: 100px;
+            transform: rotate(-15deg);
+        }
+        .medal_stars_2{
+            width: 75px;
+            height: 75px;
+            bottom: 230px;
+            right: 230px;
+            transform: rotate(-15deg);
+        }
+        .medal_square_1{
+            width: 30px;
+            height: 30px;
+            top: 330px;
+            right: 320px;
+            transform: rotate(-15deg);
+        }
+        .medal_square_2{
+            width: 60px;
+            height: 60px;
+            bottom: 130px;
+            left: 180px;
+            transform: rotate(15deg);
+        }
+        .video_name{
+            position: absolute;
+            top:30px;
+            left: 30px;
+            font-size: 24px;
+            color: #F0F2F4;
+            letter-spacing: 2px;
+            display: none;
+        }
+        @keyframes medal_div_animation {
+            0%{
+                top: 80px;
+                opacity: 0;
+            }
+            100%{
+                top:0px;
+            }
+        }
+        @keyframes medal_div_shouji_animation {
+            0%{
+                transform: scale(0);
+            }
+            60%{
+                transform: scale(1.2);
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes medal_30_animation{
+            0%{
+                transform: rotate(360deg) scale(0) ;
+            }
+            100%{
+                transform:rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes medal_circle_1_animation{
+            0%{
+                transform:rotate(15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,100px);
+            }
+            100%{
+                transform:rotate(15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_circle_2_animation{
+            0%{
+                transform:rotate(15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_circle_3_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_stars_1_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_stars_2_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,100px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_square_1_animation{
+            0%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-50px);
+            }
+            100%{
+                transform:rotate(-15deg) translate(0,0);
+            }
+        }
+        @keyframes medal_square_2_animation{
+            0%{
+                transform:rotate(15deg) translate(0,0);
+            }
+            50%{
+                transform:rotate(0deg) translate(0,-100px);
+            }
+            100%{
+                transform:rotate(15deg) translate(0,0);
+            }
+        }
+
+        .vjs-tt-cue{
+            font-size: 18px!important;
+            letter-spacing: 1px;
+        }
+        .video-js .vjs-text-track{
+            background-color: transparent!important;
+        }
+        .vjs-tt-cue{
+            display: inline-block;
+            background-color: rgba(64, 64, 64, 0.8) !important;
+            padding: 7px 30px;
+        }
+        .vjs-subtitles-button{
+            display: none;
+        }
+        .vjs-current-time,.vjs-time-divider,.vjs-duration{
+            display: none;
+        }
+        .vjs-progress-control{
+            width:80%!important;
+            top: 12px!important;
+            left:10%!important;
+            border-radius: 10px!important;
+        }
+        .vjs-load-progress{
+            border-radius: 10px!important;
+            background-color: #FFFFFF!important;
+            opacity: 0.4;
+        }
+        .vjs-progress-holder{
+            border-radius: 10px!important;
+        }
+        .vjs-control-bar{
+            background-color: transparent!important;
+        }
+        .vjs-seek-handle{
+            background-color: #FFFFFF!important;
+            border-radius: 10px!important;
+        }
+        .vjs-play-progress{
+            background-color: #00BCD4!important;
+            background-image: none!important;
+            border-radius: 10px!important;
         }
 
         .question{

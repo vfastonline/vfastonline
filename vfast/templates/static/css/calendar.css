@@ -51,14 +51,18 @@
 .item_score{
 	border: 1px solid #A6DAD5;
 }
-.item_score:hover:before{
+.item_score:before{
 	position: absolute;
 	top: -40px;
 	left: -9px;
-	content: "17分";
 	background-image: url("/static/svg/浮框.svg");
 	width: 58px;
 	height:45px;
+	display: none;
+	content: attr(data-beforeData);
+}
+.item_score:hover:before{
+	display: block;
 }
 .item>a{
 	color: #FFFFFF;
