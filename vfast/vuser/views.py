@@ -3,13 +3,12 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q
-from vuser.models import User
+from vuser.models import User, DailyTask
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchCourse, WatchRecord
 from vgrade.api import headimg_urls
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
-from django.db import connection
 
 import json
 import logging
@@ -286,10 +285,61 @@ def dashboard(request, param):
             v_num = dictfetchall(v_num_sql)
             jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
             jindu = '%.2f%%' % (jindu * 100)
+
+            task_daily(user)  # 检测推荐任务, 没有就创建
+            flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
+            print flag, tasks
+            # courses 路线下所有的课程, jindu 路线进度, path_flag 显示路线, tasks 推荐任务, flag 今日任务是否完成
             return render(request, 'dashBoard.html',
-                          {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name})
+                          {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
+                           'tasks': tasks, 'flag': flag})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(u'页面错误')
 
 
+def task_daily(user):
+    try:
+        ret = WatchRecord.objects.filter(user=user).exists()
+        if ret and not DailyTask.objects.filter(createtime__contains=time.strftime('%Y-%m-%d')).exists():
+            sql = 'select vw.*, vv.sequence from vrecord_watchrecord as vw, vcourse_video as vv where user_id = %s and vw.video_id=vv.id order by createtime desc limit 1;' % user.id
+            result = dictfetchall(sql)
+            seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
+            sql_recommand = "select * from vcourse_video where course_id = %s and sequence in (%s)" % (
+                result[0]['course_id'], ','.join(seqs))
+            # print sql, seqs, sql_recommand
+            recommand = dictfetchall(sql_recommand)
+            if len(recommand) != 0:
+                for item in recommand:
+                    # print 'ok', item
+                    DailyTask.objects.create(user_id=user.id, video_id=item['id'], createtime=time.strftime('%Y-%m-%d'),
+                                             vtime=item['vtime'], vtype=item['vtype'])
+            return True
+        else:
+            return True
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return False
+
+
+def task_finish(user):
+    try:
+        dt_all = DailyTask.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d')).values().order_by('video_id')
+        wr = WatchRecord.objects.filter(user=user, createtime__contains=time.strftime('%Y-%m-%d'),
+                                        status=0).values_list('video_id').order_by('video_id')
+        dt = DailyTask.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d')).values_list('video_id')
+        for item in dt_all:
+            for d in wr:
+                # logging.getLogger().info(d)
+                if item['video_id'] == d[0]:
+                    item['status'] = 0
+                    break
+                else:
+                    item['status'] = 1
+        if set(dt).issubset(set(wr)):
+            return True, dt_all
+        else:
+            return False, dt_all
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return False, []
