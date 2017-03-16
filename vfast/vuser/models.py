@@ -57,4 +57,11 @@ class User(models.Model):
         return self.email
 
 
+class DailyTask(models.Model):
+    user_id = models.IntegerField('用户ID')
+    createtime = models.CharField('创建时间', max_length=20, default=' ')
+    video_id = models.IntegerField('视频ID')
+    vtype = models.IntegerField('视频类型', default=0)
+    vtime = models.CharField('视频时长', max_length=20, default=' ')
+
 
