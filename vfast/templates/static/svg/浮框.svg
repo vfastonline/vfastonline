@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58" height="45" viewBox="0 0 58 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path id="浮框-b" d="M0.975236331,6.00532266 C0.975236331,2.68867454 3.65273728,0 6.97576711,0 L51.6719349,0 C54.9859365,0 57.6724656,2.67643992 57.6724656,6.00532266 L57.6724656,29.9946773 C57.6724656,33.3113255 54.9961665,35.7946864 51.6893492,35.6231362 C51.6893492,35.6231362 46.3323469,34.8840486 34.6748205,36 C32.9554504,36.1645918 30.7535013,43 29.323851,43 C27.6101819,43 26.1193123,36.2393658 23.9728815,36 C12.4943627,34.7199378 6.94796854,35.5709848 6.94796854,35.5709848 C3.64931962,35.8079233 0.975236331,33.3235601 0.975236331,29.9946773 L0.975236331,6.00532266 Z"/>
+    <filter id="浮框-a" width="200%" height="200%" x="-50%" y="-50%" filterUnits="objectBoundingBox">
+      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feComposite in="shadowOffsetOuter1" in2="SourceAlpha" operator="out" result="shadowOffsetOuter1"/>
+      <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(-.232)">
+    <use fill="#000" filter="url(#浮框-a)" xlink:href="#浮框-b"/>
+    <use fill="#FFF" fill-opacity=".9" xlink:href="#浮框-b"/>
+  </g>
+</svg>
+
+
