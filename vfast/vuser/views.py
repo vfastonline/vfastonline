@@ -298,7 +298,7 @@ def dashboard(request, param):
                 flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
             else:
                 flag, tasks = False, []
-            # print flag, tasks
+            print flag, tasks
             # courses 路线下所有的课程, jindu 路线进度, path_flag 显示路线, tasks 推荐任务, flag 今日任务是否完成
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
@@ -316,13 +316,11 @@ def task_daily(user):
         if ret and not d_ret:
             sql = 'select vw.*, vv.sequence from vrecord_watchrecord as vw, vcourse_video as vv where user_id = %s and vw.video_id=vv.id order by createtime desc limit 1;' % user.id
             result = dictfetchall(sql)
-            print result
             seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
             sql_recommand = "select * from vcourse_video where course_id = %s and sequence in (%s)" % (
                 result[0]['course_id'], ','.join(seqs))
             # print sql, seqs, sql_recommand
             recommand = dictfetchall(sql_recommand)
-            print recommand
             if len(recommand) != 0:
                 for item in recommand:
                     DailyTask.objects.create(user_id=user.id, video_id=item['id'], createtime=time.strftime('%Y-%m-%d'),
@@ -351,8 +349,9 @@ def task_finish(user):
                     item['status'] = 0
                     item['vtime'] = '已完成'
                     break
-                else:
-                    item['status'] = 1
+            if not item.has_key('status'):
+                item['status'] = 1
+        print dt_all, wr
         if set(dt).issubset(set(wr)):
             if Score.objects.filter(user_id=user.id, score=10, createtime=time.strftime('%Y-%m-%d')).exists():
                 return True, dt_all
