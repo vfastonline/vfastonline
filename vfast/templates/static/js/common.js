@@ -263,6 +263,7 @@ function login_show(){
                     modal_left.style.animationFillMode = "forwards";
                     modal_right.style.animationFillMode = "forwards";
                     login_reg_svg.style.animationFillMode = "forwards";
+                    $("#username").focus();
                 }
             };
             xmlhttp3.send(null);

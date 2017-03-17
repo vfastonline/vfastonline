@@ -86,7 +86,6 @@
 	/*overflow: hidden;*/
 }
 #centerMain {
-	width: 300%;
 	margin-left: -100%;
 }
 #selectYearDiv {
@@ -108,7 +107,7 @@
 }
 #selectMonthDiv {
 	float: left;
-	background-color: #fff;
+	background-color: transparent;
 }
 #selectMonthDiv>div {
 	color: #909090;

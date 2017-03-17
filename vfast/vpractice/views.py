@@ -14,19 +14,20 @@ import json
 # Create your views here.
 def add_question(request):
     try:
-        if request.method == 'GET':
+        if request.method == 'POST':
             try:
                 userid = request.session['user']['id']
                 user = User.objects.get(id=userid)
             except:
                 return HttpResponse('用户未登录')
-            title = request.GET.get('title')
-            desc = request.GET.get('desc')
+            title = request.POST.get('title')
+            desc = request.POST.get('desc')
             desc = desc.replace('_@^','\n');
+            print desc
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
-            vid = request.GET.get('vid')
+            vid = request.POST.get('vid')
             video = Video.objects.get(id=vid)
-            email_status = request.GET.get('email')
+            email_status = request.POST.get('email')
             print title, desc, video.name, email_status
             try:
                 Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
