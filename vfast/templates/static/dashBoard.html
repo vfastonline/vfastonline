@@ -694,8 +694,8 @@ function getScore(){
         for(var i = 0 ; i<itemArr.length;i++){
             for(var item in data){
                 if(itemArr[i].getElementsByTagName("a")[0].innerHTML == item){
-                    console.log(itemArr[i].getElementsByTagName("a")[0].innerHTML + "---" + item + "=====" + data[item])
                     $(itemArr[i]).addClass("item_score")
+                    itemArr[i].setAttribute('data-beforeData',data[item]);
                 }
             }
         }

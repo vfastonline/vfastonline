@@ -1495,16 +1495,27 @@
         quiz_email.checked = false;
     }
     function quiz_submit(){
-        if(quiz_title.value.trim() != "" && quiz_describe.value.trim() != ""){
+        var title = $("#quiz_title").val();
+        var desc = $("#quiz_describe").val();
+
+        if(title.trim() != "" && desc.trim() != ""){
             var email = 1;
             if(quiz_email.checked){
                 var email = 0;
             }
-            var str = $("#quiz_describe").val();
-            var dbstr =  str.replace(/\n|\r\n/g,'_@^');
-            $.getJSON("/add_question?vid="+video_id.value+"&title="+quiz_title.value+"&desc="+dbstr+"&email="+email,function(data){
+
+            var dbstr =  desc.replace(/\n|\r\n/g,'_@^');
+            console.log(desc)
+            console.log(dbstr)
+            $.post("/add_question",{vid:video_id.value,title:title,desc:dbstr,email:email},function(data){
+                data = JSON.parse(data);
                 if(data.code == 0){
                     swal("发布成功", "请您等候其他人的回复~", "success");
+{#                    var username = $("#username").val();#}
+{#                    title#}
+{#                    desc#}
+{#                    data.qid;#}
+
                     close_quiz();
                 }else{
                     swal("发布失败", "服务器故障，请您稍后再试~", "error");
@@ -1516,6 +1527,8 @@
     }
 </script>
 
+
+    <input type="hidden" value="{{ request.session.user.username }}" id="username">
 <!---->
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
