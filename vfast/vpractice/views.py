@@ -22,16 +22,16 @@ def add_question(request):
                 return HttpResponse('用户未登录')
             title = request.GET.get('title')
             desc = request.GET.get('desc')
-            desc = desc.replace('_@^','\n');
+            desc = desc.replace('_@^', '\n');
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
             vid = request.GET.get('vid')
             video = Video.objects.get(id=vid)
             email_status = request.GET.get('email')
             print title, desc, video.name, email_status
             try:
-                Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
-                                        email_status=email_status, like=0)
-                return HttpResponse(json.dumps({'code': 0}, ensure_ascii=False))
+                ques = Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
+                                               email_status=email_status, like=0)
+                return HttpResponse(json.dumps({'code': 0, 'qid': ques.id}, ensure_ascii=False))
             except:
                 logging.getLogger().error(traceback.format_exc())
                 return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
