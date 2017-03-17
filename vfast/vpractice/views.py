@@ -64,3 +64,13 @@ def add_replay(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def show_question(request):
+    try:
+        qid = request.GET.get('qid')
+        question = Question.objects.get(id=qid)
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
+
