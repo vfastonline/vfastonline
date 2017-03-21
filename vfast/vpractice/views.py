@@ -29,9 +29,9 @@ def add_question(request):
             email_status = request.POST.get('email')
             print title, desc, video.name, email_status
             try:
-                Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
-                                        email_status=email_status, like=0)
-                return HttpResponse(json.dumps({'code': 0}, ensure_ascii=False))
+                ques = Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
+                                               email_status=email_status, like=0)
+                return HttpResponse(json.dumps({'code': 0, 'qid': ques.id}, ensure_ascii=False))
             except:
                 logging.getLogger().error(traceback.format_exc())
                 return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
@@ -64,3 +64,12 @@ def add_replay(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def show_question(request):
+    try:
+        qid = request.GET.get('qid')
+        question = Question.objects.get(id=qid)
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
