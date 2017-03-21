@@ -40,6 +40,15 @@ def add_question(request):
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
 
+def question_aggree(request):
+    try:
+        qid = request.GET.get('qid')
+
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
 def question_list(request):
     try:
         pass
@@ -70,6 +79,11 @@ def show_question(request):
     try:
         qid = request.GET.get('qid')
         question = Question.objects.get(id=qid)
+        print question.video.course.tech.name
+        return render(request, 'test.html', {'question': question})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
+
+
+

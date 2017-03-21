@@ -127,12 +127,6 @@ def require_login():
 def time_To_unixtime(str):
     """2015-09-08 10:10:10 时间转换成为时间戳"""
     t = time.mktime(time.strptime(str, '%Y-%m-%d %H:%M:%S'))
-    return t
-
-
-def time_To_unixtime(str):
-    """2015-09-08 10:10:10 时间转换成为时间戳"""
-    t = time.mktime(time.strptime(str, '%Y-%m-%d %H:%M:%S'))
     return int(t)
 
 
