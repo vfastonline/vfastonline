@@ -98,13 +98,13 @@
         }
         .QA_Q_content>.content{
             margin-top: 20px;
-            width:70%;
             float: right;
             background: #4DB6AC;
             border-radius: 0px 0px 8px 8px;
         }
         .QA_Q_content>.content>pre{
             background-color: transparent;
+            outline: none;
             border: none;
             overflow: hidden;
             white-space: pre-wrap;
@@ -161,13 +161,10 @@
     <div class="slideDIV" style="height: 150px;"></div>
     <section class="QA_Q_content clearfix">
         <div><span>8 天前</span><span>大大大鹏</span></div>
-        <div class="content">
-            <pre>我知道Python是可以做到这个的，但是我尝试了许久，直到现在还没有做出来：
+        <div class="content" contenteditable="true">
+            <pre>我知道Python是可
 
-我有一个字符串列表. 我想创建一个字典，以列表中的字符串长度为key，以列表为值。
-我知道字符串的长度可以用range表示。
-
-比如：我目前有这样一个列表: ['foo','bar','help','this','guy']
+比如：我目前有这样一个列表: ['foo','bar','help','
 
 我想最终得到一个这样的字典: {3:['foo','bar','guy], 4:['this','help']}</pre>
         </div>
