@@ -317,35 +317,33 @@
     <div class="slideDIV" style="height:100px;"></div>
     <section class="contentBody_course">
         {% for pub in pubs %}
-            <div>
-            {% if pub.vtype == 0 %}
-                <div style="background-color: {{ pub.color }};"  onclick="location.href='/video/{{ pub.video_id }}'">
-            {% else %}
-                <div style="background-color: {{ pub.color }};"  onclick="location.href='/practice/{{ pub.video_id }}'">
-            {% endif %}
+        <div>
+        {% if pub.vtype == 0 %}
+            <div style="background-color: {{ pub.color }};"  onclick="window.open('/video/{{ pub.video_id }}','_blank')">
+        {% else %}
+            <div style="background-color: {{ pub.color }};"  onclick="window.open('/practice/{{ pub.video_id }}','_blank')">
+        {% endif %}
                 <div>
                     <img src="{{ pub.icon_url }}" alt="">
                 </div>
                 <div>{{ pub.totaltime }}</div>
             </div>
-            {% if pub.vtype == 0 %}
-                <div onclick="location.href='/video/{{ pub.video_id }}'">
-            {% else %}
-                <div onclick="location.href='/practice/{{ pub.video_id }}'">
-            {% endif %}
+        {% if pub.vtype == 0 %}
+            <div onclick="window.open('/video/{{ pub.video_id }}','_blank')">
+        {% else %}
+            <div onclick="window.open('/practice/{{ pub.video_id }}','_blank')">
+        {% endif %}
                 <p>系列课程</p>
                 <h1>{{ pub.name }}</h1>
                 <p>{{ pub.desc }}</p>
-                <div style="background-color: {{ pub.vp_color }};" class="groupHover" onclick="stopPPG(this)">{{ pub.vp_name }}</div>
+                <div style="background-color: {{ pub.vp_color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.vp_name }}')">{{ pub.vp_name }}</div>
                 <div>难易度：
-
                     {% for n in xingxing %}
                         {% if pub.difficult > n %}
                             <img src="/static/svg/xingxing_1.svg" alt="">
                         {% else %}
                             <img src="/static/svg/xingxing.svg" alt="">
                         {% endif %}
-
                     {% endfor %}
                 </div>
             </div>

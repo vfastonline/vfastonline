@@ -689,7 +689,9 @@ function getScore(){
         month = "0"+month;
     }
     var date = year+"-"+month;
-    $.getJSON("/r/monthscore?date="+date,function(data){
+    var strurl = location.href;
+    strurl = strurl.substring(strurl.indexOf("/u/")+3,strurl.length-1);
+    $.getJSON("/r/monthscore?date="+date+"&uid="+strurl,function(data){
         var itemArr = $("div[class='item'],.currentItem");
         for(var i = 0 ; i<itemArr.length;i++){
             for(var item in data){
