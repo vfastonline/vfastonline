@@ -1506,7 +1506,7 @@
             $.post("/add_question",{vid:video_id.value,title:title,desc:desc,email:email},function(data){
                 data = JSON.parse(data);
                 if(data.code == 0){
-                    var descText = UE.getEditor('quiz_describe').getPlainTxt();
+                    var descText = UE.getEditor('quiz_describe').getContent();
                     swal("发布成功", "请您等候其他人的回复~", "success");
                     $("#quiz_list").prepend('<div>'+
                         '<div>'+
@@ -1525,11 +1525,13 @@
                         '</div>'+
                         '<div>'+
                             '<h5>'+title+'</h5>'+
-                            '<div>'+descText+'</div>'+
+                            '<div id="descText"></div>'+
                             '<p>'+$("#username").val()+'在1分钟前提问 </p>'+
                         '</div>'+
                     '</div>');
+                    document.getElementById("descText").innerHTML = descText;
                     close_quiz();
+                    UE.getEditor('quiz_describe').setContent('');
                 }else{
                     swal("发布失败", "服务器故障，请您稍后再试~", "error");
                 }
