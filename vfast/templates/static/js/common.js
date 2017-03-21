@@ -6,13 +6,17 @@ $(function(){
     })
 })
 
-function stopPPG(e){
+function stopPPG(e,url){
 	if (e && e.stopPropagation) {//非IE浏览器
 		e.stopPropagation();
 	}
 	else {//IE浏览器
 		window.event.cancelBubble = true;
 	}
+	console.log(url)
+	if(url){
+	    location.href = url;
+    }
 }
 var usernameCheck = false;
 var emailCheck = false;
