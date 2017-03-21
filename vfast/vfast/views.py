@@ -82,7 +82,6 @@ def search_course(request):
         if tech:
             tech_obj = Program.objects.get(name=tech)
             tech_id = tech_obj.id
-            tech_desc = tech_obj.desc
             tmp = [course for course in result if course['tech_id'] == tech_id]
             result = tmp
             return render(request, 'search_Result.html',
