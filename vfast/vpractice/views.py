@@ -153,7 +153,7 @@ def show_question(request):
         return render(request, 'detailsQA.html', {'question': question})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return HttpResponse(traceback.format_exc())
 
 
 
