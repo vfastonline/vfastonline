@@ -6917,12 +6917,12 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                     '<html xmlns=\'http://www.w3.org/1999/xhtml\' class=\'view\' ><head>' +
                     '<style type=\'text/css\'>' +
                     //设置四周的留边
-                    '.view{padding:0;word-wrap:break-word;cursor:text;height:90%;}\n' +
+                    '.view{padding:0px 7px;word-wrap:break-word;cursor:text;height:90%;}\n' +
                     //设置默认字体和字号
                     //font-family不能呢随便改，在safari下fillchar会有解析问题
                     'body{margin:8px;font-family:sans-serif;font-size:16px;}' +
                     //设置段落间距
-                    'p{margin:5px 0;}</style>' +
+                    'p{margin:5px 0;color:#7C828C;}</style>' +
                     ( options.iframeCssUrl ? '<link rel=\'stylesheet\' type=\'text/css\' href=\'' + utils.unhtml(options.iframeCssUrl) + '\'/>' : '' ) +
                     (options.initialStyle ? '<style>' + options.initialStyle + '</style>' : '') +
                     '</head><body class=\'view\' ></body>' +
@@ -13171,7 +13171,7 @@ UE.plugins['lineheight'] = function(){
 UE.plugins['insertcode'] = function() {
     var me = this;
     me.ready(function(){
-        utils.cssRule('pre','pre{margin:.5em 0;padding:.4em .6em;border-radius:8px;background:#f8f8f8;}',
+        utils.cssRule('pre','pre{color:#7C828C;margin:.5em 0;padding:.4em .6em;border-radius:8px;background:#f8f8f8;}',
             me.document)
     });
     me.setOpt('insertcode',{

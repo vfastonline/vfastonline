@@ -362,7 +362,7 @@
             border: none;
             overflow: hidden;
             word-wrap: break-word;
-            max-height: 60px;
+            max-height: 80px;
         }
         .quiz_list>div>div:nth-child(2) pre{
             display: block;
@@ -393,7 +393,7 @@
             box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
             border-radius: 4px;
             font-size: 14px;
-            color: #BAC4CA;
+            color: #7C828C;
             width:600px;
             height:40px;
             padding: 0px 30px;
@@ -1038,12 +1038,11 @@
             </div>
         </div>
         <br/>
-        <textarea class="quiz_content" id="quiz_describe" placeholder="问题描述..."></textarea>
+        <textarea class="quiz_content" id="quiz_describe" ></textarea>
     </section>
-
     <section class="quiz_list" id="quiz_list">
     {% for question in questions %}
-        <div>
+        <div onclick="location.href = '/community/question?qid={{ question.id }}'">
             <div>
                 <p>{{ question.like }}</p>
                 <svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -1570,22 +1569,20 @@
 <script type="text/javascript">
     var ue = UE.getEditor("quiz_describe",{toolbars:[
         [
-            'insertcode', //代码语言
             'bold', //加粗
             'italic', //斜体
             'underline', //下划线
-            'undo', //撤销
-            'redo', //重做
             'link', //超链接
-            'unlink', //取消链接
             'insertimage', //多图上传
-            'emotion', //表情
-            'forecolor', //字体颜色
             'insertorderedlist', //有序列表
             'insertunorderedlist', //无序列表
-            'preview', //预览
+            'insertcode', //代码语言
         ]
     ]});
+
+    $(document).ready(function(e) {
+
+    });
 </script>
 {% if request.session.login != True %}
     <script> login_button.click();</script>
