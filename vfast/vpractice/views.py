@@ -146,10 +146,11 @@ def add_replay(request):
 def show_question(request):
     try:
         qid = request.GET.get('qid')
+        print qid
         question = Question.objects.get(id=qid)
         print question.video.course.tech.name
 
-        return render(request, 'test.html', {'question': question})
+        return render(request, 'detailsQA.html', {'question': question})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
