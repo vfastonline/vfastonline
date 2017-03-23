@@ -50,20 +50,17 @@ class Replay(models.Model):
         return self.question.title
 
 
-class QuestionComment(models.Model):
-    qid = models.IntegerField('问题ID')
+class QRcomment(models.Model):
+    qid = models.IntegerField('问题ID', null=True)
+    rid = models.IntegerField('回复ID', null=True)
     uid = models.IntegerField('用户ID')
+    type = models.CharField('问题或回复, 是否点赞', max_length=1)    #(Q, R)
+    status = models.IntegerField('赞,踩', default=0)   #(1, 赞, -1, 猜)
 
     def __unicode__(self):
         return '%s, %s' % (self.qid, self.uid)
 
 
-class ReplayComment(models.Model):
-    rid = models.IntegerField('回复ID')
-    uid = models.IntegerField('用户ID')
-
-    def __unicode__(self):
-        return '%s, %s' % (self.rid, self.uid)
 
 
 class Attention(models.Model):
