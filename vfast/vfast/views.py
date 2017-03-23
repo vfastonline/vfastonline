@@ -24,15 +24,7 @@ def test(request):
     # course = connection.cursor()
     # course.execute('select * from vcourse_video')
     # a = dictfetchall(cursor=course)
-    return render(request, "dome.html")
-
-def test1(request):
-    print 'test1'
-    content = request.POST.get('content');
-    title = request.POST.get('title');
-    print title
-    print content
-    return render(request, "show.html",{'content':content,'title0':title})
+    return render(request, "detailsQA.html")
 
 
 def logout(request):

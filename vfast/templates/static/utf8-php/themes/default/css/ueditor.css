@@ -129,11 +129,11 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-splitbutton,
 .edui-default .edui-toolbar .edui-menubutton,
 .edui-default .edui-toolbar .edui-combox {
-    margin: 1px;
+    margin: 0px 0px 0px 15px;
 }
 /*UI工具栏、编辑区域、底部*/
 .edui-default .edui-editor {
-    border: 1px solid #d4d4d4;
+    border: 2px solid #ECEFF1;
     background-color: white;
     position: relative;
     overflow: visible;
@@ -148,31 +148,31 @@ div.edui-box {
 .edui-default .edui-editor-toolbarbox {
     position: relative;
     zoom: 1;
-    -webkit-box-shadow:0 1px 4px rgba(204, 204, 204, 0.6);
-    -moz-box-shadow:0 1px 4px rgba(204, 204, 204, 0.6);
-    box-shadow:0 1px 4px rgba(204, 204, 204, 0.6);
+    /*-webkit-box-shadow:0 1px 4px rgba(204, 204, 204, 0.6);*/
+    /*-moz-box-shadow:0 1px 4px rgba(204, 204, 204, 0.6);*/
+    /*box-shadow:0 1px 4px rgba(204, 204, 204, 0.6);*/
     border-top-left-radius:2px;
     border-top-right-radius:2px;
 }
 
 .edui-default .edui-editor-toolbarboxouter {
-    border-bottom: 1px solid #d4d4d4;
-    background-color: #fafafa;
-    background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
-    background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
-    background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
-    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
-    background-repeat: repeat-x;
-    /*border: 1px solid #d4d4d4;*/
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    border-radius: 4px 4px 0 0;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
-    *zoom: 1;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    /*border-bottom: 1px solid #d4d4d4;*/
+    /*background-color: #fafafa;*/
+    /*background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);*/
+    /*background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));*/
+    /*background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);*/
+    /*background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);*/
+    /*background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);*/
+    /*background-repeat: repeat-x;*/
+    /*!*border: 1px solid #d4d4d4;*!*/
+    /*-webkit-border-radius: 4px 4px 0 0;*/
+    /*-moz-border-radius: 4px 4px 0 0;*/
+    /*border-radius: 4px 4px 0 0;*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);*/
+    /**zoom: 1;*/
+    /*-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);*/
+    /*-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);*/
+    /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);*/
 }
 
 .edui-default .edui-editor-toolbarboxinner {
@@ -184,6 +184,7 @@ div.edui-box {
     /*for fix ie6 toolbarmsg under iframe bug. relative -> static */
     /*_position: static !important;*
 }
+
 
 .edui-default .edui-editor-iframeholder textarea {
     font-family: consolas, "Courier New", "lucida console", monospace;
@@ -201,6 +202,7 @@ div.edui-box {
 
 .edui-default .edui-editor-bottomContainer {
     overflow: hidden;
+    display: none;
 }
 
 .edui-default .edui-editor-bottomContainer table {
@@ -420,7 +422,7 @@ div.edui-box {
 
 /*不可选中菜单按钮 */
 .edui-default .edui-toolbar .edui-combox-body .edui-button-body {
-    width: 60px;
+    width: 70px;
     font-size: 12px;
     height: 20px;
     line-height: 20px;
@@ -433,12 +435,12 @@ div.edui-box {
     background: url(../images/icons.png) -741px 0;
     _background: url(../images/icons.gif) -741px 0;
     height: 20px;
-    width: 9px;
+    width:12px;
 }
 
 .edui-default .edui-toolbar .edui-combox .edui-combox-body {
-    border: 1px solid #CCC;
-    background-color: white;
+    border: 1px solid transparent;
+    background-color: transparent;
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -449,7 +451,6 @@ div.edui-box {
 }
 
 .edui-default .edui-toolbar .edui-combox-body .edui-arrow {
-    border-left: 1px solid #CCC;
 }
 
 .edui-default .edui-toolbar .edui-state-hover .edui-combox-body {
@@ -458,7 +459,6 @@ div.edui-box {
 }
 
 .edui-default .edui-toolbar .edui-state-hover .edui-combox-body .edui-arrow {
-    border-left: 1px solid #dcac6c;
 }
 
 .edui-default .edui-toolbar .edui-state-checked .edui-combox-body {
@@ -533,18 +533,24 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-bold .edui-icon {
-    background-position: 0 0;
+    background-image:url("/static/svg/B.svg")!important;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .edui-default  .edui-for-italic .edui-icon {
-    background-position: -60px 0;
+    background-image:url("/static/svg/xieti.svg")!important;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .edui-default  .edui-for-fontborder .edui-icon {
     background-position:-160px -40px;
 }
 .edui-default  .edui-for-underline .edui-icon {
-    background-position: -140px 0;
+    background-image:url("/static/svg/xiahuaxian.svg")!important;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .edui-default  .edui-for-strikethrough .edui-icon {
@@ -596,11 +602,15 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-insertorderedlist .edui-icon {
-    background-position: -80px 0;
+    background-image:url("/static/svg/1..svg")!important;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .edui-default  .edui-for-insertunorderedlist .edui-icon {
-    background-position: -20px 0;
+    background-image:url("/static/svg/liebiao.svg")!important;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .edui-default  .edui-for-lineheight .edui-icon {
@@ -620,7 +630,9 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-link .edui-icon {
-    background-position: -500px 0;
+    background-image:url("/static/svg/lianjie.svg")!important;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .edui-default  .edui-for-code .edui-icon {
@@ -628,7 +640,9 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-insertimage .edui-icon {
-    background-position: -726px -77px;
+    background-image:url("/static/svg/tupian.svg")!important;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .edui-default  .edui-for-insertframe .edui-icon {
@@ -652,7 +666,9 @@ div.edui-box {
 }
 
 .edui-default  .edui-for-preview .edui-icon {
-    background-position: -420px -20px;
+    background-image:url("/static/svg/tupian.svg")!important;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .edui-default  .edui-for-selectall .edui-icon {
@@ -947,8 +963,6 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-menubutton-body .edui-arrow {
     background: url(../images/icons.png) -741px 0;
     _background: url(../images/icons.gif) -741px 0;
-    height: 20px;
-    width: 9px;
 }
 
 .edui-default .edui-toolbar .edui-splitbutton .edui-splitbutton-body,
@@ -957,22 +971,18 @@ div.edui-box {
 }
 
 .edui-default .edui-toolbar .edui-splitborder {
-    width: 1px;
     height: 20px;
 }
 
 .edui-default .edui-toolbar .edui-state-hover .edui-splitborder {
-    width: 1px;
     border-left: 0px solid #dcac6c;
 }
 
 .edui-default .edui-toolbar .edui-state-active .edui-splitborder {
     width: 0;
-    border-left: 1px solid gray;
 }
 
 .edui-default .edui-toolbar .edui-state-opened .edui-splitborder {
-    width: 1px;
     border: 0;
 }
 
