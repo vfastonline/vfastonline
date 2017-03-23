@@ -463,10 +463,10 @@
                         {% else %}
                             <div class="class_video" onclick="play_video('/practice/{{ v.id }}')">
                                 <i>
-                                    <img src="{{ v.vtype_url }}" alt="">
+                                    <img src="/static/svg/quiz.svg" alt="">
                                 </i>
                                 <p>{{ v.name }}</p>
-                                <p>{{ v.vtime }} 题</p>
+                                <p>{{ v.vtime }}</p>
                             </div>
                         {% endif %}
 
