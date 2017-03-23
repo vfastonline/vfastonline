@@ -30,7 +30,7 @@ def add_question(request):
             print title, desc, video.name, email_status
             try:
                 ques = Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
-                                               email_status=email_status, like=0)
+                                               email_status=email_status, like=0, dislike=0)
                 return HttpResponse(json.dumps({'code': 0, 'qid': ques.id}, ensure_ascii=False))
             except:
                 logging.getLogger().error(traceback.format_exc())
@@ -149,7 +149,7 @@ def show_question(request):
         question = Question.objects.get(id=qid)
         print question.video.course.tech.name
 
-        return render(request, 'test.html', {'question': question})
+        return render(request, 'detailsQA.html', {'question': question})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
