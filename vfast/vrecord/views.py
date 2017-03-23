@@ -136,7 +136,7 @@ def get_score_thirty_day(request):
         date = request.GET.get('date')
         uid = request.GET.get('uid')
         sql = "select createtime, sum(score) as score from vrecord_score where user_id=%s and createtime like '%s%%' group by createtime order by createtime;" % (
-        uid, date)
+            uid, date)
         ret = dictfetchall(sql)
         result = {}
         for item in ret:
