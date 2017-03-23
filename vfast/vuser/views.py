@@ -220,7 +220,7 @@ def dashboard(request, param):
                 flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
             else:
                 flag, tasks = False, []
-            print tasks
+            # print tasks
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
                            'tasks': tasks})
@@ -269,8 +269,8 @@ def dashboard(request, param):
                 if item['createtime'] == maxdate and maxdate != 0:
                     item['flag'] = 1
                     course_obj = Course.objects.get(id=item['id'])
-                    len_v = Video.objects.filter(course=course_obj).__len__()
-                    len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user).__len__()
+                    len_v = Video.objects.filter(course=course_obj).count()
+                    len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user, status=0).count()
                     item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
                     item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
                     icon_url = item['icon_url'].split('.')
@@ -283,7 +283,7 @@ def dashboard(request, param):
                     item['vtype_url'] = vicon_url
                 else:
                     item['flag'] = 0
-
+            # print courses
             # 进行路线的百分比
             p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % sequence
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
@@ -298,7 +298,7 @@ def dashboard(request, param):
                 flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
             else:
                 flag, tasks = False, []
-            print flag, tasks
+            # print flag, tasks
             # courses 路线下所有的课程, jindu 路线进度, path_flag 显示路线, tasks 推荐任务, flag 今日任务是否完成
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
@@ -312,7 +312,7 @@ def task_daily(user):
     try:
         ret = WatchRecord.objects.filter(user=user).exists()
         d_ret = DailyTask.objects.filter(createtime__contains=time.strftime('%Y-%m-%d'),
-                                 user_id=user.id).exists()
+                                         user_id=user.id).exists()
         if ret and not d_ret:
             sql = 'select vw.*, vv.sequence from vrecord_watchrecord as vw, vcourse_video as vv where user_id = %s and vw.video_id=vv.id order by createtime desc limit 1;' % user.id
             result = dictfetchall(sql)
@@ -351,7 +351,7 @@ def task_finish(user):
                     break
             if not item.has_key('status'):
                 item['status'] = 1
-        print dt_all, wr
+        # print dt_all, wr
         if set(dt).issubset(set(wr)):
             if Score.objects.filter(user_id=user.id, score=10, createtime=time.strftime('%Y-%m-%d')).exists():
                 return True, dt_all

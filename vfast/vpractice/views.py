@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from vuser.models import User
 from vcourse.models import Video
-from vpractice.models import Question
+from vpractice.models import Question, QuestionComment, ReplayComment, Replay, Attention
 
 import logging
 import traceback
@@ -40,10 +40,78 @@ def add_question(request):
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
 
-def question_aggree(request):
+def question_comment(request):
+    '''问题点赞功能'''
     try:
         qid = request.GET.get('qid')
+        uid = request.GET.get('uid')
+        type = request.GET.get('type')
+        try:
+            user_id = request.session['user']['id']
+            if uid != user_id:
+                return False
+        except:
+            return False
+        ret = QuestionComment.objects.filter(qid=qid, uid=uid).exists()
+        if ret:
+            return HttpResponse(json.dumps({'code':0, 'msg': '你已经评论过'}))
+        question = Question.objects.get(id=qid)
+        if type == 'like':
+            question.like += 1
+        else:
+            question.dislike += 1
+        question.save()
+        QuestionComment.objects.create(qid=qid, uid=uid)
+        return HttpResponse(json.dumps({'code':0, 'msg': '评论成功'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
+
+def replay_comment(request):
+    '''回复点赞功能'''
+    try:
+        qid = request.GET.get('qid')
+        uid = request.GET.get('uid')
+        type = request.GET.get('type')
+        try:
+            user_id = request.session['user']['id']
+            if uid != user_id:
+                return False
+        except:
+            return False
+        ret = ReplayComment.objects.filter(qid=qid, uid=uid).exists()
+        if ret:
+            return HttpResponse(json.dumps({'code':0, 'msg': '你已经评论过'}))
+        replay = Replay.objects.get(id=qid)
+        if type == 'like':
+            replay.like += 1
+        else:
+            replay.dislike += 1
+        replay.save()
+        QuestionComment.objects.create(qid=qid, uid=uid)
+        return HttpResponse(json.dumps({'code':0, 'msg': '评论成功'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def attention_question(request):
+    """关注问题功能"""
+    try:
+        qid = request.GET.get('qid')
+        uid = request.GET.get('uid')
+        try:
+            user_id = request.session['user']['id']
+            if uid != user_id:
+                return False
+        except:
+            return False
+        ret = Attention.objects.filter(qid=qid, uid=uid).exists()
+        if ret:
+            return HttpResponse(json.dumps({'code':0, 'msg': '你已经关注了此问题'}))
+        Attention.objects.create(qid=qid, uid=uid)
+        return HttpResponse(json.dumps({'code':0, 'msg': '关注成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))

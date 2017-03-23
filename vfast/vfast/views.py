@@ -26,13 +26,14 @@ def test(request):
     # a = dictfetchall(cursor=course)
     return render(request, "dome.html")
 
+
 def test1(request):
     print 'test1'
     content = request.POST.get('content');
     title = request.POST.get('title');
     print title
     print content
-    return render(request, "show.html",{'content':content,'title0':title})
+    return render(request, "show.html", {'content': content, 'title0': title})
 
 
 def logout(request):
@@ -169,7 +170,7 @@ def practice(request, params):
 
         ####重看一遍 上个视频的URL
         sql_replay = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (
-        video_obj.course_id, video_obj.sequence - 1)
+            video_obj.course_id, video_obj.sequence - 1)
         ret_replay = dictfetchall(sql_replay)
         if len(ret_replay) != 0:
             replay_url = '/video/%s/' % ret_replay[0]['id'] if ret_replay[0]['vtype'] == 0 else '/practice/%s/' % \
@@ -178,7 +179,7 @@ def practice(request, params):
             replay_url = False
         ####跳过问题 下个视频的URL, 如果没有下个视频, 按钮不显示
         sql_skip = 'select id, sequence, end, vtype from vcourse_video where course_id=%s and sequence = %s;' % (
-        video_obj.course_id, video_obj.sequence + 1)
+            video_obj.course_id, video_obj.sequence + 1)
         ret_skip = dictfetchall(sql_skip)
         if len(ret_skip) == 0:
             skip_url = False

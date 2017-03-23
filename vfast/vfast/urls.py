@@ -31,6 +31,7 @@ urlpatterns = [
     url('^course/', include('vcourse.urls')),
     url('^r/', include('vrecord.urls')),
     url('^community/', include('vpractice.urls')),
+
     url('^badge/', include('vbadge.urls')),
     url('^test1', views.test1),
     url('^test', views.test),

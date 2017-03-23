@@ -30,7 +30,8 @@ class Question(models.Model):
     video = models.ForeignKey(Video, verbose_name='视频ID')
     createtime = models.CharField('问题发布时间', max_length=20)
     user = models.ForeignKey(User, verbose_name='用户ID')
-    like = models.IntegerField('点赞')
+    like = models.IntegerField('点赞数')
+    dislike = models.IntegerField('不赞数')
     email_status = models.IntegerField('是否发送邮件', default=0)   #0发送邮件, 1不发送邮件
 
     def __unicode__(self):
@@ -43,6 +44,31 @@ class Replay(models.Model):
     createtime = models.CharField('回复时间', max_length=20)
     content = models.TextField('回复内容')
     like = models.IntegerField('点赞数')
+    dislike = models.IntegerField('不赞数')
 
     def __unicode__(self):
         return self.question.title
+
+
+class QuestionComment(models.Model):
+    qid = models.IntegerField('问题ID')
+    uid = models.IntegerField('用户ID')
+
+    def __unicode__(self):
+        return '%s, %s' % (self.qid, self.uid)
+
+
+class ReplayComment(models.Model):
+    rid = models.IntegerField('回复ID')
+    uid = models.IntegerField('用户ID')
+
+    def __unicode__(self):
+        return '%s, %s' % (self.rid, self.uid)
+
+
+class Attention(models.Model):
+    qid = models.IntegerField('问题ID')
+    uid = models.IntegerField('用户ID')
+
+    def __unicode__(self):
+        return '%s, %s' % (self.qid, self.uid)
