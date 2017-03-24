@@ -73,7 +73,7 @@ def show_question(request):
                 else:
                     replay['status'] = False
 
-        print attention, qcomment, replays[0]['robj'], replays
+        print attention, qcomment, replays
         return render(request, 'detailsQA.html',
                       {'question': question, 'replays': replays, 'qcomment': qcomment, 'attention': attention})
     except:
