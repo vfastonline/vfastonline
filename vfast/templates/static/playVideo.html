@@ -1038,11 +1038,11 @@
             </div>
         </div>
         <br/>
-        <textarea class="quiz_content" id="quiz_describe" ></textarea>
+        <textarea class="quiz_content" id="editor" ></textarea>
     </section>
     <section class="quiz_list" id="quiz_list">
     {% for question in questions %}
-        <div onclick="location.href = '/community/question?qid={{ question.id }}'">
+        <div onclick="window.open('/community/question?qid={{ question.id }}','_blank')">
             <div>
                 <p>{{ question.like }}</p>
                 <svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -1491,12 +1491,12 @@
         $("#quiz").show(200);
 
         quiz_title.value = "";
-        quiz_describe.value = "";
+        editor.value = "";
         quiz_email.checked = false;
     }
     function quiz_submit(){
         var title = $("#quiz_title").val();
-        var desc = UE.getEditor('quiz_describe').getContent();
+        var desc = UE.getEditor('editor').getContent();
         if(title.trim() != "" && desc.trim() != ""){
             var email = 1;
             if(quiz_email.checked){
@@ -1505,9 +1505,9 @@
             $.post("/add_question",{vid:video_id.value,title:title,desc:desc,email:email},function(data){
                 data = JSON.parse(data);
                 if(data.code == 0){
-                    var descText = UE.getEditor('quiz_describe').getContent();
+                    var descText = UE.getEditor('editor').getContent();
                     swal("发布成功", "请您等候其他人的回复~", "success");
-                    $("#quiz_list").prepend('<div>'+
+                    $("#quiz_list").prepend('<div onclick="window.open("/community/question?qid='+data.pid+'","_blank")">'+
                         '<div>'+
                             '<p>0</p>'+
                             '<svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg"'+
@@ -1530,7 +1530,7 @@
                     '</div>');
                     document.getElementById("descText").innerHTML = descText;
                     close_quiz();
-                    UE.getEditor('quiz_describe').setContent('');
+                    UE.getEditor('editor').setContent('');
                 }else{
                     swal("发布失败", "服务器故障，请您稍后再试~", "error");
                 }
@@ -1567,7 +1567,7 @@
 <script type="text/javascript" src="/static/utf8-php/ueditor.all.js"></script><!-- 编辑器源码文件 -->
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
-    var ue = UE.getEditor("quiz_describe",{toolbars:[
+    var ue = UE.getEditor("editor",{toolbars:[
         [
             'bold', //加粗
             'italic', //斜体
