@@ -429,7 +429,7 @@
     <div class="slideDIV" style="height: 130px;" ></div>
     <div style="height: 50px;"  id="topTitle"></div>
     <section class="QA_Q">
-        <h2>{{ question.title }}</h2>
+        <h2>{{ question.title }} {{ question.user_id }}  {{ request.session.user.id }}</h2>
         <img src="/static/svg/缩小.svg" alt="">
     </section>
     <div class="title_border" style="background-color: {{ question.video.course.color }};"></div>
@@ -470,7 +470,7 @@
         {% endif %}
 
                 <div id="content">{{ question.desc|safe }}</div>
-                {% if question.user_id == requset.seesion.user.id %}
+                {% if request.session.user.id == question.user_id %}
                 <div class="edit"><img src="/static/svg/bianji.svg" alt=""></div>
                 {% endif %}
             </div>
