@@ -1042,7 +1042,7 @@
     </section>
     <section class="quiz_list" id="quiz_list">
     {% for question in questions %}
-        <div onclick="window.open('/community/question?qid={{ question.id }}','_blank')">
+        <div onclick="open_QA('{{ question.id }}','_blank')">
             <div>
                 <p>{{ question.like }}</p>
                 <svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -1494,6 +1494,9 @@
         editor.value = "";
         quiz_email.checked = false;
     }
+    function open_QA(qid){
+        window.open("/community/question?qid="+qid,"_blank");
+    }
     function quiz_submit(){
         var title = $("#quiz_title").val();
         var desc = UE.getEditor('editor').getContent();
@@ -1507,7 +1510,7 @@
                 if(data.code == 0){
                     var descText = UE.getEditor('editor').getContent();
                     swal("发布成功", "请您等候其他人的回复~", "success");
-                    $("#quiz_list").prepend('<div onclick="window.open("/community/question?qid='+data.pid+'","_blank")">'+
+                    $("#quiz_list").prepend('<div onclick="open_QA('+data.qid+')","_blank")">'+
                         '<div>'+
                             '<p>0</p>'+
                             '<svg width="28px" height="28px" viewBox="2 18 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg"'+
@@ -1554,7 +1557,7 @@
 <script src="/static/js/sweet-alert.js"></script>
 <script src="/static/js/score.js"></script>
 <script>
-    window.onscroll = function(){
+    window.document.onscroll = function(){
         if(scrollY == 0){
             $("#head_cont").css("box-shadow","none");
         }else{

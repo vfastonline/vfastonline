@@ -331,6 +331,13 @@
 <script src="/static/js/jquery-labelauty.js"></script>
 <script src="/static/js/common.js"></script>
 <script>
+    window.document.onscroll = function(){
+        if(scrollY == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];
         elem.play();

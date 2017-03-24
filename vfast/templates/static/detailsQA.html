@@ -382,6 +382,30 @@
             opacity: 1;
             bottom:50px;
         }
+        .editor_div .top{
+            display: none;
+            width:45px;
+            height: 45px;
+            line-height: 45px;
+            background: #8C96A5;
+            border-radius: 25px;
+            text-align: center;
+            position: fixed;
+            left: 50%;
+            bottom: 250px;
+            margin-left: 490px;
+        }
+        .editor_div .top:hover{
+            cursor: pointer;
+            opacity: 0.8;
+            bottom:251px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+        }
+        .editor_div .top:active{
+            cursor: pointer;
+            opacity: 1;
+            bottom:250px;
+        }
         .editor_div #editor{
             display: none;
             position: fixed;
@@ -400,8 +424,8 @@
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
 <!---->
-    <div class="slideDIV" style="height: 130px;"></div>
-    <div style="height: 50px;"></div>
+    <div class="slideDIV" style="height: 130px;" ></div>
+    <div style="height: 50px;"  id="topTitle"></div>
     <section class="QA_Q">
         <h2>{{ question.title }}</h2>
         <img src="/static/svg/缩小.svg" alt="">
@@ -433,7 +457,7 @@
 
     <div class="QA_div">
 
-        <section class="QA_Q_content clearfix">
+        <section id="QA_Q_content" class="QA_Q_content clearfix">
             <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
             <div class="content" style="background: {{ question.video.course.color }}" >
                 <div id="content">{{ question.desc|safe }}</div>
@@ -460,7 +484,6 @@
                     <p>{{ question.score }}</p>
                     <svg class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="{{ question.video.course.color }}" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                 {% endif %}
-
             </div>
         </section>
 
@@ -550,6 +573,7 @@
             <div onclick="show_deitor()" id="show_deitor" class="show_deitor" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/huifu.svg" alt=""></div>
             <div onclick="send_A('{{ question.id }}')" id="send" class="send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>
             <div onclick="hidden_deitor()" id="clear_editor" class="clear_editor" ><img src="/static/svg/shanchu.svg" alt=""></div>
+            <a href="#topTitle" id="top" class="top" style=""><img src="/static/svg/top.svg" alt=""></a>
         </section>
     </div>
 
@@ -564,11 +588,16 @@
 <script src="/static/js/sweet-alert.js"></script>
 <script type="text/javascript" src="/static/utf8-php/ueditor.parse.js"></script>
 <script>
-    window.onscroll = function(){
+    window.document.onscroll = function(){
         if(scrollY == 0){
             $("#head_cont").css("box-shadow","none");
         }else{
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+        if(scrollY >= 500){
+            $("#top").css('display',"block");
+        }else{
+            $("#top").css('display',"none");
         }
     }
 
@@ -588,36 +617,43 @@
 
     function show_deitor(){
         $("#editor").show(200);
-        $("#send").show(200);
-        $("#clear_editor").show(200);
-        $("#show_deitor").hide(200);
+
+        $("#send").css('display',"block");
+        $("#clear_editor").css('display',"block");
+        $("#show_deitor").css('display',"none");
     }
 
     function hidden_deitor(){
         $("#editor").hide(200);
-        $("#send").hide(200);
-        $("#clear_editor").hide(200);
-        $("#show_deitor").show(200);
+
+        $("#send").css('display',"none");
+        $("#clear_editor").css('display',"none");
+        $("#show_deitor").css('display',"block");
+        UE.getEditor('editor').setContent('');
     }
 
     function send_A(qid){
         var desc = UE.getEditor('editor').getContent();
         var q_uid = $("#q_uid").val()
         var uid = $("#uid").val()
-        $.post("/community/replay",{qid:qid,content:desc},function(){
-            $("#editor").hide(200);
-            $("#send").hide(200);
-            $("#clear_editor").hide(200);
-            $("#show_deitor").show(200);
-            if(q_uid == uid){
-                $("#editor_div").before();
-            }else{
-                $("#editor_div").before();
-            }
-            uParse("#content",{
-                rootPath: '/static/utf8-php'
-            });
-        })
+        if(desc!= ""){
+            $.post("/community/replay",{qid:qid,content:desc},function(){
+                $("#editor").hide(200);
+                $("#send").css('display',"none");
+                $("#clear_editor").css('display',"none");
+                $("#show_deitor").css('display',"block");
+                if(q_uid == uid){
+                    $("#QA_Q_content").after();
+                }else{
+                    $("#QA_Q_content").after();
+                }
+                uParse("#content",{
+                    rootPath: '/static/utf8-php'
+                });
+            })
+        }else {
+            swal("发布失败", "请您填写回复内容，确保内容后发布~", "error");
+        }
     }
 </script>
 </html>
