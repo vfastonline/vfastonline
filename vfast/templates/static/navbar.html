@@ -70,6 +70,8 @@
         </header>
         {% endif %}
     </div>
+
+    <input type="hidden" id="uid" value="{{ request.session.user.id }}">
 </div>
 <!-- 模态框（Modal） -->
 {% if request.session.login != True %}
