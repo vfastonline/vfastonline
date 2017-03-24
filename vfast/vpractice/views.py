@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from vuser.models import User
 from vcourse.models import Video
-from vpractice.models import Question, QuestionComment, ReplayComment, Replay, Attention
+from vpractice.models import Question, QRcomment, Replay, Attention
+from django.db.models import Q
 
 import logging
 import traceback
@@ -13,6 +14,7 @@ import json
 
 # Create your views here.
 def add_question(request):
+    """添加问题"""
     try:
         if request.method == 'POST':
             try:
@@ -40,60 +42,83 @@ def add_question(request):
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
 
-def question_comment(request):
-    '''问题点赞功能'''
+def show_question(request):
+    """查看问题"""
     try:
-        qid = request.GET.get('qid')
-        uid = request.GET.get('uid')
-        type = request.GET.get('type')
         try:
-            user_id = request.session['user']['id']
-            if uid != user_id:
-                return False
+            uid = request.session['user']['id']
         except:
-            return False
-        ret = QuestionComment.objects.filter(qid=qid, uid=uid).exists()
-        if ret:
-            return HttpResponse(json.dumps({'code':0, 'msg': '你已经评论过'}))
+            return render(request, 'detailsQA.html')
+        qid = request.GET.get('qid')
         question = Question.objects.get(id=qid)
-        if type == 'like':
-            question.like += 1
-        else:
-            question.dislike += 1
-        question.save()
-        QuestionComment.objects.create(qid=qid, uid=uid)
-        return HttpResponse(json.dumps({'code':0, 'msg': '评论成功'}))
+        replays = Replay.objects.filter(question=question).values()
+        attention = Attention.objects.filter(qid=qid, uid=uid).exists()
+        qrcomment = QRcomment.objects.filter(uid=uid).values()
+
+        qcomment = {}
+        for qr in qrcomment:
+            if qr['qid'] == question.id and qr['type'] == "Q" and qr['status'] == 1:
+                qcomment['status'] = 'like'
+            elif qr['qid'] == question.id and qr['type'] == "Q" and qr['status'] == 0:
+                qcomment['status'] = 'dislike'
+            else:
+                qcomment = None
+            for replay in replays:
+                if qr['rid'] == replay['id'] and qr['type'] == "R" and qr['status'] == 1:
+                    replay['status'] = 'like'
+                elif qr['qid'] == replay['id'] and qr['type'] == "R" and qr['status'] == 0:
+                    replay['status'] = 'dislike'
+                else:
+                    replay['status'] = None
+
+        print attention, qcomment
+        return render(request, 'detailsQA.html', {'question': question, 'replays': replays})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def add_replay(request):
+    """添加回复"""
+    try:
+        try:
+            userid = request.session['user']['id']
+            user = User.objects.get(id=userid)
+        except:
+            return HttpResponse('用户未登录')
+        content = request.GET.get('content')
+        qid = request.GET.get('qid')
+        question = Question.objects.get(id=qid)
+        Question.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
+                                createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+        return HttpResponse(json.dumps({'code': 0}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
 
-def replay_comment(request):
-    '''回复点赞功能'''
+def qr_comment(request):
+    '''问题回复点赞功能'''
     try:
         qid = request.GET.get('qid')
-        uid = request.GET.get('uid')
-        type = request.GET.get('type')
+        rid = request.GET.get('rid')
+        status = request.GET.get('status')
         try:
-            user_id = request.session['user']['id']
-            if uid != user_id:
-                return False
+            uid = request.session['user']['id']
         except:
-            return False
-        ret = ReplayComment.objects.filter(qid=qid, uid=uid).exists()
-        if ret:
-            return HttpResponse(json.dumps({'code':0, 'msg': '你已经评论过'}))
-        replay = Replay.objects.get(id=qid)
-        if type == 'like':
-            replay.like += 1
+            return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}))
+        if QRcomment.objects.filter(qid=qid, uid=uid).exists():
+            return HttpResponse(json.dumps({'code': 0, 'msg': '问题已经评论过'}))
+        elif not QRcomment.objects.filter(qid=qid, uid=uid).exists() and qid:
+            QRcomment.objects.create(qid=qid, uid=uid, type='Q', status=status)
+        elif QRcomment.objects.filter(rid=rid, uid=uid).exists():
+            return HttpResponse(json.dumps({'code': 0, 'msg': '回复你已经评论过'}))
         else:
-            replay.dislike += 1
-        replay.save()
-        QuestionComment.objects.create(qid=qid, uid=uid)
-        return HttpResponse(json.dumps({'code':0, 'msg': '评论成功'}))
+            QRcomment.objects.create(qid=qid, uid=uid, type='R', status=status)
+        return HttpResponse(json.dumps({'code': 0, 'msg': '评论成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(traceback.format_exc())
 
 
 def attention_question(request):
@@ -109,15 +134,16 @@ def attention_question(request):
             return False
         ret = Attention.objects.filter(qid=qid, uid=uid).exists()
         if ret:
-            return HttpResponse(json.dumps({'code':0, 'msg': '你已经关注了此问题'}))
+            return HttpResponse(json.dumps({'code': 0, 'msg': '你已经关注了此问题'}))
         Attention.objects.create(qid=qid, uid=uid)
-        return HttpResponse(json.dumps({'code':0, 'msg': '关注成功'}))
+        return HttpResponse(json.dumps({'code': 0, 'msg': '关注成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
 
 def question_list(request):
+    """问题详情列表"""
     try:
         pass
     except:
@@ -154,6 +180,4 @@ def show_question(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
-
-
 
