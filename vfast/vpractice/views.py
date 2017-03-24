@@ -149,3 +149,35 @@ def question_list(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def add_replay(request):
+    try:
+        try:
+            userid = request.session['user']['id']
+            user = User.objects.get(id=userid)
+        except:
+            return HttpResponse('用户未登录')
+        content = request.GET.get('content')
+        qid = request.GET.get('qid')
+        question = Question.objects.get(id=qid)
+        Question.objects.create(content=content, question=question, replay_user=user, like=0,
+                                createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+        return HttpResponse(json.dumps({'code': 0}, ensure_ascii=False))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def show_question(request):
+    try:
+        qid = request.GET.get('qid')
+        print qid
+        question = Question.objects.get(id=qid)
+        print question.video.course.tech.name
+
+        return render(request, 'detailsQA.html', {'question': question})
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
