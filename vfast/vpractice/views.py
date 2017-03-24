@@ -71,7 +71,7 @@ def show_question(request):
                 else:
                     replay['status'] = None
 
-        print attention, qcomment, replay
+        print attention, qcomment
         return render(request, 'detailsQA.html', {'question': question, 'replays': replays})
     except:
         logging.getLogger().error(traceback.format_exc())
