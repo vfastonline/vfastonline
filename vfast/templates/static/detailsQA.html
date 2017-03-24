@@ -457,9 +457,16 @@
 
     <div class="QA_div">
 
-        <section id="QA_Q_content" class="QA_Q_content clearfix">
+        {% if request.session.user.id == question.user_id %}
+            <section id="QA_Q_content" class="QA_Q_content clearfix">
             <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
             <div class="content" style="background: {{ question.video.course.color }}" >
+        {% else %}
+            <section id="QA_Q_content" class="QA_A_content clearfix">
+            <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
+            <div class="content"  >
+        {% endif %}
+
                 <div id="content">{{ question.desc|safe }}</div>
                 {% if question.user_id == requset.seesion.user.id %}
                 <div class="edit"><img src="/static/svg/bianji.svg" alt=""></div>
