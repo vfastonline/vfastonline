@@ -33,6 +33,8 @@ class Question(models.Model):
     like = models.IntegerField('点赞数', default=0)
     dislike = models.IntegerField('不赞数', default=0)
     email_status = models.IntegerField('是否发送邮件', default=0)   #0发送邮件, 1不发送邮件
+    score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
+
 
     def __unicode__(self):
         return self.title
@@ -45,6 +47,7 @@ class Replay(models.Model):
     content = models.TextField('回复内容')
     like = models.IntegerField('点赞数', default=0)
     dislike = models.IntegerField('不赞数', default=0)
+    score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
 
     def __unicode__(self):
         return self.question.title
@@ -59,8 +62,6 @@ class QRcomment(models.Model):
 
     def __unicode__(self):
         return '%s, %s' % (self.qid, self.uid)
-
-
 
 
 class Attention(models.Model):

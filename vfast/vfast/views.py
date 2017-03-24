@@ -204,7 +204,7 @@ def upload(request):
             CONFIG = {}
 
     # print CONFIG
-    print action
+    # print action
     if action == 'config':
         # 初始化时，返回配置文件给客户端
         result = CONFIG
@@ -235,10 +235,10 @@ def upload(request):
                 "allowFiles": CONFIG['fileAllowFiles']
             }
 
-        print fieldName, request.FILES.get('upfile')
+        # print fieldName, request.FILES.get('upfile')
         if fieldName in request.FILES:
             field = request.FILES[fieldName]
-            print field.name, field.size,
+            # print field.name, field.size,
             uploader = Uploader(field, config, os.path.join(settings.BASE_DIR))
             result = uploader.getFileInfo()
         else:
@@ -290,7 +290,7 @@ def upload(request):
     else:
         result['state'] = 'request URL error'
 
-    print result
+    # print result
     result = json.dumps(result)
     if 'callback' in request.GET:
         callback = request.args.get('callback')
@@ -299,7 +299,7 @@ def upload(request):
             mimetype = 'application/javascript'
         else:
             result = json.dumps({'state': 'callback args is not right'}, ensure_ascii=False)
-    print result
+    # print result
     # res.mimetype = mimetype
     # res.headers['Access-Control-Allow-Origin'] = '*'
     # res.headers['Access-Control-Allow-Headers'] = 'X-Requested-With,X_Requested_With'

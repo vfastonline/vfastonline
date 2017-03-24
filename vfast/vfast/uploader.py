@@ -92,7 +92,7 @@ class Uploader:
         self.fullName = self.getFullName()
         self.filePath = self.getFilePath()
 
-        print self.fullName, self.filePath
+        # print self.fullName, self.filePath
         # 检查文件大小是否超出限制
         if not self.checkSize():
             self.stateInfo = self.getStateError('ERROR_SIZE_EXCEED')
