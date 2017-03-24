@@ -382,6 +382,30 @@
             opacity: 1;
             bottom:50px;
         }
+        .editor_div .top{
+            display: none;
+            width:45px;
+            height: 45px;
+            line-height: 45px;
+            background: #8C96A5;
+            border-radius: 25px;
+            text-align: center;
+            position: fixed;
+            left: 50%;
+            bottom: 250px;
+            margin-left: 490px;
+        }
+        .editor_div .top:hover{
+            cursor: pointer;
+            opacity: 0.8;
+            bottom:251px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+        }
+        .editor_div .top:active{
+            cursor: pointer;
+            opacity: 1;
+            bottom:250px;
+        }
         .editor_div #editor{
             display: none;
             position: fixed;
@@ -400,8 +424,8 @@
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
 <!---->
-    <div class="slideDIV" style="height: 130px;"></div>
-    <div style="height: 50px;"></div>
+    <div class="slideDIV" style="height: 130px;" ></div>
+    <div style="height: 50px;"  id="topTitle"></div>
     <section class="QA_Q">
         <h2>{{ question.title }}</h2>
         <img src="/static/svg/缩小.svg" alt="">
@@ -431,7 +455,7 @@
 
     <div class="QA_div">
 
-        <section class="QA_Q_content clearfix">
+        <section id="QA_Q_content" class="QA_Q_content clearfix">
             <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
             <div class="content" style="background: {{ question.video.course.color }}" >
                 <div id="content">{{ question.desc|safe }}</div>
@@ -454,7 +478,37 @@
         <section class="QA_A_content clearfix">
             <div><span>小杜 || 杜杜杜</span><span>8 天前</span></div>
             <div class="content" >
-                <div id="content"></div>
+                <div id="content">
+                    <pre>
+                        qwd
+                        qwd
+                        qw
+                        d
+                        qw
+                        d
+                        qwd
+                        qw
+                        d
+                        qwd
+                        qwd
+                        qwd
+                        qwd
+                        qw
+                        dq
+                        wd
+                        qw
+                        d
+                        qw
+                        dqwd
+                        qw
+                        dq
+                        wd
+                        qw
+                        dq
+                        wd
+
+                    </pre>
+                </div>
             </div>
             <div>
                 <a class="headIMG">
@@ -493,6 +547,7 @@
             <div onclick="show_deitor()" id="show_deitor" class="show_deitor" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/huifu.svg" alt=""></div>
             <div onclick="send_A('{{ question.id }}')" id="send" class="send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>
             <div onclick="hidden_deitor()" id="clear_editor" class="clear_editor" ><img src="/static/svg/shanchu.svg" alt=""></div>
+            <a href="#topTitle" id="top" class="top" style=""><img src="/static/svg/top.svg" alt=""></a>
         </section>
     </div>
 
@@ -507,11 +562,16 @@
 <script src="/static/js/sweet-alert.js"></script>
 <script type="text/javascript" src="/static/utf8-php/ueditor.parse.js"></script>
 <script>
-    window.onscroll = function(){
+    window.document.onscroll = function(){
         if(scrollY == 0){
             $("#head_cont").css("box-shadow","none");
         }else{
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+        if(scrollY >= 500){
+            $("#top").css('display',"block");
+        }else{
+            $("#top").css('display',"none");
         }
     }
 
@@ -531,36 +591,43 @@
 
     function show_deitor(){
         $("#editor").show(200);
-        $("#send").show(200);
-        $("#clear_editor").show(200);
-        $("#show_deitor").hide(200);
+
+        $("#send").css('display',"block");
+        $("#clear_editor").css('display',"block");
+        $("#show_deitor").css('display',"none");
     }
 
     function hidden_deitor(){
         $("#editor").hide(200);
-        $("#send").hide(200);
-        $("#clear_editor").hide(200);
-        $("#show_deitor").show(200);
+
+        $("#send").css('display',"none");
+        $("#clear_editor").css('display',"none");
+        $("#show_deitor").css('display',"block");
+        UE.getEditor('editor').setContent('');
     }
 
     function send_A(qid){
         var desc = UE.getEditor('editor').getContent();
         var q_uid = $("#q_uid").val()
         var uid = $("#uid").val()
-        $.post("/community/replay",{qid:qid,content:desc},function(){
-            $("#editor").hide(200);
-            $("#send").hide(200);
-            $("#clear_editor").hide(200);
-            $("#show_deitor").show(200);
-            if(q_uid == uid){
-                $("#editor_div").before();
-            }else{
-                $("#editor_div").before();
-            }
-            uParse("#content",{
-                rootPath: '/static/utf8-php'
-            });
-        })
+        if(desc!= ""){
+            $.post("/community/replay",{qid:qid,content:desc},function(){
+                $("#editor").hide(200);
+                $("#send").css('display',"none");
+                $("#clear_editor").css('display',"none");
+                $("#show_deitor").css('display',"block");
+                if(q_uid == uid){
+                    $("#QA_Q_content").after();
+                }else{
+                    $("#QA_Q_content").after();
+                }
+                uParse("#content",{
+                    rootPath: '/static/utf8-php'
+                });
+            })
+        }else {
+            swal("发布失败", "请您填写回复内容，确保内容后发布~", "error");
+        }
     }
 </script>
 </html>
