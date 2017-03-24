@@ -52,7 +52,7 @@ def show_question(request):
         qid = request.GET.get('qid')
         question = Question.objects.get(id=qid)
         replays = Replay.objects.filter(question=question).values().order_by('-createtime')
-        attention = Attention.objects.filter(qid=qid, uid=uid).exists()
+        attention = Attention.objects.filter(qid=qid, uid=uid).exists()             #用户是否关注问题
         qrcomment = QRcomment.objects.filter(uid=uid).values()
 
         qcomment = {}
@@ -74,7 +74,8 @@ def show_question(request):
                     replay['status'] = False
 
         print attention, qcomment, replays[0]['robj'], replays
-        return render(request, 'detailsQA.html', {'question': question, 'replays': replays, 'qcomment':qcomment})
+        return render(request, 'detailsQA.html',
+                      {'question': question, 'replays': replays, 'qcomment': qcomment, 'attention': attention})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -90,9 +91,11 @@ def add_replay(request):
             return HttpResponse('用户未登录')
         content = request.POST.get('content')
         qid = request.POST.get('qid')
+        print content, qid, userid
         question = Question.objects.get(id=qid)
-        Question.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
-                                createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+        print question.user.username
+        Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
+                              createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
         return HttpResponse(json.dumps({'code': 0}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -104,21 +107,28 @@ def qr_comment(request):
     try:
         qid = request.GET.get('qid')
         rid = request.GET.get('rid')
-        status = request.GET.get('status')    #1为赞, -1踩
+        status = request.GET.get('status')  # 1为赞, -1踩
+        status = int(status)
         try:
             uid = request.session['user']['id']
         except:
             return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}))
         if QRcomment.objects.filter(qid=qid, uid=uid).exists():
             return HttpResponse(json.dumps({'code': 0, 'msg': '问题已经评论过'}))
-        elif not QRcomment.objects.filter(qid=qid, uid=uid).exists() and qid:
+        elif not QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists() and qid:
             QRcomment.objects.create(qid=qid, uid=uid, type='Q', status=status)
             if status == 1:
-                Question.objects.update(id=qid, like=F('like')+1)
-        elif QRcomment.objects.filter(rid=rid, uid=uid).exists():
-            return HttpResponse(json.dumps({'code': 0, 'msg': '回复你已经评论过'}))
+                Question.objects.filter(id=qid).update(score=F('score') + status, like=F('like') + 1)
+            else:
+                Question.objects.filter(id=qid).update(score=F('score') + status, like=F('dislike') + 1)
+        elif not QRcomment.objects.filter(rid=rid, uid=uid, type='R').exists() and rid:
+            QRcomment.objects.create(rid=rid, uid=uid, type='R', status=status)
+            if status == 1:
+                Replay.objects.filter(id=rid).update(score=F('score') + status, like=F('like') + 1)
+            else:
+                Replay.objects.filter(id=rid).update(score=F('score') + status, like=F('dislike') + 1)
         else:
-            QRcomment.objects.create(qid=qid, uid=uid, type='R', status=status)
+            return HttpResponse(json.dumps({'code': 0, 'msg': '回复你已经评论过'}))
         return HttpResponse(json.dumps({'code': 0, 'msg': '评论成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -129,16 +139,20 @@ def attention_question(request):
     """关注问题功能"""
     try:
         qid = request.GET.get('qid')
-        type = request.GET.get('attention')     #1关注问题, 0取消关注
+        type = request.GET.get('attention')  # 1关注问题, 0取消关注
         try:
             uid = request.session['user']['id']
         except:
             return False
         ret = Attention.objects.filter(qid=qid, uid=uid).exists()
-        if ret:
-            return HttpResponse(json.dumps({'code': 0, 'msg': '你已经关注了此问题'}))
-        Attention.objects.create(qid=qid, uid=uid)
-        return HttpResponse(json.dumps({'code': 0, 'msg': '关注成功'}))
+        if ret and type==0:
+            Attention.objects.filter(qid=qid, uid=uid).delete()
+            return HttpResponse(json.dumps({'code': 0, 'msg': '取消关注成功'}))
+        elif not ret and type ==1:
+            Attention.objects.create(qid=qid, uid=uid)
+            return HttpResponse(json.dumps({'code':0, 'msg':'关注成功'}))
+        else:
+            return HttpResponse(json.dumps({'code': 0, 'msg': 'attention_question , interface right'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
@@ -151,7 +165,3 @@ def question_list(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
-
-
-
-
