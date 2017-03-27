@@ -5,6 +5,6 @@ from vpractice import views
 urlpatterns = [
     url(r'question', views.show_question, name='show_question'),
     url(r'qrcomment', views.qr_comment),
-    url(r'attention_question', views.attention_question, name='attention_question'),
+    url(r'attention', views.attention_question, name='attention_question'),
     url(r'replay', views.add_replay, name='replay')
 ]
