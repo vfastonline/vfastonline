@@ -4,6 +4,7 @@ $(function(){
 	$.getJSON("/u/detail",function(data){
         $("#totalscore").html(data.totalscore);
     })
+
 })
 
 function stopPPG(e,url){
