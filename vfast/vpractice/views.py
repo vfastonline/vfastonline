@@ -24,12 +24,11 @@ def add_question(request):
                 return HttpResponse('用户未登录')
             title = request.POST.get('title')
             desc = request.POST.get('desc')
-            print desc
             createtime = time.strftime('%Y-%m-%d %H:%M:%S')
             vid = request.POST.get('vid')
             video = Video.objects.get(id=vid)
             email_status = request.POST.get('email')
-            print title, desc, video.name, email_status
+            # print title, desc, video.name, email_status
             try:
                 ques = Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
                                                email_status=email_status, like=0, dislike=0)
@@ -67,18 +66,18 @@ def show_question(request):
                 pass
             try:
                 qcomment['status']
-            except:
+            except KeyError:
                 qcomment['status'] = False
 
             for replay in replays:
                 if qr['rid'] == replay['id'] and qr['type'] == "R" and qr['status'] == 1:
                     replay['status'] = 'like'
-                elif qr['qid'] == replay['id'] and qr['type'] == "R" and qr['status'] == -1:
+                elif qr['rid'] == replay['id'] and qr['type'] == "R" and qr['status'] == -1:
                     replay['status'] = 'dislike'
                 else:
-                    replay['status'] = False
+                    pass
 
-        print attention, qcomment, replays, qrcomment
+        # print attention, qcomment, replays
         # qcomment 用户是否对问题点赞, question 问题对象, relays 回复, attention 是否关注问题
         return render(request, 'detailsQA.html',
                       {'question': question, 'replays': replays, 'qcomment': qcomment, 'attention': attention})
@@ -97,9 +96,8 @@ def add_replay(request):
             return HttpResponse('用户未登录')
         content = request.POST.get('content')
         qid = request.POST.get('qid')
-        print content, qid, userid
         question = Question.objects.get(id=qid)
-        print question.user.username
+        # print question.user.username
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
                               createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
@@ -119,8 +117,6 @@ def qr_comment(request):
             uid = request.session['user']['id']
         except:
             return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}))
-        print qid, rid, status
-        print QRcomment.objects.filter(qid=qid, uid=uid).exists()
         if QRcomment.objects.filter(qid=qid, uid=uid).exists() and qid:
             return HttpResponse(json.dumps({'code': 0, 'msg': '问题已经评论过'}))
         elif QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists() == False and qid:
@@ -153,7 +149,6 @@ def attention_question(request):
         except:
             return False
         ret = Attention.objects.filter(qid=qid, uid=uid).exists()
-        print qid, attention, ret, type(attention)
         if ret and attention == '0':
             Attention.objects.filter(qid=qid, uid=uid).delete()
             return HttpResponse(json.dumps({'code': 0, 'msg': '取消关注成功'}))
