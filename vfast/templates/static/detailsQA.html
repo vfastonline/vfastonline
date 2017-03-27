@@ -474,7 +474,7 @@
                 {% endif %}
             </div>
             <div>
-                <a class="headIMG">
+                <a class="headIMG" onclick="show_uinfo({{ question.user_id }})">
                     <img src="{{ question.user.headimg }}" alt=""/>
                     <img src="/static/head/120_without_rank.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
@@ -504,7 +504,7 @@
                     <div id="content">{{ replay.content | safe }}</div>
                 </div>
                 <div>
-                    <a class="headIMG">
+                    <a class="headIMG" onclick="show_uinfo({{ replay.replay_user_id }})">
                         <img src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
@@ -532,7 +532,7 @@
                     <div id="content">{{ replay.content|safe }}</div>
                     </div>
                 <div>
-                    <a class="headIMG">
+                    <a class="headIMG" onclick="show_uinfo({{ replay.replay_user_id }})">
                         <img src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
@@ -691,6 +691,12 @@
         }else {
             swal("发布失败", "请您填写回复内容，确保内容后发布~", "error");
         }
+    }
+
+    function show_uinfo(uid){
+        $.post("",{uid:uid},function(data){
+            
+        })
     }
 </script>
 </html>
