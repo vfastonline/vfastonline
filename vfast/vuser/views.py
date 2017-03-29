@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q
-from vuser.models import User, DailyTask
+from vuser.models import User, DailyTask, PtoP
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchCourse, WatchRecord, Score
@@ -365,3 +365,27 @@ def task_finish(user):
     except:
         logging.getLogger().error(traceback.format_exc())
         return False, []
+
+
+def follow_people(request):
+    try:
+        followed_id = request.GET.get('followed_id')                #被关注人的ID
+        type = request.GET.get('type')  # 1关注, 0取消关注
+        try:
+            follow_id = request.session['user']['id']               #关注人的ID
+        except ValueError:
+            return HttpResponse(u'未登录')
+        followed = User.objects.get(id=followed_id)
+        follow = User.objects.get(id=follow_id)
+        if not PtoP.objects.filter(follow=follow, followed=followed).exists() and type == '1':
+            PtoP.objects.create(follow=follow, followed=followed)
+            return HttpResponse(json.dumps({'code': 0, 'msg': '关注成功'}))
+        elif PtoP.objects.filter(follow=follow, followed=followed).exists() and type == '0':
+            PtoP.objects.filter(follow=follow, followed=followed).delete()
+            return HttpResponse(json.dumps({'code': 0, 'msg': '取消关注成功'}))
+        else:
+            return HttpResponse(json.dumps({'code': 0, 'msg': 'follow_people interface normal'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
