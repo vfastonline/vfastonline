@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^login', views.login, name='login'),
     url(r'^detail', views.userdetail, name='userdetail'),
     url(r'^(\d+)/$', views.dashboard, name='dashboard'),
-
+    url(r'^follow', views.follow_people, name='follow'),
+    url(r'^badge')
 ]

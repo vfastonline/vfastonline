@@ -7,6 +7,7 @@ from vuser.models import User, DailyTask, PtoP
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchCourse, WatchRecord, Score
+from vbadge.models import UserBadge
 from vgrade.api import headimg_urls
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
 
@@ -199,7 +200,7 @@ def login(request):
 def userdetail(request):
     try:
         uid = request.session['user']['id']
-        user = User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe')[0]
+        user = User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe', 'intro', 'githuburl', 'personpage')[0]
         return HttpResponse(json.dumps(user, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -389,3 +390,14 @@ def follow_people(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
 
+
+def user_badge_sum(request):
+    try:
+        uid = request.GET.get('uid')
+        user = User.objects.get(id=uid)
+        badge_num = UserBadge.objects.filter(user=user).count()
+        print badge_num
+        return HttpResponse(json.dumps({'number':badge_num}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
