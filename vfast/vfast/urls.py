@@ -22,6 +22,9 @@ from oauth.views import github_auth, github_login
 from vpractice.views import add_question
 
 urlpatterns = [
+    url('^github_auth$', github_auth, name='github_auth'),
+    url('^github_login/$', github_login, name='github_login'),
+
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
     url(r'^logout', views.logout),
@@ -38,8 +41,7 @@ urlpatterns = [
     url('^navtabs', views.search_js, name='navtabs'),
     url('^video/(\d+)/$', views.playVideo),
     url('^practice/(\d+)/$', views.practice,),
-    url('^github_auth$', github_auth, name='github_auth'),
-    url('^github_login/$', github_login, name='github_login'),
+
     url('^add_question$', add_question, name='add_question'),
 ]
 

@@ -66,3 +66,8 @@ class DailyTask(models.Model):
     video_name = models.CharField('视频名称', max_length=50, default=' ')
 
 
+class PtoP(models.Model):
+    follow = models.ForeignKey(User, verbose_name='关注人', related_name='follow')
+    followed = models.ForeignKey(User, verbose_name='被关注的人', related_name='followed')
+
+
