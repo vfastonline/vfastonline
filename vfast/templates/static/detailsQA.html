@@ -680,7 +680,7 @@
                 {% endif %}
             </div>
             <div>
-                <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }})">
+                <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }},this)">
                     <img id="headimg" src="{{ question.user.headimg }}" alt=""/>
                     <img src="/static/head/120_without_rank.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
@@ -710,7 +710,7 @@
                     <div id="content">{{ replay.content | safe }}</div>
                 </div>
                 <div>
-                    <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }})">
+                    <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }},this)">
                         <img id="headimg" src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
@@ -738,7 +738,7 @@
                         <div id="content">{{ replay.content|safe }}</div>
                     </div>
                     <div>
-                        <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }})">
+                        <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }},this)">
                             <img id="headimg" src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                             <img src="/static/head/120_without_rank.svg" alt=""/>
                             <img src="/static/head/online.svg" alt=""/>
@@ -802,28 +802,29 @@
             <div class="modal-content" id="modal_content">
                 <div class="modal_top">
                     <div class="modal_top_img">
-                        <img src="/static/head/Bitmap.png" alt=""/>
+                        <img id="modal_headimg" src="" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
                     </div>
-                    <h4>大大大鹏</h4>
+                    <h4 id="modal_username"></h4>
                     <div class="modal_top_info clearfix">
                         <div>
                             <p>已获得成就</p>
                             <h3>27</h3>
                         </div>
                         <div>
-                            <p>北京-海淀</p>
-                            <img src="/static/svg/fangmao.svg" alt="">
+                            <p id="modal_location"></p>
+                            <a id="moadl_github_a" href="" target="_blank"><img id="modal_github_img" src="" alt=""></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a id="moadl_phome_a" href="" target="_blank"><img id="modal_phome_img" src="" alt=""></a>
                         </div>
                         <div>
                             <p>已获得积分</p>
-                            <h3>113,161</h3>
+                            <h3 id="modal_totalscore"></h3>
                         </div>
-                        <p class="clearfix">I'm a Software Engineer in the Puget Sound area (Seattle/Tacoma). I'm passionate about technology in general, software development, and helping others learn about technology.</p>
+                        <p class="clearfix" id="modal_intro"></p>
                     </div>
                     <div onclick="follow_user(this)">
-                        <img src="/static/svg/guanzhu.svg" alt="">
+                        <img id="modal_follow" src="/static/svg/guanzhu.svg" alt="">
                     </div>
                 </div>
                 <div class="modal_bottom">
@@ -957,7 +958,7 @@
                     '<div id="contentText"></div>'+
                     '</div>'+
                     '<div>'+
-                    '<a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ request.session.user.id }})">'+
+                    '<a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ request.session.user.id }},this)">'+
                         '<img id="headimg" src="'+$("#uheadimg").attr("src")+'" alt=""/>'+
                         '<img src="/static/head/120_without_rank.svg" alt=""/>'+
                         '<img src="/static/head/online.svg" alt=""/>'+
@@ -978,12 +979,27 @@
         }
     }
 
-    function show_uinfo(uid){
+    function show_uinfo(uid,t){
         $("#modal_dialog").addClass("animated fadeInUp");
+        $("#modal_headimg").attr("src",$(t).find('#headimg').attr('src'));
         $.getJSON("/u/detail?uid="+uid,function(data){
             console.log(data);
+            $("#modal_username").html(data.username);
+            $("#modal_location").html(data.location);
+            $("#modal_totalscore").html(data.totalscore);
+            $("#modal_intro").html(data.intro);
+            if(data.githuburl.trim() != "" ){
+                $("#moadl_github_a").attr("href",data.githuburl);
+                $("#modal_github_img").attr("src","/static/svg/fangmao.svg");
+            }
+            if(data.phomeurl.trim() != "" ){
+                $("#moadl_phome_a").attr("href",data.phomeurl);
+                $("#modal_phome_img").attr("src","/static/svg/www.svg");
+            }
         });
 
+
+        $("#modal_follow").attr(data.totalscore);
     }
 
     function follow_user(t){
