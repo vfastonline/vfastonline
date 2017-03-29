@@ -624,6 +624,10 @@
             top: 22px;
             right: 20px;
         }
+        #repo_description{
+            height:40px;
+            overflow: hidden;
+        }
     </style>
 </head>
 {% load mytags %}
@@ -810,7 +814,7 @@
                     <div class="modal_top_info clearfix">
                         <div>
                             <p>已获得成就</p>
-                            <h3>27</h3>
+                            <h3 id="modal_badge"></h3>
                         </div>
                         <div>
                             <p id="modal_location"></p>
@@ -828,44 +832,9 @@
                     </div>
                 </div>
                 <div class="modal_bottom">
-                    <ul class="clearfix">
-                        <li><span style="color: #329577">132</span>&nbsp;&nbsp;<span>Android</span></li>
-                        <li><span style="color: #59769F">1212</span>&nbsp;&nbsp;<span>C#</span></li>
-                        <li><span style="color: #3572A5">699</span>&nbsp;&nbsp;<span>python</span></li>
-                        <li><span style="color: #329577">26</span>&nbsp;&nbsp;<span>CSS</span></li>
-                        <li><span style="color: #00AFE6">440</span>&nbsp;&nbsp;<span>IOS</span></li>
-                        <li><span style="color: #C25975">1379</span>&nbsp;&nbsp;<span>Java</span></li>
-                        <li><span style="color: #FFC32A">114</span>&nbsp;&nbsp;<span>HTML</span></li>
-                        <li><span style="color: #329577">132</span>&nbsp;&nbsp;<span>Android</span></li>
-                        <li><span style="color: #59769F">1212</span>&nbsp;&nbsp;<span>C#</span></li>
-                        <li><span style="color: #3572A5">699</span>&nbsp;&nbsp;<span>python</span></li>
-                        <li><span style="color: #329577">26</span>&nbsp;&nbsp;<span>CSS</span></li>
-                        <li><span style="color: #00AFE6">440</span>&nbsp;&nbsp;<span>IOS</span></li>
-                        <li><span style="color: #C25975">1379</span>&nbsp;&nbsp;<span>Java</span></li>
-                        <li><span style="color: #FFC32A">114</span>&nbsp;&nbsp;<span>HTML</span></li>
+                    <ul class="clearfix" id="modal_scoreList">
                     </ul>
-                    <div class="clearfix">
-                        <div>
-                            <h5>Github Repo</h5>
-                            <h4>FitVid.coffee</h4>
-                            <p>一个轻量级简单易用的 jQuery 内嵌视频弹性布局插件</p>
-                            <p><span>3</span> 分支 | <span>5</span> 赞</p>
-                            <img src="/static/svg/xiaomao.svg" alt="">
-                        </div>
-                        <div>
-                            <h5>Github Repo</h5>
-                            <h4>FitVid.coffee</h4>
-                            <p>一个轻量级简单易用的 jQuery 内嵌视频弹性布局插件</p>
-                            <p><span>3</span> 分支 | <span>5</span> 赞</p>
-                            <img src="/static/svg/xiaomao.svg" alt="">
-                        </div>
-                        <div>
-                            <h5>Github Repo</h5>
-                            <h4>FitVid.coffee</h4>
-                            <p>一个轻量级简单易用的 jQuery 内嵌视频弹性布局插件</p>
-                            <p><span>3</span> 分支 | <span>5</span> 赞</p>
-                            <img src="/static/svg/xiaomao.svg" alt="">
-                        </div>
+                    <div class="clearfix" id="modal_repo">
                     </div>
                 </div>
             </div><!-- /.modal-content -->
@@ -982,24 +951,60 @@
     function show_uinfo(uid,t){
         $("#modal_dialog").addClass("animated fadeInUp");
         $("#modal_headimg").attr("src",$(t).find('#headimg').attr('src'));
-        $.getJSON("/u/detail?uid="+uid,function(data){
-            console.log(data);
-            $("#modal_username").html(data.username);
-            $("#modal_location").html(data.location);
-            $("#modal_totalscore").html(data.totalscore);
-            $("#modal_intro").html(data.intro);
-            if(data.githuburl.trim() != "" ){
-                $("#moadl_github_a").attr("href",data.githuburl);
+        $("#modal_repo").html("");
+        $("#modal_scoreList").html("");
+        $.getJSON("/u/model?uid="+uid,function(data1){
+            $("#modal_username").html(data1.user.username);
+            $("#modal_location").html(data1.user.location);
+            $("#modal_totalscore").html(data1.user.totalscore);
+            $("#modal_intro").html(data1.user.intro);
+            $("#modal_badge").html(data1.badge);
+            if(data1.user.githuburl.trim() != "" ){
+                $("#moadl_github_a").attr("href",data1.user.githuburl);
                 $("#modal_github_img").attr("src","/static/svg/fangmao.svg");
+                $.getJSON(data1.user.githubrepo,function(data2){
+                    for(var i = 0 ; i<data2.length;i++){
+                        var branches_url = data2[i].branches_url.substring(0,data2[i].branches_url.indexOf('{'));
+                        (function(i){
+                            $.getJSON(branches_url,function(data3){
+                                if(data2[i].description != null){
+                                    $("#modal_repo").append("<div>"+
+                                        "<h5>Github Repo</h5>"+
+                                        "<h4>"+data2[i].name+"</h4>"+
+                                        "<p id='repo_description'>"+data2[i].description+"</p>"+
+                                        "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+
+                                        "<img src='/static/svg/xiaomao.svg' alt=''>"+
+                                    "</div>");
+                                }else{
+                                    $("#modal_repo").append("<div>"+
+                                        "<h5>Github Repo</h5>"+
+                                        "<h4>"+data2[i].name+"</h4>"+
+                                        "<p id='repo_description'></p>"+
+                                        "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+
+                                        "<img src='/static/svg/xiaomao.svg' alt=''>"+
+                                    "</div>");
+                                }
+                            })
+                        })(i);
+
+                    }
+                })
             }
-            if(data.phomeurl.trim() != "" ){
-                $("#moadl_phome_a").attr("href",data.phomeurl);
+            if(data1.user.personpage.trim() != "" ){
+                $("#moadl_phome_a").attr("href",data1.user.personpage);
                 $("#modal_phome_img").attr("src","/static/svg/www.svg");
             }
+            if(data1.guanzhu){
+                $("#modal_follow").attr("src","/static/svg/quxiaoguanzhu.svg");
+            }
+            for(var i = 0 ; i < data1.tech_score.length ; i++){
+                if(data1.tech_score[i].name == null){
+                    $("#modal_scoreList").append("<li><span style='color: red'>"+data1.tech_score[i].score+"</span>&nbsp;&nbsp;<span>任务得分</span></li>");
+                }else{
+                    $("#modal_scoreList").append("<li><span style='color: "+data1.tech_score[i].color+"'>"+data1.tech_score[i].score+"</span>&nbsp;&nbsp;<span>"+data1.tech_score[i].name+"</span></li>");
+                }
+            }
         });
-
-
-        $("#modal_follow").attr(data.totalscore);
     }
 
     function follow_user(t){

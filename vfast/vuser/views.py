@@ -310,7 +310,7 @@ def dashboard(request, param):
                            'tasks': tasks, 'flag': flag})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(u'页面错误')
+        return HttpResponse(u'页面错误'+traceback.format_exc())
 
 
 def task_daily(user):
