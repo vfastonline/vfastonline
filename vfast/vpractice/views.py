@@ -99,7 +99,7 @@ def add_replay(request):
         question = Question.objects.get(id=qid)
         # print question.user.username
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
-                              createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+                                    createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
