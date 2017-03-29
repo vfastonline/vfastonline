@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^(\d+)/$', views.dashboard, name='dashboard'),
     url(r'^follow', views.follow_people, name='follow'),
     url(r'^badge', views.user_badge_sum, name='userbadge'),
+    url(r'^model', views.user_model, name='usermodel'),
 ]

@@ -152,15 +152,13 @@ def get_score_thirty_day(request):
         return HttpResponse('error')
 
 
-def sum_score_tech(request):
+def sum_score_tech(uid):
     try:
-        uid = request.GET.get('uid')
         sql = 'select vp.name, vp.color, tmp.technology_id, tmp.score  from (select technology_id , sum(score) as score  from vrecord_score where user_id = %s group by technology_id) as tmp left join vcourse_program as vp on vp.id=tmp.technology_id;' % uid
         result = dictfetchall(sql)
         for item in result:
             item['score'] = str(item['score'])
-        print result
-        return HttpResponse(json.dumps({'result':result}))
+        return result
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
