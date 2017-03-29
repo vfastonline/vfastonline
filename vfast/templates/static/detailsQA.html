@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="/static/css/search.css" />
     <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
     <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
+    <link rel="stylesheet" href="/static/css/animate.min.css"/>
+
     <!--[if IE]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
@@ -419,6 +421,209 @@
         .syntaxhighlighter .gutter{
             display: none;
         }
+
+        #myModal_info .modal-dialog{
+            width:760px;
+            margin-top: 120px;
+        }
+        #myModal_info{
+            padding: 0px!important;
+        }
+        #myModal_info .modal-content{
+
+        }
+        .modal_top{
+            background-color: #FFFFFF;
+            box-shadow: 0 1px 0 0 rgba(0,0,0,0.10);
+            position: relative;
+        }
+        .modal_top .modal_top_img{
+            width:99px;
+            height:100px;
+            border-radius: 51px;
+            margin: 0 auto;
+            position: absolute;
+            box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+            top:-120px;
+            left:330px;
+            background-color: rgba(0,0,0,0.2);
+        }
+        .modal_top .modal_top_img:hover{
+            cursor: pointer;
+            top:-121px;
+        }
+        .modal_top .modal_top_img img:nth-child(1){
+            width:100px;
+            height: 100px;
+            position: absolute;
+            border-radius: 51px;
+            top:1px;
+            left: 0px;
+        }
+        .modal_top .modal_top_img img:nth-child(2){
+            width:102px;
+            height: 102px;
+            position: absolute;
+            top:0;
+            left: -1px;
+        }
+        .modal_top .modal_top_img img:nth-child(3){
+            width:31px;
+            height: 31px;
+            position: absolute;
+            border-radius: 31px;
+            top:0;
+            right: 8px;
+        }
+        .modal_top >h4{
+            font-size: 20px;
+            color: #5A646E;
+            text-align: center;
+            margin-top: 70px;
+            font-weight: bolder;
+        }
+        .modal_top_info{
+            width:570px;
+            margin: 0 auto;
+        }
+        .modal_top_info>div:nth-child(1){
+            width:33%;
+            float: left;
+            text-align: center;
+        }
+        .modal_top_info>div:nth-child(1)>p{
+            font-size: 14px;
+            color: #B4BEC8;
+        }
+        .modal_top_info>div:nth-child(1)>h3{
+            font-size: 36px;
+            color: #B4BEC8;
+        }
+        .modal_top_info>div:nth-child(2){
+            width:33%;
+            float: left;
+            text-align: center;
+        }
+        .modal_top_info>div:nth-child(2)>p{
+            font-size: 14px;
+            color: #829191;
+        }
+        .modal_top_info>div:nth-child(3){
+            width:33%;
+            float: right;
+            text-align: center;
+        }
+        .modal_top_info>div:nth-child(3)>p{
+            font-size: 14px;
+            color: #B4BEC8;
+        }
+        .modal_top_info>div:nth-child(3)>h3{
+            font-size: 36px;
+            color: #B4BEC8;
+        }
+        .modal_top_info>p{
+            padding-top: 10px;
+            clear: both;
+            font-size: 14px;
+            color: #5A646E;
+            margin-bottom: 20px;
+        }
+        .modal_top>div:last-child{
+            width:45px;
+            height:45px;
+            line-height: 45px;
+            text-align: center;
+            background: #5A646E;
+            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+            border-radius: 27px;
+            position: absolute;
+            right: 50px;
+            bottom: -22px;
+        }
+        .modal_top>div:last-child:hover{
+            cursor: pointer;
+            bottom: -21px;
+        }
+        .modal_top>div:last-child:active{
+            cursor: pointer;
+            bottom: -22px;
+        }
+
+        .modal_bottom{
+            background-color: #FAFAFA;
+            padding: 30px 0;
+            border-radius: 6px;
+        }
+        .modal_bottom>ul{
+            width: 570px;
+            margin: 0px auto 10px;
+        }
+        .modal_bottom>ul>li{
+            float: left;
+            width:25%;
+            text-align: center;
+            height:20px;
+            line-height: 20px;
+            margin: 10px 0;
+        }
+        .modal_bottom>ul>li>span{
+            font-size: 14px;
+        }
+        .modal_bottom>ul>li>span:last-child{
+            color: #5A646E;
+        }
+        .modal_bottom>div{
+            width:570px;
+            margin: 0 auto;
+        }
+        .modal_bottom>div>div{
+            width:48%;
+            height: 170px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            margin: 10px 0;
+            position: relative;
+            padding: 15px 20px 10px 20px;
+        }
+        .modal_bottom>div>div:hover{
+            cursor: pointer;
+            top:-1px;
+        }
+        .modal_bottom>div>div:active{
+            cursor: pointer;
+            top:0px;
+        }
+        .modal_bottom>div>div:nth-child(2n+1){
+            float: left;
+        }
+
+        .modal_bottom>div>div:nth-child(2n+2){
+            float: right;
+        }
+        .modal_bottom>div>div>h5{
+            font-size: 14px;
+            color: #B4BEC8;
+            font-weight: 400;
+        }
+        .modal_bottom>div>div>h4{
+            font-size: 16px;
+            color: #5A646E;
+            font-weight: 400;
+        }
+        .modal_bottom>div>div>p{
+            font-size: 14px;
+            color: #5A646E;
+            font-weight: 400;
+        }
+        .modal_bottom>div>div>p:last-child{
+            margin: 20px 0px 0px;
+        }
+        .modal_bottom>div>div>img{
+            position: absolute;
+            top: 22px;
+            right: 20px;
+        }
     </style>
 </head>
 {% load mytags %}
@@ -474,7 +679,7 @@
                 {% endif %}
             </div>
             <div>
-                <a class="headIMG" onclick="show_uinfo({{ question.user_id }})">
+                <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }},event)">
                     <img src="{{ question.user.headimg }}" alt=""/>
                     <img src="/static/head/120_without_rank.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
@@ -504,7 +709,7 @@
                     <div id="content">{{ replay.content | safe }}</div>
                 </div>
                 <div>
-                    <a class="headIMG" onclick="show_uinfo({{ replay.replay_user_id }})">
+                    <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }},event)">
                         <img src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
@@ -532,7 +737,7 @@
                     <div id="content">{{ replay.content|safe }}</div>
                     </div>
                 <div>
-                    <a class="headIMG" onclick="show_uinfo({{ replay.replay_user_id }})">
+                    <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }},event)">
                         <img src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
@@ -554,7 +759,6 @@
             </section>
             {% endif %}
         {% endfor %}
-
 
         <section id="editor_div" class="editor_div">
             <!-- 加载编辑器的容器 -->
@@ -590,6 +794,83 @@
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
 {% include "search_div.html" %}
+
+<section>
+    <div class="modal" id="myModal_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="modal_dialog">
+            <div class="modal-content" id="modal_content">
+                <div class="modal_top">
+                    <div class="modal_top_img">
+                        <img src="/static/head/Bitmap.png" alt=""/>
+                        <img src="/static/head/120_without_rank.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <h4>大大大鹏</h4>
+                    <div class="modal_top_info clearfix">
+                        <div>
+                            <p>已获得成就</p>
+                            <h3>27</h3>
+                        </div>
+                        <div>
+                            <p>北京-海淀</p>
+                            <img src="/static/svg/fangmao.svg" alt="">
+                        </div>
+                        <div>
+                            <p>已获得积分</p>
+                            <h3>113,161</h3>
+                        </div>
+                        <p class="clearfix">I'm a Software Engineer in the Puget Sound area (Seattle/Tacoma). I'm passionate about technology in general, software development, and helping others learn about technology.</p>
+                    </div>
+                    <div onclick="follow_user(this)">
+                        <img src="/static/svg/guanzhu.svg" alt="">
+                    </div>
+                </div>
+                <div class="modal_bottom">
+                    <ul class="clearfix">
+                        <li><span style="color: #329577">132</span>&nbsp;&nbsp;<span>Android</span></li>
+                        <li><span style="color: #59769F">1212</span>&nbsp;&nbsp;<span>C#</span></li>
+                        <li><span style="color: #3572A5">699</span>&nbsp;&nbsp;<span>python</span></li>
+                        <li><span style="color: #329577">26</span>&nbsp;&nbsp;<span>CSS</span></li>
+                        <li><span style="color: #00AFE6">440</span>&nbsp;&nbsp;<span>IOS</span></li>
+                        <li><span style="color: #C25975">1379</span>&nbsp;&nbsp;<span>Java</span></li>
+                        <li><span style="color: #FFC32A">114</span>&nbsp;&nbsp;<span>HTML</span></li>
+                        <li><span style="color: #329577">132</span>&nbsp;&nbsp;<span>Android</span></li>
+                        <li><span style="color: #59769F">1212</span>&nbsp;&nbsp;<span>C#</span></li>
+                        <li><span style="color: #3572A5">699</span>&nbsp;&nbsp;<span>python</span></li>
+                        <li><span style="color: #329577">26</span>&nbsp;&nbsp;<span>CSS</span></li>
+                        <li><span style="color: #00AFE6">440</span>&nbsp;&nbsp;<span>IOS</span></li>
+                        <li><span style="color: #C25975">1379</span>&nbsp;&nbsp;<span>Java</span></li>
+                        <li><span style="color: #FFC32A">114</span>&nbsp;&nbsp;<span>HTML</span></li>
+                    </ul>
+                    <div class="clearfix">
+                        <div>
+                            <h5>Github Repo</h5>
+                            <h4>FitVid.coffee</h4>
+                            <p>一个轻量级简单易用的 jQuery 内嵌视频弹性布局插件</p>
+                            <p><span>3</span> 分支 | <span>5</span> 赞</p>
+                            <img src="/static/svg/xiaomao.svg" alt="">
+                        </div>
+                        <div>
+                            <h5>Github Repo</h5>
+                            <h4>FitVid.coffee</h4>
+                            <p>一个轻量级简单易用的 jQuery 内嵌视频弹性布局插件</p>
+                            <p><span>3</span> 分支 | <span>5</span> 赞</p>
+                            <img src="/static/svg/xiaomao.svg" alt="">
+                        </div>
+                        <div>
+                            <h5>Github Repo</h5>
+                            <h4>FitVid.coffee</h4>
+                            <p>一个轻量级简单易用的 jQuery 内嵌视频弹性布局插件</p>
+                            <p><span>3</span> 分支 | <span>5</span> 赞</p>
+                            <img src="/static/svg/xiaomao.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</section>
+
 </body>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/jquery-labelauty.js"></script>
@@ -597,12 +878,12 @@
 <script type="text/javascript" src="/static/utf8-php/ueditor.parse.js"></script>
 <script>
     window.document.onscroll = function(){
-        if(scrollY == 0){
+        if($(document).scrollTop() == 0){
             $("#head_cont").css("box-shadow","none");
         }else{
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
-        if(scrollY >= 500){
+        if($(document).scrollTop() >= 500){
             $("#top").css('display',"block");
         }else{
             $("#top").css('display',"none");
@@ -674,7 +955,7 @@
                     '<div id="contentText"></div>'+
                     '</div>'+
                     '<div>'+
-                    '<a class="headIMG">'+
+                    '<a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }})">'+
                         '<img src="'+$("#uheadimg").attr("src")+'" alt=""/>'+
                         '<img src="/static/head/120_without_rank.svg" alt=""/>'+
                         '<img src="/static/head/online.svg" alt=""/>'+
@@ -695,10 +976,16 @@
         }
     }
 
-    function show_uinfo(uid){
-        $.post("",{uid:uid},function(data){
-            
-        })
+    function show_uinfo(uid,e){
+        $("#modal_dialog").addClass("animated fadeInUp");
+    }
+
+    function follow_user(t){
+        if($(t).find("img").attr('src') == '/static/svg/guanzhu.svg'){
+            $(t).find("img").attr('src','/static/svg/quxiaoguanzhu.svg')
+        }else{
+            $(t).find("img").attr('src','/static/svg/guanzhu.svg')
+        }
     }
 </script>
 </html>
