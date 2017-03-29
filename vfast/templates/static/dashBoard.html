@@ -692,7 +692,7 @@ $(document).ready(function(e) {
     getScore();
 });
 window.document.onscroll = function(){
-    if(scrollY == 0){
+    if($(document).scrollTop() == 0){
         $("#head_cont").css("box-shadow","none");
     }else{
         $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
