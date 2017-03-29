@@ -10,6 +10,7 @@ from vrecord.models import WatchCourse, WatchRecord, Score
 from vbadge.models import UserBadge
 from vgrade.api import headimg_urls
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
+from vrecord.api import sum_score_tech
 
 import json
 import logging
@@ -200,7 +201,10 @@ def login(request):
 def userdetail(request):
     try:
         uid = request.session['user']['id']
-        user = User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe', 'intro', 'githuburl', 'personpage')[0]
+        user = \
+            User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe', 'intro',
+                                               'githuburl',
+                                               'personpage', 'location')[0]
         return HttpResponse(json.dumps(user, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -370,10 +374,10 @@ def task_finish(user):
 
 def follow_people(request):
     try:
-        followed_id = request.GET.get('followed_id')                #被关注人的ID
+        followed_id = request.GET.get('followed_id')  # 被关注人的ID
         type = request.GET.get('type')  # 1关注, 0取消关注
         try:
-            follow_id = request.session['user']['id']               #关注人的ID
+            follow_id = request.session['user']['id']  # 关注人的ID
         except ValueError:
             return HttpResponse(u'未登录')
         followed = User.objects.get(id=followed_id)
@@ -391,13 +395,21 @@ def follow_people(request):
         return HttpResponse(traceback.format_exc())
 
 
-def user_badge_sum(request):
+def user_model(request):
     try:
         uid = request.GET.get('uid')
-        user = User.objects.get(id=uid)
-        badge_num = UserBadge.objects.filter(user=user).count()
-        print badge_num
-        return HttpResponse(json.dumps({'number':badge_num}))
+        tech_score = sum_score_tech(uid)
+        user = \
+            User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'intro', 'githuburl', 'personpage',
+                                               'location', 'githubrepo')[0]
+        # followid = request.session['user']['id']
+        followid = 1
+        followed_obj = User.objects.get(id=uid)
+        follow_obj = User.objects.get(id=followid)
+        p2p_status = PtoP.objects.filter(follow=follow_obj, followed=followed_obj).exists()
+        badge_num = UserBadge.objects.filter(user=follow_obj).count()
+        print uid, tech_score, user, p2p_status
+        return HttpResponse(json.dumps({'user':user, 'badge':badge_num, 'tech_score':tech_score, 'guanzhu':p2p_status}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())

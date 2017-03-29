@@ -31,6 +31,7 @@ class User(models.Model):
     comp_use_time_day = models.CharField('使用电脑频率', max_length=50, null=True, blank=True, default=' ')
     learn_habit = models.CharField('学习习惯', max_length=50, null=True, blank=True, default=' ')
     githuburl = models.CharField('github主页', max_length=50, null=True, blank=True, default=' ')
+    githubrepo = models.CharField('github 项目', max_length=50, null=True, blank=True, default=' ')
     linkinurl = models.CharField('linkin主页', max_length=50, null=True, blank=True, default=' ')
     stackoverflowurl = models.CharField('stackoverflow主页', max_length=50, null=True, blank=True, default=' ')
     personpage = models.CharField('个人主页', max_length=50, null=True, blank=True, default=' ')
