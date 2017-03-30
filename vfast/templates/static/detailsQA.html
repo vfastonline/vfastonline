@@ -805,7 +805,7 @@
         <div class="modal-dialog" id="modal_dialog">
             <div class="modal-content" id="modal_content">
                 <div class="modal_top">
-                    <div class="modal_top_img">
+                    <div class="modal_top_img" id="modal_top_img">
                         <img id="modal_headimg" src="" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
@@ -818,7 +818,7 @@
                         </div>
                         <div>
                             <p id="modal_location"></p>
-                            <a id="moadl_github_a" href="" target="_blank"><img id="modal_github_img" src="" alt=""></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a id="moadl_github_a" href="" target="_blank"><img id="modal_github_img" src="" alt=""></a>
                             <a id="moadl_phome_a" href="" target="_blank"><img id="modal_phome_img" src="" alt=""></a>
                         </div>
                         <div>
@@ -827,7 +827,8 @@
                         </div>
                         <p class="clearfix" id="modal_intro"></p>
                     </div>
-                    <div onclick="follow_user(this)">
+                    <div onclick="follow_user(this)" id="follow_div">
+                        <input type="hidden" value="" id="follow_uid">
                         <img id="modal_follow" src="/static/svg/guanzhu.svg" alt="">
                     </div>
                 </div>
@@ -949,54 +950,96 @@
     }
 
     function show_uinfo(uid,t){
+        $("#modal_content").html('<div class="modal_top">'+
+                    '<div class="modal_top_img" id="modal_top_img">'+
+                        '<img id="modal_headimg" src="" alt=""/>'+
+                        '<img src="/static/head/120_without_rank.svg" alt=""/>'+
+                        '<img src="/static/head/online.svg" alt=""/>'+
+                    '</div>'+
+                    '<h4 id="modal_username"></h4>'+
+                    '<div class="modal_top_info clearfix">'+
+                        '<div>'+
+                            '<p>已获得成就</p>'+
+                            '<h3 id="modal_badge"></h3>'+
+                        '</div>'+
+                        '<div>'+
+                            '<p id="modal_location"></p>'+
+                            '<a id="moadl_github_a" href="" target="_blank"><img id="modal_github_img" src="" alt=""></a>'+
+                            '<a id="moadl_phome_a" href="" target="_blank"><img id="modal_phome_img" src="" alt=""></a>'+
+                        '</div>'+
+                        '<div>'+
+                            '<p>已获得积分</p>'+
+                            '<h3 id="modal_totalscore"></h3>'+
+                        '</div>'+
+                        '<p class="clearfix" id="modal_intro"></p>'+
+                    '</div>'+
+                    '<div onclick="follow_user(this)" id="follow_div">'+
+                        '<input type="hidden" value="" id="follow_uid">'+
+                        '<img id="modal_follow" src="/static/svg/guanzhu.svg" alt="">'+
+                    '</div>'+
+                '</div>'+
+                '<div class="modal_bottom">'+
+                    '<ul class="clearfix" id="modal_scoreList">'+
+                    '</ul>'+
+                    '<div class="clearfix" id="modal_repo">'+
+                    '</div>'+
+                "</div>")
+        $("#follow_uid").val(uid);
         $("#modal_dialog").addClass("animated fadeInUp");
         $("#modal_headimg").attr("src",$(t).find('#headimg').attr('src'));
-        $("#modal_repo").html("");
-        $("#modal_scoreList").html("");
         $.getJSON("/u/model?uid="+uid,function(data1){
             $("#modal_username").html(data1.user.username);
             $("#modal_location").html(data1.user.location);
             $("#modal_totalscore").html(data1.user.totalscore);
             $("#modal_intro").html(data1.user.intro);
             $("#modal_badge").html(data1.badge);
-            if(data1.user.githuburl.trim() != "" ){
-                $("#moadl_github_a").attr("href",data1.user.githuburl);
-                $("#modal_github_img").attr("src","/static/svg/fangmao.svg");
-                $.getJSON(data1.user.githubrepo,function(data2){
-                    for(var i = 0 ; i<data2.length;i++){
-                        var branches_url = data2[i].branches_url.substring(0,data2[i].branches_url.indexOf('{'));
-                        (function(i){
-                            $.getJSON(branches_url,function(data3){
-                                if(data2[i].description != null){
-                                    $("#modal_repo").append("<div>"+
-                                        "<h5>Github Repo</h5>"+
-                                        "<h4>"+data2[i].name+"</h4>"+
-                                        "<p id='repo_description'>"+data2[i].description+"</p>"+
-                                        "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+
-                                        "<img src='/static/svg/xiaomao.svg' alt=''>"+
-                                    "</div>");
-                                }else{
-                                    $("#modal_repo").append("<div>"+
-                                        "<h5>Github Repo</h5>"+
-                                        "<h4>"+data2[i].name+"</h4>"+
-                                        "<p id='repo_description'></p>"+
-                                        "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+
-                                        "<img src='/static/svg/xiaomao.svg' alt=''>"+
-                                    "</div>");
-                                }
-                            })
-                        })(i);
+            if(data1.user.githuburl != null ){
+                if(data1.user.githuburl.trim() != "" ){
+                    $("#moadl_github_a").attr("href",data1.user.githuburl);
+                    $("#modal_github_img").attr("src","/static/svg/fangmao.svg");
+                    $.getJSON(data1.user.githubrepo,function(data2){
+                        for(var i = 0 ; i<data2.length;i++){
+                            var branches_url = data2[i].branches_url.substring(0,data2[i].branches_url.indexOf('{'));
+                            (function(i){
+                                $.getJSON(branches_url,function(data3){
+                                    if(data2[i].description != null){
+                                        $("#modal_repo").append('<div onclick="repoURL(\''+data2[i].html_url+'\')">'+
+                                            "<h5>Github Repo</h5>"+
+                                            "<h4>"+data2[i].name+"</h4>"+
+                                            "<p id='repo_description'>"+data2[i].description+"</p>"+
+                                            "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+
+                                            "<img src='/static/svg/xiaomao.svg' alt=''>"+
+                                        "</div>");
+                                    }else{
+                                        $("#modal_repo").append('<div onclick="repoURL(\''+data2[i].html_url+'\')">'+
+                                            "<h5>Github Repo</h5>"+
+                                            "<h4>"+data2[i].name+"</h4>"+
+                                            "<p id='repo_description'></p>"+
+                                            "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+
+                                            "<img src='/static/svg/xiaomao.svg' alt=''>"+
+                                        "</div>");
+                                    }
+                                })
+                            })(i);
 
-                    }
-                })
+                        }
+                    })
+                }
             }
-            if(data1.user.personpage.trim() != "" ){
-                $("#moadl_phome_a").attr("href",data1.user.personpage);
-                $("#modal_phome_img").attr("src","/static/svg/www.svg");
+            if(data1.user.personpage != null){
+                if(data1.user.personpage.trim() != "" ){
+                    $("#moadl_phome_a").attr("href",data1.user.personpage);
+                    $("#modal_phome_img").attr("src","/static/svg/www.svg");
+                }
             }
-            if(data1.guanzhu){
-                $("#modal_follow").attr("src","/static/svg/quxiaoguanzhu.svg");
+            if($("#uid").val() == uid){
+                $("#follow_div").hide();
+            }else{
+                if(data1.guanzhu){
+                    $("#modal_follow").attr("src","/static/svg/quxiaoguanzhu.svg");
+                }
             }
+
             for(var i = 0 ; i < data1.tech_score.length ; i++){
                 if(data1.tech_score[i].name == null){
                     $("#modal_scoreList").append("<li><span style='color: red'>"+data1.tech_score[i].score+"</span>&nbsp;&nbsp;<span>任务得分</span></li>");
@@ -1004,14 +1047,26 @@
                     $("#modal_scoreList").append("<li><span style='color: "+data1.tech_score[i].color+"'>"+data1.tech_score[i].score+"</span>&nbsp;&nbsp;<span>"+data1.tech_score[i].name+"</span></li>");
                 }
             }
+            if(data1.user.githuburl != null && data1.user.personpage != null) {
+                if (data1.user.githuburl.trim() != "" && data1.user.personpage.trim() != "") {
+                    $("#moadl_github_a").after("&nbsp;&nbsp;&nbsp;&nbsp;");
+                }
+            }
         });
     }
 
+    function repoURL(url){
+        console.log(url);
+
+        window.open(url,"_blank");
+    }
     function follow_user(t){
         if($(t).find("img").attr('src') == '/static/svg/guanzhu.svg'){
             $(t).find("img").attr('src','/static/svg/quxiaoguanzhu.svg')
+            $.get("/u/follow?type=1&followed_id="+$("#follow_uid").val(),function(){})
         }else{
             $(t).find("img").attr('src','/static/svg/guanzhu.svg')
+            $.get("/u/follow?type=0&followed_id="+$("#follow_uid").val(),function(){})
         }
     }
 </script>
