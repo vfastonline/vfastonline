@@ -113,6 +113,7 @@ def qr_comment(request):
         rid = request.GET.get('rid')
         status = request.GET.get('type')  # 1为赞, -1踩
         status = int(status)
+        print status
         try:
             uid = request.session['user']['id']
         except:
@@ -124,13 +125,14 @@ def qr_comment(request):
             if status == 1:
                 Question.objects.filter(id=qid).update(score=F('score') + status, like=F('like') + 1)
             else:
-                Question.objects.filter(id=qid).update(score=F('score') + status, like=F('dislike') + 1)
+                Question.objects.filter(id=qid).update(score=F('score') + status, dislike=F('dislike') + 1)
         elif QRcomment.objects.filter(rid=rid, uid=uid, type='R').exists() == False and rid:
             QRcomment.objects.create(rid=rid, uid=uid, type='R', status=status)
             if status == 1:
                 Replay.objects.filter(id=rid).update(score=F('score') + status, like=F('like') + 1)
             else:
-                Replay.objects.filter(id=rid).update(score=F('score') + status, like=F('dislike') + 1)
+                print 'dislike+1', rid
+                Replay.objects.filter(id=rid).update(score=F('score') + status, dislike=F('dislike') + 1)
         else:
             return HttpResponse(json.dumps({'code': 0, 'msg': '回复你已经评论过'}))
         return HttpResponse(json.dumps({'code': 0, 'msg': '评论成功'}))
@@ -160,6 +162,28 @@ def attention_question(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def question_detail(request):
+    try:
+        qid = request.GET.get('qid')
+        question = Question.objects.filter(id=qid).values()[0]
+        print question
+        return HttpResponse(json.dumps({'question':question}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def replay_detail(request):
+    try:
+        rid = request.GET.get('rid')
+        replay = Replay.objects.filter(id=rid).values()[0]
+        print replay
+        return HttpResponse(json.dumps({'replay':replay}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
 
 
 def question_list(request):

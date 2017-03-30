@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from vfast import views
 from oauth.views import github_auth, github_login
-from vpractice.views import add_question
+from vpractice.views import add_question, question_detail, replay_detail
 
 urlpatterns = [
     url('^github_auth$', github_auth, name='github_auth'),
@@ -43,6 +43,8 @@ urlpatterns = [
     url('^practice/(\d+)/$', views.practice,),
 
     url('^add_question$', add_question, name='add_question'),
+    url(r'^question$', question_detail, name='question_detail'),
+    url(r'^replay$', replay_detail, name='replay_detail'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
