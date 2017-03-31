@@ -22,6 +22,7 @@ def sum_score_tech(uid):
                 tmp['technology_id'] = tech['id']
                 tmp['score'] = '0'
                 result.append(tmp)
+        return result
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
