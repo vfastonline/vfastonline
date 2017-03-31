@@ -203,12 +203,12 @@ def update_replay(request):
         rid = request.POST.get('rid')
         content = request.POST.get('content')
         now = time.strftime('%Y-%m-%d %H:%M:%S')
+        print rid
         Replay.objects.filter(id=rid).update(content=content, createtime=now)
         return HttpResponse(json.dumps({'code':0, 'msg':u'编辑回复成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
-
 
 
 def question_list(request):
