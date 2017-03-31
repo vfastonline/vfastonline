@@ -625,7 +625,7 @@
             overflow: hidden;
         }
 
-        .content #edit_div{
+        .edit_content>div:first-child{
             position: relative;
             z-index: 0;
             width:800px;
@@ -902,7 +902,7 @@
         $(".edit").hide();
         $(t).parent().hide();
         $(t).parent().parent().find('#edit_content').html('<script id="edit_div'+edit_index+'" type="text/plain">欢迎使用ueditor欢迎使用ueditor<\/script>')
-        $(t).parent().parent().find('#edit_content').append('<div onclick="send_edit(this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
+        $(t).parent().parent().find('#edit_content').append('<div onclick="send_Qedit('+qid+',this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
 
         ueedit = UE.getEditor("edit_div"+edit_index, {
             toolbars: [
@@ -919,20 +919,18 @@
             ]
         });
         $.getJSON("/question?qid="+qid,function(data){
-            console.log(data)
             ueedit.ready(function() {
-                ueedit.setContent(data);
+                ueedit.setContent(data.question.desc);
             });
         })
         edit_index++;
-
     }
 
     function showEditReplay(rid,t){
         $(".edit").hide();
         $(t).parent().hide();
         $(t).parent().parent().find('#edit_content').html('<script id="edit_div'+edit_index+'" type="text/plain">欢迎使用ueditor欢迎使用ueditor<\/script>')
-        $(t).parent().parent().find('#edit_content').append('<div onclick="send_edit(this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
+        $(t).parent().parent().find('#edit_content').append('<div onclick="send_Aedit('+rid+',this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
 
         ueedit = UE.getEditor("edit_div"+edit_index, {
             toolbars: [
@@ -950,20 +948,38 @@
         });
 
         $.getJSON("/replay?rid="+rid,function(data){
-            console.log(data)
             ueedit.ready(function() {
-                ueedit.setContent(data);
+                console.log(data.replay.content);
+                ueedit.setContent(data.replay.content);
             });
         })
         edit_index++;
 
     }
 
-    function send_edit(t){
-        console.log(ueedit.getContent());
+    function send_Qedit(qid,t){
         $(".edit").show();
         $(t).parent().parent().find("#main_content").show();
-        $(".edit_content").html("");
+        $.post("/community/update_question",{qid:qid,desc:ueedit.getContent()},function(data){
+            $(t).parent().parent().find("#content").html(ueedit.getContent());
+            $  (".edit_content").html("");
+            uParse("#content",{
+                rootPath: '/static/utf8-php'
+            });
+        })
+
+    }
+
+    function send_Aedit(rid,t){
+        $(".edit").show();
+        $(t).parent().parent().find("#main_content").show();
+        $.post("/community/update_replay",{rid:rid,content:ueedit.getContent()},function(data){
+            $(t).parent().parent().find("#content").html(ueedit.getContent());
+            $(".edit_content").html("");
+            uParse("#content",{
+                rootPath: '/static/utf8-php'
+            });
+        })
     }
 
     function returnTop(){
@@ -1156,8 +1172,6 @@
     }
 
     function repoURL(url){
-        console.log(url);
-
         window.open(url,"_blank");
     }
     function follow_user(t){
