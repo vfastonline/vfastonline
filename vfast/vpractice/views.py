@@ -150,6 +150,7 @@ def update_comment(request):
         print status
         try:
             uid = request.session['user']['id']
+            uid = 4
         except:
             return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}))
         if qid and QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists():
@@ -160,12 +161,16 @@ def update_comment(request):
             else:
                 Question.objects.filter(id=qid).update(score=F('score') - 2, like=F('like') - 1,
                                                        dislike=F('dislike') + 1)
+            return HttpResponse(u'修改问题评论成功')
         elif rid and QRcomment.objects.filter(rid=rid, uid=uid, type='R').exists():
             QRcomment.objects.filter(rid=rid, uid=uid, type='R').update(status=status)
             if status == 1:
                 Replay.objects.filter(id=rid).update(score=F('score') + 2, like=F('like') + 1, dislike=F('dislike') + 1)
             else:
                 Replay.objects.filter(id=rid).update(score=F('score') - 2, like=F('like') - 1, dislike=F('dislike') + 1)
+            return HttpResponse(u'修改回复瓶成功')
+        else:
+            return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
