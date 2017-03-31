@@ -118,24 +118,54 @@ def qr_comment(request):
             uid = request.session['user']['id']
         except:
             return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}))
-        if QRcomment.objects.filter(qid=qid, uid=uid).exists() and qid:
+        if qid and QRcomment.objects.filter(qid=qid, uid=uid).exists():
             return HttpResponse(json.dumps({'code': 0, 'msg': '问题已经评论过'}))
-        elif QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists() == False and qid:
+        elif qid and QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists() == False:
             QRcomment.objects.create(qid=qid, uid=uid, type='Q', status=status)
             if status == 1:
                 Question.objects.filter(id=qid).update(score=F('score') + status, like=F('like') + 1)
             else:
                 Question.objects.filter(id=qid).update(score=F('score') + status, dislike=F('dislike') + 1)
-        elif QRcomment.objects.filter(rid=rid, uid=uid, type='R').exists() == False and rid:
+        elif rid and QRcomment.objects.filter(rid=rid, uid=uid, type='R').exists() == False:
             QRcomment.objects.create(rid=rid, uid=uid, type='R', status=status)
             if status == 1:
                 Replay.objects.filter(id=rid).update(score=F('score') + status, like=F('like') + 1)
             else:
-                print 'dislike+1', rid
                 Replay.objects.filter(id=rid).update(score=F('score') + status, dislike=F('dislike') + 1)
         else:
             return HttpResponse(json.dumps({'code': 0, 'msg': '回复你已经评论过'}))
         return HttpResponse(json.dumps({'code': 0, 'msg': '评论成功'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def update_comment(request):
+    '''修改问题回复点赞'''
+    try:
+        qid = request.GET.get('qid')
+        rid = request.GET.get('rid')
+        status = request.GET.get('type')  # 1为赞, -1踩
+        status = int(status)
+        print status
+        try:
+            uid = request.session['user']['id']
+        except:
+            return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}))
+        if qid and QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists():
+            QRcomment.objects.filter(qid=qid, uid=uid, type='Q').update(status=status)
+            if status == 1:
+                Question.objects.filter(id=qid).update(score=F('score') + 2, like=F('like') + 1,
+                                                       dislike=F('dislike') + 1)
+            else:
+                Question.objects.filter(id=qid).update(score=F('score') - 2, like=F('like') - 1,
+                                                       dislike=F('dislike') + 1)
+        elif rid and QRcomment.objects.filter(rid=rid, uid=uid, type='R').exists():
+            QRcomment.objects.filter(rid=rid, uid=uid, type='R').update(status=status)
+            if status == 1:
+                Replay.objects.filter(id=rid).update(score=F('score') + 2, like=F('like') + 1, dislike=F('dislike') + 1)
+            else:
+                Replay.objects.filter(id=rid).update(score=F('score') - 2, like=F('like') - 1, dislike=F('dislike') + 1)
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -169,7 +199,7 @@ def question_detail(request):
         qid = request.GET.get('qid')
         question = Question.objects.filter(id=qid).values()[0]
         print question
-        return HttpResponse(json.dumps({'question':question}))
+        return HttpResponse(json.dumps({'question': question}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -180,7 +210,7 @@ def replay_detail(request):
         rid = request.GET.get('rid')
         replay = Replay.objects.filter(id=rid).values()[0]
         print replay
-        return HttpResponse(json.dumps({'replay':replay}))
+        return HttpResponse(json.dumps({'replay': replay}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -192,7 +222,7 @@ def update_question(request):
         desc = request.POST.get('desc')
         now = time.strftime('%Y-%m-%d %H:%M:%S')
         Question.objects.filter(id=qid).update(desc=desc, createtime=now)
-        return HttpResponse(json.dumps({'code':0, 'msg':u'编辑问题成功'}))
+        return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑问题成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -205,7 +235,7 @@ def update_replay(request):
         now = time.strftime('%Y-%m-%d %H:%M:%S')
         print rid
         Replay.objects.filter(id=rid).update(content=content, createtime=now)
-        return HttpResponse(json.dumps({'code':0, 'msg':u'编辑回复成功'}))
+        return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑回复成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
