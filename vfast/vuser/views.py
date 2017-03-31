@@ -22,7 +22,10 @@ import random
 
 # Create your views here.
 def test(request):
-    return HttpResponse('hello,world~!')
+    begin = int(time.time())
+    time.sleep(3)
+    end = int(time.time())
+    return HttpResponse(json.dumps({'begin': begin, 'end': end}))
 
 
 def userexists(request):
@@ -310,7 +313,7 @@ def dashboard(request, param):
                            'tasks': tasks, 'flag': flag})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(u'页面错误'+traceback.format_exc())
+        return HttpResponse(u'页面错误' + traceback.format_exc())
 
 
 def task_daily(user):
@@ -402,14 +405,14 @@ def user_model(request):
         user = \
             User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'intro', 'githuburl', 'personpage',
                                                'location', 'githubrepo')[0]
-        followid = request.session['user']['id']
-        # followid = 1
-        followed_obj = User.objects.get(id=uid)
-        follow_obj = User.objects.get(id=followid)
-        p2p_status = PtoP.objects.filter(follow=follow_obj, followed=followed_obj).exists()
-        badge_num = UserBadge.objects.filter(user=followed_obj).count()
+        followid = request.session['user']['id']  # 关注人的ID
+        followed_obj = User.objects.get(id=uid)  # 被关注人对象
+        follow_obj = User.objects.get(id=followid)  # 关注人对象
+        p2p_status = PtoP.objects.filter(follow=follow_obj, followed=followed_obj).exists()     #是否关注
+        badge_num = UserBadge.objects.filter(user=follow_obj).count()  # 模态窗扣弹出的 用户的勋章数量
         print uid, tech_score, user, p2p_status
-        return HttpResponse(json.dumps({'user':user, 'badge':badge_num, 'tech_score':tech_score, 'guanzhu':p2p_status}))
+        return HttpResponse(
+            json.dumps({'user': user, 'badge': badge_num, 'tech_score': tech_score, 'guanzhu': p2p_status}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
