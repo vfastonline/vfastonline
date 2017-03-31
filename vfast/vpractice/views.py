@@ -186,6 +186,31 @@ def replay_detail(request):
         return HttpResponse(traceback.format_exc())
 
 
+def update_question(request):
+    try:
+        qid = request.POST.get('qid')
+        desc = request.POST.get('desc')
+        now = time.strftime('%Y-%m-%d %H:%M:%S')
+        Question.objects.filter(id=qid).update(desc=desc, createtime=now)
+        return HttpResponse(json.dumps({'code':0, 'msg':u'编辑问题成功'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def update_replay(request):
+    try:
+        rid = request.POST.get('rid')
+        content = request.POST.get('content')
+        now = time.strftime('%Y-%m-%d %H:%M:%S')
+        Replay.objects.filter(id=rid).update(content=content, createtime=now)
+        return HttpResponse(json.dumps({'code':0, 'msg':u'编辑回复成功'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+
 def question_list(request):
     """问题详情列表"""
     try:
