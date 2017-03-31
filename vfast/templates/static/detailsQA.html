@@ -163,7 +163,7 @@
         .QA_Q_content>.content{
             margin-top: 20px;
             float: right;
-            border-radius: 0px 0px 8px 8px;
+            border-radius: 8px 0px 8px 8px;
             padding: 20px 30px;
             color: #ffffff;
             position: relative;
@@ -255,7 +255,7 @@
         .QA_A_content>.content{
             margin-top: 20px;
             float: left;
-            border-radius: 0px 0px 8px 8px;
+            border-radius: 0px 8px 8px 8px;
             padding: 20px 30px;
             color: #5A646E;
             position: relative;
@@ -329,7 +329,6 @@
         }
         .editor_div .show_deitor:hover{
             cursor: pointer;
-            opacity: 0.8;
             bottom:111px;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
         }
@@ -353,7 +352,6 @@
         }
         .editor_div .send:hover{
             cursor: pointer;
-            opacity: 0.8;
             bottom:111px;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
         }
@@ -377,7 +375,6 @@
         }
         .editor_div .clear_editor:hover{
             cursor: pointer;
-            opacity: 0.8;
             bottom:51px;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
         }
@@ -401,7 +398,6 @@
         }
         .editor_div .top:hover{
             cursor: pointer;
-            opacity: 0.8;
             bottom:251px;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
         }
@@ -628,6 +624,33 @@
             height:40px;
             overflow: hidden;
         }
+
+        .content #edit_div{
+            position: relative;
+            z-index: 0;
+            width:800px;
+        }
+
+        .edit_content{
+            position: relative;
+        }
+
+        .edit_content .edit_send{
+            width:45px;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 25px;
+            text-align: center;
+            position: absolute;
+            right: -115px;
+            bottom: -20px;
+            padding-left: 3px;
+        }
+
+        .edit_content .edit_send:hover{
+            cursor: pointer;
+            bottom: -19px;
+        }
     </style>
 </head>
 {% load mytags %}
@@ -678,10 +701,13 @@
             <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
             <div class="content"  >
         {% endif %}
-                <div id="content">{{ question.desc|safe }}</div>
-                {% if request.session.user.id == question.user_id %}
-                <div class="edit"><img src="/static/svg/bianji.svg" alt=""></div>
-                {% endif %}
+                <div class="main_content" id="main_content">
+                    <div id="content">{{ question.desc|safe }}</div>
+                    {% if request.session.user.id == question.user_id %}
+                    <div class="edit" onclick="showEdit({{ question.id }},this)"><img src="/static/svg/bianji.svg" alt=""></div>
+                    {% endif %}
+                </div>
+                <div class="edit_content" id="edit_content"></div>
             </div>
             <div>
                 <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }},this)">
@@ -739,7 +765,11 @@
                 <section class="QA_Q_content clearfix">
                     <div><span>{{ replay.createtime|time_comp_now }}</span><span>{{ replay.robj.replay_user.username }}</span></div>
                     <div class="content" style="background: {{ question.video.course.color }}" >
-                        <div id="content">{{ replay.content|safe }}</div>
+                        <div class="main_content" id="main_content">
+                            <div id="content">{{ replay.content|safe }}</div>
+                            <div class="edit" onclick="showEditReplay({{ replay.id }},this)"><img src="/static/svg/bianji.svg" alt=""></div>
+                        </div>
+                        <div class="edit_content" id="edit_content"></div>
                     </div>
                     <div>
                         <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }},this)">
@@ -767,7 +797,7 @@
 
         <section id="editor_div" class="editor_div">
             <!-- 加载编辑器的容器 -->
-            <script id="editor" name="content" type="text/plain"></script>
+            <script id="editor" type="text/plain"></script>
             <!-- 配置文件 -->
             <script type="text/javascript" src="/static/utf8-php/ueditor.config.js"></script>
             <!-- 编辑器源码文件 -->
@@ -865,6 +895,76 @@
     uParse("#content",{
         rootPath: '/static/utf8-php'
     });
+
+    var ueedit;
+    var edit_index = 1;
+    function showEdit(qid,t) {
+        $(".edit").hide();
+        $(t).parent().hide();
+        $(t).parent().parent().find('#edit_content').html('<script id="edit_div'+edit_index+'" type="text/plain">欢迎使用ueditor欢迎使用ueditor<\/script>')
+        $(t).parent().parent().find('#edit_content').append('<div onclick="send_edit(this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
+
+        ueedit = UE.getEditor("edit_div"+edit_index, {
+            toolbars: [
+                [
+                    'bold', //加粗
+                    'italic', //斜体
+                    'underline', //下划线
+                    'link', //超链接
+                    'insertimage', //多图上传
+                    'insertorderedlist', //有序列表
+                    'insertunorderedlist', //无序列表
+                    'insertcode', //代码语言
+                ]
+            ]
+        });
+        $.getJSON("/question?qid="+qid,function(data){
+            console.log(data)
+            ueedit.ready(function() {
+                ueedit.setContent(data);
+            });
+        })
+        edit_index++;
+
+    }
+
+    function showEditReplay(rid,t){
+        $(".edit").hide();
+        $(t).parent().hide();
+        $(t).parent().parent().find('#edit_content').html('<script id="edit_div'+edit_index+'" type="text/plain">欢迎使用ueditor欢迎使用ueditor<\/script>')
+        $(t).parent().parent().find('#edit_content').append('<div onclick="send_edit(this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
+
+        ueedit = UE.getEditor("edit_div"+edit_index, {
+            toolbars: [
+                [
+                    'bold', //加粗
+                    'italic', //斜体
+                    'underline', //下划线
+                    'link', //超链接
+                    'insertimage', //多图上传
+                    'insertorderedlist', //有序列表
+                    'insertunorderedlist', //无序列表
+                    'insertcode', //代码语言
+                ]
+            ]
+        });
+
+        $.getJSON("/replay?rid="+rid,function(data){
+            console.log(data)
+            ueedit.ready(function() {
+                ueedit.setContent(data);
+            });
+        })
+        edit_index++;
+
+    }
+
+    function send_edit(t){
+        console.log(ueedit.getContent());
+        $(".edit").show();
+        $(t).parent().parent().find("#main_content").show();
+        $(".edit_content").html("");
+    }
 
     function returnTop(){
         $('body,html').animate({ scrollTop: 0 }, 200);
