@@ -120,7 +120,6 @@ if config.get('db', 'engine') == 'mysql':
             'PORT': DB_PORT,
             'OPTIONS': {
                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-                'charset': 'utf8mb4'
             }
         }
     }
