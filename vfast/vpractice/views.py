@@ -1,6 +1,6 @@
 #!encoding:utf-8
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from vuser.models import User
 from vcourse.models import Video
 from vpractice.models import Question, QRcomment, Replay, Attention
@@ -47,7 +47,7 @@ def show_question(request):
         try:
             uid = request.session['user']['id']
         except:
-            return render(request, 'detailsQA.html')
+            return HttpResponseRedirect('/')
         qid = request.GET.get('qid')
         question = Question.objects.get(id=qid)
         replays = Replay.objects.filter(question=question).values().order_by('-createtime')
@@ -237,7 +237,7 @@ def update_replay(request):
         rid = request.POST.get('rid')
         content = request.POST.get('content')
         now = time.strftime('%Y-%m-%d %H:%M:%S')
-        print rid
+        print rid, content
         Replay.objects.filter(id=rid).update(content=content, createtime=now)
         return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑回复成功'}))
     except:

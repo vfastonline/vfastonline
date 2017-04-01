@@ -14,6 +14,7 @@ import os
 import ConfigParser
 import api
 import sys
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -22,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config = ConfigParser.ConfigParser()
 config.read(os.path.join(BASE_DIR, 'vfast.conf'))
 
-#mail config
+# mail config
 MAIL_ENABLE = config.get('mail', 'mail_enable')
-EMAIL_HOST  = config.get('mail', 'email_host')
+EMAIL_HOST = config.get('mail', 'email_host')
 EMAIL_PORT = config.get('mail', 'email_port')
 EMAIL_HOST_USER = config.get('mail', 'email_host_user')
 EMAIL_HOST_PASSWORD = config.get('mail', 'email_host_password')
@@ -36,8 +37,7 @@ except ConfigParser.NoOptionError:
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend' if EMAIL_USE_SSL else 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_TIMEOUT = 5
 
-
-#host
+# host
 HOST = config.get('host', 'host')
 
 # Quick-start development settings - unsuitable for production
@@ -50,7 +50,6 @@ SECRET_KEY = '+ysv^a@qqp+@)ajj=cve@o9o!1^lmrb0-2_a)8utou6ngct9)&'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -102,7 +101,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vfast.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {}
@@ -121,7 +119,8 @@ if config.get('db', 'engine') == 'mysql':
             'HOST': DB_HOST,
             'PORT': DB_PORT,
             'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                'charset': 'utf8mb4'
             }
         }
     }
@@ -130,8 +129,8 @@ elif config.get('db', 'engine') == 'sqlite':
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 else:
     DATABASES = {
         'default': {
@@ -139,8 +138,6 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -160,7 +157,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -174,7 +170,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -183,11 +178,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'templates/static'),
 )
 
-
 IMG_ROOT = os.path.join(BASE_DIR, 'templates/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 api.set_logging(config.get('log', 'logpath'), config.get('log', 'log_level'))

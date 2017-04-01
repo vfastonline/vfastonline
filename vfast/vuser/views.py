@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
-from django.db.models import Q
+from django.db.models import Q, Sum
 from vuser.models import User, DailyTask, PtoP
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
@@ -413,6 +413,25 @@ def user_model(request):
         print uid, tech_score, user, p2p_status
         return HttpResponse(
             json.dumps({'user': user, 'badge': badge_num, 'tech_score': tech_score, 'guanzhu': p2p_status}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def person_page(request):
+    try:
+        try:
+            # uid = request.session['user']['id']
+            uid = 4
+        except:
+            return HttpResponseRedirect('/')
+        user_obj = User.objects.get(id=uid)
+        tech_score = sum_score_tech(uid)
+        badges = UserBadge.objects.filter(user=user_obj).values()
+        print badges
+        sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
+        print sum_watch_video_time
+        return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
