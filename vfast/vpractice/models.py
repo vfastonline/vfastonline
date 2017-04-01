@@ -34,6 +34,7 @@ class Question(models.Model):
     dislike = models.IntegerField('不赞数', default=0)
     email_status = models.IntegerField('是否发送邮件', default=0)   #0发送邮件, 1不发送邮件
     score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
+    status = models.IntegerField('问题状态', default=0)   #0为为解决状态, 1为解决状态
 
 
     def __unicode__(self):
@@ -48,6 +49,7 @@ class Replay(models.Model):
     like = models.IntegerField('点赞数', default=0)
     dislike = models.IntegerField('不赞数', default=0)
     score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
+    best = models.IntegerField('是否最佳', default=0)      #0不是最佳, 1为最佳答案
 
     def __unicode__(self):
         return self.question.title

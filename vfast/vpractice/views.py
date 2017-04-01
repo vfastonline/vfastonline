@@ -31,7 +31,7 @@ def add_question(request):
             # print title, desc, video.name, email_status
             try:
                 ques = Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
-                                               email_status=email_status, like=0, dislike=0)
+                                               email_status=email_status, like=0, dislike=0, status=0)
                 return HttpResponse(json.dumps({'code': 0, 'qid': ques.id}, ensure_ascii=False))
             except:
                 logging.getLogger().error(traceback.format_exc())
@@ -76,7 +76,7 @@ def show_question(request):
                     replay['status'] = 'dislike'
                 else:
                     pass
-
+        print replays
         # print attention, qcomment, replays
         # qcomment 用户是否对问题点赞, question 问题对象, relays 回复, attention 是否关注问题
         return render(request, 'detailsQA.html',
@@ -99,7 +99,7 @@ def add_replay(request):
         question = Question.objects.get(id=qid)
         # print question.user.username
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
-                                    createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+                                    createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -150,7 +150,6 @@ def update_comment(request):
         print status
         try:
             uid = request.session['user']['id']
-            uid = 4
         except:
             return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}))
         if qid and QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists():
@@ -241,6 +240,26 @@ def update_replay(request):
         print rid
         Replay.objects.filter(id=rid).update(content=content, createtime=now)
         return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑回复成功'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def best_replay(request):
+    try:
+        rid = request.GET.get('rid')
+        replay_obj = Replay.objects.get(id=rid)
+        qid = replay_obj.question_id
+        question_obj = Question.objects.get(id=qid)
+        print replay_obj.id, question_obj.id
+        if question_obj.status == 1:
+            return HttpResponse(u'你已经选择了一个最佳答案')
+        else:
+            replay_obj.best = 1
+            question_obj.status = 1
+            replay_obj.save()
+            question_obj.save()
+            return HttpResponse(json.dumps({'code': 0, 'msg': u'选择最佳答案成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
