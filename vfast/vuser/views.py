@@ -426,13 +426,12 @@ def person_page(request):
         except:
             return HttpResponseRedirect('/')
         user_obj = User.objects.get(id=uid)
-        user = User.objects.filter(id=uid).values()[0]
         tech_score = sum_score_tech(uid)
         badges = UserBadge.objects.filter(user=user_obj).values()
         print badges
         sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
-        print sum_watch_video_time, user
-        return render(request, 'personalCenter.html', {'user': user, 'tech_score': tech_score, 'badges': badges,
+        print sum_watch_video_time,
+        return render(request, 'personalCenter.html', {'user': user_obj, 'tech_score': tech_score, 'badges': badges,
                                                        'totaltime': sum_watch_video_time['totaltime']})
     except:
         logging.getLogger().error(traceback.format_exc())
