@@ -431,7 +431,7 @@ def person_page(request):
         print badges
         sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
 
-        return render(request, 'personalCenter.html', {'user': user_obj, 'tech_score': tech_score, 'badges': badges,
+        return render(request, 'personalCenter.html', {'user': user_obj, 'tech_score': tech_score, 'badges': badges,'badgesLen':len(badges),
                                                        'totaltime': sum_watch_video_time['totaltime']})
     except:
         logging.getLogger().error(traceback.format_exc())

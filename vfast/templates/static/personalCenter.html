@@ -363,10 +363,15 @@
                     {% endif %}
                 </div>
             </div>
+        <div class="slideDIV" style="height:50px;"></div>
             <div class="info_left_2">
                 <ul class="clearfix">
                     {% for tech in tech_score %}
-                        <li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>{{ tech.name }}</span></li>
+                        {% if tech.name == None %}
+                            <li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>任务得分</span></li>
+                        {% else %}
+                            <li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>{{ tech.name }}</span></li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
                 <hr/>
@@ -374,10 +379,12 @@
                     总得分:<span>{{ user.totalscore }}</span>领先于<span>53%</span>的用户
                 </div>
             </div>
+        <div class="slideDIV" style="height:50px;"></div>
             <div class="info_left_3 clearfix" id="info_left_3">
             </div>
+        <div class="slideDIV" style="height:50px;"></div>
             <div class="info_left_4">
-                <p>已获得勋章：{{ badges }}<span>{{ badges.count }}</span></p>
+                <p>已获得勋章：<span>{{ badgesLen }}</span></p>
                 <hr/>
                 <ul class="clearfix">
                     {% for badge in badges %}
@@ -390,12 +397,15 @@
                 </ul>
             </div>
         </div>
+    <div class="slideDIV" style="height:50px;"></div>
         <div class="info_right">
             <div class="info_right_1">
                 <p>已看课程总长</p>
                 <div><span>{{ totaltime }}</span>分钟</div>
             </div>
+            <div class="slideDIV" style="height:50px;"></div>
             <div class="info_right_2"></div>
+            <div class="slideDIV" style="height:50px;"></div>
             <div class="info_right_3"></div>
         </div>
     </section>
