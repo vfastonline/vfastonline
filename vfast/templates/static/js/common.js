@@ -7,6 +7,8 @@ $(function(){
 
 })
 
+
+
 function stopPPG(e,url){
 	if (e && e.stopPropagation) {//非IE浏览器
 		e.stopPropagation();

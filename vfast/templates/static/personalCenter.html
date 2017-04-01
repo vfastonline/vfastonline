@@ -381,7 +381,7 @@
                     总得分:<span>76040</span>领先于<span>53%</span>的用户
                 </div>
             </div>
-            <div class="info_left_3 clearfix">
+            <div class="info_left_3 clearfix" id="info_left_3">
                 <div onclick="repoURL('')">
                     <h5>Github Repo</h5>
                     <h4>FitVid.coffee</h4>
@@ -474,6 +474,12 @@
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
     }
+
+    var user = {{ user }}
+    $(document).ready(function(e){
+        console.log(user);
+    });
+
     function article_close(){
         promptEL.style.height = 0;
         promptEL.style.marginTop = 0;
