@@ -625,7 +625,7 @@
             overflow: hidden;
         }
 
-        .content #edit_div{
+        .edit_content>div:first-child{
             position: relative;
             z-index: 0;
             width:800px;
@@ -694,12 +694,12 @@
 
         {% if request.session.user.id == question.user_id %}
             <section id="QA_Q_content" class="QA_Q_content clearfix">
-            <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
+            <div><span id="createTime">{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
             <div class="content" style="background: {{ question.video.course.color }}" >
         {% else %}
             <section id="QA_Q_content" class="QA_A_content clearfix">
             <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
-            <div class="content"  >
+            <div class="content">
         {% endif %}
                 <div class="main_content" id="main_content">
                     <div id="content">{{ question.desc|safe }}</div>
@@ -709,22 +709,22 @@
                 </div>
                 <div class="edit_content" id="edit_content"></div>
             </div>
-            <div>
+            <div id="{{ question.id }}">
                 <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ question.user_id }},this)">
                     <img id="headimg" src="{{ question.user.headimg }}" alt=""/>
                     <img src="/static/head/120_without_rank.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
                 </a>
                 {% if not qcomment.status %}
-                    <svg onclick="up_down(1,'qid',{{ question.id }},this)" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
+                    <svg onclick="up_down(1,'qid',{{ question.id }},this,'up')" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                     <p>{{ question.score }}</p>
-                    <svg onclick="up_down(-1,'qid',{{ question.id }},this)" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
+                    <svg onclick="up_down(-1,'qid',{{ question.id }},this,'down')" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                 {% elif qcomment.status == 'like' %}
                     <svg class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="{{ question.video.course.color }}" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                     <p>{{ question.score }}</p>
-                    <svg class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
+                    <svg onclick="edit_down(-1,'qid',{{ question.id }},this)" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                 {% else %}
-                    <svg class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
+                    <svg onclick="edit_up(1,'qid',{{ question.id }},this)" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                     <p>{{ question.score }}</p>
                     <svg class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="{{ question.video.course.color }}" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                 {% endif %}
@@ -739,22 +739,22 @@
                 <div class="content" >
                     <div id="content">{{ replay.content | safe }}</div>
                 </div>
-                <div>
+                <div id="{{ replay.id }}">
                     <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }},this)">
                         <img id="headimg" src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                         <img src="/static/head/120_without_rank.svg" alt=""/>
                         <img src="/static/head/online.svg" alt=""/>
                     </a>
                     {% if not replay.status %}
-                        <svg onclick="up_down(1,'rid',{{ replay.id }},this)" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
+                        <svg onclick="up_down(1,'rid',{{ replay.id }},this,'up')" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                         <p>{{ replay.score }}</p>
-                        <svg onclick="up_down(-1,'rid',{{ replay.id }},this)" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
+                        <svg onclick="up_down(-1,'rid',{{ replay.id }},this,'down')" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                     {% elif replay.status == 'like' %}
                         <svg class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="{{ question.video.course.color }}" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                         <p>{{ replay.score }}</p>
-                        <svg class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
+                        <svg onclick="edit_down(-1,'rid',{{ replay.id }},this)" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                     {% else %}
-                        <svg class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
+                        <svg onclick="edit_up(1,'rid',{{ replay.id }},this)" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                         <p>{{ replay.score }}</p>
                         <svg class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="{{ question.video.course.color }}" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                     {% endif %}
@@ -763,7 +763,7 @@
             </section>
             {% else %}
                 <section class="QA_Q_content clearfix">
-                    <div><span>{{ replay.createtime|time_comp_now }}</span><span>{{ replay.robj.replay_user.username }}</span></div>
+                    <div><span id="createTime">{{ replay.createtime|time_comp_now }}</span><span>{{ replay.robj.replay_user.username }}</span></div>
                     <div class="content" style="background: {{ question.video.course.color }}" >
                         <div class="main_content" id="main_content">
                             <div id="content">{{ replay.content|safe }}</div>
@@ -771,22 +771,22 @@
                         </div>
                         <div class="edit_content" id="edit_content"></div>
                     </div>
-                    <div>
+                    <div id="{{ replay.id }}">
                         <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }},this)">
                             <img id="headimg" src="{{ replay.robj.replay_user.headimg }}" alt=""/>
                             <img src="/static/head/120_without_rank.svg" alt=""/>
                             <img src="/static/head/online.svg" alt=""/>
                         </a>
                         {% if not replay.status %}
-                            <svg onclick="up_down(1,'rid',{{ replay.id }},this)" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
+                            <svg onclick="up_down(1,'rid',{{ replay.id }},this,'up')" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                             <p>{{ replay.score }}</p>
-                            <svg onclick="up_down(-1,'rid',{{ replay.id }},this)" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
+                            <svg onclick="up_down(-1,'rid',{{ replay.id }},this,'down')" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                         {% elif replay.status == 'like' %}
                             <svg class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="{{ question.video.course.color }}" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                             <p>{{ replay.score }}</p>
-                            <svg class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
+                            <svg onclick="edit_down(-1,'rid',{{ replay.id }},this)" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                         {% else %}
-                            <svg class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
+                            <svg onclick="edit_up(1,'rid',{{ replay.id }},this)" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>
                             <p>{{ replay.score }}</p>
                             <svg class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="{{ question.video.course.color }}" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>
                         {% endif %}
@@ -902,7 +902,7 @@
         $(".edit").hide();
         $(t).parent().hide();
         $(t).parent().parent().find('#edit_content').html('<script id="edit_div'+edit_index+'" type="text/plain">欢迎使用ueditor欢迎使用ueditor<\/script>')
-        $(t).parent().parent().find('#edit_content').append('<div onclick="send_edit(this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
+        $(t).parent().parent().find('#edit_content').append('<div onclick="send_Qedit('+qid+',this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
 
         ueedit = UE.getEditor("edit_div"+edit_index, {
             toolbars: [
@@ -919,20 +919,18 @@
             ]
         });
         $.getJSON("/question?qid="+qid,function(data){
-            console.log(data)
             ueedit.ready(function() {
-                ueedit.setContent(data);
+                ueedit.setContent(data.question.desc);
             });
         })
         edit_index++;
-
     }
 
     function showEditReplay(rid,t){
         $(".edit").hide();
         $(t).parent().hide();
         $(t).parent().parent().find('#edit_content').html('<script id="edit_div'+edit_index+'" type="text/plain">欢迎使用ueditor欢迎使用ueditor<\/script>')
-        $(t).parent().parent().find('#edit_content').append('<div onclick="send_edit(this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
+        $(t).parent().parent().find('#edit_content').append('<div onclick="send_Aedit('+rid+',this)" id="edit_send" class="edit_send" style="background-color: {{ question.video.course.color }}"><img src="/static/svg/fasong.svg" alt=""></div>')
 
         ueedit = UE.getEditor("edit_div"+edit_index, {
             toolbars: [
@@ -950,20 +948,40 @@
         });
 
         $.getJSON("/replay?rid="+rid,function(data){
-            console.log(data)
             ueedit.ready(function() {
-                ueedit.setContent(data);
+                console.log(data.replay.content);
+                ueedit.setContent(data.replay.content);
             });
         })
         edit_index++;
 
     }
 
-    function send_edit(t){
-        console.log(ueedit.getContent());
+    function send_Qedit(qid,t){
         $(".edit").show();
         $(t).parent().parent().find("#main_content").show();
-        $(".edit_content").html("");
+        $.post("/community/update_question",{qid:qid,desc:ueedit.getContent()},function(data){
+            $(t).parent().parent().find("#content").html(ueedit.getContent());
+            $(t).parent().parent().parent().find("#createTime").html("1秒钟前");
+            $(".edit_content").html("");
+            uParse("#content",{
+                rootPath: '/static/utf8-php'
+            });
+        })
+
+    }
+
+    function send_Aedit(rid,t){
+        $(".edit").show();
+        $(t).parent().parent().find("#main_content").show();
+        $.post("/community/update_replay",{rid:rid,content:ueedit.getContent()},function(data){
+            $(t).parent().parent().find("#content").html(ueedit.getContent());
+            $(t).parent().parent().parent().find("#createTime").html("1秒钟前");
+            $(".edit_content").html("");
+            uParse("#content",{
+                rootPath: '/static/utf8-php'
+            });
+        })
     }
 
     function returnTop(){
@@ -979,7 +997,7 @@
         }
     }
 
-    function up_down(type,qa,id,t){
+    function up_down(type,qa,id,t,updown){
         if(qa == 'qid'){
             $.get("/community/qrcomment?type="+type+"&qid="+id)
         }else{
@@ -990,8 +1008,38 @@
         }else{
             $(t).prev("p").html(parseInt($(t).prev("p").html())+parseInt(type));
         }
-        $(t).find("path").css("fill",$(".title_border").css("background-color"));
+        $(t).find("path").attr("fill",$(".title_border").css("background-color"));
         $(t).parent().find("svg").removeAttr("onclick");
+        if(updown == 'up'){
+            $(t).parent().find(".thumbdown").attr("onclick","edit_down(-1,'"+qa+"',"+$(t).parent().attr("id")+",this)");
+        }else{
+            $(t).parent().find(".thumbup").attr("onclick","edit_up(1,'"+qa+"',"+$(t).parent().attr("id")+",this)");
+        }
+    }
+
+    function edit_up(type,qa,id,t){
+        if(qa == 'qid'){
+            $.get("/community/update_qrcomment?type="+type+"&qid="+id);
+        }else{
+            $.get("/community/update_qrcomment?type="+type+"&rid="+id);
+        }
+        $(t).parent().find("p").html(parseInt($(t).parent().find("p").html())+1);
+        $(t).parent().find(".thumbup path").attr("fill",$(t).parent().find(".thumbdown path").attr("fill"));
+        $(t).parent().find(".thumbdown path").attr("fill","#8C96A5");
+        $(t).removeAttr("onclick");
+        $(t).parent().find(".thumbdown").attr("onclick","edit_down(-1,'"+qa+"',"+$(t).parent().attr("id")+",this)");
+    }
+    function edit_down(type,qa,id,t){
+        if(qa == 'qid'){
+            $.get("/community/update_qrcomment?type="+type+"&qid="+id);
+        }else{
+            $.get("/community/update_qrcomment?type="+type+"&rid="+id);
+        }
+        $(t).parent().find("p").html(parseInt($(t).parent().find("p").html())-1);
+        $(t).parent().find(".thumbdown path").attr("fill",$(t).parent().find(".thumbup path").attr("fill"));
+        $(t).parent().find(".thumbup path").attr("fill","#8C96A5");
+        $(t).removeAttr("onclick");
+        $(t).parent().find(".thumbup").attr("onclick","edit_up(1,'"+qa+"',"+$(t).parent().attr("id")+",this)");
     }
 
     function show_deitor(){
@@ -1010,7 +1058,6 @@
         $("#show_deitor").css('display',"block");
         UE.getEditor('editor').setContent('');
     }
-
 
     function send_A(){
         var qid = $("#qid").val();
@@ -1033,9 +1080,9 @@
                         '<img src="/static/head/120_without_rank.svg" alt=""/>'+
                         '<img src="/static/head/online.svg" alt=""/>'+
                     '</a>'+
-                    '<svg onclick="up_down(1,\'rid\','+d.rid+',this)" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>'+
+                    '<svg onclick="up_down(1,\'rid\','+d.rid+',this,\'up\')" class="thumbup" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M22,9 C22,7.89 21.1,7 20,7 L13.68,7 L14.64,2.43 C14.66,2.33 14.67,2.22 14.67,2.11 C14.67,1.7 14.5,1.32 14.23,1.05 L13.17,0 L6.59,6.58 C6.22,6.95 6,7.45 6,8 L6,18 C6,19.1 6.9,20 8,20 L17,20 C17.83,20 18.54,19.5 18.84,18.78 L21.86,11.73 C21.95,11.5 22,11.26 22,11 L22,9.08 L22,9 Z M0,20 L4,20 L4,8 L0,8 L0,20 Z" transform="translate(.5 .494)"/> </svg>'+
                     '<p>0</p>'+
-                    '<svg onclick="up_down(-1,\'rid\','+d.rid+',this)" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>'+
+                    '<svg onclick="up_down(-1,\'rid\','+d.rid+',this,\'down\')" class="thumbdown" width="23" height="21" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   <path fill="#8C96A5" d="M18,12 L22,12 L22,-9.09494702e-13 L18,-9.09494702e-13 L18,12 Z M14,-9.09494702e-13 L5,-9.09494702e-13 C4.17,-9.09494702e-13 3.46,0.5 3.16,1.22 L0.14,8.27 C0.05,8.5 0,8.74 0,9 L0,10.91 L0,11 C0,12.1 0.9,13 2,13 L8.31,13 L7.36,17.57 C7.34,17.67 7.33,17.77 7.33,17.88 C7.33,18.3 7.5,18.67 7.77,18.94 L8.83,20 L15.41,13.41 C15.78,13.05 16,12.55 16,12 L16,2 C16,0.89 15.1,-9.09494702e-13 14,-9.09494702e-13 Z" transform="translate(.5 .494)"/> </svg>'+
                 '</div>'+
             '</section>');
                 document.getElementById("contentText").innerHTML = desc;
@@ -1156,8 +1203,6 @@
     }
 
     function repoURL(url){
-        console.log(url);
-
         window.open(url,"_blank");
     }
     function follow_user(t){
