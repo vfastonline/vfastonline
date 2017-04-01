@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^replay$', views.add_replay, name='replay'),
     url(r'^update_question$', views.update_question, name='update_question'),
     url(r'^update_replay$',views.update_replay, name='update_replay'),
+    url(r'^best_replay$', views.best_replay, name='best_replay'),
 ]
