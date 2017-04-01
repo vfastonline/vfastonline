@@ -425,13 +425,12 @@ def person_page(request):
         except:
             return HttpResponseRedirect('/')
         user_obj = User.objects.get(id=uid)
-        user = User.objects.filter(id=uid).values()[0]
         tech_score = sum_score_tech(uid)
         sql = 'select vb.badgename, vb.badgeurl, vu.* from vbadge_userbadge as vu , vbadge_badge as vb where vu.user_id = %s and vu.badge_id = vb.id;' % uid
         badges = dictfetchall(sql)
         print badges
         sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
-        print sum_watch_video_time, user
+
         return render(request, 'personalCenter.html', {'user': user_obj, 'tech_score': tech_score, 'badges': badges,
                                                        'totaltime': sum_watch_video_time['totaltime']})
     except:
