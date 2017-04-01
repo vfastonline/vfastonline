@@ -401,7 +401,8 @@
         <div class="info_right">
             <div class="info_right_1">
                 <p>已看课程总长</p>
-                <div><span>{{ totaltime }}</span>分钟</div>
+                {% load mytags %}
+                <div><span>{{ totaltime | secTomin }}</span>分钟</div>
             </div>
             <div class="slideDIV" style="height:50px;"></div>
             <div class="info_right_2"></div>
