@@ -478,6 +478,40 @@
     var user = {{ user }}
     $(document).ready(function(e){
         console.log(user);
+{#        #}
+{#        if(data1.user.githuburl != null ){#}
+{#                if(data1.user.githuburl.trim() != "" ){#}
+{#                    $("#moadl_github_a").attr("href",data1.user.githuburl);#}
+{#                    $("#modal_github_img").attr("src","/static/svg/fangmao.svg");#}
+{#                    $.getJSON(data1.user.githubrepo,function(data2){#}
+{#                        for(var i = 0 ; i<data2.length;i++){#}
+{#                            var branches_url = data2[i].branches_url.substring(0,data2[i].branches_url.indexOf('{'));#}
+{#                            (function(i){#}
+{#                                $.getJSON(branches_url,function(data3){#}
+{#                                    if(data2[i].description != null){#}
+{#                                        $("#modal_repo").append('<div onclick="repoURL(\''+data2[i].html_url+'\')">'+#}
+{#                                            "<h5>Github Repo</h5>"+#}
+{#                                            "<h4>"+data2[i].name+"</h4>"+#}
+{#                                            "<p id='repo_description'>"+data2[i].description+"</p>"+#}
+{#                                            "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+#}
+{#                                            "<img src='/static/svg/xiaomao.svg' alt=''>"+#}
+{#                                        "</div>");#}
+{#                                    }else{#}
+{#                                        $("#modal_repo").append('<div onclick="repoURL(\''+data2[i].html_url+'\')">'+#}
+{#                                            "<h5>Github Repo</h5>"+#}
+{#                                            "<h4>"+data2[i].name+"</h4>"+#}
+{#                                            "<p id='repo_description'></p>"+#}
+{#                                            "<p><span>"+data3.length+"</span> 分支 | <span>"+data2[i].stargazers_count+"</span> 赞</p>"+#}
+{#                                            "<img src='/static/svg/xiaomao.svg' alt=''>"+#}
+{#                                        "</div>");#}
+{#                                    }#}
+{#                                })#}
+{#                            })(i);#}
+{#                        }#}
+{#                    })#}
+{#                }#}
+{#            }#}
+
     });
 
     function article_close(){
