@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
-from django.db.models import Q
+from django.db.models import Q, Sum
 from vuser.models import User, DailyTask, PtoP
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
@@ -408,11 +408,32 @@ def user_model(request):
         followid = request.session['user']['id']  # 关注人的ID
         followed_obj = User.objects.get(id=uid)  # 被关注人对象
         follow_obj = User.objects.get(id=followid)  # 关注人对象
-        p2p_status = PtoP.objects.filter(follow=follow_obj, followed=followed_obj).exists()     #是否关注
+        p2p_status = PtoP.objects.filter(follow=follow_obj, followed=followed_obj).exists()  # 是否关注
         badge_num = UserBadge.objects.filter(user=follow_obj).count()  # 模态窗扣弹出的 用户的勋章数量
         print uid, tech_score, user, p2p_status
         return HttpResponse(
             json.dumps({'user': user, 'badge': badge_num, 'tech_score': tech_score, 'guanzhu': p2p_status}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def person_page(request):
+    try:
+        try:
+            uid = request.session['user']['id']
+            # uid = 4
+        except:
+            return HttpResponseRedirect('/')
+        user_obj = User.objects.get(id=uid)
+        user = User.objects.filter(id=uid).values()[0]
+        tech_score = sum_score_tech(uid)
+        badges = UserBadge.objects.filter(user=user_obj).values()
+        print badges
+        sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
+        print sum_watch_video_time, user
+        return render(request, 'personalCenter.html', {'user': user, 'tech_score': tech_score, 'badges': badges,
+                                                       'totaltime': sum_watch_video_time['totaltime']})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
