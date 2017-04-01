@@ -350,36 +350,28 @@
                     <img src="/static/head/online.svg" alt=""/>
                 </div>
                 <div>
-                    <h3>Mr.Rabbit</h3>
-                    <span>北京-海淀</span>
-                    <p>It really is amazing when you think about it that just by looking up on any given night, you could see virtually hundreds of thousands of stars, star systems, planets, moons, asteroids, comets and maybe a even an occasional space shuttle might wander by.</p>
+                    <h3>{{ user.username }}</h3>
+                    <span>{{ user.location }}</span>
+                    <p>{{ user.intro }}</p>
                 </div>
                 <div>
+                    {%  if user.githuburl != '' %}
                     <a href=""><img src="/static/svg/fangmao.svg" alt=""></a>&nbsp;&nbsp;
+                    {% endif %}
+                    {%  if user.personpage != '' %}
                     <a href=""><img src="/static/svg/www.svg" alt=""></a>
+                    {% endif %}
                 </div>
             </div>
             <div class="info_left_2">
                 <ul class="clearfix">
-                    <li><span style='color: green'>132</span>&nbsp;&nbsp;<span>Android</span></li>
-                    <li><span style='color: #647A90'>0</span>&nbsp;&nbsp;<span>iOS</span></li>
-                    <li><span style='color: #59769F'>699</span>&nbsp;&nbsp;<span>CSS</span></li>
-                    <li><span style='color: #3572A5'>26</span>&nbsp;&nbsp;<span>Python</span></li>
-                    <li><span style='color: #C25975'>744</span>&nbsp;&nbsp;<span>JavaScript</span></li>
-                    <li><span style='color: green'>132</span>&nbsp;&nbsp;<span>Android</span></li>
-                    <li><span style='color: #647A90'>0</span>&nbsp;&nbsp;<span>iOS</span></li>
-                    <li><span style='color: #59769F'>699</span>&nbsp;&nbsp;<span>CSS</span></li>
-                    <li><span style='color: #3572A5'>26</span>&nbsp;&nbsp;<span>Python</span></li>
-                    <li><span style='color: #C25975'>744</span>&nbsp;&nbsp;<span>JavaScript</span></li>
-                    <li><span style='color: green'>132</span>&nbsp;&nbsp;<span>Android</span></li>
-                    <li><span style='color: #647A90'>0</span>&nbsp;&nbsp;<span>iOS</span></li>
-                    <li><span style='color: #59769F'>699</span>&nbsp;&nbsp;<span>CSS</span></li>
-                    <li><span style='color: #3572A5'>26</span>&nbsp;&nbsp;<span>Python</span></li>
-                    <li><span style='color: #C25975'>744</span>&nbsp;&nbsp;<span>JavaScript</span></li>
+                    {% for tech in tech_score %}
+                        <li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>{{ tech.name }}</span></li>
+                    {% endfor %}
                 </ul>
                 <hr/>
                 <div>
-                    总得分:<span>76040</span>领先于<span>53%</span>的用户
+                    总得分:<span>{{ user.totalscore }}</span>领先于<span>53%</span>的用户
                 </div>
             </div>
             <div class="info_left_3 clearfix" id="info_left_3">
@@ -401,7 +393,7 @@
         <div class="info_right">
             <div class="info_right_1">
                 <p>已看课程总长</p>
-                <div><span>39872</span>分钟</div>
+                <div><span>{{ totaltime }}</span>分钟</div>
             </div>
             <div class="info_right_2"></div>
             <div class="info_right_3"></div>
