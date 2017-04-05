@@ -57,3 +57,10 @@ def time_comp_now(str):
         return '%s月前' % (interval / 60 / 60 / 24 / 30)
     else:
         return interval
+
+
+@register.filter(name='secTomin')
+def secTomin(str):
+    """观看时间秒转化成为分钟, 小时"""
+    second = int(str)
+    return int(second / 60)
