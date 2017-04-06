@@ -74,9 +74,29 @@
             border-radius: 6px 6px 0px 0px;
         }
         .QA_Q>h2{
+            position: relative;
             font-size: 20px;
             color: #8C96A5;
+            width:80%;
         }
+
+        .QA_Q>h2>span{
+            position: absolute;
+            right:-100px;
+            color:#4DB6AC;
+            font-size: 18px;
+            margin-left: 30px;
+        }
+
+        .QA_Q>h2 img{
+            position: relative;
+            top:-5px;
+            margin-left: 5px;
+            vertical-align: top;
+            width:25px;
+            height:25px;
+        }
+
          .QA_Q>img{
             position: absolute;
              top:30px;
@@ -653,7 +673,7 @@
             bottom: -19px;
         }
 
-        .adopt{
+        .QA_A_content .adopt{
             position: absolute;
             top:100px;
             right:60px;
@@ -664,16 +684,45 @@
             text-align: center;
             font-size: 16px;
             color: #8C96A5;
-        }
-        .adopt:hover{
             background: #F7F7F7;
-            cursor: pointer;
         }
-        .adopt:active{
+        .QA_A_content .adopt:hover{
             background: {{ question.video.course.color }};
-            cursor: pointer;
             color:#FFFFFF;
+            cursor: pointer;
         }
+        .QA_A_content .adopt:active{
+            cursor: pointer;
+            color: #8C96A5;
+            background: #F7F7F7;
+        }
+        .QA_A_content .adoptAfter{
+            position: absolute;
+            top:100px;
+            right:60px;
+            width:96px;
+            height:36px;
+            line-height: 36px;
+            text-align: center;
+            font-size: 16px;
+            color: #D7BAA5;
+        }
+
+        .QA_Q_content .adoptAfter{
+            position: absolute;
+            top:100px;
+            left:150px;
+            width:96px;
+            height:36px;
+            line-height: 36px;
+            text-align: center;
+            font-size: 16px;
+            color: #D7BAA5;
+        }
+
+
+
+
     </style>
 </head>
 {% load mytags %}
@@ -684,7 +733,7 @@
     <div class="slideDIV" style="height: 130px;" ></div>
     <div style="height: 50px;" ></div>
     <section class="QA_Q">
-        <h2>{{ question.title }} {{ question.user_id }}  {{ request.session.user.id }}</h2>
+        <h2>{{ question.title }}<span>已解决<img src="/static/svg/duigou.svg" alt=""></span></h2>
         <img src="/static/svg/缩小.svg" alt="">
     </section>
     <div class="title_border" style="background-color: {{ question.video.course.color }};"></div>
@@ -761,7 +810,14 @@
                 <div class="content" >
                     <div id="content">{{ replay.content | safe }}</div>
                 </div>
-                <div class="adopt">采纳回答</div>
+                {% if replay.best == 1 and question.status == 1%}
+                    <div class="adoptAfter"><img src='/static/svg/jiangbei.svg'/> 最佳答案</div>
+                {% elif replay.best == 0 and question.status == 0 %}
+                    {% if question.user.id == request.session.user.id %}
+                    <div class="adopt" onclick="adoptAnswer({{ replay.id }},this)">采纳回答</div>
+                    {% endif %}
+                {% endif %}
+
                 <div id="{{ replay.id }}">
                     <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }},this)">
                         <img id="headimg" src="{{ replay.robj.replay_user.headimg }}" alt=""/>
@@ -793,6 +849,10 @@
                         </div>
                         <div class="edit_content" id="edit_content"></div>
                     </div>
+                    {% if replay.best == 1 and question.status == 1%}
+                        <div class="adoptAfter"><img src='/static/svg/jiangbei.svg'/> 最佳答案</div>
+                    {% endif %}
+
                     <div id="{{ replay.id }}">
                         <a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ replay.replay_user_id }},this)">
                             <img id="headimg" src="{{ replay.robj.replay_user.headimg }}" alt=""/>
@@ -946,6 +1006,29 @@
             });
         })
         edit_index++;
+    }
+
+    function adoptAnswer(rid,t){
+        swal({
+                title: "您的问题解决了吗?",
+                text: "您选择最佳回答后，将不可再修改！",
+                imageUrl: "/static/svg/questionMark.svg",
+                showCancelButton: true,
+                confirmButtonColor: '{{ question.video.course.color }}',
+                confirmButtonText: '确认，就是它!',
+                cancelButtonText: '取消',
+                //closeOnConfirm: false,
+                //closeOnCancel: false
+            },
+            function(){
+                $.get("/community/best_replay?rid="+rid,function(data){
+                    $(t).attr("class","adoptAfter");
+                    $(t).removeAttr("onclick");
+                    $(t).html("<img src='/static/svg/jiangbei.svg'/> 最佳答案");
+                    $(".adopt").removeAttr("onclick");
+                    $(".adopt").hide();
+                })
+            });
     }
 
     function showEditReplay(rid,t){

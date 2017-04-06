@@ -343,6 +343,7 @@
             margin-top: 20px;
         }
         .quiz_list>div>div:nth-child(2){
+            position: relative;
             float: left;
             width: 88%;
             padding: 20px;
@@ -352,13 +353,14 @@
         .quiz_list>div>div:nth-child(2)>h5{
             color: #5A646E;
             font-size: 15px;
+            width:80%;
         }
 
         .quiz_list>div>div:nth-child(2)>p{
             color: #7C828C;
             margin-top: 20px;
         }
-        .quiz_list>div>div:nth-child(2)>div{
+        .quiz_list>div>div:nth-child(2)>div:nth-child(2){
             color: #7C828C;
             margin-top: 20px;
             background-color: transparent;
@@ -366,6 +368,23 @@
             overflow: hidden;
             word-wrap: break-word;
             max-height: 80px;
+            width:80%;
+        }
+        .quiz_list>div>div:nth-child(2)>div:last-child{
+            position: absolute;
+            top:30px;
+            right:30px;
+            color:#4DB6AC;
+            font-size: 18px;
+        }
+
+        .quiz_list>div>div:nth-child(2)>div:last-child>img{
+            position: relative;
+            top:-5px;
+            margin-left: 5px;
+            vertical-align: top;
+            width:25px;
+            height:25px;
         }
         .quiz_list>div>div:nth-child(2) pre{
             display: block;
@@ -381,7 +400,7 @@
             font-family:"gothamrounded-book","JiaLi-Regular";
         }
 
-        .quiz_list>div>div:nth-child(2)>p:last-child{
+        .quiz_list>div>div:nth-child(2)>p{
             text-align: right;
         }
 
@@ -1064,6 +1083,9 @@
                 <h5>{{ question.title }}</h5>
                 <div>{{ question.desc|safe }}</div>
                 <p>{{ question.username }}在{{ question.createtime }} </p>
+                {% if question.status == 1 %}
+                <div>已解决<img src="/static/svg/duigou.svg" alt=""></div>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
@@ -1494,7 +1516,7 @@
         $("#quiz").show(200);
 
         quiz_title.value = "";
-        editor.value = "";
+        UE.getEditor('editor').setContent('');
         quiz_email.checked = false;
     }
     function open_QA(qid){
@@ -1548,7 +1570,7 @@
 </script>
 
 
-    <input type="hidden" value="{{ request.session.user.username }}" id="username">
+
 <!---->
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
