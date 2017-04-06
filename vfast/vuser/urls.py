@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^follow', views.follow_people, name='follow'),
     url(r'^model', views.user_model, name='usermodel'),
     url(r'^person', views.person_page),
+    url(r'^is_open$', views.is_open),
 ]

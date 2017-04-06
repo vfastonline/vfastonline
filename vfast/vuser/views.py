@@ -436,3 +436,18 @@ def person_page(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
+
+
+def is_open(request):
+    try:
+        try:
+            uid = request.session['user']['id']
+        except:
+            return HttpResponseRedirect('/')
+        is_open = request.GET.get('is_open')
+        print is_open
+        User.objects.filter(id=uid).update(is_open=is_open)
+        return HttpResponse('is_open update successful')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
