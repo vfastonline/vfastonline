@@ -320,6 +320,83 @@
             margin-right: 10px;
         }
         /*info_right_1 END*/
+
+        /*info_right_2*/
+        .btn_fath{
+          position: absolute;
+            top: 24px;
+            right: 30px;
+            border-radius: 20px;
+            width:35px;
+            height:20px;
+        }
+        .on.btn_fath {
+          background-color: #D6F5D7;
+        }
+        .on.active.btn_fath {
+          background-color: #E9F1F8;
+        }
+        .off.btn_fath {
+          background-color: #E9F1F8;
+        }
+        .off.active.btn_fath {
+          background-color: #D6F5D7;
+        }
+        .move{
+          width: 16px;
+          height: 16px;
+          position: relative;
+          border-radius: 20px;
+          z-index: 100;
+          border: 1px solid #E9F1F8;
+          background-color: #BAC3CA;
+          cursor: pointer;
+          transition:transform ease 0.5s ;
+            top:2px;
+        }
+        .on .move{
+          left: 17px;
+          border: 1px solid #D6F5D7;
+          background-color: #36C935;
+        }
+        .off .move{
+          left: 1px;
+        }
+        .active.on .move{
+          transform: translate(-16px,0px);
+            border: 1px solid #E9F1F8;
+          background-color: #BAC3CA;
+        }
+        .active.off .move{
+          transform: translate(16px,0px);
+            border: 1px solid #D6F5D7;
+          background-color: #36C935;
+        }
+
+        .info_right_2>div{
+            background: #FFFFFF;
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10), inset 0 1px 0 0 rgba(181,181,181,0.10);
+            height:70px;
+            line-height: 70px;
+            font-size: 16px;
+            color: #5A646E;
+            letter-spacing: 0.46px;
+            position: relative;
+        }
+        .info_right_2>div:hover{
+            cursor: pointer;
+        }
+        .info_right_2>div>span{
+            display: inline-block;
+            margin: 0px 20px 0px 50px;
+            width: 23px;
+            height:22px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            vertical-align: middle;
+        }
+        /*info_right_2 END*/
     </style>
 </head>
 <body>
@@ -356,10 +433,10 @@
                 </div>
                 <div>
                     {%  if user.githuburl != '' %}
-                    <a href=""><img src="/static/svg/fangmao.svg" alt=""></a>&nbsp;&nbsp;
+                    <a href="{{ user.githuburl }}" target="_blank"><img src="/static/svg/fangmao.svg" alt=""></a>&nbsp;&nbsp;
                     {% endif %}
                     {%  if user.personpage != '' %}
-                    <a href=""><img src="/static/svg/www.svg" alt=""></a>
+                    <a href="{{ user.personpage }}" target="_blank"><img src="/static/svg/www.svg" alt=""></a>
                     {% endif %}
                 </div>
             </div>
@@ -397,7 +474,7 @@
                 </ul>
             </div>
         </div>
-    <div class="slideDIV" style="height:50px;"></div>
+        <div class="slideDIV" style="height:50px;"></div>
         <div class="info_right">
             <div class="info_right_1">
                 <p>已看课程总长</p>
@@ -405,9 +482,39 @@
                 <div><span>{{ totaltime | secTomin }}</span>分钟</div>
             </div>
             <div class="slideDIV" style="height:50px;"></div>
-            <div class="info_right_2"></div>
+            <div class="info_right_2">
+                <div>
+                    <span style="background-image: url('/static/svg/bianjihei.svg')"></span>
+                    修改个人信息
+                </div>
+                <div onclick="location.href = '/logout'">
+                    <span style="background-image: url('/static/svg/logout.svg')"></span>
+                    退出登陆
+                </div>
+                <div>
+                    <span style="background-image: url('/static/svg/tuijianhaoyou.svg')"></span>
+                    推荐好友
+                </div>
+                <div>
+                    <span style="background-image: url('/static/svg/chongzhi.svg')"></span>
+                    重置所有提示
+                </div>
+                <div onclick="toogle(this)" id="{{ user.is_open }}" >
+                    <span style="background-image: url('/static/svg/qiyechakan.svg')"></span>
+                    允许企业查看
+                    {% if user.is_open == 0 %}
+                        <div id="moveDIV" class="btn_fath on" >
+                        {% else %}
+                        <div id="moveDIV" class="btn_fath off" >
+                    {% endif %}
+                    <div class="move"></div>
+                  </div>
+                </div>
+            </div>
             <div class="slideDIV" style="height:50px;"></div>
-            <div class="info_right_3"></div>
+            <div class="info_right_3">
+
+            </div>
         </div>
     </section>
 
@@ -428,6 +535,16 @@
         }else{
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
+    }
+    function toogle(t){
+        if($(t).attr("id") == '0'){
+            $(t).attr("id","1");
+            $.get("/u/is_open?is_open=1",function(data){})
+        }else{
+            $(t).attr("id","0");
+            $.get("/u/is_open?is_open=0",function(data){})
+        }
+        $("#moveDIV").toggleClass('active');
     }
     $(document).ready(function(e){
         var githuburl = $("#githuburl").val();

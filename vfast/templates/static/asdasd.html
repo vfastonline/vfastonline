@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3做的滑动开关效果</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+</head>
+<style>
+.switch{
+    width: 100px;
+    margin: 100px 0px 0 100px;
+}
+.btn_fath{
+  margin-top: 10px;
+  position: relative;
+  border-radius: 20px;
+}
+
+.on.btn_fath {
+  background-color: #5281cd;
+}
+.on.active.btn_fath {
+  background-color: #828282;
+}
+
+.off.btn_fath {
+  background-color: #828282;
+}
+.off.active.btn_fath {
+  background-color: #5281cd;
+}
+
+
+.btn1{
+  float: left;
+}
+
+.btn2{
+  float: right;
+}
+
+.switchBtn{
+  height: 40px;
+  width: 50px;
+  border:none;
+  color: #fff;
+  line-height: 40px;
+  font-size: 16px;
+  text-align: center;
+  z-index: 1;
+}
+
+.move{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  border-radius: 20px;
+  z-index: 100;
+  border: 1px solid #828282;
+  background-color: #f1eff0;
+  cursor: pointer;
+  box-shadow: 1px 2px 2px 1px #fff inset,0 0 5px 1px #999;
+  transition:transform ease 0.5s ;
+}
+
+.on .move{
+  left: 60px;
+}
+.off .move{
+  left: 0;
+}
+.active.on .move{
+  transform: translate(-60px,0px);
+}
+
+.active.off .move{
+  transform: translate(60px,0px);
+}
+
+</style>
+<body>
+
+<div class="switch">
+  <div class="btn_fath clearfix la_state off" onclick="toogle(this)">
+    <div class="move"></div>
+    <div class="switchBtn btn1">ON</div>
+    <div class="switchBtn btn2 ">OFF</div>
+  </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+//初始化页面开关是on 还是off状态的
+function toogle(th){
+  $(th).toggleClass('active');
+}
+</script>
+</body>
+</html>
