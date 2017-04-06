@@ -1516,7 +1516,7 @@
         $("#quiz").show(200);
 
         quiz_title.value = "";
-        editor.value = "";
+        UE.getEditor('editor').setContent('');
         quiz_email.checked = false;
     }
     function open_QA(qid){
@@ -1570,7 +1570,7 @@
 </script>
 
 
-    <input type="hidden" value="{{ request.session.user.username }}" id="username">
+
 <!---->
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
