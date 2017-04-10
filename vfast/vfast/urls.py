@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^logout', views.logout),
     url(r'^upload', views.upload, name='upload'),
     url('^u/', include('vuser.urls')),
-    url('^head/', include('vgrade.urls')),
     url('^course/', include('vcourse.urls')),
     url('^r/', include('vrecord.urls')),
     url('^community/', include('vpractice.urls')),

@@ -8,7 +8,6 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchCourse, WatchRecord, Score
 from vbadge.models import UserBadge
-from vgrade.api import headimg_urls
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
 from vrecord.api import sum_score_tech
 
@@ -177,7 +176,7 @@ def login(request):
             if ret:
                 # 账号登陆成功之后需要将用户的相关信息保存到session里面
                 user = User.objects.filter(Q(email=email) | Q(username=email), password=password, status=1).values(
-                    'email', 'id', 'role', 'username', 'totalscore', 'headimg', 'headimgframe', 'pathid').first()
+                    'email', 'id', 'role', 'username', 'totalscore', 'headimg', 'pathid').first()
                 token = get_validate(email=user['email'], uid=user['id'], role=user['role'],
                                      fix_pwd=settings.SECRET_KEY)
                 request.session['token'] = token
