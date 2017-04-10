@@ -8,7 +8,7 @@ from vfast.api import require_role, require_login, dictfetchall
 from django.conf import settings
 from vuser.models import User
 from vperm.models import Role
-from vcourse.models import Program, Course, Video, Path, UserPath
+from vcourse.models import Technology, Course, Video, Path, UserPath
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -25,7 +25,7 @@ def course_add(request):
     """添加课程系列"""
     try:
         if request.method == 'GET':
-            techs = Program.objects.filter().values('id', 'name')
+            techs = Technology.objects.filter().values('id', 'name')
             roleobj = Role.objects.get(rolename='teacher')
             teachers = User.objects.filter(role=roleobj).values('id', 'username')
             print techs, teachers
@@ -40,7 +40,7 @@ def course_add(request):
             icon = request.POST.get('icon')
             tech = request.POST.get('tech')
             teach = request.POST.get('teach')
-            techobj = Program.objects.get(id=tech)
+            techobj = Technology.objects.get(id=tech)
             teachobj = User.objects.get(id=teach)
             t = time.strftime('%Y-%m-%d %H:%M:%S')
 
@@ -195,9 +195,9 @@ def getcourses(request):
     try:
         pubs, not_pubs = [], []
         type = request.GET.get('type', None)
-        vps = Program.objects.all().values()
+        vps = Technology.objects.all().values()
         try:
-            techobj = Program.objects.get(name=type)
+            techobj = Technology.objects.get(name=type)
             courses = Course.objects.filter(tech=techobj).values('id')
         except:
             courses = Course.objects.filter().values('id')
