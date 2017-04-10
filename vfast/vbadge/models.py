@@ -8,8 +8,8 @@ from vuser.models import User
 # Create your models here.
 class Badge(models.Model):
     badgename = models.CharField('勋章名称', max_length=100, null=True, blank=True, default=' ')
-    badgeurl = models.CharField('勋章图片位置', max_length=100, null=True, blank=True, default=' ')
-    createtime = models.CharField('勋章创建时间', max_length=20)
+    badgeurl = models.ImageField('勋章位置', upload_to='badge')
+    createtime = models.DateField('勋章创建时间', auto_now=True)
     course = models.ForeignKey(Course, null=True, blank=True)
 
     def __unicode__(self):

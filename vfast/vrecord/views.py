@@ -1,12 +1,11 @@
 #!encoding: utf-8
 # from django.shortcuts import render
 from vuser.models import User
-from vcourse.models import Course, Video, Program
+from vcourse.models import Course, Video, Technology
 from vrecord.models import WatchRecord, Score, WatchCourse
 from django.http import HttpResponse
 from django.db import connection
 from vbadge.models import UserBadge, Badge
-from vgrade.models import Headframe
 from vfast.api import get_day_of_day, dictfetchall
 
 import time
@@ -16,17 +15,15 @@ import logging, traceback
 
 def user_level(user):
     try:
-        # score = Score.objects.filter(user=user).aggregate(score=Sum('score'))['score']
         score = user.totalscore
-        level = score / 150 + 1
-        headframobj = Headframe.objects.get(id=level)
-        if headframobj.url == user.headimgframe:
-            logging.getLogger().info('用户等级没有改变')
-            return False, None
-        else:
-            user.headimgframe = headframobj.url
-            logging.getLogger().info('用户等级增加为%s' % level)
-            return True, level
+        # level = score / 150 + 1
+        # if headframobj.url == user.headimgframe:
+        #     logging.getLogger().info('用户等级没有改变')
+        #     return False, None
+        # else:
+        #     user.headimgframe = headframobj.url
+        #     logging.getLogger().info('用户等级增加为%s' % level)
+        #     return True, level
     except:
         logging.getLogger().error(traceback.format_exc())
         return False, None
@@ -82,7 +79,7 @@ def record_video(request):
                     obj.video_time = video_process
                     obj.video_process = 0
                     obj.save()
-                    tech = Program.objects.get(id=course.tech_id)
+                    tech = Technology.objects.get(id=course.tech_id)
                     Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
                     user.totalscore = user.totalscore + 1
                     b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章

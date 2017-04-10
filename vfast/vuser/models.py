@@ -32,15 +32,12 @@ class User(models.Model):
     learn_habit = models.CharField('学习习惯', max_length=50, null=True, blank=True, default='')
     githuburl = models.CharField('github主页', max_length=50, null=True, blank=True, default='')
     githubrepo = models.CharField('github 项目', max_length=50, null=True, blank=True, default='')
-    linkinurl = models.CharField('linkin主页', max_length=50, null=True, blank=True, default='')
-    stackoverflowurl = models.CharField('stackoverflow主页', max_length=50, null=True, blank=True, default='')
     personpage = models.CharField('个人主页', max_length=50, null=True, blank=True, default='')
     expect_job = models.CharField('期望工作', max_length=100, null=True, blank=True, default='')
     expect_level = models.CharField('期望级别', max_length=50, null=True, blank=True, default='')
     current_company = models.CharField('当前所在公司', max_length=100, null=True, blank=True, default='')
     company_location = models.CharField('公司所在地', max_length=100, null=True, blank=True, default='')
     headimg = models.CharField('头像URL', max_length=100, null=True, blank=True, default='')
-    headimgframe = models.CharField('画框URL', max_length=100, null=True, blank=True, default='/static/head/level0.png')
     createtime = models.CharField('创建时间', max_length=20)
     active = models.CharField('激活账号码', max_length=100, null=True, blank=True)
     status = models.IntegerField('是否激活', default=0)
@@ -70,5 +67,13 @@ class DailyTask(models.Model):
 class PtoP(models.Model):
     follow = models.ForeignKey(User, verbose_name='关注人', related_name='follow')
     followed = models.ForeignKey(User, verbose_name='被关注的人', related_name='followed')
+
+
+class Headimg(models.Model):
+    url = models.ImageField('头像', upload_to='user/headimg')
+    createtime = models.DateTimeField('创建时间', auto_now=True)
+
+    def __unicode__(self):
+        return self.name
 
 

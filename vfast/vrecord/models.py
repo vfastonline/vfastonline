@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from vuser.models import User
-from vcourse.models import Course, Video, Program
+from vcourse.models import Course, Video, Technology
 
 
 # Create your models here.
@@ -11,7 +11,7 @@ class Score(models.Model):
     """用户得分记录表"""
     createtime = models.CharField('获得积分的日期', max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户ID')
-    technology = models.ForeignKey(Program, on_delete=models.CASCADE, null=True, verbose_name='类别ID', blank=True)
+    technology = models.ForeignKey(Technology, on_delete=models.CASCADE, null=True, verbose_name='类别ID', blank=True)
     score = models.IntegerField('获得积分')
 
     def __unicode__(self):

@@ -1,7 +1,7 @@
 #!encoding:utf-8
 from vcourse.models import Course
 from django.shortcuts import render
-from vcourse.models import Program
+from vcourse.models import Technology
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from vcourse.models import Video
@@ -50,7 +50,7 @@ def search_course(request):
     try:
         key_words = request.GET.get('query')
         key_words = key_words.strip()
-        vps = Program.objects.all()
+        vps = Technology.objects.all()
         if key_words == '':
             courses = Course.objects.all().values('id')
         else:
@@ -71,7 +71,7 @@ def search_course(request):
                 pass
         tech = request.GET.get('type', None)
         if tech:
-            tech_obj = Program.objects.get(name=tech)
+            tech_obj = Technology.objects.get(name=tech)
             tech_id = tech_obj.id
             tmp = [course for course in result if course['tech_id'] == tech_id]
             result = tmp
