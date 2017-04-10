@@ -1,5 +1,11 @@
 from django.contrib import admin
-from vuser.models import User
+from vuser.models import User, DailyTask, PtoP
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'username', 'sex', 'location', 'totalscore','realname', 'intro', 'role')
+    search_fields = ('email',)
 
 # Register your models here.
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
+admin.site.register(DailyTask)
+admin.site.register(PtoP)
