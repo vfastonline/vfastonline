@@ -38,7 +38,7 @@ class Course(models.Model):
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=2)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
     createtime = models.CharField('课程创建时间', max_length=20)
-    teach = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='作者')
+    teach = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='作者', limit_choices_to={'role':3})
     people = models.IntegerField('学习课程的人数', default=500)
     pubdate = models.CharField('课程发布时间', max_length=50, default='即将发布')
     tag = models.CharField('标签', max_length=50, default='')
