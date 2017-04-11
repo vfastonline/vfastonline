@@ -72,7 +72,7 @@ def register(request):
             sex = request.POST.get('sex', '')
 
             role = Role.objects.get(rolename='student')  # 取角色表里面普通用户的name
-            headimg = random.choice(headimg_urls())
+            headimg = ''
             active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()[:64]
             subject = u'智量酷账号激活'
             message = u'''
@@ -107,7 +107,7 @@ def useractive(request):
             user.status = 1
             user.save()
             user = User.objects.filter(active=active, status=1).values(
-                'email', 'id', 'role', 'username', 'totalscore', 'headimg', 'headimgframe').first()
+                'email', 'id', 'role', 'username', 'totalscore', 'headimg').first()
             request.session['user'] = user
             request.session['login'] = True
             return HttpResponseRedirect('/')
@@ -204,7 +204,7 @@ def userdetail(request):
     try:
         uid = request.session['user']['id']
         user = \
-            User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'headimgframe', 'intro',
+            User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'intro',
                                                'githuburl',
                                                'personpage', 'location')[0]
         return HttpResponse(json.dumps(user, ensure_ascii=False))
