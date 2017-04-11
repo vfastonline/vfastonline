@@ -72,7 +72,7 @@ def register(request):
             sex = request.POST.get('sex', '')
 
             role = Role.objects.get(rolename='student')  # 取角色表里面普通用户的name
-            headimg = ''
+            headimg = '/static/head/defaultIMG.svg'
             active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()[:64]
             subject = u'智量酷账号激活'
             message = u'''
@@ -220,7 +220,7 @@ def dashboard(request, param):
         pathid = user.pathid
         # 当没有正在学习的路线的时候, 显示已经学过的课程
         if pathid == 0:
-            sql = "select vr.video_id, vv.vtype as video_type, vc.*, vp.color as tech_color, vp.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_program as vp where vp.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
+            sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
             courses = dictfetchall(sql)
             task_create = task_daily(user)
             if task_create:
