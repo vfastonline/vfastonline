@@ -54,7 +54,7 @@ class Path(models.Model):
     desc = models.TextField('路线简介', max_length=1000, blank=True, null=True, default='')
     intrv = models.FileField('路线介绍视频', upload_to='path/video')
     jobscount = models.CharField('岗位数', null=True, blank=True, default='', max_length=20)
-    salary = models.CharField('岗位起薪', null=True, blank=True, max_length=50, default='')
+    salary = models.CharField('岗位起薪', null=True, blank=True, max_length=50, default='10K')
     jstime = models.CharField('岗位&起薪统计时间', null=True, blank=True, max_length=50)
     difficult = models.IntegerField('路径难度', null=True, blank=True, default=5)
     pathimg = models.ImageField('路线图片', upload_to='path/img')
@@ -64,7 +64,7 @@ class Path(models.Model):
     createtime = models.DateField('路线创建时间', auto_now=True)
     sequence = models.CharField('课程顺序', null=True, blank=True, max_length=30)
     color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
-    avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='1W')
+    avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='9000')
     job_wanted = models.IntegerField('岗位空缺度', null=True, default=5)
 
 
@@ -83,8 +83,8 @@ class Video(models.Model):
     )
     name = models.CharField('视频名称', max_length=100)
     vtime = models.CharField('视频时长', max_length=10, default='')
-    vurl = models.FileField('视频存放位置', upload_to='video/%y/%m')
-    cc = models.FileField('字幕存放位置', upload_to='video/%y/%m')
+    vurl = models.FileField('视频存放位置', upload_to='video/%y%m%d')
+    cc = models.FileField('字幕存放位置', upload_to='video/%y%m%d')
     notes = models.TextField('讲师笔记', default='', null=True, blank=True)
     score = models.IntegerField('总评星', null=True, blank=True, default=0)
     scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)
