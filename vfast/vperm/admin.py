@@ -3,5 +3,7 @@ from django.contrib import admin
 from vperm.models import Role
 
 
-# Register your models here.
-admin.site.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'rolename')
+
+admin.site.register(Role, RoleAdmin)

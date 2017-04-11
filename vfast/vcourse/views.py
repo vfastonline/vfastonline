@@ -202,14 +202,17 @@ def getcourses(request):
         except:
             courses = Course.objects.filter().values('id')
             techobj = ''
+        print courses
         for c in courses:
-            sql_pub = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
+            sql_pub = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vt.name as vt_name, vt.color as vt_color from vcourse_technology as vt, vcourse_course as vc, vcourse_video as vv where vt.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
                       c['id']
+            print sql_pub
             ret = dictfetchall(sql_pub)
             if len(ret) != 0:
                 pubs.append(ret[0])
             else:
                 not_pubs.append(Course.objects.get(id=c['id']))
+        print pubs, not_pubs
         return render(request, 'course_library.html',
                       {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj,
                        'xingxing': [0, 1, 2, 3, 4]})
