@@ -592,10 +592,13 @@
             }
             $("#option_div").html(str);
             var sum = parseInt($("#sum_Q").html());
-            if(sum == next_QA && $("#skip_url_Q").val() != 'Flase'){
+            if(sum == next_QA && $("#skip_url_Q").val() != 'False'){
                 $("#next_btn").html("下一节<img src='/static/svg/arrow.svg'/>");
                 $("#next_btn").removeAttr("click");
                 $("#next_btn").bind("click",next_video);
+            }else{
+                $("#next_btn").html("");
+                $("#next_btn").hide();
             }
         }
 

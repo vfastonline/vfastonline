@@ -324,7 +324,11 @@
             <div style="background-color: {{ pub.color }};"  onclick="window.open('/practice/{{ pub.video_id }}','_blank')">
         {% endif %}
                 <div>
-                    <img src="{{ pub.icon_url }}" alt="">
+                    {% if pub.icon == 0 %}
+                    <img src="/static/svg/videoCourse.svg" alt="">
+                    {% else %}
+                    <img src="/static/svg/project.svg" alt="">
+                    {% endif %}
                 </div>
                 <div>{{ pub.totaltime }}</div>
             </div>
@@ -336,7 +340,7 @@
                 <p>系列课程</p>
                 <h1>{{ pub.name }}</h1>
                 <p>{{ pub.desc }}</p>
-                <div style="background-color: {{ pub.vp_color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.vp_name }}')">{{ pub.vp_name }}</div>
+                <div style="background-color: {{ pub.vt_color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.vt_name }}')">{{ pub.vt_name }}</div>
                 <div>难易度：
                     {% for n in xingxing %}
                         {% if pub.difficult > n %}
