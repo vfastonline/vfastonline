@@ -244,9 +244,9 @@
     </div>
     <section class="contentBody_course">
 
-        {% if results == Flase %}
-            <h4>您搜索的 <span>{{ key_words }}</span> 找不到任何相关信息！</h4>
-        {% endif %}
+        {% if results == False %}
+            <h4>在<span>{{ tech_obj.name }}  {{ key_words }}</span> 找不到任何相关信息！</h4>
+        {% else %}
         {% for pub in results %}
             <div>
             {% if pub.vtype == 0 %}
@@ -255,7 +255,11 @@
                 <div style="background-color: {{ pub.color }};" onclick="window.open('/practice/{{ pub.video_id }}','_blank')">
             {% endif %}
                     <div>
-                        <img src="{{ pub.icon_url }}" alt="">
+                    {% if pub.icon == 0 %}
+                        <img src="/static/svg/videoCourse_1.svg" alt="">
+                    {% else %}
+                        <img src="/static/svg/project_1.svg}" alt="">
+                    {% endif %}
                     </div>
                     <div>{{ pub.totaltime }}</div>
                 </div>
@@ -267,7 +271,7 @@
                     <p>系列课程</p>
                     <h1>{{ pub.name }}</h1>
                     <p>{{ pub.desc }}</p>
-                    <div style="background-color: {{ pub.vp_color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.vp_name }}')">{{ pub.vp_name }}</div>
+                    <div style="background-color: {{ pub.tech.color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.tech.name }}')">{{ pub.tech.name }}</div>
                     <div>难易度：
                         {% for n in xingxing %}
                             {% if pub.difficult > n %}
@@ -281,6 +285,7 @@
                 </div>
             </div>
         {% endfor %}
+        {% endif %}
     </section>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>

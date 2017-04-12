@@ -8,6 +8,7 @@ from vcourse.models import Video
 from vpractice.models import Timu
 from vfast.api import dictfetchall, time_comp_now
 from django.conf import settings
+from django.db.models import Q
 
 import logging
 import traceback
@@ -25,6 +26,7 @@ def test(request):
     # course.execute('select * from vcourse_video')
     # a = dictfetchall(cursor=course)
     return render(request, "personalCenter.html")
+
 
 def logout(request):
     try:
@@ -49,44 +51,34 @@ def index(request):
 def search_course(request):
     try:
         key_words = request.GET.get('query')
-        key_words = key_words.strip()
+        key_words = key_words.replace('+', '').strip()
         vps = Technology.objects.all()
-        if key_words == '':
-            courses = Course.objects.all().values('id')
+        print  key_words
+        if len(key_words) == '':
+            courses = Course.objects.filter()
         else:
-            conditions = []
-            for i in key_words.split():
-                conditions.append("`vcourse_course`.`tag` like BINARY '%%%s%%'" % i)
-            sql = "select id from vcourse_course  WHERE (`vcourse_course`.`name` LIKE BINARY '%%%s%%' OR (%s))" % (
-                key_words, ' AND '.join(conditions))
-            courses = dictfetchall(sql)
-        result = []
-        for c in courses:
-            sql = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vp.name as vp_name, vp.color as vp_color from vcourse_program as vp, vcourse_course as vc, vcourse_video as vv where vp.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
-                  c['id']
-            try:
-                ret = dictfetchall(sql)[0]
-                result.append(ret)
-            except:
-                pass
+            courses = Course.objects.filter(Q(tag__contains=key_words) | Q(name__contains=key_words))
         tech = request.GET.get('type', None)
+        print courses
+        print tech
         if tech:
             tech_obj = Technology.objects.get(name=tech)
-            tech_id = tech_obj.id
-            tmp = [course for course in result if course['tech_id'] == tech_id]
-            result = tmp
+            courses = [course for course in courses if course.tech_id == tech_obj.id]
+            if len(courses) == 0:
+                return render(request, 'search_Result.html', {'key_words': key_words, 'vps': vps, 'results': False, 'tech_obj': tech_obj})
+            else:
+                return render(request, 'search_Result.html',
+                              {'results': courses, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'tech_obj': tech_obj,
+                               'key_words': key_words})
+        elif len(courses) != 0:
             return render(request, 'search_Result.html',
-                          {'results': result, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'tech_obj': tech_obj,
-                           'key_words': key_words})
-        elif len(result) != 0:
-            return render(request, 'search_Result.html',
-                          {'results': result, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'desc': '',
-                           'key_words': key_words})
+                          {'results': courses, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'key_words': key_words})
         else:
-            return render(request, 'search_Result.html', {'key_words': key_words, 'vps': vps})
+            print 'hahaha'
+            return render(request, 'search_Result.html', {'key_words':key_words, 'vps':vps, 'results':False})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return HttpResponseRedirect('/search?query=')
 
 
 def search_js(request):

@@ -314,7 +314,7 @@
             font-weight: bolder;
             color: #384047;
             width:1200px;
-            margin: 50px auto 0px;
+            margin: -200px auto 0px;
         }
         /*contentBody_course Start*/
         .contentBody_course:after{content: "";display: block;clear: both;}
@@ -489,12 +489,20 @@
                                 <div style="width: {{ course.video_jindu }};"></div>
                                 <li>
                                     <div>
-                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                        {% if course.icon == 0 %}
+                                            <img src="/static/svg/VideoCourse_1.svg" width="24px" height="24px" alt="">
+                                        {% else %}
+                                            <img src="/static/svg/project_1.svg" width="24px" height="24px" alt="">
+                                        {% endif %}
                                         <span>{{ course.name }}</span>
                                         <time>{{ course.viewtime }}</time>
                                     </div>
                                     <div>
-                                        <img src="{{ course.vtype_url }}" width="24px" height="24px" alt="">
+                                        {% if course.vtype == 0 %}
+                                            <img src="/static/svg/video_1.svg" width="24px" height="24px" alt="">
+                                        {% else %}
+                                            <img src="/static/svg/quiz_1.svg" width="24px" height="24px" alt="">
+                                        {% endif %}
                                         <span>{{ course.video_name }}</span>
                                         <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">
                                     </div>
@@ -503,7 +511,11 @@
                         {% else %}
                             <a href="{{ course | dashboard_get_lession_url}}">
                                 <li>
-                                    <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                    {% if course.icon == 0 %}
+                                        <img src="/static/svg/VideoCourse.svg" width="24px" height="24px" alt="">
+                                    {% else %}
+                                        <img src="/static/svg/project.svg" width="24px" height="24px" alt="">
+                                    {% endif %}
                                     <span>{{ course.name }}</span>
                                     <time>{{ course.viewtime }}</time>
                                 </li>
@@ -644,7 +656,7 @@
         </div>
     </section>
     <div class="slideDIV" style="height:150px;"></div>
-    {% if True %}
+    {% if courses %}
         <h2 class="courseING">正在进行的课程</h2>
     {% endif %}
     <section class="contentBody_course">
@@ -653,7 +665,11 @@
             <div>
             <div style="background-color: {{ course.color }};">
                 <div>
-                    <img src="{{ course.icon_url }}" alt="">
+                    {% if course.icon == 0 %}
+                        <img src="/static/svg/VideoCourse_1.svg" alt="">
+                    {% else %}
+                        <img src="/static/svg/project_1.svg" alt="">
+                    {% endif %}
                 </div>
                 <div>72小时</div>
             </div>

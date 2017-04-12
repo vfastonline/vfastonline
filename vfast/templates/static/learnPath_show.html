@@ -61,7 +61,7 @@
             top:0px;
             width: 50%;
             height:600px;
-            background:url("{{ path.pathwel }}") no-repeat;
+            background:url("{{ path.pathwel.url }}") no-repeat;
 
         }
         .video_section>.video_section_right{
@@ -429,7 +429,11 @@
                     <s></s>
                 </b>
                 <i>
-                    <img src="/static/svg/videoCourse.svg" alt="">
+                    {% if item.course.icon == 0 %}
+                        <img src="/static/svg/videoCourse.svg" alt="">
+                    {% else %}
+                        <img src="/static/svg/project.svg" alt="">
+                    {% endif %}
                 </i>
             </div>
             <div class="section_2_div_div">
@@ -455,7 +459,7 @@
                         {% if v.vtype == 0 %}
                             <div class="class_video" onclick="play_video('/video/{{ v.id }}')">
                                 <i>
-                                    <img src="{{ v.vtype_url }}" alt="">
+                                    <img src="/static/svg/video.svg" alt="">
                                 </i>
                                 <p>{{ v.name }}</p>
                                 <p>{{ v.vtime }}</p>
@@ -484,7 +488,7 @@
                     <s></s>
                 </b>
                 <i>
-                    <svg width="24px" height="20px" viewBox="144 2881 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <svg width="24px" height="24px" viewBox="144 2881 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <path d="M148.363636,2892.10545 L148.363636,2896.46909 L156,2900.63636 L163.636364,2896.46909 L163.636364,2892.10545 L156,2896.27273 L148.363636,2892.10545 L148.363636,2892.10545 Z M156,2881 L144,2887.54545 L156,2894.09091 L165.818182,2888.73455 L165.818182,2896.27273 L168,2896.27273 L168,2887.54545 L156,2881 L156,2881 Z" id="Shape" stroke="none" fill="#D4D9DD" fill-rule="evenodd"></path>
                     </svg>
                 </i>
