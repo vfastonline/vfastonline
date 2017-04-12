@@ -27,8 +27,9 @@ def getpath(request):
     try:
         pid = request.GET.get('id')
         path = Path.objects.get(id=pid)
-        sequence = path.sequence
+        sequence = path.p_sequence
         course = sequence.split(',')
+        print sequence, course
         try:
             uid = request.session['user']['id']
             path_id = User.objects.get(id=uid).pathid
@@ -81,8 +82,7 @@ def getcourses(request):
 def getpaths(request):
     """获取所有的路线"""
     try:
-        sql = "select id, name, pathimg, color from vcourse_path"
-        paths = dictfetchall(sql)
+        paths = Path.objects.all()
         print paths
         return render(request, 'learning_path.html', {'paths': paths})
     except:
@@ -97,10 +97,10 @@ def join_path(request):
         uid = request.session['user']['id']
         user = User.objects.get(id=uid)
         path = Path.objects.get(id=pid)
-        sequence = path.sequence
+        sequence = path.p_sequence
         if UserPath.objects.filter(user=user, path=path).exists():
             User.objects.filter(id=uid).update(pathid=pid)
-            sql = """select * from (select vv.vtype, vv.name, vv.sequence, vv.id, vv.course_id, vv.vtype_url, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.sequence asc) as t group by t.course_id order by t.createtime desc limit 1""" % (
+            sql = """select * from (select vv.vtype, vv.name, vv.sequence, vv.id, vv.course_id, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.sequence asc) as t group by t.course_id order by t.createtime desc limit 1""" % (
                 uid, sequence)
             video = dictfetchall(sql)[0]
             url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']

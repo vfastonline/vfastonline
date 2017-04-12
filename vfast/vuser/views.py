@@ -216,9 +216,8 @@ def dashboard(request, param):
     try:
         param = int(param)
         user = User.objects.get(id=param)
-        pathid = user.pathid
         # 当没有正在学习的路线的时候, 显示已经学过的课程
-        if pathid == 0:
+        if user.pathid == 0:
             sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
             courses = dictfetchall(sql)
             task_create = task_daily(user)
@@ -233,8 +232,8 @@ def dashboard(request, param):
                            'tasks': tasks})
         # 显示正在学习的路线
         else:
-            path = Path.objects.get(id=pathid)
-            sequence = path.sequence
+            path = Path.objects.get(id=user.pathid)
+            sequence = path.p_sequence
             sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (sequence, sequence)
             courses = dictfetchall(sql)  # 获取路线在的所有课程, sequence
             sql2 = 'select * from vrecord_watchcourse where user_id = %s AND course_id in (%s)' % (user.id, sequence)
@@ -255,7 +254,7 @@ def dashboard(request, param):
                 if len(ret3) == 1:
                     item['video_id'] = ret3[0]['id']
                     item['video_name'] = ret3[0]['name']
-                    item['vtype_url'] = ret3[0]['vtype_url']
+                    # item['vtype_url'] = ret3[0]['vtype_url']
                     item['vtype'] = ret3[0]['vtype']
                     item['createtime'] = ret3[0]['createtime']
                 else:
@@ -264,7 +263,7 @@ def dashboard(request, param):
                     ret_video = dictfetchall(sql_video)
                     item['video_id'] = ret_video[0]['id']
                     item['video_name'] = ret_video[0]['name']
-                    item['vtype_url'] = ret_video[0]['vtype_url']
+                    # item['vtype_url'] = ret_video[0]['vtype_url']
                     item['vtype'] = ret_video[0]['vtype']
                     item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
             tmp = []
@@ -280,14 +279,14 @@ def dashboard(request, param):
                     len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user, status=0).count()
                     item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
                     item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
-                    icon_url = item['icon_url'].split('.')
-                    icon_url[0] = icon_url[0] + '_1'
-                    icon_url = '.'.join(icon_url)
-                    vicon_url = item['vtype_url'].split('.')
-                    vicon_url[0] = vicon_url[0] + '_1'
-                    vicon_url = '.'.join(vicon_url)
-                    item['icon_url'] = icon_url
-                    item['vtype_url'] = vicon_url
+                    # icon_url = item['icon_url'].split('.')
+                    # icon_url[0] = icon_url[0] + '_1'
+                    # icon_url = '.'.join(icon_url)
+                    # vicon_url = item['vtype_url'].split('.')
+                    # vicon_url[0] = vicon_url[0] + '_1'
+                    # vicon_url = '.'.join(vicon_url)
+                    # item['icon_url'] = icon_url
+                    # item['vtype_url'] = vicon_url
                 else:
                     item['flag'] = 0
             # print courses

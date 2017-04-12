@@ -489,12 +489,20 @@
                                 <div style="width: {{ course.video_jindu }};"></div>
                                 <li>
                                     <div>
-                                        <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                        {% if course.icon == 0 %}
+                                            <img src="/static/svg/VideoCourse_1.svg" width="24px" height="24px" alt="">
+                                        {% else %}
+                                            <img src="/static/svg/project_1.svg" width="24px" height="24px" alt="">
+                                        {% endif %}
                                         <span>{{ course.name }}</span>
                                         <time>{{ course.viewtime }}</time>
                                     </div>
                                     <div>
-                                        <img src="{{ course.vtype_url }}" width="24px" height="24px" alt="">
+                                        {% if course.vtype == 0 %}
+                                            <img src="/static/svg/video_1.svg" width="24px" height="24px" alt="">
+                                        {% else %}
+                                            <img src="/static/svg/quiz_1.svg" width="24px" height="24px" alt="">
+                                        {% endif %}
                                         <span>{{ course.video_name }}</span>
                                         <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">
                                     </div>
@@ -503,7 +511,11 @@
                         {% else %}
                             <a href="{{ course | dashboard_get_lession_url}}">
                                 <li>
-                                    <img src="{{ course.icon_url }}" width="24px" height="24px" alt="">
+                                    {% if course.icon == 0 %}
+                                        <img src="/static/svg/VideoCourse.svg" width="24px" height="24px" alt="">
+                                    {% else %}
+                                        <img src="/static/svg/project.svg" width="24px" height="24px" alt="">
+                                    {% endif %}
                                     <span>{{ course.name }}</span>
                                     <time>{{ course.viewtime }}</time>
                                 </li>
@@ -653,7 +665,11 @@
             <div>
             <div style="background-color: {{ course.color }};">
                 <div>
-                    <img src="{{ course.icon_url }}" alt="">
+                    {% if course.icon == 0 %}
+                        <img src="/static/svg/VideoCourse_1.svg" alt="">
+                    {% else %}
+                        <img src="/static/svg/project_1.svg" alt="">
+                    {% endif %}
                 </div>
                 <div>72小时</div>
             </div>
