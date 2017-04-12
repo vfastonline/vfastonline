@@ -720,9 +720,6 @@
             color: #D7BAA5;
         }
 
-
-
-
     </style>
 </head>
 {% load mytags %}
@@ -733,8 +730,8 @@
     <div class="slideDIV" style="height: 130px;" ></div>
     <div style="height: 50px;" ></div>
     <section class="QA_Q">
-        <h2>{{ question.title }}<span>已解决<img src="/static/svg/duigou.svg" alt=""></span></h2>
-        <img src="/static/svg/缩小.svg" alt="">
+        <h2>{{ question.title }}{% if question.status == 1 %}<span>已解决<img src="/static/svg/duigou.svg" alt=""></span>{% endif %}</h2>
+        <img src="/static/svg/suoxiao.svg" alt="">
     </section>
     <div class="title_border" style="background-color: {{ question.video.course.color }};"></div>
     <section class="qa_nav">
@@ -1054,7 +1051,6 @@
 
         $.getJSON("/replay?rid="+rid,function(data){
             ueedit.ready(function() {
-                console.log(data.replay.content);
                 ueedit.setContent(data.replay.content);
             });
         })
@@ -1080,12 +1076,23 @@
         $(".edit").show();
         $(t).parent().parent().find("#main_content").show();
         $.post("/community/update_replay",{rid:rid,content:ueedit.getContent()},function(data){
-            $(t).parent().parent().find("#content").html(ueedit.getContent());
+            if($(t).parent().parent().find("#content").html() != undefined){
+                $(t).parent().parent().find("#content").html(ueedit.getContent());
+                    uParse("#content",{
+                    rootPath: '/static/utf8-php'
+                });
+            }else{
+                $(t).parent().parent().find("#contentText").html(ueedit.getContent());
+                    uParse("#contentText",{
+                    rootPath: '/static/utf8-php'
+                });
+            }
             $(t).parent().parent().parent().find("#createTime").html("1秒钟前");
             $(".edit_content").html("");
             uParse("#content",{
                 rootPath: '/static/utf8-php'
             });
+
         })
     }
 
@@ -1175,11 +1182,15 @@
                 $("#show_deitor").css('display',"block");
                 var d = JSON.parse(data);
                 $("#QA_Q_content").after('<section class="QA_Q_content clearfix aa">'+
-                    '<div><span>1秒前</span><span>'+$("#uname").val()+'</span></div>'+
+                    '<div><span id="createTime">1秒前</span><span>'+$("#uname").val()+'</span></div>'+
                     '<div class="content" style="background: '+$(".title_border").css("background-color")+'" >'+
-                    '<div id="contentText"></div>'+
+                    '<div class="main_content" id="main_content">'+
+                        '<div id="contentText"></div>'+
+                            '<div class="edit" onclick="showEditReplay('+d.rid+',this)"><img src="/static/svg/bianji.svg" alt=""></div>'+
+                        '</div>'+
+                    '<div class="edit_content" id="edit_content"></div>'+
                     '</div>'+
-                    '<div>'+
+                    '<div id='+d.rid+'>'+
                     '<a class="headIMG" data-toggle="modal" data-target="#myModal_info" onclick="show_uinfo({{ request.session.user.id }},this)">'+
                         '<img id="headimg" src="'+$("#uheadimg").attr("src")+'" alt=""/>'+
                         '<img src="/static/head/120_without_rank.svg" alt=""/>'+
