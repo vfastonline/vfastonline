@@ -8,7 +8,7 @@ import traceback
 
 def sum_score_tech(uid):
     try:
-        sql = 'select vp.name, vp.color, tmp.technology_id, tmp.score  from (select technology_id , sum(score) as score  from vrecord_score where user_id = %s group by technology_id) as tmp left join vcourse_program as vp on vp.id=tmp.technology_id;' % uid
+        sql = 'select vp.name, vp.color, tmp.technology_id, tmp.score  from (select technology_id , sum(score) as score  from vrecord_score where user_id = %s group by technology_id) as tmp left join vcourse_technology as vp on vp.id=tmp.technology_id;' % uid
         result = dictfetchall(sql)
         teches = Technology.objects.all().values()
         technames = [ k['name'] for k in result]

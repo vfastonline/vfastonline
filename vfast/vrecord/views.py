@@ -23,7 +23,7 @@ def user_level(user):
         # else:
         #     user.headimgframe = headframobj.url
         #     logging.getLogger().info('用户等级增加为%s' % level)
-        #     return True, level
+        return True, 2
     except:
         logging.getLogger().error(traceback.format_exc())
         return False, None
@@ -68,7 +68,7 @@ def record_video(request):
             course = Course.objects.get(id=video.course_id)
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
-                if status == 0 and obj.status == 0:
+                if (status == 0 and obj.status == 0) or (status==1 and obj.status == 0):
                     obj.video_process = 0
                     obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.save()
@@ -82,9 +82,12 @@ def record_video(request):
                     tech = Technology.objects.get(id=course.tech_id)
                     Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
                     user.totalscore = user.totalscore + 1
+                    print user.totalscore
                     b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
                     l_flag, rlevel = user_level(user)  # 等级是否变更
+                    print user.totalscore
                     user.save()
+                    print 'aaa'
                     return HttpResponse(
                         json.dumps({'code': 0, 'b_flag': b_flag, 'badge': badge, 'l_flag': l_flag, 'rlevel': rlevel},
                                    ensure_ascii=False))
