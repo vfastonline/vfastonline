@@ -86,7 +86,6 @@ def getpaths(request):
     """获取所有的路线"""
     try:
         paths = Path.objects.all()
-        print paths
         return render(request, 'learning_path.html', {'paths': paths})
     except:
         logging.getLogger().error(traceback.format_exc())
