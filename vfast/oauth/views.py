@@ -1,9 +1,10 @@
 #!encoding: utf-8
-from django.conf import settings
+from vuser.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 import urllib
 import json
+import logging
 
 GITHUB_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
 GITHUB_CLIENTID = 'b758723e0c76d63dc514'
@@ -22,10 +23,14 @@ def _get_refer_url(request):
 
 # 第一步, 请求github第三方登陆
 def github_login(request):
+    try:
+        uid = request.session['user']['id']
+    except Exception, e:
+        logging.getLogger().error(e)
     data = {
         'client_id': GITHUB_CLIENTID,
         'client_secret': GITHUB_CLIENTSECRET,
-        'redirect_uri': GITHUB_CALLBACK,
+        'redirect_uri': GITHUB_CALLBACK+'?uid=%s' % uid,
         'state': _get_refer_url(request),
     }
     github_auth_url = '%s?%s' % (GITHUB_AUTHORIZE_URL, urllib.urlencode(data))
@@ -38,6 +43,8 @@ def github_auth(request):
     if 'code' not in request.GET:
         return render(request, 'index.html')
     code = request.GET.get('code')
+    uid = request.GET.get('uid')
+    print 'uid', uid
     url = 'https://github.com/login/oauth/access_token'
     data = {
         'grant_type': 'authorization_code',
@@ -47,9 +54,6 @@ def github_auth(request):
         'redirect_uri': GITHUB_CALLBACK,
     }
     data = urllib.urlencode(data)
-
-    binary_data = data.encode('utf-8')
-    print data
 
     # 设置请求返回的数据类型
     headers = {'Accept': 'application/json'}
@@ -66,12 +70,9 @@ def github_auth(request):
     html = response.read()
     html = json.loads(html)
     repos_url = html['repos_url']
-    print repos_url
-    rep = urllib.urlopen(repos_url)
-    rep = json.loads(rep.read())
-    repos_list = [item['html_url'] for item in rep]
-    print repos_list  # 获取用户的repos
-    # return HttpResponse('oAuth, ok~!')
+    html_url = html['html_url']
+    print repos_url, html_url
+    User.objects.filter(id=uid).update(githuburl=html_url, githubrepo=repos_url)
     return HttpResponseRedirect('/')
 
 # {"login": "sky-dadan", "id": 17780632, "avatar_url": "https://avatars2.githubusercontent.com/u/17780632?v=3",

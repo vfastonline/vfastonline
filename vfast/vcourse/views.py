@@ -5,18 +5,22 @@ import os
 import time
 
 from vfast.api import require_role, require_login, dictfetchall
-from django.conf import settings
 from vuser.models import User
-from vperm.models import Role
 from vcourse.models import Technology, Course, Video, Path, UserPath
+from vrecord.models import WatchRecord
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-
-"""现已完成的功能  课程添加, 视频添加, 路线添加, 获取单个视频详情, 单个课程以及所有视频, 所有课程, 路线详情"""
 
 
 # Create your views here.
 def test(request):
+    w = WatchRecord.objects.filter(id=1).values('user__username')
+    print w.query
+    print w
+    from vpractice.models import Replay
+    r = Replay.objects.filter(id=1).values('question__user__username')
+    print r.query
+    print r
     return render(request, "search_Result.html")
 
 
@@ -29,7 +33,6 @@ def getpath(request):
         path = Path.objects.get(id=pid)
         sequence = path.p_sequence
         course = sequence.split(',')
-        print sequence, course
         try:
             uid = request.session['user']['id']
             path_id = User.objects.get(id=uid).pathid
@@ -98,21 +101,18 @@ def join_path(request):
         user = User.objects.get(id=uid)
         path = Path.objects.get(id=pid)
         sequence = path.p_sequence
+        User.objects.filter(id=uid).update(pathid=pid)
         if UserPath.objects.filter(user=user, path=path).exists():
-            User.objects.filter(id=uid).update(pathid=pid)
-            sql = """select * from (select vv.vtype, vv.name, vv.sequence, vv.id, vv.course_id, vw.createtime from vcourse_video as vv left join vrecord_watchrecord as vw on vv.id=vw.video_id and vw.user_id=%s where  vv.course_id in (%s) order by vw.createtime desc,vv.sequence asc) as t group by t.course_id order by t.createtime desc limit 1""" % (
-                uid, sequence)
-            video = dictfetchall(sql)[0]
-            url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
+            video = WatchRecord.objects.filter(user=user, course_id__in=sequence).order_by('-createtime').values(
+                'video_id', 'video__vtype', 'createtime').first()
+            url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video['video_id']
             return HttpResponseRedirect(url)
         else:
             t = time.strftime('%Y-%m-%d %H:%M:%S')
             UserPath.objects.create(user=user, path=path, createtime=t)
-            User.objects.filter(id=uid).update(pathid=pid)
-            seq = path.sequence
-            course = seq.split(',')[0]
-            sql = 'select id, sequence, vtype from vcourse_video where course_id =%s order by sequence limit 1' % course
-            video = dictfetchall(sql)[0]
+            course_id = int(sequence.split(',')[0])
+            video = Video.objects.filter(course_id=course_id, sequence=1).values('vtype', 'id').first()
+            print video
             url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
             return HttpResponseRedirect(url)
     except:
