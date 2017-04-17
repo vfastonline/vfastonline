@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vcourse.models import Path, Technology, Course, Video, UserPath
+from vcourse.models import Path, Technology, Course, Video, UserPath, Section
 # Register your models here.
 
 class VideoAdmin(admin.ModelAdmin):
@@ -24,3 +24,4 @@ admin.site.register(Course, CourseAdmin)
 admin.site.register(Technology, TechnologyAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(UserPath)
+admin.site.register(Section)

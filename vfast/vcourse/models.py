@@ -35,13 +35,28 @@ class Course(models.Model):
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=1)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
     createtime = models.DateField('课程创建时间', auto_now=True)
-    teach = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='作者',
+    teach = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者1',
                               limit_choices_to={'id': 2})
+    teacher = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='teacher', null=True, blank=True,
+                                verbose_name='作者2')
     pubdate = models.CharField('课程发布时间', max_length=50, default='即将发布', blank=True)
     tag = models.CharField('标签', max_length=50, default='')
+    intrv = models.FileField('课程介绍视频', upload_to='course/video', default='course/video/1.mp4')
+    target_user = models.TextField('目标受众', default='')
+    require_knowledge = models.TextField('先修要求', default='')
+    require_env = models.TextField('软硬件要求', default='')
 
     def __unicode__(self):
         return self.name
+
+
+class Section(models.Model):
+    title = models.CharField('章节标题', max_length=100, default='')
+    desc = models.TextField('章节描述', default='')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='所属课程')
+
+    def __unicode__(self):
+        return self.title
 
 
 class Path(models.Model):
@@ -87,8 +102,8 @@ class Video(models.Model):
     createtime = models.DateField('视频上传时间', auto_now=True)
     end = models.IntegerField('是否为最后一节视频', choices=END_TYPE, default=0)  # 0是最后一个, 1不是最后一个
     vtype = models.IntegerField('视频, 题目', choices=VTYPE, default=0)
-    # vtype_url = models.CharField('类型图标', max_length=50, default='/static/svg/video.svg')
     sequence = models.IntegerField('视频播放顺序', unique=True, default=1)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name='章节', null=True)
 
     def __unicode__(self):
         return self.name
