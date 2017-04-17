@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="/static/js/jquery-2.1.4.js"></script>
+    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
+    <!--[if IE]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <script>document.documentElement.className = 'js';</script>
+    <style>
+        #head_cont{
+            box-shadow: none;
+        }
+
+        .info_1{
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
+            border-radius: 4px;
+            width:55%;
+            padding: 2% 5%;
+            float: left;
+        }
+        .info_2{
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
+            width:43%;
+            float: right;
+        }
+
+        .info_3{
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
+            width:43%;
+            float: right;
+        }
+        .info_4{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
+            border-radius: 4px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <div style="height:50px;"></div>
+    <div class="slideDIV" style="height:50px;"></div>
+    <section class="container ">
+        <div class="info_1">1</div>
+        <div class="info_2">2</div>
+        <div class="info_3">3</div>
+        <div class="info_4">4</div>
+    </section>
+    <div class="slideDIV" style="height:100px;"></div>
+
+    <div class="slideDIV" style="height:150px;"></div>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+</body>
+<script src="/static/js/jquery-labelauty.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/sweet-alert.js"></script>
+<script type="text/javascript">
+    window.document.onscroll = function(){
+        if($(document).scrollTop() == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+</script>
+</html>
