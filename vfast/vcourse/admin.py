@@ -3,7 +3,7 @@ from vcourse.models import Path, Technology, Course, Video, UserPath, Section
 # Register your models here.
 
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('id','name','vtime','score','scorepeople','course','createtime')
+    list_display = ('id','name','section','vtime','score','scorepeople','course','createtime')
     search_fields = ('name', 'createtime',)
 
 class PathAdmin(admin.ModelAdmin):
