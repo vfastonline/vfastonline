@@ -95,7 +95,7 @@
             text-align: center;
             position: relative;
         }
-        .course_desc>.course_play_div>a{
+        .course_desc>.course_play_div>span{
             font-size: 16px;
             color: #3572A5;
             letter-spacing: 0.62px;
@@ -240,8 +240,13 @@
             height:110px;
         }
         .course_info>.right>div>div:first-child>img:first-child{
-            width:101px;
-            height:101px;
+            left:1px;
+            width:100px;
+            height:100px;
+            border-radius: 101px;
+        }
+        .course_info>.right>div>div:first-child>img:last-child:hover{
+            cursor: pointer;
         }
         .course_info>.right>div>div:first-child>img{
             position: absolute;
@@ -279,8 +284,7 @@
         <section id="course_head" class="course_head">
             <video ondblclick="video_FullScreen()" poster="/static/imgs/meizitu.jpg" preload="auto" onended="video_ended()" onclick="video_Pause()" id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="62%" height="372"
                    data-setup='{"example_option":true}'>
-{#                <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />#}
-                <source title="{{ video_obj.id }}" id="video_source" src="media/path/video/basketball.mp4" type="video/mp4" />
+                <source id="video_source" src="/media/path/video/basketball.mp4" type="video/mp4" />
                 <track kind="subtitles" src="{{ video_obj.cc.url }}" srclang="en" label="English" default>
             </video>
             <div class="video_play_svg_div" id="video_play_svg_div"  onclick="video_play()"></div>
@@ -294,19 +298,22 @@
 智量酷和深度学习专家 Siraj Raval 一起，为你带来这门充满活力的深度学习课程。通过对深度学习的基础知识的掌握，为无人驾驶和人工智能技术领域打下夯实基础
                 </div>
                 <div class="course_play_div">
-                    <a href="#">继续学习</a>
+                    {% if request.session.login != True %}
+                        <span href="#">开始学习</span>
+                    {% else %}
+                        <span href="#">开始学习</span>
+                        <span href="#">继续学习</span>
+                    {%  endif %}
                     <span>10/96</span>
                 </div>
                 <div class="progressBar">
+                    <!--进度条-->
                   <span style="width: 100%;background-color: #3572A5;"></span>
                 </div>
                 <div class="difficulty">难易度：
 {#                    {% for xx in xingxing %}#}
 {#                        {% if item.course.difficult > xx %}#}
                             <img src="/static/svg/xingxing_1.svg" alt="">
-                    <img src="/static/svg/xingxing_1.svg" alt="">
-                    <img src="/static/svg/xingxing_1.svg" alt="">
-                    <img src="/static/svg/xingxing_1.svg" alt="">
 {#                         {% else %}#}
                             <img src="/static/svg/xingxing.svg" alt="">
 {#                        {% endif %}#}
@@ -338,6 +345,7 @@
   成功后，你将收到一封电子邮件，其中包含你可以在你的 AWS 账户中
   使用的兑换码。</div>
             <h2>课程表</h2>
+            <!--章节-->
             <div class="course_section">
                 <h3>从机器学习到深度学习</h3>
                 <div class="clearfix">
@@ -366,124 +374,13 @@
                 </ul>
             </div>
 
-            <div class="course_section">
-                <h3>从机器学习到深度学习</h3>
-                <div class="clearfix">
-                    <div onclick="sectionLI_toggle(this)">5/15&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>
-                    <div>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本</div>
-                </div>
-                <ul class="ectionUL">
-                    <li>
-                        <img src="/static/svg/xiaoplay.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/question.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="course_section">
-                <h3>从机器学习到深度学习</h3>
-                <div class="clearfix">
-                    <div onclick="sectionLI_toggle(this)">5/15&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>
-                    <div>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本</div>
-                </div>
-                <ul class="ectionUL">
-                    <li>
-                        <img src="/static/svg/xiaoplay.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/question.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="course_section">
-                <h3>从机器学习到深度学习</h3>
-                <div class="clearfix">
-                    <div onclick="sectionLI_toggle(this)">5/15&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>
-                    <div>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本</div>
-                </div>
-                <ul class="ectionUL">
-                    <li>
-                        <img src="/static/svg/xiaoplay.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/question.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="course_section">
-                <h3>从机器学习到深度学习</h3>
-                <div class="clearfix">
-                    <div onclick="sectionLI_toggle(this)">5/15&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>
-                    <div>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本</div>
-                </div>
-                <ul class="ectionUL">
-                    <li>
-                        <img src="/static/svg/xiaoplay.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/question.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                </ul>
-            </div>
 
         </div>
         <div class="right">
             <h2>课程讲师</h2>
             <div class="clearfix">
                 <div>
-                    <img src="{{ request.session.user.headimg }}" alt=""/>
+                    <img src="/static/imgs/meizitu.jpg" alt=""/>
                     <img src="/static/head/techer_frame.svg" alt=""/>
                 </div>
                 <div>
