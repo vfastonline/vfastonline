@@ -19,6 +19,7 @@
     <script>document.documentElement.className = 'js';</script>
     <link rel="stylesheet" href="/static/css/score.css" media="screen" type="text/css" />
     <link href="/static/css/video-js.css" rel="stylesheet">
+    <link href="/static/css/video-js-develop.css" rel="stylesheet">
     <style>
         #head_cont{
             box-shadow: none;
@@ -187,15 +188,6 @@
         #video_div2_svg{
             vertical-align: middle;
         }
-        .video_bofang{
-            position: absolute;top: 300px;left: 580px;
-            z-index: 1;
-            display: none;
-        }
-        .video_bofang:hover{
-            opacity: 0.8;
-            cursor: pointer;
-        }
         .video_tiaoguo{
             margin-top: 22px;
             margin-left: 30px;
@@ -206,40 +198,6 @@
         }
         .video_tiaoguo:active path{
             fill: #FFFFFF;
-        }
-
-        .vjs-volume-control{
-            top: 100%;
-            left: 25px;
-            z-index: 1;
-            height: 60px!important;
-            line-height: 60px!important;
-            width: 200px!important;
-        }
-        .vjs-volume-control>div{
-            margin-top: 16px!important;
-            width: 200px!important;
-            height: 28px!important;
-            background-color: #D8D8D8!important;
-            font-size: 14px;
-            color: #FFFFFF;
-        }
-        .vjs-volume-control>div>div:first-child{
-            height: 28px;
-            width: 200px;
-            background: none;
-            background-color: #7C828C!important;
-        }
-        .vjs-volume-control>div>div:last-child{
-            display: none!important;
-        }
-        .vjs-mute-control{
-            left: 20px;
-            top: 146%;
-            z-index: 1;
-        }
-        .vjs-volume-bar{
-            transition:  none;
         }
 
         .tab_menu{
@@ -844,51 +802,6 @@
                 transform:rotate(15deg) translate(0,0);
             }
         }
-
-        .vjs-tt-cue{
-            font-size: 18px!important;
-            letter-spacing: 1px;
-        }
-        .video-js .vjs-text-track{
-            background-color: transparent!important;
-        }
-        .vjs-tt-cue{
-            display: inline-block;
-            background-color: rgba(64, 64, 64, 0.8) !important;
-            padding: 7px 30px;
-        }
-        .vjs-subtitles-button{
-            display: none;
-        }
-        .vjs-current-time,.vjs-time-divider,.vjs-duration{
-            display: none;
-        }
-        .vjs-progress-control{
-            width:80%!important;
-            top: 12px!important;
-            left:10%!important;
-            border-radius: 10px!important;
-        }
-        .vjs-load-progress{
-            border-radius: 10px!important;
-            background-color: #FFFFFF!important;
-            opacity: 0.4;
-        }
-        .vjs-progress-holder{
-            border-radius: 10px!important;
-        }
-        .vjs-control-bar{
-            background-color: transparent!important;
-        }
-        .vjs-seek-handle{
-            background-color: #FFFFFF!important;
-            border-radius: 10px!important;
-        }
-        .vjs-play-progress{
-            background-color: #00BCD4!important;
-            background-image: none!important;
-            border-radius: 10px!important;
-        }
     </style>
     <style>
         #edui1{
@@ -936,6 +849,7 @@
         <input id="video_process" type="hidden" value="{{ video_process }}"/>
         <input id="video_id" type="hidden" value="{{ video_obj.id }}"/>
     </video>
+    <div class="video_play_svg_div" id="video_play_svg_div"></div>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
     </svg>
@@ -1283,9 +1197,11 @@
         if(elem.paused){
             video_bofang.style.display = "block";
             video_name.style.display = "block";
+            video_play_svg_div.style.display = "block";
         }else{
             video_bofang.style.display = "none";
             video_name.style.display = "none";
+            video_play_svg_div.style.display = "none";
         }
     }
     function video_play(){
@@ -1293,6 +1209,7 @@
         elem.play();
         video_bofang.style.display = "none";
         video_name.style.display = "none";
+        video_play_svg_div.style.display = "none";
     }
     function video_speed(t,video_speed){
         var liArr = video_div1.getElementsByTagName("li");
@@ -1316,6 +1233,7 @@
     var medal_square_2_Interval;
     function video_ended(){
         video_bofang.style.display = "none";
+        video_play_svg_div.style.display = "none";
         example_video_1.style.zIndex = "0";
         video_div1.style.display = "none";
         video_div2.style.display = "block";

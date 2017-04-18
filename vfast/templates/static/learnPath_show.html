@@ -444,13 +444,12 @@
                     <p>{{ item.course.desc }}</p>
                     <div>难易度：
                         {% for xx in xingxing %}
-                        {% if item.course.difficult > xx %}
-                            <img src="/static/svg/xingxing_1.svg" alt="">
-                         {% else %}
-                            <img src="/static/svg/xingxing.svg" alt="">
-                        {% endif %}
-                    {% endfor %}
-
+                            {% if item.course.difficult > xx %}
+                                <img src="/static/svg/xingxing_1.svg" alt="">
+                             {% else %}
+                                <img src="/static/svg/xingxing.svg" alt="">
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
                 <div>

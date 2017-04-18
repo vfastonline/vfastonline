@@ -60,7 +60,31 @@
     <div style="height:50px;"></div>
     <div class="slideDIV" style="height:50px;"></div>
     <section class="container ">
-        <div class="info_1">1</div>
+        <div class="info_1">
+            <div>
+                <p>头像</p>
+                <div>
+                    <img id="uheadimg" src="{{ request.session.user.headimg }}" alt=""/>
+                    <img src="/static/head/120_without_rank.svg" alt=""/>
+                    <img src="/static/head/online.svg" alt=""/>
+                </div>
+                <div>
+                    <div></div>
+                    <input type="file">
+                </div>
+                <button>恢复预设</button>
+            </div>
+            <div>
+                <p>称呼</p>
+                <input type="text" placeholder="昵称">
+                <input type="text">
+
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <div class="info_2">2</div>
         <div class="info_3">3</div>
         <div class="info_4">4</div>
