@@ -296,39 +296,40 @@
         <section id="course_head" class="course_head">
             <video ondblclick="video_FullScreen()" poster="/static/imgs/meizitu.jpg" preload="auto" onended="video_ended()" onclick="video_Pause()" id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="62%" height="372"
                    data-setup='{"example_option":true}'>
-                <source id="video_source" src="/media/path/video/basketball.mp4" type="video/mp4" />
-                <track kind="subtitles" src="{{ video_obj.cc.url }}" srclang="en" label="English" default>
+                <source id="video_source" src="{{ course.intrv.url }}" type="video/mp4" />
             </video>
             <div class="video_play_svg_div" id="video_play_svg_div"  onclick="video_play()"></div>
             <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
             </svg>
             <div class="course_desc">
-                <h3>深度学习</h3>
-                <div class="course_desc_text">人工智能正以颠覆性的方式改变这个世界，而在背后推动这场进步的，是深度学习
+                <h3>深度学习{{ course.name }}</h3>
+                <div class="course_desc_text">{{ course.desc }}</div>
 
-智量酷和深度学习专家 Siraj Raval 一起，为你带来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力来这门充满活力的深度学习课程。通过对深度学习的基础知识的掌握，为无人驾驶和人工智能技术领域打下夯实基础
-                </div>
                 <div class="course_play_div">
                     {% if request.session.login != True %}
                         <div href="#">开始学习</div>
                     {% else %}
-                        <div href="#">继续学习</div>
-                    {%  endif %}
-                    <span>10/96</span>
+                        {% if flag %}
+                            <div href="{{ url }}">继续学习</div>
+                        {% else %}
+                            <div href="{{ url }}">开始学习</div>
+                        {% endif %}
+                    {% endif %}
+                    <span>{{ course_process }}</span>
                 </div>
                 <div class="progressBar">
                     <!--进度条-->
-                  <span style="width: 100%;background-color: #3572A5;"></span>
+                  <span style="width: 100%;background-color: {{ course.color }};"></span>
                 </div>
                 <div class="difficulty">难易度：
-{#                    {% for xx in xingxing %}#}
-{#                        {% if item.course.difficult > xx %}#}
+                    {% for xx in xingxing %}
+                        {% if course.difficult > xx %}
                             <img src="/static/svg/xingxing_1.svg" alt="">
-{#                         {% else %}#}
+                         {% else %}
                             <img src="/static/svg/xingxing.svg" alt="">
-{#                        {% endif %}#}
-{#                    {% endfor %}#}
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -337,53 +338,66 @@
     <section class="course_info clearfix">
         <div class="left">
             <h2>目标受众</h2>
-            <div class="text">该课程将向你介绍深度学习。这项变革性的技术是许多人工智能领域创新发明背后的基础，它必将改变我们的未来生活。如果你想进入机器学习、人工智能领域，但缺乏相关技术背景，这门课程就是为你准备的！ </div>
+            <div class="text">{{ course.target_user }}</div>
             <h2>先修要求</h2>
-            <div class="text">·学员需要有初级 Python 编程经验，并了解 Numpy。
-  如果你缺乏 Python 编程经验或相关数学基础，可以先学习机器学习(入门)课程，为继续学习深
-  度学习打造扎实的基础。
-
-·学员需要有一定的数学基础，掌握代数、偏导数和矩阵乘法。
-
-·在课程的一开始，我们会教你使用 scikit-learn 和 Numpy Python 库。在课程之后的部分，
-  我们会涉及到 Tensorflow，并用它来完成项目。</div>
+            <div class="text">{{ course.require_knowledge }}</div>
             <h2>软/硬件要求</h2>
-            <div class="text">·MacBook / iMac / 任何 64 位操作系统、配有 8GB 以上内存的Windows PC
-
-·Python 3+Jupyter Notebooks
-
-·对于课程后半部分难度较大的项目，我们将为学生提供 AWS 实例(AWS instances)：申请
-  成功后，你将收到一封电子邮件，其中包含你可以在你的 AWS 账户中
-  使用的兑换码。</div>
+            <div class="text">{{ course.require_env }}</div>
             <h2>课程表</h2>
             <!--章节-->
-            <div class="course_section">
-                <h3>从机器学习到深度学习</h3>
+{#            <div class="course_section">#}
+{#                <h3>从机器学习到深度学习</h3>#}
+{#                <div class="clearfix">#}
+{#                    <div onclick="sectionLI_toggle(this)">5/15&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>#}
+{#                    <div>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本</div>#}
+{#                </div>#}
+{#                <ul class="ectionUL">#}
+{#                    <li>#}
+{#                        <img src="/static/svg/xiaoplay.svg" alt="">深度学习是什么？<span>1:04</span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/question.svg" alt="">深度学习是什么？<span>1:04</span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </div>#}
+
+            {% for section in sections %}
+                <div class="course_section">
+                <h3>{{ section.title }}</h3>
                 <div class="clearfix">
-                    <div onclick="sectionLI_toggle(this)">5/15&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>
-                    <div>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本</div>
+                    <div onclick="sectionLI_toggle(this)">{{ section.process }}&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>
+                    <div>{{ section.desc }}</div>
                 </div>
                 <ul class="ectionUL">
-                    <li>
-                        <img src="/static/svg/xiaoplay.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/question.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
-                    <li>
-                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>
-                    </li>
+                    {% for video in section.videos %}
+                        <li>
+                            {% if video.status == 0 %}
+                                <img src="/static/svg/xiaoduigou.svg" alt="">{{ video.name }}<span>{{ video.vtime }}</span>
+                            {% elif video.vtype == 0 %}
+                                <img src="/static/svg/xiaoplay.svg" alt="">{{ video.name }}<span>{{ video.vtime }}</span>
+                            {% else %}
+                                <img src="/static/svg/question.svg" alt="">{{ video.name }}<span>{{ video.vtime }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
+
+            {% endfor %}
+
+
 
 
         </div>
@@ -391,26 +405,28 @@
             <h2>课程讲师</h2>
             <div class="clearfix">
                 <div>
-                    <img src="/static/imgs/meizitu.jpg" alt=""/>
+                    <img src="{{ course.teach.headimg }}" alt=""/>
                     <img src="/static/head/techer_frame.svg" alt=""/>
                 </div>
                 <div>
-                    <h4>Mat Leonard</h4>
-                    <h5>加州大学伯克利分校物理学博士</h5>
-                    <p>Mat 拥有加州大学伯克利分校的物理学博士学位，研究方向为与短期记忆有关的神经元活动。在研究生工作期间，Mat 开始热衷于分享自己的学习心得、Python 及一切与数据相关的事物。Mat 于 2015 年加入优达学城，从此便面向更多学生传道授业解惑。在设计新课程之外，他喜欢跑步、骑自行车以及在 matatat.org 上发表与数据相关的文章。</p>
+                    <h4>{{ course.teach.username }}</h4>
+                    <h5>{{ course.teach.position }}</h5>
+                    <p>{{ course.teach.intro }}</p>
                 </div>
             </div>
+            {% if course.teacher %}
             <div class="clearfix">
                 <div>
-                    <img src="{{ request.session.user.headimg }}" alt=""/>
+                    <img src="{{ course.teacher.headimg }}" alt=""/>
                     <img src="/static/head/techer_frame.svg" alt=""/>
                 </div>
                 <div>
-                    <h4>Mat Leonard</h4>
-                    <h5>加州大学伯克利分校物理学博士</h5>
-                    <p>Mat 拥有加州大学伯克利分校的物理学博士学位，研究方向为与短期记忆有关的神经元活动。在研究生工作期间，Mat 开始热衷于分享自己的学习心得、Python 及一切与数据相关的事物。Mat 于 2015 年加入优达学城，从此便面向更多学生传道授业解惑。在设计新课程之外，他喜欢跑步、骑自行车以及在 matatat.org 上发表与数据相关的文章。</p>
+                    <h4>{{ course.teacher.username }}</h4>
+                    <h5>{{ course.teacher.position }}</h5>
+                    <p>{{ course.teacher.intro }}</p>
                 </div>
             </div>
+            {% endif %}
         </div>
     </section>
     <div class="slideDIV" style="height:150px;"></div>

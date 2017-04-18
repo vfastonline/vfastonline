@@ -42,6 +42,7 @@ class User(models.Model):
     active = models.CharField('激活账号码', max_length=100, null=True, blank=True)
     status = models.IntegerField('是否激活', default=0)
     pathid = models.IntegerField('正在进行的路径ID', default=0)
+    position = models.CharField('讲师职位', default='讲师', max_length=100)
 
     #HR注册的相关信息
     phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')

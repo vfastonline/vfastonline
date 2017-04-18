@@ -130,8 +130,8 @@ def course_detail(request):
             for section in sections:
                 videos_section = Video.objects.filter(section_id=section['id']).values()
                 tmp = 0
-                for v_section in videos_section:
-                    for v_watched in videos_watched:
+                for v_section in videos_section:                #video_section
+                    for v_watched in videos_watched:            #video_watched
                         if v_section['id'] == v_watched['video_id'] and v_watched['status'] == 0:
                             v_section['status'] = v_watched['status']
                             tmp += 1
@@ -157,15 +157,20 @@ def course_detail(request):
                 course_process = u'已完成'
             else:
                 course_process = '%s/%s' % (videos_watched.count(), videos_course)
-            return render(request, 'test.html', {'sections': sections, 'course': course,
-                                                 'course_process': course_process, 'flag': flag, 'url': url})
+            print sections
+            return render(request, 'course_detail.html', {'sections': sections, 'course': course,
+                                                          'course_process': course_process, 'flag': flag, 'url': url,
+                                                          'xingxing': [0, 1, 2, 3, 4]})
         except KeyError:
+            print 'wei denglu '
             for section in sections:
                 videos_section = Video.objects.filter(section_id=section['id'])
-                section['video'] = videos_section
+                section['videos'] = videos_section
                 section['process'] = '0/%s' % videos_section.count()
-            return render(request, 'test.html',
-                          {'sections': sections, 'course': course, 'course_process': '0/%s' % videos_course})
+            print sections
+            return render(request, 'course_detail.html',
+                          {'sections': sections, 'course': course, 'course_process': '0/%s' % videos_course,
+                           'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)
