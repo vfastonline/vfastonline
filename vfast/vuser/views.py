@@ -181,7 +181,6 @@ def login(request):
                 request.session['token'] = token
                 request.session['user'] = user
                 request.session['login'] = True
-                # pre_url = request.session.get('pre_url', '/')
                 pre_url = request.META.get('HTTP_REFERER')
                 if pre_url.split('/')[3] == '':
                     return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))
@@ -279,14 +278,6 @@ def dashboard(request, param):
                     len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user, status=0).count()
                     item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
                     item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
-                    # icon_url = item['icon_url'].split('.')
-                    # icon_url[0] = icon_url[0] + '_1'
-                    # icon_url = '.'.join(icon_url)
-                    # vicon_url = item['vtype_url'].split('.')
-                    # vicon_url[0] = vicon_url[0] + '_1'
-                    # vicon_url = '.'.join(vicon_url)
-                    # item['icon_url'] = icon_url
-                    # item['vtype_url'] = vicon_url
                 else:
                     item['flag'] = 0
             # print courses
