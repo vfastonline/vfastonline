@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/static/js/jquery-2.1.4.js"></script>
@@ -13,55 +13,69 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/layout.css"/>
     <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/search.css"/>
     <!--[if IE]>
     <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <script>document.documentElement.className = 'js';</script>
 
     <style>
-        #head_cont{
+        #head_cont {
             box-shadow: none;
         }
+
         /*contentBody_course Start*/
-        .contentBody_course:after{content: "";display: block;clear: both;}
-        .contentBody_course{
+        .contentBody_course:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .contentBody_course {
             width: 1200px;
             margin: 30px auto 50px;
             color: #5A646E;
         }
-        .contentBody_course>div{
+
+        .contentBody_course > div {
             float: left;
             width: 30%;
             margin-bottom: 30px;
             transition: all 0s linear;
-            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.10);
             border-radius: 4px;
             overflow: hidden;
         }
-        .contentBody_course>div:hover{
+
+        .contentBody_course > div:hover {
             position: relative;
-            top:-1px;
+            top: -1px;
         }
-        .contentBody_course>div>div:first-child{
+
+        .contentBody_course > div > div:first-child {
             transition: all 0s;
         }
-        .contentBody_course>div>div:last-child{
+
+        .contentBody_course > div > div:last-child {
             transition: all 0s;
         }
-        .contentBody_course>div:hover>div:first-child{
+
+        .contentBody_course > div:hover > div:first-child {
             cursor: pointer;
-            opacity: 0.8!important;
+            opacity: 0.8 !important;
         }
-        .contentBody_course>div:hover>div:last-child{
+
+        .contentBody_course > div:hover > div:last-child {
             background-color: #FAFAFA;
             cursor: pointer;
         }
-        .contentBody_course>div:nth-child(3n+2){
-            margin-left:  5%;
+
+        .contentBody_course > div:nth-child(3n+2) {
+            margin-left: 5%;
             margin-right: 5%;
         }
-        .contentBody_course>div>div:first-child{
+
+        .contentBody_course > div > div:first-child {
             /*背景色 数据库取*/
             background-color: #EF5350;
             height: 54px;
@@ -69,33 +83,44 @@
             padding-left: 20px;
             padding-right: 20px;
         }
-        .contentBody_course>div>div:first-child{content:"";display: block;clear: both;}
-        .contentBody_course>div>div:first-child>div:first-child{
+
+        .contentBody_course > div > div:first-child {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .contentBody_course > div > div:first-child > div:first-child {
             float: left;
         }
-        .contentBody_course>div>div:first-child>div:last-child{
+
+        .contentBody_course > div > div:first-child > div:last-child {
             float: right;
             color: #FFFFFF;
             font-size: 14px;
         }
-        .contentBody_course>div>div:last-child{
-            padding: 20px 30px 30px 20px ;
+
+        .contentBody_course > div > div:last-child {
+            padding: 20px 30px 30px 20px;
             font-size: 14px;
             background-color: #FFFFFF;
-            height:220px;
+            height: 220px;
             position: relative;
         }
-        .contentBody_course>div>div:last-child>p:first-child{
+
+        .contentBody_course > div > div:last-child > p:first-child {
             color: #B4BEC8;
         }
-        .contentBody_course>div>div:last-child>h1{
+
+        .contentBody_course > div > div:last-child > h1 {
             font-size: 20px;
             color: #5A646E;
             margin-top: 5px;
             margin-bottom: 10px;
             font-weight: 400;
         }
-        .contentBody_course>div>div:last-child>p:nth-child(3){
+
+        .contentBody_course > div > div:last-child > p:nth-child(3) {
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
@@ -104,7 +129,8 @@
             font-size: 14px;
             color: #5A646E;
         }
-        .contentBody_course>div>div:last-child>div:nth-child(4){
+
+        .contentBody_course > div > div:last-child > div:nth-child(4) {
             color: #FFFFFF;
             height: 24px;
             font-size: 16px;
@@ -115,22 +141,25 @@
             padding-right: 10px;
             transition: all 0s;
             position: absolute;
-            bottom:20px;
-            -moz-user-select:none;/*火狐*/
-            -webkit-user-select:none;/*webkit浏览器*/
-            -ms-user-select:none;/*IE10*/
-            -khtml-user-select:none;/*早期浏览器*/
-            user-select:none;
+            bottom: 20px;
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
         }
-        .groupHover:hover{
+
+        .groupHover:hover {
             box-shadow: 0px 1px 1px black;
-            bottom: 21px!important;
+            bottom: 21px !important;
         }
-        .groupHover:active{
+
+        .groupHover:active {
             box-shadow: 0px 0px 0px black;
-            bottom: 20px!important;
+            bottom: 20px !important;
         }
-        .contentBody_course>div>div:last-child>div:nth-child(5){
+
+        .contentBody_course > div > div:last-child > div:nth-child(5) {
             height: 20px;
             line-height: 20px;
             font-size: 17px;
@@ -140,11 +169,13 @@
             right: 30px;
             vertical-align: middle;
         }
-        .contentBody_course>div>div:last-child>div:nth-child(5)>img{
+
+        .contentBody_course > div > div:last-child > div:nth-child(5) > img {
             padding-bottom: 5px;
         }
+
         /*contentBody_course  End*/
-        .upcoming_release{
+        .upcoming_release {
             font-size: 16px;
             color: #384047;
             letter-spacing: 1px;
@@ -152,29 +183,33 @@
             width: 1200px;
             margin: 0px auto 30px;
         }
-        .ur_course{
+
+        .ur_course {
             margin-top: 0px;
         }
 
         /*search_TypeList Start*/
-        .search_TypeList{
-            width:1200px;
+        .search_TypeList {
+            width: 1200px;
             margin: 50px auto 0px;
             background: #FFFFFF;
-            box-shadow: 0 1px 0 0 rgba(0,0,0,0.10);
+            box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.10);
             border-radius: 4px;
         }
-        .search_TypeList ul{
+
+        .search_TypeList ul {
             padding: 0px 40px;
         }
-        .search_TypeList li{
+
+        .search_TypeList li {
             float: left;
             height: 54px;
             line-height: 54px;
             position: relative;
             margin-left: 40px;
         }
-        .search_TypeList li>b{
+
+        .search_TypeList li > b {
             position: absolute;
             left: 0px;
             top: 23px;
@@ -184,36 +219,43 @@
             border-radius: 4px;
             margin-right: 5px;
         }
-        .search_TypeList li>span{
+
+        .search_TypeList li > span {
             position: relative;
             font-size: 14px;
             color: #5A646E;
             border-radius: 15px;
             padding: 5px 20px;
         }
-        .search_TypeList li>span:hover{
+
+        .search_TypeList li > span:hover {
             cursor: pointer;
             color: #FFFFFF;
         }
+
         /*search_TypeList End*/
-        .type_Describe{
+        .type_Describe {
             width: 1200px;
             margin: 30px auto;
         }
-        .type_Describe>h3{
+
+        .type_Describe > h3 {
             font-size: 18px;
             color: #5A646E;
             font-weight: bolder;
         }
-        .type_Describe>p{
+
+        .type_Describe > p {
             font-size: 14px;
             color: #002800;
             line-height: 17px;
         }
-        .contentBody_course>h4{
+
+        .contentBody_course > h4 {
             text-align: center;
         }
-        .contentBody_course>h4>span{
+
+        .contentBody_course > h4 > span {
             color: #EF5350;
             font-size: 26px;
         }
@@ -229,9 +271,10 @@
                 <li onclick="location.href='/search?query={{ key_words }}&type={{ vp.name }}'">
                     <b style="background-color: {{ vp.color }};"></b>
                     {% if vp.name == tech_obj.name %}
-                    <span style="background-color: {{ tech_obj.color }};color:#FFFFFF" >{{ vp.name }}</span>
+                        <span style="background-color: {{ tech_obj.color }};color:#FFFFFF">{{ vp.name }}</span>
                     {% else %}
-                        <span  onmouseover="this.style.background='{{ vp.color }}'" onmouseout="this.style.background='transparent'">{{ vp.name }}</span>
+                        <span onmouseover="this.style.background='{{ vp.color }}'"
+                              onmouseout="this.style.background='transparent'">{{ vp.name }}</span>
                     {% endif %}
                 </li>
             {% endfor %}
@@ -245,38 +288,40 @@
     <section class="contentBody_course">
 
         {% if results == False %}
-            <h4>在<span>{{ tech_obj.name }}  {{ key_words }}</span> 找不到任何相关信息！</h4>
+            <h4>在<span>{{ tech_obj.name }} {{ key_words }}</span> 找不到任何相关信息！</h4>
         {% else %}
-        {% for pub in results %}
-            <div>
-                <div style="background-color: {{ pub.color }};" onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
-                    <div>
-                    {% if pub.icon == 0 %}
-                        <img src="/static/svg/videoCourse_1.svg" alt="">
-                    {% else %}
-                        <img src="/static/svg/project_1.svg}" alt="">
-                    {% endif %}
-                    </div>
-                    <div>{{ pub.totaltime }}</div>
-                </div>
-                <div style="background-color: {{ pub.color }};" onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
-                    <p>系列课程</p>
-                    <h1>{{ pub.name }}</h1>
-                    <p>{{ pub.desc }}</p>
-                    <div style="background-color: {{ pub.tech.color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.tech.name }}')">{{ pub.tech.name }}</div>
-                    <div>难易度：
-                        {% for n in xingxing %}
-                            {% if pub.difficult > n %}
-                                <img src="/static/svg/xingxing_1.svg" alt="">
+            {% for pub in results %}
+                <div>
+                    <div style="background-color: {{ pub.color }};"
+                         onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
+                        <div>
+                            {% if pub.icon == 0 %}
+                                <img src="/static/svg/videoCourse_1.svg" alt="">
                             {% else %}
-                                <img src="/static/svg/xingxing.svg" alt="">
+                                <img src="/static/svg/project_1.svg}" alt="">
                             {% endif %}
-
-                        {% endfor %}
+                        </div>
+                        <div>{{ pub.totaltime }}</div>
+                    </div>
+                    <div style="background-color: {{ pub.color }};"
+                         onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
+                        <p>系列课程</p>
+                        <h1>{{ pub.name }}</h1>
+                        <p>{{ pub.desc }}</p>
+                        <div style="background-color: {{ pub.tech.color }};" class="groupHover"
+                             onclick="stopPPG(this,'/course/courses?type={{ pub.tech.name }}')">{{ pub.tech.name }}</div>
+                        <div>难易度：
+                            {% for n in xingxing %}
+                                {% if pub.difficult > n %}
+                                    <img src="/static/svg/xingxing_1.svg" alt="">
+                                {% else %}
+                                    <img src="/static/svg/xingxing.svg" alt="">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
         {% endif %}
     </section>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
@@ -287,11 +332,11 @@
 <script src="/static/js/common.js"></script>
 <script src="/static/js/sweet-alert.js"></script>
 <script>
-    window.document.onscroll = function(){
-        if($(document).scrollTop() == 0){
-            $("#head_cont").css("box-shadow","none");
-        }else{
-            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+    window.document.onscroll = function () {
+        if ($(document).scrollTop() == 0) {
+            $("#head_cont").css("box-shadow", "none");
+        } else {
+            $("#head_cont").css("box-shadow", "0 2px 1px rgba(0,0,0,0.5)");
         }
     }
 </script>

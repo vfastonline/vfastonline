@@ -367,11 +367,10 @@
                 <p>系列课程</p>
                 <h1>{{ not_pub.name }}</h1>
                 <p>{{ not_pub.desc }}</p>
-                <div style="background-color: {{ not_pub.tech.color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ not_pub.name }}')">{{ not_pub.name }}</div>
+                <div style="background-color: {{ not_pub.tech__color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ not_pub.tech__name }}')">{{ not_pub.tech__name }}</div>
                 <div>{{ not_pub.pubdate }}</div>
             </div>
         </div>
-
         {% endfor %}
 
 

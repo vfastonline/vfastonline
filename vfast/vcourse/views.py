@@ -58,11 +58,11 @@ def getcourses(request):
         if type:
             techobj = Technology.objects.get(name=type)
             pubs = Course.objects.filter(tech=techobj, pubstatus=0).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
-            not_pubs = Course.objects.filter(tech=techobj, pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
+            not_pubs = Course.objects.filter(tech=techobj, pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name', 'pubdate')
         else:
             techobj = ''
             pubs = Course.objects.filter(pubstatus=0).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
-            not_pubs = Course.objects.filter(pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
+            not_pubs = Course.objects.filter(pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name','pubdate')
         print pubs
         return render(request, 'course_library.html',
                       {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj,
