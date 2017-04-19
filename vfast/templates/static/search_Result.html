@@ -62,11 +62,9 @@
 
         .contentBody_course > div:hover > div:first-child {
             cursor: pointer;
-            opacity: 0.8 !important;
         }
 
         .contentBody_course > div:hover > div:last-child {
-            background-color: #FAFAFA;
             cursor: pointer;
         }
 
@@ -303,8 +301,7 @@
                         </div>
                         <div>{{ pub.totaltime }}</div>
                     </div>
-                    <div style="background-color: {{ pub.color }};"
-                         onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
+                    <div onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
                         <p>系列课程</p>
                         <h1>{{ pub.name }}</h1>
                         <p>{{ pub.desc }}</p>
