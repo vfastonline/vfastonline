@@ -318,11 +318,7 @@
     <section class="contentBody_course">
         {% for pub in pubs %}
         <div>
-        {% if pub.vtype == 0 %}
-            <div style="background-color: {{ pub.color }};"  onclick="window.open('/video/{{ pub.video_id }}','_blank')">
-        {% else %}
-            <div style="background-color: {{ pub.color }};"  onclick="window.open('/practice/{{ pub.video_id }}','_blank')">
-        {% endif %}
+            <div style="background-color: {{ pub.color }};"  onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
                 <div>
                     {% if pub.icon == 0 %}
                     <img src="/static/svg/videoCourse_1.svg" alt="">
@@ -332,15 +328,11 @@
                 </div>
                 <div>{{ pub.totaltime }}</div>
             </div>
-        {% if pub.vtype == 0 %}
-            <div onclick="window.open('/video/{{ pub.video_id }}','_blank')">
-        {% else %}
-            <div onclick="window.open('/practice/{{ pub.video_id }}','_blank')">
-        {% endif %}
+            <div onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
                 <p>系列课程</p>
                 <h1>{{ pub.name }}</h1>
                 <p>{{ pub.desc }}</p>
-                <div style="background-color: {{ pub.vt_color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.vt_name }}')">{{ pub.vt_name }}</div>
+                <div style="background-color: {{ pub.tech__color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.tech__name }}')">{{ pub.tech__name }}</div>
                 <div>难易度：
                     {% for n in xingxing %}
                         {% if pub.difficult > n %}

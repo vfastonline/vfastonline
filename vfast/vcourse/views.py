@@ -53,23 +53,17 @@ def getpath(request):
 def getcourses(request):
     """获取所有的课程"""
     try:
-        pubs, not_pubs = [], []
         type = request.GET.get('type', None)
         vps = Technology.objects.all().values()
-        try:
+        if type:
             techobj = Technology.objects.get(name=type)
-            courses = Course.objects.filter(tech=techobj).values('id')
-        except:
-            courses = Course.objects.filter().values('id')
+            pubs = Course.objects.filter(tech=techobj, pubstatus=0).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
+            not_pubs = Course.objects.filter(tech=techobj, pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
+        else:
             techobj = ''
-        for c in courses:
-            sql_pub = "select vc.*, vv.vtype, vv.id as video_id, vv.sequence, vt.name as vt_name, vt.color as vt_color from vcourse_technology as vt, vcourse_course as vc, vcourse_video as vv where vt.id=vc.tech_id and vv.course_id=vc.id and vc.id=%s order by sequence limit 1" % \
-                      c['id']
-            ret = dictfetchall(sql_pub)
-            if len(ret) != 0:
-                pubs.append(ret[0])
-            else:
-                not_pubs.append(Course.objects.get(id=c['id']))
+            pubs = Course.objects.filter(pubstatus=0).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
+            not_pubs = Course.objects.filter(pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
+        print pubs
         return render(request, 'course_library.html',
                       {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj,
                        'xingxing': [0, 1, 2, 3, 4]})
@@ -151,7 +145,7 @@ def course_detail(request):
                 url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video[
                     'video_id']
             else:
-                v = Video.objects.filter(course_id=cid, sequence=1).values().first()
+                v = Video.objects.filter(course_id=cid, sequence=1).values().first()        #如果课程下面没有视频会抛出异常
                 url = '/video/%s' % v['id'] if v['vtype'] == 0 else '/practice/%s' % v['id']
             course_process = '%s/%s' % (videos_watched.count(), videos_course)
             jindu = videos_watched.count() / 1.0 / videos_course

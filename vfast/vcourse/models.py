@@ -18,7 +18,6 @@ class Course(models.Model):
     PUB_STATUS = (
         (0, '已发布'),
         (1, '即将发布'),
-        (2, '项目')
     )
     ICON_STATUS = (
         (0, '视频'),
