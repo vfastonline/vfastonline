@@ -574,6 +574,9 @@
     $(document).ready(function(e){
         var githuburl = $("#githuburl").val();
         var githubrepo = $("#githubrepo").val();
+        console.log(githuburl)
+        console.log(githubrepo)
+
         if(githuburl != null ){
             if(githuburl.trim() != "" ){
                 $.getJSON(githubrepo,function(data2){
