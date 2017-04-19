@@ -179,6 +179,7 @@
         }
         .course_info>.left>.course_section{
             margin-left: 20px;
+            margin-bottom: 30px;
         }
         .course_info>.left>.course_section>h3{
             font-size: 14px;
@@ -307,12 +308,12 @@
 
                 <div class="course_play_div">
                     {% if request.session.login != True %}
-                        <div href="#">开始学习</div>
+                        <div onclick="showLogin()">开始学习</div>
                     {% else %}
                         {% if flag %}
-                            <div href="{{ url }}">继续学习</div>
+                            <div onclick="window.open('{{ url }}','_blank')">继续学习</div>
                         {% else %}
-                            <div href="{{ url }}">开始学习</div>
+                            <div onclick="window.open('{{ url }}','_blank')">开始学习</div>
                         {% endif %}
                     {% endif %}
                     <span>{{ course_process }}</span>
@@ -344,34 +345,6 @@
             <div class="text">{{ course.require_env }}</div>
             <h2>课程表</h2>
             <!--章节-->
-{#            <div class="course_section">#}
-{#                <h3>从机器学习到深度学习</h3>#}
-{#                <div class="clearfix">#}
-{#                    <div onclick="sectionLI_toggle(this)">5/15&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>#}
-{#                    <div>深度学习是机器学习研究中的一个新的领域，其动机在于建立、模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解释数据，例如图像，声音和文本</div>#}
-{#                </div>#}
-{#                <ul class="ectionUL">#}
-{#                    <li>#}
-{#                        <img src="/static/svg/xiaoplay.svg" alt="">深度学习是什么？<span>1:04</span>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/question.svg" alt="">深度学习是什么？<span>1:04</span>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <img src="/static/svg/xiaoduigou.svg" alt="">深度学习是什么？<span>1:04</span>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </div>#}
-
             {% for section in sections %}
                 <div class="course_section">
                 <h3>{{ section.title }}</h3>
@@ -393,12 +366,7 @@
                     {% endfor %}
                 </ul>
             </div>
-
             {% endfor %}
-
-
-
-
         </div>
         <div class="right">
             <h2>课程讲师</h2>
@@ -492,12 +460,26 @@
     }
     function sectionLI_toggle(t){
         $(t).parent().parent().find(".ectionUL li").slideToggle(350);
-        console.log($(t).find("img").attr("class"));
         if($(t).find("img").attr("class") == "img_down"){
             $(t).find("img").attr("class","img_right");
         }else{
             $(t).find("img").attr("class","img_down");
         }
+    }
+    function play(vid,vtype){
+        if($("#uname").val()){
+            if(vtype == "0"){
+                window.open("/video/"+vid);
+            }else{
+                window.open("/practice/"+vid);
+            }
+        }else{
+            showLogin();
+        }
+    }
+
+    function showLogin(){
+        login_button.click();
     }
 </script>
 </html>

@@ -347,22 +347,27 @@
         {% endfor %}
     </section>
     <div class="slideDIV" style="height:150px;"></div>
-    <h2 class="upcoming_release">即将发布</h2>
+    {% if  not_pubs %}
+        <h2 class="upcoming_release">即将发布</h2>
+    {% endif %}
     <section class="contentBody_course ur_course">
-
         {% for not_pub in not_pubs %}
             <div>
             <div style="background-color: {{ not_pub.color }};">
                 <div>
-                    <img src="{{ not_pub.icon_url }}" alt="">
+                    {% if not_pub.icon == 0 %}
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                    {% else %}
+                    <img src="/static/svg/project_1.svg" alt="">
+                    {% endif %}
                 </div>
                 <div>{{ not_pub.totaltime }}</div>
             </div>
-            <div onclick="play_video('/')">
+            <div>
                 <p>系列课程</p>
                 <h1>{{ not_pub.name }}</h1>
                 <p>{{ not_pub.desc }}</p>
-                <div style="background-color: {{ not_pub.tech.color }};" class="groupHover" onclick="stopPPG(this)">{{ not_pub.name }}</div>
+                <div style="background-color: {{ not_pub.tech.color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ not_pub.name }}')">{{ not_pub.name }}</div>
                 <div>{{ not_pub.pubdate }}</div>
             </div>
         </div>
