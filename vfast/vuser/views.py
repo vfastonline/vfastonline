@@ -11,6 +11,7 @@ from vbadge.models import UserBadge
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
 from vrecord.api import sum_score_tech
 
+import os
 import json
 import logging
 import traceback
@@ -23,7 +24,7 @@ def test(request):
     begin = int(time.time())
     time.sleep(3)
     end = int(time.time())
-    return HttpResponse(json.dumps({'begin': begin, 'end': end}))
+    return render(request, 'test.html')
 
 
 def userexists(request):
@@ -437,6 +438,62 @@ def is_open(request):
         print is_open
         User.objects.filter(id=uid).update(is_open=is_open)
         return HttpResponse('is_open update successful')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def change_headimg(request):
+    try:
+        if request.method == 'POST':
+            headimg = request.FILES.get('headimg', None)
+            uid = request.POST.get('uid',None)
+            if not headimg:
+                return HttpResponse('no headimg for upload!')
+            destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
+            if not os.path.isdir(destination):
+                os.mkdir(destination)
+            print destination
+            headfile = open(os.path.join(destination, headimg.name), 'wb')
+            for chunk in headimg.chunks():
+                headfile.write(chunk)
+            headfile.close()
+            user = User.objects.get(id=uid)
+            user.headimg = '/media/user_headimg/%s' % headimg.name
+            user.save()
+            return HttpResponse(json.dumps({'headimg':'/media/user_headimg/%s' % headimg.name}))
+        return HttpResponse('get method ok')
+
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def default_headimg(request):
+    try:
+        if request.method == 'POST':
+            uid = request.POST.get('uid')
+            user = User.objects.get(id=uid)
+            user.headimg = '/static/head/defaultIMG.svg'
+            user.save()
+            return HttpResponse(json.dumps({'headimg':'/static/head/defaultIMG.svg'}))
+        else:
+            return HttpResponse('Please use post method')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def github(request):
+    try:
+        if request.method == 'GET':
+            uid = request.GET.get('uid')
+            status = request.GET.get('status')
+            print uid, status
+            if status == 'on':
+                return HttpResponseRedirect('/github_login')
+        else:
+            return HttpResponse('method error!')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())

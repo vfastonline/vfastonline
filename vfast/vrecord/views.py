@@ -68,7 +68,7 @@ def record_video(request):
             course = Course.objects.get(id=video.course_id)
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
-                if (status == 0 and obj.status == 0) or (status==1 and obj.status == 0):
+                if status == 0 and obj.status == 0:
                     obj.video_process = 0
                     obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.save()
@@ -91,6 +91,11 @@ def record_video(request):
                     return HttpResponse(
                         json.dumps({'code': 0, 'b_flag': b_flag, 'badge': badge, 'l_flag': l_flag, 'rlevel': rlevel},
                                    ensure_ascii=False))
+                elif status==1 and obj.status == 0:
+                    obj.video_process = video_process
+                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+                    obj.save()
+                    return HttpResponse(json.dumps({'code': 0, 'b_flag': False, 'l_flag': False}, ensure_ascii=False))
                 else:
                     obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.video_process = video_process
