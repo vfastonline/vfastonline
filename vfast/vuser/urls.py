@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^model', views.user_model, name='usermodel'),
     url(r'^person', views.person_page),
     url(r'^is_open$', views.is_open),
+    url('^change_headimg$', views.change_headimg, name='change_heading'),
+    url('^default_headimg&', views.default_headimg, name='default_headimg'),
+    url('^github', views.github, name='github'),
 ]
