@@ -859,3 +859,16 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     margin-top: 120px;
 }
 /*footer END*/
+
+::-webkit-input-placeholder{
+    color: #BAC4CA;
+}
+::-moz-placeholder{
+    color: #BAC4CA;
+}
+:-ms-input-placeholder{
+    color: #BAC4CA;
+}
+::-moz-placeholder{
+    color: #BAC4CA;
+}

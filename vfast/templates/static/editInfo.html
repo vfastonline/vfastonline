@@ -23,26 +23,124 @@
         #head_cont{
             box-shadow: none;
         }
-
+        input{
+            width:260px;
+            height:40px;
+            background: #ECEFF1;
+            border: 1px solid #ECEFF1;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border-radius: 4px;
+            outline: none;
+            text-indent: 2em;
+            color: #BAC4CA;
+            margin: 8px 0px;
+        }
+        input:focus{
+            background: #FFFFFF;
+            color: #BAC4CA;
+        }
         .info_1{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
             border-radius: 4px;
-            width:55%;
-            padding: 2% 5%;
+            width:55.3%;
+            padding: 2% 4%;
             float: left;
+        }
+        .info_1>div{
+            margin-top: 20px;
+        }
+        .info_1>div:nth-child(2n+1){
+            width:52%;
+            float: left;
+            clear: both;
+        }
+        .info_1>div:nth-child(2n+2){
+            float: right;
+            width:48%;
+        }
+        .info_1>div>p{
+            font-size: 16px;
+            color: #BAC3CA;
+        }
+        .info_1_head>.info_1_head_1{
+            float: left;
+            width:50%;
+            position:relative;
+        }
+        .info_1_head>.info_1_head_1>img{
+            position:absolute;
+        }
+        .info_1_head>.info_1_head_1>img:first-child{
+            left: 1px;
+            width: 100px;
+            height:100px;
+            border-radius: 100px;
+        }
+        .info_1_head>.info_1_head_1>img:last-child{
+            top:5px;
+            left: 70px;
+        }
+        .info_1_head>.info_1_head_2{
+            float: right;
+            width:50%;
+            position:relative;
+            padding: 8px 0px 0px 20px;
+        }
+        .info_1_head_2>div:first-child{
+            width:96px;
+            height:38px;
+            line-height: 38px;
+            border:2px solid #ECEFF1;
+            position: absolute;
+            background: #ECEFF1;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            color: #8C96A5;
+        }
+        .info_1_head_2>input{
+            width:96px;
+            height:40px;
+            position: relative;
+            border: none;
+            margin: 0;
+            opacity: 0;
+        }
+        .info_1_head_2>input:hover{
+            cursor:pointer;
+        }
+        .info_1_head_2>div:last-child{
+            width:96px;
+            height:38px;
+            line-height: 38px;
+            border:2px solid #ECEFF1;
+            background: #ECEFF1;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            color: #8C96A5;
+            margin-top: 16px;
+            user-select: none;
+        }
+        .info_1_head_2>div:last-child:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        .info_1_head_2>div:last-child:active{
+            background: #FFFFFF;
         }
         .info_2{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            width:43%;
+            width:42%;
             float: right;
         }
 
         .info_3{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            width:43%;
+            width:42%;
             float: right;
         }
         .info_4{
@@ -52,27 +150,43 @@
             border-radius: 4px;
             float: left;
         }
+
+        .promptDIV{
+            width:100%;
+            height:73px;
+            box-shadow: 0 2px 1px 0 rgba(0,0,0,0.25);
+            background: #5ACD91;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 70px;
+            font-size: 20px;
+            position: fixed;
+            top: -75px;
+            z-index: 2;
+            transition: all 0.35s ease-out;
+        }
     </style>
 </head>
 <body>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
     <div style="height:35px;"></div>
+    <section class="promptDIV" id="promptDIV"></section>
     <div class="slideDIV" style="height:50px;"></div>
     <section class="container ">
         <div class="info_1">
-            <div>
+            <div class="info_1_head">
                 <p>头像</p>
-                <div>
+                <div class="info_1_head_1">
                     <img id="uheadimg" src="{{ request.session.user.headimg }}" alt=""/>
-                    <img src="/static/head/120_without_rank.svg" alt=""/>
+                    <img src="/static/head/OvalBIG.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
                 </div>
-                <div>
-                    <div></div>
-                    <input type="file">
+                <div class="info_1_head_2">
+                    <div>更换图片</div>
+                    <input id="headFile" type="file">
+                    <div onclick="resetHP()">恢复预设</div>
                 </div>
-                <button>恢复预设</button>
             </div>
             <div>
                 <p>称呼</p>
@@ -90,18 +204,55 @@
             <div>
                 <p>联系方式</p>
                 <input type="text" placeholder="手机号码">
+                <input type="text">
                 <input type="text" placeholder="邮箱">
+                <input type="text">
             </div>
             <div>
                 <p>登陆密码</p>
                 <button>重置</button>
+                <input type="password">
             </div>
         </div>
-        <div class="info_2">2</div>
-        <div class="info_3">3</div>
-        <div class="info_4">4</div>
+        <div class="slideDIV" style="height:50px;"></div>
+        <div class="info_2">
+            <h3>职业网站</h3>
+            <div>
+                <span>GitHub</span>
+                <div>滑动</div>
+            </div>
+            <div>
+                <span>个人主页</span>
+                <div>滑动</div>
+            </div>
+        </div>
+        <div class="info_3">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div class="slideDIV" style="height:100px;clear: both;"></div>
+        <div class="info_4">
+            <div>
+                <h3>期望的工作职位</h3>
+                <div>
+                    <input type="text" placeholder="添加职位">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div>
+                <h3>期望的工作水平</h3>
+                <select name="" id="">
+                    <option>初级</option>
+                    <option>中级</option>
+                    <option>高级</option>
+                </select>
+            </div>
+            <div>
+                <h3>当前的工作</h3>
+                <input type="text" placeholder="公司名称">
+                <input type="text" placeholder="岗位">
+            </div>
+        </div>
     </section>
-    <div class="slideDIV" style="height:100px;"></div>
 
     <div class="slideDIV" style="height:150px;"></div>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
@@ -119,5 +270,22 @@
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
     }
+
+    function resetHP(){
+        showPrompt("已经恢复预设头像~");
+    }
+
+    function showPrompt(message){
+        $("#promptDIV").html(message);
+        $("#promptDIV").css("top","0px");
+        setTimeout(function(){
+            $("#promptDIV").css("top","-75px");
+        },2000)
+    }
+    $('#headFile').change(function(e){
+        $.post("",e,function(data){
+            console.log(data);
+        });
+    })
 </script>
 </html>

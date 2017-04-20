@@ -88,19 +88,19 @@
         }
 
         .info_left_1>div:first-child{
-            width:100px;
-            height:100px;
+            width:102px;
+            height:102px;
             position: relative;
             margin-top: 12px;
         }
         .info_left_1>div:first-child>img:nth-child(1){
-            width:97px;
-            height:97px;
-            position: absolute;
-        }
-        .info_left_1>div:first-child>img:nth-child(2){
             width:100px;
             height:100px;
+            position: absolute;
+            border-radius: 100px;
+            left: 1px;
+        }
+        .info_left_1>div:first-child>img:nth-child(2){
             position: absolute;
         }
         .info_left_1>div:first-child>img:nth-child(3){
@@ -447,7 +447,7 @@
             <div class="info_left_1">
                 <div>
                     <img src="{{ request.session.user.headimg }}" alt=""/>
-                    <img src="/static/head/120_without_rank.svg" alt=""/>
+                    <img src="/static/head/OvalBIG.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
                 </div>
                 <div>
