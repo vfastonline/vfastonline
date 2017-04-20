@@ -9,6 +9,7 @@
 
     <script src="/static/js/jquery-2.1.4.js"></script>
     <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="/static/js/image_compress.js"></script>
 
     <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
@@ -27,7 +28,7 @@
             width:260px;
             height:40px;
             background: #ECEFF1;
-            border: 1px solid #ECEFF1;
+            border: 2px solid #ECEFF1;
             box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
             border-radius: 4px;
             outline: none;
@@ -39,6 +40,22 @@
             background: #FFFFFF;
             color: #BAC4CA;
         }
+        input+span{
+            display: none;
+            width:260px;
+            height:30px;
+            line-height: 30px;
+            text-indent: 2em;
+            background-color: rgb(214,96,97);
+            color: #FFFFFF;
+            border-radius: 0px 0px 4px 4px;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border: 2px solid rgb(214,96,97);
+            position: absolute;
+            top:44px;
+            left: 0;
+            z-index: 1;
+        }
         .info_1{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
@@ -47,8 +64,8 @@
             padding: 2% 4%;
             float: left;
         }
-        .info_1>div{
-            margin-top: 20px;
+        .info_1>div:nth-child(1n+3){
+            margin-top: 30px;
         }
         .info_1>div:nth-child(2n+1){
             width:52%;
@@ -58,6 +75,9 @@
         .info_1>div:nth-child(2n+2){
             float: right;
             width:48%;
+        }
+        .info_1>div>div{
+            position: relative;
         }
         .info_1>div>p{
             font-size: 16px;
@@ -130,6 +150,28 @@
         .info_1_head_2>div:last-child:active{
             background: #FFFFFF;
         }
+        .resetPassword{
+            background: #ECEFF1;
+            border:2px solid #ECEFF1;
+            border-radius: 2px;
+            width:64px;
+            height:32px;
+            outline:none;
+            font-size: 16px;
+            color: #8C96A5;
+            margin-top: 38px;
+            margin-left: 100px;
+            position: absolute;
+        }
+        .resetPassword:hover{
+            opacity: 0.8;
+        }
+        .resetPassword:active{
+            background: #FFFFFF;
+        }
+        .password{
+            display: none;
+        }
         .info_2{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
@@ -178,40 +220,54 @@
             <div class="info_1_head">
                 <p>头像</p>
                 <div class="info_1_head_1">
-                    <img id="uheadimg" src="{{ request.session.user.headimg }}" alt=""/>
+                    <img id="uheadimg_this" src="{{ request.session.user.headimg }}" alt=""/>
                     <img src="/static/head/OvalBIG.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
                 </div>
                 <div class="info_1_head_2">
                     <div>更换图片</div>
-                    <input id="headFile" type="file">
+                    <input name="headimg" id="headimg" type="file">
                     <div onclick="resetHP()">恢复预设</div>
                 </div>
             </div>
             <div>
                 <p>称呼</p>
-                <input type="text" placeholder="昵称">
-                <input type="text" placeholder="真实姓名">
+                <div>
+                    <input type="text" onkeydown="submitINFO_name(this,event)" onblur="input_blur(this)" placeholder="昵称">
+                    <span></span>
+                </div>
+                <input form="fileForm" type="text" placeholder="真实姓名">
             </div>
             <div>
                 <p>当前位置</p>
-                <input type="text" placeholder="居住城市">
+                <input form="fileForm" type="text" placeholder="居住城市">
             </div>
             <div>
                 <p>生日</p>
-                <input type="text" placeholder="yyyy-mm-dd">
+                <input form="fileForm" type="text" placeholder="yyyy-mm-dd">
             </div>
             <div>
                 <p>联系方式</p>
-                <input type="text" placeholder="手机号码">
-                <input type="text">
-                <input type="text" placeholder="邮箱">
-                <input type="text">
+                <div>
+                    <input type="text" placeholder="手机号码">
+                    <span>手机号码格式错误</span>
+                </div>
+                <div>
+                    <input type="text" style="display: none">
+                    <span>验证码错误</span>
+                </div>
+                <div>
+                    <input type="text" placeholder="邮箱">
+                    <span>邮箱格式错误</span>
+                </div>
             </div>
             <div>
                 <p>登陆密码</p>
-                <button>重置</button>
-                <input type="password">
+                <button class="resetPassword" onclick="showPassword(this)">重置</button>
+                <div style="margin-top: 38px;">
+                    <input onkeydown="submitINFO_pad(this,event)" onblur="input_blur(this)" placeholder="新密码" class="password" type="password">
+                    <span></span>
+                </div>  
             </div>
         </div>
         <div class="slideDIV" style="height:50px;"></div>
@@ -227,7 +283,7 @@
             </div>
         </div>
         <div class="info_3">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <textarea form="fileForm" name="" id="" cols="30" rows="10" onkeydown="submitINFO(this,event)"></textarea>
         </div>
         <div class="slideDIV" style="height:100px;clear: both;"></div>
         <div class="info_4">
@@ -248,8 +304,8 @@
             </div>
             <div>
                 <h3>当前的工作</h3>
-                <input type="text" placeholder="公司名称">
-                <input type="text" placeholder="岗位">
+                <input form="fileForm" type="text" placeholder="公司名称">
+                <input form="fileForm" type="text" placeholder="岗位">
             </div>
         </div>
     </section>
@@ -257,6 +313,8 @@
     <div class="slideDIV" style="height:150px;"></div>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
+{#<form id="fileForm"></form>#}
+
 {% include "search_div.html" %}
 </body>
 <script src="/static/js/jquery-labelauty.js"></script>
@@ -282,10 +340,96 @@
             $("#promptDIV").css("top","-75px");
         },2000)
     }
-    $('#headFile').change(function(e){
-        $.post("",e,function(data){
-            console.log(data);
-        });
-    })
+    $("#headimg").on("change", imageCompress);
+
+    function submitINFO(t,e){
+        if(e.keyCode == 13){
+            $.ajax({
+                url:"",
+                type:"post",
+                data:form,
+                processData:false,
+                contentType:false,
+                dataType:"json",
+                success:function(data){
+
+                },
+                error:function(e){
+
+                }
+            });
+        }
+    }
+    function submitINFO_name(t,e){
+        if(e.keyCode == 13){
+            if(t.value.trim() == ""){
+                input_error(t,"昵称不能为空~");
+            }else{
+                $.post("/u/editpage/nickname",{"uid":$("#uid").val(),"nickname":t.value},function(data){
+                    console.log(data);
+                    if(data){
+                        input_blur(t);
+                        showPrompt("昵称修改成功~");
+                    }else{
+                        input_error(t,"昵称已存在! 换一个呗~");
+                    }
+                })
+            }
+        }
+    }
+    function submitINFO_pad(t,e){
+        if(e.keyCode == 13){
+            if(t.value.trim() == ""){
+                input_error(t,"密码不能为空~");
+            }else{
+                $.post("/u/editpage/password",{"uid":$("#uid").val(),"password":t.value},function(data){
+                    console.log(data);
+                    if(data){
+                        input_blur(t);
+                        showPrompt("密码修改成功");
+                        $(t).slideUp(100);
+                        $(t).parent().parent().find("button").slideDown(100);
+                    }else{
+                        input_error(t,"密码密码");
+                    }
+                })
+            }
+        }
+    }
+    function input_error(t,message){
+        $(t).css("border","2px solid rgb(214,96,97)");
+        $(t).parent().find("span").html(message);
+        $(t).parent().find("span").slideDown();
+    }
+    function input_blur(t){
+        $(t).css("border","2px solid #ECEFF1");
+        $(t).parent().find("span").slideUp();
+    }
+    function showPassword(t){
+        $(t).slideUp(100);
+        $(t).parent().find(".password").slideDown(100);
+    }
+{#    function uploadFile(){#}
+{#        var form = new FormData(document.getElementById("fileForm"));#}
+{#        form.append("uid",$("#uid").val());#}
+{#        console.log(form);#}
+{#        $.ajax({#}
+{#                url:"/u/change_headimg",#}
+{#                type:"post",#}
+{#                data:form,#}
+{#                processData:false,#}
+{#                contentType:false,#}
+{#                dataType:"json",#}
+{#                success:function(data){#}
+{#                    $("#uheadimg_this").attr("src",data.headimg);#}
+{#                    $("#uheadimg").attr("src",data.headimg);#}
+{#                    showPrompt("头像已更换~");#}
+{#                },#}
+{#                error:function(e){#}
+{#                    console.log(e);#}
+{#                }#}
+{#            });#}
+{##}
+{#    }#}
 </script>
 </html>
