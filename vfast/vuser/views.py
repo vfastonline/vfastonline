@@ -8,7 +8,7 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
-from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall, verify_phone
+from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
 from vrecord.api import sum_score_tech
 
 import os
@@ -21,9 +21,6 @@ import time
 
 # Create your views here.
 def test(request):
-    from vfast.api import verify_phone
-    status = verify_phone('18612972023')
-    print status
     return render(request, 'test.html')
 
 
@@ -552,8 +549,7 @@ def user_phone(request):
         if request.method == 'POST':
             uid = request.POST.get('uid')
             phone = request.POST.get('phone')
-            ret = verify_phone(phone)
-            if ret:
+            if True:
                 pass
     except:
         logging.getLogger().error(traceback.format_exc())
