@@ -9,6 +9,7 @@
 
     <script src="/static/js/jquery-2.1.4.js"></script>
     <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="/static/js/image_compress.js"></script>
 
     <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
@@ -23,27 +24,184 @@
         #head_cont{
             box-shadow: none;
         }
-
+        input{
+            width:260px;
+            height:40px;
+            background: #ECEFF1;
+            border: 2px solid #ECEFF1;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border-radius: 4px;
+            outline: none;
+            text-indent: 2em;
+            color: #BAC4CA;
+            margin: 8px 0px;
+        }
+        input:focus{
+            background: #FFFFFF;
+            color: #BAC4CA;
+        }
+        input+span{
+            display: none;
+            width:260px;
+            height:30px;
+            line-height: 30px;
+            text-indent: 2em;
+            background-color: rgb(214,96,97);
+            color: #FFFFFF;
+            border-radius: 0px 0px 4px 4px;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border: 2px solid rgb(214,96,97);
+            position: absolute;
+            top:44px;
+            left: 0;
+            z-index: 1;
+        }
         .info_1{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
             border-radius: 4px;
-            width:55%;
-            padding: 2% 5%;
+            width:55.3%;
+            padding: 2% 4%;
             float: left;
+        }
+        .info_1>div:nth-child(1n+3){
+            margin-top: 30px;
+        }
+        .info_1>div:nth-child(2n+1){
+            width:52%;
+            float: left;
+            clear: both;
+        }
+        .info_1>div:nth-child(2n+2){
+            float: right;
+            width:48%;
+        }
+        .info_1>div>div{
+            position: relative;
+        }
+        .info_1>div>p{
+            font-size: 16px;
+            color: #BAC3CA;
+        }
+        .info_1_head>.info_1_head_1{
+            float: left;
+            width:50%;
+            position:relative;
+        }
+        .info_1_head>.info_1_head_1>img{
+            position:absolute;
+        }
+        .info_1_head>.info_1_head_1>img:first-child{
+            left: 1px;
+            width: 100px;
+            height:100px;
+            border-radius: 100px;
+        }
+        .info_1_head>.info_1_head_1>img:last-child{
+            top:5px;
+            left: 70px;
+        }
+        .info_1_head>.info_1_head_2{
+            float: right;
+            width:50%;
+            position:relative;
+            padding: 8px 0px 0px 20px;
+        }
+        .info_1_head_2>div:first-child{
+            width:96px;
+            height:38px;
+            line-height: 38px;
+            border:2px solid #ECEFF1;
+            position: absolute;
+            background: #ECEFF1;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            color: #8C96A5;
+        }
+        .info_1_head_2>input{
+            width:96px;
+            height:40px;
+            position: relative;
+            border: none;
+            margin: 0;
+            opacity: 0;
+        }
+        .info_1_head_2>input:hover{
+            cursor:pointer;
+        }
+        .info_1_head_2>div:last-child{
+            width:96px;
+            height:38px;
+            line-height: 38px;
+            border:2px solid #ECEFF1;
+            background: #ECEFF1;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            color: #8C96A5;
+            margin-top: 16px;
+            user-select: none;
+        }
+        .info_1_head_2>div:last-child:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        .info_1_head_2>div:last-child:active{
+            background: #FFFFFF;
+        }
+        .resetPassword{
+            background: #ECEFF1;
+            border:2px solid #ECEFF1;
+            border-radius: 2px;
+            width:64px;
+            height:32px;
+            outline:none;
+            font-size: 16px;
+            color: #8C96A5;
+            margin-top: 38px;
+            margin-left: 100px;
+            position: absolute;
+        }
+        .resetPassword:hover{
+            opacity: 0.8;
+        }
+        .resetPassword:active{
+            background: #FFFFFF;
+        }
+        .password{
+            display: none;
         }
         .info_2{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            width:43%;
+            width:42%;
             float: right;
         }
 
         .info_3{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            width:43%;
+            width:42%;
             float: right;
+            margin-top: 30px;
+            height:242px;
+        }
+        .info_3>textarea{
+            background: #ECEFF1;
+            border: 2px solid #ECEFF1;
+            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
+            border-radius: 4px;
+            outline: none;
+            resize: none;
+            width:100%;
+            height:100%;
+            padding: 30px;
+            font-size: 14px;
+            color: #BAC4CA;
+        }
+        .info_3>textarea:focus{
+            background: #FFFFFF;
         }
         .info_4{
             width:100%;
@@ -51,6 +209,87 @@
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
             border-radius: 4px;
             float: left;
+            margin-top: 30px;
+            padding: 30px 50px;
+        }
+        .info_4>div:first-child{
+            width:32%;
+            float: left;
+        }
+
+        .info_4>div:nth-child(2){
+            width:32%;
+            float: left;
+        }
+
+        .info_4>div:last-child{
+            width:36%;
+            float: left;
+        }
+
+        .info_2{
+            padding: 0px 4% 2%;
+        }
+        .info_2>h3{
+            font-size: 16px;
+            color: #8C96A5;
+            position: relative;
+            left: -20px;
+        }
+        .info_2>div{
+            height:70px;
+            line-height: 70px;
+            position: relative;
+        }
+        .info_2>div>input{
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 7px;
+        }
+        .info_2>div>span{
+            font-size: 14px;
+            color: #BAC4CA;
+            user-select: none;
+        }
+        .info_2>div>div{
+            width:80px;
+            height:40px;
+            float: right;
+            margin-top: 15px;
+            position: relative;
+            background: #ECEFF1;
+            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+            border-radius: 20px;
+        }
+        .info_2>div>div:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        .info_2>div>div:active{
+            cursor: pointer;
+            opacity: 1;
+        }
+        .info_2>div>div>img{
+            vertical-align: top;
+            position: absolute;
+            top:3.5px;
+            left:5px;
+            user-select: none;
+        }
+        .promptDIV{
+            width:100%;
+            height:73px;
+            box-shadow: 0 2px 1px 0 rgba(0,0,0,0.25);
+            background: #5ACD91;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 70px;
+            font-size: 20px;
+            position: fixed;
+            top: -75px;
+            z-index: 2;
+            transition: all 0.35s ease-out;
         }
     </style>
 </head>
@@ -58,54 +297,109 @@
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
     <div style="height:35px;"></div>
+    <section class="promptDIV" id="promptDIV"></section>
     <div class="slideDIV" style="height:50px;"></div>
     <section class="container ">
         <div class="info_1">
-            <div>
+            <div class="info_1_head">
                 <p>头像</p>
-                <div>
-                    <img id="uheadimg" src="{{ request.session.user.headimg }}" alt=""/>
-                    <img src="/static/head/120_without_rank.svg" alt=""/>
+                <div class="info_1_head_1">
+                    <img id="uheadimg_this" src="{{ request.session.user.headimg }}" alt=""/>
+                    <img src="/static/head/OvalBIG.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
                 </div>
-                <div>
-                    <div></div>
-                    <input type="file">
+                <div class="info_1_head_2">
+                    <div>更换图片</div>
+                    <input name="headimg" id="headimg" type="file">
+                    <div onclick="resetHP()">恢复预设</div>
                 </div>
-                <button>恢复预设</button>
             </div>
             <div>
                 <p>称呼</p>
-                <input type="text" placeholder="昵称">
-                <input type="text" placeholder="真实姓名">
+                <div>
+                    <input type="text" onkeydown="submitINFO_name(this,event)" onblur="input_blur(this)" placeholder="昵称">
+                    <span></span>
+                </div>
+                <input form="fileForm" type="text" placeholder="真实姓名">
             </div>
             <div>
                 <p>当前位置</p>
-                <input type="text" placeholder="居住城市">
+                <input form="fileForm" type="text" placeholder="居住城市">
             </div>
             <div>
                 <p>生日</p>
-                <input type="text" placeholder="yyyy-mm-dd">
+                <input form="fileForm" type="text" placeholder="yyyy-mm-dd">
             </div>
             <div>
                 <p>联系方式</p>
-                <input type="text" placeholder="手机号码">
-                <input type="text" placeholder="邮箱">
+                <div>
+                    <input type="text" placeholder="手机号码">
+                    <span>手机号码格式错误</span>
+                </div>
+                <div>
+                    <input type="text" style="display: none">
+                    <span>验证码错误</span>
+                </div>
+                <div>
+                    <input type="text" placeholder="邮箱">
+                    <span>邮箱格式错误</span>
+                </div>
             </div>
             <div>
                 <p>登陆密码</p>
-                <button>重置</button>
+                <button class="resetPassword" onclick="showPassword(this)">重置</button>
+                <div style="margin-top: 38px;">
+                    <input onkeydown="submitINFO_pad(this,event)" onblur="input_blur(this)" placeholder="新密码" class="password" type="password">
+                    <span></span>
+                </div>
             </div>
         </div>
-        <div class="info_2">2</div>
-        <div class="info_3">3</div>
-        <div class="info_4">4</div>
+        <div class="slideDIV" style="height:60px;"></div>
+        <div class="info_2">
+            <h3>职业网站</h3>
+            <div>
+                <span>GitHub</span>
+                <div><img src="/static/svg/fangmao_hui.svg" alt=""></div>
+            </div>
+            <div>
+                <span>个人主页</span>
+                <input type="text">
+                <div><img src="/static/svg/www_hui.svg" alt=""></div>
+            </div>
+        </div>
+        <div class="info_3">
+            <textarea placeholder="自我介绍" form="fileForm" name="" id="" cols="30" rows="10" onkeydown="submitINFO(this,event)"></textarea>
+        </div>
+        <div class="slideDIV" style="height:80px;clear: both;"></div>
+        <div class="info_4">
+            <div>
+                <h3>期望的工作职位</h3>
+                <div>
+                    <input type="text" placeholder="添加职位">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div>
+                <h3>期望的工作水平</h3>
+                <select name="" id="">
+                    <option>初级</option>
+                    <option>中级</option>
+                    <option>高级</option>
+                </select>
+            </div>
+            <div>
+                <h3>当前的工作</h3>
+                <input form="fileForm" type="text" placeholder="公司名称">
+                <input form="fileForm" type="text" placeholder="岗位">
+            </div>
+        </div>
     </section>
-    <div class="slideDIV" style="height:100px;"></div>
 
-    <div class="slideDIV" style="height:150px;"></div>
+    <div class="slideDIV" style="height:100px;"></div>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
+{#<form id="fileForm"></form>#}
+
 {% include "search_div.html" %}
 </body>
 <script src="/static/js/jquery-labelauty.js"></script>
@@ -119,5 +413,108 @@
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
     }
+
+    function resetHP(){
+        showPrompt("已经恢复预设头像~");
+    }
+
+    function showPrompt(message){
+        $("#promptDIV").html(message);
+        $("#promptDIV").css("top","0px");
+        setTimeout(function(){
+            $("#promptDIV").css("top","-75px");
+        },2000)
+    }
+    $("#headimg").on("change", imageCompress);
+
+    function submitINFO(t,e){
+        if(e.keyCode == 13){
+            $.ajax({
+                url:"",
+                type:"post",
+                data:form,
+                processData:false,
+                contentType:false,
+                dataType:"json",
+                success:function(data){
+
+                },
+                error:function(e){
+
+                }
+            });
+        }
+    }
+    function submitINFO_name(t,e){
+        if(e.keyCode == 13){
+            if(t.value.trim() == ""){
+                input_error(t,"昵称不能为空~");
+            }else{
+                $.post("/u/editpage/nickname",{"uid":$("#uid").val(),"nickname":t.value},function(data){
+                    console.log(data);
+                    if(data){
+                        input_blur(t);
+                        showPrompt("昵称修改成功~");
+                    }else{
+                        input_error(t,"昵称已存在! 换一个呗~");
+                    }
+                })
+            }
+        }
+    }
+    function submitINFO_pad(t,e){
+        if(e.keyCode == 13){
+            if(t.value.trim() == ""){
+                input_error(t,"密码不能为空~");
+            }else{
+                $.post("/u/editpage/password",{"uid":$("#uid").val(),"password":t.value},function(data){
+                    console.log(data);
+                    if(data){
+                        input_blur(t);
+                        showPrompt("密码修改成功");
+                        $(t).slideUp(100);
+                        $(t).parent().parent().find("button").slideDown(100);
+                    }else{
+                        input_error(t,"密码密码");
+                    }
+                })
+            }
+        }
+    }
+    function input_error(t,message){
+        $(t).css("border","2px solid rgb(214,96,97)");
+        $(t).parent().find("span").html(message);
+        $(t).parent().find("span").slideDown();
+    }
+    function input_blur(t){
+        $(t).css("border","2px solid #ECEFF1");
+        $(t).parent().find("span").slideUp();
+    }
+    function showPassword(t){
+        $(t).slideUp(100);
+        $(t).parent().find(".password").slideDown(100);
+    }
+{#    function uploadFile(){#}
+{#        var form = new FormData(document.getElementById("fileForm"));#}
+{#        form.append("uid",$("#uid").val());#}
+{#        console.log(form);#}
+{#        $.ajax({#}
+{#                url:"/u/change_headimg",#}
+{#                type:"post",#}
+{#                data:form,#}
+{#                processData:false,#}
+{#                contentType:false,#}
+{#                dataType:"json",#}
+{#                success:function(data){#}
+{#                    $("#uheadimg_this").attr("src",data.headimg);#}
+{#                    $("#uheadimg").attr("src",data.headimg);#}
+{#                    showPrompt("头像已更换~");#}
+{#                },#}
+{#                error:function(e){#}
+{#                    console.log(e);#}
+{#                }#}
+{#            });#}
+{##}
+{#    }#}
 </script>
 </html>

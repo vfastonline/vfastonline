@@ -9,6 +9,6 @@
   </defs>
   <g fill="none" fill-rule="evenodd" transform="translate(-388.605 -19.5)">
     <use fill="#000" filter="url(#地球-a)" xlink:href="#地球-b"/>
-    <use fill="#00AFE6" xlink:href="#地球-b"/>
+    <use fill="#BAC3CA" xlink:href="#地球-b"/>
   </g>
 </svg>
