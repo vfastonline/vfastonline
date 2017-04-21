@@ -23,6 +23,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config = ConfigParser.ConfigParser()
 config.read(os.path.join(BASE_DIR, 'vfast.conf'))
 
+
+#message config
+INTERFACE = config.get('message', 'interface')
+USERNAME = config.get('message', 'username')
+PASSWORD = config.get('message', 'password')
+EPID = config.get('message', 'epid')
+
+
+#redis
+REDIS_HOST = config.get('redis', 'host')
+REDIS_PORT = config.get('redis', 'port')
+
+
 # mail config
 MAIL_ENABLE = config.get('mail', 'mail_enable')
 EMAIL_HOST = config.get('mail', 'email_host')

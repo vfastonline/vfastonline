@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 import urllib
 import json
 import logging
+import traceback
 
 GITHUB_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
 GITHUB_CLIENTID = 'b758723e0c76d63dc514'
@@ -34,46 +35,47 @@ def github_login(request):
         'state': _get_refer_url(request),
     }
     github_auth_url = '%s?%s' % (GITHUB_AUTHORIZE_URL, urllib.urlencode(data))
-    print github_auth_url
+    # print github_auth_url
     return HttpResponseRedirect(github_auth_url)
 
 
 # github回调,获取需要的信息
 def github_auth(request):
-    if 'code' not in request.GET:
-        return render(request, 'index.html')
-    code = request.GET.get('code')
-    uid = request.GET.get('uid')
-    print 'uid', uid
-    url = 'https://github.com/login/oauth/access_token'
-    data = {
-        'grant_type': 'authorization_code',
-        'client_id': GITHUB_CLIENTID,
-        'client_secret': GITHUB_CLIENTSECRET,
-        'code': code,
-        'redirect_uri': GITHUB_CALLBACK,
-    }
-    data = urllib.urlencode(data)
+    try:
+        if 'code' not in request.GET:
+            return render(request, 'index.html')
+        code = request.GET.get('code')
+        uid = request.GET.get('uid')
+        print 'uid', uid
+        url = 'https://github.com/login/oauth/access_token'
+        data = {
+            'grant_type': 'authorization_code',
+            'client_id': GITHUB_CLIENTID,
+            'client_secret': GITHUB_CLIENTSECRET,
+            'code': code,
+            'redirect_uri': GITHUB_CALLBACK,
+        }
+        data = urllib.urlencode(data)
 
-    # 设置请求返回的数据类型
-    headers = {'Accept': 'application/json'}
+        # 设置请求返回的数据类型
+        headers = {'Accept': 'application/json'}
 
-    req = urllib.urlopen(url, data, headers)
-    result = req.read()
-    print result
-    # result = json.loads(result)
-    access_token = result.split('&')[0].split('=')[1]
+        req = urllib.urlopen(url, data, headers)
+        result = req.read()
+        access_token = result.split('&')[0].split('=')[1]
 
-    url_token = 'https://api.github.com/user?access_token=%s' % access_token
-    print  url_token
-    response = urllib.urlopen(url_token)
-    html = response.read()
-    html = json.loads(html)
-    repos_url = html['repos_url']
-    html_url = html['html_url']
-    print repos_url, html_url
-    User.objects.filter(id=uid).update(githuburl=html_url, githubrepo=repos_url)
-    return HttpResponseRedirect('/')
+        url_token = 'https://api.github.com/user?access_token=%s' % access_token
+        response = urllib.urlopen(url_token)
+        html = response.read()
+        html = json.loads(html)
+        repos_url = html['repos_url']
+        html_url = html['html_url']
+        # print repos_url, html_url
+        User.objects.filter(id=uid).update(githuburl=html_url, githubrepo=repos_url)
+        return HttpResponse(json.dumps({'code':0, 'msg':u'github验证成功'}, ensure_ascii=False))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code':1}))
 
 # {"login": "sky-dadan", "id": 17780632, "avatar_url": "https://avatars2.githubusercontent.com/u/17780632?v=3",
 #  "gravatar_id": "", "url": "https://api.github.com/users/sky-dadan", "html_url": "https://github.com/sky-dadan",

@@ -22,7 +22,7 @@ class User(models.Model):
     password = models.CharField('密码', max_length=100, null=True)
     sex = models.CharField('性别', max_length=4, default='')
     totalscore = models.IntegerField('用户总得分', null=True, blank=True, default=0)
-    location = models.CharField('所在城市', max_length=50, null=True, blank=True, default='')
+    city = models.CharField('所在城市', max_length=50, null=True, blank=True, default='')
     intro = models.CharField('个人简介', max_length=500, null=True, blank=True, default='')
     is_open = models.IntegerField('个人信息是否展示', choices=IS_OPEN, default=0, null=True)
     birthday = models.CharField('出生日期', max_length=20, null=True, blank=True, default='')
@@ -43,9 +43,11 @@ class User(models.Model):
     status = models.IntegerField('是否激活', default=0)
     pathid = models.IntegerField('正在进行的路径ID', default=0)
     position = models.CharField('讲师职位', default='讲师', max_length=100)
+    phone = models.CharField('手机号码', default='13800000000', max_length=15)
+    nickname = models.CharField('昵称', max_length=30, default='', unique=True)
 
     #HR注册的相关信息
-    phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')
+    hr_phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')
     idcard = models.CharField('身份证图片', max_length=200, null=True, blank=True, default='')
     gongpai = models.CharField('工牌图片', max_length=100, null=True, blank=True, default='')
     on_job_verify = models.CharField('在职证明', max_length=100, null=True, blank=True, default='')
