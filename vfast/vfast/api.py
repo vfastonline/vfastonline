@@ -4,7 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from django.db import connection
+from django.conf import settings
 
+import urllib
+import requests
+import random
 import logging
 import logging.handlers
 import time, os, json, base64
@@ -171,3 +175,31 @@ def get_day_of_day(n=0):
         return date.today() - timedelta(days=n)
     else:
         return date.today() + timedelta(days=n)
+
+
+def verify_phone(phone):
+    authcode = ''
+    for i in range(4):
+        authcode+=str(random.randint(0,9))
+    # message = "【智量酷】您的验证码是:%s, 5分钟内有效" % authcode
+    message = 'test'
+    # message = urllib.quote(message)
+    # print urllib.unquote(message)
+    data = {
+        'username': settings.USERNAME,
+        'password': settings.PASSWORD,
+        'message': message,
+        'phone': phone,
+        'epid': settings.EPID,
+        'subcode': ''
+    }
+    url = settings.INTERFACE
+    print url, data
+    response = requests.post(url, data)
+    print response.text, response.status_code
+    if response.status_code == 200 and response.text == 0:
+        logging.getLogger().info(u'发送短信验证码成功')
+        return authcode
+    else:
+        logging.getLogger().info(u'发送短信验证码失败, 返回代码%s' % response.text)
+        return False

@@ -8,7 +8,7 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
-from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
+from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall, verify_phone
 from vrecord.api import sum_score_tech
 
 import os
@@ -21,13 +21,14 @@ import time
 
 # Create your views here.
 def test(request):
-    begin = int(time.time())
-    time.sleep(3)
-    end = int(time.time())
+    from vfast.api import verify_phone
+    status = verify_phone('18612972023')
+    print status
     return render(request, 'test.html')
 
 
 def userexists(request):
+    """判断email, username是否存在"""
     try:
         if request.method == 'POST':
             email = request.POST.get('email', None)
@@ -52,6 +53,7 @@ def userexists(request):
 
 
 def register(request):
+    """用户注册"""
     try:
         if request.method == 'GET':
             return render(request, 'du/register.html')
@@ -84,11 +86,11 @@ def register(request):
                                     如果无法点击请复制一下链接到浏览器地址
                                     %s/u/active?active=%s
                                 ''' % (email, settings.HOST, active)
+            nickname = u'酷粉%s' % int(time.time())
             send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
-
             result = User.objects.get_or_create(email=email, username=username, password=password,
                                                 program_exp=program_exp, createtime=t, sex=sex,
-                                                comp_use_time_day=comp_use_time_day, into_it=into_it,
+                                                comp_use_time_day=comp_use_time_day, into_it=into_it,nikcname=nickname,
                                                 learn_habit=learn_habit, active=active, role=role, headimg=headimg)
             if result:
                 return HttpResponse(json.dumps({'code': 0, 'msg': u'注册成功, 请激活账号!'}, ensure_ascii=False))
@@ -100,6 +102,7 @@ def register(request):
 
 
 def useractive(request):
+    """用户激活"""
     try:
         active = request.GET.get('active', ' ')
         user = User.objects.get(active=active)
@@ -116,7 +119,8 @@ def useractive(request):
         return HttpResponse(json.dumps({'code': 1, 'msg': u'邮件已过期失效'}, ensure_ascii=False))
 
 
-def resetpw(request):
+def find_password(request):
+    """找回密码"""
     try:
         if request.method == 'GET':
             return render(request, 'du/usertest.html')
@@ -127,7 +131,7 @@ def resetpw(request):
                 t = int(time.time())
                 active = base64.b64encode('%s|%s' % (email, t)).strip()
                 User.objects.filter(email=email).update(active=active)
-                subject = u'智量酷用户账号密码重置'
+                subject = u'智量酷用户账号找回密码'
                 message = u'''
                             您在使用智量酷时点击了“忘记密码”链接，这是一封密码重置确认邮件。
 
@@ -147,24 +151,22 @@ def resetpw(request):
         return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}))
 
 
-def resetpwd_verify(request):
+def reset_password(request):
+    """重置密码"""
     try:
-        if request.method == 'GET':
-            active = request.GET.get('active')
-            user = User.objects.get(active=active)
-            return render(request, 'du/usertest.html', {'user': user})
-        else:
-            email = request.POST.get('email', ' ')
-            password = request.POST.get('npw', ' ')
+        if request.method == 'POST':
+            uid = request.session['user']['id']
+            password = request.POST.get('password')
             password = encry_password(password)
-            User.objects.filter(email=email).update(password=password)
-            return HttpResponse('update password successful')
+            User.objects.filter(id=uid).update(password=password)
+            return HttpResponse(json.dumps({'code':0}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}))
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def login(request):
+    """用户登录"""
     try:
         if request.method == 'GET':
             return render(request, 'login_left.html')
@@ -200,6 +202,7 @@ def login(request):
 
 
 def userdetail(request):
+    """用户详情"""
     try:
         uid = request.session['user']['id']
         user = \
@@ -213,6 +216,7 @@ def userdetail(request):
 
 
 def dashboard(request, param):
+    """个人Dashboard页面"""
     try:
         param = int(param)
         user = User.objects.get(id=param)
@@ -307,6 +311,7 @@ def dashboard(request, param):
 
 
 def task_daily(user):
+    """每日任务"""
     try:
         ret = WatchRecord.objects.filter(user=user).exists()
         d_ret = DailyTask.objects.filter(createtime__contains=time.strftime('%Y-%m-%d'),
@@ -334,6 +339,7 @@ def task_daily(user):
 
 
 def task_finish(user):
+    """每日任务是否完成"""
     try:
         dt_all = DailyTask.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d')).values().order_by(
             'video_id')
@@ -366,6 +372,7 @@ def task_finish(user):
 
 
 def follow_people(request):
+    """关注功能"""
     try:
         followed_id = request.GET.get('followed_id')  # 被关注人的ID
         type = request.GET.get('type')  # 1关注, 0取消关注
@@ -389,6 +396,7 @@ def follow_people(request):
 
 
 def user_model(request):
+    """用户弹窗"""
     try:
         uid = request.GET.get('uid')
         tech_score = sum_score_tech(uid)
@@ -409,6 +417,7 @@ def user_model(request):
 
 
 def person_page(request):
+    """个人中心页面"""
     try:
         try:
             uid = request.session['user']['id']
@@ -428,7 +437,22 @@ def person_page(request):
         return HttpResponse(traceback.format_exc())
 
 
+def editpage(request):
+    """个人编辑页面"""
+    try:
+        if request.method == 'GET':
+            uid = request.session['user']['id']
+            user = User.objects.get(id=uid)
+            return render(request, 'test.html', {'user',user})
+        else:
+            return HttpResponse(u'请求错误')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
 def is_open(request):
+    """用户信息是否公开"""
     try:
         try:
             uid = request.session['user']['id']
@@ -444,6 +468,7 @@ def is_open(request):
 
 
 def change_headimg(request):
+    """修改个人头像呢"""
     try:
         if request.method == 'POST':
             headimg = request.FILES.get('headimg', None)
@@ -454,22 +479,24 @@ def change_headimg(request):
             if not os.path.isdir(destination):
                 os.mkdir(destination)
             print destination
-            headfile = open(os.path.join(destination, headimg.name), 'wb')
+            user = User.objects.get(id=uid)
+            filename = get_validate(user.email,uid, user.role_id,settings.SECRET_KEY)[:15]+'.jpg'
+            headfile = open(os.path.join(destination, filename), 'wb')
             for chunk in headimg.chunks():
                 headfile.write(chunk)
             headfile.close()
-            user = User.objects.get(id=uid)
-            user.headimg = '/media/user_headimg/%s' % headimg.name
-            user.save()
-            return HttpResponse(json.dumps({'headimg':'/media/user_headimg/%s' % headimg.name}))
-        return HttpResponse('get method ok')
 
+            user.headimg = '/media/user_headimg/%s' % filename
+            user.save()
+            return HttpResponse(json.dumps({'headimg':'/media/user_headimg/%s' % filename}))
+        return HttpResponse('get method ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
 
 
 def default_headimg(request):
+    """恢复默认"""
     try:
         if request.method == 'POST':
             uid = request.POST.get('uid')
@@ -485,15 +512,95 @@ def default_headimg(request):
 
 
 def github(request):
+    """绑定github账号"""
     try:
         if request.method == 'GET':
-            uid = request.GET.get('uid')
+            uid = request.session['user']['id']
             status = request.GET.get('status')
             print uid, status
             if status == 'on':
+                print 'jihuo github zhanghao ~!'
                 return HttpResponseRedirect('/github_login')
+            else:
+                user = User.objects.get(id=uid)
+                user.githuburl = ''
+                user.githubrepo = ''
+                user.save()
+                return HttpResponse(json.dumps({'code':0, 'msg':'github not link successful'}))
         else:
             return HttpResponse('method error!')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
+
+
+def personpage(request):
+    """绑定个人主页"""
+    try:
+        if request.method == 'POST':
+            uid = request.session['user']['id']
+            homepage = request.POST.get('personpage')
+            User.objects.filter(id=uid).update(personpag=homepage)
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def user_phone(request):
+    """绑定个人手机号码, 修改个人账号"""
+    try:
+        if request.method == 'POST':
+            uid = request.POST.get('uid')
+            phone = request.POST.get('phone')
+            ret = verify_phone(phone)
+            if ret:
+                pass
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def nikcname(request):
+    """修改用户昵称"""
+    try:
+        if request.method == 'POST':
+            nickname = request.POST.get('nickname')
+            uid = request.session['user']['id']
+            try:
+                User.objects.filter(id=uid).update(nickname=nickname)
+                return HttpResponse(json.dumps({'code':0}))
+            except:
+                return HttpResponse(json.dumps({'code':1, 'msg':u'昵称重复'}, ensure_ascii=False))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+def editelse(request):
+    """用户编辑页面修改"""
+    try:
+        if request.method == 'POST':
+            realname = request.POST.get('realname')
+            birthday = request.POST.get('birthday')
+            city = request.POST.get('city')
+            intro = request.POST.get('intro')
+            except_job = request.POST.get('except_job')
+            except_level = request.POST.get('except_level')
+            email = request.POST.get('email')
+            current_company = request.POST.get('current_company')
+            company_location = request.POST.get('company_location')
+            uid = request.session['user']['id']
+            User.objects.filter(id=uid).update(realname=realname, birthday=birthday, city=city,intro=intro,
+                                               except_job=except_job, except_level=except_level,current_company=current_company,
+                                               company_location=company_location)
+            return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(traceback.format_exc())
+
+
+
+
+
+
+
