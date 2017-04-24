@@ -44,7 +44,7 @@ class User(models.Model):
     pathid = models.IntegerField('正在进行的路径ID', default=0)
     position = models.CharField('讲师职位', default='讲师', max_length=100)
     phone = models.CharField('手机号码', default='13800000000', max_length=15)
-    nickname = models.CharField('昵称', max_length=30, default='', unique=True)
+    nickname = models.CharField('昵称', max_length=30, default='', null=True,)
 
     #HR注册的相关信息
     hr_phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')
