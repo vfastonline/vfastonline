@@ -577,9 +577,7 @@ def editelse(request):
     """用户编辑页面修改"""
     try:
         if request.method == 'POST':
-            print request.POST
             realname = request.POST.get('realname')
-            print realname
             birthday = request.POST.get('birthday')
             city = request.POST.get('city')
             intro = request.POST.get('intro')
@@ -588,7 +586,6 @@ def editelse(request):
             email = request.POST.get('email')
             current_company = request.POST.get('current_company')
             company_gangwei = request.POST.get('company_gangwei')
-            print realname
             uid = request.session['user']['id']
             User.objects.filter(id=uid).update(realname=realname, birthday=birthday, city=city,intro=intro,
                                                expect_job=expect_job, expect_level=expect_level,current_company=current_company,
