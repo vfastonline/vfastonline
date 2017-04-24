@@ -412,7 +412,7 @@
                 <h3>期望的工作水平</h3>
                 <select form="fileForm" name="expect_level" class="ui-select">
                     <option value="初级">初级</option>
-                    <option value="高级">高级</option>
+                    <option value="高级" selected>高级</option>
                     <option value="资深">资深</option>
                 </select>
             </div>
@@ -472,15 +472,15 @@
     $("#headimg").on("change", imageCompress);
 
     function submitINFO(info_name){
-        console.log($("#fileForm").serialize())
+        console.log(typeof $("#fileForm").serialize())
         $.ajax({
             async: false,
             cache: true,
             url:"/u/editpage/editelse",
             type:"post",
             data:$("#fileForm").serialize(),
-            processData:false,
-            contentType:false,
+{#            processData:false,#}
+{#            contentType:false,#}
             dataType:"json",
             success:function(data){
                 showPrompt(info_name+" 修改成功~");
