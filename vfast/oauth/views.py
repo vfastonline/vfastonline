@@ -72,7 +72,8 @@ def github_auth(request):
         html_url = html['html_url']
         # print repos_url, html_url
         User.objects.filter(id=uid).update(githuburl=html_url, githubrepo=repos_url)
-        return HttpResponse(json.dumps({'code':0, 'msg':u'github验证成功'}, ensure_ascii=False))
+        # return HttpResponse(json.dumps({'code':0, 'msg':u'github验证成功'}, ensure_ascii=False))
+        return HttpResponseRedirect("/u/editpage")
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code':1}))

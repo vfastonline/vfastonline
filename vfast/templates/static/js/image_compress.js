@@ -27,7 +27,7 @@ function uploadPreview(file) {
         form.append("headimg",imgBlob);
         form.append("uid",$("#uid").val());
         $.ajax({
-                url:"/u/change_headimg",
+                url:"/u/editpage/change_headimg",
                 type:"post",
                 data:form,
                 processData:false,

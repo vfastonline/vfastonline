@@ -205,7 +205,7 @@ def userdetail(request):
         user = \
             User.objects.filter(id=uid).values('totalscore', 'username', 'headimg', 'intro',
                                                'githuburl',
-                                               'personpage', 'location')[0]
+                                               'personpage')[0]
         return HttpResponse(json.dumps(user, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -440,7 +440,7 @@ def editpage(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-            return render(request, 'test.html', {'user',user})
+            return render(request, 'editInfo.html', {'user':user})
         else:
             return HttpResponse(u'请求错误')
     except:
@@ -477,7 +477,7 @@ def change_headimg(request):
                 os.mkdir(destination)
             print destination
             user = User.objects.get(id=uid)
-            filename = get_validate(user.email,uid, user.role_id,settings.SECRET_KEY)[:15]+'.jpg'
+            filename = str(user.id)+'_'+str(int(time.time()))+'.jpg'
             headfile = open(os.path.join(destination, filename), 'wb')
             for chunk in headimg.chunks():
                 headfile.write(chunk)
@@ -496,7 +496,7 @@ def default_headimg(request):
     """恢复默认"""
     try:
         if request.method == 'POST':
-            uid = request.POST.get('uid')
+            uid = request.session['user']['id']
             user = User.objects.get(id=uid)
             user.headimg = '/static/head/defaultIMG.svg'
             user.save()
@@ -537,7 +537,8 @@ def personpage(request):
         if request.method == 'POST':
             uid = request.session['user']['id']
             homepage = request.POST.get('personpage')
-            User.objects.filter(id=uid).update(personpag=homepage)
+            User.objects.filter(id=uid).update(personpage=homepage)
+            return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -584,11 +585,11 @@ def editelse(request):
             except_level = request.POST.get('except_level')
             email = request.POST.get('email')
             current_company = request.POST.get('current_company')
-            company_location = request.POST.get('company_location')
+            company_gangwei = request.POST.get('company_gangwei')
             uid = request.session['user']['id']
             User.objects.filter(id=uid).update(realname=realname, birthday=birthday, city=city,intro=intro,
                                                except_job=except_job, except_level=except_level,current_company=current_company,
-                                               company_location=company_location)
+                                               company_gangwei=company_gangwei)
             return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())

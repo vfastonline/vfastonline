@@ -36,7 +36,7 @@ class User(models.Model):
     expect_job = models.CharField('期望工作', max_length=100, null=True, blank=True, default='')
     expect_level = models.CharField('期望级别', max_length=50, null=True, blank=True, default='')
     current_company = models.CharField('当前所在公司', max_length=100, null=True, blank=True, default='')
-    company_location = models.CharField('公司所在地', max_length=100, null=True, blank=True, default='')
+    company_gangwei = models.CharField('岗位', max_length=100, null=True, blank=True, default='')
     headimg = models.CharField('头像URL', max_length=100, null=True, blank=True, default='')
     createtime = models.CharField('创建时间', max_length=20)
     active = models.CharField('激活账号码', max_length=100, null=True, blank=True)

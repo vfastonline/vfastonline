@@ -50,7 +50,7 @@
                     <li id="totalscore">{{ request.session.user.totalscore }}</li>
                     <li class="headPLI">
                         <a href="/u/person" >
-                            <img id="uheadimg" src="{{ request.session.user.headimg }}" alt=""/>
+                            <img id="uheadimg" src="" alt=""/>
                             <img src="/static/head/Oval.svg" alt=""/>
                             <img src="/static/head/online.svg" alt=""/>
                         </a>
@@ -72,7 +72,7 @@
     </div>
 
 <input type="hidden" id="uid" value="{{ request.session.user.id }}">
-<input type="hidden" id="uname" value="{{ request.session.user.username }}">
+<input type="hidden" id="uname" value="">
 </div>
 <!-- 模态框（Modal） -->
 {% if request.session.login != True %}

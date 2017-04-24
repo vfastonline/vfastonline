@@ -446,7 +446,7 @@
         <div class="info_left">
             <div class="info_left_1">
                 <div>
-                    <img src="{{ request.session.user.headimg }}" alt=""/>
+                    <img src="{{ user.headimg }}" alt=""/>
                     <img src="/static/head/OvalBIG.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
                 </div>
@@ -507,7 +507,7 @@
             </div>
             <div class="slideDIV" style="height:50px;"></div>
             <div class="info_right_2">
-                <div onclick="location.href = '/test'">
+                <div onclick="location.href = '/u/editpage'">
                     <span style="background-image: url('/static/svg/bianjihei.svg')"></span>
                     修改个人信息
                 </div>
@@ -574,8 +574,6 @@
     $(document).ready(function(e){
         var githuburl = $("#githuburl").val();
         var githubrepo = $("#githubrepo").val();
-        console.log(githuburl)
-        console.log(githubrepo)
 
         if(githuburl != null ){
             if(githuburl.trim() != "" ){
@@ -619,4 +617,5 @@
         window.open(url,"_blank");
     }
 </script>
+
 </html>
