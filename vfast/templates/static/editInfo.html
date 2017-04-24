@@ -412,7 +412,7 @@
                 <h3>期望的工作水平</h3>
                 <select form="fileForm" name="expect_level" class="ui-select">
                     <option value="初级">初级</option>
-                    <option value="高级">高级</option>
+                    <option value="高级" selected>高级</option>
                     <option value="资深">资深</option>
                 </select>
             </div>
@@ -472,7 +472,6 @@
     $("#headimg").on("change", imageCompress);
 
     function submitINFO(info_name){
-        console.log($("#fileForm").serialize())
         $.ajax({
             async: false,
             cache: true,

@@ -577,9 +577,7 @@ def editelse(request):
     """用户编辑页面修改"""
     try:
         if request.method == 'POST':
-            print request.POST
             realname = request.POST.get('realname')
-            print realname
             birthday = request.POST.get('birthday')
             city = request.POST.get('city')
             intro = request.POST.get('intro')
