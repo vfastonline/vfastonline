@@ -8,7 +8,7 @@ from vuser.models import User
 # Create your models here.
 class Timu(models.Model):
     sequence = models.IntegerField(null=True, blank=True, default=1, verbose_name='问题排序')
-    title = models.CharField('题目标题', max_length=255, null=False)
+    title = models.CharField('问题描述', max_length=255, null=False)
     answer = models.CharField('正确答案', max_length=6)
     tips = models.CharField('错误提示', max_length=50)
     A = models.CharField('选项A', max_length=60, null=True, blank=True)
@@ -17,7 +17,7 @@ class Timu(models.Model):
     D = models.CharField('选项D', max_length=60, null=True, blank=True)
     E = models.CharField('选项E', max_length=60, null=True, blank=True)
     F = models.CharField('选项F', max_length=60, null=True, blank=True)
-    video = models.ForeignKey(Video, on_delete=models.CASCADE, verbose_name='视频ID')
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, verbose_name='视频ID', limit_choices_to={'vtype':1})
 
     def __unicode__(self):
         return self.title
