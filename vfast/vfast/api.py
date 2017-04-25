@@ -6,13 +6,15 @@ from django.core.mail import send_mail
 from django.db import connection
 from django.conf import settings
 
-import urllib
-import requests
-import random
-import logging
 import logging.handlers
 import time, os, json, base64
 from datetime import timedelta, date
+import traceback
+import smtplib
+import logging
+from email.mime.text import MIMEText
+from email.header import Header
+
 
 def get_validate(email, uid, role, fix_pwd):
     t = int(time.time())
@@ -177,3 +179,32 @@ def get_day_of_day(n=0):
         return date.today() + timedelta(days=n)
 
 
+def sendmail(rcpt, subject, content):
+    smtp_host = 'smtp.163.com'
+    smtp_port = 25
+    smtp_user = 'duminchao@163.com'
+    smtp_pass = 'duminchaoi123'
+
+    if isinstance(rcpt, str) or isinstance(rcpt, unicode):
+        rcpt = rcpt.split(',')
+    elif not isinstance(rcpt, list):
+        logging.getLogger().warning("SendMail: rcpt_to format invalid")
+        return False
+
+    try:
+        smtp = smtplib.SMTP()
+        smtp.connect(smtp_host, smtp_port)
+        if smtp is not None:
+            smtp.login(smtp_user, smtp_pass)
+
+        msg = MIMEText(content,_subtype='plain',_charset='utf-8')
+        msg['From'] = smtp_user
+        msg['To'] = ','.join(rcpt)
+        msg['Subject'] = Header(subject, 'utf-8')
+
+        smtp.sendmail(smtp_user, rcpt, msg.as_string())
+        smtp.quit()
+        return True
+    except:
+        print traceback.format_exc()
+        return False

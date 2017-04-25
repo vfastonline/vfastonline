@@ -39,7 +39,7 @@ class User(models.Model):
     company_gangwei = models.CharField('岗位', max_length=100, null=True, blank=True, default='')
     headimg = models.CharField('头像URL', max_length=100, null=True, blank=True, default='')
     createtime = models.CharField('创建时间', max_length=20)
-    active = models.CharField('激活账号码', max_length=100, null=True, blank=True)
+    active = models.CharField('激活账号码', max_length=250, null=True, blank=True)
     status = models.IntegerField('是否激活', default=0)
     pathid = models.IntegerField('正在进行的路径ID', default=0)
     position = models.CharField('讲师职位', default='讲师', max_length=100)

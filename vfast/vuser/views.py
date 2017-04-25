@@ -8,7 +8,7 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
-from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall
+from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall, sendmail
 from vrecord.api import sum_score_tech
 
 import os
@@ -72,7 +72,7 @@ def register(request):
 
             role = Role.objects.get(rolename='student')  # 取角色表里面普通用户的name
             headimg = '/static/head/defaultIMG.svg'
-            active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()[:64]
+            active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()
             subject = u'智量酷账号激活'
             message = u'''
                                     恭喜您,注册智量酷账号成功!
@@ -84,10 +84,10 @@ def register(request):
                                     %s/u/active?active=%s
                                 ''' % (email, settings.HOST, active)
             nickname = u'酷粉%s' % int(time.time())
-            send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
+            sendmail([email, ], subject=subject, content=message)
             result = User.objects.get_or_create(email=email, username=username, password=password,
                                                 program_exp=program_exp, createtime=t, sex=sex,
-                                                comp_use_time_day=comp_use_time_day, into_it=into_it,nikcname=nickname,
+                                                comp_use_time_day=comp_use_time_day, into_it=into_it,nickname=nickname,
                                                 learn_habit=learn_habit, active=active, role=role, headimg=headimg)
             if result:
                 return HttpResponse(json.dumps({'code': 0, 'msg': u'注册成功, 请激活账号!'}, ensure_ascii=False))
