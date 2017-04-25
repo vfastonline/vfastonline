@@ -62,5 +62,8 @@ def time_comp_now(str):
 @register.filter(name='secTomin')
 def secTomin(str):
     """观看时间秒转化成为分钟, 小时"""
-    second = int(str)
+    try:
+        second = int(str)
+    except:
+        second = 0
     return int(second / 60)
