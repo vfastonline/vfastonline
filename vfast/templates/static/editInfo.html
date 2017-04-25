@@ -1,32 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title></title>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include "head.html" %}
 
-    <script src="/static/js/jquery-2.1.4.js"></script>
-    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="/static/js/image_compress.js"></script>
-
-    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/layout.css"/>
-    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
-
-
     <link rel="stylesheet" href="/static/css/drop-down.css" />
-    <script src="/static/js/jquery-2.1.4.js"></script>
     <script src="/static/js/jquery-ui.min.js"></script>
     <script src="/static/js/select-widget-min.js"></script>
 
-    <!--[if IE]>
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
-    <![endif]-->
-    <script>document.documentElement.className = 'js';</script>
     <style>
         #head_cont{
             box-shadow: none;
@@ -356,16 +338,16 @@
             </div>
             <div>
                 <p>当前位置</p>
-                <input onblur="submitINFO('居住城市')" name="city" form="fileForm" type="text" placeholder="居住城市">
+                <input value="{{ user.city }}" onblur="submitINFO('居住城市')" name="city" form="fileForm" type="text" placeholder="居住城市">
             </div>
             <div>
                 <p>生日</p>
-                <input onblur="submitINFO('生日')" name="birthday" form="fileForm" type="text" placeholder="yyyy-mm-dd">
+                <input value="{{ user.birthday }}" onblur="submitINFO('生日')" name="birthday" form="fileForm" type="text" placeholder="yyyy-mm-dd">
             </div>
             <div>
                 <p>联系方式</p>
                 <div>
-                    <input type="text" placeholder="手机号码">
+                    <input value="{{ user.phone }}" type="text" placeholder="手机号码">
                     <span>手机号码格式错误</span>
                 </div>
                 <div>
@@ -373,7 +355,7 @@
                     <span>验证码错误</span>
                 </div>
                 <div>
-                    <input onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                    <input value="{{ user.email }}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
                     <span>邮箱格式错误</span>
                 </div>
             </div>
@@ -391,35 +373,43 @@
             <h3>职业网站</h3>
             <div>
                 <span>GitHub</span>
-                <div class="off" onclick="bindGitHub(this)"><img src="/static/svg/fangmao_hui.svg" alt=""></div>
+                {% if user.githuburl %}
+                    <div class="on_github" onclick="bindGitHub(this)"><img src="/static/svg/fangmao.svg" alt=""></div>
+                {% else %}
+                    <div class="off" onclick="bindGitHub(this)"><img src="/static/svg/fangmao_hui.svg" alt=""></div>
+                {% endif %}
             </div>
             <div>
                 <span>个人主页</span>
-                <input onblur="bindP(this)" type="text">
-                <div class="off" onclick="showbindP(this)"><img src="/static/svg/www_hui.svg" alt=""></div>
+                <input value="{{ user.personpage }}" onblur="bindP(this)" type="text">
+                {% if user.personpage %}
+                    <div class="on_p" onclick="showbindP(this)"><img src="/static/svg/www.svg" alt=""></div>
+                {% else %}
+                    <div class="off" onclick="showbindP(this)"><img src="/static/svg/www_hui.svg" alt=""></div>
+                {% endif %}
             </div>
         </div>
         <div class="info_3">
-            <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="30" rows="10" onblur="submitINFO('自我介绍')"></textarea>
+            <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="30" rows="10" onblur="submitINFO('自我介绍')">{{ user.intro }}</textarea>
         </div>
         <div class="slideDIV" style="height:80px;clear: both;"></div>
         <div class="info_4">
             <div>
                 <h3>期望的工作职位</h3>
-                <input onblur="submitINFO('期望的工作职位')" form="fileForm" name="expect_job" type="text" placeholder="填写职位">
+                <input value="{{ user.expect_job }}" onblur="submitINFO('期望的工作职位')" form="fileForm" name="expect_job" type="text" placeholder="填写职位">
             </div>
             <div class="selectDIV">
                 <h3>期望的工作水平</h3>
                 <select form="fileForm" name="expect_level" class="ui-select">
-                    <option value="初级">初级</option>
-                    <option value="高级" selected>高级</option>
-                    <option value="资深">资深</option>
+                    <option value="初级" {% if user.expect_level == "初级" %}selected{% endif %}>初级</option>
+                    <option value="高级" {% if user.expect_level == "高级" %}selected{% endif %}>高级</option>
+                    <option value="资深" {% if user.expect_level == "资深" %}selected{% endif %}>资深</option>
                 </select>
             </div>
             <div>
                 <h3>当前的工作</h3>
-                <input onblur="submitINFO('公司名称')" name="current_company" style="width: 360px;" form="fileForm" type="text" placeholder="公司名称">
-                <input onblur="submitINFO('公司岗位')" name="company_location" style="width: 360px;" form="fileForm" type="text" placeholder="公司岗位">
+                <input value="{{ user.current_company }}" onblur="submitINFO('公司名称')" name="current_company" style="width: 360px;" form="fileForm" type="text" placeholder="公司名称">
+                <input value="{{ user.company_gangwei }}" onblur="submitINFO('公司岗位')" name="company_gangwei" style="width: 360px;" form="fileForm" type="text" placeholder="公司岗位">
             </div>
         </div>
     </section>
@@ -431,9 +421,7 @@
 
 {% include "search_div.html" %}
 </body>
-<script src="/static/js/jquery-labelauty.js"></script>
-<script src="/static/js/common.js"></script>
-<script src="/static/js/sweet-alert.js"></script>
+{% include "commonJS.html" %}
 <script type="text/javascript">
     window.document.onscroll = function(){
         if($(document).scrollTop() == 0){
@@ -472,22 +460,9 @@
     $("#headimg").on("change", imageCompress);
 
     function submitINFO(info_name){
-        $.ajax({
-            async: false,
-            cache: true,
-            url:"/u/editpage/editelse",
-            type:"post",
-            data:$("#fileForm").serialize(),
-{#            processData:false,#}
-{#            contentType:false,#}
-            dataType:"json",
-            success:function(data){
-                showPrompt(info_name+" 修改成功~");
-            },
-            error:function(e){
-
-            }
-        });
+        $.post("/u/editpage/editelse",$("#fileForm").serialize(),function(data){
+            showPrompt(info_name+" 修改成功~");
+        })
 
     }
     function submitINFO_name(t){
