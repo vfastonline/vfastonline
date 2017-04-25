@@ -1,25 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title></title>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="/static/js/jquery-2.1.4.js"></script>
-    <script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="/static/css/jquery-labelauty.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/layout.css"/>
-    <link rel="stylesheet" href="/static/css/sweet-alert.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/search.css" />
-
-    <!--[if IE]>
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.js"></script>
-    <![endif]-->
-    <script>document.documentElement.className = 'js';</script>
+    {% include "head.html" %}
     <style>
         .head_cont{
             box-shadow: none;
@@ -327,9 +310,7 @@
 </main>
 {% include "search_div.html" %}
 </body>
-<script src="/static/js/sweet-alert.js"></script>
-<script src="/static/js/jquery-labelauty.js"></script>
-<script src="/static/js/common.js"></script>
+{% include "commonJS.html" %}
 <script>
     window.document.onscroll = function(){
         if($(document).scrollTop() == 0){

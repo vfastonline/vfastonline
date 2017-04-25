@@ -587,6 +587,7 @@ def editelse(request):
             current_company = request.POST.get('current_company')
             company_gangwei = request.POST.get('company_gangwei')
             uid = request.session['user']['id']
+            print city
             User.objects.filter(id=uid).update(realname=realname, birthday=birthday, city=city,intro=intro,
                                                expect_job=expect_job, expect_level=expect_level,current_company=current_company,
                                                company_gangwei=company_gangwei)
