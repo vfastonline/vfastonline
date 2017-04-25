@@ -72,7 +72,7 @@ def register(request):
 
             role = Role.objects.get(rolename='student')  # 取角色表里面普通用户的name
             headimg = '/static/head/defaultIMG.svg'
-            active = base64.b64encode('%s|%s|%s' % (email, settings.SECRET_KEY, t)).strip()
+            active = encry_password(email, str(time.time()))
             subject = u'智量酷账号激活'
             message = u'''
                                     恭喜您,注册智量酷账号成功!
@@ -108,6 +108,7 @@ def useractive(request):
             user.save()
             user = User.objects.filter(active=active, status=1).values(
                 'email', 'id', 'role', 'username', 'totalscore', 'headimg').first()
+            logging.getLogger().info(user)
             request.session['user'] = user
             request.session['login'] = True
             return HttpResponseRedirect('/')
