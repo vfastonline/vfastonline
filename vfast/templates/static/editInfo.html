@@ -349,7 +349,7 @@
             <div>
                 <p>称呼</p>
                 <div>
-                    <input type="text" onblur="submitINFO_name(this)" placeholder="昵称">
+                    <input value="{{ user.nickname }}" type="text" onblur="submitINFO_name(this)" placeholder="昵称">
                     <span></span>
                 </div>
                 <input onblur="submitINFO('真实姓名')" name="realname" form="fileForm" type="text" placeholder="真实姓名">
