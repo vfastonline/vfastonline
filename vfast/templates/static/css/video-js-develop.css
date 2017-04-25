@@ -44,9 +44,11 @@
     display: none!important;
 }
 .vjs-mute-control{
-    left: 20px;
-    top: 146%;
+    left: 10px;
+    top: 100%;
     z-index: 1;
+    width:20px!important;
+    height:60px!important;
 }
 .vjs-volume-bar{
     transition:  none;
