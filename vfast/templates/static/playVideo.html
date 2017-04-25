@@ -831,7 +831,7 @@
     <video ondblclick="video_FullScreen()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />
-        <track kind="subtitles" src="/static/video/MapReduce字幕.srt" srclang="en" label="English" default>
+        <track kind="subtitles" src="{{ video_obj.cc.url }}" srclang="en" label="English" default>
         <input id="video_process" type="hidden" value="{{ video_process }}"/>
         <input id="video_id" type="hidden" value="{{ cvideo_obj.id }}"/>
     </video>
