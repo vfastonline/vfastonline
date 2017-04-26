@@ -28,7 +28,7 @@ def add_question(request):
             vid = request.POST.get('vid')
             video = Video.objects.get(id=vid)
             email_status = request.POST.get('email')
-            # print title, desc, video.name, email_status
+            # ##print title, desc, video.name, email_status
             try:
                 ques = Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
                                                email_status=email_status, like=0, dislike=0, status=0)
@@ -76,8 +76,8 @@ def show_question(request):
                     replay['status'] = 'dislike'
                 else:
                     pass
-        print replays
-        # print attention, qcomment, replays
+        #print replays
+        # #print attention, qcomment, replays
         # qcomment 用户是否对问题点赞, question 问题对象, relays 回复, attention 是否关注问题
         return render(request, 'detailsQA.html',
                       {'question': question, 'replays': replays, 'qcomment': qcomment, 'attention': attention})
@@ -97,7 +97,7 @@ def add_replay(request):
         content = request.POST.get('content')
         qid = request.POST.get('qid')
         question = Question.objects.get(id=qid)
-        # print question.user.username
+        # #print question.user.username
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
                                     createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
@@ -113,7 +113,7 @@ def qr_comment(request):
         rid = request.GET.get('rid')
         status = request.GET.get('type')  # 1为赞, -1踩
         status = int(status)
-        print status
+        #print status
         try:
             uid = request.session['user']['id']
         except:
@@ -147,7 +147,7 @@ def update_comment(request):
         rid = request.GET.get('rid')
         status = request.GET.get('type')  # 1为赞, -1踩
         status = int(status)
-        print status
+        #print status
         try:
             uid = request.session['user']['id']
         except:
@@ -202,7 +202,7 @@ def question_detail(request):
     try:
         qid = request.GET.get('qid')
         question = Question.objects.filter(id=qid).values()[0]
-        print question
+        #print question
         return HttpResponse(json.dumps({'question': question}))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -213,7 +213,7 @@ def replay_detail(request):
     try:
         rid = request.GET.get('rid')
         replay = Replay.objects.filter(id=rid).values()[0]
-        print replay
+        #print replay
         return HttpResponse(json.dumps({'replay': replay}))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -237,7 +237,7 @@ def update_replay(request):
         rid = request.POST.get('rid')
         content = request.POST.get('content')
         now = time.strftime('%Y-%m-%d %H:%M:%S')
-        print rid, content
+        #print rid, content
         Replay.objects.filter(id=rid).update(content=content, createtime=now)
         return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑回复成功'}))
     except:
@@ -251,7 +251,7 @@ def best_replay(request):
         replay_obj = Replay.objects.get(id=rid)
         qid = replay_obj.question_id
         question_obj = Question.objects.get(id=qid)
-        print replay_obj.id, question_obj.id
+        #print replay_obj.id, question_obj.id
         if question_obj.status == 1:
             return HttpResponse(u'你已经选择了一个最佳答案')
         else:

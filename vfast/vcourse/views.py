@@ -14,12 +14,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 def test(request):
     w = WatchRecord.objects.filter(id=1).values('user__username')
-    print w.query
-    print w
+    #print w.query
+    #print w
     from vpractice.models import Replay
     r = Replay.objects.filter(id=1).values('question__user__username')
-    print r.query
-    print r
+    #print r.query
+    #print r
     return render(request, "search_Result.html")
 
 
@@ -63,7 +63,6 @@ def getcourses(request):
             techobj = ''
             pubs = Course.objects.filter(pubstatus=0).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
             not_pubs = Course.objects.filter(pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name','pubdate')
-        print pubs
         return render(request, 'course_library.html',
                       {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj,
                        'xingxing': [0, 1, 2, 3, 4]})
@@ -89,17 +88,23 @@ def join_path(request):
         uid = request.session['user']['id']
         user = User.objects.get(id=uid)
         path = Path.objects.get(id=pid)
-        sequence = path.p_sequence
+        sequence = path.p_sequence.split(',')
         User.objects.filter(id=uid).update(pathid=pid)
         if UserPath.objects.filter(user=user, path=path).exists():
             video = WatchRecord.objects.filter(user=user, course_id__in=sequence).order_by('-createtime').values(
                 'video_id', 'video__vtype', 'createtime').first()
-            url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video['video_id']
+            logging.getLogger().info(video)
+            if video:
+                url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video['video_id']
+            else:
+                course_id = sequence[0]
+                video = Video.objects.filter(course_id=course_id, sequence=1).values('vtype', 'id').first()
+                url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
             return HttpResponseRedirect(url)
         else:
             t = time.strftime('%Y-%m-%d %H:%M:%S')
             UserPath.objects.create(user=user, path=path, createtime=t)
-            course_id = int(sequence.split(',')[0])
+            course_id = sequence[0]
             video = Video.objects.filter(course_id=course_id, sequence=1).values('vtype', 'id').first()
             url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
             return HttpResponseRedirect(url)
@@ -154,7 +159,7 @@ def course_detail(request):
                                                           'course_process': course_process, 'flag': flag, 'url': url,
                                                           'xingxing': [0, 1, 2, 3, 4], 'jindu': jindu})
         except KeyError:
-            print 'wei denglu '
+            #print 'wei denglu '
             for section in sections:
                 videos_section = Video.objects.filter(section_id=section['id'])
                 section['videos'] = videos_section

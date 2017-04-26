@@ -159,7 +159,7 @@
             margin-bottom: 10px;
             font-weight: 400;
         }
-        .contentBody_course>div>div:last-child>p:nth-child(3){
+        .contentBody_course>div>div:last-child>div:nth-child(3){
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
@@ -314,7 +314,7 @@
             <div onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
                 <p>系列课程</p>
                 <h1>{{ pub.name }}</h1>
-                <p>{{ pub.desc }}</p>
+                <div>{{ pub.desc |safe }}</div>
                 <div style="background-color: {{ pub.tech__color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ pub.tech__name }}')">{{ pub.tech__name }}</div>
                 <div>难易度：
                     {% for n in xingxing %}
@@ -349,7 +349,7 @@
             <div>
                 <p>系列课程</p>
                 <h1>{{ not_pub.name }}</h1>
-                <p>{{ not_pub.desc }}</p>
+                <div>{{ not_pub.desc|safe }}</div>
                 <div style="background-color: {{ not_pub.tech__color }};" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ not_pub.tech__name }}')">{{ not_pub.tech__name }}</div>
                 <div>{{ not_pub.pubdate }}</div>
             </div>

@@ -377,7 +377,7 @@
             <div class="video_section_right" id="video_section_right">
                 <h1>{{ path.name }}</h1>
                 {% autoescape on %}
-                <pre>{{ path.desc | linebreaksbr}}</pre>
+                <pre>{{ path.desc | safe}}</pre>
                 {% endautoescape %}
                 <h2><span>{{ path.jobscount }} </span>&nbsp;个岗位招聘&nbsp;&nbsp;&nbsp;<span>{{ path.salary }}</span>&nbsp;入门起薪</h2>
                 <span>{{ path.jstime }}</span>
@@ -425,7 +425,7 @@
                     <h2>{{ item.course.name }}</h2>
                     <h3>{{ item.course.totaltime }}</h3>
                     <b>></b>
-                    <p>{{ item.course.desc }}</p>
+                    <p>{{ item.course.desc|safe }}</p>
                     <div>难易度：
                         {% for xx in xingxing %}
                             {% if item.course.difficult > xx %}

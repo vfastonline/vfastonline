@@ -227,8 +227,8 @@ def dashboard(request, param):
                 flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
             else:
                 flag, tasks = False, []
-            print tasks
-            print courses
+            #print tasks
+            #print courses
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
                            'tasks': tasks})
@@ -283,7 +283,7 @@ def dashboard(request, param):
                     item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
                 else:
                     item['flag'] = 0
-            # print courses
+            # #print courses
             # 进行路线的百分比
             p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % sequence
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
@@ -298,7 +298,7 @@ def dashboard(request, param):
                 flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
             else:
                 flag, tasks = False, []
-            # print flag, tasks
+            # #print flag, tasks
             # courses 路线下所有的课程, jindu 路线进度, path_flag 显示路线, tasks 推荐任务, flag 今日任务是否完成
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
@@ -320,7 +320,7 @@ def task_daily(user):
             seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
             sql_recommand = "select * from vcourse_video where course_id = %s and sequence in (%s)" % (
                 result[0]['course_id'], ','.join(seqs))
-            # print sql, seqs, sql_recommand
+            # #print sql, seqs, sql_recommand
             recommand = dictfetchall(sql_recommand)
             if len(recommand) != 0:
                 for item in recommand:
@@ -353,7 +353,7 @@ def task_finish(user):
                     break
             if not item.has_key('status'):
                 item['status'] = 1
-        # print dt_all, wr
+        # #print dt_all, wr
         if set(dt).issubset(set(wr)):
             if Score.objects.filter(user_id=user.id, score=10, createtime=time.strftime('%Y-%m-%d')).exists():
                 return True, dt_all
@@ -406,7 +406,7 @@ def user_model(request):
         follow_obj = User.objects.get(id=followid)  # 关注人对象
         p2p_status = PtoP.objects.filter(follow=follow_obj, followed=followed_obj).exists()  # 是否关注
         badge_num = UserBadge.objects.filter(user=follow_obj).count()  # 模态窗扣弹出的 用户的勋章数量
-        print uid, tech_score, user, p2p_status
+        #print uid, tech_score, user, p2p_status
         return HttpResponse(
             json.dumps({'user': user, 'badge': badge_num, 'tech_score': tech_score, 'guanzhu': p2p_status}))
     except:
@@ -425,7 +425,7 @@ def person_page(request):
         tech_score = sum_score_tech(uid)
         sql = 'select vb.badgename, vb.badgeurl, vu.* from vbadge_userbadge as vu , vbadge_badge as vb where vu.user_id = %s and vu.badge_id = vb.id;' % uid
         badges = dictfetchall(sql)
-        print badges
+        #print badges
         sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
 
         return render(request, 'personalCenter.html', {'user': user_obj, 'tech_score': tech_score, 'badges': badges,'badgesLen':len(badges),
@@ -457,7 +457,7 @@ def is_open(request):
         except:
             return HttpResponseRedirect('/')
         is_open = request.GET.get('is_open')
-        print is_open
+        #print is_open
         User.objects.filter(id=uid).update(is_open=is_open)
         return HttpResponse('is_open update successful')
     except:
@@ -476,7 +476,7 @@ def change_headimg(request):
             destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
             if not os.path.isdir(destination):
                 os.mkdir(destination)
-            print destination
+            #print destination
             user = User.objects.get(id=uid)
             filename = str(user.id)+'_'+str(int(time.time()))+'.jpg'
             headfile = open(os.path.join(destination, filename), 'wb')
@@ -515,9 +515,9 @@ def github(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             status = request.GET.get('status')
-            print uid, status
+            #print uid, status
             if status == 'on':
-                print 'jihuo github zhanghao ~!'
+                #print 'jihuo github zhanghao ~!'
                 return HttpResponseRedirect('/github_login')
             else:
                 user = User.objects.get(id=uid)
@@ -588,7 +588,7 @@ def editelse(request):
             current_company = request.POST.get('current_company')
             company_gangwei = request.POST.get('company_gangwei')
             uid = request.session['user']['id']
-            print city
+            #print city
             User.objects.filter(id=uid).update(realname=realname, birthday=birthday, city=city,intro=intro,
                                                expect_job=expect_job, expect_level=expect_level,current_company=current_company,
                                                company_gangwei=company_gangwei)

@@ -67,9 +67,9 @@
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
             border-radius: 4px;
-            padding: 30px 50px 30px 50px;
+            padding: 30px 50px 10px 50px;
             position: relative;
-            height:185px;
+{#            height:185px;#}
         }
 
         .info_left_1>div:first-child{
@@ -77,6 +77,7 @@
             height:102px;
             position: relative;
             margin-top: 12px;
+            float: left;
         }
         .info_left_1>div:first-child>img:nth-child(1){
             width:100px;
@@ -95,23 +96,25 @@
             right:6px;
         }
         .info_left_1>div:nth-child(2){
-            width:70%;
+            width:80%;
             height:100%;
-            position: absolute;
-            top:0px;
-            left:200px;
+{#            position: absolute;#}
+{#            top:0px;#}
+{#            left:200px;#}
+            float: right;
             padding: 10px 0px;
         }
         .info_left_1>div:nth-child(2)>h3{
             font-size: 20px;
             color: #5A646E;
             font-weight: bolder;
+            margin-top: 0px;
         }
         .info_left_1>div:nth-child(2)>span{
             font-size: 14px;
             color: #829191;
         }
-        .info_left_1>div:nth-child(2)>p{
+        .info_left_1>div:nth-child(2)>div{
             font-size: 14px;
             color: #5A646E;
             line-height: 18px;
@@ -120,7 +123,7 @@
 
         .info_left_1>div:nth-child(3){
             position: absolute;
-            top:30px;
+            top:40px;
             right:50px;
         }
         .info_left_1>div:nth-child(3) img{
@@ -429,7 +432,7 @@
 
     <section class="info_section clearfix">
         <div class="info_left">
-            <div class="info_left_1">
+            <div class="info_left_1 clearfix">
                 <div>
                     <img src="{{ user.headimg }}" alt=""/>
                     <img src="/static/head/OvalBIG.svg" alt=""/>
@@ -437,8 +440,8 @@
                 </div>
                 <div>
                     <h3>{{ user.username }}</h3>
-                    <span>{{ user.location }}</span>
-                    <p>{{ user.intro }}</p>
+                    <span>{{ user.city }}</span>
+                    <div>{{ user.intro|safe }}</div>
                 </div>
                 <div>
                     {%  if user.githuburl != '' %}
@@ -475,7 +478,7 @@
                 <ul class="clearfix">
                     {% for badge in badges %}
                         <li>
-                            <img src="{{ badge.badgeurl }}" alt="">
+                            <img src="/media/{{ badge.badgeurl }}" alt="">
                             <p>{{ badge.badgename }}</p>
                             <span>{{ badge.createtime }}</span>
                         </li>

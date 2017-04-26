@@ -298,7 +298,7 @@
             font-weight: bolder;
             color: #384047;
             width:1200px;
-            margin: -200px auto 0px;
+            margin: 0px auto 0px;
         }
         /*contentBody_course Start*/
         .contentBody_course:after{content: "";display: block;clear: both;}
@@ -373,7 +373,7 @@
             margin-bottom: 10px;
             font-weight: 400;
         }
-        .contentBody_course>div>div:last-child>p:nth-child(3){
+        .contentBody_course>div>div:last-child>div:nth-child(3){
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
@@ -665,7 +665,7 @@
             {% endif %}
         <p>系列课程</p>
         <h1>{{ course.name }}</h1>
-        <p>{{ course.desc }}</p>
+        <div>{{ course.desc |safe}}</div>
             <div style="background-color: {{ course.tech_color }};" class="groupHover" onclick="stopPPG(this)">{{ course.tech_name }}</div>
         <div>难易度:
             {% for xx in xingxing %}

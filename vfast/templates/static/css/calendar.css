@@ -108,6 +108,7 @@
 #selectMonthDiv {
 	float: left;
 	background-color: transparent;
+	width: 0!important;
 }
 #selectMonthDiv>div {
 	color: #909090;
