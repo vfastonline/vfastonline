@@ -256,7 +256,6 @@ def dashboard(request, param):
                 if len(ret3) == 1:
                     item['video_id'] = ret3[0]['id']
                     item['video_name'] = ret3[0]['name']
-                    # item['vtype_url'] = ret3[0]['vtype_url']
                     item['vtype'] = ret3[0]['vtype']
                     item['createtime'] = ret3[0]['createtime']
                 else:
@@ -265,7 +264,6 @@ def dashboard(request, param):
                     ret_video = dictfetchall(sql_video)
                     item['video_id'] = ret_video[0]['id']
                     item['video_name'] = ret_video[0]['name']
-                    # item['vtype_url'] = ret_video[0]['vtype_url']
                     item['vtype'] = ret_video[0]['vtype']
                     item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
             tmp = []
@@ -283,7 +281,6 @@ def dashboard(request, param):
                     item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
                 else:
                     item['flag'] = 0
-            # #print courses
             # 进行路线的百分比
             p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % sequence
             v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
@@ -298,7 +295,6 @@ def dashboard(request, param):
                 flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
             else:
                 flag, tasks = False, []
-            # #print flag, tasks
             # courses 路线下所有的课程, jindu 路线进度, path_flag 显示路线, tasks 推荐任务, flag 今日任务是否完成
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
@@ -320,7 +316,6 @@ def task_daily(user):
             seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
             sql_recommand = "select * from vcourse_video where course_id = %s and sequence in (%s)" % (
                 result[0]['course_id'], ','.join(seqs))
-            # #print sql, seqs, sql_recommand
             recommand = dictfetchall(sql_recommand)
             if len(recommand) != 0:
                 for item in recommand:
