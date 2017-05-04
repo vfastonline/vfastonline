@@ -110,7 +110,6 @@
         }
         .path_content>a>div{
             height:170px;
-            background-color: #22d2d2;
             background-repeat: no-repeat;
             background-position: center center;
         }
@@ -156,7 +155,7 @@
     <section class="path_content clearfix">
         {% for path in paths %}
             <a href="/course/track?id={{ path.id }}">
-                <div style="background-image: url('{{ path.pathimg.url }}');background-color: {{ path.color }};"></div>
+                <div style="background-size: 50%;background-image: url('{{ path.pathimg.url }}');background-color: {{ path.color }};"></div>
                 <h2>{{ path.name }}</h2>
             </a>
         {% endfor %}

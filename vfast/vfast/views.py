@@ -21,7 +21,7 @@ from uploader import Uploader
 # @require_login()
 # @require_role(role=1)
 def test(request):
-    print 'test'
+    #print 'test'
     # course = connection.cursor()
     # course.execute('select * from vcourse_video')
     # a = dictfetchall(cursor=course)
@@ -39,6 +39,7 @@ def logout(request):
 
 def index(request):
     try:
+        from vfast.api import sendmessage
         if request.session.get('user'):
             return HttpResponseRedirect('/u/%s' % request.session['user']['id'])
         else:
@@ -53,14 +54,14 @@ def search_course(request):
         key_words = request.GET.get('query')
         key_words = key_words.replace('+', '').strip()
         vps = Technology.objects.all()
-        print  key_words
+        #print  key_words
         if len(key_words) == '':
             courses = Course.objects.filter()
         else:
             courses = Course.objects.filter(Q(tag__contains=key_words) | Q(name__contains=key_words))
         tech = request.GET.get('type', None)
-        print courses
-        print tech
+        #print courses
+        #print tech
         if tech:
             tech_obj = Technology.objects.get(name=tech)
             courses = [course for course in courses if course.tech_id == tech_obj.id]
@@ -74,7 +75,7 @@ def search_course(request):
             return render(request, 'search_Result.html',
                           {'results': courses, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'key_words': key_words})
         else:
-            print 'hahaha'
+            #print 'hahaha'
             return render(request, 'search_Result.html', {'key_words':key_words, 'vps':vps, 'results':False})
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -195,8 +196,8 @@ def upload(request):
         except:
             CONFIG = {}
 
-    # print CONFIG
-    # print action
+    # #print CONFIG
+    # #print action
     if action == 'config':
         # 初始化时，返回配置文件给客户端
         result = CONFIG
@@ -227,10 +228,10 @@ def upload(request):
                 "allowFiles": CONFIG['fileAllowFiles']
             }
 
-        # print fieldName, request.FILES.get('upfile')
+        # #print fieldName, request.FILES.get('upfile')
         if fieldName in request.FILES:
             field = request.FILES[fieldName]
-            # print field.name, field.size,
+            # #print field.name, field.size,
             uploader = Uploader(field, config, os.path.join(settings.BASE_DIR))
             result = uploader.getFileInfo()
         else:
@@ -282,7 +283,7 @@ def upload(request):
     else:
         result['state'] = 'request URL error'
 
-    # print result
+    # #print result
     result = json.dumps(result)
     if 'callback' in request.GET:
         callback = request.args.get('callback')
@@ -291,7 +292,7 @@ def upload(request):
             mimetype = 'application/javascript'
         else:
             result = json.dumps({'state': 'callback args is not right'}, ensure_ascii=False)
-    # print result
+    # #print result
     # res.mimetype = mimetype
     # res.headers['Access-Control-Allow-Origin'] = '*'
     # res.headers['Access-Control-Allow-Headers'] = 'X-Requested-With,X_Requested_With'

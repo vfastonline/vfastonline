@@ -102,7 +102,7 @@
             font-weight: 400;
         }
 
-        .contentBody_course > div > div:last-child > p:nth-child(3) {
+        .contentBody_course > div > div:last-child > div:nth-child(3) {
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
@@ -227,7 +227,7 @@
             font-weight: bolder;
         }
 
-        .type_Describe > p {
+        .type_Describe > div {
             font-size: 14px;
             color: #002800;
             line-height: 17px;
@@ -265,7 +265,7 @@
     <div class="slideDIV" style="height:100px;"></div>
     <div class="type_Describe">
         <h3>{{ tech_obj.name }}</h3>
-        <p>{{ tech_obj.desc }}</p>
+        <div>{{ tech_obj.desc | safe}}</div>
     </div>
     <section class="contentBody_course">
 
@@ -288,7 +288,7 @@
                     <div onclick="window.open('/course/course?cid={{ pub.id }}','_blank')">
                         <p>系列课程</p>
                         <h1>{{ pub.name }}</h1>
-                        <p>{{ pub.desc }}</p>
+                        <div>{{ pub.desc |safe }}</div>
                         <div style="background-color: {{ pub.tech.color }};" class="groupHover"
                              onclick="stopPPG(this,'/course/courses?type={{ pub.tech.name }}')">{{ pub.tech.name }}</div>
                         <div>难易度：

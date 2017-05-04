@@ -556,22 +556,34 @@
                 if(optionArr[i].value != "None"){
                     switch (i){
                         case 0:
-                            str+="<div onclick='confirm_QA(this)'><span>A.</span><span>"+optionArr[i].value+"</span></div>";
+                            if(optionArr[i].value.trim() != ""){
+                                str+="<div onclick='confirm_QA(this)'><span>A.</span><span>"+optionArr[i].value+"</span></div>";
+                            }
                             break;
                         case 1:
-                            str+="<div onclick='confirm_QA(this)'><span>B.</span><span>"+optionArr[i].value+"</span></div>";
+                            if(optionArr[i].value.trim() != ""){
+                                str+="<div onclick='confirm_QA(this)'><span>B.</span><span>"+optionArr[i].value+"</span></div>";
+                            }
                             break;
                         case 2:
-                            str+="<div onclick='confirm_QA(this)'><span>C.</span><span>"+optionArr[i].value+"</span></div>";
+                            if(optionArr[i].value.trim() != ""){
+                                str+="<div onclick='confirm_QA(this)'><span>C.</span><span>"+optionArr[i].value+"</span></div>";
+                            }
                             break;
                         case 3:
-                            str+="<div onclick='confirm_QA(this)'><span>D.</span><span>"+optionArr[i].value+"</span></div>";
+                            if(optionArr[i].value.trim() != ""){
+                                str+="<div onclick='confirm_QA(this)'><span>D.</span><span>"+optionArr[i].value+"</span></div>";
+                            }
                             break;
                         case 4:
-                            str+="<div onclick='confirm_QA(this)'><span>E.</span><span>"+optionArr[i].value+"</span></div>";
+                            if(optionArr[i].value.trim() != ""){
+                                str+="<div onclick='confirm_QA(this)'><span>E.</span><span>"+optionArr[i].value+"</span></div>";
+                            }
                             break;
                         case 5:
-                            str+="<div onclick='confirm_QA(this)'><span>F.</span><span>"+optionArr[i].value+"</span></div>";
+                            if(optionArr[i].value.trim() != ""){
+                                str+="<div onclick='confirm_QA(this)'><span>F.</span><span>"+optionArr[i].value+"</span></div>";
+                            }
                             break;
                     }
                 }

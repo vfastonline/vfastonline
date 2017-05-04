@@ -10,7 +10,7 @@ import traceback
 GITHUB_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
 GITHUB_CLIENTID = 'b758723e0c76d63dc514'
 GITHUB_CLIENTSECRET = '529eeba7bafd22682ca91e6bfffd49ebf2383076'
-GITHUB_CALLBACK = 'http://127.0.0.1:8000/github_auth'
+GITHUB_CALLBACK = 'http://127.0.0.1/github_auth'
 
 
 # Create your views here.
@@ -46,7 +46,7 @@ def github_auth(request):
             return render(request, 'index.html')
         code = request.GET.get('code')
         uid = request.GET.get('uid')
-        print 'uid', uid
+        logging.getLogger().error('code:%s  uid: %s' % (code, uid))
         url = 'https://github.com/login/oauth/access_token'
         data = {
             'grant_type': 'authorization_code',

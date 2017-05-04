@@ -595,7 +595,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     box-shadow: 0 2px 1px rgba(0,0,0,0.5);
     position: fixed;
     width: 100%;
-    z-index: 2;
+    z-index: 99;
 }
 .navbar1{
     height: 70px;

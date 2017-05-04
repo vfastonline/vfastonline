@@ -44,7 +44,9 @@ def course_watched_all(user, course, tech):
             UserBadge.objects.create(createtime=t, badge=badge, user=user)
             WatchCourse.objects.create(createtime=time.strftime('%Y-%m-%d %H:%M:%S'), user=user, course=course)
             logging.getLogger().info('用户%s获得%s勋章' % (user.username, badge.badgename))
-            return True, {'badge_name': badge.badgename, 'badge_url': badge.badgeurl}
+            badge_name = badge.badgename
+            badge_url = badge.badgeurl.url
+            return True, {'badge_name': badge_name, 'badge_url': badge_url}
         else:
             return False, None
     except:
@@ -66,6 +68,7 @@ def record_video(request):
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
+            #print 'aaa'
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
                 if status == 0 and obj.status == 0:
@@ -82,14 +85,14 @@ def record_video(request):
                     tech = Technology.objects.get(id=course.tech_id)
                     Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
                     user.totalscore = user.totalscore + 1
-                    print user.totalscore
+                    #print user.totalscore
                     b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
                     l_flag, rlevel = user_level(user)  # 等级是否变更
-                    print user.totalscore
+                    #print user.totalscore
                     user.save()
-                    print 'aaa'
+                    #print 'aaa'
                     return HttpResponse(
-                        json.dumps({'code': 0, 'b_flag': b_flag, 'badge': badge, 'l_flag': l_flag, 'rlevel': rlevel},
+                        json.dumps({'code': 0, 'b_flag': b_flag, 'badge_name': badge['badge_name'],'badge_url':badge['badge_url'], 'l_flag': l_flag, 'rlevel': rlevel},
                                    ensure_ascii=False))
                 elif status==1 and obj.status == 0:
                     obj.video_process = video_process

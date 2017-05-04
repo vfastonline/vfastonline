@@ -282,7 +282,7 @@
     <div class="course_head_BG">
         <h1>课程</h1>
         <section id="course_head" class="course_head">
-            <video ondblclick="video_FullScreen()" poster="/static/imgs/meizitu.jpg" preload="auto" onended="video_ended()" onclick="video_Pause()" id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="62%" height="372"
+            <video ondblclick="video_FullScreen()" poster="" preload="auto" onended="video_ended()" onclick="video_Pause()" id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="62%" height="372"
                    data-setup='{"example_option":true}'>
                 <source id="video_source" src="{{ course.intrv.url }}" type="video/mp4" />
             </video>
@@ -292,7 +292,7 @@
             </svg>
             <div class="course_desc">
                 <h3>{{ course.name }}</h3>
-                <div class="course_desc_text">{{ course.desc }}</div>
+                <div class="course_desc_text">{{ course.desc | safe}}</div>
 
                 <div class="course_play_div">
                     {% if request.session.login != True %}
@@ -326,11 +326,11 @@
     <section class="course_info clearfix">
         <div class="left">
             <h2>目标受众</h2>
-            <div class="text">{{ course.target_user }}</div>
+            <div class="text">{{ course.target_user|safe }}</div>
             <h2>先修要求</h2>
-            <div class="text">{{ course.require_knowledge }}</div>
+            <div class="text">{{ course.require_knowledge|safe }}</div>
             <h2>软/硬件要求</h2>
-            <div class="text">{{ course.require_env }}</div>
+            <div class="text">{{ course.require_env|safe }}</div>
             <h2>课程表</h2>
             <!--章节-->
             {% for section in sections %}
@@ -338,7 +338,7 @@
                 <h3>{{ section.title }}</h3>
                 <div class="clearfix">
                     <div onclick="sectionLI_toggle(this)">{{ section.process }}&nbsp;&nbsp;<img class="img_down" src="/static/svg/zhankaizhishi.svg" alt=""></div>
-                    <div>{{ section.desc }}</div>
+                    <div>{{ section.desc|safe }}</div>
                 </div>
                 <ul class="ectionUL">
                     {% for video in section.videos %}
@@ -366,7 +366,7 @@
                 <div>
                     <h4>{{ course.teach.username }}</h4>
                     <h5>{{ course.teach.position }}</h5>
-                    <p>{{ course.teach.intro }}</p>
+                    <p>{{ course.teach.intro | safe }}</p>
                 </div>
             </div>
             {% if course.teacher %}
@@ -389,6 +389,7 @@
 </main>
 {% include "search_div.html" %}
 </body>
+<script type="text/javascript" src="/static/utf8-php/ueditor.parse.js"></script>
 <script src="/static/js/video.js"></script>
 {% include "commonJS.html" %}
 <script>
@@ -399,6 +400,10 @@
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
     }
+
+    uParse(".text",{
+        rootPath: '/static/utf8-php'
+    });
 
     function video_FullScreen(){
         var elem = document.getElementById("example_video_1");

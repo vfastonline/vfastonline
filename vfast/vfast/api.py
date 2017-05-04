@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
 from django.db import connection
-from django.conf import settings
 
 import logging.handlers
 import time, os, json, base64
@@ -14,7 +13,6 @@ import smtplib
 import logging
 from email.mime.text import MIMEText
 from email.header import Header
-
 
 def get_validate(email, uid, role, fix_pwd):
     t = int(time.time())
@@ -207,4 +205,24 @@ def sendmail(rcpt, subject, content):
         return True
     except:
         print traceback.format_exc()
+        return False
+
+import top.api
+def sendmessage(phone,sms_param):
+    req = top.api.AlibabaAliqinFcSmsNumSendRequest()
+    req.set_app_info(top.appinfo(appkey='23681605', secret='8a4f3638ca00c3700dd346fefff8cdde'))
+    req.extend = ""
+    req.sms_type = 'normal'
+    req.sms_free_sign_name = "苏威丁亚"
+    req.sms_template_code = "SMS_62815004"
+    req.rec_num = phone
+    req.sms_param = json.dumps(sms_param)
+    logging.getLogger().info(req.sms_param)
+    try:
+        resp = req.getResponse()
+        logging.getLogger().info(resp)
+        logging.getLogger().info(u'短信发送成功, phone:%s, sms_free_sign_name:%s, sms_template_code:%s 状态%s' % (req.rec_num, req.sms_free_sign_name, req.sms_template_code, resp['alibaba_aliqin_fc_sms_num_send_response']))
+        return True
+    except Exception, e:
+        logging.getLogger().error(e)
         return False

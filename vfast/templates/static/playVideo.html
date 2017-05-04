@@ -831,9 +831,10 @@
     <video ondblclick="video_FullScreen()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />
+        <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/wmv" />
         <track kind="subtitles" src="{{ video_obj.cc.url }}" srclang="en" label="English" default>
         <input id="video_process" type="hidden" value="{{ video_process }}"/>
-        <input id="video_id" type="hidden" value="{{ cvideo_obj.id }}"/>
+        <input id="video_id" type="hidden" value="{{ video_obj.id }}"/>
     </video>
     <div class="video_play_svg_div" id="video_play_svg_div"></div>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -998,7 +999,7 @@
 * IDE - oinqoifqoiwdnoaijsdoijoiwqjdoiqjw doija soidj oqiwjf qoiwj fdoiqwjf oiqwj foiqj fwoiwqif oqwjfoiqw fj
 
 资源
-<a href="#">初始工程</a>
+<a href="#">网盘链接</a>
         </pre>
     </div>
 </div>
@@ -1227,8 +1228,8 @@
         var elem = document.getElementsByTagName("video")[0];
         $.getJSON("/r/video?vid="+video_id.value+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
             if(data.b_flag){
-                badge_name.innerHTML = data.badge.badge_name;
-                medal_badge.src = data.badge.badge_url;
+                badge_name.innerHTML = data.badge_name;
+                medal_badge.src = data.badge_url;
     //            勋章获取
                 medal_div.style.zIndex = "1";
                 medal_div_p.style.animation = "medal_div_animation 1.2s";
