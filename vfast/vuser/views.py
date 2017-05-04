@@ -85,7 +85,10 @@ def register(request):
                                 ''' % (email, settings.HOST, active)
             nickname = u'酷粉%s' % int(time.time())
             sendmail([email, ], subject=subject, content=message)
-            result = User.objects.get_or_create(email=email, username=username, password=password,
+            user_exists = User.objects.filter(email=email, username=username).exists()
+            if user_exists:
+                return HttpResponse(json.dumps({'code': 3, 'msg': u'用户已存在,请激活'}, ensure_ascii=False))
+            result = User.objects.create(email=email, username=username, password=password,
                                                 program_exp=program_exp, createtime=t, sex=sex,
                                                 comp_use_time_day=comp_use_time_day, into_it=into_it,nickname=nickname,
                                                 learn_habit=learn_habit, active=active, role=role, headimg=headimg)
