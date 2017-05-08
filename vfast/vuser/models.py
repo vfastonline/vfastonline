@@ -16,7 +16,6 @@ class User(models.Model):
         (1, '激活')
     )
     role = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
-    username = models.CharField('用户名称', max_length=50, null=True, blank=True, default='')
     realname = models.CharField('用户真实姓名', max_length=30, null=True, blank=True, default='')
     email = models.EmailField('邮箱', max_length=50, null=True, unique=True)
     password = models.CharField('密码', max_length=100, null=True)
@@ -43,8 +42,8 @@ class User(models.Model):
     status = models.IntegerField('是否激活', default=0)
     pathid = models.IntegerField('正在进行的路径ID', default=0)
     position = models.CharField('讲师职位', default='讲师', max_length=100)
-    phone = models.CharField('手机号码', default='13800000000', max_length=15)
-    nickname = models.CharField('昵称', max_length=30, default='', null=True,)
+    phone = models.CharField('手机号码', max_length=15, unique=True)
+    nickname = models.CharField('昵称', max_length=30, unique=True)
 
     #HR注册的相关信息
     hr_phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')
