@@ -1,11 +1,15 @@
 <div class="login_left_div" id="login_left_div">
     <div id="login_left_div_div" class="login_left_div_div">
-        <p>用户名/邮箱</p>
-        <input type="text" class="input_text" id="username" name="username" tabindex="1" placeholder="请输入您的用户名"/>
-        <span id="usernameSpan"></span>
+        <p>登陆手机号</p>
+        <div>
+            <input type="text" class="input_text" onfocus="login_input_focus(this)"id="username" name="username" tabindex="1" placeholder="请输入您的登陆手机号"/>
+            <span class="inputError" id="usernameSpan"></span>
+        </div>
         <p>密码<a href="#" tabindex="4">忘记密码了？</a></p>
-        <input type="password" class="input_text" id="password" onkeydown="login_enter(event)" tabindex="2" placeholder="请输入您的密码"/>
-        <span id="passwordSpan"></span>
+        <div>
+            <input type="password" class="input_text" onfocus="login_input_focus(this)" id="password" onkeydown="login_enter(event)" tabindex="2" placeholder="请输入您的密码"/>
+            <span class="inputError" id="passwordSpan"></span>
+        </div>
         <button class="login" onclick="login()" tabindex="3">登陆</button>
     </div>
     <div class="login_reg_svg login_svg" id="login_reg_svg" onclick="change_reg()">

@@ -27,9 +27,8 @@ var emailCheck = false;
 var passwordCheck = false;
 
 function blur_username(t){
-    if(check_name(t.value) == "error"){
-        username_span.innerHTML = "用户名格式错误！";
-        username_span.style.color = "red";
+    if(t.value.trim() == ""){
+        login_input_error(t,"请填写手机号！");
         usernameCheck = false;
     }else{
         var xmlhttp = new XMLHttpRequest();
@@ -195,28 +194,34 @@ function reg_submit(){
 function login(){
     var username = $("#username").val().trim();
     var password = $("#password").val().trim();
-    $("#usernameSpan").html("");
-    $("#passwordSpan").html("");
-    if(username != "" && password != ""){
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("post","/u/login",true);
-        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        xmlhttp.onreadystatechange = function(){
-            if(xmlhttp.readyState == 4 && xmlhttp.status==200){
-                var jsonStr = JSON.parse(xmlhttp.responseText);
-                if(jsonStr.code == "0"){
-                    console.log(jsonStr.url)
-                    location.href = jsonStr.url;
-                }else if(jsonStr.code == "1" || jsonStr.code == "2"){
-                    $("#usernameSpan").html(jsonStr.msg);
-                }else if (jsonStr.code = "3"){
-                    $("#passwordSpan").html(jsonStr.msg);
+    login_input_focus($("#username"));
+    login_input_focus($("#password"));
+    if(username != ""){
+        if(password != ""){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("post","/u/login",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.onreadystatechange = function(){
+                if(xmlhttp.readyState == 4 && xmlhttp.status==200){
+                    var jsonStr = JSON.parse(xmlhttp.responseText);
+                    if(jsonStr.code == "0"){
+                        console.log(jsonStr.url)
+                        location.href = jsonStr.url;
+                    }else if(jsonStr.code == "1" || jsonStr.code == "2"){
+                        login_input_error($("#username"),jsonStr.msg);
+                    }else if (jsonStr.code = "3"){
+                        login_input_error($("#password"),jsonStr.msg);
+                    }
                 }
-            }
-        };
-        var str = "username="+username+"&" +
-                "password="+password;
-        xmlhttp.send(str);
+            };
+            var str = "phone="+username+"&" +
+                    "password="+password;
+            xmlhttp.send(str);
+        }else {
+            login_input_error($("#password"),"请输入密码！");
+        }
+    }else{
+        login_input_error($("#username"),"请输入登陆手机号！");
     }
 }
 function login_enter(e){
@@ -366,4 +371,18 @@ function change_login(){
     },800)
     login_reg_svg.style.animation = "change_login_svg_animation_1 0.8s";
     login_reg_svg.style.animationFillMode = "forwards";
+}
+
+function login_input_error(t,message){
+    $(t).css("border","2px solid rgb(214,96,97)");
+    $(t).parent().find("span").html(message);
+    $(t).parent().find("span").slideDown();
+}
+function login_input_focus(t){
+    $(t).css("border","2px solid transparent");
+    $(t).parent().find("span").slideUp();
+}
+function reg_input_focus(t){
+    $(t).css("border","2px solid #ECEFF1");
+    $(t).parent().find("span").slideUp();
 }
