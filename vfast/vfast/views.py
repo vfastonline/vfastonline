@@ -40,6 +40,7 @@ def logout(request):
 def index(request):
     try:
         from vfast.api import sendmessage
+        # sendmessage('18612972023',{'code':'3452'})
         if request.session.get('user'):
             return HttpResponseRedirect('/u/%s' % request.session['user']['id'])
         else:

@@ -214,7 +214,7 @@ def sendmessage(phone,sms_param):
     req.extend = ""
     req.sms_type = 'normal'
     req.sms_free_sign_name = "苏威丁亚"
-    req.sms_template_code = "SMS_62815004"
+    req.sms_template_code = "SMS_62900005"
     req.rec_num = phone
     req.sms_param = json.dumps(sms_param)
     logging.getLogger().info(req.sms_param)
