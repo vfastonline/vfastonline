@@ -134,7 +134,7 @@ def login(request):
         if request.method == 'GET':
             return render(request, 'login_left.html')
         else:
-            phone = request.POST.get('nickname', ' ')
+            phone = request.POST.get('phone', ' ')
             password = request.POST.get('password', ' ')
             password = encry_password(password)
             print phone, password
