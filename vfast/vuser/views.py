@@ -57,7 +57,6 @@ def register(request):
             return render(request, 'du/register.html')
         else:
             t = time.strftime('%Y-%m-%d %H:%M:%S')
-            email = request.POST.get('email', None)
             nickname = request.POST.get('nickname', None)
             password = request.POST.get('password', None)
             phone = request.POST.get('phone', None)
@@ -75,7 +74,7 @@ def register(request):
             user_exists = User.objects.filter(phone=phone).exists()
             if user_exists:
                 return HttpResponse(json.dumps({'code': 3, 'msg': u'用户已存在,请登录'}, ensure_ascii=False))
-            result = User.objects.create(email=email, nickname=nickname, password=password,
+            result = User.objects.create(phone=phone, nickname=nickname, password=password,
                                                 program_exp=program_exp, createtime=t, sex=sex,
                                                 comp_use_time_day=comp_use_time_day, into_it=into_it,
                                                 learn_habit=learn_habit, role=role, headimg=headimg)
@@ -85,7 +84,7 @@ def register(request):
                 logging.getLogger().info(user)
                 request.session['user'] = user
                 request.session['login'] = True
-                return HttpResponseRedirect('/')
+                return HttpResponse(json.dumps({'code': 0, 'msg': u'注册成功'}, ensure_ascii=False))
             else:
                 return HttpResponse(json.dumps({'code': 1, 'msg': u'数据库错误'}, ensure_ascii=False))
     except:

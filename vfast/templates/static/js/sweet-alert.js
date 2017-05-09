@@ -436,7 +436,7 @@
 
           if (btnIndex === -1) {
             // Something in the dom, but not a visible button. Focus back on the button.
-            $targetElement.focus();
+            // $targetElement.focus();
           }
         } else {
           // Exiting the DOM (e.g. clicked in the URL bar);

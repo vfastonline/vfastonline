@@ -22,14 +22,88 @@ function stopPPG(e,url){
 	    location.href = url;
     }
 }
-var usernameCheck = false;
-var emailCheck = false;
+var phoneCheck = false;
+var nicknameCheck = false;
 var passwordCheck = false;
 
-function blur_username(t){
+function blur_phone(t){
     if(t.value.trim() == ""){
         login_input_error(t,"请填写手机号！");
-        usernameCheck = false;
+        phoneCheck = false;
+    }else{
+        if(!checkPhone(t.value.trim())){
+            login_input_error(t,"手机号格式有误！");
+            phoneCheck = false;
+        }else{
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("post","/u/exists",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.onreadystatechange = function(){
+                if(xmlhttp.readyState == 4 && xmlhttp.status==200){
+                    var jsonStr = JSON.parse(xmlhttp.responseText);
+                    if(jsonStr.code == "0"){
+                        reg_input_focus(t);
+                        phoneCheck = true;
+                        $("#phone_button").show();
+                    }else{
+                        login_input_error(t,"手机号已被使用！");
+                        phoneCheck = false;
+                    }
+                }
+            };
+            xmlhttp.send("phone="+t.value);
+        }
+    }
+}
+var pcode;
+var phoneNumber;
+function getVCode(){
+    if(phoneCheck){
+        phoneNumber = $("#phone").val();
+        $.post("/u/phonecode",{phone:$("#phone").val()},function(data){
+            if(data.code == 0){
+                $("#VCode").show();
+                pcode = data.phone_code;
+                $("#phone_button").attr("onclick","");
+                countDown();
+                countDonwTiming = setInterval(countDown,1000);
+            }else{
+                swal("验证码错误", "短信发送失败~！请您稍后再试！", "error");
+            }
+        },"json")
+    }else{
+        swal("验证码错误", "请您补全手机信息，确保正确后继续~", "error");
+    }
+}
+var countDonwTiming;
+var countDonwSum = 60;
+function countDown(){
+    if(countDonwSum == -1){
+        clearInterval(countDonwTiming);
+        countDonwSum = 60;
+        $("#phone_button").html("发送验证码");
+        $("#phone_button").attr("onclick","getVCode()");
+        return "";
+    }
+    $("#phone_button").html(countDonwSum+"秒");
+    countDonwSum--;
+}
+function checkPhone(phone){
+    if(!(/^1[34578]\d{9}$/.test(phone))){
+        return false;
+    }
+    return true
+}
+function blur_nickname(t){
+    if(t.value.trim() == ""){
+        login_input_error(t,"请输入昵称！");
+        nicknameCheck = false;
+    }else if(check_name(t.value.trim()) == "char"){
+        login_input_error(t,"包含非法字符！请输入中文、数字、字母、下划线！");
+        nicknameCheck = false;
+    }else if(check_name(t.value.trim()) == "2-10"){
+        login_input_error(t,"昵称长度为2-10位！");
+        nicknameCheck = false;
     }else{
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("post","/u/exists",true);
@@ -38,17 +112,15 @@ function blur_username(t){
             if(xmlhttp.readyState == 4 && xmlhttp.status==200){
                 var jsonStr = JSON.parse(xmlhttp.responseText);
                 if(jsonStr.code == "0"){
-                    username_span.innerHTML = "用户名可以使用！";
-                    username_span.style.color = "#4DB6AC";
-                    usernameCheck = true;
+                    reg_input_focus(t);
+                    nicknameCheck = true;
                 }else{
-                    username_span.innerHTML = "用户名已被使用！";
-                    username_span.style.color = "red";
-                    usernameCheck = false;
+                    login_input_error(t,"昵称已被使用！");
+                    nicknameCheck = false;
                 }
             }
         };
-        xmlhttp.send("username="+t.value);
+        xmlhttp.send("nickname="+t.value);
     }
 }
 function blur_email(t){
@@ -79,16 +151,17 @@ function blur_email(t){
     }
 }
 function blur_password(t){
+
     if(t.value.replace(/\s/g, "")==""){
-        password_span.innerHTML = "密码不能为空！";
-        password_span.style.color = "red";
+        login_input_error(t,"密码不能为空！");
         passwordCheck = false;
     }else{
+        reg_input_focus(t);
         passwordCheck = true;
     }
 }
 function check_name(str){
-    var re1=/[a-zA-Z]|[0-9]/g;
+    var re1=/[a-zA-Z]|[0-9]|_/g;
     var re2=/[\u4e00-\u9fa5]/g;
     var length = 0;
     var length2 = 0;
@@ -103,20 +176,19 @@ function check_name(str){
       length += chinese.length;
       length2 = length2+chinese.length*2;
     }
-
     if (length == str.length) {
         if (length2>=2 && length2<=10) {
             return 'success';
         }else{
-            return 'error';
+            return '2-10';
         }
     }else{
-        return 'error';
+        return 'char';
     }
 }
 function reg_submit(){
-    var username = $("#username").val();
-    var email = $("#email").val();
+    var nickname = $("#nickname").val();
+    var phone = $("#phone").val();
     var password = $("#password").val();
     var program_exp =$("input:radio[name='program_exp']:checked").val();
     var into_it =$("input:radio[name='into_it']:checked").val();
@@ -129,60 +201,81 @@ function reg_submit(){
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.onreadystatechange = function(){
         if(xmlhttp.readyState == 4 && xmlhttp.status==200){
+            // var jsonStr = JSON.parse(xmlhttp.responseText);
+            // if(jsonStr.code == "0"){
+            //     var hash = {
+            //         'qq.com': 'http://mail.qq.com',
+            //         'gmail.com': 'http://mail.google.com',
+            //         'sina.com': 'http://mail.sina.com.cn',
+            //         '163.com': 'http://mail.163.com',
+            //         '126.com': 'http://mail.126.com',
+            //         'yeah.net': 'http://www.yeah.net/',
+            //         'sohu.com': 'http://mail.sohu.com/',
+            //         'tom.com': 'http://mail.tom.com/',
+            //         'sogou.com': 'http://mail.sogou.com/',
+            //         '139.com': 'http://mail.10086.cn/',
+            //         'hotmail.com': 'http://www.hotmail.com',
+            //         'live.com': 'http://login.live.com/',
+            //         'live.cn': 'http://login.live.cn/',
+            //         'live.com.cn': 'http://login.live.com.cn',
+            //         '189.com': 'http://webmail16.189.cn/webmail/',
+            //         'yahoo.com.cn': 'http://mail.cn.yahoo.com/',
+            //         'yahoo.cn': 'http://mail.cn.yahoo.com/',
+            //         'eyou.com': 'http://www.eyou.com/',
+            //         '21cn.com': 'http://mail.21cn.com/',
+            //         '188.com': 'http://www.188.com/',
+            //         'foxmail.com': 'http://www.foxmail.com',
+            //         'outlook.com': 'http://www.outlook.com'
+            //     }
+            //     swal({
+            //         title: "注册成功！",
+            //         text: "激活邮件已经发送至您的邮箱，请前去激活！",
+            //         type: "success",
+            //         showCancelButton: true,
+            //         confirmButtonColor: "#DD6B55",
+            //         confirmButtonText: "邮箱激活",
+            //         cancelButtonColor: "#4DB6AC",
+            //         cancelButtonText: "完成",
+            //         closeOnConfirm: false
+            //     },
+            //     function(){
+            //         // 点击登录邮箱
+            //         var _mail = $("#email").val().split('@')[1];    //获取邮箱域
+            //         for (var j in hash){
+            //             if(j == _mail){
+            //                 //跳转邮箱链接
+            //                 window.open(hash[_mail],"_self");
+            //             }
+            //         }
+            //     });
+            // }else{
+            //     swal("错误！", "注册失败！", "warning");
+            // }
             var jsonStr = JSON.parse(xmlhttp.responseText);
             if(jsonStr.code == "0"){
-                var hash = {
-                    'qq.com': 'http://mail.qq.com',
-                    'gmail.com': 'http://mail.google.com',
-                    'sina.com': 'http://mail.sina.com.cn',
-                    '163.com': 'http://mail.163.com',
-                    '126.com': 'http://mail.126.com',
-                    'yeah.net': 'http://www.yeah.net/',
-                    'sohu.com': 'http://mail.sohu.com/',
-                    'tom.com': 'http://mail.tom.com/',
-                    'sogou.com': 'http://mail.sogou.com/',
-                    '139.com': 'http://mail.10086.cn/',
-                    'hotmail.com': 'http://www.hotmail.com',
-                    'live.com': 'http://login.live.com/',
-                    'live.cn': 'http://login.live.cn/',
-                    'live.com.cn': 'http://login.live.com.cn',
-                    '189.com': 'http://webmail16.189.cn/webmail/',
-                    'yahoo.com.cn': 'http://mail.cn.yahoo.com/',
-                    'yahoo.cn': 'http://mail.cn.yahoo.com/',
-                    'eyou.com': 'http://www.eyou.com/',
-                    '21cn.com': 'http://mail.21cn.com/',
-                    '188.com': 'http://www.188.com/',
-                    'foxmail.com': 'http://www.foxmail.com',
-                    'outlook.com': 'http://www.outlook.com'
-                }
                 swal({
                     title: "注册成功！",
-                    text: "激活邮件已经发送至您的邮箱，请前去激活！",
+                    text: "恭喜您成功注册智量酷，请开始您的IT之旅吧~",
                     type: "success",
                     showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "邮箱激活",
-                    cancelButtonColor: "#4DB6AC",
-                    cancelButtonText: "完成",
+                    // confirmButtonColor: "#DD6B55",
+                    confirmButtonColor: "#4DB6AC",
+                    confirmButtonText: "GO~",
+                    showCancelButton: false,
+                    // cancelButtonColor: "#4DB6AC",
+                    // cancelButtonText: "完成",
                     closeOnConfirm: false
                 },
                 function(){
-                    // 点击登录邮箱
-                    var _mail = $("#email").val().split('@')[1];    //获取邮箱域
-                    for (var j in hash){
-                        if(j == _mail){
-                            //跳转邮箱链接
-                            window.open(hash[_mail],"_self");
-                        }
-                    }
+                    window.location.reload(true);
                 });
             }else{
                 swal("错误！", "注册失败！", "warning");
             }
         }
     };
-    var str = "username="+username+"&" +
-            "email="+email+"&" +
+    var str = "nickname="+nickname+"&" +
+            "phone="+phone+"&" +
             "password="+password+"&" +
             "program_exp="+program_exp+"&" +
             "into_it="+into_it+"&" +
@@ -192,11 +285,11 @@ function reg_submit(){
     xmlhttp.send(str);
 }
 function login(){
-    var username = $("#username").val().trim();
+    var phone = $("#phone").val().trim();
     var password = $("#password").val().trim();
-    login_input_focus($("#username"));
+    login_input_focus($("#phone"));
     login_input_focus($("#password"));
-    if(username != ""){
+    if(phone != ""){
         if(password != ""){
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open("post","/u/login",true);
@@ -208,20 +301,20 @@ function login(){
                         console.log(jsonStr.url)
                         location.href = jsonStr.url;
                     }else if(jsonStr.code == "1" || jsonStr.code == "2"){
-                        login_input_error($("#username"),jsonStr.msg);
+                        login_input_error($("#phone"),jsonStr.msg);
                     }else if (jsonStr.code = "3"){
                         login_input_error($("#password"),jsonStr.msg);
                     }
                 }
             };
-            var str = "phone="+username+"&" +
+            var str = "phone="+phone+"&" +
                     "password="+password;
             xmlhttp.send(str);
         }else {
             login_input_error($("#password"),"请输入密码！");
         }
     }else{
-        login_input_error($("#username"),"请输入登陆手机号！");
+        login_input_error($("#phone"),"请输入登陆手机号！");
     }
 }
 function login_enter(e){
@@ -276,7 +369,7 @@ function login_show(){
                     modal_left.style.animationFillMode = "forwards";
                     modal_right.style.animationFillMode = "forwards";
                     login_reg_svg.style.animationFillMode = "forwards";
-                    $("#username").focus();
+                    $("#phone").focus();
                 }
             };
             xmlhttp3.send(null);
@@ -286,16 +379,24 @@ function login_show(){
 }
 
 function continue_animation(){
-    if(usernameCheck&&emailCheck&&passwordCheck){
-        reg_right_div.style.animation = "continue_animation 0.8s";
-        reg_right_div_2.style.animation = "continue_animation 0.8s";
-        reg_right_div.style.animationFillMode = "forwards";
-        reg_right_div_2.style.animationFillMode = "forwards";
-        modal_left_h2_1.className = "";
-        modal_left_h2_2.className = "modal_left_shadow";
-        login_reg_svg.style.animation = "login_svg_close_animation 0.6s";
+    if(phoneCheck&&nicknameCheck&&passwordCheck){
+        if(pcode == $("#VCode").val()){
+            if(phoneNumber == $("#phone").val()){
+                reg_right_div.style.animation = "continue_animation 0.8s";
+                reg_right_div_2.style.animation = "continue_animation 0.8s";
+                reg_right_div.style.animationFillMode = "forwards";
+                reg_right_div_2.style.animationFillMode = "forwards";
+                modal_left_h2_1.className = "";
+                modal_left_h2_2.className = "modal_left_shadow";
+                login_reg_svg.style.animation = "login_svg_close_animation 0.6s";
+            }else{
+                swal("注册信息", "验证码与手机号不匹配，请您核对后再次输入！", "error");
+            }
+        }else{
+            swal("注册信息", "验证码错误，请您核对后再次输入！", "error");
+        }
     }else{
-        swal("注册错误", "请您补全所有必填信息，确保格式正确后继续~", "error");
+        swal("注册信息", "请您补全所有必填信息，确保格式正确后继续！", "error");
     }
 }
 function change_reg(){

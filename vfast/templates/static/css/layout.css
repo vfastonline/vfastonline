@@ -163,7 +163,6 @@ a{
 .reg_right_div>div{
     position: relative;
     margin-bottom: 50px;
-    height: 100px;
 }
 .reg_right_div>div>h4{
     color: #4DB6AC;
@@ -197,14 +196,53 @@ a{
     background: #ECEFF1;
     text-indent: 3em;
     padding-right: 50px;
-    font-size: 18px;
+    font-size: 14px;
     color: #BAC4CA;
     outline: none;
     box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
     border-radius: 4px;
     border:2px solid #ECEFF1;
 }
+.reg_input.phone_input{
+    width:60%;
+    border-radius: 4px 0 0 4px;
+}
 .reg_input:focus{
+    background-color: #FFFFFF;
+    border: 2px solid #EEEEEE;
+}
+.phone_button{
+    display: none;
+    width: 20%;
+    height: 40px;
+    text-align: center;
+    border: none;
+    background: #FFFFFF;
+    font-size: 14px;
+    color: #4DB6AC;
+    outline: none;
+    box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+    border: 2px solid #4DB6AC;
+}
+.phone_button:hover{
+    background: #4DB6AC;
+    color: #FFFFFF;
+}
+.VCode{
+    display: none;
+    width: 20%;
+    height: 40px;
+    border: none;
+    background: #ECEFF1;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 14px;
+    color: #BAC4CA;
+    outline: none;
+    box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
+    border:2px solid #ECEFF1;
+}
+.VCode:focus{
     background-color: #FFFFFF;
     border: 2px solid #EEEEEE;
 }
@@ -238,10 +276,10 @@ a{
 }
 .reg_right_div_2>div{
     position: relative;
-    height: 100px;
 }
 .reg_right_div_2>div>h4{
     color: #5A646E;
+    margin-bottom: 0px;
 }
 .reg_right_div_2>div>strong{
     font-size: 18px;
@@ -256,7 +294,7 @@ a{
 }
 .reg_right_div_2 ul { list-style-type: none;}
 .reg_right_div_2 li { display: inline-block;}
-.reg_right_div_2 li { margin: 10px 0;}
+.reg_right_div_2 li { margin: 10px 0 0 0;}
 input.labelauty + label { font: 12px "Microsoft Yahei";}
 
 .finish{
@@ -336,7 +374,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 }
 
 .inputError{
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 400;
     display: none;
     width:100%;
@@ -354,7 +392,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     z-index: 1;
 }
 .inputError_reg{
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 400;
     display: none;
     width:100%;
@@ -370,6 +408,9 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     top:36px;
     left: 0;
     z-index: 1;
+}
+.inputError_reg.phone_span{
+    width:60%;
 }
 .login_left_div_div>div{
     position: relative;
@@ -398,7 +439,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     background: #B3DFDB;
     text-indent:3em;
     padding-right: 50px;
-    font-size: 18px;
+    font-size: 16px;
     color: #2FA59A;
     outline: none;
     box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
@@ -474,10 +515,10 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
         transform: translateY(0);
     }
     50%{
-        transform: translateY(-101%);
+        transform: translateY(-106%);
     }
     100%{
-        transform: translateY(-100%);
+        transform: translateY(-105%);
     }
 }
 
