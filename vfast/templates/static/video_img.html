@@ -19,7 +19,7 @@
         //这个是拍照按钮的事件，
          $("#jietu").click(function () {
              backcontext.drawImage(video, 0, 0, 320, 320);
-                          var imgData = backcontext.toDataURL();
+                          var imgData = back.toDataURL();
             //将图像转换为base64数据
              console.log(imgData);
              console.log(imgData.substr(22));
