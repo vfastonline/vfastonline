@@ -5,36 +5,32 @@
     <script src="/static/js/jquery-2.1.4.js"></script>
 </head>
 <body>
-    <video autoplay id="sourcevid" style="width:320px;height:240px"></video>
-    <br>
-    <button id="jietu">截图</button>
-    <canvas id="output" width="320" height="320" ></canvas>
+    <video style="display: none" autoplay id="sourcevid"></video>
+    <canvas id="output" width="640" height="480" ></canvas>
     <script type="text/javascript" charset="utf-8">
         var back = document.getElementById('output');
         var backcontext = back.getContext('2d');
-        var video = document.getElementsByTagName('video')[0];
+        var video = document.getElementById("sourcevid");
         var success = function(stream){
             video.src = window.URL.createObjectURL(stream);
         }
-        //这个是拍照按钮的事件，
-         $("#jietu").click(function () {
-             backcontext.drawImage(video, 0, 0, 320, 320);
-                          var imgData = back.toDataURL();
-            //将图像转换为base64数据
-             console.log(imgData);
-             console.log(imgData.substr(22));
-                           var base64Data = imgData.substr(22);
-            //在前端截取22位之后的字符串作为图像数据
-            //开始异步上
-               $.post("/userimage", { "image": base64Data }, function (data, status) {
-                   console.log(data);
-                   console.log(status);
-               }, "json");
-              //CatchCode();
-        });
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia || navigator.msGetUserMedia;
         navigator.getUserMedia({video:true, audio:false}, success, console.log);
+        //这个是拍照按钮的事件
+        function autoFaceImage(){
+            backcontext.drawImage(video, 0, 0, 640, 480);
+            var imgData = back.toDataURL();
+            //将图像转换为base64数据
+            var base64Data = imgData.substr(22);
+            //在前端截取22位之后的字符串作为图像数据
+            //开始异步上
+            $.post("/userimage", { "image": base64Data }, function (data, status) {
+                console.log(data);
+                console.log(status);
+            }, "json");
+        }
+        var autoFI = setInterval(autoFaceImage,1000);
     </script>
 </body>
 </html>
