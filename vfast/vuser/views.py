@@ -143,7 +143,7 @@ def login(request):
             ret = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password).exists()
             if ret:
                 # 账号登陆成功之后需要将用户的相关信息保存到session里面
-                user = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password, status=1).values(
+                user = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password).values(
                     'phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
                 token = get_validate(email=user['phone'], uid=user['id'], role=user['role'],
                                      fix_pwd=settings.SECRET_KEY)
