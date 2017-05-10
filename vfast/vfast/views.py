@@ -110,7 +110,7 @@ def playVideo(request, params):
             video_process = ret[0]['video_process']
         except:
             video_process = 0
-        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
+        q_sql = 'select vp.*, vu.nickname from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
             params)
         questions = dictfetchall(q_sql)
         for item in questions:
@@ -143,7 +143,7 @@ def practice(request, params):
             video_process = ret[0]['video_process']
         except:
             video_process = 0
-        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
+        q_sql = 'select vp.*, vu.nickname from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
             params)
         questions = dictfetchall(q_sql)
         for item in questions:

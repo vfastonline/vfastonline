@@ -1508,15 +1508,17 @@
             console.log(status);
             if(data.code != 0){
                 faceNumber++;
-                if(faceNumber > 2){
+                if(faceNumber > 1){
                     swal("人脸识别", "你丫嘛去了？？？", "error");
                     faceNumber = 0;
+                    var elem = document.getElementsByTagName("video")[0];
+                    elem.pause();
                     video_Pause();
                 }
             }
         }, "json");
     }
-    var autoFI = setInterval(autoFaceImage,10000);
+    var autoFI = setInterval(autoFaceImage,5000);
 </script>
 {% endif %}
 </body>

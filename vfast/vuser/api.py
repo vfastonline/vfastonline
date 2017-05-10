@@ -24,7 +24,6 @@ def Detect(image):
     params = urllib.urlencode(params)
     access_token = AuthService()
     detectUrl = detectUrl + "?access_token=" + access_token
-    print detectUrl
     request = urllib2.Request(url=detectUrl, data=params)
     request.add_header('Content-Type', 'application/x-www-form-urlencoded')
     response = urllib2.urlopen(request)
