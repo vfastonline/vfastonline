@@ -10,6 +10,7 @@ from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall, sendmail
 from vrecord.api import sum_score_tech
+from api import Detect
 
 import os
 import json
@@ -142,7 +143,7 @@ def login(request):
             ret = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password).exists()
             if ret:
                 # 账号登陆成功之后需要将用户的相关信息保存到session里面
-                user = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password, status=1).values(
+                user = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password).values(
                     'phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
                 token = get_validate(email=user['phone'], uid=user['id'], role=user['role'],
                                      fix_pwd=settings.SECRET_KEY)
@@ -548,7 +549,6 @@ def editelse(request):
             current_company = request.POST.get('current_company')
             company_gangwei = request.POST.get('company_gangwei')
             uid = request.session['user']['id']
-            #print city
             User.objects.filter(id=uid).update(realname=realname, birthday=birthday, city=city,intro=intro,
                                                expect_job=expect_job, expect_level=expect_level,current_company=current_company,
                                                company_gangwei=company_gangwei)
@@ -557,6 +557,19 @@ def editelse(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
 
+
+def userimage(request):
+    try:
+        if request.method == "POST":
+            image = request.POST.get('image')
+            ret = Detect(image)
+            if ret:
+                return HttpResponse(json.dumps({'code':0, 'msg':'ok'}))
+            else:
+                return HttpResponse(json.dumps({'code':1, 'msg':'disapper'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code':2, 'msg':'error'}))
 
 
 

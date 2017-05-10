@@ -110,7 +110,7 @@ def playVideo(request, params):
             video_process = ret[0]['video_process']
         except:
             video_process = 0
-        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
+        q_sql = 'select vp.*, vu.nickname from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
             params)
         questions = dictfetchall(q_sql)
         for item in questions:
@@ -143,7 +143,7 @@ def practice(request, params):
             video_process = ret[0]['video_process']
         except:
             video_process = 0
-        q_sql = 'select vp.*, vu.username from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
+        q_sql = 'select vp.*, vu.nickname from vpractice_question as vp, vuser_user as vu where video_id=%s and vu.id=vp.user_id order by createtime desc;' % int(
             params)
         questions = dictfetchall(q_sql)
         for item in questions:
@@ -299,14 +299,3 @@ def upload(request):
     # res.headers['Access-Control-Allow-Headers'] = 'X-Requested-With,X_Requested_With'
     return HttpResponse(result)
 
-
-def userimage(request):
-    try:
-        if request.method == "POST":
-            image = request.POST.get('image')
-            with open('image.jpg', 'wb') as f:
-                f.write(image)
-            return HttpResponse('ok')
-    except:
-        logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code':1, 'msg':'error'}))

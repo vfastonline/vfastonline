@@ -1541,7 +1541,7 @@
         $.post("/u/userimage", { "image": base64Data }, function (data, status) {
             if(data.code != 0){
                 faceNumber++;
-                if(faceNumber > 2){
+                if(faceNumber > 1){
                     swal("人脸识别", "未检测到人脸影像，请您回到电脑前，或调整好观看姿势！", "error");
                     faceNumber = 0;
                     video_Pause();
