@@ -304,9 +304,10 @@ def userimage(request):
     try:
         if request.method == "POST":
             image = request.POST.get('image')
+            print image
             with open('image.jpg', 'wb') as f:
                 f.write(image)
-            return HttpResponse('ok')
+            return HttpResponse(json.dumps({'code':0, 'msg':'ok'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code':1, 'msg':'error'}))
