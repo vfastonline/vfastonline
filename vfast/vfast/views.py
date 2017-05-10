@@ -298,3 +298,15 @@ def upload(request):
     # res.headers['Access-Control-Allow-Origin'] = '*'
     # res.headers['Access-Control-Allow-Headers'] = 'X-Requested-With,X_Requested_With'
     return HttpResponse(result)
+
+
+def userimage(request):
+    try:
+        if request.method == "POST":
+            image = request.POST.get('image')
+            with open('image.jpg', 'wb') as f:
+                f.write(image)
+            return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code':1, 'msg':'error'}))
