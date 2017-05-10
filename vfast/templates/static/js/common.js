@@ -380,7 +380,7 @@ function login_show(){
 
 function continue_animation(){
     if(phoneCheck&&nicknameCheck&&passwordCheck){
-        if(pcode == $("#VCode").val()){
+        if(pcode == MD5($("#VCode").val())){
             if(phoneNumber == $("#phone").val()){
                 reg_right_div.style.animation = "continue_animation 0.8s";
                 reg_right_div_2.style.animation = "continue_animation 0.8s";
