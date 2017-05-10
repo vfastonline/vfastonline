@@ -1480,6 +1480,45 @@
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
 {% include "search_div.html" %}
+
+{% if request.session.login == True %}
+<video style="display: none" autoplay id="sourcevid"></video>
+<canvas id="output" width="640" height="480" ></canvas>
+<script type="text/javascript" charset="utf-8">
+    var faceNumber = 0;
+    var back = document.getElementById('output');
+    var backcontext = back.getContext('2d');
+    var video = document.getElementById("sourcevid");
+    var success = function(stream){
+        video.src = window.URL.createObjectURL(stream);
+    }
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    navigator.getUserMedia({video:true, audio:false}, success, console.log);
+    //这个是拍照按钮的事件
+    function autoFaceImage(){
+        backcontext.drawImage(video, 0, 0, 640, 480);
+        var imgData = back.toDataURL();
+        //将图像转换为base64数据
+        var base64Data = imgData.substr(22);
+        //在前端截取22位之后的字符串作为图像数据
+        //开始异步上
+        $.post("/u/userimage", { "image": base64Data }, function (data, status) {
+            console.log(data);
+            console.log(status);
+            if(data.code != 0){
+                faceNumber++;
+                if(faceNumber > 2){
+                    swal("人脸识别", "你丫嘛去了？？？", "error");
+                    faceNumber = 0;
+                    video_Pause();
+                }
+            }
+        }, "json");
+    }
+    var autoFI = setInterval(autoFaceImage,10000);
+</script>
+{% endif %}
 </body>
 <script src="/static/js/video.js"></script>
 <script src="/static/js/score.js"></script>
