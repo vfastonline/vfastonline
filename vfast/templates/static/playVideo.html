@@ -1483,7 +1483,7 @@
 
 {% if request.session.login == True %}
 <video style="display: none" autoplay id="sourcevid"></video>
-<canvas id="output" width="640" height="480" ></canvas>
+<canvas style="display: none;" id="output" width="640" height="480" ></canvas>
 <script type="text/javascript" charset="utf-8">
     var faceNumber = 0;
     var back = document.getElementById('output');
