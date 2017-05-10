@@ -104,6 +104,8 @@ def phone_code(request):
             try:
                 sendmessage(phone,{'code':code})
                 logging.getLogger().info(u'注册验证码短信发送成功')
+                import hashlib
+                code = hashlib.new('md5', code).hexdigest()
                 return HttpResponse(json.dumps({'code':0, 'phone_code':code}))
             except:
                 logging.getLogger().error(u'注册短信发送失败')
