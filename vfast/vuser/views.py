@@ -10,6 +10,7 @@ from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
 from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall, sendmail
 from vrecord.api import sum_score_tech
+from api import Detect
 
 import os
 import json
@@ -557,6 +558,19 @@ def editelse(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
 
+
+def userimage(request):
+    try:
+        if request.method == "POST":
+            image = request.POST.get('image')
+            ret = Detect(image)
+            if ret:
+                return HttpResponse(json.dumps({'code':0, 'msg':'ok'}))
+            else:
+                return HttpResponse(json.dumps({'code':1, 'msg':'disapper'}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code':2, 'msg':'error'}))
 
 
 
