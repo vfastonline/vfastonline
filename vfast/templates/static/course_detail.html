@@ -458,7 +458,7 @@
         }
     }
     function play(vid,vtype){
-        if($("#uname").val()){
+        if($("#uid").val()){
             if(vtype == "0"){
                 window.open("/video/"+vid);
             }else{
@@ -470,7 +470,7 @@
     }
 
     function showLogin(){
-        login_button.click();
+        $("#login_button").click();
     }
 </script>
 </html>

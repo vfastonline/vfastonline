@@ -565,7 +565,11 @@
         t.parentNode.parentNode.style.height = parentHeight - class_video_count - 20 + "px";
     }
     function play_video(urlStr){
-        window.open(urlStr,"_blank ");
+        if($("#uid").val() != ""){
+            window.open(urlStr,"_blank ");
+        }else{
+            $("#login_button").click();
+        }
     }
 </script>
 <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>

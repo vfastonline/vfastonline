@@ -828,7 +828,7 @@
 <div class="slideDIV" style="height: 130px;"></div>
 <div style="height: 50px;"></div>
 <div class="video_div">
-    <video ondblclick="video_FullScreen()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
+    <video ondblclick="video_FullScreen()" onplay="faceStart()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
            data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/wmv" />
@@ -1064,7 +1064,7 @@
         </div>
     </div>
             {% elif video.vtype == 0 %}
-                       <div class="tab_Course_viewNO" onclick="tab_video_play('/video/{{ video.id }}')">
+               <div class="tab_Course_viewNO" onclick="tab_video_play('/video/{{ video.id }}')">
         <div>
             <i></i>
             <div>
@@ -1179,12 +1179,17 @@
         }
     }
 
+    function faceStart(){
+        autoFI = setInterval(autoFaceImage,60000);
+    }
     function video_Pause(){
         var elem = document.getElementsByTagName("video")[0];
         if(elem.paused){
             video_bofang.style.display = "block";
             video_name.style.display = "block";
             video_play_svg_div.style.display = "block";
+            clearInterval(autoFI);
+            faceNumber = 0;
         }else{
             video_bofang.style.display = "none";
             video_name.style.display = "none";
@@ -1224,6 +1229,8 @@
         example_video_1.style.zIndex = "0";
         video_div1.style.display = "none";
         video_div2.style.display = "block";
+        clearInterval(autoFI);
+        faceNumber = 0;
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
         $.getJSON("/r/video?vid="+video_id.value+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
@@ -1525,7 +1532,7 @@
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia || navigator.msGetUserMedia;
         navigator.getUserMedia({video:true, audio:false}, success, console.log);
-        autoFI = setInterval(autoFaceImage,60000);
+        //autoFI = setInterval(autoFaceImage,60000);
     });
     var success = function(stream){
         video.src = window.URL.createObjectURL(stream);
@@ -1546,10 +1553,12 @@
                     faceNumber = 0;
                     video_Pause();
                 }
+            }else{
+                faceNumber = 0;
             }
         }, "json");
     }
 </script>
 {% if request.session.login != True %}
-    <script> login_button.click();</script>
+    <script> $("#login_button").click();</script>
 {%  endif %}
