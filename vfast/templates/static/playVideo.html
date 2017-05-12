@@ -445,7 +445,6 @@
         .tab_NOTE>div{
             margin: 0 auto;
             background-color: #FFFFFF;
-            padding-top: 30px;
         }
         .tab_NOTE>div>pre{
             width: 90%;
@@ -994,13 +993,7 @@
 </div>
 <div class="tab_NOTE" id="tab_NOTE">
     <div>
-        <pre class="note_pre">
-词汇
-* IDE - oinqoifqoiwdnoaijsdoijoiwqjdoiqjw doija soidj oqiwjf qoiwj fdoiqwjf oiqwj foiqj fwoiwqif oqwjfoiqw fj
-
-资源
-<a href="#">网盘链接</a>
-        </pre>
+        <div id="content" class="note_pre">{{ video_obj.notes|safe }}</div>
     </div>
 </div>
 <div class="tab_Course" id="tab_Course">
@@ -1179,9 +1172,6 @@
         }
     }
 
-    function faceStart(){
-        autoFI = setInterval(autoFaceImage,60000);
-    }
     function video_Pause(){
         var elem = document.getElementsByTagName("video")[0];
         if(elem.paused){
@@ -1508,6 +1498,7 @@
 </html>
 <script type="text/javascript" src="/static/utf8-php/ueditor.config.js"></script><!-- 配置文件 -->
 <script type="text/javascript" src="/static/utf8-php/ueditor.all.js"></script><!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/static/utf8-php/ueditor.parse.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
     var ue = UE.getEditor("editor",{toolbars:[
@@ -1532,7 +1523,9 @@
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia || navigator.msGetUserMedia;
         navigator.getUserMedia({video:true, audio:false}, success, console.log);
-        //autoFI = setInterval(autoFaceImage,60000);
+        uParse("#content",{
+            rootPath: '/static/utf8-php'
+        });
     });
     var success = function(stream){
         video.src = window.URL.createObjectURL(stream);
@@ -1558,6 +1551,11 @@
             }
         }, "json");
     }
+
+    function faceStart(){
+        autoFI = setInterval(autoFaceImage,60000);
+    }
+
 </script>
 {% if request.session.login != True %}
     <script> $("#login_button").click();</script>

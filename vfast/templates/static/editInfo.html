@@ -355,7 +355,7 @@
                     <span>验证码错误</span>
                 </div>
                 <div>
-                    <input value="{{ user.email }}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                    <input value="{% if user.email != None %}{{ user.email }}{% endif %}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
                     <span>邮箱格式错误</span>
                 </div>
             </div>
