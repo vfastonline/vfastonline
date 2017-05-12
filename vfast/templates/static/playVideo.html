@@ -856,13 +856,13 @@
             </li>
         </ul>
         <div id="charts_container_div" class="charts--container_div">
-            <p>做的不错，{{ request.session.user.username }}</p>
+            <p>做的不错，{{ request.session.user.nickname }}</p>
             <p>保持住这股劲头!</p>
         </div>
         <div id="charts_container_div_1" class="charts_container_div_1">+1 ！</div>
     </div>
     <div id="medal_div" class="medal_div">
-       <p id="medal_div_p">干得漂亮，{{ request.session.user.username }}</p>
+       <p id="medal_div_p">干得漂亮，{{ request.session.user.nickname }}</p>
        <h2 id="medal_div_h2">你已获得<span id="badge_name">移动端应用界面制作</span>勋章</h2>
        <img id="medal_badge" src="/static/imgs/badges-design-sketch-stage4.png" class="medal_badge" />
        <img id="medal_30" src="/static/imgs/+30.png" class="medal_30"/>
@@ -982,7 +982,7 @@
             <div>
                 <h5>{{ question.title }}</h5>
                 <div>{{ question.desc|safe }}</div>
-                <p>{{ question.username }}在{{ question.createtime }} </p>
+                <p>{{ question.nickname }}在{{ question.createtime }} </p>
                 {% if question.status == 1 %}
                 <div>已解决<img src="/static/svg/duigou.svg" alt=""></div>
                 {% endif %}

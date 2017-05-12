@@ -4,7 +4,7 @@ $(function(){
 	if($("#uid").val() != ""){
         $.getJSON("/u/detail",function(data){
             $("#totalscore").html(data.totalscore);
-            $("#uname").val(data.username);
+            $("#uname").val(data.nickname);
             $("#uheadimg").attr("src",data.headimg);
         })
     }

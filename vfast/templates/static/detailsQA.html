@@ -749,11 +749,11 @@
 
         {% if request.session.user.id == question.user_id %}
             <section id="QA_Q_content" class="QA_Q_content clearfix">
-            <div><span id="createTime">{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
+            <div><span id="createTime">{{ question.createtime|time_comp_now }}</span><span>{{ question.user.nickname }}</span></div>
             <div class="content" style="background: {{ question.video.course.color }}" >
         {% else %}
             <section id="QA_Q_content" class="QA_A_content clearfix">
-            <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.username }}</span></div>
+            <div><span>{{ question.createtime|time_comp_now }}</span><span>{{ question.user.nickname }}</span></div>
             <div class="content">
         {% endif %}
                 <div class="main_content" id="main_content">
@@ -790,7 +790,7 @@
         {% for replay in replays %}
             {% if replay.replay_user_id != request.session.user.id %}
             <section class="QA_A_content clearfix">
-                <div><span>{{ replay.robj.replay_user.username }}</span><span>{{ replay.createtime | time_comp_now }}</span></div>
+                <div><span>{{ replay.robj.replay_user.nickname }}</span><span>{{ replay.createtime | time_comp_now }}</span></div>
                 <div class="content" >
                     <div id="content">{{ replay.content | safe }}</div>
                 </div>
@@ -825,7 +825,7 @@
             </section>
             {% else %}
                 <section class="QA_Q_content clearfix">
-                    <div><span id="createTime">{{ replay.createtime|time_comp_now }}</span><span>{{ replay.robj.replay_user.username }}</span></div>
+                    <div><span id="createTime">{{ replay.createtime|time_comp_now }}</span><span>{{ replay.robj.replay_user.nickname }}</span></div>
                     <div class="content" style="background: {{ question.video.course.color }}" >
                         <div class="main_content" id="main_content">
                             <div id="content">{{ replay.content|safe }}</div>
@@ -1237,7 +1237,7 @@
         $("#modal_dialog").addClass("animated fadeInUp");
         $("#modal_headimg").attr("src",$(t).find('#headimg').attr('src'));
         $.getJSON("/u/model?uid="+uid,function(data1){
-            $("#modal_username").html(data1.user.username);
+            $("#modal_username").html(data1.user.nickname);
             $("#modal_location").html(data1.user.location);
             $("#modal_totalscore").html(data1.user.totalscore);
             $("#modal_intro").html(data1.user.intro);

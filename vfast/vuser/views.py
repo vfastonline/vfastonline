@@ -63,7 +63,6 @@ def register(request):
             phone = request.POST.get('phone', None)
             password = encry_password(password)
 
-
             program_exp = request.POST.get('program_exp', '')
             comp_use_time_day = request.POST.get('comp_use_time_day', '')
             into_it = request.POST.get('into_it', '')
@@ -76,9 +75,9 @@ def register(request):
             if user_exists:
                 return HttpResponse(json.dumps({'code': 3, 'msg': u'用户已存在,请登录'}, ensure_ascii=False))
             result = User.objects.create(phone=phone, nickname=nickname, password=password,
-                                                program_exp=program_exp, createtime=t, sex=sex,
-                                                comp_use_time_day=comp_use_time_day, into_it=into_it,
-                                                learn_habit=learn_habit, role=role, headimg=headimg)
+                                         program_exp=program_exp, createtime=t, sex=sex,
+                                         comp_use_time_day=comp_use_time_day, into_it=into_it,
+                                         learn_habit=learn_habit, role=role, headimg=headimg)
             if result:
                 user = User.objects.filter(phone=phone).values(
                     'phone', 'id', 'role', 'nickname', 'totalscore', 'headimg').first()
@@ -100,17 +99,17 @@ def phone_code(request):
             phone = request.POST.get('phone')
             code = ''
             for i in range(4):
-                code+=str(random.randint(0,9))
+                code += str(random.randint(0, 9))
             from vfast.api import sendmessage
             try:
-                sendmessage(phone,{'code':code})
+                sendmessage(phone, {'code': code})
                 logging.getLogger().info(u'注册验证码短信发送成功')
                 import hashlib
                 code = hashlib.new('md5', code).hexdigest()
-                return HttpResponse(json.dumps({'code':0, 'phone_code':code}))
+                return HttpResponse(json.dumps({'code': 0, 'phone_code': code}))
             except:
                 logging.getLogger().error(u'注册短信发送失败')
-                return HttpResponse(json.dumps({'code':1, 'msg':u'注册短信验证码发送失败'},ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 1, 'msg': u'注册短信验证码发送失败'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -124,7 +123,7 @@ def reset_password(request):
             password = request.POST.get('password')
             password = encry_password(password)
             User.objects.filter(id=uid).update(password=password)
-            return HttpResponse(json.dumps({'code':0}))
+            return HttpResponse(json.dumps({'code': 0}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
@@ -193,8 +192,8 @@ def dashboard(request, param):
                 flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
             else:
                 flag, tasks = False, []
-            #print tasks
-            #print courses
+            # print tasks
+            # print courses
             return render(request, 'dashBoard.html',
                           {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
                            'tasks': tasks})
@@ -367,7 +366,7 @@ def user_model(request):
         follow_obj = User.objects.get(id=followid)  # 关注人对象
         p2p_status = PtoP.objects.filter(follow=follow_obj, followed=followed_obj).exists()  # 是否关注
         badge_num = UserBadge.objects.filter(user=follow_obj).count()  # 模态窗扣弹出的 用户的勋章数量
-        #print uid, tech_score, user, p2p_status
+        # print uid, tech_score, user, p2p_status
         return HttpResponse(
             json.dumps({'user': user, 'badge': badge_num, 'tech_score': tech_score, 'guanzhu': p2p_status}))
     except:
@@ -386,11 +385,12 @@ def person_page(request):
         tech_score = sum_score_tech(uid)
         sql = 'select vb.badgename, vb.badgeurl, vu.* from vbadge_userbadge as vu , vbadge_badge as vb where vu.user_id = %s and vu.badge_id = vb.id;' % uid
         badges = dictfetchall(sql)
-        #print badges
+        # print badges
         sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
 
-        return render(request, 'personalCenter.html', {'user': user_obj, 'tech_score': tech_score, 'badges': badges,'badgesLen':len(badges),
-                                                       'totaltime': sum_watch_video_time['totaltime']})
+        return render(request, 'personalCenter.html',
+                      {'user': user_obj, 'tech_score': tech_score, 'badges': badges, 'badgesLen': len(badges),
+                       'totaltime': sum_watch_video_time['totaltime']})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -402,7 +402,7 @@ def editpage(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-            return render(request, 'editInfo.html', {'user':user})
+            return render(request, 'editInfo.html', {'user': user})
         else:
             return HttpResponse(u'请求错误')
     except:
@@ -418,7 +418,7 @@ def is_open(request):
         except:
             return HttpResponseRedirect('/')
         is_open = request.GET.get('is_open')
-        #print is_open
+        # print is_open
         User.objects.filter(id=uid).update(is_open=is_open)
         return HttpResponse('is_open update successful')
     except:
@@ -431,15 +431,15 @@ def change_headimg(request):
     try:
         if request.method == 'POST':
             headimg = request.FILES.get('headimg', None)
-            uid = request.POST.get('uid',None)
+            uid = request.POST.get('uid', None)
             if not headimg:
                 return HttpResponse('no headimg for upload!')
             destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
             if not os.path.isdir(destination):
                 os.mkdir(destination)
-            #print destination
+            # print destination
             user = User.objects.get(id=uid)
-            filename = str(user.id)+'_'+str(int(time.time()))+'.jpg'
+            filename = str(user.id) + '_' + str(int(time.time())) + '.jpg'
             headfile = open(os.path.join(destination, filename), 'wb')
             for chunk in headimg.chunks():
                 headfile.write(chunk)
@@ -447,7 +447,7 @@ def change_headimg(request):
 
             user.headimg = '/media/user_headimg/%s' % filename
             user.save()
-            return HttpResponse(json.dumps({'headimg':'/media/user_headimg/%s' % filename}))
+            return HttpResponse(json.dumps({'headimg': '/media/user_headimg/%s' % filename}))
         return HttpResponse('get method ok')
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -462,7 +462,7 @@ def default_headimg(request):
             user = User.objects.get(id=uid)
             user.headimg = '/static/head/defaultIMG.svg'
             user.save()
-            return HttpResponse(json.dumps({'headimg':'/static/head/defaultIMG.svg'}))
+            return HttpResponse(json.dumps({'headimg': '/static/head/defaultIMG.svg'}))
         else:
             return HttpResponse('Please use post method')
     except:
@@ -476,16 +476,16 @@ def github(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             status = request.GET.get('status')
-            #print uid, status
+            # print uid, status
             if status == 'on':
-                #print 'jihuo github zhanghao ~!'
+                # print 'jihuo github zhanghao ~!'
                 return HttpResponseRedirect('/github_login')
             else:
                 user = User.objects.get(id=uid)
                 user.githuburl = ''
                 user.githubrepo = ''
                 user.save()
-                return HttpResponse(json.dumps({'code':0, 'msg':'github not link successful'}))
+                return HttpResponse(json.dumps({'code': 0, 'msg': 'github not link successful'}))
         else:
             return HttpResponse('method error!')
     except:
@@ -507,16 +507,16 @@ def personpage(request):
 
 
 def user_phone(request):
-    """绑定个人手机号码, 修改个人账号"""
+    """修改个人手机号码, 修改个人账号"""
     try:
         if request.method == 'POST':
-            uid = request.POST.get('uid')
+            uid = request.session['user']['id']
             phone = request.POST.get('phone')
-            if True:
-                pass
+            User.objects.filter(id=uid).update(phone=phone)
+            return HttpResponse(json.dumps({'code': 0}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def nikcname(request):
@@ -527,9 +527,9 @@ def nikcname(request):
             uid = request.session['user']['id']
             try:
                 User.objects.filter(id=uid).update(nickname=nickname)
-                return HttpResponse(json.dumps({'code':0}))
+                return HttpResponse(json.dumps({'code': 0}))
             except:
-                return HttpResponse(json.dumps({'code':1, 'msg':u'昵称重复'}, ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 1, 'msg': u'昵称重复'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
@@ -549,8 +549,10 @@ def editelse(request):
             current_company = request.POST.get('current_company')
             company_gangwei = request.POST.get('company_gangwei')
             uid = request.session['user']['id']
-            User.objects.filter(id=uid).update(email=email, realname=realname, birthday=birthday, city=city, intro=intro,
-                                               expect_job=expect_job, expect_level=expect_level, current_company=current_company,
+            User.objects.filter(id=uid).update(email=email, realname=realname, birthday=birthday, city=city,
+                                               intro=intro,
+                                               expect_job=expect_job, expect_level=expect_level,
+                                               current_company=current_company,
                                                company_gangwei=company_gangwei)
             return HttpResponse('ok')
     except:
@@ -564,15 +566,9 @@ def userimage(request):
             image = request.POST.get('image')
             ret = Detect(image)
             if ret:
-                return HttpResponse(json.dumps({'code':0, 'msg':'ok'}))
+                return HttpResponse(json.dumps({'code': 0, 'msg': 'ok'}))
             else:
-                return HttpResponse(json.dumps({'code':1, 'msg':'disapper'}))
+                return HttpResponse(json.dumps({'code': 1, 'msg': 'disapper'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code':2, 'msg':'error'}))
-
-
-
-
-
-
+        return HttpResponse(json.dumps({'code': 2, 'msg': 'error'}))
