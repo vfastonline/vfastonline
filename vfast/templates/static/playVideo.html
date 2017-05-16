@@ -1539,6 +1539,7 @@
         //在前端截取22位之后的字符串作为图像数据
         //开始异步上
         $.post("/u/userimage", { "image": base64Data }, function (data, status) {
+            console.log(data);
             if(data.code != 0){
                 faceNumber++;
                 if(faceNumber > 1){
@@ -1553,6 +1554,7 @@
     }
 
     function faceStart(){
+        console.log("faceStart");
         autoFI = setInterval(autoFaceImage,60000);
     }
 
