@@ -6,7 +6,6 @@ urlpatterns = [
     url(r'^test', views.test),
     url(r'^exists', views.userexists),
     url(r'^register', views.register, name='register'),
-    url(r'^active', views.useractive, name='useractive'),
     url(r'^resetpw', views.reset_password, name='resetpw'),
     url(r'^login', views.login, name='login'),
     url(r'^detail', views.userdetail, name='userdetail'),
@@ -24,4 +23,6 @@ urlpatterns = [
     url(r'editpage/resetpw$', views.reset_password, name='resetpw'),
     url(r'editpage/personpage$', views.personpage),
     url(r'^phonecode$',views.phone_code, name='phone_code'),
+    url(r'^userimage$', views.userimage, name='userimage'),
+    url(r'editpage/resetphone$', views.user_phone, name='resetphone'),
 ]
