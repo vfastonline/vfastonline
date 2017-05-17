@@ -724,7 +724,7 @@
             <div>
                 <h5>{{ question.title }}</h5>
                 <div>{{ question.desc|safe }}</div>
-                <p>{{ question.username }}在{{ question.createtime }} </p>
+                <p>{{ question.nickname }}在{{ question.createtime }} </p>
                 {% if question.status == 1 %}
                 <div>已解决<img src="/static/svg/duigou.svg" alt=""></div>
                 {% endif %}
@@ -991,5 +991,5 @@
     });
 </script>
 {% if request.session.login != True %}
-    <script> login_button.click();</script>
+    <script> $("#login_button").click();</script>
 {%  endif %}

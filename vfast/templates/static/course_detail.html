@@ -246,7 +246,7 @@
             border-radius: 101px;
         }
         .course_info>.right>div>div:first-child>img:last-child:hover{
-            cursor: pointer;
+{#            cursor: pointer;#}
         }
         .course_info>.right>div>div:first-child>img{
             position: absolute;
@@ -364,7 +364,7 @@
                     <img src="/static/head/techer_frame.svg" alt=""/>
                 </div>
                 <div>
-                    <h4>{{ course.teach.username }}</h4>
+                    <h4>{{ course.teach.nickname }}</h4>
                     <h5>{{ course.teach.position }}</h5>
                     <p>{{ course.teach.intro | safe }}</p>
                 </div>
@@ -376,7 +376,7 @@
                     <img src="/static/head/techer_frame.svg" alt=""/>
                 </div>
                 <div>
-                    <h4>{{ course.teacher.username }}</h4>
+                    <h4>{{ course.teacher.nickname }}</h4>
                     <h5>{{ course.teacher.position }}</h5>
                     <p>{{ course.teacher.intro }}</p>
                 </div>
@@ -458,7 +458,7 @@
         }
     }
     function play(vid,vtype){
-        if($("#uname").val()){
+        if($("#uid").val()){
             if(vtype == "0"){
                 window.open("/video/"+vid);
             }else{
@@ -470,7 +470,7 @@
     }
 
     function showLogin(){
-        login_button.click();
+        $("#login_button").click();
     }
 </script>
 </html>

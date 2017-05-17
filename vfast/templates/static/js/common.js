@@ -1,11 +1,13 @@
 $(function(){
 	$("body").css("opacity","1");
 	$(".slideDIV").slideUp(350);
-	$.getJSON("/u/detail",function(data){
-        $("#totalscore").html(data.totalscore);
-        $("#uname").val(data.username);
-        $("#uheadimg").attr("src",data.headimg);
-    })
+	if($("#uid").val() != ""){
+        $.getJSON("/u/detail",function(data){
+            $("#totalscore").html(data.totalscore);
+            $("#uname").val(data.nickname);
+            $("#uheadimg").attr("src",data.headimg);
+        })
+    }
 })
 
 

@@ -507,16 +507,16 @@ def personpage(request):
 
 
 def user_phone(request):
-    """绑定个人手机号码, 修改个人账号"""
+    """修改个人手机号码, 修改个人账号"""
     try:
         if request.method == 'POST':
-            uid = request.POST.get('uid')
+            uid = request.session['user']['id']
             phone = request.POST.get('phone')
-            if True:
-                pass
+            User.objects.filter(id=uid).update(phone=phone)
+            return HttpResponse(json.dumps({'code': 0}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
 
 
 def nikcname(request):
@@ -549,7 +549,8 @@ def editelse(request):
             current_company = request.POST.get('current_company')
             company_gangwei = request.POST.get('company_gangwei')
             uid = request.session['user']['id']
-            User.objects.filter(id=uid).update(realname=realname, birthday=birthday, city=city, intro=intro,
+            User.objects.filter(id=uid).update(email=email, realname=realname, birthday=birthday, city=city,
+                                               intro=intro,
                                                expect_job=expect_job, expect_level=expect_level,
                                                current_company=current_company,
                                                company_gangwei=company_gangwei)

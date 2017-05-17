@@ -543,7 +543,7 @@
             </div>
             <div class="plan_head">
                 <h3>今日学习计划</h3>
-                <p>您好，{{ request.session.user.username }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
+                <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
             </div>
             <div class="plan_body">
                 <ul>
@@ -576,9 +576,9 @@
             <div class="plan_head">
                 <h3>今日学习计划</h3>
                 {% if courses %}
-                    <p>您好，{{ request.session.user.username }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
+                    <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
                 {% else %}
-                    <p>您好，{{ request.session.user.username }}同学！您可以尽快开始学习一门感兴趣的路线或课程，我们将为您推荐相关的学习计划，帮助您学习~</p>
+                    <p>您好，{{ request.session.user.nickname }}同学！您可以尽快开始学习一门感兴趣的路线或课程，我们将为您推荐相关的学习计划，帮助您学习~</p>
                 {% endif %}
             </div>
             <div class="plan_body">

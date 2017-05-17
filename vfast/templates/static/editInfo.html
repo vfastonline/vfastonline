@@ -347,16 +347,16 @@
             <div>
                 <p>联系方式</p>
                 <div>
-                    <input value="{{ user.phone }}" type="text" placeholder="手机号码">
-                    <span>手机号码格式错误</span>
+                    <input value="{{ user.phone }}" onblur="submitINFO_phone(this)" type="text" id="phone" placeholder="手机号码">
+                    <span></span>
                 </div>
                 <div>
-                    <input type="text" style="display: none">
-                    <span>验证码错误</span>
+                    <input type="text" id="phone_span" onblur="submitINFO_phone_add(this)" style="display: none">
+                    <span></span>
                 </div>
                 <div>
-                    <input value="{{ user.email }}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
-                    <span>邮箱格式错误</span>
+                    <input value="{% if user.email != None %}{{ user.email }}{% endif %}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                    <span></span>
                 </div>
             </div>
             <div>
@@ -463,7 +463,6 @@
         $.post("/u/editpage/editelse",$("#fileForm").serialize(),function(data){
             showPrompt(info_name+" 修改成功~");
         })
-
     }
     function submitINFO_name(t){
         if(t.value.trim() == ""){
@@ -498,6 +497,60 @@
                     t.focus();
                 }
             },"json")
+        }
+    }
+    function submitINFO_phone(t){
+        if(t.value.trim() == ""){
+            input_error(t,"手机号不能为空~");
+            t.focus();
+        }else{
+            if(!checkPhone(t.value.trim())){
+                input_error(t,"手机号格式有误！");
+                t.focus();
+            }else{
+                $.post("/u/exists","phone="+t.value,function(data){
+                    if(data.code == "0"){
+                        input_blur(t);
+                        $("#phone_span").show();
+                        $("#phone_span").focus();
+                        phoneNumber = t.value;
+                        $.post("/u/phonecode",{phone:t.value},function(data){
+                            if(data.code == 0){
+                                pcode = data.phone_code;
+                                showPrompt("验证码已发送至 "+t.value+", 请查看短信、并输入验证码！");
+                            }else{
+                                swal("验证码错误", "短信发送失败~！请您稍后再试！", "error");
+                            }
+                        },"json")
+                    }else{
+                        input_error(t,"手机号已被使用！");
+                        t.focus();
+                    }
+                },'json')
+            }
+        }
+    }
+
+    function submitINFO_phone_add(t){
+        if(pcode == MD5(t.value)){
+            if(phoneNumber == $("#phone").val()){
+                $.post("/u/editpage/resetphone",{phone:$("#phone").val()},function(data){
+                    if(data.code == "0"){
+                        showPrompt("手机号修改成功！ 登陆账号为："+$("#phone").val());
+                        input_blur(t);
+                        $("#phone_span").slideUp();
+                        t.value = "";
+                    }else{
+                        swal("修改错误", "手机号修改失败~！请您稍后再试！", "error");
+                    }
+                },"json")
+            }else{
+                input_error($("#phone"),"手机号与之前不匹配！");
+                $("#phone").focus();
+            }
+        }else{
+            input_error(t,"验证码错误！");
+            t.focus();
         }
     }
     function input_error(t,message){
