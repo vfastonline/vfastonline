@@ -15,14 +15,21 @@ def create_info_user(request):
     """生成用户通知"""
     try:
         today = time.strftime('%Y-%m-%d')
-        today_infor = InformTask.objects.filter(pubtime=today)
+        today_inform = InformTask.objects.filter(pubtime=today)
         uids = User.objects.filter().values('id')
-        print uids, today_infor
+        print uids, today_inform
         for uid in uids:
-            for infor in today_infor:
-                user = User.objects.get(id=uid['id'])
-                infor = InformTask.objects.get(id=infor.id)
-                Inform.objects.create(user=user, infor=infor)
+            user = User.objects.get(id=uid['id'])
+            for inform in today_inform:
+                informtask = InformTask.objects.get(id=inform.id)
+                if informtask.status == 0:
+                    Inform.objects.create(user=user, desc=inform.desc, type=informtask.type, pubtime=informtask.pubtime,
+                                          url=informtask.url)
+                    # 跑完的任务由状态0改为状态1
+                    informtask.status = 1
+                    informtask.save()
+                else:
+                    logging.getLogger().warning('informtask repetition warning')
         return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -38,12 +45,13 @@ def getinfo(request):
             except KeyError:
                 return HttpResponseRedirect('/login')
             user = User.objects.get(id=uid)
-            informs = Inform.objects.filter(user=user).values('infor__color', 'infor__pubtime', 'infor__type',
-                                                              'infor__desc', 'infor__type__name', 'infor__url')
+            informs = Inform.objects.filter(user=user).values('color', 'pubtime', 'desc',
+                                                              'type__name', 'type_id', 'url')
             informations = []
             for item in informs:
-                tmp = dict(color=item['infor__color'], desc=item['infor__desc'], type=item['infor__type'],
-                           pubtime=str(item['infor__pubtime']), type_name=item['infor__type__name'], url=item['infor__url'])
+                tmp = dict(color=item['color'], desc=item['desc'], type=item['type_id'],
+                           pubtime=str(item['pubtime']), type_name=item['type__name'],
+                           url=item['url'])
                 informations.append(tmp)
             return HttpResponse(json.dumps(informations, ensure_ascii=False))
     except:
@@ -61,7 +69,7 @@ def del_all_info_user(request):
                 return HttpResponseRedirect('/login')
             user = User.objects.get(id=uid)
             Inform.objects.filter(user=user).delete()
-            return HttpResponse(json.dumps({'code':0, 'msg':'delete all inform successfully'}))
+            return HttpResponse(json.dumps({'code': 0, 'msg': 'delete all inform successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': 'delete all inform failed'}, ensure_ascii=False))
@@ -77,10 +85,8 @@ def del_info_user(request):
                 return HttpResponseRedirect('/login')
             user = User.objects.get(id=uid)
             inform_id = request.POST.get('inform_id')
-            inform = InformTask.objects.get(id=inform_id)
-            Inform.objects.filter(user=user, infor=inform).delete()
-            return HttpResponse(json.dumps({'code':0, 'msg':'delete inform successfully'}))
+            Inform.objects.filter(user=user, id=inform_id).delete()
+            return HttpResponse(json.dumps({'code': 0, 'msg': 'delete inform successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1, 'msg': 'delete all inform failed'}, ensure_ascii=False))
-

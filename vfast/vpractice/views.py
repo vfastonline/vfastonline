@@ -5,6 +5,8 @@ from vuser.models import User
 from vcourse.models import Video
 from vpractice.models import Question, QRcomment, Replay, Attention
 from django.db.models import Q, F
+from vinform.models import Inform, InformType
+from django.conf import settings
 
 import logging
 import traceback
@@ -97,9 +99,12 @@ def add_replay(request):
         content = request.POST.get('content')
         qid = request.POST.get('qid')
         question = Question.objects.get(id=qid)
-        # #print question.user.username
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
                                     createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
+        type = InformType.objects.get(name='问题回复')
+        url = '%s/community/question?qid=%s' % (settings.HOST, question.id)
+        Inform.objects.create(color=question.video.course.color, pubtime=time.strftime('%Y-%m-%d'), desc=question.title,
+                              type=type, user=question.user, url=url)
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -167,7 +172,7 @@ def update_comment(request):
                 Replay.objects.filter(id=rid).update(score=F('score') + 2, like=F('like') + 1, dislike=F('dislike') + 1)
             else:
                 Replay.objects.filter(id=rid).update(score=F('score') - 2, like=F('like') - 1, dislike=F('dislike') + 1)
-            return HttpResponse(u'修改回复瓶成功')
+            return HttpResponse(u'修改回复成功')
         else:
             return HttpResponse('ok')
     except:
