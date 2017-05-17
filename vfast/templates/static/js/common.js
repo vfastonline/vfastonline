@@ -489,3 +489,17 @@ function reg_input_focus(t){
     $(t).css("border","2px solid #ECEFF1");
     $(t).parent().find("span").slideUp();
 }
+function remind_show(){
+    $("#myModal_remind .modal-dialog").css("animation","remind_animation 0.35s");
+}
+function clear_remind(){
+    $(".remind_content").css("animation","clear_remind_animation 0.4s");
+    setTimeout(function(){
+        $("#remind_div").html("");
+        $("#remindSum").html("0");
+    },350);
+}
+function remind_go(t,url){
+    $(t).remove();
+    location.href = url;
+}
