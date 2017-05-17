@@ -33,7 +33,7 @@ urlpatterns = [
     url('^course/', include('vcourse.urls')),
     url('^r/', include('vrecord.urls')),
     url('^community/', include('vpractice.urls')),
-
+    url('^info/', include('vinform.urls')),
     url('^badge/', include('vbadge.urls')),
     url('^test', views.test),
     url('^search', views.search_course, name='search'),
