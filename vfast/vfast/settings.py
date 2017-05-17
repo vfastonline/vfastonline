@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'vbadge',
     'vrecord',
     'vpractice',
+    'vinform',
 ]
 
 MIDDLEWARE = [
