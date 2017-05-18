@@ -51,17 +51,19 @@ def getinfo(request):
                 return HttpResponseRedirect('/login')
             user = User.objects.get(id=uid)
             informs = Inform.objects.filter(user=user).values('color', 'pubtime', 'desc',
-                                                              'type__name', 'type_id', 'url')
+                                                              'type__name', 'type_id', 'url', 'id')
             informations = []
+            print informs
             for item in informs:
+                print item
                 tmp = dict(color=item['color'], desc=item['desc'], type=item['type_id'],
                            pubtime=time_comp_now(item['pubtime'].strftime('%Y-%m-%d %H:%M:%S')), type_name=item['type__name'],
-                           url=item['url'])
+                           url=item['url'], inform_id=item['id'])
                 informations.append(tmp)
             return HttpResponse(json.dumps(informations, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': 'failed'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 1, 'msg': traceback.format_exc()}, ensure_ascii=False))
 
 
 def del_all_info_user(request):
@@ -89,7 +91,7 @@ def del_info_user(request):
             except KeyError:
                 return HttpResponseRedirect('/login')
             user = User.objects.get(id=uid)
-            inform_id = request.POST.get('inform_id')
+            inform_id = request.GET.get('inform_id')
             Inform.objects.filter(user=user, id=inform_id).delete()
             return HttpResponse(json.dumps({'code': 0, 'msg': 'delete inform successfully'}))
     except:
