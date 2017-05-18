@@ -345,7 +345,7 @@ def follow_people(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': '关注成功'}))
         elif PtoP.objects.filter(follow=follow, followed=followed).exists() and type == '0':
             PtoP.objects.filter(follow=follow, followed=followed).delete()
-            return HttpResponse(json.dumps({'code': 0, 'msg': '取消关注成功'}))
+            return HttpResponse(json.dumps({'code': 0, 'msg': '取消关注成功'}, ensure_ascii=False))
         else:
             return HttpResponse(json.dumps({'code': 0, 'msg': 'follow_people interface normal'}))
     except:
@@ -360,7 +360,7 @@ def user_model(request):
         tech_score = sum_score_tech(uid)
         user = \
             User.objects.filter(id=uid).values('totalscore', 'nickname', 'headimg', 'intro', 'githuburl', 'personpage',
-                                               'location', 'githubrepo')[0]
+                                               'city', 'githubrepo')[0]
         followid = request.session['user']['id']  # 关注人的ID
         followed_obj = User.objects.get(id=uid)  # 被关注人对象
         follow_obj = User.objects.get(id=followid)  # 关注人对象
