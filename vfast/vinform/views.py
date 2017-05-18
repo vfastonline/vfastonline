@@ -3,33 +3,38 @@ from django.shortcuts import render
 from models import Inform, InformTask
 from vuser.models import User
 from django.http import HttpResponse, HttpResponseRedirect
+from vfast.api import time_comp_now
+
 
 import traceback
 import json
 import logging
 import time
+from datetime import date
 
 
 # Create your views here.
 def create_info_user(request):
     """生成用户通知"""
     try:
-        today = time.strftime('%Y-%m-%d')
-        today_inform = InformTask.objects.filter(pubtime=today)
+        today = date.today()
+        today_inform = InformTask.objects.filter(pubtime__gt=today)
         uids = User.objects.filter().values('id')
         print uids, today_inform
-        for uid in uids:
-            user = User.objects.get(id=uid['id'])
-            for inform in today_inform:
-                informtask = InformTask.objects.get(id=inform.id)
+        for inform in today_inform:
+            informtask = InformTask.objects.get(id=inform.id)
+            for uid in uids:
+                user = User.objects.get(id=uid['id'])
                 if informtask.status == 0:
                     Inform.objects.create(user=user, desc=inform.desc, type=informtask.type, pubtime=informtask.pubtime,
-                                          url=informtask.url)
-                    # 跑完的任务由状态0改为状态1
-                    informtask.status = 1
-                    informtask.save()
+                                          url=informtask.url, color=informtask.color)
+
                 else:
                     logging.getLogger().warning('informtask repetition warning')
+                    pass
+            # 跑完的任务由状态0改为状态1
+            informtask.status = 1
+            informtask.save()
         return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -50,7 +55,7 @@ def getinfo(request):
             informations = []
             for item in informs:
                 tmp = dict(color=item['color'], desc=item['desc'], type=item['type_id'],
-                           pubtime=str(item['pubtime']), type_name=item['type__name'],
+                           pubtime=time_comp_now(item['pubtime'].strftime('%Y-%m-%d %H:%M:%S')), type_name=item['type__name'],
                            url=item['url'])
                 informations.append(tmp)
             return HttpResponse(json.dumps(informations, ensure_ascii=False))

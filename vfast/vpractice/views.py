@@ -103,7 +103,7 @@ def add_replay(request):
                                     createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
         type = InformType.objects.get(name='问题回复')
         url = '%s/community/question?qid=%s' % (settings.HOST, question.id)
-        Inform.objects.create(color=question.video.course.color, pubtime=time.strftime('%Y-%m-%d'), desc=question.title,
+        Inform.objects.create(color=question.video.course.color, pubtime=time.strftime('%Y-%m-%d %H:%M:%S'), desc=question.title,
                               type=type, user=question.user, url=url)
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
