@@ -101,10 +101,14 @@ def add_replay(request):
         question = Question.objects.get(id=qid)
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
                                     createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
-        type = InformType.objects.get(name='问题回复')
-        url = '%s/community/question?qid=%s' % (settings.HOST, question.id)
-        Inform.objects.create(color=question.video.course.color, pubtime=time.strftime('%Y-%m-%d %H:%M:%S'), desc=question.title,
-                              type=type, user=question.user, url=url)
+
+        attention = Attention.objects.filter(user=user,question=question).exists()
+        if attention:
+            type = InformType.objects.get(name='问题回复')
+            url = '%s/community/question?qid=%s' % (settings.HOST, question.id)
+            Inform.objects.create(color=question.video.course.color, pubtime=time.strftime('%Y-%m-%d %H:%M:%S'), desc=question.title,
+                                  type=type, user=question.user, url=url)
+
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -192,10 +196,10 @@ def attention_question(request):
         ret = Attention.objects.filter(qid=qid, uid=uid).exists()
         if ret and attention == '0':
             Attention.objects.filter(qid=qid, uid=uid).delete()
-            return HttpResponse(json.dumps({'code': 0, 'msg': '取消关注成功'}))
+            return HttpResponse(json.dumps({'code': 0, 'msg': '取消关注成功'},ensure_ascii=False))
         elif ret == False and attention == '1':
             Attention.objects.create(qid=qid, uid=uid)
-            return HttpResponse(json.dumps({'code': 0, 'msg': '关注成功'}))
+            return HttpResponse(json.dumps({'code': 0, 'msg': '关注成功'}, ensure_ascii=False))
         else:
             return HttpResponse(json.dumps({'code': 0, 'msg': 'attention_question , interface right'}))
     except:
