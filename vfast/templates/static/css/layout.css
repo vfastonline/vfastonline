@@ -50,6 +50,7 @@ a{
     height: 100%;
     background-color: transparent;
     position: relative;
+    overflow: hidden;
 }
 /*modal_left Start*/
 .modal_left{
@@ -670,7 +671,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     box-shadow: 0 2px 1px rgba(0,0,0,0.5);
     position: fixed;
     width: 100%;
-    z-index: 99;
+    z-index: 2000;
 }
 .navbar1{
     height: 70px;
@@ -736,9 +737,6 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     color:#8C96A5;
     font-size: 22px;
     position: relative;
-}
-.logins a:hover{
-    color: #FFFFFF;
 }
 
 .logins .navLeft{
@@ -831,13 +829,6 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 .headPLI>a:hover>img{
     box-shadow: 0px 2px 1px rgba(0,0,0,0.25);
     top: -1px;
-}
-.remind{
-    height: 60px;
-    padding-top: 10px;
-}
-.remind a:hover path{
-    fill: #FFFFFF;
 }
 
 /*footer Start*/
@@ -936,4 +927,127 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 }
 ::-moz-placeholder{
     color: #BAC4CA;
+}
+#myModal{
+    z-index: 2001;
+}
+/*通知*/
+#remindDIV{
+    width:39px;
+    height:39px;
+    text-align: center;
+    line-height: 39px;
+    margin-top: 15px;
+    border-radius: 20px;
+    position: relative;
+}
+#remindDIV:hover{
+    background-color: #515D6E;
+    cursor: pointer;
+}
+#remindDIV>div{
+    position: absolute;
+    top:0px;
+    right:0px;
+    width:20px;
+    height:20px;
+    line-height: 20px;
+    text-align: center;
+    background: #F9455B;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+#myModal_remind .modal-dialog{
+    position: fixed!important;
+    top:70px;
+    right:0px;
+    margin: 0px!important;
+    height:100%;
+    width:20%;
+    background-color: #4E5B68;
+    overflow: auto;
+    padding-bottom: 100px;
+    border-radius: 0;
+}
+#myModal_remind .modal-dialog>div:first-child{
+    margin-top: 20px;
+    text-align: right;
+    padding-right: 50px;
+}
+#myModal_remind .modal-dialog>div:first-child svg:hover path{
+    fill:#FFFFFF;
+    cursor: pointer;
+}
+#myModal_remind .modal-dialog>div:first-child svg:active path{
+    fill:#8C96A5;
+    cursor: pointer;
+}
+#myModal_remind .modal-dialog>div:last-child{
+    transition: all 1s ease-in-out;
+    position: relative;
+}
+#myModal_remind .remind_content{
+    height:70px;
+    margin: 10px 0;
+}
+#myModal_remind .remind_content>div:first-child{
+    width:20%;
+    float: left;
+    height:70px;
+    text-align: center;
+    line-height: 70px;
+}
+#myModal_remind .remind_content>div:nth-child(2){
+    width:80%;
+    float: right;
+    height:100%;
+    position: relative;
+}
+#myModal_remind .remind_content hr{
+    margin: 0;
+    border: 1px solid #748392;
+    border-top: none;
+    width:90%;
+    float: right;
+}
+#myModal_remind .remind_content>div:nth-child(2)>h5{
+    font-size: 16px;
+    color: #8C96A5;
+}
+#myModal_remind .remind_content>div:nth-child(2)>p{
+    opacity: 0.7;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+#myModal_remind .remind_content>div:nth-child(2)>span{
+    position: absolute;
+    top: 0;
+    right:0;
+    margin-top: 10px;
+    margin-right: 20px;
+    font-size: 14px;
+    color: #8C96A5;
+}
+#myModal_remind .remind_content:hover{
+    background: #6C7986;
+    cursor: pointer;
+}
+@keyframes remind_animation {
+    0%{
+        right: -24%;
+    }
+    100%{
+        right: 0px;
+    }
+}
+@keyframes clear_remind_animation {
+    0%{
+        position: relative;
+        right:0px;
+    }
+    100%{
+        position: relative;
+        right:-100%;
+    }
 }

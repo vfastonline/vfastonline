@@ -56,14 +56,15 @@
                         </a>
                     </li>
                     <li class="remind">
-                        <a href="#">
-                            <svg width="32px" height="40px" viewBox="1285 15 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <div id="remindDIV" onclick="remind_show()" data-toggle="modal" data-target="#myModal_remind">
+                            <svg width="32px" height="38px" viewBox="1285 15 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <!-- 提醒图标 -->
                                 <desc>Created with Sketch.</desc>
                                 <defs></defs>
                                 <path d="M1301,54.5199887 C1303.2,54.5199887 1305,52.7421431 1305,50.5692207 L1297,50.5692207 C1297,52.7421431 1298.78,54.5199887 1301,54.5199887 L1301,54.5199887 Z M1313,42.6676845 L1313,32.7907643 C1313,26.7263353 1309.72,21.6495983 1304,20.3063372 L1304,18.9630761 C1304,17.3235073 1302.66,16 1301,16 C1299.34,16 1298,17.3235073 1298,18.9630761 L1298,20.3063372 C1292.26,21.6495983 1289,26.7065815 1289,32.7907643 L1289,42.6676845 L1285,46.6184526 L1285,48.5938366 L1317,48.5938366 L1317,46.6184526 L1313,42.6676845 L1313,42.6676845 Z" id="Shape" stroke="none" fill="#8C96A5" fill-rule="evenodd"></path>
                             </svg>
-                        </a>
+                            <div id="remindSum">12</div>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -87,4 +88,20 @@
     </div>
 </section>
 {% endif %}
-
+<!-- 通知 模态框（Modal） -->
+{% if request.session.login == True %}
+<section>
+    <div class="modal" id="myModal_remind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div>
+                <svg onclick="clear_remind()" xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18">
+                  <path fill="#8C96A5" d="M1414.64229,91 L1411.14229,91 L1410.14229,90 L1405.14229,90 L1404.14229,91 L1400.64229,91 L1400.64229,93 L1414.64229,93 L1414.64229,91 Z M1401.64229,106 C1401.64229,107.1 1402.54229,108 1403.64229,108 L1411.64229,108 C1412.74229,108 1413.64229,107.1 1413.64229,106 L1413.64229,94 L1401.64229,94 L1401.64229,106 Z" transform="translate(-1400 -90)"/>
+                </svg>
+            </div>
+            <div id="remind_div">
+                <!--通知内容-->
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
