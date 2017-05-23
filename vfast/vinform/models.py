@@ -15,7 +15,7 @@ class InformType(models.Model):
 class InformTask(models.Model):
     type = models.ForeignKey(InformType)
     color = models.CharField(verbose_name='通知颜色', max_length=15, blank=True, null=True, default='')
-    pubtime = models.DateTimeField(verbose_name='任务发布时间',default='2015-09-10 00:00:00')
+    pubtime = models.DateTimeField(verbose_name='任务发布时间')
     desc = models.CharField(verbose_name='简介', max_length=100, default='')
     url = models.CharField(verbose_name='跳转URL', max_length=100, default='')
     status = models.IntegerField(verbose_name='状态', default=0)  #0任务为通知, 1任务已通知

@@ -7,6 +7,7 @@ from vpractice.models import Question, QRcomment, Replay, Attention
 from django.db.models import Q, F
 from vinform.models import Inform, InformType
 from django.conf import settings
+from vfast.api import pages
 
 import logging
 import traceback
@@ -277,7 +278,15 @@ def best_replay(request):
 def question_list(request):
     """问题详情列表"""
     try:
-        pass
+        page = request.GET.get('page',1)
+        questions = Question.objects.all()
+        current_lines = pages(questions, page)
+        for item in current_lines:
+            print item
+        return render(request, 'test.html', {'lines':current_lines})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+

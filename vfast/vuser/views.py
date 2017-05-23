@@ -8,7 +8,7 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
-from vfast.api import encry_password, send_mail, get_validate, time_comp_now, dictfetchall, sendmail
+from vfast.api import encry_password, get_validate, time_comp_now, dictfetchall
 from vrecord.api import sum_score_tech
 from api import Detect
 
@@ -439,7 +439,7 @@ def change_headimg(request):
                 os.mkdir(destination)
             # print destination
             user = User.objects.get(id=uid)
-            filename = str(user.id) + '_' + str(int(time.time())) + '.jpg'
+            filename = str(user.id) + '_' + '.jpg'
             headfile = open(os.path.join(destination, filename), 'wb')
             for chunk in headimg.chunks():
                 headfile.write(chunk)
