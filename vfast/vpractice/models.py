@@ -34,6 +34,9 @@ class Question(models.Model):
     email_status = models.IntegerField('是否发送邮件', default=0)   #0发送邮件, 1不发送邮件
     score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
     status = models.IntegerField('问题状态', default=0)   #0为未解决状态, 1为解决状态
+    add_repatation = models.IntegerField('悬赏声望', default=0)
+    add_repatation_user = models.IntegerField('悬赏人的ID', null=True, blank=True)
+    default_repatation = models.IntegerField('默认声望', default=5)
 
 
     def __unicode__(self):
@@ -71,3 +74,20 @@ class Attention(models.Model):
 
     def __unicode__(self):
         return '%s, %s' % (self.qid, self.uid)
+
+
+class Repatation(models.Model):
+    user = models.ForeignKey(User, verbose_name='用户')
+    tech = models.IntegerField('技术类别ID', null=True)
+    createtime = models.CharField('创建时间', max_length=22)
+    rep = models.IntegerField('所得声望')
+
+    def __unicode__(self):
+        return '%s, %s' % (self.user.nickname, self.rep)
+
+
+class RepaType(models.Model):
+    name = models.CharField('声望获取途径', max_length=50)
+
+    def __unicode__(self):
+        return self.name

@@ -236,5 +236,5 @@ def pages(post_objects, page, lines=20):
     except PageNotAnInteger:
         show_lines = paginator.page(1)
     except EmptyPage:
-        show_lines = paginator.page(paginator.num_pages)
+        show_lines = []
     return show_lines
