@@ -913,7 +913,7 @@
                             <h3 id="modal_badge"></h3>
                         </div>
                         <div>
-                            <p id="modal_location"></p>
+                            <p id="modal_city"></p>
                             <a id="moadl_github_a" href="" target="_blank"><img id="modal_github_img" src="" alt=""></a>
                             <a id="moadl_phome_a" href="" target="_blank"><img id="modal_phome_img" src="" alt=""></a>
                         </div>
@@ -1212,7 +1212,7 @@
                             '<h3 id="modal_badge"></h3>'+
                         '</div>'+
                         '<div>'+
-                            '<p id="modal_location"></p>'+
+                            '<p id="modal_city"></p>'+
                             '<a id="moadl_github_a" href="" target="_blank"><img id="modal_github_img" src="" alt=""></a>'+
                             '<a id="moadl_phome_a" href="" target="_blank"><img id="modal_phome_img" src="" alt=""></a>'+
                         '</div>'+
@@ -1238,7 +1238,7 @@
         $("#modal_headimg").attr("src",$(t).find('#headimg').attr('src'));
         $.getJSON("/u/model?uid="+uid,function(data1){
             $("#modal_username").html(data1.user.nickname);
-            $("#modal_location").html(data1.user.location);
+            $("#modal_city").html(data1.user.city);
             $("#modal_totalscore").html(data1.user.totalscore);
             $("#modal_intro").html(data1.user.intro);
             $("#modal_badge").html(data1.badge);

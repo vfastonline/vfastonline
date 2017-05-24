@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    {% include "head.html" %}
+    <style>
+        #head_cont{
+            box-shadow: none;
+        }
+        .community_head{
+            width: 1200px;
+            height: 281px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            position: relative;
+            top: 80px;
+        }
+        .community_head_X>svg:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        .community_head>h1{
+            color: #5A646E;
+            font-size: 28px;
+            margin-left: 54px;
+            padding-top: 20px;
+            position: absolute;
+        }
+        .community_head>p{
+            width: 70%;
+            color: #5A646E;
+            font-size: 14px;
+            position: absolute;
+            top: 78px;
+            left: 54px;
+            letter-spacing: 0.4px;
+            line-height: 18px;
+        }
+
+        .community_head .nav.nav-pills{
+            position: absolute;
+            left: 54px;
+            bottom: 20px;
+        }
+        .community_head .active a{
+            background: #647A90!important;
+        }
+        .community_head .nav a{
+            border-radius: 15px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            color: #5A646E;
+        }
+        .community_head>img{
+            position: absolute;
+            top: 20px;
+            right: -20px;
+        }
+        /*community_head END*/
+
+        /*community_head_BG Start*/
+        .community_head_BG{
+            background-color: #303948;
+            position: relative;
+            padding: 50px 0px 0px;
+        }
+        .community_head_BG>h1{
+            width: 1200px;
+            margin: 0 auto;
+            color: #FFFFFF;
+            font-size: 55px;
+        }
+        /*community_head_BG End*/
+
+        /*search_TypeList Start*/
+        .search_TypeList{
+            width:1200px;
+            margin: 130px auto 0px;
+            background: #FFFFFF;
+            box-shadow: 0 1px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+        }
+        .search_TypeList ul{
+            padding: 0px 40px;
+        }
+        .search_TypeList li{
+            float: left;
+            height: 54px;
+            line-height: 54px;
+            position: relative;
+            margin-left: 40px;
+        }
+        .search_TypeList li>b{
+            position: absolute;
+            left: 2px;
+            top: 23px;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .search_TypeList li>span{
+            position: relative;
+            font-size: 14px;
+            color: #5A646E;
+            border-radius: 15px;
+            padding: 5px 15px;
+        }
+        .search_TypeList li>span:hover{
+            cursor: pointer;
+            color: #FFFFFF;
+        }
+        .search_TypeList li:first-child>span:hover{
+            color: #5A646E;
+        }
+        /*search_TypeList End*/
+
+
+        /*sort_TypeList Start*/
+        .sort_TypeList{
+            width:1200px;
+            margin: 0px auto;
+            background: #FFFFFF;
+            box-shadow: 0 1px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+        }
+        .sort_TypeList ul{
+            padding: 0px 26%;
+        }
+        .sort_TypeList li{
+            float: left;
+            height: 54px;
+            line-height: 54px;
+            position: relative;
+            margin-left: 8px;
+        }
+        .sort_TypeList li>b{
+            position: absolute;
+            left: 2px;
+            top: 23px;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .sort_TypeList li>span{
+            position: relative;
+            font-size: 14px;
+            color: #5A646E;
+            border-radius: 15px;
+            padding: 5px 15px;
+        }
+        .sort_TypeList li>span:hover{
+            cursor: pointer;
+            background: #eee;
+        }
+        /*sort_TypeList End*/
+
+        /*QA_content Start*/
+        .QA_content{
+            width:1200px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 0 0 4px 4px;
+            padding: 50px;
+        }
+        .QA_content>div{
+            height:124px;
+            padding: 25px 50px 25px 30px;
+        }
+        .QA_content>div:hover{
+            background: #F0F3F4;
+            cursor: pointer;
+        }
+        .QA_content>div>div:nth-child(1){
+            float: left;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            margin-top: 0px;
+        }
+        .QA_content>div>div:nth-child(1)>img{
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 25px;
+        }
+        .QA_content>div>div:nth-child(1)>img:last-child{
+            width: 16px;
+            height: 16px;
+            right: 2px;
+        }
+
+        .QA_content>div>div:nth-child(2){
+            width:70%;
+            float: left;
+            margin-left: 10px;
+        }
+        .QA_content>div>div:nth-child(2)>h4{
+            font-size: 18px;
+            color: #5A646E;
+            margin-top: 0;
+        }
+        .QA_content>div>div:nth-child(2)>p:nth-child(2){
+            font-size: 14px;
+            color: #B5BFCE;
+            line-height: 17px;
+        }
+        .QA_content>div>div:nth-child(2)>p:nth-child(2)>span:first-child{
+            font-size: 14px;
+            color: #8C96A5;
+            margin-right: 10px;
+        }
+        .QA_content>div>div:nth-child(2)>p:nth-child(2)>span:last-child{
+            padding-left: 5px;
+        }
+        .QA_content>div>div:nth-child(2)>p:nth-child(3){
+            font-size: 14px;
+            color: #8C96A5;
+        }
+        .QA_content>div>div:nth-child(2)>p:nth-child(3)>b{
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            -webkit-border-radius:4px;
+            -moz-border-radius:4px;
+            border-radius:4px;
+            position: relative;
+            top: -1px;
+            margin-right: 10px;
+        }
+        .QA_content>div>div:nth-child(2)>p:nth-child(3)>span:nth-child(2){
+            font-size: 14px;
+            color: #5A646E;
+            margin-right: 35px;
+        }
+
+        .QA_content>div>div:nth-child(3){
+            width:20%;
+            float: right;
+        }
+        .QA_content>div>div:nth-child(3)>div:first-child{
+            font-size: 18px;
+            color: #5ACD91;
+            letter-spacing: 1.5px;
+            float: left;
+            height:74px;
+            line-height: 74px;
+        }
+        .QA_content>div>div:nth-child(3)>div:first-child>img{
+            margin-right: 10px;
+        }
+        .QA_content>div>div:nth-child(3)>div:last-child{
+            float: right;
+        }
+        .QA_content>div>div:nth-child(3)>div:last-child>p{
+            margin: 0;
+            text-align: center;
+        }
+        .QA_content>div>div:nth-child(3)>div:last-child>p:first-child{
+            height:37px;
+            line-height: 50px;
+            font-size: 18px;
+            color: #5A646E;
+            letter-spacing: 1.5px;
+        }
+        .QA_content>div>div:nth-child(3)>div:last-child>p:last-child{
+            height:37px;
+            font-size: 14px;
+            color: #8C96A5;
+            letter-spacing: 1.17px;
+        }
+        /*QA_content END*/
+
+        /*load_QA Start*/
+        .load_QA{
+            width:1200px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 0 0 4px 4px;
+            padding: 0px 0px 50px 0px;
+            text-align: center;
+            font-size: 14px;
+            color: #8C96A5;
+        }
+        /*load_QA End*/
+        .type_select_all>span{
+            background-color: #647A90;
+            color:#FFFFFF!important;
+        }
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <div class="community_head_BG">
+        <h1>社区</h1>
+        <section id="community_head" class="community_head">
+            <h1>欢迎来到智量酷社区</h1>
+            <p>在这里你可以与亲爱的同伴们一起交谈、找到你问题的解决方案、与志趣相投的小伙伴一同分享这段美妙的学习旅程<br/><br/>或者时常来看看有没有新的活动出台<br/>我们会定期组织有奖小组项目竞赛，发布我们的最新动态，课程测试等好玩的东西<br/><br/>ps：你最喜爱的讲师也在这里哦</p>
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active"><a href="/community/qa">问答</a></li>
+                <li role="presentation"><a href="#">交流</a></li>
+                <li role="presentation"><a href="#">排行榜</a></li>
+                <li role="presentation"><a href="#">挑战</a></li>
+                <li role="presentation"><a href="#">事项</a></li>
+            </ul>
+            <img src="/static/svg/Community.svg" alt=""/>
+        </section>
+    </div>
+    <div class="slideDIV" style="height:80px;"></div>
+    <div class="search_TypeList">
+        <ul class="clearfix">
+            <li class="type_select_all" onclick="type_select(this,0)">
+                <span>全部</span>
+            </li>
+            <li onclick="type_select(this,1)">
+                <b style="background-color: red"></b>
+                <span onmouseover="this.style.background='red'" onmouseout="this.style.background='transparent'">Python</span>
+            </li>
+            <li onclick="type_select(this,2)">
+                <b style="background-color: green"></b>
+                <span onmouseover="this.style.background='green'" onmouseout="this.style.background='transparent'">Java</span>
+            </li>
+        </ul>
+    </div>
+    <div class="slideDIV" style="height:150px;"></div>
+    <div class="sort_TypeList">
+        <ul class="clearfix">
+            <li onclick="">
+                <span style="background-color: #647A90;color:#FFFFFF" >最新</span>
+            </li>
+            <li onclick="">
+                <span >热门</span>
+            </li>
+            <li onclick="">
+                <span >未解决</span>
+            </li>
+            <li onclick="">
+                <span >已解决</span>
+            </li>
+            <li onclick="">
+                <span >我的提问</span>
+            </li>
+            <li onclick="">
+                <span >我参与的</span>
+            </li>
+        </ul>
+    </div>
+    <section class="QA_content">
+        <div class="clearfix">
+            <div>
+                <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                <img src="/static/head/Oval.svg" alt=""/>
+                <img src="/static/head/online.svg" alt=""/>
+            </div>
+            <div>
+                <h4>使用 hex 值将 nav 元素里面的 anchor 元素设为白色</h4>
+                <p><span>大大大鹏</span>在<span>7 小时</span>前提问</p>
+                <p><b style="background: #00AFE6;"></b><span>HTML</span><span>用 hex 值设置颜色</span></p>
+            </div>
+            <div class="clearfix">
+                <div style="display: none"><img src="/static/svg/duigou.svg" alt="">已解决</div>
+                <div>
+                    <p>2</p>
+                    <p>条回答</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <div>
+                <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                <img src="/static/head/Oval.svg" alt=""/>
+                <img src="/static/head/online.svg" alt=""/>
+            </div>
+            <div>
+                <h4>使用 hex 值将 nav 元素里面的 anchor 元素设为白色</h4>
+                <p><span>大大大鹏</span>在<span>7 小时</span>前提问</p>
+                <p><b style="background: #00AFE6;"></b><span>HTML</span><span>用 hex 值设置颜色</span></p>
+            </div>
+            <div class="clearfix">
+                <div><img src="/static/svg/duigou.svg" alt="">已解决</div>
+                <div>
+                    <p>2</p>
+                    <p>条回答</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <div>
+                <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                <img src="/static/head/Oval.svg" alt=""/>
+                <img src="/static/head/online.svg" alt=""/>
+            </div>
+            <div>
+                <h4>使用 hex 值将 nav 元素里面的 anchor 元素设为白色</h4>
+                <p><span>大大大鹏</span>在<span>7 小时</span>前提问</p>
+                <p><b style="background: #00AFE6;"></b><span>HTML</span><span>用 hex 值设置颜色</span></p>
+            </div>
+            <div class="clearfix">
+                <div><img src="/static/svg/duigou.svg" alt="">已解决</div>
+                <div>
+                    <p>2</p>
+                    <p>条回答</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="load_QA">下拉加载更多…</div>
+    <div class="slideDIV" style="height:150px;"></div>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+</body>
+{% include "commonJS.html" %}
+<script>
+    window.document.onscroll = function(){
+        if($(document).scrollTop() == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+    $(document).ready(function(e) {
+
+    });
+</script>
+</html>
