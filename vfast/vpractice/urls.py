@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^best_replay$', views.best_replay, name='best_replay'),
     url(r'^qa$', views.question_list,),
     url(r'^qa_select$', views.question_select, name='question_select'),
+    url(r'^rank$', views.rank_list, name='rank_list'),
+    url(r'^rank_select$', views.rank_select, name='rank_select'),
 ]
