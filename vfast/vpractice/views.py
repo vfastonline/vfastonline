@@ -407,7 +407,7 @@ def question_select(request):
         return HttpResponse(json.dumps(result, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': traceback.format_exc()}, ensure_ascii=False))
 
 
 def rank_list(request):
