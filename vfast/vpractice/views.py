@@ -370,9 +370,9 @@ def question_select(request):
             # 规则重新定义
             pass
         elif order == 'notsolve':
-            questions = questions.filter(status=1)
-        elif order == 'solved':
             questions = questions.filter(status=0)
+        elif order == 'solved':
+            questions = questions.filter(status=1)
         elif order == 'questionbyme':
             questions = questions.filter(user_id=userid)
         else:
