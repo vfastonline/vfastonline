@@ -7,6 +7,9 @@ from vpractice.models import Question, QRcomment, Replay, Attention
 from django.db.models import Q, F
 from vinform.models import Inform, InformType
 from django.conf import settings
+from vfast.api import pages
+from vcourse.models import Technology
+from vfast.templatetags.mytags import time_comp_now
 
 import logging
 import traceback
@@ -273,11 +276,77 @@ def best_replay(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(traceback.format_exc())
 
+def replays(question_id):
+    question = Question.objects.get(id=question_id)
+    replays = Replay.objects.filter(question=question).count()
+    return replays
 
-def question_list(request):
+
+def question_select(request):
     """问题详情列表"""
     try:
-        pass
+        page = request.GET.get('page',1)
+        type_id = request.GET.get('type', 0)
+        order = request.GET.get('order')
+        techs = Technology.objects.all()
+        print type_id, order
+        try:
+            userid = request.session['user']['id']
+        except:
+            return HttpResponse(json.dumps({'code':1, 'msg':'请先登录'}, ensure_ascii=False))
+        if type_id == '0':
+            questions = Question.objects.all()
+        else:
+            questions = Question.objects.filter(video__course__tech_id=type_id)
+
+        if order == 'newer':
+            questions = questions.order_by('-createtime')
+        elif order == 'hot':
+            #规则重新定义
+            pass
+        elif order == 'notsolve':
+            questions = questions.filter(status=1)
+        elif order == 'solved':
+            questions = questions.filter(status=0)
+        elif order == 'questionbyme':
+            questions = questions.filter(user_id=userid)
+        else:
+            qids = Replay.objects.filter(replay_user_id=userid).values('question_id')
+            q = set()
+            for qid in qids:
+                q.add(qid['question_id'])
+            tmp = []
+            for question in questions:
+                if question.id in q:
+                   tmp.append(question)
+            questions = tmp
+        print questions
+        result = []
+        current_lines = pages(questions, page, lines=2)
+        for item in current_lines:
+            question_id =  item.id
+            createtime =  item.createtime
+            title =  item.title
+            nickname =  item.user.nickname
+            headimg =  item.user.headimg
+            video_name =  item.video.name
+            tech_name =  item.video.course.tech.name
+            tech_color = item.video.course.tech.color
+            question_status =  item.status
+            replay_num = replays(question_id)
+            result.append(dict(question_id=question_id,
+            createtime=createtime,title=title, nickname=nickname,headimg=headimg, video_name=video_name,tech_name=tech_name,
+                               tech_color=tech_color, question_status=question_status,replay_num=replay_num,))
+        return HttpResponse(json.dumps(result, ensure_ascii=False))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def question_list(request):
+    try:
+        techs = Technology.objects.all()
+        return render(request, 'Community.html', {'techs':techs})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))

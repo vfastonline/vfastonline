@@ -2,8 +2,8 @@
 import hashlib
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.core.mail import send_mail
 from django.db import connection
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 import logging.handlers
 import time, os, json, base64
@@ -13,6 +13,7 @@ import smtplib
 import logging
 from email.mime.text import MIMEText
 from email.header import Header
+
 
 def get_validate(email, uid, role, fix_pwd):
     t = int(time.time())
@@ -210,10 +211,10 @@ def sendmail(rcpt, subject, content):
 import top.api
 def sendmessage(phone,sms_param):
     req = top.api.AlibabaAliqinFcSmsNumSendRequest()
-    req.set_app_info(top.appinfo(appkey='23681605', secret='8a4f3638ca00c3700dd346fefff8cdde'))
+    req.set_app_info(top.appinfo(appkey='23764268', secret='00181054a64e2d9eb69711912d7a372a'))
     req.extend = ""
     req.sms_type = 'normal'
-    req.sms_free_sign_name = "苏威丁亚"
+    req.sms_free_sign_name = "智量酷"
     req.sms_template_code = "SMS_62900005"
     req.rec_num = phone
     req.sms_param = json.dumps(sms_param)
@@ -226,3 +227,14 @@ def sendmessage(phone,sms_param):
     except Exception, e:
         logging.getLogger().error(e)
         return False
+
+
+def pages(post_objects, page, lines=20):
+    paginator = Paginator(post_objects, lines)
+    try:
+        show_lines = paginator.page(page)
+    except PageNotAnInteger:
+        show_lines = paginator.page(1)
+    except EmptyPage:
+        show_lines = paginator.page(paginator.num_pages)
+    return show_lines

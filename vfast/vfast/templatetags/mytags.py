@@ -1,5 +1,6 @@
 #!encoding:utf-8
 from django import template
+from vpractice.models import Question, Replay
 import time
 register = template.Library()
 
@@ -67,3 +68,9 @@ def secTomin(str):
     except:
         second = 0
     return int(second / 60)
+
+@register.filter(name='replays')
+def replays(question_id):
+    question = Question.objects.get(id=question_id)
+    replays = Replay.objects.filter(question=question).count()
+    return replays

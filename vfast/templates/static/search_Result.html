@@ -270,7 +270,7 @@
     <section class="contentBody_course">
 
         {% if results == False %}
-            <h4>在<span>{{ tech_obj.name }} {{ key_words }}</span> 找不到任何相关信息！</h4>
+            <h4>在<span>{{ tech_obj.name }}</span> 分类中,找不到<span>{{ key_words }}</span>任何相关信息！</h4>
         {% else %}
             {% for pub in results %}
                 <div>
