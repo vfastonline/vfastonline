@@ -325,7 +325,7 @@ def question_select(request):
         current_lines = pages(questions, page, lines=2)
         for item in current_lines:
             question_id =  item.id
-            createtime =  item.createtime
+            createtime =  time_comp_now(item.createtime)
             title =  item.title
             nickname =  item.user.nickname
             headimg =  item.user.headimg

@@ -108,13 +108,21 @@
             color: #5A646E;
             border-radius: 15px;
             padding: 5px 15px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         .search_TypeList li>span:hover{
             cursor: pointer;
-            color: #FFFFFF;
         }
-        .search_TypeList li:first-child>span:hover{
-            color: #5A646E;
+        .search_TypeList li>span:active{
+            background: transparent!important;
+            color: #5A646E!important;
+        }
+        .search_TypeList li:first-child>span{
+            background-color: #647A90;
+            color:#FFFFFF;
         }
         /*search_TypeList End*/
 
@@ -153,10 +161,18 @@
             color: #5A646E;
             border-radius: 15px;
             padding: 5px 15px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         .sort_TypeList li>span:hover{
             cursor: pointer;
-            background: #eee;
+            background: #EEE;
+        }
+        .s_select>span{
+            background-color: #647A90!important;
+            color: #ffffff!important;;
         }
         /*sort_TypeList End*/
 
@@ -280,20 +296,16 @@
         /*load_QA Start*/
         .load_QA{
             width:1200px;
-            margin: 0 auto;
+            margin: 0 auto 100px;
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
             border-radius: 0 0 4px 4px;
-            padding: 0px 0px 50px 0px;
+            padding: 50px 0px 50px 0px;
             text-align: center;
             font-size: 14px;
             color: #8C96A5;
         }
         /*load_QA End*/
-        .type_select_all>span{
-            background-color: #647A90;
-            color:#FFFFFF!important;
-        }
     </style>
 </head>
 <body>
@@ -317,102 +329,42 @@
     <div class="slideDIV" style="height:80px;"></div>
     <div class="search_TypeList">
         <ul class="clearfix">
-            <li class="type_select_all" onclick="type_select(this,0)">
+            <li class="t_select" about="0" onclick="type_select(this)">
+                <b style="background-color: #647A90;display: none"></b>
                 <span>全部</span>
             </li>
-            <li onclick="type_select(this,1)">
-                <b style="background-color: red"></b>
-                <span onmouseover="this.style.background='red'" onmouseout="this.style.background='transparent'">Python</span>
+            {% for tech in techs %}
+            <li onclick="type_select(this)" about="{{  tech.id }}">
+                <b style="background-color: {{ tech.color }}"></b>
+                <span>{{ tech.name }}</span>
             </li>
-            <li onclick="type_select(this,2)">
-                <b style="background-color: green"></b>
-                <span onmouseover="this.style.background='green'" onmouseout="this.style.background='transparent'">Java</span>
-            </li>
+            {% endfor %}
         </ul>
     </div>
     <div class="slideDIV" style="height:150px;"></div>
     <div class="sort_TypeList">
         <ul class="clearfix">
-            <li onclick="">
-                <span style="background-color: #647A90;color:#FFFFFF" >最新</span>
+            <li class="s_select" about="newer" onclick="sort_select(this)">
+                <span >最新</span>
             </li>
-            <li onclick="">
+            <li onclick="sort_select(this)" about="hot">
                 <span >热门</span>
             </li>
-            <li onclick="">
+            <li onclick="sort_select(this)" about="notsolve">
                 <span >未解决</span>
             </li>
-            <li onclick="">
+            <li onclick="sort_select(this)" about="solved">
                 <span >已解决</span>
             </li>
-            <li onclick="">
+            <li onclick="sort_select(this)" about="questionbyme">
                 <span >我的提问</span>
             </li>
-            <li onclick="">
+            <li onclick="sort_select(this)" about="partake">
                 <span >我参与的</span>
             </li>
         </ul>
     </div>
-    <section class="QA_content">
-        <div class="clearfix">
-            <div>
-                <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                <img src="/static/head/Oval.svg" alt=""/>
-                <img src="/static/head/online.svg" alt=""/>
-            </div>
-            <div>
-                <h4>使用 hex 值将 nav 元素里面的 anchor 元素设为白色</h4>
-                <p><span>大大大鹏</span>在<span>7 小时</span>前提问</p>
-                <p><b style="background: #00AFE6;"></b><span>HTML</span><span>用 hex 值设置颜色</span></p>
-            </div>
-            <div class="clearfix">
-                <div style="display: none"><img src="/static/svg/duigou.svg" alt="">已解决</div>
-                <div>
-                    <p>2</p>
-                    <p>条回答</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix">
-            <div>
-                <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                <img src="/static/head/Oval.svg" alt=""/>
-                <img src="/static/head/online.svg" alt=""/>
-            </div>
-            <div>
-                <h4>使用 hex 值将 nav 元素里面的 anchor 元素设为白色</h4>
-                <p><span>大大大鹏</span>在<span>7 小时</span>前提问</p>
-                <p><b style="background: #00AFE6;"></b><span>HTML</span><span>用 hex 值设置颜色</span></p>
-            </div>
-            <div class="clearfix">
-                <div><img src="/static/svg/duigou.svg" alt="">已解决</div>
-                <div>
-                    <p>2</p>
-                    <p>条回答</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix">
-            <div>
-                <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                <img src="/static/head/Oval.svg" alt=""/>
-                <img src="/static/head/online.svg" alt=""/>
-            </div>
-            <div>
-                <h4>使用 hex 值将 nav 元素里面的 anchor 元素设为白色</h4>
-                <p><span>大大大鹏</span>在<span>7 小时</span>前提问</p>
-                <p><b style="background: #00AFE6;"></b><span>HTML</span><span>用 hex 值设置颜色</span></p>
-            </div>
-            <div class="clearfix">
-                <div><img src="/static/svg/duigou.svg" alt="">已解决</div>
-                <div>
-                    <p>2</p>
-                    <p>条回答</p>
-                </div>
-            </div>
-        </div>
+    <section id="QA_content" class="QA_content">
     </section>
     <div class="load_QA">下拉加载更多…</div>
     <div class="slideDIV" style="height:150px;"></div>
@@ -422,15 +374,105 @@
 </body>
 {% include "commonJS.html" %}
 <script>
+    var load_index = 1;
+    var loading = true;
+    $(document).ready(function(e) {
+        $(".search_TypeList").find("li").find("span").hover(function(){
+            $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
+        },function () {
+            $(this).css({"background":"transparent","color":"#5A646E"});
+        })
+        $(".search_TypeList").find("li:first-child").find("span").hover(function(){
+            $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
+        },function () {
+            $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
+        })
+        if(loading){
+            loading = false;
+            load_qa_data();
+        }
+    });
+    function type_select(t){
+        if(!($(t).attr("class") == "t_select")){
+            $(".search_TypeList").find("li").find("span").css({"background":"transparent","color":"#5A646E"});
+            $(t).find("span").css({"background":$(t).find("b").css("background-color"),"color":"#FFFFFF"});
+            $(".search_TypeList").find("li").find("span").hover(function(){
+                $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
+            },function () {
+                $(this).css({"background":"transparent","color":"#5A646E"});
+            })
+            $(t).find("span").hover(function(){
+                $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
+            },function () {
+                $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
+            })
+            $(".search_TypeList").find("li").attr("class","");
+            $(t).attr("class","t_select");
+            $("#QA_content").html("");
+            load_index = 1;
+            load_qa_data();
+        }
+    }
+    function sort_select(t){
+        if(!($(t).attr("class") == "s_select")){
+            $(".sort_TypeList").find("li").attr("class","");
+            $(t).attr("class","s_select");
+            $("#QA_content").html("");
+            load_index = 1;
+            load_qa_data();
+        }
+    }
+    function load_qa_data(){
+        var type = $(".search_TypeList .t_select").attr("about");
+        var order = $(".sort_TypeList .s_select").attr("about");
+        $.get("/community/qa_select?page="+load_index+"&type="+type+"&order="+order,function(data){
+            for(var i = 0 ; i < data.length ; i++){
+                var dataStr = "";
+                dataStr += '<div class="clearfix" onclick="window.open(\'/community/question?qid='+data[i].question_id+'\',\'_blank\')">';
+                dataStr += '<div>';
+                dataStr += '<img id="uheadimg" src="'+data[i].headimg+'" alt=""/>';
+                dataStr += '<img src="/static/head/Oval.svg" alt=""/>';
+                dataStr += '<img src="/static/head/online.svg" alt=""/>';
+                dataStr += '</div>';
+                dataStr += '<div>';
+                dataStr += '<h4>'+data[i].title+'</h4>';
+                dataStr += '<p><span>'+data[i].nickname+'</span>在<span>'+data[i].createtime+'前提问</p>';
+                dataStr += '<p><b style="background: '+data[i].tech_color+';"></b><span>'+data[i].tech_name+'</span><span>'+data[i].video_name+'</span></p>';
+                dataStr += '</div>';
+                dataStr += '<div>';
+                if(data[i].question_status == 1){
+                    dataStr += '<div style=""><img src="/static/svg/duigou.svg" alt="">已解决</div>';
+                }else{
+                    dataStr += '<div style="display: none"><img src="/static/svg/duigou.svg" alt="">已解决</div>';
+                }
+                dataStr += '<div>';
+                dataStr += '<p>'+data[i].replay_num+'</p>';
+                dataStr += '<p>条回答</p>';
+                dataStr += '</div>';
+                dataStr += '</div>';
+                dataStr += '</div>';
+                $("#QA_content").append(dataStr);
+            }
+            load_index++;
+        },"json")
+        loading = true;
+    }
     window.document.onscroll = function(){
         if($(document).scrollTop() == 0){
             $("#head_cont").css("box-shadow","none");
         }else{
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
-    }
-    $(document).ready(function(e) {
+        var tops = $(document).scrollTop(); //获取滚动条的位置
+        var sctop = $(document).height()-$(window).height();
+        if(tops == sctop){
+            if(loading){
+                loading = false;
+                console.log(load_index);
+                load_qa_data();
+            }
+        }
 
-    });
+    }
 </script>
 </html>
