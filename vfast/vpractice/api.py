@@ -20,14 +20,15 @@ def rank_front(rank_result, userid):
         front = rank_result[position - 1]
         front['position'] = position -1
         current = rank_result[position]
-        current['postion'] = position
+        current['position'] = position
+        topten.append(front)
+        topten.append(current)
         try:
             behind = rank_result[position + 1]
-            behind['postion'] = position + 1
-            topten.append(front, current,behind)
+            behind['position'] = position + 1
+            topten.append(behind)
         except:
             pass
-        topten.append(front, current)
     for item in topten:
         if item.has_key('repatation'):
             item['repatation'] = str(item['repatation'])

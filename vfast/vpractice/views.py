@@ -502,7 +502,7 @@ def rank_data(request):
             result = last_seven_day()
             condition = "createtime in (%s)" % ','.join(result)
         elif range_time == "month":
-            condition = "createtime like '%s%%'" % (time.strftime('%Y-%m'))
+            condition = "createtime like %s%%" % (time.strftime('%Y-%m'))
         else:
             condition = "1"
         if tech_id == '0':
@@ -520,5 +520,5 @@ def rank_data(request):
         return HttpResponse(json.dumps({'repas': rank_repas,  'scores': rank_scores}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': traceback.format_exc()}, ensure_ascii=False))
 

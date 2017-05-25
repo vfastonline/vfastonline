@@ -204,6 +204,7 @@
             position: relative;
             padding: 0 60px 0 50px;
             height:62px;
+            box-shadow: inset 0 1px 0 0 rgba(212,217,221,0.50);
         }
         .ranking>div li:hover{
             background: #F0F2F4;
@@ -242,6 +243,7 @@
             position: relative;
             width: 50px;
             height: 50px;
+            margin-top: 6px;
         }
         .ranking>div li>div>img{
             width: 50px;
@@ -254,7 +256,14 @@
             height: 16px;
             right: 2px;
         }
-
+        .ranking>div>div{
+            text-align: center;
+            font-size: 14px;
+            color: #8C96A5;
+            height:50px;
+            line-height: 50px;
+            box-shadow: inset 0 1px 0 0 rgba(212,217,221,0.50);
+        }
         /*ranking End*/
     </style>
 </head>
@@ -310,11 +319,13 @@
             <h5>得分排行榜</h5>
             <ul id="rankList">
             </ul>
+            <div>你的<span>本周</span>得分在 <span>11737</span> 名学员中排名第 <span>17510</span></div>
         </div>
         <div>
             <h5>声望排行榜</h5>
             <ul id="prestigeList">
             </ul>
+            <div>你的<span>本周</span>所得声望在 <span>11737</span> 名学员中排名第 <span>17510</span></div>
         </div>
     </section>
     <div class="slideDIV" style="height:150px;"></div>
@@ -338,28 +349,52 @@
         loadRank();
     });
     function loadRank(){
+        $("#rankList").html("");
+        $("#prestigeList").html("");
         var type = $(".search_TypeList .t_select").attr("about");
         var order = $(".sort_TypeList .s_select").attr("about");
         $.get("/community/rankdata?tech_id="+type+"&range_time="+order,function(data){
-            for(var i = 0 ; i<data.scores.length;i++){
-
-                $("#rankList").append();
+            console.log(data);
+            var scoresArr = data.scores;
+            var repasArr = data.repas;
+            for(var i = 0 ; i<scoresArr.length;i++){
+                var rankStr = "";
+                rankStr += '<li>';
+                rankStr += '<span>'+scoresArr[i].position+'</span>';
+                rankStr += '<div>';
+                rankStr += '<img id="uheadimg" src="'+scoresArr[i].headimg+'" alt=""/>';
+                rankStr += '<img src="/static/head/Oval.svg" alt=""/>';
+                rankStr += '<img src="/static/head/online.svg" alt=""/>';
+                rankStr += '</div>';
+                rankStr += '<span>'+scoresArr[i].nickname+'</span>';
+                rankStr += '<span>+ '+scoresArr[i].score+'</span>';
+                rankStr += '</li>';
+                if(scoresArr.length > 10 && i == 9){
+                    rankStr += '<li class="ellipsis">… …</li>';
+                }
+                $("#rankList").append(rankStr);
             }
-            for(var i = 0 ; i<data.repas.length;i++){
-
-                $("#prestigeList").append();
+            for(var i = 0 ; i<repasArr.length;i++){
+                var prestigeStr = "";
+                prestigeStr += '<li>';
+                prestigeStr += '<span>'+repasArr[i].position+'</span>';
+                prestigeStr += '<div>';
+                prestigeStr += '<img id="uheadimg" src="'+repasArr[i].headimg+'" alt=""/>';
+                prestigeStr += '<img src="/static/head/Oval.svg" alt=""/>';
+                prestigeStr += '<img src="/static/head/online.svg" alt=""/>';
+                prestigeStr += '</div>';
+                prestigeStr += '<span>'+repasArr[i].nickname+'</span>';
+                if(parseInt(repasArr[i].repatation) >= 0){
+                    prestigeStr += '<span>+ '+repasArr[i].repatation+'</span>';
+                }else{
+                    prestigeStr += '<span>'+repasArr[i].repatation+'</span>';
+                }
+                prestigeStr += '</li>';
+                if(repasArr.length > 10 && i == 9){
+                    prestigeStr += '<li class="ellipsis">… …</li>';
+                }
+                $("#prestigeList").append(prestigeStr);
             }
-{#            <li>#}
-{#                <span>1</span>#}
-{#                <div>#}
-{#                    <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>#}
-{#                    <img src="/static/head/Oval.svg" alt=""/>#}
-{#                    <img src="/static/head/online.svg" alt=""/>#}
-{#                </div>#}
-{#                <span>大鹏鹏</span>#}
-{#                <span>+ 7385</span>#}
-{#            </li>#}
-{#            <li class="ellipsis">… …</li>#}
         },'json')
     }
     function type_select(t){
