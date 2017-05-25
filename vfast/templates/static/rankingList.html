@@ -258,7 +258,7 @@
         /*ranking End*/
     </style>
 </head>
-<body onunload="$(document).scrollTop(0)" onbeforeunload="$(document).scrollTop(0)">
+<body>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
     <div class="community_head_BG">
@@ -308,134 +308,12 @@
     <section class="ranking clearfix">
         <div>
             <h5>得分排行榜</h5>
-            <ul>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li class="ellipsis">… …</li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>17519</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
+            <ul id="rankList">
             </ul>
         </div>
         <div>
             <h5>声望排行榜</h5>
-            <ul>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li class="ellipsis">… …</li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
-                <li>
-                    <span>1</span>
-                    <div>
-                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
-                        <img src="/static/head/Oval.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
-                    </div>
-                    <span>大鹏鹏</span>
-                    <span>+ 7385</span>
-                </li>
+            <ul id="prestigeList">
             </ul>
         </div>
     </section>
@@ -457,10 +335,32 @@
         },function () {
             $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
         })
-        loadrank();
+        loadRank();
     });
-    function loadrank(){
+    function loadRank(){
+        var type = $(".search_TypeList .t_select").attr("about");
+        var order = $(".sort_TypeList .s_select").attr("about");
+        $.get("/community/rankdata?tech_id="+type+"&range_time="+order,function(data){
+            for(var i = 0 ; i<data.scores.length;i++){
 
+                $("#rankList").append();
+            }
+            for(var i = 0 ; i<data.repas.length;i++){
+
+                $("#prestigeList").append();
+            }
+{#            <li>#}
+{#                <span>1</span>#}
+{#                <div>#}
+{#                    <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>#}
+{#                    <img src="/static/head/Oval.svg" alt=""/>#}
+{#                    <img src="/static/head/online.svg" alt=""/>#}
+{#                </div>#}
+{#                <span>大鹏鹏</span>#}
+{#                <span>+ 7385</span>#}
+{#            </li>#}
+{#            <li class="ellipsis">… …</li>#}
+        },'json')
     }
     function type_select(t){
         if(!($(t).attr("class") == "t_select")){
@@ -478,12 +378,14 @@
             })
             $(".search_TypeList").find("li").attr("class","");
             $(t).attr("class","t_select");
+            loadRank();
         }
     }
     function sort_select(t){
         if(!($(t).attr("class") == "s_select")){
             $(".sort_TypeList").find("li").attr("class","");
             $(t).attr("class","s_select");
+            loadRank();
         }
     }
     window.document.onscroll = function(){
