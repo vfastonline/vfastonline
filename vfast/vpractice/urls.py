@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^qa$', views.question_list,),
     url(r'^qa_select$', views.question_select, name='question_select'),
     url(r'^rank$', views.rank_list, name='rank_list'),
-    url(r'^rank_select$', views.rank_select, name='rank_select'),
+    url(r'^rankdata$', views.rank_data, name='rank_data'),
 ]

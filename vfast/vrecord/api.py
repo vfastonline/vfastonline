@@ -1,6 +1,5 @@
 #!encoding: utf-8
 from vfast.api import dictfetchall
-from django.http import HttpResponse
 from vcourse.models import Technology
 import logging
 import traceback
@@ -25,7 +24,7 @@ def sum_score_tech(uid):
         return result
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return []
 
 
 
