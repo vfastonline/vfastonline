@@ -208,6 +208,7 @@ def sendmail(rcpt, subject, content):
         print traceback.format_exc()
         return False
 
+
 import top.api
 def sendmessage(phone,sms_param):
     req = top.api.AlibabaAliqinFcSmsNumSendRequest()
@@ -238,3 +239,11 @@ def pages(post_objects, page, lines=20):
     except EmptyPage:
         show_lines = []
     return show_lines
+
+
+def last_seven_day():
+    result = []
+    for num in range(-7,1):
+        d = get_day_of_day(num)
+        result.append(d.strftime('%Y-%m-%d'))
+    return result

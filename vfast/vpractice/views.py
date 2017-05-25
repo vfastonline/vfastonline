@@ -7,9 +7,10 @@ from vpractice.models import Question, QRcomment, Replay, Attention, Repatation,
 from django.db.models import Q, F, Sum
 from vinform.models import Inform, InformType
 from django.conf import settings
-from vfast.api import pages
+from vfast.api import pages, dictfetchall, last_seven_day
 from vcourse.models import Technology
 from vfast.templatetags.mytags import time_comp_now
+from vpractice.api import rank_front
 
 import logging
 import traceback
@@ -480,15 +481,44 @@ def question_select(request):
 def rank_list(request):
     try:
         techs = Technology.objects.all()
+        print last_seven_day()
         return render(request, 'rankingList.html', {'techs': techs})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
 
-def rank_select(request):
+def rank_data(request):
+    """声望排行榜"""
     try:
-        pass
+        tech_id = request.GET.get('tech_id')
+        range_time = request.GET.get('range_time')
+        try:
+            userid = request.session['user']['id']
+        except ValueError:
+            return HttpResponse(json.dumps({'code': 0, 'msg': u'未登录用户'}, ensure_ascii=False))
+        # print tech_id, range_time
+        if range_time == 'week':
+            result = last_seven_day()
+            condition = "createtime in (%s)" % ','.join(result)
+        elif range_time == "month":
+            condition = "createtime like '%s%%'" % (time.strftime('%Y-%m'))
+        else:
+            condition = "1"
+        if tech_id == '0':
+            rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where '%s' group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % condition
+            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where  '%s' group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % condition
+        else:
+            rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where tech_id = %s and %s group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % (
+            tech_id, condition)
+            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where technology_id=%s and '%s' group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % (
+            tech_id, condition)
+        rank_repa_ret = dictfetchall(rank_repa_sql)
+        rank_score_ret = dictfetchall(rank_score_sql)
+        rank_repas = rank_front(rank_repa_ret, userid=userid)
+        rank_scores = rank_front(rank_score_ret, userid=userid)
+        return HttpResponse(json.dumps({'repas': rank_repas,  'scores': rank_scores}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
