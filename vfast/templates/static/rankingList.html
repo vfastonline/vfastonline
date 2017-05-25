@@ -136,7 +136,7 @@
             border-radius: 4px;
         }
         .sort_TypeList ul{
-            padding: 0px 26%;
+            padding: 0px 36%;
         }
         .sort_TypeList li{
             float: left;
@@ -176,136 +176,86 @@
         }
         /*sort_TypeList End*/
 
-        /*QA_content Start*/
-        .QA_content{
+        /*ranking Start*/
+        .ranking{
             width:1200px;
-            margin: 0 auto;
+            margin: 50px auto;
+        }
+        .ranking>div{
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
-            border-radius: 0 0 4px 4px;
-            padding: 50px;
+            border-radius: 4px;
         }
-        .QA_content>div{
-            height:124px;
-            padding: 25px 50px 25px 30px;
+        .ranking>div:first-child{
+            width:48.5%;
+            float: left;
         }
-        .QA_content>div:hover{
-            background: #F0F3F4;
+        .ranking>div:last-child{
+            width:48.5%;
+            float: right;
+        }
+        .ranking>div>h5{
+            font-size: 14px;
+            color: #8C96A5;
+            padding-left: 50px;
+            margin-top: 40px;
+        }
+        .ranking>div li{
+            position: relative;
+            padding: 0 60px 0 50px;
+            height:62px;
+        }
+        .ranking>div li:hover{
+            background: #F0F2F4;
             cursor: pointer;
         }
-        .QA_content>div>div:nth-child(1){
-            float: left;
+        .ranking>div li>span{
+            vertical-align: top;
+            display: inline-block;
+            height:62px;
+            line-height: 62px;
+            font-size: 14px;
+            color: #8C96A5;
+        }
+        .ranking>div li>span:first-child{
+            min-width: 10%;
+        }
+        .ranking>div li>span:nth-child(3){
+            margin-left: 10px;
+        }
+        .ranking>div li>span:last-child{
+            float: right;
+        }
+        .ranking>div li.ellipsis{
+            cursor: default;
+            text-align: center;
+            background: #F0F3F4;
+            box-shadow: inset 0 1px 0 0 rgba(212,217,221,0.50);
+            font-size: 14px;
+            color: #8C96A5;
+            letter-spacing: 5px;
+            height:31px;
+            line-height: 31px;
+        }
+        .ranking>div li>div{
+            display: inline-block;
             position: relative;
             width: 50px;
             height: 50px;
-            margin-top: 0px;
         }
-        .QA_content>div>div:nth-child(1)>img{
+        .ranking>div li>div>img{
             width: 50px;
             height: 50px;
             position: absolute;
             border-radius: 25px;
         }
-        .QA_content>div>div:nth-child(1)>img:last-child{
+        .ranking>div li>div>img:last-child{
             width: 16px;
             height: 16px;
             right: 2px;
         }
 
-        .QA_content>div>div:nth-child(2){
-            width:70%;
-            float: left;
-            margin-left: 10px;
-        }
-        .QA_content>div>div:nth-child(2)>h4{
-            font-size: 18px;
-            color: #5A646E;
-            margin-top: 0;
-        }
-        .QA_content>div>div:nth-child(2)>p:nth-child(2){
-            font-size: 14px;
-            color: #B5BFCE;
-            line-height: 17px;
-        }
-        .QA_content>div>div:nth-child(2)>p:nth-child(2)>span:first-child{
-            font-size: 14px;
-            color: #8C96A5;
-            margin-right: 10px;
-        }
-        .QA_content>div>div:nth-child(2)>p:nth-child(2)>span:last-child{
-            padding-left: 5px;
-        }
-        .QA_content>div>div:nth-child(2)>p:nth-child(3){
-            font-size: 14px;
-            color: #8C96A5;
-        }
-        .QA_content>div>div:nth-child(2)>p:nth-child(3)>b{
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            -webkit-border-radius:4px;
-            -moz-border-radius:4px;
-            border-radius:4px;
-            position: relative;
-            top: -1px;
-            margin-right: 10px;
-        }
-        .QA_content>div>div:nth-child(2)>p:nth-child(3)>span:nth-child(2){
-            font-size: 14px;
-            color: #5A646E;
-            margin-right: 35px;
-        }
-
-        .QA_content>div>div:nth-child(3){
-            width:20%;
-            float: right;
-        }
-        .QA_content>div>div:nth-child(3)>div:first-child{
-            font-size: 18px;
-            color: #5ACD91;
-            letter-spacing: 1.5px;
-            float: left;
-            height:74px;
-            line-height: 74px;
-        }
-        .QA_content>div>div:nth-child(3)>div:first-child>img{
-            margin-right: 10px;
-        }
-        .QA_content>div>div:nth-child(3)>div:last-child{
-            float: right;
-        }
-        .QA_content>div>div:nth-child(3)>div:last-child>p{
-            margin: 0;
-            text-align: center;
-        }
-        .QA_content>div>div:nth-child(3)>div:last-child>p:first-child{
-            height:37px;
-            line-height: 50px;
-            font-size: 18px;
-            color: #5A646E;
-            letter-spacing: 1.5px;
-        }
-        .QA_content>div>div:nth-child(3)>div:last-child>p:last-child{
-            height:37px;
-            font-size: 14px;
-            color: #8C96A5;
-            letter-spacing: 1.17px;
-        }
-        /*QA_content END*/
-
-        /*load_QA Start*/
-        .load_QA{
-            width:1200px;
-            margin: 0 auto 100px;
-            background: #FFFFFF;
-            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
-            border-radius: 0 0 4px 4px;
-            padding: 50px 0px 50px 0px;
-            text-align: center;
-            font-size: 14px;
-            color: #8C96A5;
-        }
-        /*load_QA End*/
+        /*ranking End*/
     </style>
 </head>
 <body onunload="$(document).scrollTop(0)" onbeforeunload="$(document).scrollTop(0)">
@@ -344,29 +294,151 @@
     <div class="slideDIV" style="height:150px;"></div>
     <div class="sort_TypeList">
         <ul class="clearfix">
-            <li class="s_select" about="newer" onclick="sort_select(this)">
-                <span >最新</span>
+            <li class="s_select" about="week" onclick="sort_select(this)">
+                <span >本周</span>
             </li>
-            <li onclick="sort_select(this)" about="hot">
-                <span >热门</span>
+            <li onclick="sort_select(this)" about="month">
+                <span >本月</span>
             </li>
-            <li onclick="sort_select(this)" about="notsolve">
-                <span >未解决</span>
-            </li>
-            <li onclick="sort_select(this)" about="solved">
-                <span >已解决</span>
-            </li>
-            <li onclick="sort_select(this)" about="questionbyme">
-                <span >我的提问</span>
-            </li>
-            <li onclick="sort_select(this)" about="partake">
-                <span >我参与的</span>
+            <li onclick="sort_select(this)" about="all">
+                <span >有史以来</span>
             </li>
         </ul>
     </div>
-    <section id="QA_content" class="QA_content">
+    <section class="ranking clearfix">
+        <div>
+            <h5>得分排行榜</h5>
+            <ul>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li class="ellipsis">… …</li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>17519</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h5>声望排行榜</h5>
+            <ul>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li class="ellipsis">… …</li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+                <li>
+                    <span>1</span>
+                    <div>
+                        <img id="uheadimg" src="/media/user_headimg/22_1493273619.jpg" alt=""/>
+                        <img src="/static/head/Oval.svg" alt=""/>
+                        <img src="/static/head/online.svg" alt=""/>
+                    </div>
+                    <span>大鹏鹏</span>
+                    <span>+ 7385</span>
+                </li>
+            </ul>
+        </div>
     </section>
-    <div id="load_QA" class="load_QA">下拉加载更多…</div>
     <div class="slideDIV" style="height:150px;"></div>
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
@@ -374,8 +446,6 @@
 </body>
 {% include "commonJS.html" %}
 <script>
-    var load_index = 1;
-    var loading = true;
     $(document).ready(function(e) {
         $(".search_TypeList").find("li").find("span").hover(function(){
             $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
@@ -387,11 +457,11 @@
         },function () {
             $(this).css({"background":$(this).parent().find("b").css("background-color"),"color":"#FFFFFF"});
         })
-        if(loading){
-            loading = false;
-            load_qa_data();
-        }
+        loadrank();
     });
+    function loadrank(){
+
+    }
     function type_select(t){
         if(!($(t).attr("class") == "t_select")){
             $(".search_TypeList").find("li").find("span").css({"background":"transparent","color":"#5A646E"});
@@ -408,58 +478,13 @@
             })
             $(".search_TypeList").find("li").attr("class","");
             $(t).attr("class","t_select");
-            $("#QA_content").html("");
-            load_index = 1;
-            load_qa_data();
         }
     }
     function sort_select(t){
         if(!($(t).attr("class") == "s_select")){
             $(".sort_TypeList").find("li").attr("class","");
             $(t).attr("class","s_select");
-            $("#QA_content").html("");
-            load_index = 1;
-            load_qa_data();
         }
-    }
-    function load_qa_data(){
-        var type = $(".search_TypeList .t_select").attr("about");
-        var order = $(".sort_TypeList .s_select").attr("about");
-        $.get("/community/qa_select?page="+load_index+"&type="+type+"&order="+order,function(data){
-            if(data.code == 0){
-                $("#load_QA").html("就这么多问题了~已经到头了~");
-                return "";
-            }
-            for(var i = 0 ; i < data.length ; i++){
-                var dataStr = "";
-                dataStr += '<div class="clearfix" onclick="window.open(\'/community/question?qid='+data[i].question_id+'\',\'_blank\')">';
-                dataStr += '<div>';
-                dataStr += '<img id="uheadimg" src="'+data[i].headimg+'" alt=""/>';
-                dataStr += '<img src="/static/head/Oval.svg" alt=""/>';
-                dataStr += '<img src="/static/head/online.svg" alt=""/>';
-                dataStr += '</div>';
-                dataStr += '<div>';
-                dataStr += '<h4>'+data[i].title+'</h4>';
-                dataStr += '<p><span>'+data[i].nickname+'</span>在<span>'+data[i].createtime+'前提问</p>';
-                dataStr += '<p><b style="background: '+data[i].tech_color+';"></b><span>'+data[i].tech_name+'</span><span>'+data[i].video_name+'</span></p>';
-                dataStr += '</div>';
-                dataStr += '<div>';
-                if(data[i].question_status == 1){
-                    dataStr += '<div style=""><img src="/static/svg/duigou.svg" alt="">已解决</div>';
-                }else{
-                    dataStr += '<div style="display: none"><img src="/static/svg/duigou.svg" alt="">已解决</div>';
-                }
-                dataStr += '<div>';
-                dataStr += '<p>'+data[i].replay_num+'</p>';
-                dataStr += '<p>条回答</p>';
-                dataStr += '</div>';
-                dataStr += '</div>';
-                dataStr += '</div>';
-                $("#QA_content").append(dataStr);
-            }
-            load_index++;
-        },"json")
-        loading = true;
     }
     window.document.onscroll = function(){
         if($(document).scrollTop() == 0){
@@ -467,16 +492,6 @@
         }else{
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
-        var tops = $(document).scrollTop(); //获取滚动条的位置
-        var sctop = $(document).height()-$(window).height();
-        if(tops == sctop){
-            if(loading){
-                loading = false;
-                console.log(load_index);
-                load_qa_data();
-            }
-        }
-
     }
 </script>
 </html>
