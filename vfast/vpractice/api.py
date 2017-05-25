@@ -36,5 +36,5 @@ def rank_front(rank_result, userid):
             item['score'] = str(item['score'])
         else:
             pass
-    return topten
+    return topten, position+1
 
