@@ -35,7 +35,8 @@ class Question(models.Model):
     score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
     status = models.IntegerField('问题状态', default=0)   #0为未解决状态, 1为解决状态
     add_repatation = models.IntegerField('悬赏声望', default=0)
-    add_repatation_user = models.IntegerField('悬赏人的ID', null=True, blank=True)
+    add_repatation_userid = models.IntegerField('悬赏人的ID', null=True, blank=True)
+    add_repatation_username = models.CharField('悬赏人名字', max_length=20, default='')
     default_repatation = models.IntegerField('默认声望', default=5)
 
 

@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from vuser.models import User
 from vcourse.models import Video
 from vpractice.models import Question, QRcomment, Replay, Attention, Repatation, RepaType
-from django.db.models import Q, F
+from django.db.models import Q, F, Sum
 from vinform.models import Inform, InformType
 from django.conf import settings
 from vfast.api import pages
@@ -42,6 +42,35 @@ def add_question(request):
             except:
                 logging.getLogger().error(traceback.format_exc())
                 return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+
+
+def add_repatation_for_question(request):
+    """用户追加悬赏分数"""
+    try:
+        qid = request.GET.get('qid')
+        repa = request.GET.get('repa')
+        try:
+            uid = request.session['user']['id']
+            user = User.objects.get(id=uid)
+        except KeyError:
+            return HttpResponse(json.dumps({'code': 1, 'msg': u'用户未登录'}, ensure_ascii=False))
+        user_sum_repatation = Repatation.objects.filter(id=uid).aggregate(sum_repa=Sum('repa_grade'))
+        print user_sum_repatation
+        if user_sum_repatation['sum_repa'] > repa:
+            question = Question.objects.get(id=qid)
+            question.add_repatation = repa
+            question.add_repatation_user = uid
+            question.add_repatation_username = user.nickname
+            tech_id = question.video.course.tech_id
+            createtime = time.strftime('%Y-%-%d %H:%M:%S')
+            Repatation.objects.create(user=user, tech_id=tech_id, createtime=createtime, repa_grade=-repa, repatype=2)
+            question.save()
+            return HttpResponse(json.dumps({'code': 0, 'msg': '悬赏追加成功'}, ensure_ascii=False))
+        else:
+            return HttpResponse(json.dumps({'code': 0, 'msg': u'您的声望不够,请提升您的声望'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
@@ -451,7 +480,7 @@ def question_select(request):
 def rank_list(request):
     try:
         techs = Technology.objects.all()
-        return render(request, 'Community.html', {'techs': techs})
+        return render(request, 'rankingList.html', {'techs': techs})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
