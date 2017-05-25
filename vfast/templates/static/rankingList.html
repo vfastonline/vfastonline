@@ -319,13 +319,13 @@
             <h5>得分排行榜</h5>
             <ul id="rankList">
             </ul>
-            <div>你的<span>本周</span>得分在 <span>11737</span> 名学员中排名第 <span>17510</span></div>
+            <div>你的<span id="rankList1">本周</span>得分在 <span id="rankList2">11737</span> 名学员中排名第 <span id="rankList3">17510</span></div>
         </div>
         <div>
             <h5>声望排行榜</h5>
             <ul id="prestigeList">
             </ul>
-            <div>你的<span>本周</span>所得声望在 <span>11737</span> 名学员中排名第 <span>17510</span></div>
+            <div>你的<span id="prestigeList1">本周</span>所得声望在 <span id="prestigeList2">11737</span> 名学员中排名第 <span id="prestigeList3">17510</span></div>
         </div>
     </section>
     <div class="slideDIV" style="height:150px;"></div>
@@ -355,6 +355,12 @@
         var order = $(".sort_TypeList .s_select").attr("about");
         $.get("/community/rankdata?tech_id="+type+"&range_time="+order,function(data){
             console.log(data);
+            $("#rankList1").html();
+            $("#rankList2").html();
+            $("#rankList3").html();
+            $("#prestigeList1").html();
+            $("#prestigeList2").html();
+            $("#prestigeList3").html();
             var scoresArr = data.scores;
             var repasArr = data.repas;
             for(var i = 0 ; i<scoresArr.length;i++){
