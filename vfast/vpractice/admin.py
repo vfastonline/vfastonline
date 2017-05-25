@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vpractice.models import Timu, Question, QRcomment, Replay, Attention
+from vpractice.models import Timu, Question, QRcomment, Replay, Attention, RepaType
 
 # Register your models here.
 class TimuAdmin(admin.ModelAdmin):
@@ -12,3 +12,4 @@ admin.site.register(Question)
 admin.site.register(QRcomment)
 admin.site.register(Replay)
 admin.site.register(Attention)
+admin.site.register(RepaType)
