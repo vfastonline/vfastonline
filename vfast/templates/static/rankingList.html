@@ -319,13 +319,13 @@
             <h5>得分排行榜</h5>
             <ul id="rankList">
             </ul>
-            <div>你的<span id="rankList1">本周</span>得分在 <span id="rankList2">11737</span> 名学员中排名第 <span id="rankList3">17510</span></div>
+            <div>你的<span id="rankList1"></span>得分在 <span id="rankList2"></span> 名学员中排名第 <span id="rankList3"></span></div>
         </div>
         <div>
             <h5>声望排行榜</h5>
             <ul id="prestigeList">
             </ul>
-            <div>你的<span id="prestigeList1">本周</span>所得声望在 <span id="prestigeList2">11737</span> 名学员中排名第 <span id="prestigeList3">17510</span></div>
+            <div>你的<span id="prestigeList1"></span>所得声望在 <span id="prestigeList2"></span> 名学员中排名第 <span id="prestigeList3"></span></div>
         </div>
     </section>
     <div class="slideDIV" style="height:150px;"></div>
@@ -355,12 +355,20 @@
         var order = $(".sort_TypeList .s_select").attr("about");
         $.get("/community/rankdata?tech_id="+type+"&range_time="+order,function(data){
             console.log(data);
-            $("#rankList1").html();
-            $("#rankList2").html();
-            $("#rankList3").html();
-            $("#prestigeList1").html();
-            $("#prestigeList2").html();
-            $("#prestigeList3").html();
+            if(order == "week"){
+                $("#rankList1").html("本周");
+                $("#prestigeList1").html("本周");
+            }else if (order == "month"){
+                $("#rankList1").html("本月");
+                $("#prestigeList1").html("本月");
+            }else{
+                $("#rankList1").html("有史以来");
+                $("#prestigeList1").html("有史以来");
+            }
+            $("#rankList2").html(data.sl);
+            $("#rankList3").html(data.sp);
+            $("#prestigeList2").html(data.rl);
+            $("#prestigeList3").html(data.rp);
             var scoresArr = data.scores;
             var repasArr = data.repas;
             for(var i = 0 ; i<scoresArr.length;i++){
