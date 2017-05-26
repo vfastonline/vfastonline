@@ -455,7 +455,7 @@ def question_select(request):
             questions = tmp
         print questions
         result = []
-        current_lines = pages(questions, page, lines=2)
+        current_lines = pages(questions, page, lines=20)
         if len(current_lines) == 0:
             return HttpResponse(json.dumps({'code': 0, 'msg': 'empty page'}, ensure_ascii=False))
         for item in current_lines:
