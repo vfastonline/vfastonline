@@ -502,17 +502,18 @@ def rank_data(request):
             result = last_seven_day()
             condition = "createtime in (%s)" % ','.join(result)
         elif range_time == "month":
-            condition = "createtime like %s%%" % (time.strftime('%Y-%m'))
+            condition = "createtime like '%s%%'" % (time.strftime('%Y-%m'))
         else:
             condition = "1"
         if tech_id == '0':
             rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where '%s' group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % condition
-            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where  '%s' group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % condition
+            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where '%s' group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % condition
         else:
             rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where tech_id = %s and %s group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % (
                 tech_id, condition)
             rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where technology_id=%s and '%s' group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % (
                 tech_id, condition)
+        print rank_repa_sql
         rank_repa_ret = dictfetchall(rank_repa_sql)
         rank_score_ret = dictfetchall(rank_score_sql)
         rank_repas, rp = rank_front(rank_repa_ret, userid=userid)
