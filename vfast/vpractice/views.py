@@ -455,7 +455,7 @@ def question_select(request):
             questions = tmp
         print questions
         result = []
-        current_lines = pages(questions, page, lines=2)
+        current_lines = pages(questions, page, lines=20)
         if len(current_lines) == 0:
             return HttpResponse(json.dumps({'code': 0, 'msg': 'empty page'}, ensure_ascii=False))
         for item in current_lines:
@@ -511,14 +511,14 @@ def rank_data(request):
         else:
             rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where tech_id = %s and %s group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % (
                 tech_id, condition)
-            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where technology_id=%s and '%s' group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % (
+            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where technology_id=%s and %s group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % (
                 tech_id, condition)
         print rank_repa_sql
         rank_repa_ret = dictfetchall(rank_repa_sql)
         rank_score_ret = dictfetchall(rank_score_sql)
         rank_repas, rp = rank_front(rank_repa_ret, userid=userid)
         rank_scores, sp = rank_front(rank_score_ret, userid=userid)
-        print rp, sp , len(rank_repa_ret), len(rank_score_ret)
+        # print rp, sp , len(rank_repa_ret), len(rank_score_ret)
         return HttpResponse(json.dumps(
             {'repas': rank_repas, 'scores': rank_scores, 'rp': rp, 'sp': sp, 'rl': len(rank_repa_ret),
              'sl': len(rank_score_ret)}, ensure_ascii=False))
