@@ -3,19 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <link rel="stylesheet" type="text/css" href="css/sweet-alert.css"/>
 </head>
 <body>
 
-<script src='//player.polyv.net/script/polyvplayer.min.js'></script>
-<div id='plv_04020db9ffef34d740999a4b49ffa461_0'></div>
+<button onclick="asd()">爱仕达</button>
+
 <script>
-var player = polyvObject('#plv_04020db9ffef34d740999a4b49ffa461_0').videoPlayer({
-    'width':'800',
-  'height':'600',
-    'vid' : '04020db9ffef34d740999a4b49ffa461_0'
-});
+    function asd(){
+        swal({
+            title: "注册成功！",
+            text: "恭喜您成功注册智量酷，请开始您的IT之旅吧~",
+            type: "success",
+            //showCancelButton: true,
+            // confirmButtonColor: "#DD6B55",
+            confirmButtonColor: "#4DB6AC",
+            confirmButtonText: "GO~",
+            showCancelButton: false,
+            // cancelButtonColor: "#4DB6AC",
+            // cancelButtonText: "完成",
+            closeOnConfirm: false
+        },
+        function(){
+            window.location.reload(true);
+        });
+    }
 </script>
 
+<script src="js/sweet-alert.js"></script>
 </body>
 </html>

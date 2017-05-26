@@ -22,7 +22,6 @@
         timer: null
       };
 
-
   /*
    * Manipulate DOM
    */
