@@ -468,11 +468,10 @@
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
         var tops = $(document).scrollTop(); //获取滚动条的位置
-        var sctop = $(document).height()-$(window).height();
-        if(tops == sctop){
+        var sctop = $(document).height()-$(window).height()-5;
+        if(tops >= sctop){
             if(loading){
                 loading = false;
-                console.log(load_index);
                 load_qa_data();
             }
         }

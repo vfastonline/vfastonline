@@ -362,7 +362,6 @@
         var type = $(".search_TypeList .t_select").attr("about");
         var order = $(".sort_TypeList .s_select").attr("about");
         $.get("/community/rankdata?tech_id="+type+"&range_time="+order,function(data){
-            console.log(data);
             if(order == "week"){
                 $("#rankList1").html("本周");
                 $("#prestigeList1").html("本周");
