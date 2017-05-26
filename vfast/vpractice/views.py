@@ -34,7 +34,6 @@ def add_question(request):
             vid = request.POST.get('vid')
             video = Video.objects.get(id=vid)
             email_status = request.POST.get('email')
-            ###print title, desc, video.name, email_status
             try:
                 ques = Question.objects.create(title=title, desc=desc, user=user, video=video, createtime=createtime,
                                                email_status=email_status, like=0, dislike=0, status=0, add_repatation=0,
@@ -59,7 +58,6 @@ def add_repatation_for_question(request):
         except KeyError:
             return HttpResponse(json.dumps({'code': 1, 'msg': u'用户未登录'}, ensure_ascii=False))
         user_sum_repatation = Repatation.objects.filter(id=uid).aggregate(sum_repa=Sum('repa_grade'))
-        print user_sum_repatation
         if user_sum_repatation['sum_repa'] > repa:
             question = Question.objects.get(id=qid)
             question.add_repatation = repa
@@ -112,8 +110,6 @@ def show_question(request):
                     replay['status'] = 'dislike'
                 else:
                     pass
-        # print replays
-        # #print attention, qcomment, replays
         # qcomment 用户是否对问题点赞, question 问题对象, relays 回复, attention 是否关注问题
         return render(request, 'detailsQA.html',
                       {'question': question, 'replays': replays, 'qcomment': qcomment, 'attention': attention})
@@ -159,7 +155,6 @@ def qr_comment(request):
         status = int(status)
         repatype = 2  # 声望获取类型    2 问题相关
         createtime = time.strftime('%Y-%m-%d %H:%M:%S')
-        # print status
         try:
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
@@ -223,7 +218,6 @@ def update_comment(request):
         status = int(status)
         repatype = 2  # 声望获取途径, 2 问题相关
         createtime = time.strftime('%Y-%m-%d %H:%M:%S')
-        # print status
         try:
             uid = request.session['user']['id']
         except:
@@ -306,7 +300,6 @@ def question_detail(request):
     try:
         qid = request.GET.get('qid')
         question = Question.objects.filter(id=qid).values()[0]
-        # print question
         return HttpResponse(json.dumps({'question': question}))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -317,7 +310,6 @@ def replay_detail(request):
     try:
         rid = request.GET.get('rid')
         replay = Replay.objects.filter(id=rid).values()[0]
-        # print replay
         return HttpResponse(json.dumps({'replay': replay}))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -341,7 +333,6 @@ def update_replay(request):
         rid = request.POST.get('rid')
         content = request.POST.get('content')
         now = time.strftime('%Y-%m-%d %H:%M:%S')
-        # print rid, content
         Replay.objects.filter(id=rid).update(content=content, createtime=now)
         return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑回复成功'}))
     except:
@@ -376,7 +367,6 @@ def best_replay(request):
             uid = request.session['user']['id']
         except:
             return HttpResponse(json.dumps({'code': 1, 'msg': '用户未登录'}, ensure_ascii=False))
-        # print replay_obj.id, question_obj.id
         if question_obj.status == 1:
             return HttpResponse(json.dumps({'code': 0, 'msg': u'你已经选择了一个最佳答案'}, ensure_ascii=False))
         else:
@@ -421,8 +411,6 @@ def question_select(request):
         page = request.GET.get('page', 1)
         type_id = request.GET.get('type', 0)
         order = request.GET.get('order')
-        techs = Technology.objects.all()
-        print type_id, order
         try:
             userid = request.session['user']['id']
         except:
@@ -453,7 +441,6 @@ def question_select(request):
                 if question.id in q:
                     tmp.append(question)
             questions = tmp
-        print questions
         result = []
         current_lines = pages(questions, page, lines=20)
         if len(current_lines) == 0:
@@ -481,7 +468,6 @@ def question_select(request):
 def rank_list(request):
     try:
         techs = Technology.objects.all()
-        print last_seven_day()
         return render(request, 'rankingList.html', {'techs': techs})
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -497,7 +483,6 @@ def rank_data(request):
             userid = request.session['user']['id']
         except ValueError:
             return HttpResponse(json.dumps({'code': 0, 'msg': u'未登录用户'}, ensure_ascii=False))
-        # print tech_id, range_time
         if range_time == 'week':
             result = last_seven_day()
             condition = "createtime in (%s)" % ','.join(result)
@@ -513,12 +498,12 @@ def rank_data(request):
                 tech_id, condition)
             rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where technology_id=%s and %s group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % (
                 tech_id, condition)
-        print rank_repa_sql
+        logging.getLogger().debug('rank_repa_sql  start')
         rank_repa_ret = dictfetchall(rank_repa_sql)
+        logging.getLogger().debug('rank_repa_sql stop')
         rank_score_ret = dictfetchall(rank_score_sql)
         rank_repas, rp = rank_front(rank_repa_ret, userid=userid)
         rank_scores, sp = rank_front(rank_score_ret, userid=userid)
-        # print rp, sp , len(rank_repa_ret), len(rank_score_ret)
         return HttpResponse(json.dumps(
             {'repas': rank_repas, 'scores': rank_scores, 'rp': rp, 'sp': sp, 'rl': len(rank_repa_ret),
              'sl': len(rank_score_ret)}, ensure_ascii=False))

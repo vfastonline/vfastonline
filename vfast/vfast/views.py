@@ -40,7 +40,6 @@ def logout(request):
 def index(request):
     try:
         from vfast.api import sendmessage
-        # sendmessage('18612972023',{'code':'3452'})
         if request.session.get('user'):
             return HttpResponseRedirect('/u/%s' % request.session['user']['id'])
         else:
@@ -55,14 +54,11 @@ def search_course(request):
         key_words = request.GET.get('query')
         key_words = key_words.replace('+', '').strip()
         vps = Technology.objects.all()
-        #print  key_words
         if len(key_words) == '':
             courses = Course.objects.filter()
         else:
             courses = Course.objects.filter(Q(tag__contains=key_words) | Q(name__contains=key_words))
         tech = request.GET.get('type', None)
-        #print courses
-        #print tech
         if tech:
             tech_obj = Technology.objects.get(name=tech)
             courses = [course for course in courses if course.tech_id == tech_obj.id]
@@ -76,7 +72,6 @@ def search_course(request):
             return render(request, 'search_Result.html',
                           {'results': courses, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'key_words': key_words})
         else:
-            #print 'hahaha'
             return render(request, 'search_Result.html', {'key_words':key_words, 'vps':vps, 'results':False})
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -283,8 +278,6 @@ def upload(request):
 
     else:
         result['state'] = 'request URL error'
-
-    # #print result
     result = json.dumps(result)
     if 'callback' in request.GET:
         callback = request.args.get('callback')
