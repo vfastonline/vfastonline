@@ -506,8 +506,8 @@ def rank_data(request):
         else:
             condition = "1"
         if tech_id == '0':
-            rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where '%s' group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % condition
-            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where '%s' group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % condition
+            rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where %s group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % condition
+            rank_score_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score where %s group by user_id ) as vv on vu.id=vv.user_id order by score desc;" % condition
         else:
             rank_repa_sql = "select vu.id, ifnull(vr.repatation,0) as repatation, vu.headimg, vu.nickname from vuser_user as vu left join (select sum(repa_grade) as repatation, user_id from vpractice_repatation where tech_id = %s and %s group by user_id) as vr on vu.id=vr.user_id order by repatation desc" % (
                 tech_id, condition)
