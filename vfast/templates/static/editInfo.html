@@ -123,6 +123,7 @@
             border: none;
             margin: 0;
             opacity: 0;
+            display: none;
         }
         .info_1_head_2>input:hover{
             cursor:pointer;
@@ -332,7 +333,7 @@
                 </div>
                 <div class="info_1_head_2">
                     <div>
-                        <div>更换图片</div>
+                        <div onclick="$('#headimg').click()">更换图片</div>
                         <input name="headimg" id="headimg" type="file">
                     </div>
                     <div onclick="resetHP()">恢复预设</div>
