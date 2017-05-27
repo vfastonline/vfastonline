@@ -2,11 +2,10 @@
 from vcourse.models import Course
 from django.shortcuts import render
 from vcourse.models import Technology
-from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from vcourse.models import Video
 from vpractice.models import Timu
-from vfast.api import dictfetchall, time_comp_now
+from vfast.api import dictfetchall, time_comp_now, require_login
 from django.conf import settings
 from django.db.models import Q
 
@@ -18,13 +17,8 @@ import re
 from uploader import Uploader
 
 
-# @require_login()
-# @require_role(role=1)
+@require_login()
 def test(request):
-    #print 'test'
-    # course = connection.cursor()
-    # course.execute('select * from vcourse_video')
-    # a = dictfetchall(cursor=course)
     return render(request, "rankingList.html")
 
 
@@ -46,7 +40,7 @@ def index(request):
             return render(request, 'index.html')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def search_course(request):
@@ -85,7 +79,7 @@ def search_js(request):
         return HttpResponse(json.dumps({'name': cnames}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def playVideo(request, params):

@@ -113,7 +113,7 @@ def record_video(request):
                 return HttpResponse(json.dumps({'code': 0, 'b_flag': False, 'l_flag': False}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': traceback.format_exc()}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def get_score_seven_day(request):
@@ -136,7 +136,7 @@ def get_score_seven_day(request):
         return HttpResponse(json.dumps({'weekscore': seven_day}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(' error')
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def get_score_thirty_day(request):
@@ -157,4 +157,4 @@ def get_score_thirty_day(request):
         return HttpResponse(json.dumps(result, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

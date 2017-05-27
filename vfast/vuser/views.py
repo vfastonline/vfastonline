@@ -48,7 +48,7 @@ def userexists(request):
             return render(request, 'du/usertest.html')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(u'服务器错误')
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def register(request):
@@ -89,7 +89,7 @@ def register(request):
                 return HttpResponse(json.dumps({'code': 1, 'msg': u'数据库错误'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def phone_code(request):
@@ -112,7 +112,7 @@ def phone_code(request):
                 return HttpResponse(json.dumps({'code': 1, 'msg': u'注册短信验证码发送失败'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 2, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def reset_password(request):
@@ -126,7 +126,7 @@ def reset_password(request):
             return HttpResponse(json.dumps({'code': 0}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def login(request):
@@ -161,7 +161,7 @@ def login(request):
                     return HttpResponse(json.dumps({'code': 3, 'msg': u'密码错误'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 4, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def userdetail(request):
@@ -266,7 +266,7 @@ def dashboard(request, param):
                            'tasks': tasks, 'flag': flag})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(u'页面错误' + traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def task_daily(user):
@@ -350,7 +350,7 @@ def follow_people(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': 'follow_people interface normal'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def user_model(request):
@@ -371,7 +371,7 @@ def user_model(request):
             json.dumps({'user': user, 'badge': badge_num, 'tech_score': tech_score, 'guanzhu': p2p_status}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def person_page(request):
@@ -393,7 +393,7 @@ def person_page(request):
                        'totaltime': sum_watch_video_time['totaltime']})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def editpage(request):
@@ -407,7 +407,7 @@ def editpage(request):
             return HttpResponse(u'请求错误')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def is_open(request):
@@ -423,7 +423,7 @@ def is_open(request):
         return HttpResponse('is_open update successful')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def change_headimg(request):
@@ -451,7 +451,7 @@ def change_headimg(request):
         return HttpResponse('get method ok')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def default_headimg(request):
@@ -467,7 +467,7 @@ def default_headimg(request):
             return HttpResponse('Please use post method')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def github(request):
@@ -490,7 +490,7 @@ def github(request):
             return HttpResponse('method error!')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def personpage(request):
@@ -503,7 +503,7 @@ def personpage(request):
             return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def user_phone(request):
@@ -516,7 +516,7 @@ def user_phone(request):
             return HttpResponse(json.dumps({'code': 0}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def nikcname(request):
@@ -532,7 +532,7 @@ def nikcname(request):
                 return HttpResponse(json.dumps({'code': 1, 'msg': u'昵称重复'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def editelse(request):
@@ -554,10 +554,10 @@ def editelse(request):
                                                expect_job=expect_job, expect_level=expect_level,
                                                current_company=current_company,
                                                company_gangwei=company_gangwei)
-            return HttpResponse('ok')
+            return HttpResponse(json.dumps({'code':0, 'msg':'successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def userimage(request):
@@ -571,4 +571,4 @@ def userimage(request):
                 return HttpResponse(json.dumps({'code': 1, 'msg': 'disapper'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 2, 'msg': 'error'}))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
