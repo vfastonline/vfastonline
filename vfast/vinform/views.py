@@ -38,7 +38,7 @@ def create_info_user(request):
         return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': 'failed'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def getinfo(request):
@@ -63,7 +63,7 @@ def getinfo(request):
             return HttpResponse(json.dumps(informations, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': traceback.format_exc()}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def del_all_info_user(request):
@@ -79,7 +79,7 @@ def del_all_info_user(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': 'delete all inform successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': 'delete all inform failed'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def del_info_user(request):
@@ -96,4 +96,4 @@ def del_info_user(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': 'delete inform successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': 'delete all inform failed'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

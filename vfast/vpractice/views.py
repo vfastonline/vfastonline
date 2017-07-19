@@ -7,7 +7,7 @@ from vpractice.models import Question, QRcomment, Replay, Attention, Repatation,
 from django.db.models import Q, F, Sum
 from vinform.models import Inform, InformType
 from django.conf import settings
-from vfast.api import pages, dictfetchall, last_seven_day
+from vfast.api import pages, dictfetchall, last_seven_day, require_login
 from vcourse.models import Technology
 from vfast.templatetags.mytags import time_comp_now
 from vpractice.api import rank_front
@@ -19,6 +19,7 @@ import json
 
 
 # Create your views here.
+@require_login()
 def add_question(request):
     """添加问题"""
     try:
@@ -44,35 +45,46 @@ def add_question(request):
                 return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+@require_login()
 def add_repatation_for_question(request):
     """用户追加悬赏分数"""
     try:
-        qid = request.GET.get('qid')
-        repa = request.GET.get('repa')
-        try:
+        if request.method == "POST":
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-        except KeyError:
-            return HttpResponse(json.dumps({'code': 1, 'msg': u'用户未登录'}, ensure_ascii=False))
-        user_sum_repatation = Repatation.objects.filter(id=uid).aggregate(sum_repa=Sum('repa_grade'))
-        if user_sum_repatation['sum_repa'] > repa:
+            qid = request.POST.get('qid')
+            repa = request.POST.get('repa')
             question = Question.objects.get(id=qid)
-            question.add_repatation = repa
-            question.add_repatation_user = uid
-            question.add_repatation_username = user.nickname
-            tech_id = question.video.course.tech_id
-            createtime = time.strftime('%Y-%-%d %H:%M:%S')
-            Repatation.objects.create(user=user, tech_id=tech_id, createtime=createtime, repa_grade=-repa, repatype=2)
-            question.save()
-            return HttpResponse(json.dumps({'code': 0, 'msg': '悬赏追加成功'}, ensure_ascii=False))
+            if question.add_repatation > 20:
+                return HttpResponse(json.dumps({'code': 1, 'msg': u'悬赏分数超过20分'}, ensure_ascii=False))
+            user_sum_repatation = Repatation.objects.filter(id=uid).aggregate(sum_repa=Sum('repa_grade'))
+            if user_sum_repatation['sum_repa'] > repa:
+                question = Question.objects.get(id=qid)
+                question.add_repatation = repa
+                question.add_repatation_user = uid
+                question.add_repatation_username = user.nickname
+                tech_id = question.video.course.tech_id
+                createtime = time.strftime('%Y-%-%d %H:%M:%S')
+                Repatation.objects.create(user=user, tech_id=tech_id, createtime=createtime, repa_grade=-repa,
+                                          repatype=2)
+                question.save()
+                return HttpResponse(json.dumps({'code': 0, 'msg': '悬赏追加成功'}, ensure_ascii=False))
+            else:
+                return HttpResponse(json.dumps({'code': 0, 'msg': u'您的声望不够,请提升您的声望'}, ensure_ascii=False))
         else:
-            return HttpResponse(json.dumps({'code': 0, 'msg': u'您的声望不够,请提升您的声望'}, ensure_ascii=False))
+            uid = request.session['user']['id']
+            qid = request.GET.get('qid')
+            user_sum_repatation = Repatation.objects.filter(id=uid).aggregate(sum_repa=Sum('repa_grade'))
+            question = Question.objects.get(id=qid)
+            question_repa = question.default_repatation + question.add_repatation
+            return HttpResponse(
+                json.dumps({'user_repa': user_sum_repatation, 'ques_repa': question_repa}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def show_question(request):
@@ -115,7 +127,7 @@ def show_question(request):
                       {'question': question, 'replays': replays, 'qcomment': qcomment, 'attention': attention})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def add_replay(request):
@@ -206,7 +218,7 @@ def qr_comment(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': '回复你已经评论过'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def update_comment(request):
@@ -270,7 +282,7 @@ def update_comment(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': 'ok'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def attention_question(request):
@@ -293,7 +305,7 @@ def attention_question(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': 'attention_question , interface right'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def question_detail(request):
@@ -303,7 +315,7 @@ def question_detail(request):
         return HttpResponse(json.dumps({'question': question}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def replay_detail(request):
@@ -313,7 +325,7 @@ def replay_detail(request):
         return HttpResponse(json.dumps({'replay': replay}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def update_question(request):
@@ -325,7 +337,7 @@ def update_question(request):
         return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑问题成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def update_replay(request):
@@ -337,7 +349,7 @@ def update_replay(request):
         return HttpResponse(json.dumps({'code': 0, 'msg': u'编辑回复成功'}))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def question_offer(request):
@@ -354,7 +366,7 @@ def question_offer(request):
         return HttpResponse(json.dumps({'code': 0, 'msg': u'追加悬赏成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def best_replay(request):
@@ -387,7 +399,7 @@ def best_replay(request):
             return HttpResponse(json.dumps({'code': 0, 'msg': u'选择最佳答案成功'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def replays(question_id):
@@ -402,7 +414,7 @@ def question_list(request):
         return render(request, 'Community.html', {'techs': techs})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def question_select(request):
@@ -462,7 +474,7 @@ def question_select(request):
         return HttpResponse(json.dumps(result, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': traceback.format_exc()}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def rank_list(request):
@@ -471,7 +483,7 @@ def rank_list(request):
         return render(request, 'rankingList.html', {'techs': techs})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def rank_data(request):
@@ -509,4 +521,4 @@ def rank_data(request):
              'sl': len(rank_score_ret)}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': traceback.format_exc()}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

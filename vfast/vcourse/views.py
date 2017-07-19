@@ -47,7 +47,7 @@ def getpath(request):
                       {'path': path, 'path_id': path_id, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def getcourses(request):
@@ -68,7 +68,7 @@ def getcourses(request):
                        'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def getpaths(request):
@@ -78,7 +78,7 @@ def getpaths(request):
         return render(request, 'learning_path.html', {'paths': paths})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 @require_login()
@@ -110,7 +110,7 @@ def join_path(request):
             return HttpResponseRedirect(url)
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1, 'msg': u'服务器错误'}, ensure_ascii=False))
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def course_detail(request):

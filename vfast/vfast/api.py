@@ -104,6 +104,7 @@ def get_id_name(model, **kwargs):
     result = model.objects.filter(**kwargs).values('id', 'name')
     return result
 
+
 def require_role(role=2):
     def _deco(func):
         def __deco(request, *args, **kwargs):
@@ -123,7 +124,7 @@ def require_login():
         def __deco(request, *args, **kwargs):
             request.session['pre_url'] = request.path
             if not request.session.get('login', None):
-                return HttpResponseRedirect(reverse('login'))
+                return HttpResponse(json.dumps({'code': 1, 'msg': u'用户未登录'}, ensure_ascii=False))
             return func(request, *args, **kwargs)
         return __deco
     return _deco
@@ -162,7 +163,7 @@ def dictfetchall(sql):
     return [
         dict(zip([col[0] for col in desc], row))
         for row in cursor.fetchall()
-    ]
+        ]
 
 
 def get_day_of_day(n=0):
@@ -196,7 +197,7 @@ def sendmail(rcpt, subject, content):
         if smtp is not None:
             smtp.login(smtp_user, smtp_pass)
 
-        msg = MIMEText(content,_subtype='plain',_charset='utf-8')
+        msg = MIMEText(content, _subtype='plain', _charset='utf-8')
         msg['From'] = smtp_user
         msg['To'] = ','.join(rcpt)
         msg['Subject'] = Header(subject, 'utf-8')
@@ -210,7 +211,9 @@ def sendmail(rcpt, subject, content):
 
 
 import top.api
-def sendmessage(phone,sms_param):
+
+
+def sendmessage(phone, sms_param):
     req = top.api.AlibabaAliqinFcSmsNumSendRequest()
     req.set_app_info(top.appinfo(appkey='23764268', secret='00181054a64e2d9eb69711912d7a372a'))
     req.extend = ""
@@ -223,7 +226,8 @@ def sendmessage(phone,sms_param):
     try:
         resp = req.getResponse()
         logging.getLogger().info(resp)
-        logging.getLogger().info(u'短信发送成功, phone:%s, sms_free_sign_name:%s, sms_template_code:%s 状态%s' % (req.rec_num, req.sms_free_sign_name, req.sms_template_code, resp['alibaba_aliqin_fc_sms_num_send_response']))
+        logging.getLogger().info(u'短信发送成功, phone:%s, sms_free_sign_name:%s, sms_template_code:%s 状态%s' % (
+        req.rec_num, req.sms_free_sign_name, req.sms_template_code, resp['alibaba_aliqin_fc_sms_num_send_response']))
         return True
     except Exception, e:
         logging.getLogger().error(e)
@@ -243,7 +247,7 @@ def pages(post_objects, page, lines=20):
 
 def last_seven_day():
     result = []
-    for num in range(-7,1):
+    for num in range(-7, 1):
         d = get_day_of_day(num)
         result.append(d.strftime('%Y-%m-%d'))
     return result
