@@ -439,7 +439,7 @@ def change_headimg(request):
                 os.mkdir(destination)
             # print destination
             user = User.objects.get(id=uid)
-            filename = str(user.id) + '_' + '.jpg'
+            filename = str(user.id) + '_' + int(time.time()) + '.jpg'
             headfile = open(os.path.join(destination, filename), 'wb')
             for chunk in headimg.chunks():
                 headfile.write(chunk)
@@ -554,7 +554,7 @@ def editelse(request):
                                                expect_job=expect_job, expect_level=expect_level,
                                                current_company=current_company,
                                                company_gangwei=company_gangwei)
-            return HttpResponse(json.dumps({'code':0, 'msg':'successfully'}))
+            return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
