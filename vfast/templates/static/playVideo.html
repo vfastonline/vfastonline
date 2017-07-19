@@ -14,7 +14,7 @@
     <style>
         .video_div{
             width: 1200px;
-            height: 680px;
+            height: 450px;
             margin: 0 auto;
             position: relative;
         }
@@ -582,7 +582,7 @@
         }
         .video_div .medal_div{
             width: 1200px;
-            height: 680px;
+            height: 450px;
             position: absolute;
             top: 0;
             left: 0;
@@ -596,6 +596,7 @@
             font-size: 20px;
             color: #7A88A1;
             position: relative;
+            opacity: 0;
         }
         .video_div .medal_div>h2{
             text-align: center;
@@ -603,6 +604,7 @@
             font-size: 32px;
             color: #FFFFFF;
             position: relative;
+            opacity: 0;
         }
         .video_div .medal_div>.medal_badge{
             margin-top: 20px;
@@ -685,6 +687,7 @@
             }
             100%{
                 top:0px;
+                opacity: 1;
             }
         }
         @keyframes medal_div_shouji_animation {
@@ -827,7 +830,7 @@
 <div class="slideDIV" style="height: 130px;"></div>
 <div style="height: 50px;"></div>
 <div class="video_div">
-    <video ondblclick="video_FullScreen()" onplay="faceStart()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="680"
+    <video ondblclick="video_FullScreen()" onplay="faceStart()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="450"
            data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/wmv" />
@@ -1138,7 +1141,7 @@
 //        重置积分详情
         example_video_1.style.zIndex = "1";
         charts_container_div.style.opacity = 0;
-        charts_container_div.style.top = "100px";
+        charts_container_div.style.top = "80px";
         charts_container.style.opacity = 0;
         charts_container.style.zIndex = -1;
         video_div1.style.display = "block";
@@ -1258,7 +1261,7 @@
             }else{
     //            积分详情
                 charts_container_div.style.opacity = 1;
-                charts_container_div.style.top = "70px";
+                charts_container_div.style.top = "20px";
                 charts_container.style.opacity = 1;
                 charts_container.style.zIndex = 1;
                 charts_container_div_1.style.animation = "charts_container_div_1_animation 1.2s";

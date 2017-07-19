@@ -225,6 +225,7 @@ function check_name(str){
     }
 }
 function reg_submit(){
+    $("#reg_submit").removeAttr("onclick");
     var nickname = $("#nickname").val();
     var phone = $("#phone").val();
     var password = $("#password").val();
@@ -259,6 +260,7 @@ function reg_submit(){
                 });
             }else{
                 swal("错误！", "注册失败！", "warning");
+                $("#reg_submit").attr("onclick","reg_submit()");
             }
         }
     };
@@ -270,7 +272,7 @@ function reg_submit(){
             "learn_habit="+learn_habit+"&" +
             "comp_use_time_day="+comp_use_time_day+"&" +
             "sex="+sex;
-    xmlhttp.send(str);
+    // xmlhttp.send(str);
 }
 function login(){
     var phone = $("#phone").val().trim();

@@ -671,7 +671,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     box-shadow: 0 2px 1px rgba(0,0,0,0.5);
     position: fixed;
     width: 100%;
-    z-index: 2000;
+    z-index: 1049;
 }
 .navbar1{
     height: 70px;
@@ -835,6 +835,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 .footer_curr{
     min-width: 1200px;
     margin-top: 40px;
+    padding: 40px;
 }
 .footer_curr .container{
     border-top: 2px solid #E0E0E0;

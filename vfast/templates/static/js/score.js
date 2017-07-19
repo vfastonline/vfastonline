@@ -19,7 +19,7 @@
     // TODO code duplication check how you can avoid that
     var containerEl = document.getElementById( elementId ),
         width       = 900,
-        height      = 400,
+        height      = 250,
         margin      = {
             top    : 50,
             right  : 10,
@@ -43,7 +43,7 @@
         //                          .ticks( 16 )
         //                          .tickSize( -height )
         //                          .tickFormat( '' ),
-        y          = d3.scale.linear().range( [ height, 0 ] ),
+        y          = d3.scale.linear().range( [ height, 20 ] ),
         yAxisTicks = d3.svg.axis().scale( y )
                                   .ticks( 5 )
                                   .tickSize( width )

@@ -3,13 +3,13 @@
     height:60px;
     background: black;
     -webkit-filter: blur(20px);
-    position: absolute;top: 290px;left: 565px;
+    position: absolute;top: 190px;left: 565px;
     z-index: 1;
     border-radius: 30px;
     display: none;
 }
 .video_bofang{
-    position: absolute;top: 300px;left: 580px;
+    position: absolute;top: 200px;left: 580px;
     z-index: 1;
     display: none;
 }
