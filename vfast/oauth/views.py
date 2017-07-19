@@ -2,15 +2,17 @@
 from vuser.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
+from django.conf import settings
 import urllib
 import json
 import logging
 import traceback
 
-GITHUB_AUTHORIZE_URL = 'https://github.com/login/oauth/authorize'
-GITHUB_CLIENTID = 'b758723e0c76d63dc514'
-GITHUB_CLIENTSECRET = '529eeba7bafd22682ca91e6bfffd49ebf2383076'
-GITHUB_CALLBACK = 'http://127.0.0.1/github_auth'
+
+GITHUB_AUTHORIZE_URL = settings.GITHUB_AUTHORIZE_URL
+GITHUB_CLIENTID = settings.GITHUB_CLIENTID
+GITHUB_CLIENTSECRET = settings.GITHUB_CLIENTSECRET
+GITHUB_CALLBACK = settings.GITHUB_CALLBACK
 
 
 # Create your views here.

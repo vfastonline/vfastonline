@@ -41,6 +41,13 @@ EMAIL_TIMEOUT = 5
 # host
 HOST = config.get('host', 'host')
 
+#callback_url
+GITHUB_CALLBACK = config.get('callback', 'GITHUB_CALLBACK')
+GITHUB_CLIENTID = config.get('callback', 'GITHUB_CLIENTID')
+GITHUB_CLIENTSECRET = config.get('callback', 'GITHUB_CLIENTSECRET')
+GITHUB_AUTHORIZE_URL = config.get('callback', 'GITHUB_AUTHORIZE_URL')
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -48,9 +55,9 @@ HOST = config.get('host', 'host')
 SECRET_KEY = '+ysv^a@qqp+@)ajj=cve@o9o!1^lmrb0-2_a)8utou6ngct9)&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
