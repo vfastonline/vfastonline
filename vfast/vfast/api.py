@@ -115,9 +115,7 @@ def require_role(role=2):
             except TypeError:
                 HttpResponseRedirect(reverse('login'))
             return func(request, *args, **kwargs)
-
         return __deco
-
     return _deco
 
 
