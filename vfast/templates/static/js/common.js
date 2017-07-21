@@ -272,7 +272,7 @@ function reg_submit(){
             "learn_habit="+learn_habit+"&" +
             "comp_use_time_day="+comp_use_time_day+"&" +
             "sex="+sex;
-    // xmlhttp.send(str);
+    xmlhttp.send(str);
 }
 function login(){
     var phone = $("#phone").val().trim();

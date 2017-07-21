@@ -13,7 +13,7 @@
         }
         .course_head{
             width: 1200px;
-            height: 372px;
+            height: 418px;
             margin: 0 auto;
             position: relative;
             top: 80px;
@@ -54,7 +54,7 @@
         /*video 设置*/
         .course_desc{
             position: absolute;
-            height:372px;
+            height:100%;
             top:0;
             right: 0;
             width:38%;
@@ -282,7 +282,7 @@
     <div class="course_head_BG">
         <h1>课程</h1>
         <section id="course_head" class="course_head">
-            <video ondblclick="video_FullScreen()" poster="" preload="auto" onended="video_ended()" onclick="video_Pause()" id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="62%" height="372"
+            <video ondblclick="video_FullScreen()" poster="" preload="auto" onended="video_ended()" onclick="video_Pause()" id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="62%" height="100%"
                    data-setup='{"example_option":true}'>
                 <source id="video_source" src="{{ course.intrv.url }}" type="video/mp4" />
             </video>

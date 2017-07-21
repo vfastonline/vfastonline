@@ -769,6 +769,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 .navLeft a{
     color: #8C96A5;
     text-decoration: none;
+    cursor: pointer;
 }
 .navLeft_a{
     display: block;
@@ -850,15 +851,20 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 .footer_curr .container div:first-child{
     width:20%;
 }
+.footer_curr .container div:first-child>div{
+    width:100%;
+}
 .footer_curr .container ul{
     width:60%;
 }
 .footer_curr .container ul li{
     margin-right: 20px;
+    margin-top: 10px;
 }
 .footer_curr .container div:last-child{
     width:20%;
     text-align: right;
+    margin-top: 10px;
 }
 .footer_curr a{
     font-size: 14px;
@@ -913,7 +919,58 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 
 .footer_cont .container div:last-child{
     margin-left: 16%;
-    margin-top: 120px;
+    margin-top: 50px;
+}
+.bdshare-button-style1-16 .bds_tsina{
+    background-image: url("/static/svg/weibo.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
+}
+.bdshare-button-style1-16 .bds_weixin{
+    background-image: url("/static/svg/wechat.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
+}
+.bdshare-button-style1-16 .bds_fbook{
+    background-image: url("/static/svg/facebook.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
+}
+.bdshare-button-style1-16 .bds_twi{
+    background-image: url("/static/svg/twitter.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
+}
+.bd_weixin_popup{
+    height:auto!important;
+}
+.bdshare-button-style1-16 .bds_tsina1{
+    background-image: url("/static/svg/weibo1.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
+}
+.bdshare-button-style1-16 .bds_weixin1{
+    background-image: url("/static/svg/wechat1.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
+}
+.bdshare-button-style1-16 .bds_fbook1{
+    background-image: url("/static/svg/facebook1.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
+}
+.bdshare-button-style1-16 .bds_twi1{
+    background-image: url("/static/svg/twitter1.svg");
+    background-position: 0!important;
+    width:24px;
+    height:24px;
 }
 /*footer END*/
 
