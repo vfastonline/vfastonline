@@ -494,3 +494,25 @@ function remind_go(t,url){
     $(t).remove();
     location.href = url;
 }
+function showFeedback(){
+    $("#feedback_dialog").addClass("animated fadeInUp");
+}
+function closeFeedback(){
+    $("#myFeedback_info").click();
+}
+function showFeedbackSend(e,t){
+    if($(t).val().trim() != "" ){
+        $("#feedbackSendSvg").css("visibility","visible");
+    }else{
+        $("#feedbackSendSvg").css("visibility","hidden");
+    }
+}
+$("#feedbackSendSvg").on("click",function(){
+    $.post("/info/create_feedback",$("#feedback_text").val(),function(s,data){
+        console.log(data);
+        if(data.code == 0){
+            swal("发送成功~", "感谢您的宝贵意见，我们将尽快给予您答复~谢谢！", "success");
+            $("#myFeedback_info").click();
+        }
+    },"JSON")
+})
