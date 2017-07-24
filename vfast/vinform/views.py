@@ -1,10 +1,9 @@
 # encoding: utf-8
 from django.shortcuts import render
-from models import Inform, InformTask
+from models import Inform, InformTask, Feedback
 from vuser.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from vfast.api import time_comp_now
-
+from vfast.api import time_comp_now, require_login
 
 import traceback
 import json
@@ -57,7 +56,8 @@ def getinfo(request):
             for item in informs:
                 print item
                 tmp = dict(color=item['color'], desc=item['desc'], type=item['type_id'],
-                           pubtime=time_comp_now(item['pubtime'].strftime('%Y-%m-%d %H:%M:%S')), type_name=item['type__name'],
+                           pubtime=time_comp_now(item['pubtime'].strftime('%Y-%m-%d %H:%M:%S')),
+                           type_name=item['type__name'],
                            url=item['url'], inform_id=item['id'])
                 informations.append(tmp)
             return HttpResponse(json.dumps(informations, ensure_ascii=False))
@@ -97,3 +97,27 @@ def del_info_user(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
+@require_login()
+def create_feedback(request):
+    """接受用户反馈"""
+    try:
+        if request.method == "POST":
+            try:
+                uid = request.session['user']['id']
+                user = User.objects.get(id=uid)
+                description = request.POST.get('description')
+                userip = request.META.get('REMOTE_ADDR')
+                http_user_agent = request.META.get('HTTP_USER_AGENT')
+                create_time = time.strftime('%Y-%m-%d %H:%M:%S')
+                Feedback.objects.create(user=user, description=description, userip=userip, createtime=create_time,
+                                        user_agent=http_user_agent)
+                return HttpResponse(json.dumps({'code':0}))
+            except:
+                logging.getLogger().error(traceback.format_exc())
+                return HttpResponse(json.dumps({'code':1}))
+        else:
+            return HttpResponse(json.dumps({'code':2}))
+    except:
+        return HttpResponse(json.dumps({'code':3}))

@@ -42,3 +42,15 @@ class Inform(models.Model):
 
     def __unicode__(self):
         return self.user.nickname
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User)
+    description = models.TextField(verbose_name='用户反馈内容')
+    createtime = models.CharField(verbose_name='用户反馈时间', max_length=19, null=True, blank=True)
+    userip = models.CharField(verbose_name='用户ip', max_length=15)
+    user_agent = models.TextField()
+
+    def __unicode__(self):
+        return self.user.nickname
+

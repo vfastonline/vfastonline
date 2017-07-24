@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^getinfo$', views.getinfo,),
     url(r'^dall$', views.del_all_info_user),
     url(r'^done$', views.del_info_user,),
+    url(r'^create_feedback$', views.create_feedback),
 ]
