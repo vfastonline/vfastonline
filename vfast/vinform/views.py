@@ -19,7 +19,7 @@ def create_info_user(request):
         today = date.today()
         today_inform = InformTask.objects.filter(pubtime__gt=today)
         uids = User.objects.filter().values('id')
-        print uids, today_inform
+        # print uids, today_inform
         for inform in today_inform:
             informtask = InformTask.objects.get(id=inform.id)
             for uid in uids:
@@ -51,7 +51,7 @@ def getinfo(request):
             informs = Inform.objects.filter(user=user).values('color', 'pubtime', 'desc',
                                                               'type__name', 'type_id', 'url', 'id')
             informations = []
-            print informs
+            # print informs
             for item in informs:
                 # print item
                 tmp = dict(color=item['color'], desc=item['desc'], type=item['type_id'],
@@ -106,7 +106,7 @@ def create_feedback(request):
             try:
                 uid = request.session['user']['id']
                 user = User.objects.get(id=uid)
-                description = request.POST.get('feedback_text')
+                description = request.POST.get('description')
                 userip = request.META.get('REMOTE_ADDR')
                 http_user_agent = request.META.get('HTTP_USER_AGENT')
                 create_time = time.strftime('%Y-%m-%d %H:%M:%S')
