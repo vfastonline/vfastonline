@@ -27,7 +27,6 @@ def create_info_user(request):
                 if informtask.status == 0:
                     Inform.objects.create(user=user, desc=inform.desc, type=informtask.type, pubtime=informtask.pubtime,
                                           url=informtask.url, color=informtask.color)
-
                 else:
                     logging.getLogger().warning('informtask repetition warning')
                     pass
@@ -54,7 +53,7 @@ def getinfo(request):
             informations = []
             print informs
             for item in informs:
-                print item
+                # print item
                 tmp = dict(color=item['color'], desc=item['desc'], type=item['type_id'],
                            pubtime=time_comp_now(item['pubtime'].strftime('%Y-%m-%d %H:%M:%S')),
                            type_name=item['type__name'],
@@ -107,10 +106,11 @@ def create_feedback(request):
             try:
                 uid = request.session['user']['id']
                 user = User.objects.get(id=uid)
-                description = request.POST.get('description')
+                description = request.POST.get('feedback_text')
                 userip = request.META.get('REMOTE_ADDR')
                 http_user_agent = request.META.get('HTTP_USER_AGENT')
                 create_time = time.strftime('%Y-%m-%d %H:%M:%S')
+                print create_time, http_user_agent, description
                 Feedback.objects.create(user=user, description=description, userip=userip, createtime=create_time,
                                         user_agent=http_user_agent)
                 return HttpResponse(json.dumps({'code':0}))
