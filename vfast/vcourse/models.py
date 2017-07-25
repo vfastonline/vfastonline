@@ -53,6 +53,7 @@ class Section(models.Model):
     title = models.CharField('章节标题', max_length=100, default='')
     desc = models.TextField('章节描述', default='')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='所属课程')
+    skill = models.CharField('技能点', max_length=100, default='')
 
     def __unicode__(self):
         return self.title

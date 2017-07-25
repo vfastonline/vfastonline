@@ -1,9 +1,9 @@
 # encoding: utf-8
-from django.shortcuts import render
 from models import Inform, InformTask, Feedback
 from vuser.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from vfast.api import time_comp_now, require_login
+from vfast.api import time_comp_now, require_login, dictfetchall
+from vrecord.api import  track_skill
 
 import traceback
 import json
@@ -11,6 +11,13 @@ import logging
 import time
 from datetime import date
 
+
+def test(request):
+    print 'info test~!'
+
+    user = User.objects.get(id=request.session['user']['id'])
+    track_skill(user)
+    return HttpResponse('ok')
 
 # Create your views here.
 def create_info_user(request):
@@ -121,3 +128,51 @@ def create_feedback(request):
             return HttpResponse(json.dumps({'code':2}))
     except:
         return HttpResponse(json.dumps({'code':3}))
+
+
+def daily_mail(request):
+    try:
+        # yesterday = time.strftime('%Y-%m-%d',time.localtime(time.time() - 24*60*60))
+        yesterday = '2017-07-25'
+        sql = "select pathid, id as user_id from vuser_user where id in (select user_id from vrecord_score where createtime = '%s' group by user_id);" % yesterday
+        sql_result = dictfetchall(sql)
+        for value in sql_result:
+            user = User.objects.get(id=value['user_id'])
+            #用户邮箱不为空, 且正在进行一个学习路线,发送每日邮件
+            if value['pathid'] != 0 and user.email:
+                sql_path = 'select name from vcourse_path where id = %s' % value['pathid']
+                pathname = dictfetchall(sql_path)
+                sql_course = "select vw.createtime, vc.name, vc.id  from vrecord_watchrecord as vw left join  vcourse_course as vc on vw.course_id = vc.id where vw.user_id = %s order by createtime desc limit 1" % value['user_id']
+                sql_course_result = dictfetchall(sql_course)
+                # print sql_course_result
+                path = dict(id=value['pathid'], name = pathname[0]['name'])
+                course = dict(id=sql_course_result[0]['id'], name=sql_course_result[0]['name'])
+                grain_skill, skill = track_skill(user)
+
+                rank_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score group by user_id ) as vv on vu.id=vv.user_id order by score desc;"
+                rank_result= dictfetchall(rank_sql)
+                for user_pos in rank_result:
+                    if user_pos['id'] == value['user_id']:
+                        position = rank_result.index(user_pos)
+                if position == 0:
+                    rank = rank_result[:2]
+                elif position == len(rank_result) - 1:
+                    rank = rank_result[-2:]
+                else:
+                    rank = rank_result[position-1: position+2]
+                for item in rank:
+                    sql_yesterday = "select sum(score) as score from vrecord_score where user_id = %s and createtime='%s';" % (
+                    item['id'], yesterday)
+                    score_yesterday = dictfetchall(sql_yesterday)[0]['score']
+                    item['score_yesterday'] = score_yesterday
+                print rank                    #排行榜   三个
+                print grain_skill, skill      #技能点
+                print path, course,           #路线, 课程
+                print user.nickname           #用户别名
+                print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+                # return rank, grain_skill,skill, path, course, user.nickname
+
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
