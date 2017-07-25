@@ -2,8 +2,9 @@
 from models import Inform, InformTask, Feedback
 from vuser.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from vfast.api import time_comp_now, require_login, dictfetchall
+from vfast.api import time_comp_now, require_login, dictfetchall, sendmail
 from vrecord.api import  track_skill
+from django.template import loader
 
 import traceback
 import json
@@ -170,6 +171,20 @@ def daily_mail(request):
                 print path, course,           #路线, 课程
                 print user.nickname           #用户别名
                 print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+
+                html_content = loader.render_to_string('daily_email.html',
+                                                       {'nickname': user.nickname, 'ranks': rank,
+                                                        'grain_skills': grain_skill, 'skills': skill,
+                                                        'path': path, 'course': course
+                                                        }
+                                                       )
+
+                try:
+                   # sendmail('542429405@qq.com', '我爱你,大鹏', html_content)
+                   sendmail('duminchao@qq.com', '我爱你,大鹏', html_content)
+                   logging.getLogger().info('send mail successfully')
+                except:
+                    logging.getLogger().error('send mail error')
                 # return rank, grain_skill,skill, path, course, user.nickname
 
         return HttpResponse('ok')

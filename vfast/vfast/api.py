@@ -197,7 +197,7 @@ def sendmail(rcpt, subject, content):
         if smtp is not None:
             smtp.login(smtp_user, smtp_pass)
 
-        msg = MIMEText(content, _subtype='plain', _charset='utf-8')
+        msg = MIMEText(content, _subtype='html', _charset='utf-8')
         msg['From'] = smtp_user
         msg['To'] = ','.join(rcpt)
         msg['Subject'] = Header(subject, 'utf-8')
