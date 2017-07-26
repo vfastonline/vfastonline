@@ -25,6 +25,7 @@ def test(request):
 def create_info_user(request):
     """生成用户通知"""
     try:
+        logging.getLogger().info('生成用户通知开始')
         today = date.today()
         today_inform = InformTask.objects.filter(pubtime__gt=today)
         uids = User.objects.filter().values('id')
@@ -42,6 +43,7 @@ def create_info_user(request):
             # 跑完的任务由状态0改为状态1
             informtask.status = 1
             informtask.save()
+        logging.getLogger().info('生成用户通知结束')
         return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -134,8 +136,7 @@ def create_feedback(request):
 
 def daily_mail(request):
     try:
-        # yesterday = time.strftime('%Y-%m-%d',time.localtime(time.time() - 24*60*60))
-        yesterday = '2017-07-25'
+        yesterday = time.strftime('%Y-%m-%d',time.localtime(time.time() - 24*60*60))
         sql = "select pathid, id as user_id from vuser_user where id in (select user_id from vrecord_score where createtime = '%s' group by user_id);" % yesterday
         sql_result = dictfetchall(sql)
         for value in sql_result:
@@ -181,13 +182,13 @@ def daily_mail(request):
                                                        )
 
                 try:
-                   # sendmail('542429405@qq.com', '我爱你,大鹏', html_content)
-                   sendmail('duminchao@qq.com', '我爱你,大鹏', html_content)
+                   # sendmail('duminchao@qq.com', '我爱你,大鹏', html_content)
+                   sendmail(user.email, '我爱你,大鹏', html_content)
                    logging.getLogger().info('send mail successfully')
                 except:
-                    logging.getLogger().error('send mail error')
+                    logging.getLogger().error(traceback.format_exc())
+                    logging.getLogger().error('send mail 错误')
                 # return rank, grain_skill,skill, path, course, user.nickname
-
         return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
