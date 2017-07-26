@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from vfast.api import time_comp_now, require_login, dictfetchall, sendmail
 from vrecord.api import  track_skill
 from django.template import loader
+from django.conf import settings
 
 import traceback
 import json
@@ -166,16 +167,16 @@ def daily_mail(request):
                     item['id'], yesterday)
                     score_yesterday = dictfetchall(sql_yesterday)[0]['score']
                     item['score_yesterday'] = score_yesterday
-                print rank                    #排行榜   三个
-                print grain_skill, skill      #技能点
-                print path, course,           #路线, 课程
-                print user.nickname           #用户别名
-                print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+                # print rank                    #排行榜   三个
+                # print grain_skill, skill      #技能点
+                # print path, course,           #路线, 课程
+                # print user.nickname           #用户别名
+                # print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
                 html_content = loader.render_to_string('daily_email.html',
                                                        {'nickname': user.nickname, 'ranks': rank,
                                                         'grain_skills': grain_skill, 'skills': skill,
-                                                        'path': path, 'course': course
+                                                        'path': path, 'course': course, 'host':settings.HOST
                                                         }
                                                        )
 

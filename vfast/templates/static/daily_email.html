@@ -8,17 +8,28 @@
 <div style="background-color: #FAFAFA;">
     <section style="width:600px;margin: 0 auto;">
         <div style="margin-bottom: 20px;">
-            <img src="http://127.0.0.1:8000/static/imgs/LogoWithText.png" alt="">
+            <img src="{{ host }}/static/imgs/LogoWithText.png" alt="">
         </div>
         <div style="background-color: #FFF;padding: 20px 50px 30px;box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);border-radius: 4px 4px 0 0 ;">
-            <p style="font-family: PingFangSC-Regular;font-size: 18px;color: #576366;letter-spacing: 1.12px;">Hi&nbsp;&nbsp;<span>{{ nickname }}</span>，</p>
-            <p style="font-family: PingFangSC-Light;font-size: 16px;color: #576366;letter-spacing: 1px;">这是你昨天的<a href="http://127.0.0.1:8000/course/track?id={{ path.id }}" style="font-family: PingFangSC-Medium;font-size: 16px;color: #27002A;letter-spacing: 1px;line-height: 22px;text-decoration: none;font-weight: bolder;" onmouseover="this.style.opacity = 0.5" onmouseout="this.style.opacity = 1">{{ path.name }}</a>学习情况概要！</p>
+            <p style="font-family: PingFangSC-Regular;font-size: 18px;color: #576366;letter-spacing: 1.12px;">Hi&nbsp;&nbsp;<span>{{ nickname }}</span>，
+            </p>
+            <p style="font-family: PingFangSC-Light;font-size: 16px;color: #576366;letter-spacing: 1px;">这是你昨天的<a
+                    href="{{ host }}/course/track?id={{ path.id }}"
+                    style="font-family: PingFangSC-Medium;font-size: 16px;color: #27002A;letter-spacing: 1px;line-height: 22px;text-decoration: none;font-weight: bolder;"
+                    onmouseover="this.style.opacity = 0.5" onmouseout="this.style.opacity = 1">{{ path.name }}</a>学习情况概要！
+            </p>
         </div>
         <div style="padding: 30px 0;text-align: center;background-color: #BA68C8;">
             <p style="font-family: PingFangSC-Light;font-size: 16px;color: #FFFFFF;letter-spacing: 1px;">你当前正在学习</p>
-            <img src="http://127.0.0.1:8000/static/imgs/course.png" style="width: 45px;height: 64px;" alt="">
+            <img src="{{ host }}/static/imgs/course.png" style="width: 45px;height: 64px;" alt="">
             <p style="font-family: PingFangSC-Regular;font-size: 16px;color: #FFFFFF;letter-spacing: 1px;">{{ course.name }}</p>
-            <a href="http://127.0.0.1:8000/course/course?cid={{ course.id }}" style="text-decoration: none;"><div onmouseout="this.style.opacity = 1" onmouseover="this.style.cursor = 'pointer';this.style.opacity = 0.75" style="user-select: none;margin: 0 auto;line-height:36px;width: 126px;height:36px;background: #FFFFFF;border-radius: 2px;font-family: PingFangSC-Regular;font-size: 16px;color: #BA68C8;letter-spacing: 1px;">继续学习</div></a>
+            <a href="{{ host }}/course/course?cid={{ course.id }}" style="text-decoration: none;">
+                <div onmouseout="this.style.opacity = 1"
+                     onmouseover="this.style.cursor = 'pointer';this.style.opacity = 0.75"
+                     style="user-select: none;margin: 0 auto;line-height:36px;width: 126px;height:36px;background: #FFFFFF;border-radius: 2px;font-family: PingFangSC-Regular;font-size: 16px;color: #BA68C8;letter-spacing: 1px;">
+                    继续学习
+                </div>
+            </a>
         </div>
         <div style="padding: 30px 50px;background-color: #FFF;font-family: PingFangSC-Light;font-size: 16px;color: #8D9AA5;letter-spacing: 1.12px;line-height: 18px;">
             <p style="margin-bottom: 0">你目前已掌握的运维监控技能有：</p>
@@ -34,7 +45,8 @@
 
         </div>
         <div style="background-color: #FFF;padding-top: 20px;">
-            <p style="margin-left: 50px;margin-top: 0;font-family: PingFangSC-Regular;font-size: 16px;color: #8D9AA5;letter-spacing: 1.12px;">活跃度排名变更：</p>
+            <p style="margin-left: 50px;margin-top: 0;font-family: PingFangSC-Regular;font-size: 16px;color: #8D9AA5;letter-spacing: 1.12px;">
+                活跃度排名变更：</p>
 
             {% for user in ranks %}
                 {% if user.nickname == nickname %}
@@ -42,43 +54,66 @@
                 {% else %}
                     <ul style="margin-bottom: 0;padding-left: 90px;height: 60px;line-height:60px;list-style: none;font-family: RTWSYueGoTrial-Regular;font-size: 14px;color: #8C96A5;">
                 {% endif %}
-                <li style="float: left;width: 10%;list-style: none;">{{ user.score }}</li>
-                <li style="float: left;width: 15%;list-style: none;"><img style="vertical-align: middle;border-radius: 25px;width: 40px;height: 40px;" src="http://127.0.0.1:8000{{ user.headimg }}" alt=""></li>
-                <li style="float: left;width: 50%;list-style: none;">{{ user.nickname }}</li>
-                    {% if user.score_yesterday %}
-                        <li style="float: left;width: 25%;list-style: none;">+&nbsp;{{ user.score_yesterday }}</li>
-                        {% else %}
-                        <li style="float: left;width: 25%;list-style: none;">+&nbsp;0</li>
-                    {% endif %}
+            <li style="float: left;width: 10%;list-style: none;">{{ user.score }}</li>
+            <li style="float: left;width: 15%;list-style: none;"><img
+                    style="vertical-align: middle;border-radius: 25px;width: 40px;height: 40px;"
+                    src="{{ host }}{{ user.headimg }}" alt=""></li>
+            <li style="float: left;width: 50%;list-style: none;">{{ user.nickname }}</li>
+            {% if user.score_yesterday %}
+                <li style="float: left;width: 25%;list-style: none;">+&nbsp;{{ user.score_yesterday }}</li>
+            {% else %}
+                <li style="float: left;width: 25%;list-style: none;">+&nbsp;0</li>
+            {% endif %}
             </ul>
             {% endfor %}
 
 
-{#            <ul style="margin-bottom: 0;padding-left: 90px;height: 60px;line-height:60px;clear: both;list-style: none;font-family: RTWSYueGoTrial-Regular;font-size: 14px;color: #8C96A5;">#}
-{#                <li style="float: left;width: 10%;">749</li>#}
-{#                <li style="float: left;width: 15%;"><img style="vertical-align: middle;border-radius: 25px;width: 40px;height: 40px;" src="imgs/14081117427587.jpg" alt=""></li>#}
-{#                <li style="float: left;width: 50%;">小哪吒</li>#}
-{#                <li style="float: left;width: 25%;">+&nbsp;36</li>#}
-{#            </ul>#}
+            {#            <ul style="margin-bottom: 0;padding-left: 90px;height: 60px;line-height:60px;clear: both;list-style: none;font-family: RTWSYueGoTrial-Regular;font-size: 14px;color: #8C96A5;">#}
+            {#                <li style="float: left;width: 10%;">749</li>#}
+            {#                <li style="float: left;width: 15%;"><img style="vertical-align: middle;border-radius: 25px;width: 40px;height: 40px;" src="imgs/14081117427587.jpg" alt=""></li>#}
+            {#                <li style="float: left;width: 50%;">小哪吒</li>#}
+            {#                <li style="float: left;width: 25%;">+&nbsp;36</li>#}
+            {#            </ul>#}
         </div>
         <div style=";font-family: PingFangSC-Light;font-size: 16px;color: #8D9AA5;letter-spacing: 1.4px;line-height: 20px;background: #FFFFFF;box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);border-radius: 4px;padding: 30px 50px;">
             <p style="margin: 0">干得不错，<span>{{ nickname }}</span>！保持住这股冲劲</p>
             <p style="margin: 0">干杯
-                <img src="http://127.0.0.1:8000/static/imgs/glass.png" style="width: 11px; height: 17px;" alt="">
+                <img src="{{ host }}/static/imgs/glass.png" style="width: 11px; height: 17px;" alt="">
             </p>
             <br/>
             <p style="margin: 0">爱思爱慕团队</p>
         </div>
         <div style="text-align: center;">
-            <p style="margin-top: 30px;margin-bottom:5px;font-family: Roboto-Light;font-size: 14px;color: #8D9AA5;letter-spacing: 0.88px;">&copy;&nbsp;&nbsp;荣新广育科技有限公司, Inc.</p>
-            <a href="http://127.0.0.1:8000/u/person" onmouseover="this.style.opacity = 0.5" onmouseout="this.style.opacity = 1" style="text-decoration: none;font-family: Roboto-Regular;font-size: 14px;color: #8D9AA5;letter-spacing: 0.88px;">邮件提醒设置</a>
+            <p style="margin-top: 30px;margin-bottom:5px;font-family: Roboto-Light;font-size: 14px;color: #8D9AA5;letter-spacing: 0.88px;">&copy;&nbsp;&nbsp;荣新广育科技有限公司,
+                Inc.</p>
+            <a href="{{ host }}/u/person" onmouseover="this.style.opacity = 0.5" onmouseout="this.style.opacity = 1"
+               style="text-decoration: none;font-family: Roboto-Regular;font-size: 14px;color: #8D9AA5;letter-spacing: 0.88px;">邮件提醒设置</a>
             <div style="width: 120px;margin: 5px auto" class="bdsharebuttonbox">
-                <a href="#" style="padding: 0;background-image: url('http://127.0.0.1:8000/status/svg/weibo1.svg');background-position: 0!important;width:24px;height:24px;" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-                <a href="#" style="padding: 0;background-image: url('http://127.0.0.1:8000/status/svg/wechat1.svg');background-position: 0!important;width:24px;height:24px;"  class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-                <a href="#" style="padding: 0;background-image: url('http://127.0.0.1:8000/status/svg/facebook1.svg');background-position: 0!important;width:24px;height:24px;"  class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-                <a href="#" style="padding: 0;background-image: url('http://127.0.0.1:8000/status/svg/twitter1.svg');background-position: 0!important;width:24px;height:24px;"  class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+                <a href="#"
+                   style="padding: 0;background-image: url('{{ host }}/status/svg/weibo1.svg');background-position: 0!important;width:24px;height:24px;"
+                   class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                <a href="#"
+                   style="padding: 0;background-image: url('{{ host }}/status/svg/wechat1.svg');background-position: 0!important;width:24px;height:24px;"
+                   class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                <a href="#"
+                   style="padding: 0;background-image: url('{{ host }}/status/svg/facebook1.svg');background-position: 0!important;width:24px;height:24px;"
+                   class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+                <a href="#"
+                   style="padding: 0;background-image: url('{{ host }}/status/svg/twitter1.svg');background-position: 0!important;width:24px;height:24px;"
+                   class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
             </div>
-            <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+            <script>window._bd_share_config = {
+                "common": {
+                    "bdSnsKey": {},
+                    "bdText": "",
+                    "bdMini": "2",
+                    "bdMiniList": false,
+                    "bdPic": "",
+                    "bdStyle": "1",
+                    "bdSize": "16"
+                }, "share": {}
+            };
+            with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
         </div>
     </section>
 </div>
