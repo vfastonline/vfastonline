@@ -74,7 +74,7 @@ def register(request):
             user_exists = User.objects.filter(phone=phone).exists()
             if user_exists:
                 return HttpResponse(json.dumps({'code': 3, 'msg': u'用户已存在,请登录'}, ensure_ascii=False))
-            result = User.objects.create(phone=phone, nickname=nickname, password=password,
+            result = User.objects.create(phone=phone, nickname=nickname, password=password, totalscore=10,
                                          program_exp=program_exp, createtime=t, sex=sex,
                                          comp_use_time_day=comp_use_time_day, into_it=into_it,
                                          learn_habit=learn_habit, role=role, headimg=headimg)
@@ -381,7 +381,7 @@ def person_page(request):
         uid = request.session['user']['id']
         user_obj = User.objects.get(id=uid)
         tech_score = sum_score_tech(uid)
-        sql = 'select vb.badgename, vb.badgeurl, vu.* from vbadge_userbadge as vu , vbadge_badge as vb where vu.user_id = %s and vu.badge_id = vb.id;' % uid
+        sql = 'select vb.badgename, vb.small_url, vu.* from vbadge_userbadge as vu , vbadge_badge as vb where vu.user_id = %s and vu.badge_id = vb.id;' % uid
         print sql
         badges = dictfetchall(sql)
         # print badges
