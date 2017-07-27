@@ -1,32 +1,61 @@
 #!encoding: utf-8
 # from django.shortcuts import render
 from vuser.models import User
-from vcourse.models import Course, Video, Technology
+from vcourse.models import Course, Video, Technology, Path
 from vrecord.models import WatchRecord, Score, WatchCourse
 from django.http import HttpResponse
 from django.db import connection
 from vbadge.models import UserBadge, Badge
-from vfast.api import get_day_of_day, dictfetchall
+from vfast.api import get_day_of_day, dictfetchall, require_login
 
 import time
 import json
 import logging, traceback
 
 
-def user_level(user):
+def test(request):
+    user = User.objects.get(id=19)
+    get_track_badge(user=user, cid=3)
+    return HttpResponse('ok')
+
+
+
+
+def get_mengxin(user):
+    """给用户发送萌新勋章"""
     try:
         score = user.totalscore
-        # level = score / 150 + 1
-        # if headframobj.url == user.headimgframe:
-        #     logging.getLogger().info('用户等级没有改变')
-        #     return False, None
-        # else:
-        #     user.headimgframe = headframobj.url
-        #     logging.getLogger().info('用户等级增加为%s' % level)
-        return True, 2
+        if score > 10 and score < 15:
+            mengxin_badge = Badge.objects.get(name='mengxin')
+            if UserBadge.objects.filter(user=user, badge=mengxin_badge).__len__() == 0:
+                UserBadge.objects.create(user=user, badge=mengxin_badge)
+                return [dict(name=mengxin_badge.badgename, url=mengxin_badge.badgeurl, desc=mengxin_badge.description)]
     except:
         logging.getLogger().error(traceback.format_exc())
-        return False, None
+        return []
+
+
+def get_track_badge(user, cid):
+    try:
+        paths = Path.objects.all().values('id', 'p_sequence')
+        watched_courses = WatchCourse.objects.filter(user=user)
+        user_wathced_cids, tracks = []
+        for item in watched_courses:
+            print 'id', item.course.id
+            user_wathced_cids.append(item.course.id)
+        print user_wathced_cids
+        for path in paths:
+            path_cids = path['p_sequence'].split(',')
+            if cid in path_cids and not set(path_cids).difference(user_wathced_cids):
+                path = Path.objects.get(id=path['id'])
+                badge = Badge.objects.get(path=path)
+                if UserBadge.objects.filter(user=user, badge=badge).__len__() == 0:
+                    UserBadge.objects.create(user=user, badge=badge)
+                    user.totalscore += 30
+                    return tracks.append(dict(name=badge.badgename, url=badge.badgeurl, desc=badge.description))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return []
 
 
 def course_watched_all(user, course, tech):
@@ -46,7 +75,7 @@ def course_watched_all(user, course, tech):
             logging.getLogger().info('用户%s获得%s勋章' % (user.username, badge.badgename))
             badge_name = badge.badgename
             badge_url = badge.badgeurl.url
-            return True, {'badge_name': badge_name, 'badge_url': badge_url}
+            return True, {'name': badge_name, 'url': badge_url}
         else:
             return False, None
     except:
@@ -54,6 +83,7 @@ def course_watched_all(user, course, tech):
         return False, None
 
 
+@require_login()
 def record_video(request):
     """记录用户观看课程视频的时间点, 以及课程是否观看完成
     """
@@ -68,7 +98,6 @@ def record_video(request):
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
-            #print 'aaa'
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
                 if status == 0 and obj.status == 0:
@@ -85,16 +114,15 @@ def record_video(request):
                     tech = Technology.objects.get(id=course.tech_id)
                     Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
                     user.totalscore = user.totalscore + 1
-                    #print user.totalscore
-                    b_flag, badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
-                    l_flag, rlevel = user_level(user)  # 等级是否变更
-                    #print user.totalscore
+                    course_badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
+                    mentxin = get_mengxin(user)
+                    tracks = get_track_badge(user, cid=course.id)
+                    # print user.totalscore
                     user.save()
-                    #print 'aaa'
                     return HttpResponse(
-                        json.dumps({'code': 0, 'b_flag': b_flag, 'badge_name': badge['badge_name'],'badge_url':badge['badge_url'], 'l_flag': l_flag, 'rlevel': rlevel},
+                        json.dumps({'code': 0, 'course': course_badge, 'mengxin': mentxin, 'tracks': tracks},
                                    ensure_ascii=False))
-                elif status==1 and obj.status == 0:
+                elif status == 1 and obj.status == 0:
                     obj.video_process = video_process
                     obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.save()
