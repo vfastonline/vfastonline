@@ -1356,8 +1356,7 @@
                 $("#global_svg").attr("src",data.mengxin[0].url);
                 $("#global_desc").attr("src",data.mengxin[0].desc);
                 medal_dialog();
-            }
-            if(data.tracks.length != 0){
+            }else if(data.tracks.length != 0){
                 //全局勋章弹窗 路线
                 $("#global_svg").attr("src",data.tracks[0].url);
                 $("#global_desc").attr("src",data.tracks[0].desc);
