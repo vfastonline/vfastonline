@@ -14,12 +14,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 def test(request):
     w = WatchRecord.objects.filter(id=1).values('user__username')
-    #print w.query
-    #print w
     from vpractice.models import Replay
     r = Replay.objects.filter(id=1).values('question__user__username')
-    #print r.query
-    #print r
     return render(request, "search_Result.html")
 
 

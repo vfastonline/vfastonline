@@ -3,6 +3,7 @@ from vuser.models import User
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
+from vfast.api import require_login
 import urllib
 import json
 import logging
@@ -25,11 +26,9 @@ def _get_refer_url(request):
 
 
 # 第一步, 请求github第三方登陆
+@require_login()
 def github_login(request):
-    try:
-        uid = request.session['user']['id']
-    except Exception, e:
-        logging.getLogger().error(e)
+    uid = request.session['user']['id']
     data = {
         'client_id': GITHUB_CLIENTID,
         'client_secret': GITHUB_CLIENTSECRET,
@@ -72,7 +71,6 @@ def github_auth(request):
         html = json.loads(html)
         repos_url = html['repos_url']
         html_url = html['html_url']
-        # print repos_url, html_url
         User.objects.filter(id=uid).update(githuburl=html_url, githubrepo=repos_url)
         # return HttpResponse(json.dumps({'code':0, 'msg':u'github验证成功'}, ensure_ascii=False))
         return HttpResponseRedirect("/u/editpage")
