@@ -87,7 +87,7 @@ def course_watched_all(user, course, tech):
                 UserBadge.objects.create(createtime=t, badge=badge, user=user)
                 WatchCourse.objects.create(createtime=time.strftime('%Y-%m-%d %H:%M:%S'), user=user, course=course)
                 logging.getLogger().info('用户%s获得%s勋章' % (user.nickname, badge.badgename))
-                return [{'name': badge.badgename, 'url': badge.large_url}]
+                return [{'name': badge.badgename, 'url': badge.large_url.url}]
         else:
             return []
     except:
@@ -131,6 +131,8 @@ def record_video(request):
                     mengxin = get_mengxin(user)
                     if course_badge:
                         tracks = get_track_badge(user, cid=course.id, cname=course.name)
+                    else:
+                        tracks = []
                     user.save()
                     return HttpResponse(
                         json.dumps({'code': 0, 'course': course_badge, 'mengxin': mengxin, 'tracks': tracks},
