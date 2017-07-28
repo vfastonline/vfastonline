@@ -690,6 +690,7 @@
                 opacity: 1;
             }
         }
+
         @keyframes medal_div_shouji_animation {
             0%{
                 transform: scale(0);
@@ -790,6 +791,79 @@
                 transform:rotate(15deg) translate(0,0);
             }
         }
+
+        /*全局勋章弹窗样式*/
+        #medal_dialog{
+            width:742px;
+            margin-top: 80px;
+            margin-bottom: 50px;
+        }
+        #medal_content .medal_top{
+            position: relative;
+            height:360px;
+            background: #FAFAFA;
+            box-shadow: inset 0 -1px 0 0 rgba(0,0,0,0.05);
+            border-radius: 4px 4px 0 0;
+        }
+        #medal_content .medal_top>img:nth-child(1){
+            position: absolute;
+            top: 30px;
+            left: 150px;
+        }
+        #medal_content .medal_top>img:nth-child(2){
+            position: absolute;
+            top: 35px;
+            right: 90px;
+        }
+        #medal_content .medal_top>img:nth-child(3){
+            position: absolute;
+            top: 120px;
+            left: 70px;
+        }
+        #medal_content .medal_top>img:nth-child(4){
+            position: absolute;
+            top: 180px;
+            right: 150px;
+        }
+        #medal_content .medal_top>img:nth-child(5){
+            position: absolute;
+            bottom: 0px;
+            left: 100px;
+        }
+        #medal_content .medal_top>img:nth-child(6){
+            position: absolute;
+            top: 270px;
+            right: 50px;
+        }
+        #medal_content .medal_top>div{
+            width:310px;
+            margin: 0px auto;
+            padding-top: 50px;
+            position: relative;
+        }
+        #medal_content .medal_top>div>img:nth-child(2){
+            position: absolute;
+            top:140px;
+            left:10px;
+            opacity: 0;
+        }
+        #medal_content .medal_top>div>img:nth-child(1){
+            opacity: 0;
+        }
+        #medal_content .medal_bottom{
+            padding: 20px 0 30px 40px;
+
+        }
+        #medal_content .medal_bottom>p:first-child{
+            font-size: 28px;
+            color: #7A88A1;
+            letter-spacing: 1.75px;
+        }
+        #medal_content .medal_bottom>p:last-child{
+            font-size: 18px;
+            color: #7A88A1;
+            letter-spacing: 1.12px;
+        }
     </style>
     <style>
         #edui1{
@@ -883,7 +957,7 @@
         <li onclick="video_speed(this,10)">0.75x</li>
         <li onclick="video_speed(this,1)">1.0x</li>
         <li onclick="video_speed(this,1.1)">1.1x</li>
-        <li onclick="video_speed(this,1.25)">1.25x</li>
+        <li onclick="video_speed(this,10.25)">1.25x</li>
     </ul>
     <svg onclick="video_skip()" class="video_tiaoguo" width="29px" height="16px" viewBox="377 753 29 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M390.828427,758.656854 L379,758.656854 C377.895431,758.656854 377,759.552285 377,760.656854 C377,761.761424 377.895431,762.656854 379,762.656854 L390.828427,762.656854 L388.585786,764.899495 C387.804738,765.680544 387.804738,766.946873 388.585786,767.727922 C389.366835,768.508971 390.633165,768.508971 391.414214,767.727922 L397.071068,762.071068 C397.852116,761.290019 397.852116,760.023689 397.071068,759.242641 L391.414214,753.585786 C390.633165,752.804738 389.366835,752.804738 388.585786,753.585786 C387.804738,754.366835 387.804738,755.633165 388.585786,756.414214 L390.828427,758.656854 Z M406,760.656854 C406,759 404.656854,757.656854 403,757.656854 C401.343146,757.656854 400,759 400,760.656854 C400,762.313708 401.343146,763.656854 403,763.656854 C404.656854,763.656854 406,762.313708 406,760.656854 Z" id="Combined-Shape" stroke="none" fill="#7C828C" fill-rule="evenodd"></path>
@@ -939,7 +1013,6 @@
     {% endfor %}
 
 </div>
-
 <div class="slideDIV" style="height: 150px;"></div>
 <div class="tab_menu" id="tab_menu">
     <ul>
@@ -951,7 +1024,6 @@
     <div id="publish_quiz" class="publish_quiz" onclick="quiz_submit()">发布问题</div>
     <div id="close_quiz" class="close_quiz" onclick="close_quiz()">取消提问</div>
 </div>
-
 <div class="tab_QA" id="tab_QA">
     <section class="quiz_section" id="quiz_section">
         <input type="text" placeholder="写一个问题标题..." id="quiz_title">
@@ -1096,7 +1168,6 @@
         {% endif %}
     {% endfor %}
     <!--视频列表 END-->
-
 </div>
 <script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
@@ -1227,7 +1298,6 @@
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
         $.getJSON("/r/video?vid="+video_id.value+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
-            console.log(data);
             if(data.course.length != 0){
                 badge_name.innerHTML = data.course[0].name;
                 medal_badge.src = data.course[0].url;
@@ -1281,30 +1351,39 @@
             $.getJSON("/u/detail",function(data){
                 $("#totalscore").html(data.totalscore);
             })
-
-{#            if(data.mengxin.length != 0){#}
-            if(data.mengxin.length != 0){
-                console.log(data.mengxin + "data.mengxin");
+            if(data.mengxin.length >= 0){
+                //全局勋章弹窗 萌新
+                $("#global_svg").attr("src",data.mengxin[0].url);
+                $("#global_desc").attr("src",data.mengxin[0].desc);
+                medal_dialog();
             }
             if(data.tracks.length != 0){
-                console.log(data.tracks + "data.tracks");
+                //全局勋章弹窗 路线
+                $("#global_svg").attr("src",data.tracks[0].url);
+                $("#global_desc").attr("src",data.tracks[0].desc);
+                medal_dialog();
             }
-            if(true){
-                //全局勋章弹窗 萌新
-                console.log("萌新");
-                $("#myMedal_a").click();
-                $("#medal_dialog").addClass("animated fadeInUp");
-
-            }
-{#            if(data.tracks.length != 0){#}
-{#                //全局勋章弹窗 路线#}
-{##}
-{#            }#}
-
         });
-
     }
 
+    function medal_dialog(){
+        $("#myMedal_a").click();
+        $("#medal_dialog").addClass("animated fadeInUp");
+        setTimeout(function () {
+            $("#global_svg").css("animation","medal_div_shouji_animation 0.50s");
+            setTimeout(function(){
+                $("#global_svg").css("animation","");
+                $("#global_svg").css("opacity","1");
+            },500)
+        },300)
+        setTimeout(function () {
+            $("#global_30").css("animation","medal_30_animation 0.35s");
+            setTimeout(function(){
+                $("#global_30").css("animation","");
+                $("#global_30").css("opacity","1");
+            },350)
+        },450)
+    }
     function video_cc(t){
         var vjs_cc = document.getElementsByClassName("vjs-menu-content")[0];
         if(t.style.color != "rgb(124, 130, 140)"){
@@ -1493,8 +1572,6 @@
     }
 </script>
 
-
-
 <!---->
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>
@@ -1508,7 +1585,22 @@
 <div class="modal" id="myMedal_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="medal_dialog">
         <div class="modal-content" id="medal_content">
-
+            <div class="medal_top">
+                <img style="width: 45px;height: 45px;" src="/static/imgs/global_O.png" alt="">
+                <img style="width: 62px;height: 62px;" src="/static/imgs/global_O.png" alt="">
+                <img style="width: 88px;height: 88px;" src="/static/imgs/global_O.png" alt="">
+                <img style="width: 34px;height: 34px;" src="/static/imgs/global_O.png" alt="">
+                <img style="width: 60px;height: 60px;" src="/static/imgs/global_O.png" alt="">
+                <img style="width: 68px;height: 68px;" src="/static/imgs/global_O.png" alt="">
+                <div>
+                    <img id="global_svg" src="/media/badge/萌新大.svg" alt="">
+                    <img id="global_30" style="width: 75px;height: 75px;" src="/static/imgs/global+30.png" alt="">
+                </div>
+            </div>
+            <div class="medal_bottom">
+                <p>你得到了一个勋章!</p>
+                <p id="global_desc">崭新的一天 崭新的开始 崭新的一生<br/>ps:已获得的勋章将被贴到你的勋章墙上，你可以在个人中心查看它们 :P</p>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
@@ -1569,6 +1661,7 @@
         var base64Data = imgData.substr(22);
         //在前端截取22位之后的字符串作为图像数据
         //开始异步上
+        console.log(base64Data);
         $.post("/u/userimage", { "image": base64Data }, function (data, status) {
             console.log(data);
             if(data.code != 0){
@@ -1585,7 +1678,6 @@
     }
 
     function faceStart(){
-        console.log("faceStart");
         autoFI = setInterval(autoFaceImage,60000);
     }
 
