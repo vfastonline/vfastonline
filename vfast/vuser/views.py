@@ -138,7 +138,6 @@ def login(request):
             phone = request.POST.get('phone', ' ')
             password = request.POST.get('password', ' ')
             password = encry_password(password)
-            print phone, password
             ret = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password).exists()
             if ret:
                 # 账号登陆成功之后需要将用户的相关信息保存到session里面

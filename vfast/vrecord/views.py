@@ -24,7 +24,7 @@ def get_mengxin(user):
     try:
         score = user.totalscore
         logging.getLogger().info('开始判断是否给用户%s萌新勋章' % user.nickname)
-        if score > 10 and score < 15:
+        if score > 10:
             mengxin_badge = Badge.objects.get(badgename='mengxin')
             if UserBadge.objects.filter(user=user, badge=mengxin_badge).__len__() == 0:
                 UserBadge.objects.create(user=user, badge=mengxin_badge)
@@ -51,15 +51,12 @@ def get_track_badge(user, cid, cname):
         for item in watched_courses:
             user_wathced_cids.append(str((item.course.id)))
 
-        print user_wathced_cids
-
         for path in paths:
             path_cids = path['p_sequence'].split(',')
             print path_cids
             if (str(cid) in path_cids) and (not set(path_cids).difference(user_wathced_cids)):
-                print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~, pathid  %s' % path['id']
                 path = Path.objects.get(id=int(path['id']))
-                print path.name
+                # print path.name
                 badge = Badge.objects.get(path=path)
                 if UserBadge.objects.filter(user=user, badge=badge).__len__() == 0:
                     UserBadge.objects.create(user=user, badge=badge)
@@ -86,12 +83,11 @@ def course_watched_all(user, course, tech):
             user.totalscore = user.totalscore + 30
             logging.getLogger().info('用户%s获得积分30分' % user.nickname)
             badge = Badge.objects.get(course=course)
-            UserBadge.objects.create(createtime=t, badge=badge, user=user)
-            WatchCourse.objects.create(createtime=time.strftime('%Y-%m-%d %H:%M:%S'), user=user, course=course)
-            logging.getLogger().info('用户%s获得%s勋章' % (user.nickname, badge.badgename))
-            badge_name = badge.badgename
-            badge_url = badge.large_url.url
-            return [{'name': badge_name, 'url': badge_url}]
+            if not UserBadge.objects.filter(badge=badge, user=user):
+                UserBadge.objects.create(createtime=t, badge=badge, user=user)
+                WatchCourse.objects.create(createtime=time.strftime('%Y-%m-%d %H:%M:%S'), user=user, course=course)
+                logging.getLogger().info('用户%s获得%s勋章' % (user.nickname, badge.badgename))
+                return [{'name': badge.badgename, 'url': badge.large_url}]
         else:
             return []
     except:
