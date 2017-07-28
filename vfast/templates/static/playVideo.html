@@ -1227,6 +1227,7 @@
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
         $.getJSON("/r/video?vid="+video_id.value+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
+            console.log(data);
             if(data.course.length != 0){
                 badge_name.innerHTML = data.course[0].name;
                 medal_badge.src = data.course[0].url;
@@ -1282,18 +1283,23 @@
             })
 
 {#            if(data.mengxin.length != 0){#}
-            console.log(data);
-            if(0){
+            if(data.mengxin.length != 0){
+                console.log(data.mengxin + "data.mengxin");
+            }
+            if(data.tracks.length != 0){
+                console.log(data.tracks + "data.tracks");
+            }
+            if(true){
                 //全局勋章弹窗 萌新
                 console.log("萌新");
                 $("#myMedal_a").click();
                 $("#medal_dialog").addClass("animated fadeInUp");
 
             }
-            if(data.tracks.length != 0){
-                //全局勋章弹窗 路线
-
-            }
+{#            if(data.tracks.length != 0){#}
+{#                //全局勋章弹窗 路线#}
+{##}
+{#            }#}
 
         });
 
