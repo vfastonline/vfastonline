@@ -1227,9 +1227,9 @@
 //        判断是否看完了整个系列
         var elem = document.getElementsByTagName("video")[0];
         $.getJSON("/r/video?vid="+video_id.value+"&video_process="+parseInt(elem.duration)+"&status=0",function(data){
-            if(data.b_flag){
-                badge_name.innerHTML = data.badge_name;
-                medal_badge.src = data.badge_url;
+            if(data.course.length != 0){
+                badge_name.innerHTML = data.course[0].name;
+                medal_badge.src = data.course[0].url;
     //            勋章获取
                 medal_div.style.zIndex = "1";
                 medal_div_p.style.animation = "medal_div_animation 1.2s";
@@ -1276,14 +1276,27 @@
                     });
                 }
             }
-            if(data.l_flag){
-                //升级
 
-            }
             $.getJSON("/u/detail",function(data){
                 $("#totalscore").html(data.totalscore);
             })
+
+{#            if(data.mengxin.length != 0){#}
+            console.log(data);
+            if(0){
+                //全局勋章弹窗 萌新
+                console.log("萌新");
+                $("#myMedal_a").click();
+                $("#medal_dialog").addClass("animated fadeInUp");
+
+            }
+            if(data.tracks.length != 0){
+                //全局勋章弹窗 路线
+
+            }
+
         });
+
     }
 
     function video_cc(t){
@@ -1485,6 +1498,15 @@
 <video style="display: none" autoplay id="sourcevid"></video>
 <canvas style="display: none;" id="output" width="640" height="480" ></canvas>
 {% endif %}
+<!--全局勋章弹窗浮层-->
+<div class="modal" id="myMedal_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="medal_dialog">
+        <div class="modal-content" id="medal_content">
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<a id="myMedal_a" data-toggle="modal" data-target="#myMedal_info"></a>
 </body>
 <script src="/static/js/video.js"></script>
 <script src="/static/js/score.js"></script>

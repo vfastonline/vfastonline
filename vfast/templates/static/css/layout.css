@@ -1428,7 +1428,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
     position: absolute;
     right:50px;
     top:20px;
-    visibility: hidden;
+    display: none;
 }
 #feedback_content .textDiv svg:hover{
     opacity: 0.8;
