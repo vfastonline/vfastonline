@@ -131,6 +131,8 @@ def record_video(request):
                     mengxin = get_mengxin(user)
                     if course_badge:
                         tracks = get_track_badge(user, cid=course.id, cname=course.name)
+                    else:
+                        tracks = []
                     user.save()
                     return HttpResponse(
                         json.dumps({'code': 0, 'course': course_badge, 'mengxin': mengxin, 'tracks': tracks},
@@ -139,19 +141,19 @@ def record_video(request):
                     obj.video_process = video_process
                     obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.save()
-                    return HttpResponse(json.dumps({'code': 1,'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 2,'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
                 else:
                     obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
                     obj.video_process = video_process
                     obj.video_time = video_process
                     obj.save()
-                    return HttpResponse(json.dumps({'code': 1,'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 3,'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
 
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video, course=course, status=status,
                                            video_process=video_process, video_time=video_process,
                                            createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
-                return HttpResponse(json.dumps({'code': 1, 'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 4, 'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

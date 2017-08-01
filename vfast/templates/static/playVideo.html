@@ -878,6 +878,8 @@
     </style>
     <script>
         function saveTime(t){
+            clearInterval(autoFI);
+            faceNumber = 0;
             $.get("/r/video?vid="+video_id.value+"&video_process="+parseInt(t.currentTime)+"&status=1",function(data){});
         }
         var vtimeS;
@@ -1252,13 +1254,13 @@
             video_bofang.style.display = "block";
             video_name.style.display = "block";
             video_play_svg_div.style.display = "block";
-            clearInterval(autoFI);
-            faceNumber = 0;
         }else{
             video_bofang.style.display = "none";
             video_name.style.display = "none";
             video_play_svg_div.style.display = "none";
         }
+        clearInterval(autoFI);
+        faceNumber = 0;
     }
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];
@@ -1353,7 +1355,7 @@
             $.getJSON("/u/detail",function(data){
                 $("#totalscore").html(data.totalscore);
             })
-            if(data.mengxin.length >= 0){
+            if(data.mengxin.length != 0){
                 //全局勋章弹窗 萌新
                 $("#global_svg").attr("src",data.mengxin[0].url);
                 $("#global_desc").attr("src",data.mengxin[0].desc);
@@ -1384,6 +1386,7 @@
                 $("#global_30").css("opacity","1");
             },350)
         },450)
+
     }
     function video_cc(t){
         var vjs_cc = document.getElementsByClassName("vjs-menu-content")[0];
@@ -1589,10 +1592,10 @@
             <div class="medal_top">
                 <img style="width: 45px;height: 45px;" src="/static/imgs/global_O.png" alt="">
                 <img style="width: 62px;height: 62px;" src="/static/imgs/global_O.png" alt="">
-                <img style="width: 88px;height: 88px;" src="/static/imgs/global_O.png" alt="">
-                <img style="width: 34px;height: 34px;" src="/static/imgs/global_O.png" alt="">
-                <img style="width: 60px;height: 60px;" src="/static/imgs/global_O.png" alt="">
-                <img style="width: 68px;height: 68px;" src="/static/imgs/global_O.png" alt="">
+                <img style="width: 88px;height: 88px;" src="/static/imgs/global_X.png" alt="">
+                <img style="width: 34px;height: 34px;" src="/static/imgs/global_F.png" alt="">
+                <img style="width: 60px;height: 60px;" src="/static/imgs/global_F.png" alt="">
+                <img style="width: 68px;height: 68px;" src="/static/imgs/global_X.png" alt="">
                 <div>
                     <img id="global_svg" src="/media/badge/萌新大.svg" alt="">
                     <img id="global_30" style="width: 75px;height: 75px;" src="/static/imgs/global+30.png" alt="">
@@ -1661,25 +1664,38 @@
         //将图像转换为base64数据
         var base64Data = imgData.substr(22);
         //在前端截取22位之后的字符串作为图像数据
-        //开始异步上
-        console.log(base64Data);
-        $.post("/u/userimage", { "image": base64Data }, function (data, status) {
-            console.log(data);
-            if(data.code != 0){
-                faceNumber++;
-                if(faceNumber > 1){
-                    swal("人脸识别", "未检测到人脸影像，请您回到电脑前，或调整好观看姿势！", "error");
+        //开始异步上8468 8490
+        //data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAYlklEQ…wCBAgQIECAgAHoBwgQIECAAAECMQEDMFa4uAQIECBAgACBB+4+AeEFWYvzAAAAAElFTkSuQmCC
+        if(imgData.length > 10000){
+            $.post("/u/userimage", { "image": base64Data }, function (data, status) {
+                if(data.code != 0){
+                    faceNumber++;
+                    if(faceNumber > 1){
+                        swal("人脸识别", "未检测到人脸影像，请您回到电脑前，或调整好观看姿势！", "error");
+                        var elem = document.getElementsByTagName("video")[0];
+                        elem.pause();
+                        video_bofang.style.display = "block";
+                        video_name.style.display = "block";
+                        video_play_svg_div.style.display = "block";
+                        clearInterval(autoFI);
+                        faceNumber = 0;
+                    }
+                }else{
                     faceNumber = 0;
-                    video_Pause();
                 }
-            }else{
-                faceNumber = 0;
-            }
-        }, "json");
+            }, "json");
+        }else{
+            clearInterval(autoFI);
+            faceNumber = 0;
+        }
     }
 
     function faceStart(){
-        autoFI = setInterval(autoFaceImage,60000);
+        clearInterval(autoFI);
+        faceNumber = 0;
+        setTimeout(function(){
+            autoFI = setInterval(autoFaceImage,5000);
+        },1000)
     }
 
 </script>

@@ -101,6 +101,7 @@ function getVCode(){
         $.post("/u/phonecode",{phone:$("#phone").val()},function(data){
             if(data.code == 0){
                 $("#VCode").show();
+                $("#VCode").focus();
                 pcode = data.phone_code;
                 $("#phone_button").attr("onclick","");
                 countDown();
@@ -139,8 +140,8 @@ function blur_nickname(t){
     }else if(check_name(t.value.trim()) == "char"){
         login_input_error(t,"包含非法字符！请输入中文、数字、字母、下划线！");
         nicknameCheck = false;
-    }else if(check_name(t.value.trim()) == "2-10"){
-        login_input_error(t,"昵称长度为2-10位！");
+    }else if(check_name(t.value.trim()) == "4-20"){
+        login_input_error(t,"昵称长度为4-20个字符、2-10个中文字！");
         nicknameCheck = false;
     }else{
         var xmlhttp = new XMLHttpRequest();
@@ -215,10 +216,10 @@ function check_name(str){
       length2 = length2+chinese.length*2;
     }
     if (length == str.length) {
-        if (length2>=2 && length2<=10) {
+        if (length2>=4 && length2<=20) {
             return 'success';
         }else{
-            return '2-10';
+            return '4-20';
         }
     }else{
         return 'char';
