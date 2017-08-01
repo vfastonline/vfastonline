@@ -18,10 +18,13 @@ class TechnologyAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'color', 'desc')
     search_fields = ('name', )
 
+class UserPathAdmin(admin.ModelAdmin):
+    list_display = ('user', 'path')
+
 
 admin.site.register(Path, PathAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Technology, TechnologyAdmin)
 admin.site.register(Video, VideoAdmin)
-admin.site.register(UserPath)
+admin.site.register(UserPath, UserPathAdmin)
 admin.site.register(Section)

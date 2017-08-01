@@ -27,7 +27,7 @@ def get_mengxin(user):
         if score > 10:
             mengxin_badge = Badge.objects.get(badgename='mengxin')
             if UserBadge.objects.filter(user=user, badge=mengxin_badge).__len__() == 0:
-                UserBadge.objects.create(user=user, badge=mengxin_badge)
+                UserBadge.objects.create(user=user, badge=mengxin_badge, createtime=time.strftime('%Y-%d-%m'))
                 logging.getLogger().info('用户%s获得萌新勋章' % user.nickname)
                 return [
                     dict(name=mengxin_badge.badgename, url=mengxin_badge.large_url.url, desc=mengxin_badge.description)]
@@ -59,7 +59,7 @@ def get_track_badge(user, cid, cname):
                 # print path.name
                 badge = Badge.objects.get(path=path)
                 if UserBadge.objects.filter(user=user, badge=badge).__len__() == 0:
-                    UserBadge.objects.create(user=user, badge=badge)
+                    UserBadge.objects.create(user=user, badge=badge,createtime=time.strftime('%Y-%d-%m'))
                     user.totalscore += 30
                     logging.getLogger().info('用户%s成功获取%s路线勋章' % (user.nickname, badge.path.name))
                     tracks.append(dict(name=badge.badgename, url=badge.large_url.url, desc=badge.description))

@@ -7,9 +7,15 @@ class TimuAdmin(admin.ModelAdmin):
     search_fields = ('title', )
 
 
+class ReplayAdmin(admin.ModelAdmin):
+    list_display = ('question', 'replay_user', 'like', 'dislike','score', 'createtime')
+
+
 admin.site.register(Timu, TimuAdmin)
 admin.site.register(Question)
 admin.site.register(QRcomment)
-admin.site.register(Replay)
+admin.site.register(Replay, ReplayAdmin)
 admin.site.register(Attention)
 admin.site.register(RepaType)
+
+

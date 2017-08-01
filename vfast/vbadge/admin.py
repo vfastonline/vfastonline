@@ -7,7 +7,7 @@ class BadgeModel(admin.ModelAdmin):
     search_fields = ('badgename',)
 
 class UserBadgeModel(admin.ModelAdmin):
-    list_display = ('id', 'badge')
+    list_display = ('id',  'badge')
 
 admin.site.register(UserBadge, UserBadgeModel)
 admin.site.register(Badge, BadgeModel)

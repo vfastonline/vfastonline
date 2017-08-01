@@ -54,7 +54,7 @@ class User(models.Model):
     companyid = models.IntegerField('关联公司', null=True, blank=True)
 
     def __unicode__(self):
-        return self.email
+        return self.nickname
 
 
 class DailyTask(models.Model):
@@ -65,10 +65,16 @@ class DailyTask(models.Model):
     vtime = models.CharField('视频时长', max_length=20, default='')
     video_name = models.CharField('视频名称', max_length=50, default='')
 
+    def __unicode__(self):
+        return self.video_name
+
 
 class PtoP(models.Model):
     follow = models.ForeignKey(User, verbose_name='关注人', related_name='follow')
     followed = models.ForeignKey(User, verbose_name='被关注的人', related_name='followed')
+
+    def __unicode__(self):
+        return self.follow.nickname
 
 
 class Headimg(models.Model):

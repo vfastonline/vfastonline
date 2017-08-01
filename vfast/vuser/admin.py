@@ -6,6 +6,14 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('email',)
 
 
+class PtoPAdmin(admin.ModelAdmin):
+    list_display = ('follow', 'followed')
+
+
+class DailyTaskAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'video_name',  'createtime', 'video_id', 'vtype', 'vtime')
+
 admin.site.register(User, UserAdmin)
-admin.site.register(DailyTask)
-admin.site.register(PtoP)
+admin.site.register(DailyTask, DailyTaskAdmin)
+admin.site.register(PtoP, PtoPAdmin)
+
