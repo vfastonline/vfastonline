@@ -10,6 +10,9 @@ class InformTypeAdmin(admin.ModelAdmin):
 class InformTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'pubtime', 'color', 'desc', 'url',)
 
-admin.site.register(Inform)
+class InformAdmin(admin.ModelAdmin):
+    list_display = ('id', 'type', 'user', 'color', 'desc', 'url')
+
+admin.site.register(Inform, InformAdmin)
 admin.site.register(InformTask, InformTaskAdmin)
 admin.site.register(InformType, InformTypeAdmin)

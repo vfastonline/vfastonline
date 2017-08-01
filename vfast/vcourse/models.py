@@ -115,4 +115,4 @@ class UserPath(models.Model):
     path = models.ForeignKey(Path, on_delete=models.CASCADE, verbose_name='路线ID')
 
     def __unicode__(self):
-        return '%s,%s' % (self.user.username, self.path.name)
+        return '%s,%s' % (self.user.nickname, self.path.name)

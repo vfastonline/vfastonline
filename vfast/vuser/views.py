@@ -437,6 +437,7 @@ def change_headimg(request):
                 os.mkdir(destination)
             # print destination
             user = User.objects.get(id=uid)
+            user = User.objects.get(id=uid)
             filename = str(user.id) + '_' + time.strftime('%y%m%d') + '.jpg'
             logging.getLogger().error(filename)
             headfile = open(os.path.join(destination, filename), 'wb')

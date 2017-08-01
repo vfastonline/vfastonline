@@ -115,7 +115,9 @@ def require_role(role=2):
             except TypeError:
                 HttpResponseRedirect(reverse('login'))
             return func(request, *args, **kwargs)
+
         return __deco
+
     return _deco
 
 
@@ -126,7 +128,9 @@ def require_login():
             if not request.session.get('login', None):
                 return HttpResponse(json.dumps({'code': 1, 'msg': u'用户未登录'}, ensure_ascii=False))
             return func(request, *args, **kwargs)
+
         return __deco
+
     return _deco
 
 
@@ -227,7 +231,8 @@ def sendmessage(phone, sms_param):
         resp = req.getResponse()
         logging.getLogger().info(resp)
         logging.getLogger().info(u'短信发送成功, phone:%s, sms_free_sign_name:%s, sms_template_code:%s 状态%s' % (
-        req.rec_num, req.sms_free_sign_name, req.sms_template_code, resp['alibaba_aliqin_fc_sms_num_send_response']))
+            req.rec_num, req.sms_free_sign_name, req.sms_template_code,
+            resp['alibaba_aliqin_fc_sms_num_send_response']))
         return True
     except Exception, e:
         logging.getLogger().error(e)

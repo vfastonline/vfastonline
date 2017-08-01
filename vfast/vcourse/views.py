@@ -3,7 +3,7 @@ import logging, traceback
 import json
 import time
 
-from vfast.api import require_role, require_login, dictfetchall
+from vfast.api import require_login
 from vuser.models import User
 from vcourse.models import Technology, Course, Video, Path, UserPath, Section
 from vrecord.models import WatchRecord
@@ -19,6 +19,7 @@ def test(request):
     return render(request, "search_Result.html")
 
 
+@require_login()
 def getpath(request):
     """获取学习路线详细信息, 学习路线下包含的所有课程
         path为path对象, courseall包含所有的course对象
@@ -28,17 +29,13 @@ def getpath(request):
         path = Path.objects.get(id=pid)
         sequence = path.p_sequence
         course = sequence.split(',')
-        try:
-            uid = request.session['user']['id']
-            path_id = User.objects.get(id=uid).pathid
-        except:
-            path_id = ''
+        uid = request.session['user']['id']
+        path_id = User.objects.get(id=uid).pathid
         courses = []
         for cid in course:
             c = Course.objects.get(id=cid)
             videos = Video.objects.filter(course=c).values()
             courses.append(dict(course=c, video=videos))
-
         return render(request, 'learnPath_show.html',
                       {'path': path, 'path_id': path_id, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
     except:
@@ -53,12 +50,18 @@ def getcourses(request):
         vps = Technology.objects.all().values()
         if type:
             techobj = Technology.objects.get(name=type)
-            pubs = Course.objects.filter(tech=techobj, pubstatus=0).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
-            not_pubs = Course.objects.filter(tech=techobj, pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name', 'pubdate')
+            pubs = Course.objects.filter(tech=techobj, pubstatus=0).values('id', 'name', 'desc', 'totaltime',
+                                                                           'difficult', 'icon', 'color', 'tech__color',
+                                                                           'tech__name')
+            not_pubs = Course.objects.filter(tech=techobj, pubstatus=1).values('id', 'name', 'desc', 'totaltime',
+                                                                               'difficult', 'icon', 'color',
+                                                                               'tech__color', 'tech__name', 'pubdate')
         else:
             techobj = ''
-            pubs = Course.objects.filter(pubstatus=0).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name')
-            not_pubs = Course.objects.filter(pubstatus=1).values('id','name','desc','totaltime','difficult','icon','color','tech__color', 'tech__name','pubdate')
+            pubs = Course.objects.filter(pubstatus=0).values('id', 'name', 'desc', 'totaltime', 'difficult', 'icon',
+                                                             'color', 'tech__color', 'tech__name')
+            not_pubs = Course.objects.filter(pubstatus=1).values('id', 'name', 'desc', 'totaltime', 'difficult', 'icon',
+                                                                 'color', 'tech__color', 'tech__name', 'pubdate')
         return render(request, 'course_library.html',
                       {'pubs': pubs, 'not_pubs': not_pubs, 'vps': vps, 'tech_obj': techobj,
                        'xingxing': [0, 1, 2, 3, 4]})
@@ -91,7 +94,8 @@ def join_path(request):
                 'video_id', 'video__vtype', 'createtime').first()
             logging.getLogger().info(video)
             if video:
-                url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video['video_id']
+                url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video[
+                    'video_id']
             else:
                 course_id = sequence[0]
                 video = Video.objects.filter(course_id=course_id, sequence=1).values('vtype', 'id').first()
@@ -146,7 +150,7 @@ def course_detail(request):
                 url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video[
                     'video_id']
             else:
-                v = Video.objects.filter(course_id=cid, sequence=1).values().first()        #如果课程下面没有视频会抛出异常
+                v = Video.objects.filter(course_id=cid, sequence=1).values().first()  # 如果课程下面没有视频会抛出异常
                 url = '/video/%s' % v['id'] if v['vtype'] == 0 else '/practice/%s' % v['id']
             course_process = '%s/%s' % (videos_watched.count(), videos_course)
             jindu = videos_watched.count() / 1.0 / videos_course
@@ -155,7 +159,7 @@ def course_detail(request):
                                                           'course_process': course_process, 'flag': flag, 'url': url,
                                                           'xingxing': [0, 1, 2, 3, 4], 'jindu': jindu})
         except KeyError:
-            #print 'wei denglu '
+            # print 'wei denglu '
             for section in sections:
                 videos_section = Video.objects.filter(section_id=section['id'])
                 section['videos'] = videos_section

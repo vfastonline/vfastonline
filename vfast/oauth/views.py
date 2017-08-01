@@ -78,17 +78,4 @@ def github_auth(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code':1}))
 
-# {"login": "sky-dadan", "id": 17780632, "avatar_url": "https://avatars2.githubusercontent.com/u/17780632?v=3",
-#  "gravatar_id": "", "url": "https://api.github.com/users/sky-dadan", "html_url": "https://github.com/sky-dadan",
-#  "followers_url": "https://api.github.com/users/sky-dadan/followers",
-#  "following_url": "https://api.github.com/users/sky-dadan/following{/other_user}",
-#  "gists_url": "https://api.github.com/users/sky-dadan/gists{/gist_id}",
-#  "starred_url": "https://api.github.com/users/sky-dadan/starred{/owner}{/repo}",
-#  "subscriptions_url": "https://api.github.com/users/sky-dadan/subscriptions",
-#  "organizations_url": "https://api.github.com/users/sky-dadan/orgs",
-#  "repos_url": "https://api.github.com/users/sky-dadan/repos",
-#  "events_url": "https://api.github.com/users/sky-dadan/events{/privacy}",
-#  "received_events_url": "https://api.github.com/users/sky-dadan/received_events", "type": "User", "site_admin": false,
-#  "name": "sky-dadan", "company": null, "blog": null, "location": null, "email": null, "hireable": null, "bio": null,
-#  "public_repos": 4, "public_gists": 0, "followers": 0, "following": 0, "created_at": "2016-03-11T09:27:37Z",
-#  "updated_at": "2017-01-13T05:40:55Z"}
+
