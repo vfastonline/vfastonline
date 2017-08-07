@@ -1684,20 +1684,11 @@
                     faceNumber = 0;
                 }
             }, "json");
-        }else{
+        }else {
             clearInterval(autoFI);
             faceNumber = 0;
         }
     }
-
-    function faceStart(){
-        clearInterval(autoFI);
-        faceNumber = 0;
-        setTimeout(function(){
-            autoFI = setInterval(autoFaceImage,5000);
-        },1000)
-    }
-
 </script>
 {% if request.session.login != True %}
     <script> $("#login_button").click();</script>

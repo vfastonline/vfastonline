@@ -502,10 +502,13 @@ function closeFeedback(){
     $("#myFeedback_info").click();
 }
 function showFeedbackSend(e,t){
+    console.log("showFeedbackSend");
     if($(t).val().trim() != "" ){
+        console.log("发送show");
         $("#feedbackSendSvg").css("visibility","visible");
     }else{
         $("#feedbackSendSvg").css("visibility","hidden");
+        console.log("发送hide");
     }
 }
 $("#feedbackSendSvg").on("click",function(){
