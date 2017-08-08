@@ -19,7 +19,6 @@ def test(request):
     return render(request, "search_Result.html")
 
 
-@require_login()
 def getpath(request):
     """获取学习路线详细信息, 学习路线下包含的所有课程
         path为path对象, courseall包含所有的course对象
@@ -29,8 +28,11 @@ def getpath(request):
         path = Path.objects.get(id=pid)
         sequence = path.p_sequence
         course = sequence.split(',')
-        uid = request.session['user']['id']
-        path_id = User.objects.get(id=uid).pathid
+        try:
+            uid = request.session['user']['id']
+            path_id = User.objects.get(id=uid).pathid
+        except:
+            path_id = 0
         courses = []
         for cid in course:
             c = Course.objects.get(id=cid)
