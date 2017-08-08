@@ -16,10 +16,17 @@ from datetime import date
 
 def test(request):
     print 'info test~!'
+    print request.get_full_path()
+    # user = User.objects.get(id=request.session['user']['id'])
+    # track_skill(user)
+    print request.META.get('HTTP_USER_AGENT')
+    rep =  HttpResponse(json.dumps({'code':1}))
 
-    user = User.objects.get(id=request.session['user']['id'])
-    track_skill(user)
-    return HttpResponse('ok')
+    rep['HTTP_USER_AGENT'] = 'duminchao'
+    rep.set_cookie('name', 'duminchao')
+    print rep.has_header('HTTP_USER_AGENT')
+    return rep
+
 
 # Create your views here.
 def create_info_user(request):
@@ -183,7 +190,7 @@ def daily_mail(request):
 
                 try:
                    # sendmail('duminchao@qq.com', '我爱你,大鹏', html_content)
-                   sendmail(user.email, '我爱你,大鹏', html_content)
+                   sendmail(user.email, '智量酷', html_content)
                    logging.getLogger().info('send mail successfully')
                 except:
                     logging.getLogger().error(traceback.format_exc())

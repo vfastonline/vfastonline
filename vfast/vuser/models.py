@@ -20,7 +20,7 @@ class User(models.Model):
     email = models.EmailField('邮箱', max_length=50, null=True, unique=True)
     password = models.CharField('密码', max_length=100, null=True)
     sex = models.CharField('性别', max_length=4, default='')
-    totalscore = models.IntegerField('用户总得分', null=True, blank=True, default=0)
+    totalscore = models.IntegerField('用户总得分', null=True, blank=True, default=10)
     city = models.CharField('所在城市', max_length=50, null=True, blank=True, default='')
     intro = models.TextField('个人简介', null=True, blank=True, default='')
     is_open = models.IntegerField('个人信息是否展示', choices=IS_OPEN, default=0, null=True)
