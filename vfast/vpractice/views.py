@@ -11,6 +11,8 @@ from vfast.api import pages, dictfetchall, last_seven_day, require_login
 from vcourse.models import Technology
 from vfast.templatetags.mytags import time_comp_now
 from vpractice.api import rank_front
+from django.utils import timezone
+
 
 import logging
 import traceback
@@ -145,10 +147,9 @@ def add_replay(request):
         if attention:
             type = InformType.objects.get(name='问题回复')
             url = '%s/community/question?qid=%s' % (settings.HOST, qid)
-            Inform.objects.create(color=question.video.course.color, pubtime=time.strftime('%Y-%m-%d %H:%M:%S'),
+            Inform.objects.create(color=question.video.course.color, pubtime=timezone.now(),
                                   desc=question.title,
                                   type=type, user=question.user, url=url)
-
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
