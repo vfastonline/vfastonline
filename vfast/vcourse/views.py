@@ -171,4 +171,4 @@ def course_detail(request):
                            'xingxing': [0, 1, 2, 3, 4], 'jindu': '0%'})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}))
