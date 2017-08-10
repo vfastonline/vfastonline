@@ -13,7 +13,7 @@ class PtoPAdmin(admin.ModelAdmin):
 class DailyTaskAdmin(admin.ModelAdmin):
     list_display = ('user_id', 'video_name',  'createtime', 'video_id', 'vtype', 'vtime')
 
-admin.site.register(User, UserAdmin)
-admin.site.register(DailyTask, DailyTaskAdmin)
-admin.site.register(PtoP, PtoPAdmin)
+# admin.site.register(User, UserAdmin)
+# admin.site.register(DailyTask, DailyTaskAdmin)
+# admin.site.register(PtoP, PtoPAdmin)
 

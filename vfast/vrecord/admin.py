@@ -15,6 +15,6 @@ class WatchRecordAdmin(admin.ModelAdmin):
     list_display = ['user', 'video', 'course', 'video_process', 'status', 'createtime']
 
 
-admin.site.register(Score, ScoreAdmin)
-admin.site.register(WatchRecord, WatchRecordAdmin)
-admin.site.register(WatchCourse, WatchcourseAdmin)
+# admin.site.register(Score, ScoreAdmin)
+# admin.site.register(WatchRecord, WatchRecordAdmin)
+# admin.site.register(WatchCourse, WatchcourseAdmin)

@@ -9,5 +9,5 @@ class BadgeModel(admin.ModelAdmin):
 class UserBadgeModel(admin.ModelAdmin):
     list_display = ('id',  'badge')
 
-admin.site.register(UserBadge, UserBadgeModel)
+# admin.site.register(UserBadge, UserBadgeModel)
 admin.site.register(Badge, BadgeModel)
