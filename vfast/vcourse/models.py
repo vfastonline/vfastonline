@@ -41,9 +41,9 @@ class Course(models.Model):
     pubdate = models.CharField('课程发布时间', max_length=50, default='即将发布', blank=True)
     tag = models.CharField('标签', max_length=50, default='')
     intrv = models.FileField('课程介绍视频', upload_to='course/video', default='course/video/1.mp4')
-    target_user = models.TextField('目标受众', default='')
-    require_knowledge = models.TextField('先修要求', default='')
-    require_env = models.TextField('软硬件要求', default='')
+    target_user = models.TextField('目标受众', null=True, blank=True)
+    require_knowledge = models.TextField('先修要求', null=True, blank=True)
+    require_env = models.TextField('软硬件要求', null=True, blank=True)
 
     def __unicode__(self):
         return self.name

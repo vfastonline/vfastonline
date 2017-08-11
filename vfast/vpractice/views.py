@@ -11,6 +11,8 @@ from vfast.api import pages, dictfetchall, last_seven_day, require_login
 from vcourse.models import Technology
 from vfast.templatetags.mytags import time_comp_now
 from vpractice.api import rank_front
+from django.utils import timezone
+
 
 import logging
 import traceback
@@ -130,28 +132,24 @@ def show_question(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+@require_login()
 def add_replay(request):
     """添加回复"""
     try:
-        try:
-            userid = request.session['user']['id']
-            user = User.objects.get(id=userid)
-        except:
-            return HttpResponse('用户未登录')
+        uid = request.session['user']['id']
+        user = User.objects.get(id=uid)
         content = request.POST.get('content')
         qid = request.POST.get('qid')
         question = Question.objects.get(id=qid)
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
                                     createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
-
-        attention = Attention.objects.filter(user=user, question=question).exists()
+        attention = Attention.objects.filter(uid=uid, qid=qid).exists()
         if attention:
-            type = InformType.objects.get(name='问题回复')
-            url = '%s/community/question?qid=%s' % (settings.HOST, question.id)
-            Inform.objects.create(color=question.video.course.color, pubtime=time.strftime('%Y-%m-%d %H:%M:%S'),
+            type = InformType.objects.get(id=3)
+            url = '%s/community/question?qid=%s' % (settings.HOST, qid)
+            Inform.objects.create(color=question.video.course.color, pubtime=timezone.now(),
                                   desc=question.title,
                                   type=type, user=question.user, url=url)
-
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())

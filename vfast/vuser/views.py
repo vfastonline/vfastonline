@@ -434,9 +434,8 @@ def change_headimg(request):
                 return HttpResponse('no headimg for upload!')
             destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
             if not os.path.isdir(destination):
-                os.mkdir(destination)
+                os.system('mkdir -p %s ' % destination)
             # print destination
-            user = User.objects.get(id=uid)
             user = User.objects.get(id=uid)
             filename = str(user.id) + '_' + time.strftime('%y%m%d') + '.jpg'
             logging.getLogger().error(filename)

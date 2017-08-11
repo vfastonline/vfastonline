@@ -3,6 +3,7 @@ import logging, traceback
 import json
 import time
 
+from vfast.error_page import *
 from vfast.api import require_login
 from vuser.models import User
 from vcourse.models import Technology, Course, Video, Path, UserPath, Section
@@ -42,7 +43,7 @@ def getpath(request):
                       {'path': path, 'path_id': path_id, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        return page_not_found(request)
 
 
 def getcourses(request):
@@ -69,7 +70,8 @@ def getcourses(request):
                        'xingxing': [0, 1, 2, 3, 4]})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        # return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        return page_not_found(request)
 
 
 def getpaths(request):
@@ -79,7 +81,8 @@ def getpaths(request):
         return render(request, 'learning_path.html', {'paths': paths})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        # return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        return page_not_found(request)
 
 
 @require_login()
@@ -112,7 +115,8 @@ def join_path(request):
             return HttpResponseRedirect(url)
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        # return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        return page_error(request)
 
 
 def course_detail(request):
@@ -171,4 +175,4 @@ def course_detail(request):
                            'xingxing': [0, 1, 2, 3, 4], 'jindu': '0%'})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(traceback.format_exc())
+        return page_not_found(request)

@@ -325,12 +325,21 @@
     <div class="slideDIV" style="height:100px;"></div>
     <section class="course_info clearfix">
         <div class="left">
+            {% if course.target_user %}
             <h2>目标受众</h2>
             <div class="text">{{ course.target_user|safe }}</div>
+            {% endif %}
+
+            {% if course.require_knowledge %}
             <h2>先修要求</h2>
             <div class="text">{{ course.require_knowledge|safe }}</div>
+            {% endif %}
+
+            {% if course.require_env %}
             <h2>软/硬件要求</h2>
             <div class="text">{{ course.require_env|safe }}</div>
+            {% endif %}
+
             <h2>课程表</h2>
             <!--章节-->
             {% for section in sections %}

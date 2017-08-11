@@ -12,10 +12,10 @@ class ReplayAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Timu, TimuAdmin)
-admin.site.register(Question)
-admin.site.register(QRcomment)
-admin.site.register(Replay, ReplayAdmin)
-admin.site.register(Attention)
-admin.site.register(RepaType)
+# admin.site.register(Question)
+# admin.site.register(QRcomment)
+# admin.site.register(Replay, ReplayAdmin)
+# admin.site.register(Attention)
+# admin.site.register(RepaType)
 
 
