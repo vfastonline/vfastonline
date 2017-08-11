@@ -263,6 +263,7 @@
             display: none;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
             border-radius:0px 0px 8px 8px;
+            height:auto;
         }
         .quiz_list>div{
             margin: 0 auto;
@@ -875,6 +876,12 @@
             z-index: 0!important;
             position: inherit!important;
         }
+        .hint{
+            text-align:center;
+            width: 1200px;
+            height:100px;
+            background-color: #F0F2F4;
+        }
     </style>
     <script>
         function saveTime(t){
@@ -1027,6 +1034,11 @@
     <div id="close_quiz" class="close_quiz" onclick="close_quiz()">取消提问</div>
 </div>
 <div class="tab_QA" id="tab_QA">
+   <table border="0" align="center" cellpadding="0" cellspacing="0">
+       <tr>
+           <td class="hint">对这一节中的内容有疑惑？快写下来和大家一起讨论吧。说不定亲爱的讲师也会在这里哦.</td>
+       </tr>
+   </table>
     <section class="quiz_section" id="quiz_section">
         <input type="text" placeholder="写一个问题标题..." id="quiz_title">
         <div class="email">

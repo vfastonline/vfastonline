@@ -30,7 +30,7 @@ var CalendarHandler = {
             "width": $(".week").width() / 7 -24 + "px",
             "line-height": itemPaddintTop-3 + "px",
             "height": itemPaddintTop-3 + "px",
-            "margin":"3px 12px 0px 12px"
+            "margin":"2px 12px 0px 12px"
         });
         $(".week>h3").css("width", $(".week").width() / 7 + "px");
     },
@@ -119,7 +119,7 @@ var CalendarHandler = {
             "width": $(".week").width() / 7 -24 + "px",
             "line-height": itemPaddintTop-3 + "px",
             "height": itemPaddintTop-3 + "px",
-            "margin":"3px 12px 0px 12px"
+            "margin":"2px 12px 0px 12px"
         });
     },
     CalculateNextMonthDays: function() {
