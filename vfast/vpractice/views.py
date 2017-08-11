@@ -155,7 +155,7 @@ def add_replay(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
-
+@require_login()
 def qr_comment(request):
     '''问题回复点赞功能 1为赞, -1为踩'''
     try:
@@ -165,11 +165,8 @@ def qr_comment(request):
         status = int(status)
         repatype = 2  # 声望获取类型    2 问题相关
         createtime = time.strftime('%Y-%m-%d %H:%M:%S')
-        try:
-            uid = request.session['user']['id']
-            user = User.objects.get(id=uid)
-        except:
-            return HttpResponse(json.dumps({'code': 1, 'msg': '请先登录'}, ensure_ascii=False))
+        uid = request.session['user']['id']
+        user = User.objects.get(id=uid)
         if qid and QRcomment.objects.filter(qid=qid, uid=uid).exists():
             return HttpResponse(json.dumps({'code': 0, 'msg': '问题已经评论过'}, ensure_ascii=False))
         elif qid and QRcomment.objects.filter(qid=qid, uid=uid, type='Q').exists() == False:
