@@ -145,7 +145,7 @@ def add_replay(request):
                                     createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
         attention = Attention.objects.filter(uid=uid, qid=qid).exists()
         if attention:
-            type = InformType.objects.get(name='问题回复')
+            type = InformType.objects.get(id=3)
             url = '%s/community/question?qid=%s' % (settings.HOST, qid)
             Inform.objects.create(color=question.video.course.color, pubtime=timezone.now(),
                                   desc=question.title,
