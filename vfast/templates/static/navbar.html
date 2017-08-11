@@ -49,13 +49,30 @@
                     </li>
                     <li class="navshuxian"></li>
                     <li id="totalscore">{{ request.session.user.totalscore }}</li>
-                    <li class="headPLI">
+                    <li  id="woaixuexi" onmouseover="aixuexi();" onmouseout="xuexi();"class="headPLI">
                         <a href="/u/person" >
                             <img id="uheadimg" src="" alt=""/>
                             <img src="/static/head/Oval.svg" alt=""/>
                             <img src="/static/head/online.svg" alt=""/>
                         </a>
                     </li>
+                    <script>
+                          function aixuexi(){
+
+    var woaixuexi=document.getElementById("totalscore");
+
+    woaixuexi.style.color="#fff";
+
+  }
+
+  function xuexi(){
+
+   var xuexi=document.getElementById("totalscore");
+
+   xuexi.style.color="#7d95a5";
+
+ }
+                    </script>
                     <li class="remind">
                         <div id="remindDIV" onclick="remind_show()" data-toggle="modal" data-target="#myModal_remind">
                             <svg width="32px" height="38px" viewBox="1285 15 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
