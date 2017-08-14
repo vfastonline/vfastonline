@@ -1018,6 +1018,10 @@
                           id="Shape" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
                 </svg>
             </div>
+            {% elif  video.id == video_obj.id and  forloop.last%}
+            <div onclick="location.href='/course/course?cid={{ video_obj.course.id }}'">
+            返回课程
+            </div>
         {% endif %}
     {% endfor %}
 
