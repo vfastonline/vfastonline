@@ -226,13 +226,19 @@ def dashboard(request, param):
                     sql_video = "select * from vcourse_video where course_id =%s order by sequence limit 1;" % item[
                         'id']
                     ret_video = dictfetchall(sql_video)
-                    item['video_id'] = ret_video[0]['id']
-                    item['video_name'] = ret_video[0]['name']
-                    item['vtype'] = ret_video[0]['vtype']
-                    item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
+                    if len(ret_video) == 0:
+                        item['video_id'] = 1
+                        item['vtype'] = 1
+                        item['createtime'] = 0
+                        item['video_name'] = 'test'
+                    else:
+                        item['video_id'] = ret_video[0]['id']
+                        item['video_name'] = ret_video[0]['name']
+                        item['vtype'] = ret_video[0]['vtype']
+                        item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
             tmp = []
             for z in courses:
-                tmp.append(z['createtime'])
+                tmp.append(str(z['createtime']))
             tmp.sort()
             maxdate = tmp.pop()
             for item in courses:
