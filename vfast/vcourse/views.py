@@ -133,7 +133,7 @@ def course_detail(request):
                                                                                                      'video_id',
                                                                                                      'createtime')
             for section in sections:
-                videos_section = Video.objects.filter(section_id=section['id']).values()
+                videos_section = Video.objects.filter(section_id=section['id']).order_by('sequence').values()
                 tmp = 0
                 for v_section in videos_section:  # video_section
                     for v_watched in videos_watched:  # video_watched
