@@ -227,10 +227,13 @@ def dashboard(request, param):
                         'id']
                     ret_video = dictfetchall(sql_video)
                     if len(ret_video) == 0:
-                        item['video_id'] = 1
-                        item['vtype'] = 1
+                        #如果添加了课程,但是没有为课程添加视频, 默认读取第一个视频
+                        sql_v = 'select * from vcourse_video limit 1'
+                        ret_sql_v = dictfetchall(sql_v)
+                        item['video_id'] = ret_sql_v[0]['id']
+                        item['vtype'] = ret_sql_v[0]['vtype']
                         item['createtime'] = 0
-                        item['video_name'] = 'test'
+                        item['video_name'] = ret_sql_v[0]['name']
                     else:
                         item['video_id'] = ret_video[0]['id']
                         item['video_name'] = ret_video[0]['name']
