@@ -465,7 +465,7 @@
             </div>
             <div class="contentBody_left_body">
                 <ul>
-                    {% for course in courses %}
+                    {% for course in courses_path %}
                         {% load mytags %}
                         {% if course.flag == 1 %}
                             <a href="{{ course| dashboard_get_lession_url}}" class="courseIN">
@@ -508,6 +508,11 @@
                 </ul>
             </div>
         </div>
+    </section>
+{% endif %}
+
+
+    <section class="contentBody clearfix">
         <div class="contentBody_right pull-right">
            <!--<div id="CalendarMain">
                 <div id="title">
@@ -569,75 +574,6 @@
             <p></p>
         </div>
     </section>
-{% else %}
-    <section class="contentBody clearfix">
-        <div class="contentBody_left pull-left">
-            <div class="plan_head">
-                <h3>今日学习计划</h3>
-                {% if courses %}
-                    <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
-                {% else %}
-                    <p>您好，{{ request.session.user.nickname }}同学！您可以尽快开始学习一门感兴趣的路线或课程，我们将为您推荐相关的学习计划，帮助您学习~</p>
-                {% endif %}
-            </div>
-            <div class="plan_body">
-                <ul>
-                    {% for task in tasks %}
-                        {% if task.vtype == 0 and task.status == 0 %}
-                            <li class="plan_finish" onclick="location.href='/video/{{ task.video_id }}'">
-                            <img src="/static/svg/video_1.svg" alt="">
-                        {% elif task.vtype == 0 and task.status == 1 %}
-                            <li onclick="location.href='/video/{{ task.video_id }}'">
-                            <img src="/static/svg/video.svg" alt="">
-                        {% elif task.vtype == 1 and task.status == 0 %}
-                            <li class="plan_finish" onclick="location.href='/practice/{{ task.video_id }}'">
-                            <img src="/static/svg/quiz_1.svg" alt="">
-                        {% else %}
-                            <li onclick="location.href='/practice/{{ task.video_id }}'">
-                            <img src="/static/svg/quiz.svg" alt="">
-                        {% endif %}
-                        <span>{{ task.video_name }}</span>
-                        <time>{{ task.vtime }}</time>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <p></p>
-        </div>
-        <div class="contentBody_right pull-right">
-            <div id="CalendarMain">
-                <div id="title">
-                    <img src="/static/svg/minus.svg" onclick="CalendarHandler.CalculateLastMonthDays();">
-                    <div>
-                        <span class=" selectYear" id="selectYear"></span>
-                        <span class=" selectMonth" id="selectMonth"></span>
-                    </div>
-                    <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>
-                    <img src="/static/svg/plus.svg" onClick="CalendarHandler.CalculateNextMonthDays();">
-                </div>
-                <div id="context">
-                    <div class="week">
-                        <h3> 一 </h3>
-                        <h3> 二 </h3>
-                        <h3> 三 </h3>
-                        <h3> 四 </h3>
-                        <h3> 五 </h3>
-                        <h3> 六 </h3>
-                        <h3> 日 </h3>
-                    </div>
-                    <div id="center">
-                        <div id="centerMain">
-                        <div id="selectYearDiv"></div>
-                        <div id="centerCalendarMain">
-                            <div id="Container"></div>
-                        </div>
-                        <div id="selectMonthDiv"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <div class="slideDIV" style="height:150px;"></div>
     {% if courses %}
         <h2 class="courseING">正在进行的课程</h2>
@@ -679,7 +615,6 @@
         </div>
         {% endfor %}
     </section>
-{% endif %}
 
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>

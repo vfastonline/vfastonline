@@ -69,6 +69,15 @@ class DailyTask(models.Model):
         return self.video_name
 
 
+class DailyTaskstatus(models.Model):
+    user_id = models.IntegerField('用户ID')
+    taskstatus = models.IntegerField('任务状态')      #0未完成, 1已完成
+    createtime = models.CharField(verbose_name='每日任务时间', max_length=10)
+
+    def __unicode__(self):
+        return self.user_id
+
+
 class PtoP(models.Model):
     follow = models.ForeignKey(User, verbose_name='关注人', related_name='follow')
     followed = models.ForeignKey(User, verbose_name='被关注的人', related_name='followed')

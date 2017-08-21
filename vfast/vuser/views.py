@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q, Sum
-from vuser.models import User, DailyTask, PtoP
+from vuser.models import User, DailyTask, PtoP, DailyTaskstatus
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
@@ -182,20 +182,16 @@ def dashboard(request, param):
     try:
         param = int(param)
         user = User.objects.get(id=param)
-        # 当没有正在学习的路线的时候, 显示已经学过的课程
+        # 显示已经学过的或者正在学习的课程
+        sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
+        courses_learning = dictfetchall(sql)
+        task_create = task_daily(user)
+        if task_create:
+            flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
+        else:
+            flag, tasks = False, []
         if user.pathid == 0:
-            sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
-            courses = dictfetchall(sql)
-            task_create = task_daily(user)
-            if task_create:
-                flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
-            else:
-                flag, tasks = False, []
-            # print tasks
-            # print courses
-            return render(request, 'dashBoard.html',
-                          {'courses': courses, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
-                           'tasks': tasks})
+            pass
         # 显示正在学习的路线
         else:
             path = Path.objects.get(id=user.pathid)
@@ -226,13 +222,22 @@ def dashboard(request, param):
                     sql_video = "select * from vcourse_video where course_id =%s order by sequence limit 1;" % item[
                         'id']
                     ret_video = dictfetchall(sql_video)
-                    item['video_id'] = ret_video[0]['id']
-                    item['video_name'] = ret_video[0]['name']
-                    item['vtype'] = ret_video[0]['vtype']
-                    item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
+                    if len(ret_video) == 0:
+                        # 如果添加了课程,但是没有为课程添加视频, 默认读取第一个视频
+                        sql_v = 'select * from vcourse_video limit 1'
+                        ret_sql_v = dictfetchall(sql_v)
+                        item['video_id'] = ret_sql_v[0]['id']
+                        item['vtype'] = ret_sql_v[0]['vtype']
+                        item['createtime'] = 0
+                        item['video_name'] = ret_sql_v[0]['name']
+                    else:
+                        item['video_id'] = ret_video[0]['id']
+                        item['video_name'] = ret_video[0]['name']
+                        item['vtype'] = ret_video[0]['vtype']
+                        item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
             tmp = []
             for z in courses:
-                tmp.append(z['createtime'])
+                tmp.append(str(z['createtime']))
             tmp.sort()
             maxdate = tmp.pop()
             for item in courses:
@@ -254,22 +259,20 @@ def dashboard(request, param):
             jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
             jindu = '%.2f%%' % (jindu * 100)
 
-            task_create = task_daily(user)  # 检测推荐任务, 没有就创建
-            if task_create:
-                flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
-            else:
-                flag, tasks = False, []
-            # courses 路线下所有的课程, jindu 路线进度, path_flag 显示路线, tasks 推荐任务, flag 今日任务是否完成
             return render(request, 'dashBoard.html',
-                          {'courses': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
+                          {'courses_path': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
+                           'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4],
                            'tasks': tasks, 'flag': flag})
+        return render(request, 'dashBoard.html',
+                      {'courses': courses_learning, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
+                       'tasks': tasks})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
 def task_daily(user):
-    """每日任务"""
+    """创建每日任务"""
     try:
         ret = WatchRecord.objects.filter(user=user).exists()
         d_ret = DailyTask.objects.filter(createtime__contains=time.strftime('%Y-%m-%d'),
@@ -285,6 +288,7 @@ def task_daily(user):
                 for item in recommand:
                     DailyTask.objects.create(user_id=user.id, video_id=item['id'], createtime=time.strftime('%Y-%m-%d'),
                                              vtime=item['vtime'], vtype=item['vtype'], video_name=item['name'])
+                DailyTaskstatus.objects.create(user_id=user.id, createtime=time.strftime('%Y-%m-%d'), taskstatus=1)
                 return True
         elif ret and d_ret:
             return True
@@ -314,12 +318,14 @@ def task_finish(user):
                 item['status'] = 1
         # #print dt_all, wr
         if set(dt).issubset(set(wr)):
-            if Score.objects.filter(user_id=user.id, score=10, createtime=time.strftime('%Y-%m-%d')).exists():
-                return True, dt_all
+            if DailyTaskstatus.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d'), taskstatus=0):
+                return False, dt_all
             else:
                 Score.objects.create(user_id=user.id, score=10, createtime=time.strftime('%Y-%m-%d'))
                 user.totalscore += 10
                 user.save()
+                DailyTaskstatus.objects.filter(user_id=user.id, createtime=time.strftime('%Y-%m-%d')).update(
+                    taskstatus=0)
                 return True, dt_all
         else:
             return False, dt_all
