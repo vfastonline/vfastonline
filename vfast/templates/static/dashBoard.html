@@ -12,18 +12,17 @@
         /*promptEL Start*/
         .promptEL{
             width: 1200px;
-            height: 60px;
+            height: 100px;
             overflow: hidden;
-            background: #4DB6AC;
+            background: #5ACD91;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
-            border-radius: 4px;
             margin: 50px auto 0px;
             position: relative;
             transition: all 0.35s ease-in-out;
         }
         .promptEL svg{
             position: absolute;
-            top: 20px;
+            top: 39px;
             left: 20px;
         }
         .promptEL svg:hover{
@@ -36,8 +35,8 @@
             fill: #FFFFFF;
         }
         .promptEL p{
-            height: 60px;
-            line-height: 60px;
+            height: 100px;
+            line-height: 100px;
             font-size: 18px;
             color: #FFFFFF;
             padding-left: 70px;
@@ -186,7 +185,7 @@
             box-shadow: inset 0 1px 0 0 #848484;
         }
         .contentBody_left_body ul .courseIN>div{
-            background: #4DB6AC;
+            background: #4DD0E1;
             height: 136px;
             width:60%;
             position: absolute;
@@ -259,7 +258,7 @@
             transition: background 0.35s,opacity 0.35s;
         }
         .plan_body ul li:hover{
-            background: #FFFFFF;
+            background: #4DD0E1;
 {#            box-shadow: inset 0 2px 5px #D4D9DD;#}
 {#            cursor: pointer;#}
         }
@@ -510,7 +509,7 @@
             </div>
         </div>
         <div class="contentBody_right pull-right">
-            <div id="CalendarMain">
+           <!--<div id="CalendarMain">
                 <div id="title">
                     <img src="/static/svg/minus.svg" onclick="CalendarHandler.CalculateLastMonthDays();">
                     <div>
@@ -540,7 +539,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="plan_head">
                 <h3>今日学习计划</h3>
                 <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>

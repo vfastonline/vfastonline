@@ -49,7 +49,7 @@
                                   .tickSize( width )
                                   .tickFormat( '' )
                                   .orient( 'right' ),
-        
+
         area = d3.svg.area()
                       .interpolate( 'linear' )
                       .x( function( d )  { return x( d.date ) + detailWidth / 2; } )
@@ -89,7 +89,6 @@
     svg.append( 'g' )
       .attr( 'class', 'lineChart--yAxisTicks' )
       .call( yAxisTicks );
-
     // Add the line path.
     svg.append( 'path' )
         .datum( startData )

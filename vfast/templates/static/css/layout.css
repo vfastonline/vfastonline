@@ -1437,3 +1437,9 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 #feedback_content .textDiv svg:active{
     opacity: 1;
 }
+#fuocha{
+    width: 100px;
+    height: 300px;
+    background-color: #0E7EBD;
+    position: fixed;
+}
