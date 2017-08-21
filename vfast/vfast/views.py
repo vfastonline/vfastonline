@@ -17,9 +17,22 @@ import re
 from uploader import Uploader
 
 
-@require_login()
+import time
+def gettime(func):
+
+    def inner(request, *args, **kwargs):
+        time1 = int(time.time())
+        time.sleep(2)
+        print request.META
+
+        return func(request)
+    return inner
+
+
+@gettime
 def test(request):
-    return render(request, "rankingList.html")
+    print '/test'
+    return HttpResponse('/test')
 
 
 def logout(request):
