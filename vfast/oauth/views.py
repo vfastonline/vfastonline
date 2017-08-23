@@ -36,7 +36,7 @@ def github_login(request):
         'state': _get_refer_url(request),
     }
     github_auth_url = '%s?%s' % (GITHUB_AUTHORIZE_URL, urllib.urlencode(data))
-    # print github_auth_url
+    print github_auth_url
     return HttpResponseRedirect(github_auth_url)
 
 
