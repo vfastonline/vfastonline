@@ -52,9 +52,6 @@
                     </li>
                     <li class="navshuxian"></li>
                     <li id="totalscore">{{ request.session.user.totalscore }}</li>
-                    <script>
-                        console.log({{ request.session.user.totalscore }})
-                    </script>
                     <li class="headPLI">
                         <a href="/u/person" >
                             <img id="uheadimg" src="" alt=""/>
@@ -79,6 +76,16 @@
 
  }
                     </script>
+                    <li class="xiabiaofu" id="xiabiaofu" onclick="sho()">
+                       <?xml version="1.0" standalone="no"?>
+                        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                        <svg t="1503369663830" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3369" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                        <defs>
+                        <style type="text/css"></style>
+                        </defs><path d="M478.31207 644.159081C502.692194 671.061286 542.819471 670.698193 566.819471 643.269621L837.388303 334.048098C845.146852 325.181184 844.248346 311.703582 835.381431 303.94503 826.514517 296.186481 813.036915 297.084988 805.278364 305.951902L534.709532 615.173423C527.507586 623.40422 517.168621 623.497773 509.927514 615.507586L229.141056 305.674253C221.229163 296.943889 207.737949 296.280386 199.007586 304.192277 190.277222 312.104171 189.61372 325.595383 197.525612 334.325747L478.31207 644.159081Z" p-id="3370" fill="#B4BEC8">
+                        </path>
+                        </svg>
+                    </li>
                     <li class="remind">
                         <div id="remindDIV" onclick="remind_show()" data-toggle="modal" data-target="#myModal_remind">
                             <svg width="32px" height="38px" viewBox="1285 15 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -90,7 +97,22 @@
                             <div id="remindSum">12</div>
                         </div>
                     </li>
+
+                    <div id="tanchuceng" id="tanchuceng"style="  width: 200px;height: 200px;background-color: red;position: absolute;left: 980px;top: 70px;display: none">
+                        <div style="width: 0; height: 0;border-left: 50px solid transparent;border-right: 50px solid transparent;border-bottom: 100px solid #0F796B;"></div>
+                      <div style="height: 40px; margin-left: 50px">个人资料</div>
+                        <div style="height: 40px; margin-left: 50px"><a href="/u/person" >个人中心</a></div>
+                      <div style="height: 40px; margin-left: 50px">继续学习</div>
+                      <div style="height: 40px; margin-left: 50px">退出登录</div>
+                    </div>
                 </ul>
+                <script>
+                   $(document).ready(function(){
+  $(xiabiaofu).click(function(){
+  $(tanchuceng).toggle();
+  });
+});
+                </script>
             </nav>
         </header>
         {% endif %}
