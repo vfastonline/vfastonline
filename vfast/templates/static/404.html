@@ -2,9 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>404</title>
+    <script src="./js/jquery-2.1.4.js"></script>
+    <style type="text/css">
+        .return-i{  width: 100px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: #4db6ac;
+        }
+        .return-index{
+            width: 100px;
+            height: 30px;
+        }
+        .mydiv{
+            width: 60%;
+            height: 60%;
+        }
+        .tuzhanwei{
+         width: 300px;
+         height: 300px;
+        }
+
+    </style>
+     <script>
+    $(function () {
+        $(window).resize(function(){
+        $(".mydiv").css({
+        position: "absolute",
+        left: ($(window).width() - $(".mydiv").outerWidth())/2,
+        top: ($(window).height() - $(".mydiv").outerHeight())/2
+     });
+ });
+        });
+     </script>
 </head>
 <body>
-    <h2 style="color: red">404</h2>
+<div class="mydiv" id="mydiv">
+    <div class="tuzhanwei">
+         <svg></svg>
+    </div>
+    <div>
+        <p>这个页面还在休息。。。我们不打搅他了！</p>
+    </div>
+    <div class="return-index">
+        <a class="return-i" href="index.html">返回首页</a>
+    </div>
+</div>
 </body>
 </html>

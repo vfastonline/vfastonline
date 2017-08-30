@@ -2,7 +2,7 @@
     <div class="container">
         {% if request.session.login != True  %}
         <header id="not_logged_in" class="not_logged_in">
-            <a class="navLeft_a" href="/"><img class="log" src="/static/imgs/log.jpg"/></a>
+            <a class="navLeft_a" href="/"><img class="log" src="/static/imgs/logoindex.svg"/></a>
             <div>
                 <ul>
                     <li><a href="/course/tracks">学习路线</a></li>
@@ -19,8 +19,11 @@
                 <ul>
                     <li>
                         <a class="navLeft_a" href="/u/{{ request.session.user.id}}" target="_top">
-                           <img class="log" width="230px" height="70px" src="/static/imgs/log.jpg"/>
+                           <img class="log" width="230px" height="70px" src="/static/imgs/logo.svg"/>
                         </a>
+                        <script>
+                            console.log({{ request.session.user.id}})
+                        </script>
                     </li>
                     <div style="float: left;">
                         <li><a href="/course/tracks">学习路线</a></li>
@@ -31,7 +34,7 @@
                 </ul>
             </nav>
             <nav class="navRight">
-                <ul>
+                <ul  id="woaixuexi" onmouseover="aixuexi();" onmouseout="xuexi();">
                     <li>
                         <svg onclick="$('#search').css('visibility','visible')" id="btn-search" class="btn btn--search" width="30px" height="30px" viewBox="0 0 34 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
@@ -49,7 +52,10 @@
                     </li>
                     <li class="navshuxian"></li>
                     <li id="totalscore">{{ request.session.user.totalscore }}</li>
-                    <li  id="woaixuexi" onmouseover="aixuexi();" onmouseout="xuexi();"class="headPLI">
+                    <script>
+                        console.log({{ request.session.user.totalscore }})
+                    </script>
+                    <li class="headPLI">
                         <a href="/u/person" >
                             <img id="uheadimg" src="" alt=""/>
                             <img src="/static/head/Oval.svg" alt=""/>
@@ -69,7 +75,7 @@
 
    var xuexi=document.getElementById("totalscore");
 
-   xuexi.style.color="#7d95a5";
+   xuexi.style.color="#8c96a5";
 
  }
                     </script>

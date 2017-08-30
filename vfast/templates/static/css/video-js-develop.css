@@ -70,7 +70,7 @@
     display: none;
 }
 .vjs-current-time,.vjs-time-divider,.vjs-duration{
-    display: none;
+    display: block;
 }
 .vjs-progress-control{
     width:80%!important;
@@ -97,4 +97,7 @@
     background-color: #00BCD4!important;
     background-image: none!important;
     border-radius: 10px!important;
+}
+.vjs-progress-control{
+    width: auto;
 }

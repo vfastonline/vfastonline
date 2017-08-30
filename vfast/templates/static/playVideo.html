@@ -914,7 +914,7 @@
 <div style="height: 50px;"></div>
 <div class="video_div">
     <video ondblclick="video_FullScreen()" onplay="faceStart()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()" autoplay="autoplay"  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="450"
-           data-setup='{"example_option":true}'>
+           data-setup='{"playbackRates": [1, 1.5, 2]}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/wmv" />
         <track kind="subtitles" src="{{ video_obj.cc.url }}" srclang="en" label="English" default>
@@ -962,6 +962,7 @@
     </div>
 </div>
 <div class="video_div1" id="video_div1">
+
     <ul>
         <li onclick="video_speed(this,10)">0.75x</li>
         <li onclick="video_speed(this,1)">1.0x</li>
