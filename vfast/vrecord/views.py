@@ -164,20 +164,25 @@ def get_score_seven_day(request):
     try:
         uid = request.session['user']['id']
         seven_day = []
+        date, score = [], []
         for i in range(-7, 1):
             tmp = {}
             tmp['date'] = str(get_day_of_day(i))
             tmp['label'] = str(get_day_of_day(i))
+            date.append(str(get_day_of_day(i)))
             # 获取最近七天的得分
             sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (
                 str(get_day_of_day(i)), uid)
             ret = dictfetchall(sql)
             if ret[0]['score'] is None:
                 tmp['value'] = 0
+                score.append(0)
             else:
                 tmp['value'] = int(ret[0]['score'])
+                score.append(int(ret[0]['score']))
             seven_day.append(tmp)
-        return HttpResponse(json.dumps({'weekscore': seven_day}, ensure_ascii=False))
+            result = {'date':date, 'score':score}
+        return HttpResponse(json.dumps({'weekscore': seven_day, 'result':result}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
