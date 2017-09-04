@@ -498,9 +498,9 @@
             <div class="info_right_2">
                 <div onclick="location.href = '/u/editpage'">
                     <span style="background-image: url('/static/svg/bianjihei.svg')"></span>
-                    修改个人信息
+                    账户设置
                 </div>
-                <div onclick="location.href = '/logout'">
+                <!--<div onclick="location.href = '/logout'">
                     <span style="background-image: url('/static/svg/logout.svg')"></span>
                     退出登陆
                 </div>
@@ -511,10 +511,10 @@
                 <div>
                     <span style="background-image: url('/static/svg/chongzhi.svg')"></span>
                     重置所有提示
-                </div>
+                </div>  -->
                 <div onclick="toogle(this)" id="{{ user.is_open }}" >
                     <span style="background-image: url('/static/svg/qiyechakan.svg')"></span>
-                    允许企业查看
+                    允许邮件提醒
                     {% if user.is_open == 0 %}
                         <div id="moveDIV" class="btn_fath on" >
                         {% else %}
@@ -524,57 +524,11 @@
                   </div>
                 </div>
             </div>
-            <script>
-                function bindGitHub(t){
-        if($(t).attr("class") == "off"){
-            $(t).attr("class","on_github");
-            $(t).find("img").attr("src","/static/svg/fangmao.svg");
-            location.href = "/u/editpage/github?status=on";
-            showPrompt("正在绑定GitHub账号~请您稍后~");
-        }else{
-            $(t).attr("class","off");
-            $(t).find("img").attr("src","/static/svg/fangmao_hui.svg");
-            $.get("/u/editpage/github?status=off",function(data){
-                if(data.code == 0){
-                    showPrompt("成功解绑GitHub账号~");
-                }
-            },"json");
-        }
-    }
-    function showbindP(t){
-        if($(t).attr("class") == "off"){
-            $(t).attr("class","on_p");
-            $(t).find("img").attr("src","/static/svg/www.svg");
-            setTimeout(function(){
-                $(t).animate({width: 'toggle', opacity: 'hide'}, 'normal',function(){ $(t).hide();});
-                $(t).parent().find("input").animate({width: 'toggle', opacity: 'show'}, 'normal',function(){ $(t).parent().find("input").show();});
-                $(t).parent().find("input").focus();
-            },350);
-        }else{
-            $(t).attr("class","off");
-            $(t).find("img").attr("src","/static/svg/www_hui.svg");
-            $.post("/u/editpage/personpage",{"personpage":""},function(data){
-                showPrompt("成功解绑个人主页~");
-            })
-        }
-    }
-    function bindP(t){
-        var www = t.value;
-        if(www.indexOf("http") == -1){
-            www = "http://"+www;
-        }
-        $.post("/u/editpage/personpage",{"personpage":www},function(data){
-            showPrompt("绑定个人主页成功~");
-            $(t).animate({width: 'toggle', opacity: 'show'}, 'normal',function(){ $(t).show();});
-            $(t).parent().find("div").animate({width: 'toggle', opacity: 'hide'}, 'normal',function(){ $(t).parent().find("input").hide();});
-        })
-    }
-            </script>
             <div class="slideDIV" style="height:50px;"></div>
-            <div class="info_right_3">
+          <!--  <div class="info_right_3">
                 <img src="/static/svg/xiaoren.svg" alt="">
                 <p>已受到<span>3</span>家企业的关注</p>
-            </div>
+            </div> -->
         </div>
     </section>
 

@@ -883,6 +883,12 @@
             height:100px;
             background-color: #F0F2F4;
         }
+        .faq_contne{
+            background-color: #00BCD4;
+            width: 80%;
+            height: 600px;
+            display: none;
+        }
     </style>
     <script>
         function saveTime(t){
@@ -963,7 +969,6 @@
     </div>
 </div>
 <div class="video_div1" id="video_div1">
-
     <ul>
         <li onclick="video_speed(this,10)">0.75x</li>
         <li onclick="video_speed(this,1)">1.0x</li>
@@ -1003,7 +1008,7 @@
             <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
         </svg>
         <svg onclick="video_div2_svg_show(2)" width="17px" height="17px" viewBox="1077 753 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
+            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.9w58724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
         </svg>
     </div>
     {% load mytags %}
@@ -1027,12 +1032,14 @@
     {% endfor %}
 
 </div>
+
 <div class="slideDIV" style="height: 150px;"></div>
 <div class="tab_menu" id="tab_menu">
     <ul>
         <li class="tab_menu_li" onclick="tab_sel(this,'tab_Course')">课程系列</li>
         <li id="button_QA" onclick="tab_sel(this,'tab_QA')">问答版</li>
         <li onclick="tab_sel(this,'tab_NOTE')">讲师笔记</li>
+        <li onclick="tab_sel(this,'tab_faq')">FAQ</li>
     </ul>
     <div id="quiz" onclick="quiz()">提问</div>
     <div id="publish_quiz" class="publish_quiz" onclick="quiz_submit()">发布问题</div>
@@ -1088,6 +1095,13 @@
 <div class="tab_NOTE" id="tab_NOTE">
     <div>
         <div id="content" class="note_pre">{{ video_obj.notes|safe }}</div>
+    </div>
+</div>
+<div class="tab_faq" id="tab_faq">
+    <div class="faq_contne">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 </div>
 <div class="tab_Course" id="tab_Course">
