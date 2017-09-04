@@ -73,9 +73,9 @@
     display: block;
 }
 .vjs-progress-control{
-    width:80%!important;
+    width:60%!important;
     top: 12px!important;
-    left:10%!important;
+    left:20%!important;
     border-radius: 10px!important;
 }
 .vjs-load-progress{

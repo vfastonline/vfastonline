@@ -23,7 +23,7 @@ import random
 
 # Create your views here.
 def test(request):
-    return render(request, 'test.html')
+    return render(request, 'personacon.html')
 
 
 def userexists(request):

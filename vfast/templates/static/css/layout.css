@@ -691,7 +691,7 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 .not_logged_in>div{
     float: right;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 20px;
 }
 .not_logged_in>div>ul:after{content: "";display: block;clear: both}
 .not_logged_in>div>ul li{
@@ -787,8 +787,9 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 
 .log{
     width: 230px;
-    height: 70px;
-    vertical-align: top;
+    height: 32px;
+    line-height: 32px;
+
 }
 .navLeft a:hover{
     color: #FFFFFF;

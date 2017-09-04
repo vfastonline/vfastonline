@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     {% include "head.html" %}
+    <style>
+        .my-persona{width: 1200px;
+        height: 600px;
+        background-color: #0F796B;
+        margin: 0 auto}
+        .persona-left{
+            width: 65%;
+            background-color: #D4D9DD;
+            float: left;
+        }
+        .persona-right{
+            width: 25%;
+            background-color: #3c763d;
+            height: 200px;
+            float: right;
+        }
+        .persona-img{width: 160px;
+        height: 160px;
+        background-color: red;
+        border-radius: 80px;
+        float: left}
+        #persona-left ul{display: none}
+        #persona-left ul.fdiv{display: block}
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+     <div class="my-persona">
+          <div class="persona-left" id="persona-left">
+              <ul class="fdiv">
+                  <li>
+                   <div style="width: 300px; height: 200px;line-height: 200px">
+                      <div style="float: left">我的头像 </div>
+                      <div class="persona-img"></div>
+                      <div>自定义头像</div>
+                   </div>
+                  </li>
+                  <li>
+                      <span>用户名</span><input>
+                  </li>
+                  <li>
+                      <span>邮箱</span> <input>
+                  </li>
+                  <li>
+                      <span>自我描述</span><input>
+                  </li>
+                  <li>
+                      <span>地理位置</span>
+                  </li>
+                  <li>
+                      <span>生日</span>
+                  </li>
+              </ul>
+              <ul>
+                 <li>
+                     <span>新手机号</span><input>
+                 </li>
+                  <li>
+                      <span>验证码</span><input>
+                  </li>
+              </ul>
+              <ul>
+                  <li>
+                      <span>新密码</span><input>
+                  </li>
+                  <li>
+                      <span>再次确认</span><input>
+                  </li>
+              </ul>
+           <div style="clear: none"></div>
+          </div>
+          <div class="persona-right" id="persona-right">
+              <ul>
+                  <li class="fli">账户设置</li>
+                  <li>修改密码</li>
+                  <li>手机号变更</li>
+              </ul>
+          </div>
+     </div>
+     <script type="text/javascript">
+         var tabs=document.getElementById("persona-right").getElementsByTagName("li");
+
+    var divs=document.getElementById("persona-left").getElementsByTagName("ul");
+
+    for(var i=0;i<tabs.length;i++){
+
+        tabs[i].onclick=function(){change(this);}
+
+    }
+
+    function change(obj){
+
+        for(var i=0;i<tabs.length;i++)
+
+        {
+
+            if(tabs[i]==obj){
+
+                tabs[i].className="fli";
+
+                divs[i].className="fdiv";
+
+            }
+
+            else{
+
+                tabs[i].className="";
+
+                divs[i].className="";
+
+            }
+
+        }
+
+    }
+     </script>
+    <div class="slideDIV" style="height:150px;"></div>
+    <section class="path_content clearfix">
+        {% for path in paths %}
+            <a href="/course/track?id={{ path.id }}">
+                <div style="background-size: 50%;background-image: url('{{ path.pathimg.url }}');background-color: {{ path.color }};"></div>
+                <h2>{{ path.name }}</h2>
+            </a>
+        {% endfor %}
+    </section>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+</body>
+</html>
