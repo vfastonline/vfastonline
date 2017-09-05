@@ -2,7 +2,7 @@
 from models import Inform, InformTask, Feedback
 from vuser.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from vfast.api import time_comp_now, require_login, dictfetchall, sendmail
+from vfast.api import time_comp_now, require_login, dictfetchall, sendmail, get_day_of_day, second_to_hour
 from vrecord.api import  track_skill
 from django.template import loader
 from django.conf import settings
@@ -16,16 +16,8 @@ from datetime import date
 
 def test(request):
     print 'info test~!'
-    print request.get_full_path()
-    # user = User.objects.get(id=request.session['user']['id'])
-    # track_skill(user)
-    print request.META.get('HTTP_USER_AGENT')
-    rep =  HttpResponse(json.dumps({'code':1}))
-
-    rep['HTTP_USER_AGENT'] = 'duminchao'
-    rep.set_cookie('name', 'duminchao')
-    print rep.has_header('HTTP_USER_AGENT')
-    return rep
+    print get_score_yesterday(2, '2017-07-28')
+    return HttpResponse('ok')
 
 
 # Create your views here.
@@ -200,3 +192,20 @@ def daily_mail(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
+
+
+def ucenter(request):
+    try:
+        # if request.session['user']['role'] != 2:
+        #     return HttpResponse(status=403)
+        yesterday = get_day_of_day(n=-1)
+        users = User.objects.all().values('id', 'nickname', 'realname')
+
+
+    except:
+        pass
+
+
+
+
+

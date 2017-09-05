@@ -43,4 +43,20 @@ class WatchCourse(models.Model):
     createtime = models.CharField('记录时间', max_length=20, default='2015-09-08 12:00:00')
 
 
+class Watchtime(models.Model):
+    """记录用户观看视频时长"""
+    createtime = models.CharField('日期', max_length=10)
+    userid = models.IntegerField('用户ID')
+    time = models.IntegerField('学习时长')
+
+
+class WatchTimu(models.Model):
+    """记录用户习题情况"""
+    createtime = models.CharField('日期', max_length=10)
+    userid = models.IntegerField('用户ID')
+    timuid = models.IntegerField('题目ID')
+    courseid = models.IntegerField('课程ID')
+    status = models.CharField(verbose_name='习题状态', max_length=1)   #0正确, 1错误
+
+
 
