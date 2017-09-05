@@ -11,6 +11,7 @@ from vbadge.models import UserBadge
 from vfast.api import encry_password, get_validate, time_comp_now, dictfetchall, require_login
 from vrecord.api import sum_score_tech
 from api import Detect
+from vcourse.api import track_process
 
 import os
 import json
@@ -192,6 +193,7 @@ def dashboard(request, param):
             flag, tasks = False, []
         if user.pathid == 0:
             pass
+
         # 显示正在学习的路线
         else:
             path = Path.objects.get(id=user.pathid)
@@ -251,18 +253,12 @@ def dashboard(request, param):
                 else:
                     item['flag'] = 0
             # 进行路线的百分比
-            p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % sequence
-            v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
-                sequence, user.id)
-            p_num = dictfetchall(p_num_sql)
-            v_num = dictfetchall(v_num_sql)
-            jindu = v_num[0]['sum'] / 1.0 / p_num[0]['sum']
-            jindu = '%.2f%%' % (jindu * 100)
-
+            jindu, jindu_2 = track_process(user.id, sequence)
             return render(request, 'dashBoard.html',
-                          {'courses_path': courses, 'jindu': jindu, 'path_flag': True, 'path_name': path.name,
+                          {'courses_path': courses, 'jindu': jindu,  'path_name': path.name,
                            'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4],
                            'tasks': tasks, 'flag': flag})
+
         return render(request, 'dashBoard.html',
                       {'courses': courses_learning, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
                        'tasks': tasks})

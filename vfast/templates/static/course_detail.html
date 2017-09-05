@@ -298,10 +298,12 @@
                     {% if request.session.login != True %}
                         <div onclick="showLogin()">开始学习</div>
                     {% else %}
-                        {% if flag %}
-                            <div onclick="window.open('{{ url }}','_blank')">继续学习</div>
-                        {% else %}
+                        {% if jindu == '100.00%' %}
+                            <div onclick="window.open('{{ url }}','_blank')">评价课程</div>
+                        {% elif jindu == '0.00%' %}
                             <div onclick="window.open('{{ url }}','_blank')">开始学习</div>
+                        {% else %}
+                            <div onclick="window.open('{{ url }}','_blank')">继续学习</div>
                         {% endif %}
                     {% endif %}
                     <span>{{ course_process }}</span>
