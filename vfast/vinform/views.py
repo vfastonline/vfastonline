@@ -3,9 +3,12 @@ from models import Inform, InformTask, Feedback
 from vuser.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from vfast.api import time_comp_now, require_login, dictfetchall, sendmail, get_day_of_day, second_to_hour
-from vrecord.api import  track_skill
+from vrecord.api import track_skill
 from django.template import loader
 from django.conf import settings
+from vinform.api import *
+from vcourse.api import track_process
+from vcourse.models import Path
 
 import traceback
 import json
@@ -16,7 +19,6 @@ from datetime import date
 
 def test(request):
     print 'info test~!'
-    print get_score_yesterday(2, '2017-07-28')
     return HttpResponse('ok')
 
 
@@ -123,36 +125,37 @@ def create_feedback(request):
                 # print create_time, http_user_agent, description
                 Feedback.objects.create(user=user, description=description, userip=userip, createtime=create_time,
                                         user_agent=http_user_agent)
-                return HttpResponse(json.dumps({'code':0}))
+                return HttpResponse(json.dumps({'code': 0}))
             except:
                 logging.getLogger().error(traceback.format_exc())
-                return HttpResponse(json.dumps({'code':1}))
+                return HttpResponse(json.dumps({'code': 1}))
         else:
-            return HttpResponse(json.dumps({'code':2}))
+            return HttpResponse(json.dumps({'code': 2}))
     except:
-        return HttpResponse(json.dumps({'code':3}))
+        return HttpResponse(json.dumps({'code': 3}))
 
 
 def daily_mail(request):
     try:
-        yesterday = time.strftime('%Y-%m-%d',time.localtime(time.time() - 24*60*60))
+        yesterday = time.strftime('%Y-%m-%d', time.localtime(time.time() - 24 * 60 * 60))
         sql = "select pathid, id as user_id from vuser_user where id in (select user_id from vrecord_score where createtime = '%s' group by user_id);" % yesterday
         sql_result = dictfetchall(sql)
         for value in sql_result:
             user = User.objects.get(id=value['user_id'])
-            #用户邮箱不为空, 且正在进行一个学习路线,发送每日邮件
+            # 用户邮箱不为空, 且正在进行一个学习路线,发送每日邮件
             if value['pathid'] != 0 and user.email:
                 sql_path = 'select name from vcourse_path where id = %s' % value['pathid']
                 pathname = dictfetchall(sql_path)
-                sql_course = "select vw.createtime, vc.name, vc.id  from vrecord_watchrecord as vw left join  vcourse_course as vc on vw.course_id = vc.id where vw.user_id = %s order by createtime desc limit 1" % value['user_id']
+                sql_course = "select vw.createtime, vc.name, vc.id  from vrecord_watchrecord as vw left join  vcourse_course as vc on vw.course_id = vc.id where vw.user_id = %s order by createtime desc limit 1" % \
+                             value['user_id']
                 sql_course_result = dictfetchall(sql_course)
                 # print sql_course_result
-                path = dict(id=value['pathid'], name = pathname[0]['name'])
+                path = dict(id=value['pathid'], name=pathname[0]['name'])
                 course = dict(id=sql_course_result[0]['id'], name=sql_course_result[0]['name'])
                 grain_skill, skill = track_skill(user)
 
                 rank_sql = "select vu.id, ifnull(vv.score,0) as score, vu.headimg, vu.nickname from vuser_user as vu left join (select user_id , sum(score) as score from vrecord_score group by user_id ) as vv on vu.id=vv.user_id order by score desc;"
-                rank_result= dictfetchall(rank_sql)
+                rank_result = dictfetchall(rank_sql)
                 for user_pos in rank_result:
                     if user_pos['id'] == value['user_id']:
                         position = rank_result.index(user_pos)
@@ -161,33 +164,27 @@ def daily_mail(request):
                 elif position == len(rank_result) - 1:
                     rank = rank_result[-2:]
                 else:
-                    rank = rank_result[position-1: position+2]
+                    rank = rank_result[position - 1: position + 2]
                 for item in rank:
                     sql_yesterday = "select sum(score) as score from vrecord_score where user_id = %s and createtime='%s';" % (
-                    item['id'], yesterday)
+                        item['id'], yesterday)
                     score_yesterday = dictfetchall(sql_yesterday)[0]['score']
                     item['score_yesterday'] = score_yesterday
-                # print rank                    #排行榜   三个
-                # print grain_skill, skill      #技能点
-                # print path, course,           #路线, 课程
-                # print user.nickname           #用户别名
-                # print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-
                 html_content = loader.render_to_string('daily_email.html',
                                                        {'nickname': user.nickname, 'ranks': rank,
                                                         'grain_skills': grain_skill, 'skills': skill,
-                                                        'path': path, 'course': course, 'host':settings.HOST
+                                                        'path': path, 'course': course, 'host': settings.HOST
                                                         }
                                                        )
 
                 try:
-                   # sendmail('duminchao@qq.com', '我爱你,大鹏', html_content)
-                   sendmail(user.email, '智量酷', html_content)
-                   logging.getLogger().info('send mail successfully')
+                    # sendmail('duminchao@qq.com', '我爱你,大鹏', html_content)
+                    sendmail(user.email, '智量酷', html_content)
+                    logging.getLogger().info('send mail successfully')
                 except:
                     logging.getLogger().error(traceback.format_exc())
                     logging.getLogger().error('send mail 错误')
-                # return rank, grain_skill,skill, path, course, user.nickname
+                    # return rank, grain_skill,skill, path, course, user.nickname
         return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -199,13 +196,25 @@ def ucenter(request):
         # if request.session['user']['role'] != 2:
         #     return HttpResponse(status=403)
         yesterday = get_day_of_day(n=-1)
-        users = User.objects.all().values('id', 'nickname', 'realname')
+        users = User.objects.filter(role_id=1).values('id', 'nickname', 'realname', 'pathid', 'studyplan')
+        for user in users:
+            user['score'] = get_score_yesterday(user['id'], yesterday)
+            user['vtime'] = get_videotime_yesterday(user['id'], yesterday)
+            user['newcourse'] = get_newer_course(user['id'])
+            user['t_yesterday'] = get_timu_status(user['id'], yesterday)
+            user['t_average'] = get_timu_status(user['id'])
 
-
+            if user['pathid'] == 0:
+                user['track_process'] = '未加入任何路线'
+                user['track_name'] = '未加入任何路线'
+            else:
+                pobj  = Path.objects.get(id=user['pathid'])
+                sequence = pobj.p_sequence
+                pathname = pobj.name
+                user['track_process'] = track_process(user['id'], sequence=sequence)
+                user['track_name'] = pathname
+            print user
+        return HttpResponse('ok')
     except:
-        pass
-
-
-
-
-
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
