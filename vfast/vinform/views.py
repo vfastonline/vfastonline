@@ -33,14 +33,13 @@ def create_info_user(request):
         # print uids, today_inform
         for inform in today_inform:
             informtask = InformTask.objects.get(id=inform.id)
-            for uid in uids:
-                user = User.objects.get(id=uid['id'])
-                if informtask.status == 0:
+            if informtask.status == 1:
+                logging.getLogger().warning('informtask has finished warning')
+            else:
+                for uid in uids:
+                    user = User.objects.get(id=uid['id'])
                     Inform.objects.create(user=user, desc=inform.desc, type=informtask.type, pubtime=informtask.pubtime,
                                           url=informtask.url, color=informtask.color)
-                else:
-                    logging.getLogger().warning('informtask repetition warning')
-                    pass
             # 跑完的任务由状态0改为状态1
             informtask.status = 1
             informtask.save()
@@ -208,7 +207,7 @@ def ucenter(request):
                 user['track_process'] = '未加入任何路线'
                 user['track_name'] = '未加入任何路线'
             else:
-                pobj  = Path.objects.get(id=user['pathid'])
+                pobj = Path.objects.get(id=user['pathid'])
                 sequence = pobj.p_sequence
                 pathname = pobj.name
                 user['track_process'] = track_process(user['id'], sequence=sequence)
