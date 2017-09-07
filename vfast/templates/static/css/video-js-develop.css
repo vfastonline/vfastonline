@@ -19,6 +19,7 @@
 }
 
 .vjs-volume-control{
+    display: none;
     top: 100%;
     left: 25px;
     z-index: 1;

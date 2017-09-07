@@ -218,10 +218,10 @@ fonts to show/hide properly.
 .vjs-default-skin .vjs-volume-menu-button.vjs-vol-2:before {
   content: "\e005";
 }
-.vjs-default-skin .vjs-volume-control {
+/*.vjs-default-skin .vjs-volume-control {
   width: 5em;
   float: right;
-}
+}*/
 .vjs-default-skin .vjs-volume-bar {
   width: 5em;
   height: 0.6em;
@@ -333,9 +333,11 @@ fonts to show/hide properly.
   line-height: 3em;
 }
 .vjs-default-skin .vjs-current-time {
+  left: 130px;
   float: left;
 }
 .vjs-default-skin .vjs-duration {
+  left: 845px;
   float: left;
 }
 /* Remaining time is in the HTML, but not included in default design */
@@ -344,6 +346,7 @@ fonts to show/hide properly.
   float: left;
 }
 .vjs-time-divider {
+  left: 500px;
   float: left;
   line-height: 3em;
 }
