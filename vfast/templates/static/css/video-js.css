@@ -333,12 +333,12 @@ fonts to show/hide properly.
   line-height: 3em;
 }
 .vjs-default-skin .vjs-current-time {
-  left: 130px;
+  left: 11%;
   float: left;
 }
 .vjs-default-skin .vjs-duration {
-  left: 845px;
-  float: left;
+  float: right;
+    right: 16%;
 }
 /* Remaining time is in the HTML, but not included in default design */
 .vjs-default-skin .vjs-remaining-time {

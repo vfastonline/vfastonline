@@ -520,6 +520,10 @@
     <script>
         function confirm_QA(t){
             var answer = $("#answer_Q").val();
+            var timuid = $('#timuid_Q').val();
+            var courseid = $('#courseid').val();
+            console.log(timuid);
+            console.log(courseid);
             var option = t.getElementsByTagName("span")[0].innerHTML.substr(0,1);
             t.style.backgroundColor = "#FFFFFF";
             $("#option_div>div").removeAttr("onclick");
@@ -527,12 +531,16 @@
             if(answer == option){
                 $("#right_wrong").html(option+". 恭喜~您答对了！");
                 $("#right_wrong").removeClass().addClass("correct");
+                var futo = "0";
+               console.log(futo)
             }else{
                 $("#right_wrong").html(option+". 哎呀，选择错了！");
                 $("#right_wrong").removeClass().addClass("wrong");
                 $("#tips_content").html($("#tips_Q").val());
+                var futo = "1";
+                console.log(futo)
             }
-
+            $.get("/r/timu?timuid="+timuid+"&status="+futo+"&courseid="+courseid);
             if($("#curr_Q").html() == $("#sum_Q").html()){
                 $.get("/r/video?vid="+video_id.value+"&video_process="+$("#sum_Q").html()+"&status=0",function(data){});
             }
@@ -543,9 +551,11 @@
             var answer = $("#question_"+next_QA+" #answer").val();
             var tips = $("#question_"+next_QA+" #tips").val();
             var order = $("#question_"+next_QA+" #order").val();
+            var timuid = $("#question_"+next_QA+" #timuid").val();
             $("#title_Q").html(title);
             $("#curr_Q").html(next_QA);
             $("#answer_Q").val(answer);
+            $("#timuid_Q").val(timuid);
             $("#tips_Q").val(tips);
             $("#right_wrong").html("");
             $("#tips_content").html("");
@@ -621,6 +631,7 @@
         <div>
             <span id="right_wrong" class="wrong"></span>
             <span id="tips_content"></span>
+            <input type="hidden" value="{{ timus.first.id }}" id="timuid_Q" />
             <input type="hidden" value="{{ timus.first.answer }}" id="answer_Q" />
             <input type="hidden" value="{{ timus.first.tips }}" id="tips_Q" />
             <input type="hidden" value="{{ skip_url }}" id="skip_url_Q" />
@@ -639,7 +650,7 @@
             {% endif %}
         </div>
     </div>
-    <div class="option_div" id="option_div">
+    <div class="option_div " id="option_div">
         {% if timus.first.A %}
         <div onclick="confirm_QA(this)">
             <span>A.</span>
@@ -678,7 +689,6 @@
         {% endif %}
     </div>
 </section>
-
 <div class="slideDIV" style="height: 150px;"></div>
 <div class="tab_menu" id="tab_menu">
     <ul>
@@ -756,6 +766,7 @@
         </div>
         <div>
             <p>{{ video_obj.course.name }}</p>
+            <input type="hidden" id="courseid" value="{{ video_obj.course_id }}">
             <span>{{ video_obj.course.totaltime }}</span>
         </div>
     </div>
@@ -946,6 +957,7 @@
         <input type="hidden" name="answer" id="answer" value="{{ timu.answer }}">
         <input type="hidden" name="tips" id="tips" value="{{ timu.tips }}">
         <input type="hidden" name="order" id="order" value="{{ timu.sequence }}">
+        <input type="hidden" name="timuid" id="timuid" value="{{ timu.id }}">
     </div>
     <div id="option_{{ timu.sequence }}">
         <input type="hidden" name="A" id="A" value="{{ timu.A }}">
