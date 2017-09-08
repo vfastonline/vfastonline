@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'vrecord',
     'vpractice',
     'vinform',
+    'vinspect',
 ]
 
 MIDDLEWARE = [

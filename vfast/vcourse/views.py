@@ -10,6 +10,7 @@ from vcourse.models import Technology, Course, Video, Path, UserPath, Section
 from vrecord.models import WatchRecord
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from vcourse.api import course_process, track_process
 
 
 # Create your views here.
@@ -126,8 +127,8 @@ def course_detail(request):
         sections = Section.objects.filter(course=course).values()  # 课程下面所有的章节
         videos_course = Video.objects.filter(course_id=cid).count()  # 课程下所有的视频
         try:
-            flag = False  # flag标记为开始学习,继续学习, True为继续学习
             uid = request.session['user']['id']
+            jindu, c_jindu = course_process(uid, cid)
             # 课程下面用户观看完成的视频
             videos_watched = WatchRecord.objects.filter(course_id=cid, user_id=uid, status=0).values('status',
                                                                                                      'video_id',
@@ -151,21 +152,20 @@ def course_detail(request):
             video = WatchRecord.objects.filter(course_id=cid, user_id=uid).order_by('-createtime').values('video_id',
                                                                                                           'video__vtype',
                                                                                                           'createtime').first()
-            if video:
-                flag = True
+            if video and jindu != "100.00%":
                 url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video[
                     'video_id']
+            elif jindu == '100.00%':
+                url=""                #课程问卷调查的URL
             else:
                 v = Video.objects.filter(course_id=cid, sequence=1).values().first()  # 如果课程下面没有视频会抛出异常
                 url = '/video/%s' % v['id'] if v['vtype'] == 0 else '/practice/%s' % v['id']
-            course_process = '%s/%s' % (videos_watched.count(), videos_course)
-            jindu = videos_watched.count() / 1.0 / videos_course
-            jindu = '%.2f%%' % (jindu * 100)
+
+
             return render(request, 'course_detail.html', {'sections': sections, 'course': course,
-                                                          'course_process': course_process, 'flag': flag, 'url': url,
+                                                          'course_process': c_jindu,  'url': url,
                                                           'xingxing': [0, 1, 2, 3, 4], 'jindu': jindu})
         except KeyError:
-            # print 'wei denglu '
             for section in sections:
                 videos_section = Video.objects.filter(section_id=section['id'])
                 section['videos'] = videos_section

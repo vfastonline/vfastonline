@@ -8,7 +8,7 @@ class InformTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)
 
 class InformTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'pubtime', 'color', 'desc', 'url',)
+    list_display = ('id', 'pubtime', 'color', 'desc', 'url', 'status')
 
 class InformAdmin(admin.ModelAdmin):
     list_display = ('id', 'type', 'user', 'color', 'desc', 'url')

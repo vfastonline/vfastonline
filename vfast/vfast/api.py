@@ -256,3 +256,18 @@ def last_seven_day():
         d = get_day_of_day(num)
         result.append(d.strftime('%Y-%m-%d'))
     return result
+
+
+def second_to_hour(n):
+    if n > 3600:
+        a = n / 3600
+        b = n % 3600
+        if b > 60:
+            c = b / 60
+            return '%s小时%s分钟' % (a, c)
+        else:
+            return '%s小时' % a
+
+    else:
+        a = n / 60
+        return '%s分钟' % a

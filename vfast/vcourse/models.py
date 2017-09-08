@@ -117,3 +117,13 @@ class UserPath(models.Model):
 
     def __unicode__(self):
         return '%s,%s' % (self.user.nickname, self.path.name)
+
+
+class Faq(models.Model):
+    video = models.ForeignKey(Video)
+    question = models.CharField(max_length=200, verbose_name='问题')
+    answer = models.TextField(verbose_name='回答')
+    language = models.CharField(verbose_name='语言', null=True, blank=True, max_length=10)
+
+    def __unicode__(self):
+        return self.question

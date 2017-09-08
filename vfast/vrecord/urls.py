@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^weekscore', views.get_score_seven_day, name='weekscore'),
     url(r'^monthscore', views.get_score_thirty_day, name='monthscore'),
     url(r'^test$', views.test, name='get_track_badge'),
+    url(r'^timu$', views.record_timu, name='record_timu'),
 ]
 

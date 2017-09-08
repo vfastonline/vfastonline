@@ -111,11 +111,8 @@ def show_question(request):
             elif qr['qid'] == question.id and qr['type'] == "Q" and qr['status'] == -1:
                 qcomment['status'] = 'dislike'
             else:
-                pass
-            try:
-                qcomment['status']
-            except KeyError:
                 qcomment['status'] = False
+
 
             for replay in replays:
                 if qr['rid'] == replay['id'] and qr['type'] == "R" and qr['status'] == 1:
@@ -123,7 +120,7 @@ def show_question(request):
                 elif qr['rid'] == replay['id'] and qr['type'] == "R" and qr['status'] == -1:
                     replay['status'] = 'dislike'
                 else:
-                    pass
+                    qcomment['status'] = False
         # qcomment 用户是否对问题点赞, question 问题对象, relays 回复, attention 是否关注问题
         return render(request, 'detailsQA.html',
                       {'question': question, 'replays': replays, 'qcomment': qcomment, 'attention': attention})

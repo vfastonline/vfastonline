@@ -2,7 +2,7 @@
 # from django.shortcuts import render
 from vuser.models import User
 from vcourse.models import Course, Video, Technology, Path
-from vrecord.models import WatchRecord, Score, WatchCourse
+from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu
 from django.http import HttpResponse
 from django.db import connection
 from vbadge.models import UserBadge, Badge
@@ -111,11 +111,21 @@ def record_video(request):
             user = User.objects.get(id=uid)
             video = Video.objects.get(id=vid)
             course = Course.objects.get(id=video.course_id)
+            today = time.strftime('%Y-%m-%d %H:%M:%S')
+            t = time.strftime('%Y-%m-%d')
+
+            try:
+                watchtime_obj = Watchtime.objects.get(userid=user.id, createtime=t)
+                watchtime_obj.time += 10
+                watchtime_obj.save()
+            except:
+                Watchtime.objects.create(userid=user.id, time=10, createtime=t)
+
             try:
                 obj = WatchRecord.objects.get(user=user, video=video, course=course)
                 if status == 0 and obj.status == 0:
                     obj.video_process = 0
-                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+                    obj.createtime = today
                     obj.save()
                     return HttpResponse(json.dumps({'code': 1,'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
 
@@ -125,7 +135,7 @@ def record_video(request):
                     obj.video_process = 0
                     obj.save()
                     tech = Technology.objects.get(id=course.tech_id)
-                    Score.objects.create(user=user, technology=tech, createtime=time.strftime('%Y-%m-%d'), score=1)
+                    Score.objects.create(user=user, technology=tech, createtime=today, score=1)
                     user.totalscore = user.totalscore + 1
 
                     course_badge = course_watched_all(user, course, tech)  # 增加分数,查看是否获得勋章
@@ -140,11 +150,11 @@ def record_video(request):
                                    ensure_ascii=False))
                 elif status == 1 and obj.status == 0:
                     obj.video_process = video_process
-                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+                    obj.createtime = today
                     obj.save()
                     return HttpResponse(json.dumps({'code': 2,'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
                 else:
-                    obj.createtime = time.strftime('%Y-%m-%d %H:%M:%S')
+                    obj.createtime = today
                     obj.video_process = video_process
                     obj.video_time = video_process
                     obj.save()
@@ -153,7 +163,7 @@ def record_video(request):
             except WatchRecord.DoesNotExist:
                 WatchRecord.objects.create(user=user, video=video, course=course, status=status,
                                            video_process=video_process, video_time=video_process,
-                                           createtime=time.strftime('%Y-%m-%d %H:%M:%S'))
+                                           createtime=today)
                 return HttpResponse(json.dumps({'code': 4, 'course':[], 'mengxin':[], 'tracks':[]}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -164,20 +174,25 @@ def get_score_seven_day(request):
     try:
         uid = request.session['user']['id']
         seven_day = []
+        date, score = [], []
         for i in range(-7, 1):
             tmp = {}
             tmp['date'] = str(get_day_of_day(i))
             tmp['label'] = str(get_day_of_day(i))
+            date.append(str(get_day_of_day(i)))
             # 获取最近七天的得分
             sql = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (
                 str(get_day_of_day(i)), uid)
             ret = dictfetchall(sql)
             if ret[0]['score'] is None:
                 tmp['value'] = 0
+                score.append(0)
             else:
                 tmp['value'] = int(ret[0]['score'])
+                score.append(int(ret[0]['score']))
             seven_day.append(tmp)
-        return HttpResponse(json.dumps({'weekscore': seven_day}, ensure_ascii=False))
+            result = {'date':date, 'score':score}
+        return HttpResponse(json.dumps({'weekscore': seven_day, 'result':result}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
@@ -202,3 +217,25 @@ def get_score_thirty_day(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
+@require_login()
+def record_timu(request):
+    try:
+        today = time.strftime('%Y-%m-%d')
+        userid = request.session['user']['id']
+        timuid = request.GET.get('timuid')
+        courseid = request.GET.get('courseid')
+        status = request.GET.get('status')
+        try:
+            obj = WatchTimu.objects.get(userid=userid, timuid=timuid)
+            obj.status=status
+            obj.createtime=today
+            obj.save()
+        except WatchTimu.DoesNotExist:
+            WatchTimu.objects.create(userid=userid,createtime=today, status=status, timuid=timuid, courseid=courseid)
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+

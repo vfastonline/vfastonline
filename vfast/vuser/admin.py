@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vuser.models import User, DailyTask, PtoP
+# from vuser.models import User, DailyTask, PtoP
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'email', 'nickname', 'sex', 'city', 'totalscore','realname', 'intro', 'role')
