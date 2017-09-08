@@ -225,6 +225,7 @@ def record_timu(request):
         today = time.strftime('%Y-%m-%d')
         userid = request.session['user']['id']
         timuid = request.GET.get('timuid')
+        courseid = request.GET.get('courseid')
         status = request.GET.get('status')
         try:
             obj = WatchTimu.objects.get(userid=userid, timuid=timuid)
@@ -232,7 +233,8 @@ def record_timu(request):
             obj.createtime=today
             obj.save()
         except WatchTimu.DoesNotExist:
-            WatchTimu.objects.create(userid=userid,createtime=today, status=status, timuid=timuid)
+            WatchTimu.objects.create(userid=userid,createtime=today, status=status, timuid=timuid, courseid=courseid)
+        return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
