@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <title>Title</title>
      {% include "head.html" %}
+    <link rel="stylesheet" href="/static/css/latout.css" />
     <style>
         .my-persona{width: 1200px;
-        background-color: #0F796B;
         margin: 0 auto}
         .persona-left{
             width: 65%;
-            background-color: #D4D9DD;
+            background-color: #ffffff;
             float: left;
         }
         .persona-right{
-            width: 25%;
-            background-color: #3c763d;
-            height: 200px;
+            width: 25%;;
             float: right;
+            background-color: #F0F2F4;
         }
         .persona-img{width: 160px;
         height: 160px;
@@ -26,86 +25,23 @@
         float: left}
         #persona-left ul{display: none}
         #persona-left ul.fdiv{display: block}
-         #head_cont{
-            box-shadow: none;
+        .info_1_head{
+            margin-top: 50px;
+            height: 100px;
+            line-height: 100px;
         }
-        .container input{
-            width:260px;
-            height:40px;
-            background: #ECEFF1;
-            border: 2px solid #ECEFF1;
-            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
-            border-radius: 4px;
-            outline: none;
-            text-indent: 2em;
-            color: #BAC4CA;
-            margin: 8px 0px;
-        }
-        .container input:focus{
-            background: #FFFFFF;
-            color: #BAC4CA;
-        }
-        .container input+span{
-            display: none;
-            width:260px;
-            height:30px;
-            line-height: 30px;
-            text-indent: 2em;
-            background-color: rgb(214,96,97);
-            color: #FFFFFF;
-            border-radius: 0px 0px 4px 4px;
-            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
-            border: 2px solid rgb(214,96,97);
-            position: absolute;
-            top:44px;
-            left: 0;
-            z-index: 1;
-        }
-        .info_1{
-            background: #FFFFFF;
-            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            border-radius: 4px;
-            width:55.3%;
-            padding: 2% 4%;
-            float: left;
-        }
-        .info_1>div:nth-child(1n+3){
-            margin-top: 30px;
-        }
-        .info_1>div:nth-child(2n+1){
-            width:52%;
-            float: left;
-            clear: both;
-        }
-        .info_1>div:nth-child(2n+2){
-            float: right;
-            width:48%;
-        }
-        .info_1>div>div{
-            position: relative;
-        }
-        .info_1>div>p{
-            font-size: 16px;
-            color: #BAC3CA;
-        }
-        .info_1_head>.info_1_head_1{
-            float: left;
-            width:50%;
-            position:relative;
-        }
-        .info_1_head>.info_1_head_1>img{
-            position:absolute;
-        }
-        .info_1_head>.info_1_head_1>img:first-child{
-            left: 1px;
-            width: 100px;
-            height:100px;
-            border-radius: 100px;
-        }
-        .info_1_head>.info_1_head_1>img:last-child{
-            top:5px;
-            left: 70px;
-        }
+       .info_1_head>p{
+           float: left;
+           height: 100px;
+           line-height: 100px;
+           margin: 0px !important;
+           width: 100px;
+           text-align: center;
+       }
+       .info_1_head_1{
+           float: left;
+           height: 100px;
+       }
         .info_1_head>.info_1_head_2{
             float: right;
             width:50%;
@@ -164,147 +100,55 @@
         .info_1_head_2>div:last-child:active{
             background: #FFFFFF;
         }
-        .resetPassword{
-            background: #ECEFF1;
-            border:2px solid #ECEFF1;
-            border-radius: 2px;
-            width:64px;
-            height:32px;
-            outline:none;
-            font-size: 16px;
-            color: #8C96A5;
-            margin-top: 38px;
-            margin-left: 100px;
-            position: absolute;
-        }
-        .resetPassword:hover{
-            opacity: 0.8;
-        }
-        .resetPassword:active{
-            background: #FFFFFF;
-        }
-        .password{
-            display: none;
-        }
-        .info_2{
-            background: #FFFFFF;
-            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            width:42%;
-            float: right;
-        }
-
-        .info_3{
-            background: #FFFFFF;
-            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            width:42%;
-            float: right;
-            margin-top: 30px;
-            height:242px;
-        }
-        .info_3>textarea{
-            background: #ECEFF1;
-            border: 2px solid #ECEFF1;
-            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            border-radius: 4px;
-            outline: none;
-            resize: none;
-            width:100%;
-            height:100%;
-            padding: 30px;
-            font-size: 14px;
-            color: #BAC4CA;
-        }
-        .info_3>textarea:focus{
-            background: #FFFFFF;
-        }
-        .info_4{
-            width:100%;
-            background: #FFFFFF;
-            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
-            border-radius: 4px;
+        .conmmcpone>p{
+           text-align:center;
             float: left;
-            margin-top: 30px;
-            padding: 30px 50px;
+            width: 100px;
+            margin: 0px !important;
         }
-        .info_4>div:first-child{
-            width:32%;
+        .conmmcpone>input{
+            line-height: initial!important;
+            width: 300px;
+            height: 35px;
+        }
+        .conmmcpone>div>input{
+            line-height: initial!important;
+            width: 300px;
+            height: 35px;
+        }
+        .conmmcpone{
+            height: 100px;
+            line-height: 100px;
+        }
+        .conmmcptwo{
+            height: 100px;
+            line-height: 100px;
+        }
+        .conmmcptwo>p{
+            text-align: center;
             float: left;
+            width: 100px;
+            margin: 0px !important;
         }
-        .info_4>div:first-child>div>img{
-            padding: 5px;
-            position: relative;
-            left:-38px;
+        .conmmcptwo>input{
+            width: 300px;
         }
-        .info_4>div:first-child>div>img:hover{
-            opacity: 0.8;
-            cursor: pointer;
+        .conmm_1{
+            height: 50px;
+            line-height: 50px;
         }
-        .info_4>div:first-child>div>img:active{
-            opacity: 1;
-            cursor: pointer;
-        }
-
-        .info_4>div:nth-child(2){
-            width:32%;
+        .conmm_1>div{
+            margin-right: 10%;
+            margin-left: 20%;
             float: left;
+            height: 45px;
+            margin-top: 5px;
         }
-
-        .info_4>div:last-child{
-            width:36%;
-            float: left;
+        .conmm_1>p{
+            margin: 0px !important;
         }
-
-        .info_2{
-            padding: 0px 4% 2%;
-        }
-        .info_2>h3{
-            font-size: 16px;
-            color: #8C96A5;
-            position: relative;
-            left: -20px;
-        }
-        .info_2>div{
-            height:70px;
-            line-height: 70px;
-            position: relative;
-        }
-        .info_2>div>input{
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 7px;
-        }
-        .info_2>div>span{
-            font-size: 14px;
-            color: #BAC4CA;
-            user-select: none;
-        }
-        .info_2>div>div{
-            width:80px;
-            height:40px;
-            float: right;
-            margin-top: 15px;
-            position: relative;
-            background: #ECEFF1;
-            box-shadow: 0 2px 0 0 rgba(219,226,232,0.10);
-            border-radius: 20px;
-        }
-        .info_2>div>div:hover{
-            cursor: pointer;
-            opacity: 0.8;
-        }
-        .info_2>div>div:active{
-            cursor: pointer;
-            opacity: 1;
-        }
-        .info_2>div>div>img{
-            vertical-align: top;
-            position: absolute;
-            top:3.5px;
-            user-select: none;
-            transition: all 0.35s ease-in-out;
-        }
-        .promptDIV{
+        .fli{ background-color:  #B7C0C7}
+         .promptDIV{
             width:100%;
             height:73px;
             box-shadow: 0 2px 1px 0 rgba(0,0,0,0.25);
@@ -318,33 +162,23 @@
             z-index: 2001;
             transition: all 0.35s ease-out;
         }
-        .off>img{
-            left:5px;
-        }
-        .on_github>img{
-            left:42px;
-        }
-        .on_p>img{
-            left:42px;
-        }
-        .on_p{
-            background: rgb(227,240,245)!important;
-        }
     </style>
 </head>
 <body>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+     <section class="promptDIV" id="promptDIV"></section>
+    <div style="height: 50px"></div>
      <div class="my-persona">
+         <section class="container">
           <div class="persona-left" id="persona-left">
               <ul class="fdiv">
                   <li>
-                   <div class="info_1_head">
+                  <div class="info_1_head">
                       <p>头像</p>
-                    <div class="info_1_head_1">
+                    <div class="info_1_head_1" >
                         <img id="uheadimg_this" src="{{ user.headimg }}" alt=""/>
                         <img src="/static/head/OvalBIG.svg" alt=""/>
-                        <img src="/static/head/online.svg" alt=""/>
                     </div>
                     <div class="info_1_head_2">
                         <div>
@@ -355,7 +189,7 @@
                    </div>
                   </li>
                   <li>
-                      <div>
+                      <div class="conmmcpone">
                          <p>称呼</p>
                           <div>
                            <input value="{{ user.nickname }}" type="text" onblur="submitINFO_name(this)" placeholder="昵称">
@@ -364,19 +198,27 @@
                        </div>
                   </li>
                   <li>
-
+                      <div class="conmmcpone">
+                          <p>邮箱</p>
+                           <input value="{% if user.email != None %}{{ user.email }}{% endif %}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                      </div>
                   </li>
                   <li>
-
+                      <div class="conmmcptwo">
+                      <p>自我描述</p>
+                      <div class="info_3">
+                      <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="35" rows="1" onblur="submitINFO('自我介绍')">{{ user.intro }}</textarea>
+                       </div>
+                      </div>
                   </li>
                   <li>
-                      <div>
+                      <div class="conmmcpone">
                        <p>当前位置</p>
                        <input value="{{ user.city }}" onblur="submitINFO('居住城市')" name="city" form="fileForm" type="text" placeholder="居住城市">
                       </div>
                   </li>
                   <li>
-                     <div>
+                     <div class="conmmcpone">
                          <p>生日</p>
                          <input value="{{ user.birthday }}" onblur="submitINFO('生日')" name="birthday" form="fileForm" type="text" placeholder="yyyy-mm-dd">
                      </div>
@@ -384,31 +226,74 @@
               </ul>
               <ul>
                  <li>
-                     <span>新手机号</span><input>
+                     <p>新手机号</p><input value="{{ user.phone }}" onblur="submitINFO_phone(this)" type="text" id="phone" placeholder="手机号码"><span></span>
                  </li>
                   <li>
-                      <span>验证码</span><input>
+                       <button onclick="getVCode()" id="phone_button" class="phone_button">发送验证码</button>
                   </li>
               </ul>
               <ul>
                   <li>
-                      <span>新密码</span><input>
+                      <p>新密码</p><input>
                   </li>
                   <li>
-                      <span>再次确认</span><input>
+                      <p>再次确认</p><input>
                   </li>
               </ul>
            <div style="clear: none"></div>
           </div>
           <div class="persona-right" id="persona-right">
-              <ul>
-                  <li class="fli">账户设置</li>
-                  <li>修改密码</li>
-                  <li>手机号变更</li>
+              <ul id="right_ul">
+                  <li class="fli">
+                      <div class="conmm_1">
+                          <div>
+                              <svg t="1504939670936" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3280" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                              <defs><style type="text/css"></style></defs>
+                              <path d="M500 128.8c-95.2 5.6-173.6 83.2-180 178.4-7.2 112 80.8 205.6 191.2 205.6 106.4 0 192-86.4 192-192 0.8-110.4-92-198.4-203.2-192zM512 575.2c-128 0-383.2 64-383.2 192v96c0 17.6 14.4 32 32 32h702.4c17.6 0 32-14.4 32-32V766.4c0-127.2-255.2-191.2-383.2-191.2z" p-id="3281"></path></svg>
+                          </div>
+                          <p>个人设置</p>
+                      </div >
+                      </li>
+                  <li>
+                      <div class="conmm_1">
+                          <div>
+                              <svg t="1504939491386" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3544" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                              <defs><style type="text/css"></style></defs>
+                              <path d="M800 448H704V320c0-106.4-85.6-192-192-192S320 213.6 320 320v128H224c-17.6 0-32 14.4-32 32v384c0 17.6 14.4 32 32 32h576c17.6 0 32-14.4 32-32V480c0-17.6-14.4-32-32-32zM512 736c-35.2 0-64-28.8-64-64s28.8-64 64-64 64 28.8 64 64-28.8 64-64 64z m128-288H384V320c0-70.4 57.6-128 128-128s128 57.6 128 128v128z" p-id="3545"></path></svg>
+                          </div>
+                          <p>修改密码</p>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="conmm_1">
+                          <div>
+                              <svg t="1504939629255" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2120" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                              <defs><style type="text/css"></style></defs><path d="M798.723234 174.782745c0-60.576657-49.106418-109.683075-109.683075-109.683075l-354.708628 0c-60.576657 0-109.683075 49.106418-109.683075 109.683075l0 673.980161c0 60.576657 49.106418 109.683075 109.683075 109.683075l354.708628 0c60.576657 0 109.683075-49.106418 109.683075-109.683075L798.723234 174.782745zM264.557398 237.015112l494.256894 0 0 529.049305-494.256894 0L264.557398 237.015112zM334.356091 105.008612 689.016623 105.008612c38.548968 0 69.798692 31.249725 69.798692 69.798692l0 22.298865-494.256894 0 0-22.298865C264.557398 136.25936 295.807123 105.008612 334.356091 105.008612zM689.016623 918.53704 334.356091 918.53704c-38.548968 0-69.798692-31.249725-69.798692-69.798692l0-43.788296 494.256894 0 0 43.788296C758.814292 887.287315 727.564567 918.53704 689.016623 918.53704z" p-id="2121"></path><path d="M513.173732 829.943282c-16.70752 0-30.30112 13.5936-30.30112 30.30112 0 16.70752 13.5936 30.30112 30.30112 30.30112s30.299073-13.5936 30.299073-30.30112C543.472805 843.536882 529.881253 829.943282 513.173732 829.943282z" p-id="2122"></path></svg>
+                          </div>
+                          <p>手机号变更</p>
+                      </div>
+                  </li>
               </ul>
           </div>
-     </div>
-     <script type="text/javascript">
+         </section>
+    <div class="slideDIV" style="height:150px;"></div>
+    <section class="path_content clearfix">
+        {% for path in paths %}
+            <a href="/course/track?id={{ path.id }}">
+                <div style="background-size: 50%;background-image: url('{{ path.pathimg.url }}');background-color: {{ path.color }};"></div>
+                <h2>{{ path.name }}</h2>
+            </a>
+        {% endfor %}
+    </section>
+    <div class="slideDIV" style="height:100px;"></div>
+         <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
+</main>
+<form id="fileForm"></form>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+   <script type="text/javascript">
          var tabs=document.getElementById("persona-right").getElementsByTagName("li");
     var divs=document.getElementById("persona-left").getElementsByTagName("ul");
     for(var i=0;i<tabs.length;i++){
@@ -422,31 +307,12 @@
                 divs[i].className="fdiv";
             }
             else{
-                tabs[i].className="";
+                tabs[i].className="stote";
                 divs[i].className="";
             }
         }
     }
      </script>
-     <script>
-
-     </script>
-    <div class="slideDIV" style="height:150px;"></div>
-    <section class="path_content clearfix">
-        {% for path in paths %}
-            <a href="/course/track?id={{ path.id }}">
-                <div style="background-size: 50%;background-image: url('{{ path.pathimg.url }}');background-color: {{ path.color }};"></div>
-                <h2>{{ path.name }}</h2>
-            </a>
-        {% endfor %}
-    </section>
-    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
-</main>
-{% include "search_div.html" %}
-{% include "feedback.html" %}
-</body>
-{% include "commonJS.html" %}
-</body>
 <script>
     window.document.onscroll = function(){
         if($(document).scrollTop() == 0){
@@ -455,7 +321,8 @@
             $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
         }
     }
-
+</script>
+<script>
     $(document).ready(function(){
 		$(".ui-select").selectWidget({
 			change       : function (changes) {
@@ -467,13 +334,13 @@
 		});
 	});
 
-    function resetHP(){
-        $.post("/u/editpage/default_headimg",function(data){
+/*function resetHP(){
+        $.post("/u/personacon/default_headimg",function(data){
             $("#uheadimg_this").attr("src",data.headimg);
             $("#uheadimg").attr("src",data.headimg);
             showPrompt("已经恢复预设头像~");
         },"json")
-    }
+    }  */
 
     function showPrompt(message){
         $("#promptDIV").html(message);

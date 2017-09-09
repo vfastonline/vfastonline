@@ -938,6 +938,19 @@
         }
         .tab_faq_a{height: 50px;line-height: 50px}
         .tab_faq_a  h4{float: left}
+        .tab_xi{height: 50px;
+        line-height: 50px}
+        .tab_xi>div{float: left;
+        margin-left: 10%}
+        .tab_xi>div>p{
+            width: 100px;
+            float: left;
+            margin: 0px !important;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .tab_xi>div>span{  }
     </style>
     <script>
         function saveTime(t){
@@ -1104,8 +1117,7 @@
         </div>
     </div>
             {% else %}
-                    <div onclick="tab_video_play('/practice/{{ video.id }}')">
-        <div>
+                    <div class="tab_xi" onclick="tab_video_play('/practice/{{ video.id }}')">
             <div>
                 <svg width="12" height="18" viewBox="0 0 12 18">
                   <g fill="#FFF" fill-rule="evenodd" transform="translate(.667 .667)">
@@ -1113,7 +1125,6 @@
                   </g>
                 </svg>
             </div>
-        </div>
         <div>
             <p>{{ video.name }}</p>
             <span>{{ video.vtime }}</span>
