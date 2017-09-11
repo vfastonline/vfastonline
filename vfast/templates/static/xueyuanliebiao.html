@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% include "head.html" %}
     <style>
         .contnet{
             color:  #5A646E;
@@ -63,19 +64,8 @@
     </style>
 </head>
 <body>
-<div class="head_top">
-    <span>Djangoadminitration</span>
-    <div class="head_top_2">
-        <span style="float: left">WELCOME,ADMIN.</span>
-        <div>
-            <span>VIEW</span>
-            <span>/</span>
-            <span>CHANGF PASSWORD</span>
-            <span>/</span>
-            <span>LOGOUT</span>
-        </div>
-    </div>
-</div>
+      <main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
       <table class="contnet" border="0" align="center" cellpadding="0" cellspacing="0">
       <!-- 标题 -->
       <tr>
@@ -133,5 +123,13 @@
           <li>未推送</li>
           <div style="clear: both"></div>
       </ul>
+       <div class="slideDIV" style="height:150px;"></div>
+         <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
+</main>
+<form id="fileForm"></form>
+
+{% include "search_div.html" %}
+{% include "feedback.html" %}
 </body>
+{% include "commonJS.html" %}
 </html>
