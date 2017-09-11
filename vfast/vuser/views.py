@@ -25,7 +25,7 @@ import random
 
 # Create your views here.
 def test(request):
-    return render(request, 'personedit.html')
+    return render(request, 'editInfo.html')
 
 
 def userexists(request):
@@ -256,7 +256,7 @@ def dashboard(request, param):
             # 进行路线的百分比
             jindu, jindu_2 = track_process(user.id, sequence)
             return render(request, 'dashBoard.html',
-                          {'courses_path': courses, 'jindu': jindu,  'path_name': path.name,
+                          {'courses_path': courses, 'jindu': jindu, 'path_name': path.name,
                            'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4],
                            'tasks': tasks, 'flag': flag})
 
@@ -403,8 +403,8 @@ def editpage(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-            return render(request, 'editInfo.html', {'user': user})
-            # return render(request, 'personedit.html', {'user':user})
+            # return render(request, 'editInfo.html', {'user': user})
+            return render(request, 'personedit.html', {'user': user})
         else:
             return HttpResponse(u'请求错误')
     except:
@@ -627,6 +627,3 @@ def uplan(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
-
-
-
