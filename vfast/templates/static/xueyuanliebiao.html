@@ -79,6 +79,39 @@
           <td colspan="1">今日学习计划</td>
       </tr>
       </table>
+{#      <ul class="xueyuanxiangxi">#}
+{#          <li><span>023154</span><span class="yonghua">dashabi</span></li>#}
+{#          <li>+5</li>#}
+{#          <li>java>字符串插入</li>#}
+{#          <li>5h33m</li>#}
+{#          <li>90%</li>#}
+{#          <li>90%</li>#}
+{#          <li>90%</li>#}
+{#          <li>未推送</li>#}
+{#          <div style="clear: both"></div>#}
+{#      </ul>#}
+{#      <ul class="xueyuanxiangxi">#}
+{#          <li><span>023154</span><span class="yonghua">dashabi</span></li>#}
+{#          <li>+5</li>#}
+{#          <li>java>字符串插入</li>#}
+{#          <li>5h33m</li>#}
+{#          <li>90%</li>#}
+{#          <li>90%</li>#}
+{#          <li>90%</li>#}
+{#          <li>未推送</li>#}
+{#          <div style="clear: both"></div>#}
+{#      </ul>#}
+{#      <ul class="xueyuanxiangxi">#}
+{#          <li><span>023154</span><span class="yonghua">dashabi</span></li>#}
+{#          <li>+5</li>#}
+{#          <li>java>字符串插入</li>#}
+{#          <li>5h33m</li>#}
+{#          <li>90%</li>#}
+{#          <li>90%</li>#}
+{#          <li>90%</li>#}
+{#          <li>未推送</li>#}
+{#          <div style="clear: both"></div>#}
+{#      </ul>#}
       <ul class="xueyuanxiangxi">
           <li><span>023154</span><span class="yonghua">dashabi</span></li>
           <li>+5</li>
@@ -90,39 +123,24 @@
           <li>未推送</li>
           <div style="clear: both"></div>
       </ul>
-      <ul class="xueyuanxiangxi">
-          <li><span>023154</span><span class="yonghua">dashabi</span></li>
-          <li>+5</li>
-          <li>java>字符串插入</li>
-          <li>5h33m</li>
-          <li>90%</li>
-          <li>90%</li>
-          <li>90%</li>
-          <li>未推送</li>
-          <div style="clear: both"></div>
-      </ul>
-      <ul class="xueyuanxiangxi">
-          <li><span>023154</span><span class="yonghua">dashabi</span></li>
-          <li>+5</li>
-          <li>java>字符串插入</li>
-          <li>5h33m</li>
-          <li>90%</li>
-          <li>90%</li>
-          <li>90%</li>
-          <li>未推送</li>
-          <div style="clear: both"></div>
-      </ul>
-      <ul class="xueyuanxiangxi">
-          <li><span>023154</span><span class="yonghua">dashabi</span></li>
-          <li>+5</li>
-          <li>java>字符串插入</li>
-          <li>5h33m</li>
-          <li>90%</li>
-          <li>90%</li>
-          <li>90%</li>
-          <li>未推送</li>
-          <div style="clear: both"></div>
-      </ul>
+
+          {% for user in users %}
+              <ul class="xueyuanxiangxi">
+                  <li><span>{{ user.id }}</span><span class="yonghua">{{ user.nickname }}</span></li>
+                  <li>{{ user.score }}</li>
+                  <li>{{ user.newcourse }}</li>
+                  <li>{{ user.vtime }}</li>
+                  <li>{{ user.t_yesterday }}</li>
+                  <li>{{ user.t_average }}</li>
+                  <li>{{ user.track_process }}</li>
+                  {% if user.studyplan == 0 %}
+                  <li>已推送</li>
+                  {% else %}
+                  <li>未推送</li>
+                  {% endif %}
+                  <div style="clear: both"></div>
+              </ul>
+          {% endfor %}
        <div class="slideDIV" style="height:150px;"></div>
          <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
 </main>

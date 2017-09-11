@@ -597,9 +597,9 @@ def ucenter(request):
                 pobj = Path.objects.get(id=user['pathid'])
                 sequence = pobj.p_sequence
                 pathname = pobj.name
-                user['track_process'] = track_process(user['id'], sequence=sequence)
+                user['track_process'] = track_process(user['id'], sequence=sequence)[0]
                 user['track_name'] = pathname
-        return render(request, 'xueyuanlibiao.html', {'users':users})
+        return render(request, 'xueyuanliebiao.html', {'users':users})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse('error')
