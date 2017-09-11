@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.8.3.js"></script>
+    <style>
+        body{
+            background-color:#F0F2F4 ;
+        }
+        li{
+            list-style-type: none;
+        }
+        .cont{
+            width: 1200px;
+            margin: 0 auto;
+            background-color: #FFF}
+        .cont_cont{
+            width: 90%;
+            margin: 0 auto;
+        }
+        .cont_cont_1>div{
+            float: left;
+            width: 45%;
+        }
+        .cont_cont_1>ul{
+            float: right;
+            width: 45%;
+        }
+        .cont_cont_1{
+            height: 110px;
+            border-bottom: 1px solid #ECEFF1;
+        }
+    </style>
+</head>
+<body>
+     <div class="cont">
+         <div id="issue">
+             <h3>我们想加深对你的了解，从而把智量库做的更好！请花几分钟完成这个问卷调查：</h3>
+             <div class="cont_cont_1">
+                 <div>
+                   <span>那种说法最能符合你对学习的态度？</span>
+                 </div>
+                 <ul>
+                     <li><label><input type="radio" name="is0" value="a" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio" name="is0" value="b" />我浪漫并富有幻想。</label></li>
+                     <li><label><input type="radio" name="is0" value="c" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio" name="is0" value="d" />我很实际并实事求是。</label></li>
+                 </ul>
+             </div>
+             <div class="cont_cont_1">
+                 <div>
+                     <span>那种说法最能符合你对学习的态度？</span>
+                 </div>
+                 <ul>
+                     <li><label><input type="radio"  value="a" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio"  value="b" />我浪漫并富有幻想。</label></li>
+                     <li><label><input type="radio"  value="c" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio"  value="d" />我很实际并实事求是。</label></li>
+                 </ul>
+             </div>
+             <div class="cont_cont_1">
+                 <div>
+                     <span>那种说法最能符合你对学习的态度？</span>
+                 </div>
+                 <ul id="">
+                     <li><label><input type="radio" name="is0" value="a" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio" name="is0" value="b" />我浪漫并富有幻想。</label></li>
+                     <li><label><input type="radio" name="is0" value="c" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio" name="is0" value="d" />我很实际并实事求是。</label></li>
+                 </ul>
+             </div>
+             <div class="cont_cont_1">
+                 <div>
+                     <span>那种说法最能符合你对学习的态度？</span>
+                 </div>
+                 <ul>
+                     <li><label><input type="radio"  value="a" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio"  value="b" />我浪漫并富有幻想。</label></li>
+                     <li><label><input type="radio"  value="c" />我很实际并实事求是。</label></li>
+                     <li><label><input type="radio"  value="d" />我很实际并实事求是。</label></li>
+                 </ul>
+             </div>
+             <div class="cont_cont_2">
+             <p>我们可以怎样改进这套课程</p>
+                 <textarea name="a" style="width:80%;height:100px;">这里写内容</textarea>
+             </div>
+         </div>
+     <div style="clear: both"></div>
+     </div>
+<script>
+    $(document).ready(function(){
+        var i=0;
+        var sld=0;
+        var res=0;
+        var len=$("#issue").find("div.cnt").length;
+        function selec(ele){
+            sld++;
+            console.log(sld);
+            ele= $(ele)? $(ele):ele;
+            ele.parents("div.cnt").addClass("selected");
+            ele.addClass("sel");
+            //res+= ele.find("input").val();
+            res+= ele.find("input").val()
+
+            var str = res; //定义字符串
+            var json = {}; //定义数组用来存储每个字符元素所对应的个数
+            for (var i = 0; i < str.length; i++) { //遍历字符串中所有的元素
+                if (!json[str.charAt(i)]) { //判断当前元素是否已经在数组中存在 str.charAt(i)//当前元素
+                    json[str.charAt(i)] = 1; //给对应数组元素中个数赋值
+                }
+                else
+                {
+                    json[str.charAt(i)]++; //给数组中元素个数赋值
+                }
+            };
+            var iMax = 0;//出现次数
+            var iIndex = '';//元素名称
+            for(var i in json){ //重新赋值出现最多的数据和个数
+                if(json[i]>iMax){
+                    iMax = json[i];
+                    iIndex = i;
+                }
+            }
+            console.log('出现次数最多的是:'+iIndex+'出现'+iMax+'次');
+
+            //if(sld<len){
+            //  $("#temp").html("啥1"+res);
+            // }else if(sld==len){
+            //   $("#temp").html("啥2 "+res);
+            //}
+        }
+
+        $("#prev").click(function(){
+            checkbtn();
+            if(i>0) {
+                setporogress(-1)
+            }
+        })
+        $("#next").click(function(){
+            checkbtn();
+            if(sld>i) {
+                setporogress(1)
+            }
+        })
+
+        $("#issue").find("li").click(function(){
+            if(!$(this).parents("div.cont_cont_1").hasClass("selected")){
+                selec(this);
+            }
+            if(i==len){
+                result(res);
+            }
+            return false;
+        })
+        /*	$("div.selected").click(function(){
+                $(this).find("li").click();
+                })
+            */
+        function warn(txt){
+            $("#war").html(txt).fadeIn(500,function(){$("#war").html("").fadeOut(500)});
+        }
+
+
+        function checkbtn(){
+            if(i<=0){
+                $("#prev").addClass("noprev");
+            }else{
+                $("#prev").removeClass("noprev");
+            }
+            if(sld<=i){
+                $("#next").addClass("nonext");
+            }else{
+                $("#next").removeClass("nonext");
+            }
+        }
+    });
+</script>
+</body>
+</html>
