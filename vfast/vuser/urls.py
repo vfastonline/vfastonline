@@ -25,4 +25,7 @@ urlpatterns = [
     url(r'^phonecode$',views.phone_code, name='phone_code'),
     url(r'^userimage$', views.userimage, name='userimage'),
     url(r'editpage/resetphone$', views.user_phone, name='resetphone'),
+    url(r'^ucenter$', views.ucenter, name='ucenter'),
+    url(r'^uinfo', views.uinfo, name='uinfo'),
+    url(r'^uplan$', views.uplan, name='uplan'),
 ]

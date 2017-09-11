@@ -8,10 +8,11 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
-from vfast.api import encry_password, get_validate, time_comp_now, dictfetchall, require_login
+from vfast.api import encry_password, get_validate, time_comp_now, dictfetchall, require_login, get_day_of_day
 from vrecord.api import sum_score_tech
-from api import Detect
+from vuser.api import *
 from vcourse.api import track_process
+from vfast.error_page import *
 
 import os
 import json
@@ -402,8 +403,8 @@ def editpage(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-            # return render(request, 'editInfo.html', {'user': user})
-            return render(request, 'personedit.html', {'user':user})
+            return render(request, 'editInfo.html', {'user': user})
+            # return render(request, 'personedit.html', {'user':user})
         else:
             return HttpResponse(u'请求错误')
     except:
@@ -574,3 +575,58 @@ def userimage(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
+def ucenter(request):
+    try:
+        # if request.session['user']['role'] != 2:
+        #     return HttpResponse(status=403)
+        yesterday = get_day_of_day(n=-1)
+        users = User.objects.filter(role_id=1).values('id', 'nickname', 'realname', 'pathid', 'studyplan')
+        for user in users:
+            user['score'] = get_score_yesterday(user['id'], yesterday)
+            user['vtime'] = get_videotime_yesterday(user['id'], yesterday)
+            user['newcourse'] = get_newer_course(user['id'])
+            user['t_yesterday'] = get_timu_status(user['id'], yesterday)
+            user['t_average'] = get_timu_status(user['id'])
+
+            if user['pathid'] == 0:
+                user['track_process'] = '未加入任何路线'
+                user['track_name'] = '未加入任何路线'
+            else:
+                pobj = Path.objects.get(id=user['pathid'])
+                sequence = pobj.p_sequence
+                pathname = pobj.name
+                user['track_process'] = track_process(user['id'], sequence=sequence)
+                user['track_name'] = pathname
+            print user
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
+
+
+def uinfo(request):
+    try:
+        uid = request.GET.get('uid', None)
+        if uid:
+            yesterday = get_day_of_day(n=-1)
+            user = User.objects.filter(id=uid).values('id', 'nickname', 'realname', 'pathid')
+            return HttpResponse('ok')
+        else:
+            return page_not_found(request)
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
+
+
+def uplan(request):
+    try:
+        pass
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
+
+
+

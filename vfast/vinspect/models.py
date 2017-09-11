@@ -30,7 +30,7 @@ class InspectResult(models.Model):
     inspect = models.ForeignKey(Inspect, on_delete=models.CASCADE)
     option_title = models.CharField(verbose_name='选项名称', max_length=200)
     option  = models.CharField(verbose_name='选项', max_length=2)
-    user = models.CharField(verbose_name='用户', max_length=20)
+    user = models.CharField(verbose_name='用户', max_length=20, null=True, blank=True)
 
     def __unicode__(self):
         return self.inspect.name

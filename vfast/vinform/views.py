@@ -190,30 +190,6 @@ def daily_mail(request):
         return HttpResponse('error')
 
 
-def ucenter(request):
-    try:
-        # if request.session['user']['role'] != 2:
-        #     return HttpResponse(status=403)
-        yesterday = get_day_of_day(n=-1)
-        users = User.objects.filter(role_id=1).values('id', 'nickname', 'realname', 'pathid', 'studyplan')
-        for user in users:
-            user['score'] = get_score_yesterday(user['id'], yesterday)
-            user['vtime'] = get_videotime_yesterday(user['id'], yesterday)
-            user['newcourse'] = get_newer_course(user['id'])
-            user['t_yesterday'] = get_timu_status(user['id'], yesterday)
-            user['t_average'] = get_timu_status(user['id'])
 
-            if user['pathid'] == 0:
-                user['track_process'] = '未加入任何路线'
-                user['track_name'] = '未加入任何路线'
-            else:
-                pobj = Path.objects.get(id=user['pathid'])
-                sequence = pobj.p_sequence
-                pathname = pobj.name
-                user['track_process'] = track_process(user['id'], sequence=sequence)
-                user['track_name'] = pathname
-            print user
-        return HttpResponse('ok')
-    except:
-        logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+
+

@@ -10,5 +10,4 @@ urlpatterns = [
     url(r'^done$', views.del_info_user,),
     url(r'^create_feedback$', views.create_feedback),
     url(r'^daily_mail$', views.daily_mail),
-    url(r'^ucenter$', views.ucenter),
 ]
