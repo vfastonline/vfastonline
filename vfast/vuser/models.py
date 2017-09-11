@@ -44,7 +44,6 @@ class User(models.Model):
     position = models.CharField('讲师职位', default='讲师', max_length=100)
     phone = models.CharField('手机号码', max_length=15, unique=True)
     nickname = models.CharField('昵称', max_length=30, unique=True)
-    studyplan = models.IntegerField('每日学习计划推送', default=2)
 
     #HR注册的相关信息
     hr_phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')
@@ -93,5 +92,16 @@ class Headimg(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Userplan(models.Model):
+    plan_desc = models.TextField(verbose_name='今日学习计划描述')
+    opinion = models.TextField(verbose_name='意见')
+    nums = models.IntegerField(verbose_name='视频个数', null=True, blank=True)
+    createtime = models.CharField(verbose_name='推送时间', max_length=11)
+    userid = models.IntegerField(verbose_name='用户ID')
+    status = models.IntegerField(verbose_name='学习计划推送状态')    #0已经推送, 1未推送
+
+
 
 

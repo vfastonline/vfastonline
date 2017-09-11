@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.db.models import Q, Sum
-from vuser.models import User, DailyTask, PtoP, DailyTaskstatus
+from vuser.models import User, DailyTask, PtoP, DailyTaskstatus, Userplan
 from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
@@ -578,18 +578,20 @@ def userimage(request):
 
 
 def ucenter(request):
+    """学员列表页面"""
     try:
         # if request.session['user']['role'] != 2:
         #     return HttpResponse(status=403)
         yesterday = get_day_of_day(n=-1)
-        users = User.objects.filter(role_id=1).values('id', 'nickname', 'realname', 'pathid', 'studyplan')
+        today = time.strftime('%Y-%m-%d')
+        users = User.objects.filter(role_id=1).values('id', 'nickname', 'realname', 'pathid')
         for user in users:
             user['score'] = get_score_yesterday(user['id'], yesterday)
             user['vtime'] = get_videotime_yesterday(user['id'], yesterday)
             user['newcourse'] = get_newer_course(user['id'])
             user['t_yesterday'] = get_timu_status(user['id'], yesterday)
             user['t_average'] = get_timu_status(user['id'])
-
+            user['studyplan'] = get_studyplan_status(user['id'], today)
             if user['pathid'] == 0:
                 user['track_process'] = '未加入任何路线'
                 user['track_name'] = '未加入任何路线'
@@ -599,18 +601,24 @@ def ucenter(request):
                 pathname = pobj.name
                 user['track_process'] = track_process(user['id'], sequence=sequence)[0]
                 user['track_name'] = pathname
-        return render(request, 'xueyuanliebiao.html', {'users':users})
+        return render(request, 'xueyuanliebiao.html', {'users': users})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return page_error(request)
 
 
 def uinfo(request):
+    """学员昨日学习详情页面"""
     try:
         uid = request.GET.get('uid', None)
         if uid:
             yesterday = get_day_of_day(n=-1)
-            user = User.objects.filter(id=uid).values('id', 'nickname', 'realname', 'pathid')
+            user = User.objects.filter(id=uid).values('id', 'nickname', 'realname', 'pathid').first()
+            user['score'] = get_score_yesterday(user['id'], yesterday)
+            user['vtime'] = get_videotime_yesterday(user['id'], yesterday)
+            user['newcourse'] = get_newer_course(user['id'])
+            user['t_yesterday'] = get_timu_status(user['id'], yesterday)
+            user['t_average'] = get_timu_status(user['id'])
             return HttpResponse('ok')
         else:
             return page_not_found(request)
@@ -620,9 +628,21 @@ def uinfo(request):
 
 
 def uplan(request):
+    """学员计划"""
     try:
-        pass
-        return HttpResponse('ok')
+        if request.method == "POST":
+            uid = request.POST.get('uid', None)
+            if not uid:
+                return HttpResponse(json.dumps({'code': 2, 'msg': '参数不正确'}, ensure_ascii=False))
+            plan_desc = request.POST.get('plan_desc')
+            opinion = request.POST.get('opinion')
+            nums = request.POST.get('nums')
+            createtime = get_day_of_day(n=1)
+            Userplan.objects.create(plan_desc=plan_desc, createtime=createtime, nums=nums, opinion=opinion, userid=uid,
+                                    status=1)
+            return HttpResponse(json.dumps({'code':0}))
+        else:
+            return HttpResponse(json.dumps({'code': 1, 'msg': '请使用post method'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误'}))
