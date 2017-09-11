@@ -95,3 +95,14 @@ def get_timu_status(uid, yesterday=None):
         else:
             return '0.00%'
 
+
+def get_studyplan_status(uid, today):
+    """获取学习推送计划状态"""
+    sql = "select * from vuser_userplan where userid=%s and createtime='%s'"  % (uid, today)
+    result = dictfetchall(sql)
+    if result:
+        return result[0]['status']
+    else:
+        return 1
+
+

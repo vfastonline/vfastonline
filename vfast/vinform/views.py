@@ -1,14 +1,11 @@
 # encoding: utf-8
-from models import Inform, InformTask, Feedback
-from vuser.models import User
+from models import Inform, InformTask, Feedback, InformType
+from vuser.models import User, Userplan
 from django.http import HttpResponse, HttpResponseRedirect
-from vfast.api import time_comp_now, require_login, dictfetchall, sendmail, get_day_of_day, second_to_hour
+from vfast.api import time_comp_now, require_login, dictfetchall, sendmail
 from vrecord.api import track_skill
 from django.template import loader
 from django.conf import settings
-from vinform.api import *
-from vcourse.api import track_process
-from vcourse.models import Path
 
 import traceback
 import json
@@ -190,6 +187,24 @@ def daily_mail(request):
         return HttpResponse('error')
 
 
-
-
-
+def create_study_plan(request):
+    """生成学习计划任务"""
+    try:
+        logging.getLogger().info('生成学习计划任务列表')
+        type = InformType.objects.get(name='学习计划')
+        today = time.strftime('%Y-%m-%d')
+        userplans = Userplan.objects.filter(createtime=today).values()
+        for item in userplans:
+            print item
+            logging.getLogger().info('生成用户%s学习计划' % item['userid'])
+            user = User.objects.get(id=item['id'])
+            url = '%s/u/%s' % (settings.HOST, item['id'])
+            Inform.objects.create(user=user, desc=item['plan_desc'], type=type, pubtime=today,
+                                  url=url, color='red')
+            Userplan.objects.filter(id=item['id'], createtime=today).update(status=0)
+        logging.getLogger().info('学习计划任务结束')
+        return HttpResponse(json.dumps({'code': 0}))
+    except:
+        logging.getLogger().error('学习计划任务失败')
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}))
