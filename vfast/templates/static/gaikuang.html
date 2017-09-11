@@ -252,9 +252,14 @@
        var plan_desc =$("#plan_desc").val();
         var nums = $("#nums").val();
           var opinion = $("#opinion").val();
-          $.post("/u/uplan", {uid:{{ user.id }},plan_desc:plan_desc,nums:nums,opinion:opinion},function (data) {
-              data = JSON.parse(data);
-          })
+          console.log(plan_desc+nums+opinion)
+          $.post("/u/uplan", {plan_desc:plan_desc,nums:nums,opinion:opinion,uid:2,},function (data,status) {
+             if(data.code == 128){
+                 console.log("发布成功");
+             } else {
+                 console.log("发布失败");
+             }
+          },"json");
 
   });
 });
