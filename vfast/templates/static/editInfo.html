@@ -455,7 +455,7 @@
 	});
 
     function resetHP(){
-        $.post("/u/editpage/default_headimg",function(data){
+        $.post("/u/editpage/change_headimg",function(data){
             $("#uheadimg_this").attr("src",data.headimg);
             $("#uheadimg").attr("src",data.headimg);
             showPrompt("已经恢复预设头像~");
@@ -470,7 +470,7 @@
         },2000)
     }
     $("#headimg").on("change", imageCompress);
-
+      $.post()
     function submitINFO(info_name){
         $.post("/u/editpage/editelse",$("#fileForm").serialize(),function(data){
             showPrompt(info_name+" 修改成功~");

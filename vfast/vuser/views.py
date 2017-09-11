@@ -24,7 +24,7 @@ import random
 
 # Create your views here.
 def test(request):
-    return render(request, 'personedit.html')
+    return render(request, 'editInfo.html')
 
 
 def userexists(request):
@@ -402,7 +402,7 @@ def editpage(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-            # return render(request, 'editInfo.html', {'user': user})
+            #return render(request, 'editInfo.html', {'user': user})
             return render(request, 'personedit.html', {'user':user})
         else:
             return HttpResponse(u'请求错误')

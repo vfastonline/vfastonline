@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
      {% include "head.html" %}
-    <link rel="stylesheet" href="/static/css/latout.css" />
+    <script src="/static/js/image_compress.js"></script>
+    <link rel="stylesheet" href="/static/css/drop-down.css" />
+    <script src="/static/js/jquery-ui.min.js"></script>
+    <script src="/static/js/select-widget-min.js"></script>
     <style>
+        #head_cont{
+            box-shadow: none;
+        }
         .my-persona{width: 1200px;
         margin: 0 auto}
         .persona-left{
@@ -41,7 +47,21 @@
        .info_1_head_1{
            float: left;
            height: 100px;
+           position:relative;
        }
+       .info_1_head>.info_1_head_1>img{
+            position:absolute;
+        }
+        .info_1_head>.info_1_head_1>img:first-child{
+            left: 1px;
+            width: 100px;
+            height:100px;
+            border-radius: 100px;
+        }
+        .info_1_head>.info_1_head_1>img:last-child{
+            top:5px;
+            left: 70px;
+        }
         .info_1_head>.info_1_head_2{
             float: right;
             width:50%;
@@ -175,15 +195,17 @@
               <ul class="fdiv">
                   <li>
                   <div class="info_1_head">
-                      <p>头像</p>
-                    <div class="info_1_head_1" >
-                        <img id="uheadimg_this" src="{{ user.headimg }}" alt=""/>
-                        <img src="/static/head/OvalBIG.svg" alt=""/>
-                    </div>
+                <p>头像</p>
+                <div class="info_1_head_1">
+                    <img id="uheadimg_this" src="{{ user.headimg }}" alt=""/>
+                    <img src="/static/head/OvalBIG.svg" alt=""/>
+                    <img src="/static/head/online.svg" alt=""/>
+                </div>
                     <div class="info_1_head_2">
                         <div>
                            <div onclick="$('#headimg').click()">更换图片</div>
                            <input name="headimg" id="headimg" type="file">
+                            <div onclick="resetHP()">恢复预设</div>
                         </div>
                      </div>
                    </div>
@@ -277,18 +299,10 @@
           </div>
          </section>
     <div class="slideDIV" style="height:150px;"></div>
-    <section class="path_content clearfix">
-        {% for path in paths %}
-            <a href="/course/track?id={{ path.id }}">
-                <div style="background-size: 50%;background-image: url('{{ path.pathimg.url }}');background-color: {{ path.color }};"></div>
-                <h2>{{ path.name }}</h2>
-            </a>
-        {% endfor %}
-    </section>
-    <div class="slideDIV" style="height:100px;"></div>
          <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
 </main>
 <form id="fileForm"></form>
+
 {% include "search_div.html" %}
 {% include "feedback.html" %}
 </body>
@@ -334,13 +348,13 @@
 		});
 	});
 
-/*function resetHP(){
-        $.post("/u/personacon/default_headimg",function(data){
+function resetHP(){
+        $.post("/u/editpage/default_headimg",function(data){
             $("#uheadimg_this").attr("src",data.headimg);
             $("#uheadimg").attr("src",data.headimg);
             showPrompt("已经恢复预设头像~");
         },"json")
-    }  */
+    }
 
     function showPrompt(message){
         $("#promptDIV").html(message);
