@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-2.1.4.js"></script>
+    <link rel="stylesheet" href="chartist.css">
+    <script src="chartist.js"></script>
+    <style>
+        body{
+            background-color: #F0F2F4;
+        }
+        .content{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .content_1{
+            height: 70px;
+            line-height: 70px;
+            color: #797B7B;
+        }
+        /*#F0F2F4*/
+        .content_left{
+            width: 60%;
+            float: left;
+            background-color: #FFFFFF;
+        }
+        .content_right{
+            width: 35%;
+            float: right;
+            background-color: #FFFFFF
+        }
+        .content_left_comm1{
+            width: 90%;
+            margin: 0 auto;
+            height: 100px;
+            line-height: 100px;
+        }
+        .content_left_comm1 span{float: left;}
+        .content_left_comm1>div{margin-left: 30%}
+        .content_left_comm2{
+            width: 90%;
+            margin: 0 auto;
+            color:#797B7B;
+        }
+        content_left_comm2_1{
+            height: 100px;
+            line-height: 100px;
+        }
+        /*表样式*/
+        .charts{
+            background-color: #2F3746;
+            width: 100%;
+            height: 300px;
+        }
+        .ct-perfect-fourth{
+            width: 100%;
+            height: 300px;
+        }
+        html {
+            font-size: 120%;
+            background: #E9E9E9;
+        }
+
+        .tooltip {
+            width: 100px;
+            position: relative;
+            z-index: 1;
+            padding: 5px;
+            background:  rgba(255,255,255,0.90);
+            opacity: 1;
+            border-radius: 3px;
+            text-align: center;
+            pointer-events: none;
+            color: #7C828C;
+            transition: opacity .1s ease-out;
+        }
+        .tooltip:after{
+            content: "";
+            position: absolute;
+            border-style: solid;
+            border-color:  rgba(255,255,255,0.90)transparent transparent;
+            border-width: 10px;
+            left:45px;
+            top: 60px;
+        }
+        .tooltip.tooltip-hidden {
+            opacity: 0;
+        }
+        .ct-grid.ct-horizontal{
+            display: none;
+        }
+        .ct-grid.ct-vertical{
+
+        }
+        .ct-label{color: #FFFFFF}
+        .ct-grid{
+            stroke:#7C828C
+        }
+        .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut{
+            stroke:#00BCD4
+        }
+        /*右侧框*/
+        .content_right_1{
+            width: 90%;
+            margin: 0 auto;
+        }
+       .bnt_right_1{
+           margin-top: 10px;
+           margin-bottom: 10px;
+           line-height: 50px;
+            width: 100px;
+            height:50px ;
+            background-color: #5ACD91;
+        }
+        .bnt_right_1 p {
+            width: 80px;
+            margin: 0 auto;
+        }
+        .head_top{
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            background-color: #417690;
+        }
+        .head_top>span{
+            color: #EADD6D;
+            font-size: 14px;
+            margin-left: 10%;
+        }
+        .head_top_2{
+            float: right;
+            width: 30%;
+        }
+        .head_top_2 span{
+            font-size: 14px;
+        }
+        .head_top_2>span{
+            color:#EADD6D ;
+        }
+        .head_top_2>div>span{
+            height: 50px;
+            line-height: 50px;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+<div class="head_top">
+    <span>Djangoadminitration</span>
+    <div class="head_top_2">
+        <span style="float: left">WELCOME,ADMIN.</span>
+        <div>
+            <span>VIEW</span>
+            <span>/</span>
+            <span>CHANGF PASSWORD</span>
+            <span>/</span>
+            <span>LOGOUT</span>
+        </div>
+    </div>
+</div>
+     <div class="content">
+            <div class="content_1">
+                <span><svg t="1505038514709" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3280" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"><defs><style type="text/css"></style></defs><path d="M896 544H250.4l242.4 242.4L448 832 173.6 557.6 128 512l45.6-45.6L448 192l45.6 45.6L250.4 480H896v64z" p-id="3281" fill="#797B7B"></path></svg></span>
+                <span>返回学员概览页</span>
+            </div>
+            <div class="content_left">
+                <div class="content_left_comm1">
+                      <span>用户名：</span>
+                      <div>老夫要上天</div>
+                </div>
+                <div class="content_left_comm1">
+                      <span>昨日得分:</span>
+                      <div>+54</div>
+                </div>
+                <div class="content_left_comm1">
+                      <span>最新课程进展:</span>
+                      <div>java>字符串插入</div>
+                </div>
+                <div class="content_left_comm2">
+                    <div style="height: 70px;line-height: 70px">
+                    七天观看视频总时长
+                    </div>
+                    <div class="charts">
+                        <div class="ct-chart ct-perfect-fourth"></div>
+                    </div>
+                    <script>
+                        new Chartist.Line('.ct-chart', {
+                            labels: ['周一', '周二', '周三', '周四', '周五','周六','周日'],
+                            series: [
+                                {
+                                    name: '时长',
+                                    data: [1,5, 3,100, 8, 4]
+                                }]
+
+                        });
+                        var easeOutQuad = function (x, t, b, c, d) {
+                            return -c * (t /= d) * (t - 2) + b;
+                        };
+                        var $chart = $('.ct-chart');
+                        var $toolTip = $chart
+                            .append('<div class="tooltip"></div>')
+                            .find('.tooltip')
+                            .hide();
+                        $chart.on('mouseenter', '.ct-point', function() {
+                            var $point = $(this),
+                                value = $point.attr('ct:value'),
+                                seriesName = $point.parent().attr('ct:series-name');
+
+                            $point.animate({'stroke-width': '20px'}, 300, easeOutQuad);
+                            $toolTip.html(seriesName + '<br>' + value).show();
+                        });
+
+                        $chart.on('mouseleave', '.ct-point', function() {
+                            var $point = $(this);
+
+                            $point.animate({'stroke-width': '10px'}, 300, easeOutQuad);
+                            $toolTip.hide();
+                        });
+
+                        $chart.on('mousemove', function(event) {
+                            $toolTip.css({
+                                left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
+                                top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="content_left_comm1">
+                    <span>平均答题正确率</span>
+                    <div>78%</div>
+                </div>
+                <div class="content_left_comm1">
+                    <span>路线完成度</span>
+                    <div>23%</div>
+                </div>
+            </div>
+            <div class="content_right">
+                <div class="content_right_1">
+                    <p>今日学习计划</p>
+                    <textarea name="a" style="width:100%;height:100px;">这里写内容</textarea>
+                </div>
+                <div class="content_right_1">
+                    <p>计划今日学习视频个数</p>
+                    <input type="text" name="cao" value="1" style="width: 20px">
+                </div>
+                <div class="content_right_1">
+                    <p>建议/意见</p>
+                    <textarea name="a" style="width:100%;height:100px;">这里写内容</textarea>
+                </div>
+                <div class="content_right_1">
+                    <div class="bnt_right_1" id="fasong"><p>发布内容</p></div>
+                </div>
+            </div>
+     </div>
+     <div style="clear: both"></div>
+</body>
+<script>
+</script>
+</html>
