@@ -76,10 +76,10 @@
                          <span id="{{ option.id }}">{{ option.title }}</span>
                      </div>
                      <ul id="wrap">
-                         <li><label><input type="radio" optionid="{{ option.id }}" name="{{ option.id }}" value="a"/>{{ option.A }}</label></li>
-                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="b"/>{{ option.B }}</label></li>
-                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="c"/>{{ option.C }}</label></li>
-                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="d"/>{{ option.D }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}" name="{{ option.id }}" value="A"/>{{ option.A }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="B"/>{{ option.B }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="C"/>{{ option.C }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="D"/>{{ option.D }}</label></li>
                      </ul>
                  </div>
              {% endfor %}
@@ -100,15 +100,15 @@
             ele.parents("div.cnt").addClass("selected");
             ele.addClass("sel");
 
-            var option = ele.find("input").val();//res+ 会拼接结果
-            var optionid = $(ele).find('input').attr('optionid');
+            var option = ele.val();//res+ 会拼接结果
+            var optionid = $(ele).attr('optionid');
             var tmp = {'optionid':optionid, 'option':option}
             result.push(tmp);
             console.log(result);
         }
 
 
-        $("#issue").find("li").click(function(){
+        $("#issue").find("input").click(function(){
             if(!$(this).parents("div.cnt").hasClass("selected")){
                 selec(this);
             }
@@ -123,15 +123,16 @@
                        'opinion': opinion
                    };
             var post = {data:JSON.stringify(inspect)};//JSON.stringify()
-            $.post("/inspect/result",post,function (data) {
-               if(data.code == 0){
-                    console.log("成功")
-               }else {
-                   console.log("失败")
-               }
+            $.post("/inspect/result", post, function (data) {
+                data = JSON.parse(data)
+                if (data.code == 0) {
+                    alert("成功")
+                } else {
+                    alert("失败")
+                }
             });
-               console.log(inspect);
-             });
+            console.log(inspect);
+        });
 
 </script>
      <div class="slideDIV" style="height:150px;"></div>

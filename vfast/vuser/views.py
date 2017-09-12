@@ -641,6 +641,7 @@ def uplan(request):
     try:
         if request.method == "POST":
             uid = request.POST.get('uid', None)
+            print uid
             if not uid:
                 return HttpResponse(json.dumps({'code': 2, 'msg': '参数不正确'}, ensure_ascii=False))
             plan_desc = request.POST.get('plan_desc')
