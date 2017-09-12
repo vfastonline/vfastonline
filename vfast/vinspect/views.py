@@ -41,9 +41,16 @@ def inspect_detail(request, inspectid):
 def inspect_result(request):
     """问卷调查收集"""
     try:
-        pass
+        if request.method == "POST":
+            print request.POST
+            return HttpResponse('ok')
+        else:
+            return HttpResponse('get')
+
     except:
-        pass
+
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
 
 
 
