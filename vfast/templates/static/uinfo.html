@@ -158,15 +158,15 @@
             <div class="content_left">
                 <div class="content_left_comm1">
                       <span>用户名：</span>
-                      <div>老夫要上天</div>
+                      <div>{{ user.nickname }}</div>
                 </div>
                 <div class="content_left_comm1">
                       <span>昨日得分:</span>
-                      <div>+54</div>
+                      <div>{{ user.score }}</div>
                 </div>
                 <div class="content_left_comm1">
                       <span>最新课程进展:</span>
-                      <div>java>字符串插入</div>
+                      <div>{{ user.newcourse }}</div>
                 </div>
                 <div class="content_left_comm2">
                     <div style="height: 70px;line-height: 70px">
@@ -220,11 +220,11 @@
                 </div>
                 <div class="content_left_comm1">
                     <span>平均答题正确率</span>
-                    <div>78%</div>
+                    <div>{{ user.t_average }}</div>
                 </div>
                 <div class="content_left_comm1">
                     <span>路线完成度</span>
-                    <div>23%</div>
+                    <div>{{ user.track_process }}</div>
                 </div>
             </div>
             <div class="content_right">
