@@ -35,6 +35,7 @@ urlpatterns = [
     url('^community/', include('vpractice.urls')),
     url('^info/', include('vinform.urls')),
     url('^badge/', include('vbadge.urls')),
+    url('^inspect/', include('vinspect.urls')),
     url('^test', views.test),
     url('^search', views.search_course, name='search'),
     url('^navtabs', views.search_js, name='navtabs'),

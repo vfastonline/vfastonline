@@ -47,6 +47,29 @@ def create_info_user(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+def create_study_plan(request):
+    """生成学习计划任务"""
+    try:
+        logging.getLogger().info('生成学习计划任务列表')
+        type = InformType.objects.get(name='学习计划')
+        today = time.strftime('%Y-%m-%d')
+        userplans = Userplan.objects.filter(createtime=today).values()
+        for item in userplans:
+            print item
+            logging.getLogger().info('生成用户%s学习计划' % item['userid'])
+            user = User.objects.get(id=item['id'])
+            url = '%s/u/%s' % (settings.HOST, item['id'])
+            Inform.objects.create(user=user, desc=item['plan_desc'], type=type, pubtime=today,
+                                  url=url, color='red')
+            Userplan.objects.filter(id=item['id'], createtime=today).update(status=0)
+        logging.getLogger().info('学习计划任务结束')
+        return HttpResponse(json.dumps({'code': 0}))
+    except:
+        logging.getLogger().error('学习计划任务失败')
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 1}))
+
+
 def getinfo(request):
     """用户获取通知"""
     try:
@@ -187,24 +210,4 @@ def daily_mail(request):
         return HttpResponse('error')
 
 
-def create_study_plan(request):
-    """生成学习计划任务"""
-    try:
-        logging.getLogger().info('生成学习计划任务列表')
-        type = InformType.objects.get(name='学习计划')
-        today = time.strftime('%Y-%m-%d')
-        userplans = Userplan.objects.filter(createtime=today).values()
-        for item in userplans:
-            print item
-            logging.getLogger().info('生成用户%s学习计划' % item['userid'])
-            user = User.objects.get(id=item['id'])
-            url = '%s/u/%s' % (settings.HOST, item['id'])
-            Inform.objects.create(user=user, desc=item['plan_desc'], type=type, pubtime=today,
-                                  url=url, color='red')
-            Userplan.objects.filter(id=item['id'], createtime=today).update(status=0)
-        logging.getLogger().info('学习计划任务结束')
-        return HttpResponse(json.dumps({'code': 0}))
-    except:
-        logging.getLogger().error('学习计划任务失败')
-        logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 1}))
+
