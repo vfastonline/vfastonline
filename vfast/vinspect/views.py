@@ -30,8 +30,7 @@ def inspect_detail(request, inspectid):
             inspectid = inspectid
             obj = Inspect.objects.get(id=inspectid)
             options = InspectOption.objects.filter(inspect=obj).values()
-            print options
-            return HttpResponse('ok')
+            return render(request, 'inspectdetail.html', {'options':options, 'inspect':obj})
         else:
             return HttpResponse(status=403)
     except:

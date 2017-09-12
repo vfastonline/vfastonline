@@ -56,53 +56,34 @@
 <body>
  <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
-     <div class="cont" id="cont">
+     <div class="cont" inspectid="{{ inspect.id }}">
          <div id="issue" class="zhengti">
-             <h4>我们想加深对你的了解，从而把智量库做的更好！请花几分钟完成这个问卷调查：</h4>
-             <div class="cont_cont_1">
-                 <div>
-                   <span id="ddd">那种说法最能符合你对学习的态度？</span>
+             <h4>我们想加深对你的了解，从而把智量库做的更好！请花几分钟完成<span style="color: red; font-size: 18px">{{ inspect.name }}：</h4>
+{#             <div class="cont_cont_1">#}
+{#                 <div>#}
+{#                     <span id="ddd">那种说法最能符合你对学习的态度？</span>#}
+{#                 </div>#}
+{#                 <ul id="wrap">#}
+{#                     <li><label><input type="radio" name="is0" value="a"/>我很实际并实事求是。</label></li>#}
+{#                     <li><label><input type="radio" name="is0" value="b"/>我浪漫并富有幻想。</label></li>#}
+{#                     <li><label><input type="radio" name="is0" value="c"/>我很实际并实事求是。</label></li>#}
+{#                     <li><label><input type="radio" name="is0" value="d"/>我很实际并实事求是。</label></li>#}
+{#                 </ul>#}
+{#             </div>#}
+             {% for option in options %}
+                 <div class="cont_cont_1">
+                     <div>
+                         <span id="{{ option.id }}">{{ option.title }}</span>
+                     </div>
+                     <ul id="wrap">
+                         <li><label><input type="radio" name="{{ option.id }}" value="a"/>{{ option.A }}</label></li>
+                         <li><label><input type="radio" name="{{ option.id }}" value="b"/>{{ option.B }}</label></li>
+                         <li><label><input type="radio" name="{{ option.id }}" value="c"/>{{ option.C }}</label></li>
+                         <li><label><input type="radio" name="{{ option.id }}" value="d"/>{{ option.D }}</label></li>
+                     </ul>
                  </div>
-                 <ul id="wrap">
-                     <li><label><input type="radio" name="is0" value="a" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is0" value="b" />我浪漫并富有幻想。</label></li>
-                     <li><label><input type="radio" name="is0" value="c" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is0" value="d" />我很实际并实事求是。</label></li>
-                 </ul>
-             </div>
-             <div class="cont_cont_1">
-                 <div>
-                     <span>那种说法最能符合你对学习的态度？</span>
-                 </div>
-                 <ul>
-                     <li><label><input type="radio" name="is1" value="a" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is1" value="b" />我浪漫并富有幻想。</label></li>
-                     <li><label><input type="radio" name="is1" value="c" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is1" value="d" />我很实际并实事求是。</label></li>
-                 </ul>
-             </div>
-             <div class="cont_cont_1">
-                 <div>
-                     <span>那种说法最能符合你对学习的态度？</span>
-                 </div>
-                 <ul>
-                     <li><label><input type="radio" name="is3" value="a" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is3" value="b" />我浪漫并富有幻想。</label></li>
-                     <li><label><input type="radio" name="is3" value="c" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is3" value="d" />我很实际并实事求是。</label></li>
-                 </ul>
-             </div>
-             <div class="cont_cont_1">
-                 <div>
-                     <span>那种说法最能符合你对学习的态度？</span>
-                 </div>
-                 <ul>
-                     <li><label><input type="radio" name="is4" value="a" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is4" value="b" />我浪漫并富有幻想。</label></li>
-                     <li><label><input type="radio" name="is4" value="c" />我很实际并实事求是。</label></li>
-                     <li><label><input type="radio" name="is4" value="d" />我很实际并实事求是。</label></li>
-                 </ul>
-             </div>
+             {% endfor %}
+
              <div class="cont_cont_2">
              <p>我们可以怎样改进这套课程？</p>
                  <textarea id="opinion" name="a" style="width:80%;height:100px;border-color: #ECEFF1">这里写内容</textarea>
