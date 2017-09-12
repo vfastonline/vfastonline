@@ -619,7 +619,16 @@ def uinfo(request):
             user['newcourse'] = get_newer_course(user['id'])
             user['t_yesterday'] = get_timu_status(user['id'], yesterday)
             user['t_average'] = get_timu_status(user['id'])
-            return HttpResponse('ok')
+            if user['pathid'] == 0:
+                user['track_process'] = '未加入任何路线'
+                user['track_name'] = '未加入任何路线'
+            else:
+                pobj = Path.objects.get(id=user['pathid'])
+                sequence = pobj.p_sequence
+                pathname = pobj.name
+                user['track_process'] = track_process(user['id'], sequence=sequence)[0]
+                user['track_name'] = pathname
+            return render(request, 'uinfo.html', {'user':user})
         else:
             return page_not_found(request)
     except:
