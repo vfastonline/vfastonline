@@ -93,11 +93,6 @@
           <li>未推送</li>
           <div style="clear: both"></div>
       </ul>  -->
-               <script>
-                   function xueyuan() {
-                       console.log(this({{ user.id }}))
-                   }
-              </script>
           {% for user in users %}
               <ul class="xueyuanxiangxi" id="xueyana" onclick=window.open("/u/uinfo?uid={{ user.id }}")>
                   <li><!--<span>{{ user.id }}</span>--><span class="yonghua">{{ user.nickname }}</span></li>

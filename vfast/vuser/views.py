@@ -25,7 +25,7 @@ import random
 
 # Create your views here.
 def test(request):
-    return render(request, 'uinfo.html')
+    return render(request, 'lookinto.html')
 
 
 def userexists(request):
