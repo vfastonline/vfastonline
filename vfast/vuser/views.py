@@ -25,7 +25,7 @@ import random
 
 # Create your views here.
 def test(request):
-    return render(request, 'gaikuang.html')
+    return render(request, 'uinfo.html')
 
 
 def userexists(request):
@@ -645,4 +645,4 @@ def uplan(request):
             return HttpResponse(json.dumps({'code': 1, 'msg': '请使用post method'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误'}))
+        return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误', 'error':traceback.format_exc()}))

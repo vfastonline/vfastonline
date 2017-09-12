@@ -254,7 +254,7 @@
           var opinion = $("#opinion").val();
           console.log(plan_desc+nums+opinion)
           $.post("/u/uplan", {plan_desc:plan_desc,nums:nums,opinion:opinion,uid:2,},function (data,status) {
-             if(data.code == 128){
+             if(data.code == 0){
                  console.log("发布成功");
              } else {
                  console.log("发布失败");
