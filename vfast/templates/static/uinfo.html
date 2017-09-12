@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="jquery-2.1.4.js"></script>
-    <link rel="stylesheet" href="chartist.css">
-    <script src="chartist.js"></script>
+    {% include "head.html" %}
+    <link href="/static/css/chartist.css" rel="stylesheet">
+    <script src="/static/js/jquery-2.1.4.js"></script>
+    <script src="/static/js/chartist.js"></script>
     <style>
-        body{
-            background-color: #F0F2F4;
+        input{border-color: #ECEFF1}
+        html{
+            font-size: 14px;
+            color:  #5A646E;
         }
         .content{
             width: 1200px;
@@ -33,8 +36,8 @@
         .content_left_comm1{
             width: 90%;
             margin: 0 auto;
-            height: 100px;
-            line-height: 100px;
+            height: 70px;
+            line-height: 70px;
         }
         .content_left_comm1 span{float: left;}
         .content_left_comm1>div{margin-left: 30%}
@@ -44,8 +47,8 @@
             color:#797B7B;
         }
         content_left_comm2_1{
-            height: 100px;
-            line-height: 100px;
+            height: 70px;
+            line-height: 70px;
         }
         /*表样式*/
         .charts{
@@ -57,11 +60,6 @@
             width: 100%;
             height: 300px;
         }
-        html {
-            font-size: 120%;
-            background: #E9E9E9;
-        }
-
         .tooltip {
             width: 100px;
             position: relative;
@@ -73,6 +71,7 @@
             text-align: center;
             pointer-events: none;
             color: #7C828C;
+            font-size: 14px;
             transition: opacity .1s ease-out;
         }
         .tooltip:after{
@@ -80,9 +79,9 @@
             position: absolute;
             border-style: solid;
             border-color:  rgba(255,255,255,0.90)transparent transparent;
-            border-width: 10px;
-            left:45px;
-            top: 60px;
+            border-width: 8px;
+            top: 100%;
+            left:40px;
         }
         .tooltip.tooltip-hidden {
             opacity: 0;
@@ -143,22 +142,14 @@
             line-height: 50px;
             color: #FFFFFF;
         }
+        .main-wrap{
+            height: auto;
+        }
     </style>
 </head>
 <body>
-<div class="head_top">
-    <span>Djangoadminitration</span>
-    <div class="head_top_2">
-        <span style="float: left">WELCOME,ADMIN.</span>
-        <div>
-            <span>VIEW</span>
-            <span>/</span>
-            <span>CHANGF PASSWORD</span>
-            <span>/</span>
-            <span>LOGOUT</span>
-        </div>
-    </div>
-</div>
+ <main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
      <div class="content">
             <div class="content_1">
                 <span><svg t="1505038514709" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3280" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"><defs><style type="text/css"></style></defs><path d="M896 544H250.4l242.4 242.4L448 832 173.6 557.6 128 512l45.6-45.6L448 192l45.6 45.6L250.4 480H896v64z" p-id="3281" fill="#797B7B"></path></svg></span>
@@ -190,7 +181,7 @@
                             series: [
                                 {
                                     name: '时长',
-                                    data: [1,5, 3,100, 8, 4]
+                                    data: [1,5, 3,2, 8, 4]
                                 }]
 
                         });
@@ -208,7 +199,8 @@
                                 seriesName = $point.parent().attr('ct:series-name');
 
                             $point.animate({'stroke-width': '20px'}, 300, easeOutQuad);
-                            $toolTip.html(seriesName + '<br>' + value).show();
+                            $point.animate({'stroke-background-color':'#fff'},300,easeOutQuad);
+                            $toolTip.html(seriesName + value).show();
                         });
 
                         $chart.on('mouseleave', '.ct-point', function() {
@@ -238,23 +230,51 @@
             <div class="content_right">
                 <div class="content_right_1">
                     <p>今日学习计划</p>
-                    <textarea name="a" style="width:100%;height:100px;">这里写内容</textarea>
+                    <textarea id="plan_desc" name="a" style="width:100%;height:100px;" placeholder="这里写内容"></textarea>
                 </div>
                 <div class="content_right_1">
                     <p>计划今日学习视频个数</p>
-                    <input type="text" name="cao" value="1" style="width: 20px">
+                    <input id="nums" type="text" name="cao" value="1" style="width: 50px;height: 20px">
                 </div>
                 <div class="content_right_1">
                     <p>建议/意见</p>
-                    <textarea name="a" style="width:100%;height:100px;">这里写内容</textarea>
+                    <textarea id="opinion" name="a" style="width:100%;height:100px;" placeholder="这里写内容"></textarea>
                 </div>
                 <div class="content_right_1">
-                    <div class="bnt_right_1" id="fasong"><p>发布内容</p></div>
+                    <button   style="width: 100px;height: 50px;background-color: #3c763d">发布内容</button>
+                    <!--<div class="bnt_right_1" id="fasong"><p>发布内容</p></div>-->
                 </div>
             </div>
      </div>
+     <script>
+          $(document).ready(function(){
+      $("button").click(function(){
+       var plan_desc =$("#plan_desc").val();
+        var nums = $("#nums").val();
+          var opinion = $("#opinion").val();
+          console.log(plan_desc+nums+opinion)
+          $.post("/u/uplan", {plan_desc:plan_desc,nums:nums,opinion:opinion,uid:2,},function (data,status) {
+             if(data.code == 0){
+                 console.log("发布成功");
+             } else {
+                 console.log("发布失败");
+             }
+          },"json");
+
+  });
+});
+     </script>
      <div style="clear: both"></div>
+    <div class="slideDIV" style="height:150px;"></div>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
+    <div style="clear: both"></div>
+</main>
+<form id="fileForm"></form>
+
+{% include "search_div.html" %}
+{% include "feedback.html" %}
 </body>
-<script>
-</script>
+{% include "commonJS.html" %}
 </html>
+
+

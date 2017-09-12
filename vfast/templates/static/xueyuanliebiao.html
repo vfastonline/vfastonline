@@ -27,6 +27,9 @@
             line-height: 50px;
             text-align: center;
             background-color: #F0F2F4;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
         .xueyuanxiangxi{
             width: 1200px;
@@ -79,40 +82,7 @@
           <td colspan="1">今日学习计划</td>
       </tr>
       </table>
-{#      <ul class="xueyuanxiangxi">#}
-{#          <li><span>023154</span><span class="yonghua">dashabi</span></li>#}
-{#          <li>+5</li>#}
-{#          <li>java>字符串插入</li>#}
-{#          <li>5h33m</li>#}
-{#          <li>90%</li>#}
-{#          <li>90%</li>#}
-{#          <li>90%</li>#}
-{#          <li>未推送</li>#}
-{#          <div style="clear: both"></div>#}
-{#      </ul>#}
-{#      <ul class="xueyuanxiangxi">#}
-{#          <li><span>023154</span><span class="yonghua">dashabi</span></li>#}
-{#          <li>+5</li>#}
-{#          <li>java>字符串插入</li>#}
-{#          <li>5h33m</li>#}
-{#          <li>90%</li>#}
-{#          <li>90%</li>#}
-{#          <li>90%</li>#}
-{#          <li>未推送</li>#}
-{#          <div style="clear: both"></div>#}
-{#      </ul>#}
-{#      <ul class="xueyuanxiangxi">#}
-{#          <li><span>023154</span><span class="yonghua">dashabi</span></li>#}
-{#          <li>+5</li>#}
-{#          <li>java>字符串插入</li>#}
-{#          <li>5h33m</li>#}
-{#          <li>90%</li>#}
-{#          <li>90%</li>#}
-{#          <li>90%</li>#}
-{#          <li>未推送</li>#}
-{#          <div style="clear: both"></div>#}
-{#      </ul>#}
-      <ul class="xueyuanxiangxi">
+    <!-- 学员列表  <ul class="xueyuanxiangxi">
           <li><span>023154</span><span class="yonghua">dashabi</span></li>
           <li>+5</li>
           <li>java>字符串插入</li>
@@ -122,11 +92,15 @@
           <li>90%</li>
           <li>未推送</li>
           <div style="clear: both"></div>
-      </ul>
-
+      </ul>  -->
+               <script>
+                   function xueyuan() {
+                       console.log(this({{ user.id }}))
+                   }
+              </script>
           {% for user in users %}
-              <ul class="xueyuanxiangxi">
-                  <li><span>{{ user.id }}</span><span class="yonghua">{{ user.nickname }}</span></li>
+              <ul class="xueyuanxiangxi" id="xueyana" onclick=window.open("/u/uinfo?uid={{ user.id }}")>
+                  <li><!--<span>{{ user.id }}</span>--><span class="yonghua">{{ user.nickname }}</span></li>
                   <li>{{ user.score }}</li>
                   <li>{{ user.newcourse }}</li>
                   <li>{{ user.vtime }}</li>
