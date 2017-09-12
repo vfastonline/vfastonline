@@ -76,10 +76,10 @@
                          <span id="{{ option.id }}">{{ option.title }}</span>
                      </div>
                      <ul id="wrap">
-                         <li><label><input type="radio" name="{{ option.id }}" value="a"/>{{ option.A }}</label></li>
-                         <li><label><input type="radio" name="{{ option.id }}" value="b"/>{{ option.B }}</label></li>
-                         <li><label><input type="radio" name="{{ option.id }}" value="c"/>{{ option.C }}</label></li>
-                         <li><label><input type="radio" name="{{ option.id }}" value="d"/>{{ option.D }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}" name="{{ option.id }}" value="a"/>{{ option.A }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="b"/>{{ option.B }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="c"/>{{ option.C }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="d"/>{{ option.D }}</label></li>
                      </ul>
                  </div>
              {% endfor %}
@@ -93,44 +93,20 @@
      <div style="clear: both"></div>
      </div>
 <script>
-    $(document).ready(function(){
-        var i=0;
-        var sld=0;
-        var res=0;
-        var len=$("#issue").find("div.cnt").length;
+         var result = new Array();
+
         function selec(ele){
-            sld++;
-            console.log(sld);
             ele= $(ele)? $(ele):ele;
             ele.parents("div.cnt").addClass("selected");
             ele.addClass("sel");
-            res= ele.find("input").val();  //res+ 会拼接结果
-            var str = res;//定义字符串
-            //var newStr=str.substr(1,str.length);
-            var name = $("#ddd").text();
 
-            console.log(name+res);
-            ;
-            /* var json = {}; //定义数组用来存储每个字符元素所对应的个数
-            for (var i = 1; i < str.length; i++) { //遍历字符串中所有的元素
-                if (!json[str.charAt(i)]) { //判断当前元素是否已经在数组中存在 str.charAt(i)//当前元素
-                    json[str.charAt(i)] = 1; //给对应数组元素中个数赋值
-                }
-                else
-                {
-                    json[str.charAt(i)]++; //给数组中元素个数赋值
-                }
-            };
-            var iMax = 0;//出现次数
-            var iIndex = '';//元素名称
-            for(var i in json){ //重新赋值出现最多的数据和个数
-                if(json[i]>iMax){
-                    iMax = json[i];
-                    iIndex = i;
-                }
-            }
-            console.log('出现次数最多的是:'+iIndex+'出现'+iMax+'次');*/
+            var option = ele.find("input").val();//res+ 会拼接结果
+            var optionid = $(ele).find('input').attr('optionid');
+            var tmp = {'optionid':optionid, 'option':option}
+            result.push(tmp);
+            console.log(result);
         }
+
 
         $("#issue").find("li").click(function(){
             if(!$(this).parents("div.cnt").hasClass("selected")){
@@ -139,10 +115,24 @@
             return true;
         });
         $("button").click(function () {
+                   var inspectid = {{ inspect.id }};
                    var opinion =$("#opinion").val();
-               console.log(opinion);
+                   var inspect = {
+                       'options':result,
+                       'inspectid': inspectid,
+                       'opinion': opinion
+                   };
+            var post = {data:JSON.stringify(inspect)};//JSON.stringify()
+            $.post("/inspect/result",post,function (data) {
+               if(data.code == 0){
+                    console.log("成功")
+               }else {
+                   console.log("失败")
+               }
+            });
+               console.log(inspect);
              });
-    });
+
 </script>
      <div class="slideDIV" style="height:150px;"></div>
      <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
