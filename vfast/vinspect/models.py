@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from vuser.models import User
 # Create your models here.
 
 
@@ -28,9 +28,10 @@ class InspectOption(models.Model):
 
 class InspectResult(models.Model):
     inspect = models.ForeignKey(Inspect, on_delete=models.CASCADE)
-    option_title = models.CharField(verbose_name='选项名称', max_length=200)
+    inspectoption = models.ForeignKey(InspectOption, verbose_name='选项')
     option  = models.CharField(verbose_name='选项', max_length=2)
-    user = models.CharField(verbose_name='用户', max_length=20, null=True, blank=True)
+    user = models.ForeignKey(User, verbose_name='用户')
+    opinion = models.TextField(verbose_name='意见', default='')
 
     def __unicode__(self):
         return self.inspect.name
