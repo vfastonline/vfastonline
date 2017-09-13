@@ -768,13 +768,11 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 }
 .navLeft a{
     color: #8C96A5;
-    text-decoration: none;
     cursor: pointer;
 }
 .navLeft_a{
-    display: block;
-    width: 230px;
     height: 70px;
+    line-height: 70px;
     color: #FFFFFF!important;
     font-size: 36px;
 }
@@ -786,10 +784,16 @@ input.labelauty + label { font: 12px "Microsoft Yahei";}
 }
 
 .log{
-    width: 230px;
+    display: inline-block;
     height: 32px;
     line-height: 32px;
 
+}
+.navLeft>ul{
+    width: 800px;
+}
+.navLeft>ul>li{
+    margin-left: 5%;
 }
 .navLeft a:hover{
     color: #FFFFFF;

@@ -951,6 +951,14 @@
             overflow: hidden;
         }
         .tab_xi>div>span{  }
+        .video_ul{
+            left:84%;
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            position: relative;
+            bottom: 400px;
+        }
     </style>
     <script>
         function saveTime(t){
@@ -982,7 +990,7 @@
 <div class="slideDIV" style="height: 130px;"></div>
 <div style="height: 50px;"></div>
 <div class="video_div">
-    <video ondblclick="video_FullScreen()" onplay="faceStart()" ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()"  controls="false";  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="450"
+    <video ondblclick="video_FullScreen()"  ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()"  controls="false";  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="450"
            data-setup="">
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/wmv" />
@@ -1029,12 +1037,7 @@
        <img id="medal_square_1" src="/static/imgs/Rectangle%204%20Copy%202.png" class="medal_square_1 shapes"/>
        <img id="medal_square_2" src="/static/imgs/Rectangle%204%20Copy%202.png" class="medal_square_2 shapes"/>
     </div>
-    <div style="left:84%;
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    position: relative;
-    bottom: 400px;" onclick="menu_video()">
+    <div class="video_ul"  onclick="menu_video()">
       <svg xmlns="http://www.w3.org/2000/svg" width="23" height="16" viewBox="0 0 23 16">
       <path fill="#FFF" d="M22.8758752,14.1419354 L6.8543748,14.1419354 C6.10637425,14.1419354 5.5,13.5355611 5.5,12.7875606 C5.5,12.03956 6.10637425,11.4331858 6.8543748,11.4331858 L22.8758752,11.4331858 L19.441812,7.99912253 C18.9128957,7.47020628 18.9128957,6.61266358 19.441812,6.08374733 C19.9707282,5.55483107 20.8282709,5.55483107 21.3571872,6.08374733 L27.1033128,11.829873 C27.6322291,12.3587892 27.6322291,13.2163319 27.1033128,13.7452482 L21.3571872,19.4913738 C20.8282709,20.02029 19.9707282,20.02029 19.441812,19.4913738 C18.9128957,18.9624575 18.9128957,18.1049148 19.441812,17.5759986 L22.8758752,14.1419354 Z M14.9867552,17.7403118 C15.7351309,17.7403118 16.3418093,18.346686 16.3418093,19.0946866 C16.3418093,19.8426871 15.7351309,20.4490614 14.9867552,20.4490614 L6.85643085,20.4490614 C6.10805516,20.4490614 5.50137679,19.8426871 5.50137679,19.0946866 C5.50137679,18.346686 6.10805516,17.7403118 6.85643085,17.7403118 L14.9867552,17.7403118 Z M14.9820004,5.55093861 C15.7300009,5.55093861 16.3363752,6.15731286 16.3363752,6.90531341 C16.3363752,7.65331395 15.7300009,8.2596882 14.9820004,8.2596882 L6.85575159,8.2596882 C6.10775104,8.2596882 5.50137679,7.65331395 5.50137679,6.90531341 C5.50137679,6.15731286 6.10775104,5.55093861 6.85575159,5.55093861 L14.9820004,5.55093861 Z" transform="matrix(-1 0 0 1 28 -5)"/>
       </svg>
@@ -1138,6 +1141,7 @@
         function menu_video() {
             if(menu.style.display == "none"){
                 menu.style.display = "block";
+
             }
         }
         function menu_video1() {
@@ -1193,9 +1197,6 @@
         </svg>
         <svg onclick="video_div2_svg_show(1)" width="17px" height="17px" viewBox="1077 753 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
-        </svg>
-        <svg onclick="video_div2_svg_show(2)" width="17px" height="17px" viewBox="1077 753 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.9w58724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
         </svg>
     </div>
     {% load mytags %}
