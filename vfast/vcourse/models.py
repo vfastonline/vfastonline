@@ -103,7 +103,7 @@ class Video(models.Model):
     createtime = models.DateField('视频上传时间', auto_now=True)
     end = models.IntegerField('是否为最后一节视频', choices=END_TYPE, default=0)  # 0是最后一个, 1不是最后一个
     vtype = models.IntegerField('视频, 题目', choices=VTYPE, default=0)
-    sequence = models.IntegerField('视频播放顺序', default=1)
+    sequence = models.FloatField('视频播放顺序', default=1.0)
     section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name='所属章节', null=True)
 
     def __unicode__(self):
