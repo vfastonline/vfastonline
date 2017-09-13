@@ -519,6 +519,7 @@
     <div class="slideDIV" style="height:100px;"></div>
 
     <section class="contentBody clearfix">
+        {% if path_flag %}
         <div class="contentBody_left pull-left">
             <div class="contentBody_left_head">
                 <h3>正在进行的路线</h3>
@@ -581,38 +582,10 @@
                 </ul>
             </div>
         </div>
+        {% endif %}
+
+
     <div class="contentBody_right pull-right">
-           <!--<div id="CalendarMain">
-                <div id="title">
-                    <img src="/static/svg/minus.svg" onclick="CalendarHandler.CalculateLastMonthDays();">
-                    <div>
-                        <span class=" selectYear" id="selectYear"></span>
-                        <span class=" selectMonth" id="selectMonth"></span>
-                    </div>
-                    <span class=" currentDay" onClick="CalendarHandler.CreateCurrentCalendar(0,0,0);"></span>
-                    <img src="/static/svg/plus.svg" onClick="CalendarHandler.CalculateNextMonthDays();">
-                </div>
-                <div id="context" style="height: 295px">
-                    <div class="week">
-                        <h3> 一 </h3>
-                        <h3> 二 </h3>
-                        <h3> 三 </h3>
-                        <h3> 四 </h3>
-                        <h3> 五 </h3>
-                        <h3> 六 </h3>
-                        <h3> 日 </h3>
-                    </div>
-                    <div id="center">
-                        <div id="centerMain">
-                        <div id="selectYearDiv"></div>
-                        <div id="centerCalendarMain">
-                            <div id="Container"></div>
-                        </div>
-                        <div id="selectMonthDiv"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="plan_head">
                 <h3>今日学习计划</h3>
                 <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>

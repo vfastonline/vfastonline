@@ -176,10 +176,7 @@ def record_video(request):
 
 def get_score_seven_day(request):
     try:
-        try:
-            uid = request.session['user']['id']
-        except:
-            uid = request.GET.get('uid', None)
+        uid = request.GET.get('uid', None)
         if not uid:
             return HttpResponse(json.dumps({'code': 1, 'msg': 'parameter error!'}))
         date, score, vtime = [], [], []

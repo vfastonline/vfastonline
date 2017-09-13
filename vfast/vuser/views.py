@@ -257,7 +257,7 @@ def dashboard(request, param):
             jindu, jindu_2 = track_process(user.id, sequence)
             return render(request, 'dashBoard.html',
                           {'courses_path': courses, 'jindu': jindu, 'path_name': path.name,
-                           'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4],
+                           'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4],'path_flag': True,
                            'tasks': tasks, 'flag': flag})
 
         return render(request, 'dashBoard.html',
