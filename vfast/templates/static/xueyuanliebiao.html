@@ -103,7 +103,7 @@
                   <li>{{ user.t_average }}</li>
                   <li>{{ user.track_process }}</li>
                   {% if user.studyplan == 0 %}
-                  <li>已推送</li>
+                  <li style="color: #00BCD4">已推送</li>
                   {% else %}
                   <li>未推送</li>
                   {% endif %}
@@ -114,7 +114,9 @@
          <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
 </main>
 <form id="fileForm"></form>
+ <script>
 
+ </script>
 {% include "search_div.html" %}
 {% include "feedback.html" %}
 </body>
