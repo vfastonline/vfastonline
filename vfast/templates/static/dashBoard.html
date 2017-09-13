@@ -298,14 +298,12 @@
             font-size: 20px;
             font-weight: bolder;
             color: #384047;
-            width: 1200px;
-            margin: 0px auto 0px;
+            width: 59%;
         }
         /*contentBody_course Start*/
         .contentBody_course:after{content: "";display: block;clear: both;}
         .contentBody_course{
-            width: 1200px;
-            margin: 0 auto;
+            width: 60%;
             margin-top: 30px;
             color: #5A646E;
         }
@@ -421,30 +419,75 @@
             padding-bottom: 5px;
         }
         /*contentBody_course  End*/
-       .charts{
-            width: 456px;
-            height: 340px;
+
+        /*图表样式*/
+         .charts{
             background-color: #2F3746;
+            width: 100%;
+            height: 310px;
+        }
+        .ct-perfect-fourth{
+            width: 100%;
+            height: 310px;
+            top: 16px;
+            right: 13px;
         }
         .tooltip {
-              z-index: 1;
-              padding: 5px;
-              opacity: 1;
-              width: 100px;
-              height: 40px;
-              background: lightgreen;
-              border-radius: 5px;
-              position: relative;
-              top: 30px;
-          }
+            width: 100px;
+            position: relative;
+            z-index: 1;
+            padding: 5px;
+            background:  rgba(255,255,255,0.90);
+            opacity: 1;
+            border-radius: 3px;
+            text-align: center;
+            pointer-events: none;
+            color: #7C828C;
+            font-size: 14px;
+            transition: opacity .1s ease-out;
+        }
         .tooltip:after{
             content: "";
             position: absolute;
             border-style: solid;
-            border-color: lightgreen transparent transparent;
-            border-width: 10px;
-            bottom: -20px;
-            right:40px;
+            border-color:  rgba(255,255,255,0.90)transparent transparent;
+            border-width: 8px;
+            top: 100%;
+            left:40px;
+        }
+        .tooltip.tooltip-hidden {
+            opacity: 0;
+        }
+        .ct-grid.ct-horizontal{
+            display: none;
+        }
+        .ct-grid.ct-vertical{
+
+        }
+        .ct-label{color: #FFFFFF}
+        .ct-grid{
+            stroke:#7C828C
+        }
+        .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut{
+            stroke:#00BCD4
+        }
+        /*图表样式结束*/
+        .show{display: none;}
+        /*用屁股想到的标题*/
+        .shabi{
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+        }
+        .shabi h3{
+            font-size: 20px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .erbi h3{
+          font-size: 20px;
+            color: #384047;
+            font-weight: bolder;
         }
     </style>
 </head>
@@ -485,6 +528,14 @@
                   <span class="blue" style="width: {{ jindu }};"></span>
                 </div>
             </div>
+            <script>
+                //当路线进度为0时隐藏
+                var hid = $("blue").width=("{{ jindu }}");
+                if (hid=="0%"){
+                    $("contentBody_left_head").addClass("show");
+                }else {};
+                  console.log(hid);
+            </script>
             <div class="contentBody_left_body">
                 <ul>
                     {% for course in courses_path %}
@@ -562,9 +613,6 @@
                     </div>
                 </div>
             </div> -->
-            <div class="charts">
-                <div class="ct-chart ct-perfect-fourth"></div>
-            </div>
             <div class="plan_head">
                 <h3>今日学习计划</h3>
                 <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
@@ -591,46 +639,63 @@
                     {% endfor %}
                 </ul>
             </div>
+            <div class="shabi">
+                <h3>8月份活跃度</h3>
+            </div>
+             <!--绘图形-->
+             <div class="charts">
+                <div class="ct-chart ct-perfect-fourth"></div>
+            </div>
+            <div class="erbi">
+             <h3>学习建议</h3>
+             <p>构我饿i 微机软件哦尚德加工而哦提味儿哦啊哦尚德结果 i 饿哦人体肌肤尚德可积分卡尚德将罚款金额为 i 感觉哦电饭锅就哦</p>
+            </div>
+            <script>
+              //图表js
+                  new Chartist.Line('.ct-chart', {
+                            labels: ['周一', '周二', '周三', '周四', '周五','周六','周日'],
+                            series: [
+                                {
+                                    name: '时长',
+                                    data: [1,5, 3,2, 8, 4]
+                                }]
 
-                  <script>
-    new Chartist.Line('.ct-chart', {
-        labels: ['周一', '周二', '周三', '周四', '周五','周六','周日'],
-        series: [{
-                name:'今日得分',
-                data:[1,5,3,5,4,6]
-            }]
-    }, {
+                        });
+                        var easeOutQuad = function (x, t, b, c, d) {
+                            return -c * (t /= d) * (t - 2) + b;
+                        };
+                        var $chart = $('.ct-chart');
+                        var $toolTip = $chart
+                            .append('<div class="tooltip"></div>')
+                            .find('.tooltip')
+                            .hide();
+                        $chart.on('mouseenter', '.ct-point', function() {
+                            var $point = $(this),
+                                value = $point.attr('ct:value'),
+                                seriesName = $point.parent().attr('ct:series-name');
 
-        fullWidth: false,
-        chartPadding: {
-            right: 40
-        }
-    });
-    var $tooltip = $('<div class="tooltip tooltip-hidden"></div>').appendTo($('.ct-chart'));
+                            $point.animate({'stroke-width': '20px'}, 300, easeOutQuad);
+                            $point.animate({'stroke-background-color':'#fff'},300,easeOutQuad);
+                            $toolTip.html(seriesName + value).show();
+                        });
 
-    $(document).on('mouseenter', '.ct-point', function() {
-        var seriesName = $(this).closest('.ct-series').attr('ct:series-name'),
-            value = $(this).attr('ct:value');
+                        $chart.on('mouseleave', '.ct-point', function() {
+                            var $point = $(this);
 
-        $tooltip.text(seriesName + ': ' + value);
-        $tooltip.removeClass('tooltip-hidden');
-    });
+                            $point.animate({'stroke-width': '10px'}, 300, easeOutQuad);
+                            $toolTip.hide();
+                        });
 
-    $(document).on('mouseleave', '.ct-point', function() {
-        $tooltip.addClass('tooltip-hidden');
-    });
-
-    $(document).on('mousemove', '.ct-point', function(event) {
-        console.log(event);
-        $tooltip.css({
-            left: (event.offsetX || event.originalEvent.layerX) - $tooltip.width() / 2,
-            top: (event.offsetY || event.originalEvent.layerY) - $tooltip.height() - 20
-        });
-    });
+                        $chart.on('mousemove', function(event) {
+                            $toolTip.css({
+                                left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
+                                top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
+                            });
+                        });
             </script>
             </div>
     {% if courses %}
-        <h2 class="courseING" style="margin-top: 400px">正在进行的课程</h2>
+        <h2 class="courseING" style="margin-left: 30px;">正在进行的课程</h2>
     {% endif %}
     <section class="contentBody_course">
         {% for course in courses %}
@@ -677,11 +742,10 @@
 {% include "commonJS.html" %}
 <!--<script src="/static/js/chartist.js"></script>-->
 <script type="text/javascript">
-{% comment %}$(document).ready(function(e) {
+/*$(document).ready(function(e) {
     CalendarHandler.initialize();
-
     getScore();
-});
+});*/
 window.document.onscroll = function(){
     if($(document).scrollTop() == 0){
         $("#head_cont").css("box-shadow","none");
@@ -723,6 +787,6 @@ function article_close_plan(){
 }
 function play_video(urlStr){
 	window.open(urlStr,"_blank ");
-}{% endcomment %}
+}
 </script>
 </html>

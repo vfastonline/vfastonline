@@ -98,24 +98,21 @@
         function selec(ele){
             ele= $(ele)? $(ele):ele;
             ele.parents("div.cnt").addClass("selected");
-            ele.addClass("sel");
-
-            var option = ele.find("input").val();//res+ 会拼接结果
-            var optionid = $(ele).find('input').attr('optionid');
-            var tmp = {'optionid':optionid, 'option':option}
+          var option =  ele.addClass("sel").val();
+         var optionid= ele.addClass("sel").attr('optionid');
+            var tmp = {'optionid':optionid, 'option':option};
             result.push(tmp);
-            console.log(result);
+            if (this.$("sel")){
+               console.log()
+            }
+           console.log(result);
         }
-
-
-        $("#issue").find("li").click(function(){
+        $("#issue").find("input").click(function(){
             if(!$(this).parents("div.cnt").hasClass("selected")){
                 selec(this);
             }
-            return true;
         });
         $("button").click(function () {
-                   var inspectid = {{ inspect.id }};
                    var opinion =$("#opinion").val();
                    var inspect = {
                        'options':result,
@@ -130,7 +127,6 @@
                    console.log("失败")
                }
             });
-               console.log(inspect);
              });
 
 </script>
