@@ -303,12 +303,11 @@
         /*contentBody_course Start*/
         .contentBody_course:after{content: "";display: block;clear: both;}
         .contentBody_course{
-            width: 60%;
+            width: 59%;
             margin-top: 30px;
             color: #5A646E;
         }
         .contentBody_course>div{
-            float: left;
             width: 720px;
             margin-bottom: 30px;
             transition: all 0s linear;
@@ -429,7 +428,7 @@
         .ct-perfect-fourth{
             width: 100%;
             height: 310px;
-            top: 16px;
+            top: 10px;
             right: 13px;
         }
         .tooltip {
@@ -489,6 +488,12 @@
             color: #384047;
             font-weight: bolder;
         }
+        .ke_courseING{
+            width: 60%;
+            height: 70px;
+            line-height: 70px;
+            float: left;
+        }
     </style>
 </head>
 <body>
@@ -530,11 +535,6 @@
             </div>
             <script>
                 //当路线进度为0时隐藏
-                var hid = $("blue").width=("{{ jindu }}");
-                if (hid=="0%"){
-                    $("contentBody_left_head").addClass("show");
-                }else {};
-                  console.log(hid);
             </script>
             <div class="contentBody_left_body">
                 <ul>
@@ -656,7 +656,7 @@
                             labels: ['周一', '周二', '周三', '周四', '周五','周六','周日'],
                             series: [
                                 {
-                                    name: '时长',
+                                    name: '得分：',
                                     data: [1,5, 3,2, 8, 4]
                                 }]
 
@@ -692,10 +692,20 @@
                                 top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
                             });
                         });
+                        //请求数据
+                       // var r = window.location.href;console.log(r);
+                        // d = r.substring(r.indexOf("u/"),r.length-1);
+                                //  console.log();
+                       $.getJSON("/r/weekscore?uid={{ request.session.user.id}}",{
+                           },function (data) {
+                              console.log(data);
+                           });
             </script>
             </div>
     {% if courses %}
-        <h2 class="courseING" style="margin-left: 30px;">正在进行的课程</h2>
+        <div class="ke_courseING">
+            <h2 class="courseING" style="margin-left: 30px;">正在进行的课程</h2>
+        </div>
     {% endif %}
     <section class="contentBody_course">
         {% for course in courses %}

@@ -19,18 +19,13 @@
                 <ul>
                     <li>
                         <a class="navLeft_a" href="/u/{{ request.session.user.id}}" target="_top">
-                           <img class="log" width="230px" height="70px" src="/static/imgs/logo.svg"/>
+                           <img class="log" width="70px" height="70px" src="/static/imgs/logo.svg"/>
                         </a>
-                        <script>
-                            console.log({{ request.session.user.id}})
-                        </script>
                     </li>
-                    <div style="float: left;">
-                        <li><a href="/course/tracks">学习路线</a></li>
-                        <li><a href="/course/courses">课程库</a></li>
-                        <li><a href="/community/qa">社区</a></li>
-                        <li><a data-toggle="modal" data-target="#myFeedback_info" onclick="showFeedback()">反馈</a></li>
-                    </div>
+                    <li><a href="/course/tracks">学习路线</a></li>
+                    <li><a href="/course/courses">课程库</a></li>
+                    <li><a href="/community/qa">社区</a></li>
+                    <li><a data-toggle="modal" data-target="#myFeedback_info" onclick="showFeedback()">反馈</a></li>
                 </ul>
             </nav>
             <nav class="navRight">
@@ -61,20 +56,13 @@
                     </li>
                     <script>
                           function aixuexi(){
-
-    var woaixuexi=document.getElementById("totalscore");
-
-    woaixuexi.style.color="#fff";
-
-  }
-
-  function xuexi(){
-
-   var xuexi=document.getElementById("totalscore");
-
-   xuexi.style.color="#8c96a5";
-
- }
+                             var woaixuexi=document.getElementById("totalscore");
+                            woaixuexi.style.color="#fff";
+                             }
+                  function xuexi(){
+                   var xuexi=document.getElementById("totalscore");
+                      xuexi.style.color="#8c96a5";
+                  }
                     </script>
                     <li class="xiabiaofu" id="xiabiaofu">
                         <svg t="1503369663830" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3369" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
