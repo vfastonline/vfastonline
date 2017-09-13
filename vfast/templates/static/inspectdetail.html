@@ -76,10 +76,10 @@
                          <span id="{{ option.id }}">{{ option.title }}</span>
                      </div>
                      <ul id="wrap">
-                         <li><label><input type="radio" optionid="{{ option.id }}" name="{{ option.id }}" value="a"/>{{ option.A }}</label></li>
-                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="b"/>{{ option.B }}</label></li>
-                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="c"/>{{ option.C }}</label></li>
-                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="d"/>{{ option.D }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}" name="{{ option.id }}" value="A"/>{{ option.A }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="B"/>{{ option.B }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="C"/>{{ option.C }}</label></li>
+                         <li><label><input type="radio" optionid="{{ option.id }}"  name="{{ option.id }}" value="D"/>{{ option.D }}</label></li>
                      </ul>
                  </div>
              {% endfor %}
@@ -92,44 +92,45 @@
          </div>
      <div style="clear: both"></div>
      </div>
-<script>
+     <script>
+
          var result = new Array();
 
-        function selec(ele){
-            ele= $(ele)? $(ele):ele;
-            ele.parents("div.cnt").addClass("selected");
-          var option =  ele.addClass("sel").val();
-         var optionid= ele.addClass("sel").attr('optionid');
-            var tmp = {'optionid':optionid, 'option':option};
-            result.push(tmp);
-            if (this.$("sel")){
-               console.log()
-            }
-           console.log(result);
-        }
-        $("#issue").find("input").click(function(){
-            if(!$(this).parents("div.cnt").hasClass("selected")){
-                selec(this);
-            }
-        });
-        $("button").click(function () {
-                   var opinion =$("#opinion").val();
-                   var inspect = {
-                       'options':result,
-                       'inspectid': inspectid,
-                       'opinion': opinion
-                   };
-            var post = {data:JSON.stringify(inspect)};//JSON.stringify()
-            $.post("/inspect/result",post,function (data) {
-               if(data.code == 0){
-                    console.log("成功")
-               }else {
-                   console.log("失败")
-               }
-            });
-             });
+         function selec(ele) {
+             ele = $(ele) ? $(ele) : ele;
+             ele.parents("div.cnt").addClass("selected");
+             var option = ele.addClass("sel").val();
+             var optionid = ele.addClass("sel").attr('optionid');
+             var tmp = {'optionid': optionid, 'option': option};
+             result.push(tmp);
+             console.log(result);
+         }
 
-</script>
+         $("#issue").find("input").click(function () {
+             if (!$(this).parents("div.cnt").hasClass("selected")) {
+                 selec(this);
+             }
+         });
+
+         $("button").click(function () {
+             var opinion = $("#opinion").val();
+             var inspect = {
+                 'options': result,
+                 'inspectid': inspectid,
+                 'opinion': opinion
+             };
+             var post = {data: JSON.stringify(inspect)};//JSON.stringify()
+             $.post("/inspect/result", post, function (data) {
+                 data = JSON.parse(data)
+                 if (data.code == 0) {
+                     alert("成功")
+                 } else {
+                     alert("失败")
+                 }
+             })
+
+     </script>
+
      <div class="slideDIV" style="height:150px;"></div>
      <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
 </main>

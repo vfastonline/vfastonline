@@ -57,8 +57,8 @@ def create_study_plan(request):
         for item in userplans:
             print item
             logging.getLogger().info('生成用户%s学习计划' % item['userid'])
-            user = User.objects.get(id=item['id'])
-            url = '%s/u/%s' % (settings.HOST, item['id'])
+            user = User.objects.get(id=item['userid'])
+            url = '%s/u/%s' % (settings.HOST, item['userid'])
             Inform.objects.create(user=user, desc=item['plan_desc'], type=type, pubtime=today,
                                   url=url, color='red')
             Userplan.objects.filter(id=item['id'], createtime=today).update(status=0)

@@ -187,11 +187,13 @@ def dashboard(request, param):
         # 显示已经学过的或者正在学习的课程
         sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
         courses_learning = dictfetchall(sql)
+
         task_create = task_daily(user)
         if task_create:
             flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
         else:
             flag, tasks = False, []
+
         if user.pathid == 0:
             pass
 
@@ -257,7 +259,7 @@ def dashboard(request, param):
             jindu, jindu_2 = track_process(user.id, sequence)
             return render(request, 'dashBoard.html',
                           {'courses_path': courses, 'jindu': jindu, 'path_name': path.name,
-                           'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4],
+                           'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4], 'path_flag': True,
                            'tasks': tasks, 'flag': flag})
 
         return render(request, 'dashBoard.html',
@@ -271,13 +273,17 @@ def dashboard(request, param):
 def task_daily(user):
     """创建每日任务"""
     try:
+        today = time.strftime('%Y-%m-%d')
         ret = WatchRecord.objects.filter(user=user).exists()
-        d_ret = DailyTask.objects.filter(createtime__contains=time.strftime('%Y-%m-%d'),
-                                         user_id=user.id).exists()
+        d_ret = DailyTask.objects.filter(createtime__contains=today, user_id=user.id).exists()
+        user_plan = Userplan.objects.filter(userid=user.id, createtime=today).values().first()
         if ret and not d_ret:
             sql = 'select vw.*, vv.sequence from vrecord_watchrecord as vw, vcourse_video as vv where user_id = %s and vw.video_id=vv.id order by createtime desc limit 1;' % user.id
             result = dictfetchall(sql)
-            seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
+            if user_plan:
+                seqs = [str(result[0]['sequence'] + i) for i in range(1, user_plan.nums)]
+            else:
+                seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
             sql_recommand = "select * from vcourse_video where course_id = %s and sequence in (%s)" % (
                 result[0]['course_id'], ','.join(seqs))
             recommand = dictfetchall(sql_recommand)
@@ -628,7 +634,7 @@ def uinfo(request):
                 pathname = pobj.name
                 user['track_process'] = track_process(user['id'], sequence=sequence)[0]
                 user['track_name'] = pathname
-            return render(request, 'uinfo.html', {'user':user})
+            return render(request, 'uinfo.html', {'user': user})
         else:
             return page_not_found(request)
     except:
@@ -641,6 +647,7 @@ def uplan(request):
     try:
         if request.method == "POST":
             uid = request.POST.get('uid', None)
+            print uid
             if not uid:
                 return HttpResponse(json.dumps({'code': 2, 'msg': '参数不正确'}, ensure_ascii=False))
             plan_desc = request.POST.get('plan_desc')
@@ -649,9 +656,9 @@ def uplan(request):
             createtime = get_day_of_day(n=1)
             Userplan.objects.create(plan_desc=plan_desc, createtime=createtime, nums=nums, opinion=opinion, userid=uid,
                                     status=1)
-            return HttpResponse(json.dumps({'code':0}))
+            return HttpResponse(json.dumps({'code': 0}))
         else:
             return HttpResponse(json.dumps({'code': 1, 'msg': '请使用post method'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误', 'error':traceback.format_exc()}))
+        return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误', 'error': traceback.format_exc()}))
