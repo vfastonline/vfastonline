@@ -3,11 +3,12 @@ from vcourse.models import Course
 from django.shortcuts import render
 from vcourse.models import Technology
 from django.http import HttpResponse, HttpResponseRedirect
-from vcourse.models import Video
+from vcourse.models import Video, Faq
 from vpractice.models import Timu
 from vfast.api import dictfetchall, time_comp_now, require_login
 from django.conf import settings
 from django.db.models import Q
+
 
 import logging
 import traceback
@@ -120,9 +121,11 @@ def playVideo(request, params):
             r_sql = 'select count(1) as replay from vpractice_replay where question_id = %s;' % item['id']
             res = dictfetchall(r_sql)[0]
             item['replay'] = res['replay']
+
+        faqs = Faq.objects.filter(video=video_obj).values()
         return render(request, 'playVideo.html',
                       {'videos': videos, 'video_obj': video_obj, 'video_process': video_process,
-                       'questions': questions})
+                       'questions': questions, 'faqs':faqs})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)

@@ -1292,10 +1292,18 @@
                <p>这个插件的存在本来就是个BUG</p>
         </span>
         </div>
-    <pre><code class="php">
-class Test {
-    private $name;
-</code></pre>
+
+    {% for faq in faqs %}
+        <div class="tab_faq_a">
+            <h4>Q:</h4><P>{{ faq.question }}</P>
+        </div>
+        <div>
+            <span>
+               <p>{{ faq.answer }}</p>
+        </span>
+        </div>
+    {% endfor %}
+
 </div>
 <script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
