@@ -94,7 +94,7 @@ class Video(models.Model):
     name = models.CharField('视频名称', max_length=100)
     vtime = models.CharField('视频时长', max_length=10, default='')
     vurl = models.FileField('视频存放位置', upload_to='video/%y%m%d', null=True, blank=True)
-    cc = models.FileField('字幕存放位置', upload_to='video/%y%m%d', null=True, blank=True)
+    cc = models.FileField('字幕存放位置', upload_to='video/%y%m%d', null=True, blank=True, default=' ')
     notes = models.TextField('讲师笔记', default='', null=True, blank=True)
     score = models.IntegerField('总评星', null=True, blank=True, default=0)
     scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)
