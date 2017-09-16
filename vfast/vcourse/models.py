@@ -94,7 +94,7 @@ class Video(models.Model):
     name = models.CharField('视频名称', max_length=100)
     vtime = models.CharField('视频时长', max_length=10, default='')
     vurl = models.FileField('视频存放位置', upload_to='video/%y%m%d', null=True, blank=True)
-    cc = models.FileField('字幕存放位置', upload_to='video/%y%m%d', null=True, blank=True)
+    cc = models.FileField('字幕存放位置', upload_to='video/%y%m%d', null=True, blank=True, default=' ')
     notes = models.TextField('讲师笔记', default='', null=True, blank=True)
     score = models.IntegerField('总评星', null=True, blank=True, default=0)
     scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)
@@ -103,7 +103,7 @@ class Video(models.Model):
     createtime = models.DateField('视频上传时间', auto_now=True)
     end = models.IntegerField('是否为最后一节视频', choices=END_TYPE, default=0)  # 0是最后一个, 1不是最后一个
     vtype = models.IntegerField('视频, 题目', choices=VTYPE, default=0)
-    sequence = models.IntegerField('视频播放顺序', default=1)
+    sequence = models.IntegerField('视频播放顺序', default=0)
     section = models.ForeignKey(Section, on_delete=models.CASCADE, verbose_name='所属章节', null=True)
 
     def __unicode__(self):
@@ -120,7 +120,7 @@ class UserPath(models.Model):
 
 
 class Faq(models.Model):
-    video = models.ForeignKey(Video)
+    video = models.ForeignKey(Video, limit_choices_to={'vtype':0})
     question = models.CharField(max_length=200, verbose_name='问题')
     answer = models.TextField(verbose_name='回答')
     language = models.CharField(verbose_name='语言', null=True, blank=True, max_length=10)

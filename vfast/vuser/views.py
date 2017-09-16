@@ -8,7 +8,7 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
-from vfast.api import encry_password, get_validate, time_comp_now, dictfetchall, require_login, get_day_of_day
+from vfast.api import encry_password, get_validate, time_comp_now, require_login, get_day_of_day, sendmessage
 from vrecord.api import sum_score_tech
 from vuser.api import *
 from vcourse.api import track_process
@@ -102,16 +102,15 @@ def phone_code(request):
             code = ''
             for i in range(4):
                 code += str(random.randint(0, 9))
-            from vfast.api import sendmessage
             try:
                 sendmessage(phone, {'code': code})
-                logging.getLogger().info(u'注册验证码短信发送成功')
+                logging.getLogger().info(u'验证码短信发送成功')
                 import hashlib
                 code = hashlib.new('md5', code).hexdigest()
                 return HttpResponse(json.dumps({'code': 0, 'phone_code': code}))
             except:
-                logging.getLogger().error(u'注册短信发送失败')
-                return HttpResponse(json.dumps({'code': 1, 'msg': u'注册短信验证码发送失败'}, ensure_ascii=False))
+                logging.getLogger().error(u'短信验证码发送失败')
+                return HttpResponse(json.dumps({'code': 1, 'msg': u'短信验证码发送失败'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
@@ -126,6 +125,26 @@ def reset_password(request):
             password = encry_password(password)
             User.objects.filter(id=uid).update(password=password)
             return HttpResponse(json.dumps({'code': 0}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
+def forget_pwd(request):
+    """忘记密码"""
+    try:
+        if request.method == "POST":
+            phone = request.POST.get('phone')
+            password = request.POST.get('password')
+            password = encry_password(password)
+            ret = User.objects.filter(phone=phone).update(password=password)
+            if ret:
+                user = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password).values(
+                    'phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
+                request.session['user'] = user
+                request.session['login'] = True
+                return HttpResponse(
+                    json.dumps(HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

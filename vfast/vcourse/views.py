@@ -38,7 +38,7 @@ def getpath(request):
         courses = []
         for cid in course:
             c = Course.objects.get(id=cid)
-            videos = Video.objects.filter(course=c).values()
+            videos = Video.objects.filter(course=c).order_by('sequence').values()
             courses.append(dict(course=c, video=videos))
         return render(request, 'learnPath_show.html',
                       {'path': path, 'path_id': path_id, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
