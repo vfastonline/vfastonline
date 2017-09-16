@@ -8,11 +8,12 @@ from vperm.models import Role
 from vcourse.models import Path, Course, Video
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
-from vfast.api import encry_password, get_validate, time_comp_now, dictfetchall, require_login, get_day_of_day
+from vfast.api import encry_password, get_validate, time_comp_now, require_login, get_day_of_day, sendmessage
 from vrecord.api import sum_score_tech
 from vuser.api import *
 from vcourse.api import track_process
 from vfast.error_page import *
+
 
 import os
 import json
@@ -25,7 +26,14 @@ import random
 
 # Create your views here.
 def test(request):
-    return render(request, 'inspectdetail.html')
+    try:
+        code='1234'
+        phone = '18612972023'
+        sendmessage(phone, {'code': code})
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
 
 
 def userexists(request):
