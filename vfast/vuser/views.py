@@ -14,7 +14,6 @@ from vuser.api import *
 from vcourse.api import track_process
 from vfast.error_page import *
 
-
 import os
 import json
 import logging
@@ -27,7 +26,7 @@ import random
 # Create your views here.
 def test(request):
     try:
-        code='1234'
+        code = '1234'
         phone = '18612972023'
         sendmessage(phone, {'code': code})
         return HttpResponse('ok')
@@ -151,7 +150,8 @@ def forget_pwd(request):
                     'phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
                 request.session['user'] = user
                 request.session['login'] = True
-                return HttpResponse(json.dumps({'code':0}))
+                return HttpResponse(
+                    json.dumps(HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
