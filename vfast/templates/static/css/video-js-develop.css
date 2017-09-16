@@ -1,15 +1,6 @@
-.video_play_svg_div{
-    width:60px;
-    height:60px;
-    background: black;
-    -webkit-filter: blur(20px);
-    position: absolute;top: 190px;left: 565px;
-    z-index: 1;
-    border-radius: 30px;
-    display: none;
-}
+
 .video_bofang{
-    position: absolute;top: 200px;left: 580px;
+    position: absolute;top:330px;left: 580px;
     z-index: 1;
     display: none;
 }
@@ -74,9 +65,9 @@
     display: block;
 }
 .vjs-progress-control{
-    width:60%!important;
+    width:70%!important;
     top: 12px!important;
-    left:20%!important;
+    left:10%!important;
     border-radius: 10px!important;
 }
 .vjs-load-progress{

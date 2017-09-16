@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title></title>
@@ -19,31 +18,26 @@
         .video_div{
             overflow: hidden;
             width: 1200px;
-            height: 450px;
+            height: 675px;
             margin: 0 auto;
             position: relative;
         }
         .video_div1{
-            bottom: 60px;
-            left: 484px;
-            width: 146px;
-            height: 0px;
-            line-height: 60px;
-            margin: 0 auto;
-            position: relative;
-            background: #EEEEEE;
-            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            top: 95%;
+            left: 85%;
+            position: absolute;
+            display: block;
         }
         .video_div1:after{content: "";display: block;clear:both;}
         .video_div1 ul:after{content: "";display: block;clear:both;}
         .video_div1 ul{
-            margin-left: 27px;
+
             float: left;
             height: 60px;
             line-height: 60px;
             position: absolute;
             bottom: 30px;
-            right: 110px;
+            right: 97px;
         }
         .video_div1 ul li{
             background-color: #D8D8D8;
@@ -63,16 +57,17 @@
             cursor: pointer;
         }
         .video_div1>div{
+            margin-left: 13px;
+            width: 24px;
+            height: 24px;
             float: left;
-            height: 0px;
-            line-height: 60px;
+            line-height: 24px;
             font-size: 14px;
             font-weight: bold;
             color: #FFFFFF;
         }
         .video_div1>div:after{content: "";display: block;clear:both;}
         .video_div1>div>svg{
-            margin-top: 25px;
         }
         .video_div1>div>svg:hover{
             opacity: 0.8;
@@ -83,10 +78,10 @@
         }
         .video_div1>div>p{
             float: left;
-            width: 45px;
+            width: 30px;
             line-height: 24px;
             text-align: center;
-            margin-top:25px;
+            margin: 0px !important;
         }
         .video_div1>div>p:hover{
             opacity: 0.8;
@@ -130,8 +125,9 @@
             opacity: 0.8!important;
         }
         .video_div2>div:last-child{
+            float: right;
             background-color: #00BCD4;
-            margin-left: 30px;
+             margin-right: 30px;
         }
         .video_div2>div:last-child:hover{
             transition: opacity 0s;
@@ -590,7 +586,7 @@
         }
         .video_div .medal_div{
             width: 1200px;
-            height: 450px;
+            height: 675px;
             position: absolute;
             top: 0;
             left: 0;
@@ -952,12 +948,27 @@
         }
         .tab_xi>div>span{  }
         .video_ul{
-            left:84%;
+            left:95%;
             width: 50px;
             height: 50px;
             display: inline-block;
             position: relative;
-            bottom: 400px;
+            bottom: 660px;
+        }
+        .menu{
+            left: 75%;
+            width: 300px;
+            height: 673px;
+            background-color: #2F3746;
+            position: relative;
+            bottom: 724px;
+            display: none;
+            z-index: 1;
+            overflow: auto;
+            color: #fff;
+        }
+        .menu1{
+         display:block;
         }
     </style>
     <script>
@@ -990,8 +1001,8 @@
 <div class="slideDIV" style="height: 130px;"></div>
 <div style="height: 50px;"></div>
 <div class="video_div">
-    <video ondblclick="video_FullScreen()"  ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()"  controls="false";  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="1200" height="450"
-           data-setup="">
+    <video ondblclick="video_FullScreen()"  ondurationchange="setVideo_process(this)" ontimeupdate="durationChange(this)" onpause="saveTime(this)" onended="video_ended()" onclick="video_Pause()"  controls="false";  id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="100%" height="100%"
+           data-setup='{"example_option":true}'>
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/mp4" />
         <source title="{{ video_obj.id }}" id="video_source" src="{{ video_obj.vurl.url }}" type="video/wmv" />
         <track kind="subtitles" src="{{ video_obj.cc.url }}" srclang="en" label="English" default>
@@ -1003,6 +1014,36 @@
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
     </svg>
     <span class="video_name" id="video_name">{{ video_obj.name }}</span>
+    <div class="video_div1">
+    <ul id="video_diy" style="display: none">
+        <li onclick="video_speed(this,10)">0.75x</li>
+        <li onclick="video_speed(this,1)">1.0x</li>
+        <li onclick="video_speed(this,1.1)">1.1x</li>
+        <li onclick="video_speed(this,10.25)">1.25x</li>
+    </ul>
+    <div onclick="speed()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24">
+              <path fill="#fff" d="M27.595,27.9 C29.55,26.175 30.7,23.76 30.7,21 C30.7,15.917 26.583,11.8 21.5,11.8 C16.417,11.8 12.3,15.917 12.3,21 C12.3,23.76 13.45,26.175 15.405,27.9 C17.13,26.405 19.2,25.6 21.5,25.6 C23.8,25.6 25.985,26.405 27.595,27.9 L27.595,27.9 Z M21.5,9.5 C27.848,9.5 33,14.652 33,21 C33,27.348 27.848,32.5 21.5,32.5 C15.152,32.5 10,27.348 10,21 C10,14.652 15.152,9.5 21.5,9.5 L21.5,9.5 Z M15.75,17.55 C16.3825,17.55 16.9,18.0675 16.9,18.7 C16.9,19.3325 16.3825,19.85 15.75,19.85 C15.1175,19.85 14.6,19.3325 14.6,18.7 C14.6,18.0675 15.1175,17.55 15.75,17.55 L15.75,17.55 Z M19.2,14.1 C19.8325,14.1 20.35,14.6175 20.35,15.25 C20.35,15.8825 19.8325,16.4 19.2,16.4 C18.5675,16.4 18.05,15.8825 18.05,15.25 C18.05,14.6175 18.5675,14.1 19.2,14.1 L19.2,14.1 Z M27.25,17.55 C27.8825,17.55 28.4,18.0675 28.4,18.7 C28.4,19.3325 27.8825,19.85 27.25,19.85 C26.6175,19.85 26.1,19.3325 26.1,18.7 C26.1,18.0675 26.6175,17.55 27.25,17.55 L27.25,17.55 Z M24.26,14.215 C24.835,14.445 25.065,15.135 24.95,15.71 L23.34,19.62 C23.57,19.965 23.8,20.425 23.8,21 C23.8,22.265 22.765,23.3 21.5,23.3 C20.235,23.3 19.2,22.265 19.2,21 C19.2,19.85 20.005,18.815 21.155,18.7 L22.765,14.905 C22.995,14.215 23.685,13.985 24.26,14.215 Z" transform="translate(-10 -9)"/>
+            </svg>
+    </div>
+    <script>
+            var video_diy = document.getElementById("video_diy");
+            function speed() {
+                if (video_diy.style.display == "block")
+                    video_diy.style.display = "none";
+                else
+                    video_diy.style.display = "block";
+            }
+    </script>
+    <div>
+        <svg onclick="video_back5()" width="24px" height="24px"  viewBox="963 746 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path d="M974.119872,750.501449 L975.803301,748.818019 C976.389087,748.232233 976.389087,747.282486 975.803301,746.696699 C975.217514,746.110913 974.267767,746.110913 973.681981,746.696699 L969.43934,750.93934 C968.853553,751.525126 968.853553,752.474874 969.43934,753.06066 L973.681981,757.303301 C974.267767,757.889087 975.217514,757.889087 975.803301,757.303301 C976.389087,756.717514 976.389087,755.767767 975.803301,755.181981 L974.122793,753.501472 C974.592625,753.501477 974.90979,753.501601 974.918188,753.50177 C979.537887,753.595044 983.242641,757.370873 983.242641,762 C983.242641,766.69442 979.437061,770.5 974.742641,770.5 C970.04822,770.5 966.242641,766.69442 966.242641,762 C966.242641,761.171573 965.571068,760.5 964.742641,760.5 C963.914214,760.5 963.242641,761.171573 963.242641,762 C963.242641,768.351275 968.391366,773.5 974.742641,773.5 C981.093915,773.5 986.242641,768.351275 986.242641,762 C986.242641,755.73683 981.230575,750.628608 974.978747,750.502382 C974.944473,750.50169 974.677734,750.501442 974.119872,750.501449 Z M965.56066,750.93934 L965.56066,753.06066 L969.803301,748.818019 C970.389087,748.232233 970.389087,747.282486 969.803301,746.696699 C969.217514,746.110913 968.267767,746.110913 967.681981,746.696699 L963.43934,750.93934 C962.853553,751.525126 962.853553,752.474874 963.43934,753.06066 L967.681981,757.303301 C968.267767,757.889087 969.217514,757.889087 969.803301,757.303301 C970.389087,756.717514 970.389087,755.767767 969.803301,755.181981 L965.56066,750.93934 Z M974.462641,767.144 C976.310641,767.144 977.594641,766.016 977.594641,764.24 L977.594641,764.216 C977.594641,762.32 976.310641,761.528 974.654641,761.528 C974.186641,761.528 973.886641,761.588 973.550641,761.672 L973.646641,760.22 L976.478641,760.22 C976.922641,760.22 977.294641,759.86 977.294641,759.416 C977.294641,758.972 976.922641,758.6 976.478641,758.6 L972.830641,758.6 C972.386641,758.6 972.038641,758.948 972.014641,759.392 L971.846641,762.236 C971.822641,762.548 971.930641,762.8 972.182641,762.98 C972.554641,763.244 972.758641,763.352 973.022641,763.352 C973.274641,763.352 973.586641,763.136 974.294641,763.136 C975.170641,763.136 975.782641,763.556 975.782641,764.276 L975.782641,764.3 C975.782641,765.044 975.206641,765.464 974.426641,765.464 C973.838641,765.464 973.346641,765.296 972.830641,764.924 C972.686641,764.816 972.542641,764.756 972.326641,764.756 C971.846641,764.756 971.450641,765.164 971.450641,765.644 C971.450641,765.956 971.606641,766.196 971.822641,766.352 C972.494641,766.832 973.298641,767.144 974.462641,767.144 Z" id="rewind-Button" stroke="none" fill="#fff" fill-rule="evenodd"></path>
+        </svg>
+     </div>
+    <div>
+         <p onclick="video_cc(this)">字幕</p>
+    </div>
+    </div>
     <div id="charts_container" class="charts--container">
         <ul>
             <li class="chart">
@@ -1043,22 +1084,12 @@
       </svg>
     </div>
   <!--视频菜单-->
-    <div style="left:75%;
-    width: 300px;
-    height: 450px;
-    background-color:  #2F3746;
-    position: relative;
-    bottom: 500px;
-    display: none;
-    z-index: 1;
-    overflow: auto;
-    color:#fff"
-         id="menu">
+    <div id="menu" class="menu">
     <div style="width: 20px;height: 20px;float: right;margin-top: 12px;margin-right: 20px" onclick="menu_video1()">
-          <svg t="1504780550984" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="956" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"><defs>
-    <style type="text/css"></style></defs>
-    <path d="M512 456.310154L94.247385 38.557538a39.542154 39.542154 0 0 0-55.689847 0 39.266462 39.266462 0 0 0 0 55.689847L456.310154 512 38.557538 929.752615a39.542154 39.542154 0 0 0 0 55.689847 39.266462 39.266462 0 0 0 55.689847 0L512 567.689846l417.752615 417.752616c15.163077 15.163077 40.290462 15.36 55.689847 0a39.266462 39.266462 0 0 0 0-55.689847L567.689846 512 985.442462 94.247385a39.542154 39.542154 0 0 0 0-55.689847 39.266462 39.266462 0 0 0-55.689847 0L512 456.310154z" p-id="957" fill="#ffffff"></path></svg>
-       </div>
+                 <svg t="1504780550984" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="956" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"><defs>
+                 <style type="text/css"></style></defs>
+                <path d="M512 456.310154L94.247385 38.557538a39.542154 39.542154 0 0 0-55.689847 0 39.266462 39.266462 0 0 0 0 55.689847L456.310154 512 38.557538 929.752615a39.542154 39.542154 0 0 0 0 55.689847 39.266462 39.266462 0 0 0 55.689847 0L512 567.689846l417.752615 417.752616c15.163077 15.163077 40.290462 15.36 55.689847 0a39.266462 39.266462 0 0 0 0-55.689847L567.689846 512 985.442462 94.247385a39.542154 39.542154 0 0 0 0-55.689847 39.266462 39.266462 0 0 0-55.689847 0L512 456.310154z" p-id="957" fill="#ffffff"></path></svg>
+    </div>
     <div class="tab_Course" id="tab_Course">
     <div>
         <div>
@@ -1087,7 +1118,6 @@
         </span>
     </div>
             {% elif video.status == 0 %}   <!--已经完成的视频, 题目-->
-
             {% if video.vtype == 0 %}
                 <div  class="tab_Course_ongoing_one" onclick="tab_video_play('/video/{{ video.id }}')">
             {% else %}
@@ -1136,49 +1166,26 @@
         {% endif %}
     {% endfor %}
     </div>
-    <script>
-        var menu = document.getElementById("menu")
-        function menu_video() {
-            if(menu.style.display == "none"){
-                menu.style.display = "block";
+              <script>
+                   var menu = document.getElementById("menu");
+                        function menu_video() {
+                           if (menu.style.display == "block") {
+                                      menu.style.display = "none";
+                                 }
+                          else {
+                                 menu.style.display = "block";
+                                   }
+                                 }
+            function menu_video1() {
+                if (menu.style.display == "block")
+                    menu.style.display = "none";
 
-            }
-        }
-        function menu_video1() {
-            if (menu.style.display == "block"){
-                menu.style.display = "none";
-            }
-        }
-    </script>
-</div>
-<div class="video_div1">
-    <ul id="video_diy" style="display: none">
-        <li onclick="video_speed(this,10)">0.75x</li>
-        <li onclick="video_speed(this,1)">1.0x</li>
-        <li onclick="video_speed(this,1.1)">1.1x</li>
-        <li onclick="video_speed(this,10.25)">1.25x</li>
-    </ul>
-    <div style="width: 25px;height: 25px " onclick="speed()">
-<svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24">
-  <path fill="#FFF" d="M27.595,27.9 C29.55,26.175 30.7,23.76 30.7,21 C30.7,15.917 26.583,11.8 21.5,11.8 C16.417,11.8 12.3,15.917 12.3,21 C12.3,23.76 13.45,26.175 15.405,27.9 C17.13,26.405 19.2,25.6 21.5,25.6 C23.8,25.6 25.985,26.405 27.595,27.9 L27.595,27.9 Z M21.5,9.5 C27.848,9.5 33,14.652 33,21 C33,27.348 27.848,32.5 21.5,32.5 C15.152,32.5 10,27.348 10,21 C10,14.652 15.152,9.5 21.5,9.5 L21.5,9.5 Z M15.75,17.55 C16.3825,17.55 16.9,18.0675 16.9,18.7 C16.9,19.3325 16.3825,19.85 15.75,19.85 C15.1175,19.85 14.6,19.3325 14.6,18.7 C14.6,18.0675 15.1175,17.55 15.75,17.55 L15.75,17.55 Z M19.2,14.1 C19.8325,14.1 20.35,14.6175 20.35,15.25 C20.35,15.8825 19.8325,16.4 19.2,16.4 C18.5675,16.4 18.05,15.8825 18.05,15.25 C18.05,14.6175 18.5675,14.1 19.2,14.1 L19.2,14.1 Z M27.25,17.55 C27.8825,17.55 28.4,18.0675 28.4,18.7 C28.4,19.3325 27.8825,19.85 27.25,19.85 C26.6175,19.85 26.1,19.3325 26.1,18.7 C26.1,18.0675 26.6175,17.55 27.25,17.55 L27.25,17.55 Z M24.26,14.215 C24.835,14.445 25.065,15.135 24.95,15.71 L23.34,19.62 C23.57,19.965 23.8,20.425 23.8,21 C23.8,22.265 22.765,23.3 21.5,23.3 C20.235,23.3 19.2,22.265 19.2,21 C19.2,19.85 20.005,18.815 21.155,18.7 L22.765,14.905 C22.995,14.215 23.685,13.985 24.26,14.215 Z" transform="translate(-10 -9)"/>
-</svg>
-    </div>
-    <script>
-            var video_diy = document.getElementById("video_diy");
-            function speed() {
-                if (video_diy.style.display == "block")
-                    video_diy.style.display = "none";
                 else
-                    video_diy.style.display = "block";
+                    menu.style.display = "block";
             }
-    </script>
-    <div>
-        <svg onclick="video_back5()" width="24px" height="24px"  viewBox="963 746 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path d="M974.119872,750.501449 L975.803301,748.818019 C976.389087,748.232233 976.389087,747.282486 975.803301,746.696699 C975.217514,746.110913 974.267767,746.110913 973.681981,746.696699 L969.43934,750.93934 C968.853553,751.525126 968.853553,752.474874 969.43934,753.06066 L973.681981,757.303301 C974.267767,757.889087 975.217514,757.889087 975.803301,757.303301 C976.389087,756.717514 976.389087,755.767767 975.803301,755.181981 L974.122793,753.501472 C974.592625,753.501477 974.90979,753.501601 974.918188,753.50177 C979.537887,753.595044 983.242641,757.370873 983.242641,762 C983.242641,766.69442 979.437061,770.5 974.742641,770.5 C970.04822,770.5 966.242641,766.69442 966.242641,762 C966.242641,761.171573 965.571068,760.5 964.742641,760.5 C963.914214,760.5 963.242641,761.171573 963.242641,762 C963.242641,768.351275 968.391366,773.5 974.742641,773.5 C981.093915,773.5 986.242641,768.351275 986.242641,762 C986.242641,755.73683 981.230575,750.628608 974.978747,750.502382 C974.944473,750.50169 974.677734,750.501442 974.119872,750.501449 Z M965.56066,750.93934 L965.56066,753.06066 L969.803301,748.818019 C970.389087,748.232233 970.389087,747.282486 969.803301,746.696699 C969.217514,746.110913 968.267767,746.110913 967.681981,746.696699 L963.43934,750.93934 C962.853553,751.525126 962.853553,752.474874 963.43934,753.06066 L967.681981,757.303301 C968.267767,757.889087 969.217514,757.889087 969.803301,757.303301 C970.389087,756.717514 970.389087,755.767767 969.803301,755.181981 L965.56066,750.93934 Z M974.462641,767.144 C976.310641,767.144 977.594641,766.016 977.594641,764.24 L977.594641,764.216 C977.594641,762.32 976.310641,761.528 974.654641,761.528 C974.186641,761.528 973.886641,761.588 973.550641,761.672 L973.646641,760.22 L976.478641,760.22 C976.922641,760.22 977.294641,759.86 977.294641,759.416 C977.294641,758.972 976.922641,758.6 976.478641,758.6 L972.830641,758.6 C972.386641,758.6 972.038641,758.948 972.014641,759.392 L971.846641,762.236 C971.822641,762.548 971.930641,762.8 972.182641,762.98 C972.554641,763.244 972.758641,763.352 973.022641,763.352 C973.274641,763.352 973.586641,763.136 974.294641,763.136 C975.170641,763.136 975.782641,763.556 975.782641,764.276 L975.782641,764.3 C975.782641,765.044 975.206641,765.464 974.426641,765.464 C973.838641,765.464 973.346641,765.296 972.830641,764.924 C972.686641,764.816 972.542641,764.756 972.326641,764.756 C971.846641,764.756 971.450641,765.164 971.450641,765.644 C971.450641,765.956 971.606641,766.196 971.822641,766.352 C972.494641,766.832 973.298641,767.144 974.462641,767.144 Z" id="rewind-Button" stroke="none" fill="#7C828C" fill-rule="evenodd"></path>
-        </svg>
-        <p onclick="video_cc(this)">字幕</p>
-     </div>
-</div>
+       </script>
+   </div>
+    </div>
 <div class="video_div2" id="video_div2">
     <div onclick="replay()">
         <svg width="13px" height="12px" viewBox="-1 3 13 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1191,14 +1198,14 @@
         </svg>
         重看一遍
     </div>
-    <div id="video_div2_svg">
-        <svg onclick="video_div2_svg_show(0)" width="17px" height="17px" viewBox="1077 753 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
-        </svg>
-        <svg onclick="video_div2_svg_show(1)" width="17px" height="17px" viewBox="1077 753 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>
-        </svg>
-    </div>
+{#    <div id="video_div2_svg">#}
+{#        <svg onclick="video_div2_svg_show(0)" width="17px" height="17px" viewBox="1077 753 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">#}
+{#            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>#}
+{#        </svg>#}
+{#        <svg onclick="video_div2_svg_show(1)" width="17px" height="17px" viewBox="1077 753 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">#}
+{#            <path d="M1085.5,765.75 L1082.27936,767.443192 C1081.29876,767.958724 1080.65502,767.49512 1080.84292,766.399561 L1081.45801,762.813322 L1078.85246,760.273534 C1078.05913,759.500237 1078.30112,758.744743 1079.40112,758.584903 L1083.00191,758.061678 L1084.61223,754.79881 C1085.10253,753.805355 1085.89583,753.802038 1086.38777,754.79881 L1087.99809,758.061678 L1091.59888,758.584903 C1092.69522,758.744211 1092.94352,759.497655 1092.14754,760.273534 L1089.54199,762.813322 L1090.15708,766.399561 C1090.34436,767.491474 1089.70452,767.960445 1088.72064,767.443192 L1085.5,765.75 Z" id="Star-Copy-2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" fill-rule="evenodd"></path>#}
+{#        </svg>#}
+{#    </div>#}
     {% load mytags %}
     {% for video in videos %}
         {% if video.id == video_obj.id and not forloop.last %}
@@ -1224,9 +1231,9 @@
 <div class="slideDIV" style="height: 150px;"></div>
 <div class="tab_menu" id="tab_menu">
     <ul>
-        <li id="button_QA" onclick="tab_sel(this,'tab_QA')">问答版</li>
-        <li onclick="tab_sel(this,'tab_faq')">FAQ</li>
         <li onclick="tab_sel(this,'tab_NOTE')">讲师笔记</li>
+        <li onclick="tab_sel(this,'tab_faq')">常见问题</li>
+        <li id="button_QA" onclick="tab_sel(this,'tab_QA')">问答版</li>
     </ul>
     <div id="quiz" onclick="quiz()">提问</div>
     <div id="publish_quiz" class="publish_quiz" onclick="quiz_submit()">发布问题</div>
@@ -1306,28 +1313,26 @@
     {% endfor %}
 
 </div>
+ <script src="/static/js/score.js"></script>
 <script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
-
     window.onload = function(){
         var vjs_volume_bar = document.getElementsByClassName("vjs-volume-bar")[0];
         var strong = document.createElement("strong");
-
         strong.innerHTML = "VOLUME";
         strong.style.display = "block";
         strong.style.position = "absolute";
         strong.style.top = "-16px";
         strong.style.left = "70px";
-
         strong.style.width = "0";
         strong.style.height = "0";
         vjs_volume_bar.appendChild(strong);
 
-        var vjs_volume_handle = document.getElementsByClassName("vjs-volume-handle")[0];
-        vjs_volume_handle.style.display="none";
+{#        var vjs_volume_handle = document.getElementsByClassName("vjs-volume-handle")[0];#}
+{#        vjs_volume_handle.style.display="none";#}
 
-{#        var vjs_subtitles = document.getElementsByClassName("vjs-subtitles-button")[0];#}
-{#        vjs_subtitles.style.display="none";#}
+      var vjs_subtitles = document.getElementsByClassName("vjs-subtitles-button")[0];
+        vjs_subtitles.style.display="none";
 
         var vjs_play = document.getElementsByClassName("vjs-play-control")[0];
         vjs_play.addEventListener('click',video_Pause);
@@ -1709,7 +1714,7 @@
         }
     }
 </script>
-
+</div>
 <!---->
     <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
 </main>

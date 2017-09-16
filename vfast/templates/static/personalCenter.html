@@ -65,13 +65,20 @@
         /*info_left_1*/
         .info_left_1{
             background: #FFFFFF;
-            box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
             border-radius: 4px;
             padding: 30px 50px 10px 50px;
             position: relative;
 {#            height:185px;#}
         }
-
+        .info_left_1>span{
+            float: left;
+        }
+        .info_left_1>P{
+            margin-left: 150px;
+            font-size: 14px;
+            color: #5A646E;
+            letter-spacing: 0.4px;
+        }
         .info_left_1>div:first-child{
             width:102px;
             height:102px;
@@ -139,7 +146,6 @@
 
         /*info_left_2*/
         .info_left_2{
-            margin-top: 30px;
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
             border-radius: 4px;
@@ -438,20 +444,28 @@
                     <img src="/static/head/OvalBIG.svg" alt=""/>
                     <img src="/static/head/online.svg" alt=""/>
                 </div>
-
                 <div>
                     <h3>{{ user.nickname }}</h3>
                     <span>{{ user.city }}</span>
                     <div>{{ user.intro|safe }}</div>
+                    <div>
+                     <p>北京-天俺们</p>
+                     <p>我只是一行站位的傻逼！别哔哔！</p>
+                    </div>
                 </div>
-                <div>
-                    {%  if user.githuburl != '' %}
-                    <a href="{{ user.githuburl }}" target="_blank"><img src="/static/svg/fangmao.svg" alt=""></a>&nbsp;&nbsp;
-                    {% endif %}
-                    {%  if user.personpage != '' %}
-                    <a href="{{ user.personpage }}" target="_blank"><img src="/static/svg/www.svg" alt=""></a>
-                    {% endif %}
-                </div>
+{#                <div>#}
+{#                    {%  if user.githuburl != '' %}#}
+{#                    <a href="{{ user.githuburl }}" target="_blank"><img src="/static/svg/fangmao.svg" alt=""></a>&nbsp;&nbsp;#}
+{#                    {% endif %}#}
+{#                    {%  if user.personpage != '' %}#}
+{#                    <a href="{{ user.personpage }}" target="_blank"><img src="/static/svg/www.svg" alt=""></a>#}
+{#                    {% endif %}#}
+{#                </div>#}
+            </div>
+            <div class="info_left_1 clearfix">
+             <span>邮箱</span><p>nidayeshi@110.com </p>
+             <span>手机号</span><p>13845454545</p>
+             <span>生日</span><p>史前一万年</p>
             </div>
         <div class="slideDIV" style="height:50px;"></div>
             <div class="info_left_2">
