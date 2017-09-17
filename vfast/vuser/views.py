@@ -116,6 +116,58 @@ def phone_code(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+
+def forget_pwd_phone(request):
+    """忘记密码检测电话号码"""
+    try:
+        if request.method == "GET":
+            codetimes = request.session.setdefault('codetimes', 0)
+            print codetimes, request.session['codetimes']
+            phone = request.GET.get('phone', None)
+            user = User.objects.filter(phone=phone).values().first()
+            if user:
+                if codetimes < 3:
+                    request.session['phone'] = phone
+                    code = ''
+                    for i in range(4):
+                        code += str(random.randint(0, 9))
+                    User.objects.filter(phone=phone).update(code=code)
+                    sendmessage(phone, {'code':code})
+                    request.session['codetimes'] += 1
+                    print request.session['codetimes']
+                    return HttpResponse(json.dumps({'code': 0}))
+                else:
+                    return HttpResponse(json.dumps({'code': 1, 'msg': '该手机号今天发送验证码已超过三次'}, ensure_ascii=False))
+            else:
+                return HttpResponse(json.dumps({'code':2, 'msg':'您还不是智量酷用户,请先注册'}, ensure_ascii=False))
+        else:
+            return render(request, 'wangjimima.html')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128, 'msg': '验证码发送失败'}, ensure_ascii=False))
+
+
+def forget_pwd_reset(request):
+    """通过忘记密码设置新密码"""
+    try:
+        if request.method == "POST":
+            phone = request.session['phone']
+            code = request.POST.get('code')
+            passwd = request.POST.get('password')
+            password = encry_password(password=passwd)
+            user = User.objects.filter(phone=phone).values().first()
+            if user['code'] == code:
+                User.objects.filter(phone=phone).update(password=password)
+                return HttpResponse(json.dumps({'code':0, 'url':''}))
+            else:
+                return HttpResponse(json.dumps({'code':1, 'msg':'验证码错误'}))
+        else:
+            return render(request, 'reset_passwprd.html')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
 def reset_password(request):
     """重置密码"""
     try:
@@ -125,26 +177,6 @@ def reset_password(request):
             password = encry_password(password)
             User.objects.filter(id=uid).update(password=password)
             return HttpResponse(json.dumps({'code': 0}))
-    except:
-        logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
-
-
-def forget_pwd(request):
-    """忘记密码"""
-    try:
-        if request.method == "POST":
-            phone = request.POST.get('phone')
-            password = request.POST.get('password')
-            password = encry_password(password)
-            ret = User.objects.filter(phone=phone).update(password=password)
-            if ret:
-                user = User.objects.filter(Q(phone=phone) | Q(nickname=phone), password=password).values(
-                    'phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
-                request.session['user'] = user
-                request.session['login'] = True
-                return HttpResponse(
-                    json.dumps(HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
