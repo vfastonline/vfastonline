@@ -4,52 +4,34 @@
     <meta charset="UTF-8">
     <title>忘记密码</title>
     {% include "head.html" %}
+    <<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <link  href="/static/css/jquery.idcode.css" />
     <script src="/static/js/getVerifyCode.js"></script>
     <style>
         .zhangtai_1{
             margin: 0 auto;
-           width: 550px;
-           height:140px;
+           width: 300px;
+           height:270px;
            background-color: #fff;
         }
-        .zhangtai_2{
-
-            margin: 0 auto;
-            width: 550px;
-            height:140px;
-            background-color: #F0F2F4;
+        .zhangtai_1>div{
+            margin-left: 15px;
         }
         .zhangtai_1>div>input{
-            margin-left: 70px;
-            width: 300px;
+            margin-top: 10px;
+            width: 200px;
             height: 25px;
         }
-        .zhangtai_1>div{height: 70px;
-            line-height: 70px;
-        }
-        .zhangtai_2_1{
-            height: 80px;
-            margin-top: 15px;
-        }
-        .zhangtai_2_1 span{
-            padding-left: 30px;
-            padding-top: 3px;
-            margin-left: 5%;
-            float: left;
-            width: 15%;
-        }
-        .zhangtai_2_1 p{float: right;
-            width:75%;
-            margin-right: 5%;
+        .zhangtai_1>div>p{
+            margin: 0 !important;
         }
         .getverify-code-btn{
+            margin-top: 10px;
 			display: inline-block;
 			text-align: center;
 			vertical-align: middle;
 			cursor: pointer;
-            margin-top: 5%;
-            margin-left: 10%;
-            width: 100px;
+            width: 268px;
             height: 30px;
             background-color: #5ACD91;
             border-radius: 3px;
@@ -59,26 +41,50 @@
 			background-color: lightblue;
 			color: #eee;
 		}
+        .span_v{
+            height: 30px;
+            line-height: 30px;
+        }
     </style>
-    <script>
+</head>
+<body>
+      <main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <!-- 忘记密码-->
+              <div class="zhangtai_1">
+                 <div>
+                  <h3>手机号码</h3>
+                  <p>通过注册手机重置密码<a>返回首页</a></p>
+                  <input type="text"  id="j_phone" name="phone" value=""><span id="phone_info"></span>
+                 </div>
+                  <div>
+                      <span class="span_v">请输入验证码</span>
+                      <div id="v_container" style="width: 200px;height: 50px; background-color: #1483d8"></div>
+                      <input type="text" id="code_input" value="" placeholder="请输入验证码"/><span id="my_button"></span>
+                      <button id="j_getVerifyCode"  class="getverify-code-btn">发送验证码</button>
+                  </div>
+              </div>
+          <script src="/static/js/gVerify.js"></script>
+         <script>
+             var verifyCode = new GVerify("v_container");
+		    document.getElementById("code_input").onblur = function(){
+			var res = verifyCode.validate(document.getElementById("code_input").value);
+			if(res){
+			    document.getElementById("my_button").innerText = "输入正确"
+			}else{
+			    document.getElementById("my_button").innerText = "输入有误"
+			}
+		};
+         </script>
+           <script>
            $(function () {
                //获取手机验证码
                $("#j_getVerifyCode").on("click", getVerifyCode({
                    callBack: function () {//按钮点击后的回调函数，-----必须-----
-                       //在这里你还是可以对你的按钮进行操作
+                       //在这里你还是可以对你的按钮进行操作;
                        var  phone = $("#j_phone").val();
-                         $.post("/u/phonecode", {
-                          phone: phone,
-                 }, function (data) {
-                     if (data.code == 0) {
-                         alert("发布成功！");
-                     } else {
-                         alert("发布失败");
-                     }
-                 });
-                            console.log(phone);
                        //console.log(this);
-                   },
+                       },
                    time: 60,//定时时间，以秒为单位，默认60秒
                    getCurrentTime: function (time) {//获取倒计时当前时间
                        //console.log(time);
@@ -91,56 +97,15 @@
                    },
                    //phoneReg: /^1[34578]\d{9}$/,//手机号验证正则
                    phoneCallBack: function () {//当手机号有误时的回调，默认会中止操作
-                       alert("您输入的手机号有误");
+                      $("#phone_info").html("你的输入有误");
                    },
                    timeIsUpText: "重新发送",//倒计时时间到了后按钮所显示文字
                    timeRunnigText: "s后重新发送",//倒计时时间正在走的时候按钮所显示文字。默认为"xxs后重新获取"
                    unabledClass: "unlabed"//按钮不能用的样式，即点击按钮后的样式
                }));
            });
-           function  sdsd() {
-               var  sss =$("#yanzheng").val();
-             //  $.post("/u/phonecode",{},function () {
-                   
-             //  });
-            console.log(sss)
-           }
-
 
     </script>
-</head>
-<body>
-      <main class="main-wrap">
-    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
-    <!-- 忘记密码-->
-              <div class="zhangtai_1">
-                <div>
-                  <span>手机号码</span>
-                  <input type="text"  id="j_phone" name="phone" value="">
-                </div>
-                  <div>
-                      <span>请输入验证码</span>
-                   <input type="text" id="yanzheng" name="yanzheng" value="">
-                  </div>
-              </div>
-              <div class="zhangtai_2">
-                  <div>
-                      <button id="j_getVerifyCode" class="getverify-code-btn">发送验证码</button>
-                      <button onclick="sdsd()">确认密码</button>
-                  </div>
-                  <div class="zhangtai_2_1">
-                      <span>
-                          <svg t="1505545865016" class="icon" style="" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1839" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30">
-                             <defs><style type="text/css"></style></defs>
-                                <path d="M508.213 4.492c-278.612 0.097-503.164 223.552-503.722 501.298-0.578 279.363 221.588 505.549 497.952 506.99 283.403 1.479 509.779-220.897 510.357-501.298 0.578-282.439-223.012-507.105-504.587-506.99zM510.059 948.124c-247.725 0.347-441.257-194.319-440.428-442.987 0.827-243.936 195.493-436.448 440.89-435.986 243.995 0.442 437.198 194.781 437.141 439.717-0.058 244.861-193.378 438.928-437.602 439.257zM459.19 425.034c0 54.196-0.499 108.41 0.172 162.606 0.442 35.579 19.808 47.138 55.388 46.175 36.33-0.979 35.964-21.942 36.829-47.31 3.25-95.198 6.134-190.453 11.981-285.537 2.557-41.732-4.558-62.562-55.004-62.525-50.83 0.038-57.773 21.674-54.716 63.024l5.346 123.565zM573.949 753.361c-6.134 39.868-28.078 61.388-66.331 62.099-35.329 0.655-60.965-18.519-63.984-53.024-3.423-38.944 22.464-60.503 60.214-62.965 38.656-2.501 60.273 20.272 70.099 53.887z" p-id="1840" fill="#B5B9BF"></path></svg>
-                      </span>
-                      <p>
-                          短信通常会在一分钟之内到达你的手机，请注意查收。
-                          如果超过一分钟之后仍没有接到短信，可以再次发送!
-                      </p>
-                      <div style="clear: both"></div>
-                  </div>
-              </div>
           <div class="slideDIV" style="height:150px;"></div>
           <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
 </main>

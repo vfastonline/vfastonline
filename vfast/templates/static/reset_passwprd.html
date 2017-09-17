@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    {% include "head.html" %}
+    <style>
+        .zhangtai_1{
+            margin: 0 auto;
+           width: 300px;
+           height:270px;
+           background-color: #fff;
+        }
+        .zhangtai_1>div{
+            margin-left: 15px;
+        }
+        .zhangtai_1>div>input{
+            margin-top: 10px;
+            width: 200px;
+            height: 25px;
+        }
+        .zhangtai_1>div>p{
+            margin: 0 !important;
+        }
+        .getverify-code-btn{
+            margin-top: 10px;
+			display: inline-block;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+            width: 268px;
+            height: 30px;
+            background-color: #5ACD91;
+            border-radius: 3px;
+            border-width: 0px ;
+		}
+		.unlabed{
+			background-color: lightblue;
+			color: #eee;
+		}
+        .span_v{
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+      <main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <!-- 忘记密码-->
+              <div class="zhangtai_1">
+                 <div>
+                  <h3>短信验证码</h3>
+                  <p>短信验证码以发送至（号码）</p>
+                  <input type="text"   name="phone" value=""><button style="width: 67px;height: 25px">59s</button>
+                 </div>
+                  <div>
+                      <input type="text" style="width: 267px" id="code_input" value="" placeholder="请输入新密码"/>
+                      <button id="j_getVerifyCode"  class="getverify-code-btn">确认提交</button>
+                  </div>
+              </div>
+          <div class="slideDIV" style="height:150px;"></div>
+          <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
+</main>
+<form id="fileForm"></form>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+</html>
