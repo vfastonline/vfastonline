@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="/static/js/getVerifyCode.js"></script>
     <meta charset="UTF-8">
     <title>忘记密码</title>
     {% include "head.html" %}
@@ -51,12 +52,12 @@
               <div class="zhangtai_1">
                  <div>
                   <h3>短信验证码</h3>
-                  <p>短信验证码以发送至（号码）</p>
+                  <p>短信验证码以发送至<span style="color:green;">{{ request.session.phone }}</span></p>
                   <input type="text"   name="phone" id="j_phone" value=""><button id="j_getVerifyCode" style="width: 67px;height: 25px">59s</button>
                  </div>
                   <div>
-                      <input type="text" style="width: 267px" id="code_input" value="" placeholder="请输入新密码"/>
-                      <button id=""  class="getverify-code-btn">确认提交</button>
+                      <input type="text" style="width: 267px" id="passwd" value="" placeholder="请输入新密码"/>
+                      <button id="commit"  class="getverify-code-btn", onclick="commit()">确认提交</button>
                   </div>
               </div>
           <div class="slideDIV" style="height:150px;"></div>
@@ -93,6 +94,21 @@
                   unabledClass: "unlabed"//按钮不能用的样式，即点击按钮后的样式
                }));
            });
+          function commit() {
+              var code = document.getElementById('j_phone').value
+              var passwd = document.getElementById('passwd').value
+
+             $.post('/u/newpasswd', {'code':code, 'password':passwd}, function (data) {
+                 data = JSON.parse(data)
+                 console.log(data)
+                 if (data.code == 0){
+                     location.href = data.url
+                 }
+                 else{
+                     alert(data.msg)
+                 }
+             })
+          }
       </script>
 <form id="fileForm"></form>
 {% include "search_div.html" %}

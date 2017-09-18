@@ -122,7 +122,8 @@ def forget_pwd_phone(request):
     try:
         if request.method == "POST":
             codetimes = request.session.setdefault('codetimes', 0)
-            phone = request.GET.get('phone', None)
+            codetimes = 0
+            phone = request.POST.get('phone', None)
             user = User.objects.filter(phone=phone).values().first()
             if user:
                 if codetimes < 3:
@@ -131,10 +132,9 @@ def forget_pwd_phone(request):
                     for i in range(4):
                         code += str(random.randint(0, 9))
                     User.objects.filter(phone=phone).update(code=code)
-                    sendmessage(phone, {'code':code})
-                    request.session['codetimes'] += 1
-                    print request.session['codetimes']
-                    return HttpResponse(json.dumps({'code': 0}))
+                    # sendmessage(phone, {'code':code})
+                    # request.session['codetimes'] += 1
+                    return HttpResponse(json.dumps({'code': 0, 'url': '/u/newpasswd'}))
                 else:
                     return HttpResponse(json.dumps({'code': 1, 'msg': '该手机号今天发送验证码已超过三次'}, ensure_ascii=False))
             else:
@@ -157,7 +157,7 @@ def forget_pwd_reset(request):
             user = User.objects.filter(phone=phone).values().first()
             if user['code'] == code:
                 User.objects.filter(phone=phone).update(password=password)
-                return HttpResponse(json.dumps({'code':0, 'url':''}))
+                return HttpResponse(json.dumps({'code':0, 'url':'/u/%s' % user['id']}))
             else:
                 return HttpResponse(json.dumps({'code':1, 'msg':'验证码错误'}))
         else:

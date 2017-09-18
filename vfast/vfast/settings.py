@@ -178,7 +178,7 @@ USE_L10N = True
 
 USE_TZ = False
 
-#session cookie保存时间一天
+#session cookie
 SESSION_COOKIE_AGE = 1209600
 
 # Static files (CSS, JavaScript, Images)
