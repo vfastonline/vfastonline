@@ -132,8 +132,8 @@ def forget_pwd_phone(request):
                     for i in range(4):
                         code += str(random.randint(0, 9))
                     User.objects.filter(phone=phone).update(code=code)
-                    # sendmessage(phone, {'code':code})
-                    # request.session['codetimes'] += 1
+                    sendmessage(phone, {'code':code})
+                    request.session['codetimes'] += 1
                     return HttpResponse(json.dumps({'code': 0, 'url': '/u/newpasswd'}))
                 else:
                     return HttpResponse(json.dumps({'code': 1, 'msg': '该手机号今天发送验证码已超过三次'}, ensure_ascii=False))
