@@ -120,9 +120,8 @@ def phone_code(request):
 def forget_pwd_phone(request):
     """忘记密码检测电话号码"""
     try:
-        if request.method == "GET":
+        if request.method == "POST":
             codetimes = request.session.setdefault('codetimes', 0)
-            print codetimes, request.session['codetimes']
             phone = request.GET.get('phone', None)
             user = User.objects.filter(phone=phone).values().first()
             if user:
