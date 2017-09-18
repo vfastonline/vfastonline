@@ -167,7 +167,7 @@ def course_detail(request):
                                                           'xingxing': [0, 1, 2, 3, 4], 'jindu': jindu})
         except KeyError:
             for section in sections:
-                videos_section = Video.objects.filter(section_id=section['id'])
+                videos_section = Video.objects.filter(section_id=section['id']).order_by('sequence')
                 section['videos'] = videos_section
                 section['process'] = '0/%s' % videos_section.count()
             return render(request, 'course_detail.html',
