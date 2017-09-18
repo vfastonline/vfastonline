@@ -275,6 +275,14 @@
         }
         /*course_info END*/
     </style>
+
+    <script>
+        var videosource = document.getElementById('video_source')
+        function addElement(){
+                videosource.innerHTML = '<source id="video_source" src="{{ course.intrv.url }}" type="video/mp4" />'
+            }
+            setTimeout("addElement()",10000);
+    </script>
 </head>
 <body>
 <main class="main-wrap">
@@ -284,7 +292,7 @@
         <section id="course_head" class="course_head">
             <video ondblclick="video_FullScreen()" poster="" preload="auto" onended="video_ended()" onclick="video_Pause()" id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls width="62%" height="100%"
                    data-setup='{"example_option":true}'>
-                <source id="video_source" src="{{ course.intrv.url }}" type="video/mp4" />
+                <div id="video_source"></div>
             </video>
             <div class="video_play_svg_div" id="video_play_svg_div"  onclick="video_play()"></div>
             <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

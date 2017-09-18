@@ -65,49 +65,49 @@
 </main>
       <script>
           $(function () {
-               //获取手机验证码
-               $("#j_phone").on("click", getVerifyCode({
-                   callBack: function () {//按钮点击后的回调函数，-----必须-----
-                       //在这里你还是可以对你的按钮进行操作;
-                       var sde = $("#j_phone").val();
-                         console.log(sde);
-                       var  phone = true;
-                       console.log(phone)
+              //获取手机验证码
+              $("#j_phone").on("click", getVerifyCode({
+                  callBack: function () {//按钮点击后的回调函数，-----必须-----
+                      //在这里你还是可以对你的按钮进行操作;
+                      var sde = $("#j_phone").val();
+                      console.log(sde);
+                      var phone = true;
+                      console.log(phone)
                       //console.log(this);
-                       },
+                  },
                   time: 60,//定时时间，以秒为单位，默认60秒
                   getCurrentTime: function (time) {//获取倒计时当前时间
                       //console.log(time);
-                       //console.log(this);//这里的这个this执行按钮
-                       //console.log("=================================");
-                   },
-                   isPhone: true,//是否为发送手机验证码，如果是则会验证手机号格式，-----必须-----
-                   getPhone: function () {//获取手机号，此处一定要return
+                      //console.log(this);//这里的这个this执行按钮
+                      //console.log("=================================");
+                  },
+                  isPhone: true,//是否为发送手机验证码，如果是则会验证手机号格式，-----必须-----
+                  getPhone: function () {//获取手机号，此处一定要return
                       return $("#j_phone").val();
-                   },
-                   //phoneReg: /^1[34578]\d{9}$/,//手机号验证正则
-                   phoneCallBack: function () {//当手机号有误时的回调，默认会中止操作
+                  },
+                  //phoneReg: /^1[34578]\d{9}$/,//手机号验证正则
+                  phoneCallBack: function () {//当手机号有误时的回调，默认会中止操作
                       $("#phone_info").html("你的输入有误");
-                   },
+                  },
                   timeIsUpText: "重新发送",//倒计时时间到了后按钮所显示文字
-                   timeRunnigText: "s后重新发送",//倒计时时间正在走的时候按钮所显示文字。默认为"xxs后重新获取"
+                  timeRunnigText: "s后重新发送",//倒计时时间正在走的时候按钮所显示文字。默认为"xxs后重新获取"
                   unabledClass: "unlabed"//按钮不能用的样式，即点击按钮后的样式
-               }));
-           });
+              }));
+          });
           function commit() {
               var code = document.getElementById('j_phone').value
               var passwd = document.getElementById('passwd').value
 
-             $.post('/u/newpasswd', {'code':code, 'password':passwd}, function (data) {
-                 data = JSON.parse(data)
-                 console.log(data)
-                 if (data.code == 0){
-                     location.href = data.url
-                 }
-                 else{
-                     alert(data.msg)
-                 }
-             })
+              $.post('/u/newpasswd', {'code': code, 'password': passwd}, function (data) {
+                  data = JSON.parse(data)
+                  console.log(data)
+                  if (data.code == 0) {
+                      location.href = data.url
+                  }
+                  else {
+                      alert(data.msg)
+                  }
+              })
           }
       </script>
 <form id="fileForm"></form>
