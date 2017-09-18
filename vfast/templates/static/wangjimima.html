@@ -57,34 +57,47 @@
                  </div>
                   <div>
                       <span class="span_v">请输入验证码</span>
-                      <div id="v_container" style="width: 200px;height: 50px; background-color: #1483d8"></div>
+                      <div id="v_container" style="width: 100px;height: 25px; background-color: #1483d8"></div>
                       <input type="text" id="code_input" value="" placeholder="请输入验证码"/><span id="my_button"></span>
-                      <button  class="getverify-code-btn" onclick="faso()">发送验证码</button>
+                      <button  class="getverify-code-btn" onclick="add()">发送验证码</button>
                   </div>
               </div>
           <script src="/static/js/gVerify.js"></script>
          <script>
              //手机号码验证
-              var sMobile = document.getElementById("phone").value;
+             var sry = true;
               function checkMobile(){
+               var sMobile = document.getElementById("phone").value;
                  if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile))){
-                     document.getElementById("phone_info").innerText ="输入有误！"
-                return false;
-            }
-        };
+                     document.getElementById("phone_info").innerText ="输入有误！";
+                     sry = false;
+            }else {
+                   document.getElementById("phone_info").innerText ="";
+                    sry = true ;
+                    console.log(sry);
+                 }
+        }
            //随机验证码
              var verifyCode = new GVerify("v_container");
+              var srt = true;
 		    document.getElementById("code_input").onblur = function(){
 			var res = verifyCode.validate(document.getElementById("code_input").value);
 			if(res){
-			    console.log(res);
 			    document.getElementById("my_button").innerText = "输入正确！"
+                srt = true;
+			    console.log(srt)
 			}else{
 			    document.getElementById("my_button").innerText = "输入有误！"
-                console.log(res);
+                srt = false;
 			}
 		};
-
+          function add() {
+              if(sry === true && srt ===true){
+                  console.log("成功了")
+              }else {
+                  console.log("失败了")
+              }
+          }
     </script>
           <div class="slideDIV" style="height:150px;"></div>
           <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
