@@ -60,4 +60,14 @@ class WatchTimu(models.Model):
     skill = models.CharField(verbose_name='相关技能点', max_length=100, default='')
 
 
-
+class Watchface(models.Model):
+    """记录脸部表情"""
+    userid = models.IntegerField()
+    joy = models.IntegerField()
+    engagement = models.IntegerField()
+    sadness = models.IntegerField()
+    anger = models.IntegerField()
+    surprise = models.IntegerField()
+    fear = models.IntegerField()
+    valence = models.IntegerField()
+    contempt = models.IntegerField()

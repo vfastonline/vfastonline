@@ -2,7 +2,7 @@
 # from django.shortcuts import render
 from vuser.models import User
 from vcourse.models import Course, Video, Technology, Path
-from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu
+from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu, Watchface
 from vpractice.models import Timu
 from django.http import HttpResponse
 from django.db import connection
@@ -251,13 +251,25 @@ def record_timu(request):
 
 
 
-@require_login()
+# @require_login()
 def face(request):
     """记录用户观看视频时表情状态"""
     try:
         if request.method == "POST":
-            print request.POST
-        return HttpResponse(json.dumps({'code:0'}))
+            userid = 1
+            joy = int(request.POST.get('joy')[0])
+            engagement = int(request.POST.get('engagement')[0])
+            sadness = int(request.POST.get('sadness')[0])
+            anger = int(request.POST.get('anger')[0])
+            surprise = int(request.POST.get('surprise')[0])
+            fear = int(request.POST.get('fear')[0])
+            valence = int(request.POST.get('valence')[0])
+            contempt = int(request.POST.get('contempt')[0])
+
+            logging.getLogger().info('%s  %s   %s  %s  %s ' % (joy, engagement, fear, valence, contempt))
+            Watchface.objects.create(userid=userid,joy=joy,engagement=engagement, sadness=sadness,anger=anger,
+                                     surprise=surprise, fear=fear,valence=valence,contempt=contempt)
+        return HttpResponse(json.dumps({'code':0}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
