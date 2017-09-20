@@ -152,6 +152,7 @@ def add_replay(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 1}, ensure_ascii=False))
 
+
 @require_login()
 def qr_comment(request):
     '''问题回复点赞功能 1为赞, -1为踩'''

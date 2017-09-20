@@ -57,6 +57,7 @@ class WatchTimu(models.Model):
     timuid = models.IntegerField('题目ID')
     courseid = models.IntegerField('课程ID')
     status = models.CharField(verbose_name='习题状态', max_length=1)   #0正确, 1错误
+    skill = models.CharField(verbose_name='相关技能点', max_length=100, default='')
 
 
 

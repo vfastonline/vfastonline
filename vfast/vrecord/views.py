@@ -3,6 +3,7 @@
 from vuser.models import User
 from vcourse.models import Course, Video, Technology, Path
 from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu
+from vpractice.models import Timu
 from django.http import HttpResponse
 from django.db import connection
 from vbadge.models import UserBadge, Badge
@@ -232,6 +233,8 @@ def record_timu(request):
         today = time.strftime('%Y-%m-%d')
         userid = request.session['user']['id']
         timuid = request.GET.get('timuid')
+        timu = Timu.objects.get(id=timuid)
+        skill = timu.video.section.skill
         courseid = request.GET.get('courseid')
         status = request.GET.get('status')
         try:
@@ -240,8 +243,22 @@ def record_timu(request):
             obj.createtime = today
             obj.save()
         except WatchTimu.DoesNotExist:
-            WatchTimu.objects.create(userid=userid, createtime=today, status=status, timuid=timuid, courseid=courseid)
+            WatchTimu.objects.create(userid=userid, createtime=today, status=status, timuid=timuid, courseid=courseid, skill=skill)
         return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
+
+@require_login()
+def face(request):
+    """记录用户观看视频时表情状态"""
+    try:
+        if request.method == "POST":
+            print request.POST
+        return HttpResponse('test  ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
