@@ -257,16 +257,18 @@ def face(request):
     try:
         if request.method == "POST":
             userid = 1
-            joy = int(request.POST.get('joy')[0])
-            engagement = int(request.POST.get('engagement')[0])
-            sadness = int(request.POST.get('sadness')[0])
-            anger = int(request.POST.get('anger')[0])
-            surprise = int(request.POST.get('surprise')[0])
-            fear = int(request.POST.get('fear')[0])
-            valence = int(request.POST.get('valence')[0])
-            contempt = int(request.POST.get('contempt')[0])
-            vtime = int(request.POST.get('vtime',0))
-            logging.getLogger().info('%s  %s   %s  %s  %s ' % (joy, engagement, fear, valence, contempt))
+            joy = request.POST.get('joy')
+            joy = round(float(request.POST.get('joy')[0]),3)
+            engagement = round(float(request.POST.get('engagement')[0]),3)
+            sadness = round(float(request.POST.get('sadness')[0]),3)
+            anger = round(float(request.POST.get('anger')[0]),3)
+            surprise = round(float(request.POST.get('surprise')[0]),3)
+            fear = round(float(request.POST.get('fear')[0]),3)
+            valence = round(float(request.POST.get('valence')[0]),3)
+            contempt = round(float(request.POST.get('contempt')[0]),3)
+            vtime = request.POST.get('vtime',0)
+            vtime = int(vtime.split('.')[0])
+            logging.getLogger().info('%s %s  %s  %s %s' % (engagement, surprise, valence, contempt,vtime))
             Watchface.objects.create(userid=userid,joy=joy,engagement=engagement, sadness=sadness,anger=anger,
                                      surprise=surprise, fear=fear,valence=valence,contempt=contempt,vtime=vtime)
         return HttpResponse(json.dumps({'code':0}))
