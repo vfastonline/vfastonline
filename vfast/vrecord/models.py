@@ -71,3 +71,4 @@ class Watchface(models.Model):
     fear = models.IntegerField()
     valence = models.IntegerField()
     contempt = models.IntegerField()
+    vtime = models.IntegerField()
