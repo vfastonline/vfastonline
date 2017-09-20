@@ -266,11 +266,13 @@ def face(request):
             fear = round(float(request.POST.get('fear')[0]),3)
             valence = round(float(request.POST.get('valence')[0]),3)
             contempt = round(float(request.POST.get('contempt')[0]),3)
+            disgust = round(float(request.POST.get('disgust')[0]),3)
             vtime = request.POST.get('vtime',0)
             vtime = int(vtime.split('.')[0])
-            logging.getLogger().info('%s %s  %s  %s %s' % (engagement, surprise, valence, contempt,vtime))
+            logging.getLogger().info('%s %s  %s  %s %s %s' % (engagement, surprise, valence, contempt,disgust,vtime))
             Watchface.objects.create(userid=userid,joy=joy,engagement=engagement, sadness=sadness,anger=anger,
-                                     surprise=surprise, fear=fear,valence=valence,contempt=contempt,vtime=vtime)
+                                     surprise=surprise, fear=fear,valence=valence,contempt=contempt,vtime=vtime,
+                                     disgust=disgust)
         return HttpResponse(json.dumps({'code':0}))
     except:
         logging.getLogger().error(traceback.format_exc())
