@@ -257,7 +257,7 @@ def face(request):
     try:
         if request.method == "POST":
             print request.POST
-        return HttpResponse('test  ok')
+        return HttpResponse(json.dumps({'code:0'}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
