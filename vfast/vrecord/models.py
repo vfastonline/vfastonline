@@ -62,13 +62,13 @@ class WatchTimu(models.Model):
 
 class Watchface(models.Model):
     """记录脸部表情"""
-    userid = models.IntegerField()
-    joy = models.IntegerField()
-    engagement = models.IntegerField()
-    sadness = models.IntegerField()
-    anger = models.IntegerField()
-    surprise = models.IntegerField()
-    fear = models.IntegerField()
-    valence = models.IntegerField()
-    contempt = models.IntegerField()
-    vtime = models.IntegerField()
+    userid = models.FloatField()
+    joy = models.FloatField()
+    engagement = models.FloatField()
+    sadness = models.FloatField()
+    anger = models.FloatField()
+    surprise = models.FloatField()
+    fear = models.FloatField()
+    valence = models.FloatField()
+    contempt = models.FloatField()
+    vtime = models.FloatField()
