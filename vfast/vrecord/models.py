@@ -72,3 +72,5 @@ class Watchface(models.Model):
     valence = models.FloatField()
     contempt = models.FloatField()
     vtime = models.FloatField()
+    disgust = models.FloatField()
+
