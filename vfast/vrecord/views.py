@@ -276,3 +276,13 @@ def face(request):
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
+
+def getface(request):
+    try:
+        sql = "select *, count(distinct vtime) from vrecord_watchface group by vtime;"
+        result = dictfetchall(sql)
+        print result
+        return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
