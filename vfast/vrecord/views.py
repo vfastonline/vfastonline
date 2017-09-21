@@ -281,10 +281,23 @@ def face(request):
 
 def getface(request):
     try:
-        sql = "select *, count(distinct vtime) from vrecord_watchface group by vtime;"
+        sql = "select *, count(distinct vtime) as tmp from vrecord_watchface group by vtime;"
         result = dictfetchall(sql)
         print result
-        return HttpResponse('ok')
+        joy, surprise, valence,engagement,sadness,disgust,anger,fear = [],[],[],[],[],[],[],[]
+        for item in result:
+            print item
+            joy.append(item['joy'])
+            surprise.append(item['surprise'])
+            valence.append(item['valence'])
+            engagement.append(item['engagement'])
+            sadness.append(item['sadness'])
+            disgust.append(item['disgust'])
+            anger.append(item['anger'])
+            fear.append(item['fear'])
+
+        return HttpResponse(json.dumps({'code':0, 'joy':joy, 'surprise':surprise, 'valence':valence,'engagement':engagement,
+                                        'sadness':sadness, 'disgust':disgust,'anger':anger, 'fear':fear}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
