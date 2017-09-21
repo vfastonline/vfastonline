@@ -712,3 +712,7 @@ def uplan(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误', 'error': traceback.format_exc()}))
+
+
+def studydetail(request):
+    return render(request, 'xuexixiangqing.html')
