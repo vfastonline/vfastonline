@@ -18,7 +18,6 @@ import os
 import json
 import logging
 import traceback
-import base64
 import time
 import random
 

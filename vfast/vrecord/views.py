@@ -181,13 +181,18 @@ def get_score_seven_day(request):
         if not uid:
             return HttpResponse(json.dumps({'code': 1, 'msg': 'parameter error!'}))
         date, score, vtime = [], [], []
+        seven_day = []
         for i in range(-7, 1):
+            tmp = {}
+            tmp['date'] = str(get_day_of_day(i))
+            tmp['label'] = str(get_day_of_day(i))
             date.append(str(get_day_of_day(i)))
             # 获取最近七天的得分
             sql_score = """select sum(score) as score from vrecord_score where createtime = '%s' and user_id = %s""" % (
                 str(get_day_of_day(i)), uid)
             ret = dictfetchall(sql_score)
             if ret[0]['score'] is None:
+                tmp['value'] = 0
                 score.append(0)
             else:
                 score.append(int(ret[0]['score']))
@@ -199,7 +204,8 @@ def get_score_seven_day(request):
                 vtime.append(ret_time[0]['time'])
             else:
                 vtime.append(0)
-        result = {'date': date, 'score': score, 'vtime': vtime}
+            seven_day.append(tmp)
+        result = {'date': date, 'score': score, 'vtime': vtime, 'weekscore': seven_day}
         return HttpResponse(json.dumps({'result': result}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -243,12 +249,12 @@ def record_timu(request):
             obj.createtime = today
             obj.save()
         except WatchTimu.DoesNotExist:
-            WatchTimu.objects.create(userid=userid, createtime=today, status=status, timuid=timuid, courseid=courseid, skill=skill)
+            WatchTimu.objects.create(userid=userid, createtime=today, status=status, timuid=timuid, courseid=courseid,
+                                     skill=skill)
         return HttpResponse('ok')
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
-
 
 
 # @require_login()
@@ -258,22 +264,22 @@ def face(request):
         if request.method == "POST":
             userid = 1
             joy = request.POST.get('joy')
-            joy = round(float(request.POST.get('joy')[0]),3)
-            engagement = round(float(request.POST.get('engagement')[0]),3)
-            sadness = round(float(request.POST.get('sadness')[0]),3)
-            anger = round(float(request.POST.get('anger')[0]),3)
-            surprise = round(float(request.POST.get('surprise')[0]),3)
-            fear = round(float(request.POST.get('fear')[0]),3)
-            valence = round(float(request.POST.get('valence')[0]),3)
-            contempt = round(float(request.POST.get('contempt')[0]),3)
-            disgust = round(float(request.POST.get('disgust')[0]),3)
-            vtime = request.POST.get('vtime',0)
+            joy = round(float(request.POST.get('joy')[0]), 3)
+            engagement = round(float(request.POST.get('engagement')[0]), 3)
+            sadness = round(float(request.POST.get('sadness')[0]), 3)
+            anger = round(float(request.POST.get('anger')[0]), 3)
+            surprise = round(float(request.POST.get('surprise')[0]), 3)
+            fear = round(float(request.POST.get('fear')[0]), 3)
+            valence = round(float(request.POST.get('valence')[0]), 3)
+            contempt = round(float(request.POST.get('contempt')[0]), 3)
+            disgust = round(float(request.POST.get('disgust')[0]), 3)
+            vtime = request.POST.get('vtime', 0)
             vtime = int(vtime.split('.')[0])
-            logging.getLogger().info('%s %s  %s  %s %s %s' % (engagement, surprise, valence, contempt,disgust,vtime))
-            Watchface.objects.create(userid=userid,joy=joy,engagement=engagement, sadness=sadness,anger=anger,
-                                     surprise=surprise, fear=fear,valence=valence,contempt=contempt,vtime=vtime,
+            logging.getLogger().info('%s %s  %s  %s %s %s' % (engagement, surprise, valence, contempt, disgust, vtime))
+            Watchface.objects.create(userid=userid, joy=joy, engagement=engagement, sadness=sadness, anger=anger,
+                                     surprise=surprise, fear=fear, valence=valence, contempt=contempt, vtime=vtime,
                                      disgust=disgust)
-        return HttpResponse(json.dumps({'code':0}))
+        return HttpResponse(json.dumps({'code': 0}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
@@ -284,7 +290,7 @@ def getface(request):
         sql = "select *, count(distinct vtime) as tmp from vrecord_watchface group by vtime;"
         result = dictfetchall(sql)
         print result
-        joy, surprise, valence,engagement,sadness,disgust,anger,fear = [],[],[],[],[],[],[],[]
+        joy, surprise, valence, engagement, sadness, disgust, anger, fear = [], [], [], [], [], [], [], []
         for item in result:
             print item
             joy.append(item['joy'])
@@ -296,8 +302,9 @@ def getface(request):
             anger.append(item['anger'])
             fear.append(item['fear'])
 
-        return HttpResponse(json.dumps({'code':0, 'joy':joy, 'surprise':surprise, 'valence':valence,'engagement':engagement,
-                                        'sadness':sadness, 'disgust':disgust,'anger':anger, 'fear':fear}))
+        return HttpResponse(
+            json.dumps({'code': 0, 'joy': joy, 'surprise': surprise, 'valence': valence, 'engagement': engagement,
+                        'sadness': sadness, 'disgust': disgust, 'anger': anger, 'fear': fear}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
