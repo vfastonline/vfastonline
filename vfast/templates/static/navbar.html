@@ -26,6 +26,7 @@
                     <li><a href="/course/courses">课程库</a></li>
                     <li><a href="/community/qa">社区</a></li>
                     <li><a data-toggle="modal" data-target="#myFeedback_info" onclick="showFeedback()">反馈</a></li>
+{#                    <li><a href="">项目库</a></li>#}
                 </ul>
             </nav>
             <nav class="navRight">
@@ -84,7 +85,7 @@
                         </div>
                     </li>
 
-                    <div id="tanchuceng" style="width: 200px;height: 200px;background-color:#FFFFFF;position: absolute;left: 930px;top: 60px;display: none;border-radius: 10px;line-height: 40px;font-size: 16px">
+                    <div id="tanchuceng" style="width: 200px;height: 170px;background-color:#FFFFFF;position: absolute;left: 930px;top: 60px;display: none;border-radius: 10px;line-height: 40px;font-size: 16px">
                          <div style="width: 0;height: 0; border-left: 6px solid transparent;border-right: 6px solid transparent; border-bottom: 12px solid #FFFFFF;position: relative;left: 145px;bottom: 12px;"></div>
                         <div style="height: 40px;padding-left: 20px;border-bottom: 1px solid #F0F2F4">{{request.session.user.nickname}}</div>
                         <div style="height: 40px;background-color:#F0F2F4 ;border-bottom: 1px solid #CDC9C9;padding-left: 20px;"><a href="/u/person" >个人中心</a></div>
@@ -132,6 +133,9 @@
             </div>
             <div id="remind_div">
                 <!--通知内容-->
+                <div style="margin-top: 300px;margin-left: 25px">
+                    <img src="/static/imgs/kong.jpg">
+                </div>
             </div>
         </div>
     </div>

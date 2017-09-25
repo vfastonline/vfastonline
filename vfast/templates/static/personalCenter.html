@@ -3,7 +3,10 @@
 <head>
     <title></title>
     {% include "head.html" %}
-
+    <link rel="stylesheet" href="/static/css/chartist.css">
+    <script src="/static/js/chartist.js"></script>
+    <script src="/static/js/echarts.min.js"></script>
+    <script src="/static/js/macarons.js"></script>
     <style>
         #head_cont{
             box-shadow: none;
@@ -415,6 +418,50 @@
             color: #829191;
         }
         /*info_right_3 END*/
+        .info_xin{width: 40%;
+                   float: left;}
+        .info_xin>li{
+            height: 45px;
+            line-height: 45px;
+        }
+        .info_xin>li>p{
+            float: right;
+            margin-left: -28px;
+        }
+        .info_xins{
+            margin-right: 30px;
+            float: right;
+            width: 40%;
+        }
+        .info_xins>li{
+            height: 45px;
+            line-height: 45px;
+        }
+        .info_xins>li>p{
+            margin-left: -13px;
+            float: right;
+        }
+        /*biao*/
+        .dpp{
+            margin-left: 60px;
+            float: left;
+            width: 100px;
+            height: 100px
+        }
+        .ct-series-b .ct-area, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-slice-pie{fill:#D4D9DD}
+        .ct-series-a .ct-area, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-slice-pie{fill: #5ACD91}
+        .tnts>li{
+            align-content: center;
+            margin-left: 60px;
+            float: left;
+            width: 100px;
+            padding-left: 25px;
+        }
+        .tnts{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+        }
     </style>
 </head>
 <body>
@@ -461,12 +508,90 @@
 {#                    <a href="{{ user.personpage }}" target="_blank"><img src="/static/svg/www.svg" alt=""></a>#}
 {#                    {% endif %}#}
 {#                </div>#}
+                <div style="float: right">
+                    <a href="#">去转去背的</a>
+                </div>
             </div>
-            <div class="info_left_1 clearfix">
-             <span>邮箱</span><p>nidayeshi@110.com </p>
-             <span>手机号</span><p>13845454545</p>
-             <span>生日</span><p>史前一万年</p>
+            <div class="info_left_1">
+               <ul class="info_xin">
+                  <li>姓名<p>盖伦 </p></li>
+                  <li>生日<p>1937-08-03</p></li>
+               </ul>
+                <ul class="info_xins">
+                    <li>性别<p>男</p></li>
+                    <li>邮箱<p>90745913@163.com</p></li>
+                </ul>
             </div>
+            <div style="clear: both;height: 30px"></div>
+           <div style="width: 100%;height: 140px;">
+               <ul class="tnts">
+                   <li>Cisco</li>
+                   <li>Windows</li>
+                   <li>Linux</li>
+                   <li>zabbix</li>
+                   <li>nagios</li>
+               </ul>
+            <div>
+                <div  class="ct-chart ct-golden-section dpp" id="chart1"></div>
+                 <div  class="ct-chart ct-golden-section dpp" id="chart2"></div>
+                 <div  class="ct-chart ct-golden-section dpp" id="chart3"></div>
+                  <div  class="ct-chart ct-golden-section dpp" id="chart4"></div>
+                  <div  class="ct-chart ct-golden-section dpp" id="chart5"></div>
+             </div>
+<script>
+    // Initialize a Line chart in the container with the ID chart1
+    var data = {
+        series: [5, 3,]
+    };
+    var sum = function(a, b) { return a + b };
+    new Chartist.Pie('#chart1', data, {
+        labelInterpolationFnc: function(value) {
+            return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        }
+    });
+
+    // Initialize a Line chart in the container with the ID chart2
+    var data = {
+        series: [3, 3,]
+    };
+    var sum = function(a, b) { return a + b };
+    new Chartist.Pie('#chart2', data, {
+        labelInterpolationFnc: function(value) {
+            return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        }
+    });
+    // Initialize a Line chart in the container with the ID chart3
+    var data = {
+        series: [3, 2]
+    };
+    var sum = function(a, b) { return a + b };
+    new Chartist.Pie('#chart3', data, {
+        labelInterpolationFnc: function(value) {
+            return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        }
+    });
+    // Initialize a Line chart in the container with the ID chart4
+    var data = {
+        series: [6, 2]
+    };
+    var sum = function(a, b) { return a + b };
+    new Chartist.Pie('#chart4', data, {
+        labelInterpolationFnc: function(value) {
+            return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        }
+    });
+    // Initialize a Line chart in the container with the ID chart5
+    var data = {
+        series: [3, 9]
+    };
+    var sum = function(a, b) { return a + b };
+    new Chartist.Pie('#chart5', data, {
+        labelInterpolationFnc: function(value) {
+            return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        }
+    });
+</script>
+           </div>
         <div class="slideDIV" style="height:50px;"></div>
             <div class="info_left_2">
                 <ul class="clearfix">
@@ -518,25 +643,80 @@
                     <span style="background-image: url('/static/svg/logout.svg')"></span>
                     退出登陆
                 </div>
-                <div>
-                    <span style="background-image: url('/static/svg/tuijianhaoyou.svg')"></span>
-                    推荐好友
-                </div>
-                <div>
-                    <span style="background-image: url('/static/svg/chongzhi.svg')"></span>
-                    重置所有提示
-                </div>  -->
-                <div onclick="toogle(this)" id="{{ user.is_open }}" >
-                    <span style="background-image: url('/static/svg/qiyechakan.svg')"></span>
-                    允许邮件提醒
-                    {% if user.is_open == 0 %}
-                        <div id="moveDIV" class="btn_fath on" >
-                        {% else %}
-                        <div id="moveDIV" class="btn_fath off" >
-                    {% endif %}
-                    <div class="move"></div>
-                  </div>
-                </div>
+{#                <div>#}
+{#                    <span style="background-image: url('/static/svg/tuijianhaoyou.svg')"></span>#}
+{#                    推荐好友#}
+{#                </div>#}
+{#                <div>#}
+{#                    <span style="background-image: url('/static/svg/chongzhi.svg')"></span>#}
+{#                    重置所有提示#}
+{#                </div> #}
+{#                <div onclick="toogle(this)" id="{{ user.is_open }}" >#}
+{#                    <span style="background-image: url('/static/svg/qiyechakan.svg')"></span>#}
+{#                    允许邮件提醒#}
+{#                    {% if user.is_open == 0 %}#}
+{#                        <div id="moveDIV" class="btn_fath on" >#}
+{#                        {% else %}#}
+{#                        <div id="moveDIV" class="btn_fath off" >#}
+{#                    {% endif %}#}
+{#                    <div class="move"></div>#}
+{#                  </div>#}
+{#                </div>#}
+            <div style="height: 310px">
+               <div id="main" style="width: 300px;height:300px;"></div>
+            </div>
+                 <script>
+          var myChart = echarts.init(document.getElementById('main'),'macarons');
+
+          option = {
+              tooltip: {
+                  trigger: 'item',
+                  formatter: "{a} <br/>{b}: {c} ({d}%)"
+              },
+              legend: {
+                  x: 'center',
+                  y: 'bottom',
+                  //orient: 'vertical',
+                   selectedMode:false,
+                  data:['TCP/IP','Windows','Nagios','Zabbix','Linux',]
+              },
+              series: [
+                  {
+                      name:'所占比重',
+                      type:'pie',
+                      radius: [0, '30%'],
+
+                      label: {
+                          normal: {
+                              position: 'inner'
+                          }
+                      },
+                      labelLine: {
+                          normal: {
+                              show: false
+                          }
+                      },
+                      data:[
+                          {value:6, name:'TCP/IP', selected:true},
+                          {value:15, name:'Windows'},
+                          {value:15, name:'Nagios'},
+                          {value:18, name:'Zabbix'},
+                          {value:47, name:'Linux'},
+                      ]
+                  },
+                  {
+                      name:'完成度',
+                      type:'pie',
+                      radius: ['40%', '55%'],
+                      data:[
+                          {value:250, name:'已完成课程'},
+                          {value:750, name:'未完成课程'},
+                      ]
+                  }
+              ]
+          };
+          myChart.setOption(option);
+      </script>
             </div>
             <div class="slideDIV" style="height:50px;"></div>
           <!--  <div class="info_right_3">

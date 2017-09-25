@@ -7,6 +7,8 @@
    <!-- <link rel="stylesheet" href="/static/css/calendar.css">-->
     <link rel="stylesheet" href="/static/css/chartist.css">
     <script src="/static/js/chartist.js"></script>
+    <script src="/static/js/echarts.min.js"></script>
+    <script src="/static/js/macarons.js"></script>
     <style>
         #head_cont{
             box-shadow: none;
@@ -585,6 +587,61 @@
 
 
     <div class="contentBody_right pull-right">
+            <div>
+                <div id="main" style="width: 450px;height:450px;"></div>
+            </div>
+    <script>
+          var myChart = echarts.init(document.getElementById('main'),'macarons');
+
+          option = {
+              tooltip: {
+                  trigger: 'item',
+                  formatter: "{a} <br/>{b}: {c} ({d}%)"
+              },
+              legend: {
+                  x: 'center',
+                  y: 'bottom',
+                  //orient: 'vertical',
+                   selectedMode:false,
+                  data:['TCP/IP','Windows','Nagios','Zabbix','Linux',]
+              },
+              series: [
+                  {
+                      name:'所占比重',
+                      type:'pie',
+                      radius: [0, '30%'],
+
+                      label: {
+                          normal: {
+                              position: 'inner'
+                          }
+                      },
+                      labelLine: {
+                          normal: {
+                              show: false
+                          }
+                      },
+                      data:[
+                          {value:6, name:'TCP/IP', selected:true},
+                          {value:15, name:'Windows'},
+                          {value:15, name:'Nagios'},
+                          {value:18, name:'Zabbix'},
+                          {value:47, name:'Linux'},
+                      ]
+                  },
+                  {
+                      name:'完成度',
+                      type:'pie',
+                      radius: ['40%', '55%'],
+                      data:[
+                          {value:250, name:'已完成课程'},
+                          {value:750, name:'未完成课程'},
+                      ]
+                  }
+              ]
+          };
+          myChart.setOption(option);
+      </script>
             <div class="plan_head">
                 <h3>今日学习计划</h3>
                 <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
@@ -723,7 +780,7 @@
         {% endfor %}
     </section>
     </section>
-    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+{#    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>#}
 </main>
 {% include "search_div.html" %}
 {% include "feedback.html" %}

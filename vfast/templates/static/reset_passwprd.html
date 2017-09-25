@@ -6,22 +6,23 @@
     <title>忘记密码</title>
     {% include "head.html" %}
     <style>
+        input{border: 1px solid #ECEFF1;}
         .zhangtai_1{
             margin: 0 auto;
-           width: 300px;
+           width: 536px;
            height:270px;
            background-color: #fff;
         }
-        .zhangtai_1>div{
-            margin-left: 15px;
-        }
         .zhangtai_1>div>input{
-            margin-top: 10px;
-            width: 200px;
-            height: 25px;
+            margin-top: 40px;
+            width: 300px;
+            height: 30px;
         }
         .zhangtai_1>div>p{
-            margin: 0 !important;
+            font-size: 18px;
+            padding-top: 40px;
+            height: 30px;
+            line-height: 30px;
         }
         .getverify-code-btn{
             margin-top: 10px;
@@ -29,15 +30,24 @@
 			text-align: center;
 			vertical-align: middle;
 			cursor: pointer;
-            width: 268px;
-            height: 30px;
+            width: 140px;
+            height: 40px;
             background-color: #5ACD91;
             border-radius: 3px;
             border-width: 0px ;
+            color: #FFFFFF;
 		}
 		.unlabed{
+            margin-left: 10px;
 			background-color: lightblue;
 			color: #eee;
+             border-width: 0px;
+            display: inline-block;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+            width: 90px;
+            height: 30px;
 		}
         .span_v{
             height: 30px;
@@ -49,53 +59,71 @@
       <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
     <!-- 忘记密码-->
+              <div style="height: 70px"></div>
               <div class="zhangtai_1">
-                 <div>
-                  <h3>短信验证码</h3>
-                  <p>短信验证码以发送至<span style="color:green;">{{ request.session.phone }}</span></p>
-                  <input type="text"   name="phone" id="j_phone" value=""><button id="j_getVerifyCode" style="width: 67px;height: 25px">59s</button>
+                 <div style="width: 400px;margin: 0 auto;padding-bottom: 20px">
+                  <p style="color: #5A646E">短信验证码以发送至<span style="color:green;">{{ request.session.phone }}</span></p>
+                     <input type="text"   name="phone" id="phone" value=""><span><input type="button" id="btnReg" class="unlabed" value="59s"  disabled="true"  disabled="true" onclick="resety()"></span>
+                     <input type="text" style="width: 300px;margin-top: 20px" id="passwd" value="" placeholder="请输入新密码"/>
                  </div>
-                  <div>
-                      <input type="text" style="width: 267px" id="passwd" value="" placeholder="请输入新密码"/>
+                   <div style="background-color: #F0F2F4">
+                     <div style="width: 400px;margin: 0 auto;padding-top: 10px">
                       <button id="commit"  class="getverify-code-btn", onclick="commit()">确认提交</button>
-                  </div>
+                       <div style="margin-top: 25px;padding-bottom: 25px">
+                            <span style="height: 36px;line-height: 36px">
+                                  <svg t="1506168207709" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2378" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34"><defs><style type="text/css"></style></defs><path d="M512 0C228.693333 0 0 228.693333 0 512s228.693333 512 512 512 512-228.693333 512-512S795.306667 0 512 0z m0 935.253333C279.893333 935.253333 88.746667 744.106667 88.746667 512S279.893333 88.746667 512 88.746667 935.253333 279.893333 935.253333 512 744.106667 935.253333 512 935.253333z" p-id="2379" fill="#B5B9BF"></path><path d="M512 580.266667c23.893333 0 44.373333-20.48 44.373333-44.373334V290.133333c0-23.893333-20.48-44.373333-44.373333-44.373333s-44.373333 20.48-44.373333 44.373333v245.76c0 23.893333 20.48 44.373333 44.373333 44.373334z" p-id="2380" fill="#B5B9BF"></path><path d="M512 713.386667m-68.266667 0a68.266667 68.266667 0 1 0 136.533334 0 68.266667 68.266667 0 1 0-136.533334 0Z" p-id="2381" fill="#B5B9BF"></path></svg>
+                            </span>
+                           <p style="float: right;color: #5A646E">短信通常会在一分钟之内到达你的手机，请注意查收。</br>
+                                   如果超过一分钟之后仍没有接到短信，可以再次发送</p>
+                       </div>
+                     </div>
+                   </div>
               </div>
           <div class="slideDIV" style="height:150px;"></div>
           <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
 </main>
       <script>
-          $(function () {
-               //获取手机验证码
-               $("#j_phone").on("click", getVerifyCode({
-                   callBack: function () {//按钮点击后的回调函数，-----必须-----
-                       //在这里你还是可以对你的按钮进行操作;
-                       var sde = $("#j_phone").val();
-                         console.log(sde);
-                       var  phone = true;
-                       console.log(phone)
-                      //console.log(this);
-                       },
-                  time: 60,//定时时间，以秒为单位，默认60秒
-                  getCurrentTime: function (time) {//获取倒计时当前时间
-                      //console.log(time);
-                       //console.log(this);//这里的这个this执行按钮
-                       //console.log("=================================");
-                   },
-                   isPhone: true,//是否为发送手机验证码，如果是则会验证手机号格式，-----必须-----
-                   getPhone: function () {//获取手机号，此处一定要return
-                      return $("#j_phone").val();
-                   },
-                   //phoneReg: /^1[34578]\d{9}$/,//手机号验证正则
-                   phoneCallBack: function () {//当手机号有误时的回调，默认会中止操作
-                      $("#phone_info").html("你的输入有误");
-                   },
-                  timeIsUpText: "重新发送",//倒计时时间到了后按钮所显示文字
-                   timeRunnigText: "s后重新发送",//倒计时时间正在走的时候按钮所显示文字。默认为"xxs后重新获取"
-                  unabledClass: "unlabed"//按钮不能用的样式，即点击按钮后的样式
-               }));
-           });
+         var s=58;
+    function countsub()
+    {
+        var btnReg=document.getElementById("btnReg");
+        if(btnReg)
+        {
+            if(s<=0)
+            {
+                btnReg.value="重新发送";
+                btnReg.disabled=false;
+                clearInterval(id);
+            }
+            else
+            {
+                btnReg.value=+s+"s";
+                s--;
+            }
+           }
+        }
+        var id = setInterval('countsub()',1000);
+         function resety() {
+                   var phone = document.getElementById('phone').value
+                     $.post('/u/newforget', {'phone': phone}, function (data) {
+                         data = JSON.parse(data)
+                         if (data.code == 0) {
+                             console.log(data.url)
+                         }
+                         else if (data.code == 1) {
+
+                         }
+                         else if (data.code == 2) {
+
+                         }
+                         else {
+
+                         };
+                     });
+         }
+        //确认修改的密码
           function commit() {
-              var code = document.getElementById('j_phone').value
+              var code = document.getElementById('phone').value
               var passwd = document.getElementById('passwd').value
 
              $.post('/u/newpasswd', {'code':code, 'password':passwd}, function (data) {

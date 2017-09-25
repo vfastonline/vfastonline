@@ -36,11 +36,11 @@
             height: 60px;
             line-height: 60px;
             position: absolute;
-            bottom: 30px;
-            right: 97px;
+            bottom: 85px;
+            right: 64px;
         }
         .video_div1 ul li{
-            background-color: #D8D8D8;
+            background-color: rgba(0, 0, 0, .5);
             color: #FFFFFF;
             font-size: 14px;
             text-align: center;
@@ -523,7 +523,7 @@
         .tab_Course_ongoing{
             height: 50px;
             line-height: 50px;
-            background: #B4BEC8!important;
+            background: #5ACD91!important;
         }
         .tab_Course_ongoing:hover{
             opacity: 0.8;
@@ -948,21 +948,30 @@
         }
         .tab_xi>div>span{  }
         .video_ul{
-            left:95%;
+            background-color:#2F3746;
+            left:1150px;
             width: 50px;
-            height: 50px;
+            height: 60px;
             display: inline-block;
-            position: relative;
-            bottom: 660px;
+            position: absolute;
+            bottom: 350px;
+        }
+        .video_ul>svg{
+            padding-top: 3px;
+            margin: 0 auto;
+            width: 50px;
+        }
+        .video_ul>p{
+            width: 30px;
+            margin: 0 auto !important;
         }
         .menu{
-            left: 75%;
+            left: 1200px;
             width: 300px;
             height: 673px;
             background-color: #2F3746;
-            position: relative;
-            bottom: 724px;
-            display: none;
+            position: absolute;
+            bottom: 2px;
             z-index: 1;
             overflow: auto;
             color: #fff;
@@ -1078,14 +1087,16 @@
        <img id="medal_square_1" src="/static/imgs/Rectangle%204%20Copy%202.png" class="medal_square_1 shapes"/>
        <img id="medal_square_2" src="/static/imgs/Rectangle%204%20Copy%202.png" class="medal_square_2 shapes"/>
     </div>
-    <div class="video_ul"  onclick="menu_video()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="16" viewBox="0 0 23 16">
-      <path fill="#FFF" d="M22.8758752,14.1419354 L6.8543748,14.1419354 C6.10637425,14.1419354 5.5,13.5355611 5.5,12.7875606 C5.5,12.03956 6.10637425,11.4331858 6.8543748,11.4331858 L22.8758752,11.4331858 L19.441812,7.99912253 C18.9128957,7.47020628 18.9128957,6.61266358 19.441812,6.08374733 C19.9707282,5.55483107 20.8282709,5.55483107 21.3571872,6.08374733 L27.1033128,11.829873 C27.6322291,12.3587892 27.6322291,13.2163319 27.1033128,13.7452482 L21.3571872,19.4913738 C20.8282709,20.02029 19.9707282,20.02029 19.441812,19.4913738 C18.9128957,18.9624575 18.9128957,18.1049148 19.441812,17.5759986 L22.8758752,14.1419354 Z M14.9867552,17.7403118 C15.7351309,17.7403118 16.3418093,18.346686 16.3418093,19.0946866 C16.3418093,19.8426871 15.7351309,20.4490614 14.9867552,20.4490614 L6.85643085,20.4490614 C6.10805516,20.4490614 5.50137679,19.8426871 5.50137679,19.0946866 C5.50137679,18.346686 6.10805516,17.7403118 6.85643085,17.7403118 L14.9867552,17.7403118 Z M14.9820004,5.55093861 C15.7300009,5.55093861 16.3363752,6.15731286 16.3363752,6.90531341 C16.3363752,7.65331395 15.7300009,8.2596882 14.9820004,8.2596882 L6.85575159,8.2596882 C6.10775104,8.2596882 5.50137679,7.65331395 5.50137679,6.90531341 C5.50137679,6.15731286 6.10775104,5.55093861 6.85575159,5.55093861 L14.9820004,5.55093861 Z" transform="matrix(-1 0 0 1 28 -5)"/>
+    <div class="video_ul" id="video_ul">
+      <svg t="1505721810394" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5613" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30">
+          <defs><style type="text/css"></style></defs>
+          <path d="M96.987427 284.000216l88.908936 0c17.930371 0 32.468482-14.507412 32.468482-32.454156l0-63.802118c0-17.947767-14.538111-32.469506-32.468482-32.469506l-88.908936 0c-17.962094 0-32.468482 14.522762-32.468482 32.469506l0 63.802118C64.518944 269.493827 79.025333 284.000216 96.987427 284.000216zM185.958784 440.696024l-88.908936 0c-18.024515 0-32.469506 14.521738-32.469506 32.468482l0 63.803141c0 17.915022 14.44499 32.43676 32.469506 32.43676l88.908936 0c17.868973 0 32.468482-14.521738 32.468482-32.43676l0-63.803141C218.42829 455.218786 203.827757 440.696024 185.958784 440.696024zM185.958784 729.479173l-88.908936 0c-18.024515 0-32.469506 14.537088-32.469506 32.468482l0 67.180052c0 17.931395 14.44499 32.468482 32.469506 32.468482l88.908936 0c17.868973 0 32.468482-14.537088 32.468482-32.468482l0-67.180052C218.42829 744.017284 203.827757 729.479173 185.958784 729.479173zM349.207845 284.000216l577.62872 0c17.899672 0 32.500205-14.507412 32.500205-32.454156l0-63.802118c0-17.947767-14.600533-32.469506-32.500205-32.469506L349.207845 155.274436c-17.993816 0-32.438806 14.522762-32.438806 32.469506l0 63.802118C316.770062 269.493827 331.214029 284.000216 349.207845 284.000216zM926.837588 440.696024 349.207845 440.696024c-17.931395 0-32.438806 14.521738-32.438806 32.468482l0 63.803141c0 17.915022 14.506389 32.43676 32.438806 32.43676l577.62872 0c17.99177 0 32.500205-14.521738 32.500205-32.43676l0-63.803141C959.33677 455.218786 944.829358 440.696024 926.837588 440.696024zM926.837588 729.479173 349.207845 729.479173c-17.931395 0-32.438806 14.537088-32.438806 32.468482l0 67.180052c0 17.931395 14.506389 32.468482 32.438806 32.468482l577.62872 0c17.99177 0 32.500205-14.537088 32.500205-32.468482l0-67.180052C959.33677 744.017284 944.829358 729.479173 926.837588 729.479173z" p-id="5614" fill="#ffffff"></path>
       </svg>
+      <p style="color: #fff">菜单</p>
     </div>
   <!--视频菜单-->
     <div id="menu" class="menu">
-    <div style="width: 20px;height: 20px;float: right;margin-top: 12px;margin-right: 20px" onclick="menu_video1()">
+    <div style="width: 20px;height: 20px;float: right;margin-top: 12px;margin-right: 20px">
                  <svg t="1504780550984" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="956" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"><defs>
                  <style type="text/css"></style></defs>
                 <path d="M512 456.310154L94.247385 38.557538a39.542154 39.542154 0 0 0-55.689847 0 39.266462 39.266462 0 0 0 0 55.689847L456.310154 512 38.557538 929.752615a39.542154 39.542154 0 0 0 0 55.689847 39.266462 39.266462 0 0 0 55.689847 0L512 567.689846l417.752615 417.752616c15.163077 15.163077 40.290462 15.36 55.689847 0a39.266462 39.266462 0 0 0 0-55.689847L567.689846 512 985.442462 94.247385a39.542154 39.542154 0 0 0 0-55.689847 39.266462 39.266462 0 0 0-55.689847 0L512 456.310154z" p-id="957" fill="#ffffff"></path></svg>
@@ -1166,23 +1177,20 @@
         {% endif %}
     {% endfor %}
     </div>
-              <script>
-                   var menu = document.getElementById("menu");
-                        function menu_video() {
-                           if (menu.style.display == "block") {
-                                      menu.style.display = "none";
-                                 }
-                          else {
-                                 menu.style.display = "block";
-                                   }
-                                 }
-            function menu_video1() {
-                if (menu.style.display == "block")
-                    menu.style.display = "none";
-
-                else
-                    menu.style.display = "block";
-            }
+        <script>
+                  $(document).ready(function(){
+               $("#video_ul").click(function(){
+                     $("#menu").animate({left:'900px'});
+                     $("#video_ul").animate({left:'850px'});
+                  });
+               });
+{#            function menu_video1() {#}
+{#                if (menu.style.display == "block")#}
+{#                    menu.style.display = "none";#}
+{##}
+{#                else#}
+{#                    menu.style.display = "block";#}
+{#            }#}
        </script>
    </div>
     </div>
@@ -1225,9 +1233,9 @@
             </div>
         {% endif %}
     {% endfor %}
-
 </div>
-
+    <script src="/static/js/d3.v3.min.js"></script>
+     <script src="/static/js/score.js"></script>
 <div class="slideDIV" style="height: 150px;"></div>
 <div class="tab_menu" id="tab_menu">
     <ul>
@@ -1311,10 +1319,7 @@
         </span>
         </div>
     {% endfor %}
-
 </div>
- <script src="/static/js/score.js"></script>
-<script src="/static/js/d3.v3.min.js"></script>
 <script defer="defer">
     window.onload = function(){
         var vjs_volume_bar = document.getElementsByClassName("vjs-volume-bar")[0];
@@ -1412,7 +1417,7 @@
     function video_speed(t,video_speed){
         var liArr = video_diy.getElementsByTagName("li");
         for(var i = 0;i<liArr.length;i++){
-            liArr[i].style.backgroundColor = "#D8D8D8";
+            liArr[i].style.backgroundColor = "rgba(0, 0, 0, .5)";
         }
         t.style.backgroundColor = "#7C828C";
         document.getElementsByTagName("video")[0].playbackRate = video_speed;
@@ -1484,8 +1489,9 @@
                     charts_container_div_1.style.opacity = 0;
                 },1200)
                 if(svgJS){
-                    $.getJSON("/r/weekscore",function(data,status){
+                    $.getJSON("/r/weekscore?uid=2",function(data,status){
                         drawLineChart('lineChart',data.weekscore);
+                        console.log(data.weekscore)
                         svgJS = false;
                     });
                 }
@@ -1750,7 +1756,6 @@
 <a id="myMedal_a" data-toggle="modal" data-target="#myMedal_info"></a>
 </body>
 <script src="/static/js/video.js"></script>
-<script src="/static/js/score.js"></script>
 {% include "commonJS.html" %}
 <script>
     window.document.onscroll = function(){

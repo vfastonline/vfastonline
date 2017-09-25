@@ -6,34 +6,37 @@
     {% include "head.html" %}
     <script src="/static/js/getVerifyCode.js"></script>
     <style>
+        input{ border: 1px solid #ECEFF1;}
         .zhangtai_1{
             margin: 0 auto;
-           width: 300px;
-           height:270px;
+           width: 536px;
            background-color: #fff;
         }
         .zhangtai_1>div{
-            margin-left: 15px;
+            width: 400px;
+            margin: 0 auto;
         }
         .zhangtai_1>div>input{
             margin-top: 10px;
-            width: 200px;
-            height: 25px;
+            width: 300px;
+            height: 30px;
+            margin-left: 53px;
         }
         .zhangtai_1>div>p{
             margin: 0 !important;
         }
         .getverify-code-btn{
-            margin-top: 10px;
+            margin-top: 20px;
 			display: inline-block;
 			text-align: center;
 			vertical-align: middle;
 			cursor: pointer;
-            width: 268px;
-            height: 30px;
+            width: 140px;
+            height: 40px;
             background-color: #5ACD91;
             border-radius: 3px;
             border-width: 0px ;
+            color: #FFFFFF;
 		}
 		.unlabed{
 			background-color: lightblue;
@@ -42,26 +45,48 @@
         .span_v{
             height: 30px;
             line-height: 30px;
+            color:#5A646E;
+        }
+        .zhangtai_1>div>h3{
+            padding-top: 13px;
+        }
+        .woca{width: 536px;
+        height: 140px;
+            margin: 0 auto;
+        background-color: #F0F2F4;
         }
     </style>
 </head>
 <body>
       <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+          <div style="height: 40px"></div>
     <!-- 忘记密码-->
               <div class="zhangtai_1">
+                  <div style="height: 40px"></div>
                  <div>
-                  <h3>手机号码</h3>
-                  <p>通过注册手机重置密码<a>返回首页</a></p>
-                  <input type="text"  id="phone"  name="phone" onblur="checkMobile()"><span id="phone_info"></span>
+                  <span style="color: #5A646E">手机号</span>
+                  <input type="text"  id="phone"  name="phone" onblur="checkMobile()">
+                     <div id="phone_info" style="color: red"></div>
                  </div>
-                  <div>
-                      <span class="span_v">请输入验证码</span>
-                      <div id="v_container" style="width: 100px;height: 25px; background-color: #1483d8"></div>
-                      <input type="text" id="code_input" value="" placeholder="请输入验证码"/><span id="my_button"></span>
-                      <button  class="getverify-code-btn" onclick="add()">发送验证码</button>
+                  <div style="margin-top: 15px;padding-bottom: 30px">
+                      <span class="span_v">验证码</span><input type="text" style="width: 150px;height: 30px;" id="code_input" value="" placeholder="请输入验证码"/>
+                      <div id="v_container" style="width: 90px;height: 30px; background-color: #1483d8;float: right;margin-top: 10px"></div>
+                      <div id="my_button" style="color: red"></div>
                   </div>
               </div>
+                  <div class="woca">
+                      <div style="width: 400px;margin: 0 auto">
+                         <button  class="getverify-code-btn" onclick="add()">发送验证码</button>
+                          <div style="height: 18px; line-height: 18px;margin-top: 20px">
+                              <span style="height: 36px;line-height: 36px">
+                                  <svg t="1506168207709" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2378" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34"><defs><style type="text/css"></style></defs><path d="M512 0C228.693333 0 0 228.693333 0 512s228.693333 512 512 512 512-228.693333 512-512S795.306667 0 512 0z m0 935.253333C279.893333 935.253333 88.746667 744.106667 88.746667 512S279.893333 88.746667 512 88.746667 935.253333 279.893333 935.253333 512 744.106667 935.253333 512 935.253333z" p-id="2379" fill="#B5B9BF"></path><path d="M512 580.266667c23.893333 0 44.373333-20.48 44.373333-44.373334V290.133333c0-23.893333-20.48-44.373333-44.373333-44.373333s-44.373333 20.48-44.373333 44.373333v245.76c0 23.893333 20.48 44.373333 44.373333 44.373334z" p-id="2380" fill="#B5B9BF"></path><path d="M512 713.386667m-68.266667 0a68.266667 68.266667 0 1 0 136.533334 0 68.266667 68.266667 0 1 0-136.533334 0Z" p-id="2381" fill="#B5B9BF"></path></svg>
+                              </span>
+                              <p style="float: right;color: #5A646E">短信通常会在一分钟之内到达你的手机，请注意查收。</br>
+                                   如果超过一分钟之后仍没有接到短信，可以再次发送</p>
+                          </div>
+                      </div>
+                  </div>
           <script src="/static/js/gVerify.js"></script>
          <script>
              //手机号码验证

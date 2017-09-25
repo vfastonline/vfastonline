@@ -8,7 +8,16 @@
     <link rel="stylesheet" href="/static/css/drop-down.css" />
     <script src="/static/js/jquery-ui.min.js"></script>
     <script src="/static/js/select-widget-min.js"></script>
+    <script src="/static/js/select.js"></script>
+    <script src="/static/js/jquery.citys.js"></script>
     <style>
+        body{font-size: 14px;
+              color: #5A646E;
+              letter-spacing: 0.4px;}
+        input{
+            border: 2px solid #ECEFF1;
+            border-radius: 4px;
+        }
         #head_cont{
             box-shadow: none;
         }
@@ -51,20 +60,23 @@
        }
        .info_1_head>.info_1_head_1>img{
             position:absolute;
+           width: 88px;
+           height: 88px;
         }
         .info_1_head>.info_1_head_1>img:first-child{
             left: 1px;
-            width: 100px;
-            height:100px;
-            border-radius: 100px;
+           width: 88px;
+           height: 88px;;
+            border-radius: 88px;
         }
         .info_1_head>.info_1_head_1>img:last-child{
             top:5px;
             left: 70px;
         }
         .info_1_head>.info_1_head_2{
-            float: right;
-            width:50%;
+            width: 115px;
+            height: 35px;
+            float: left;
             position:relative;
             padding: 8px 0px 0px 20px;
         }
@@ -77,16 +89,18 @@
             opacity:0.8;
         }
         .info_1_head_2>div>div:first-child{
-            width:96px;
-            height:38px;
-            line-height: 38px;
+            width:115px;
+            height:35px;
+            line-height: 35px;
             border:2px solid #ECEFF1;
             position: absolute;
-            background: #ECEFF1;
+            background: #FFFFFF;
             border-radius: 4px;
             text-align: center;
             font-size: 16px;
             color: #8C96A5;
+            left: 130px;
+            top: 24px;
         }
         .info_1_head_2>div>input{
             width:96px;
@@ -101,8 +115,8 @@
             cursor:pointer;
         }
         .info_1_head_2>div:last-child{
-            width:96px;
-            height:38px;
+            width:115px;
+            height:35px;
             line-height: 38px;
             border:2px solid #ECEFF1;
             background: #ECEFF1;
@@ -112,6 +126,7 @@
             color: #8C96A5;
             margin-top: 16px;
             user-select: none;
+            margin-left: 110px;
         }
         .info_1_head_2>div:last-child:hover{
             cursor: pointer;
@@ -128,13 +143,13 @@
         }
         .conmmcpone>input{
             line-height: initial!important;
-            width: 300px;
-            height: 35px;
+            width: 240px;
+            height: 30px;
         }
         .conmmcpone>div>input{
             line-height: initial!important;
-            width: 300px;
-            height: 35px;
+            width: 240px;
+            height: 30px;
         }
         .conmmcpone{
             height: 100px;
@@ -182,6 +197,16 @@
             z-index: 2001;
             transition: all 0.35s ease-out;
         }
+        .conmmcpone_1{
+            float: right;
+        }
+        select{
+           border: 2px solid #ECEFF1;
+            margin-left: 6px;
+			padding: 5px;
+			border-radius: 4px;
+			outline: none;
+		}
     </style>
 </head>
 <body>
@@ -195,17 +220,20 @@
               <ul class="fdiv">
                   <li>
                   <div class="info_1_head">
-                <p>头像</p>
+                <p>你的头像</p>
                 <div class="info_1_head_1">
                     <img id="uheadimg_this" src="{{ user.headimg }}" alt=""/>
                     <img src="/static/head/OvalBIG.svg" alt=""/>
-                    <img src="/static/head/online.svg" alt=""/>
+                    <img style="display: none" src="/static/head/online.svg" alt=""/>
                 </div>
                     <div class="info_1_head_2">
                         <div>
                            <div onclick="$('#headimg').click()">更换图片</div>
                            <input name="headimg" id="headimg" type="file">
-                            <div onclick="resetHP()">恢复预设</div>
+                            <div onclick="resetHP()" style="display: none">恢复预设</div>
+                            <div style="margin-top: 37px">
+                              没有选择文件
+                            </div>
                         </div>
                      </div>
                    </div>
@@ -216,35 +244,191 @@
                           <div>
                            <input value="{{ user.nickname }}" type="text" onblur="submitINFO_name(this)" placeholder="昵称">
                            <span></span>
+                          <div style="float: right;left: 50px">
+                              <p style="float: left;margin-right: 30px">真实姓名</p>
+                              <input style="width: 240px; height: 30px;margin-right: 35px " value="" type="text">
+                          </div>
                           </div>
                        </div>
-                  </li>
-                  <li>
-                      <div class="conmmcpone">
-                          <p>邮箱</p>
-                           <input value="{% if user.email != None %}{{ user.email }}{% endif %}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
-                      </div>
                   </li>
                   <li>
                       <div class="conmmcptwo">
                       <p>自我描述</p>
                       <div class="info_3">
-                      <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="35" rows="1" onblur="submitINFO('自我介绍')">{{ user.intro }}</textarea>
+                      <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="76.5" rows="1" onblur="submitINFO('自我介绍')" style=" border: 2px solid #ECEFF1;border-radius: 4px;">{{ user.intro }}</textarea>
                        </div>
                       </div>
                   </li>
                   <li>
-                      <div class="conmmcpone">
-                       <p>当前位置</p>
-                       <input value="{{ user.city }}" onblur="submitINFO('居住城市')" name="city" form="fileForm" type="text" placeholder="居住城市">
+                      <div style="margin-left: 30px; margin-top: 35px;">
+                          <span>邮箱</span>
+                           <input style="width: 240px;height: 30px;margin-left: 38px" value="{% if user.email != None %}{{ user.email }}{% endif %}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                           <div style="float: right;width: 370px">
+                             <p style="float: left;width: 40px">生日</p>
+                              <div id="date" style="width: 340px">
+		                      <select name="year" style="position: absolute;z-index: 1;" id="year" onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0" onchange="this.size=0">
+			                        <option value="">选择年份</option>
+                              </select>
+		                       <select name="month" id="month" style="position: absolute;z-index: 1;margin-left: 107px;"  onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0" onchange="this.size=0">
+			                         <option value="">选择月份</option>
+		                       </select>
+		                       <select id="days" class="day" style="position: absolute;z-index: 1;margin-left: 207px;"  onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0" onchange="this.size=0">
+			                         <option value="">选择日期</option>
+                               </select>
+	                        </div>
+	                         <script type="text/javascript">
+		                      $(function(){
+			                        $("#date").selectDate()
+			                                $("#days").focusout(function(){
+				                            var year = $("#year option:selected").html()
+				                             var month = $("#month option:selected").html()
+				                              var day = $("#days option:selected").html()
+				                                console.log(year+month+day)
+			                                 })
+		                                     })
+                             </script>
+                      </div>
                       </div>
                   </li>
                   <li>
-                     <div class="conmmcpone">
-                         <p>生日</p>
-                         <input value="{{ user.birthday }}" onblur="submitINFO('生日')" name="birthday" form="fileForm" type="text" placeholder="yyyy-mm-dd">
+                     <div style="float: left;margin-left: 20px;margin-top: 25px">最高学历
+                        <select id="select4" style="width: 240px;height: 30px;margin-left: 20px">
+                             <option value="博士">博士</option>
+                             <option value="研究生" >研究生</option>
+                             <option value="本科" selected>本科</option>
+                             <option value="大专">大专</option>
+                             <option value="高中">高中</option>
+                             <option value="高中以下">高中以下</option>
+                        </select>
+                         <script>
+                              $('#select4').change(function(){
+                              var p4=$(this).children('option:selected').val();//这就是selected的值
+                                    console.log(p4)
+                             });
+                         </script>
+                         <div style="float: right;margin-left: 50px">
+                              <span>大学名称</span>
+                             <input style="width: 240px; height: 30px; margin-left: 36px" value="" type="text">
+                         </div>
                      </div>
                   </li>
+                  <li>
+                      <div id="demo" style="float: left;margin-left: 7px;margin-top: 25px">
+                             <p>
+                                 <span>出生地（省）</span>
+                                 <select name="province" style="width: 240px;height: 30px"></select>
+                                 <span style="margin-left: 47px">出生地（市）</span>
+                                 <select name="city"></select>
+                                 <select name="area"></select>
+                            </p>
+                    </div>
+                          <script type="text/javascript">
+                                   $('#demo').citys({
+                                       code:110000,
+                                        required:false,
+                                          nodata:'disabled',
+                                          onChange:function(data){
+                                            var text = data['direct']?'(直辖市)':'';
+                                         console.log(data['province']+text+' '+data['city']+' '+data['area']);
+                                           }
+                                         });
+
+                           </script>
+                  </li>
+                  <li>
+                      <div style="float: left;margin-left: 20px;margin-top: 15px">
+                          <span>期望职位</span>
+                          <input type="text"  style="width: 240px;height: 30px;margin-left: 20px">
+                          <div style="float: right;margin-left: 50px">
+                              期望薪资
+                              <select id="select3" style="width: 240px;height: 30px;margin-left: 35px">
+                                    <option value="20k以上">20k以上</option>
+                                    <option value="18k-20k" >18k-20k</option>
+                                    <option value="15k-18k" >15k-18k</option>
+                                    <option value="10k-15k">10k-15k</option>
+                                    <option value="9k-10k">9k-10k</option>
+                                    <option value="5k-9k" selected>5k-9k</option>
+                                    <option value="5k以下">5k以下</option>
+                             </select>
+                              <script>
+                                   $('#select3').change(function(){
+                              var p3=$(this).children('option:selected').val();//这就是selected的值
+                                    console.log(p3)
+                             });
+                              </script>
+                         </div>
+                      </div>
+                  </li>
+              <li>
+                  <div style="float: left;margin-top: 25px">
+                      <div style="float: left;margin-left: 33px">
+                          星座
+                           <select id="select1" style="width: 240px;height: 30px;margin-left: 35px">
+                                    <option value="白羊座">白羊座</option>
+                                    <option value="金牛座" >金牛座</option>
+                                    <option value="双子座" >双子座</option>
+                                    <option value="巨蟹座">巨蟹座</option>
+                                    <option value="狮子座">狮子座</option>
+                                    <option value="处女座">处女座</option>
+                                    <option value="天平座" selected>天平座</option>
+                                    <option value="天蝎座">天蝎座</option>
+                                    <option value="射手座">射手座</option>
+                                    <option value="摩羯座" >摩羯座</option>
+                                    <option value="水瓶座">水瓶座</option>
+                                    <option value="双鱼座">双鱼座</option>
+                             </select>
+                            <script>
+                                $('#select1').change(function(){
+                              var p1=$(this).children('option:selected').val();//这就是selected的值
+                                    console.log(p1)
+                             });
+                            </script>
+                      </div>
+                      <div style="float: right;margin-left: 50px">
+                          血型
+                           <select id="select2" style="width: 240px;height: 30px;margin-left: 63px;">
+                                    <option value="A">A</option>
+                                    <option value="B" >B</option>
+                                    <option value="AB" >AB</option>
+                                    <option value="O">O</option>
+                                    <option value="狗血">狗血</option>
+                             </select>
+                             <script>
+                                  $('#select2').change(function(){
+                              var p2=$(this).children('option:selected').val();//这就是selected的值
+                                    console.log(p2)
+                             });
+                             </script>
+                      </div>
+                  </div>
+              </li>
+              <li>
+                  <div style="float: left;background: #F0F2F4;width: 100%;height: 70px;margin-top: 25px ">
+                      <button  style="margin-left: 40px;margin-top: 15px;width: 140px;height: 40px;background-color: #5ACD91;color: #FFFFFF;border-radius: 3px; border-width: 0px ;" id="">完成修改</button>
+                  </div>
+              </li>
+              </ul>
+              <ul>
+                  <li>
+                      <p>新密码</p><input style="width: 300px;height: 30px" type="password" id="passwprdi" value="输入新密码">
+                  </li>
+                  <li>
+                      <p>再次确认</p><input style="width: 300px;height: 30px" type="password" id="passwprdii" value="再次确认" onblur="check()">
+                      <p id="warning"></p>
+                  </li>
+                 <li>
+                     <input style="width: 140px;height: 30px;background-color: #5ACD91 ;" type="button" id="fasong" value="确认新密码">
+                 </li>
+                  <script>
+                      function check(){
+              if(document.getElementById("passwprdi").value!= document.getElementById("passwprdii").value)
+    {
+        document.getElementById("warning").innerHTML="   两次密码的输入不一致";
+    }else{
+        document.getElementById("warning").innerHTML="   ";
+    }
+}
+                  </script>
               </ul>
               <ul>
                  <li>
@@ -252,14 +436,6 @@
                  </li>
                   <li>
                        <button onclick="getVCode()" id="phone_button" class="phone_button">发送验证码</button>
-                  </li>
-              </ul>
-              <ul>
-                  <li>
-                      <p>新密码</p><input>
-                  </li>
-                  <li>
-                      <p>再次确认</p><input>
                   </li>
               </ul>
            <div style="clear: none"></div>
