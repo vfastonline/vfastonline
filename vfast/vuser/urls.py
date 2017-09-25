@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^ucenter$', views.ucenter, name='ucenter'),
     url(r'^uinfo', views.uinfo, name='uinfo'),
     url(r'^uplan$', views.uplan, name='uplan'),
+    url(r'^studydetail$', views.studydetail),
 ]

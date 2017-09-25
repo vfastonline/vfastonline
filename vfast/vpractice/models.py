@@ -78,14 +78,11 @@ class Attention(models.Model):
 
 
 class Repatation(models.Model):
-    user = models.ForeignKey(User, verbose_name='用户')
+    user = models.ForeignKey(User, verbose_name='用户', on_delete=models.CASCADE)
     tech_id = models.IntegerField('技术类别ID', null=True)
     createtime = models.CharField('创建时间', max_length=22)
     repa_grade = models.IntegerField('所得声望')
     repatype = models.IntegerField('获取声望途径', default=1)
-
-    def __unicode__(self):
-        return '%s, %s' % (self.user.nickname, self.rep)
 
 
 class RepaType(models.Model):

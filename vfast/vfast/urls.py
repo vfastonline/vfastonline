@@ -27,6 +27,7 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
+    url(r'^project$', views.project),
     url(r'^logout', views.logout),
     url(r'^upload', views.upload, name='upload'),
     url('^u/', include('vuser.urls')),

@@ -18,7 +18,6 @@ import os
 import json
 import logging
 import traceback
-import base64
 import time
 import random
 
@@ -132,8 +131,8 @@ def forget_pwd_phone(request):
                     for i in range(4):
                         code += str(random.randint(0, 9))
                     User.objects.filter(phone=phone).update(code=code)
-                    # sendmessage(phone, {'code':code})
-                    # request.session['codetimes'] += 1
+                    sendmessage(phone, {'code':code})
+                    request.session['codetimes'] += 1
                     return HttpResponse(json.dumps({'code': 0, 'url': '/u/newpasswd'}))
                 else:
                     return HttpResponse(json.dumps({'code': 1, 'msg': '该手机号今天发送验证码已超过三次'}, ensure_ascii=False))
@@ -154,9 +153,10 @@ def forget_pwd_reset(request):
             code = request.POST.get('code')
             passwd = request.POST.get('password')
             password = encry_password(password=passwd)
-            user = User.objects.filter(phone=phone).values().first()
+            user = User.objects.filter(phone=phone).values('phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
             if user['code'] == code:
                 User.objects.filter(phone=phone).update(password=password)
+                request.session['user'] = user
                 return HttpResponse(json.dumps({'code':0, 'url':'/u/%s' % user['id']}))
             else:
                 return HttpResponse(json.dumps({'code':1, 'msg':'验证码错误'}))
@@ -244,7 +244,7 @@ def dashboard(request, param):
         else:
             flag, tasks = False, []
 
-        if user.pathid == 0:
+        if user.pathid == 0 or Path.objects.filter(id=user.pathid).exists():
             pass
 
         # 显示正在学习的路线
@@ -712,3 +712,7 @@ def uplan(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误', 'error': traceback.format_exc()}))
+
+
+def studydetail(request):
+    return render(request, 'xuexixiangqing.html')

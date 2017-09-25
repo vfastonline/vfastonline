@@ -36,6 +36,10 @@ def test(request):
     return HttpResponse('/test')
 
 
+def project(request):
+    return render(request, 'project.html')
+
+
 def logout(request):
     try:
         del request.session['login']

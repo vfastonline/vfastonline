@@ -2,7 +2,8 @@
 # from django.shortcuts import render
 from vuser.models import User
 from vcourse.models import Course, Video, Technology, Path
-from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu
+from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu, Watchface
+from vpractice.models import Timu
 from django.http import HttpResponse
 from django.db import connection
 from vbadge.models import UserBadge, Badge
@@ -179,7 +180,8 @@ def get_score_seven_day(request):
         uid = request.GET.get('uid', None)
         if not uid:
             return HttpResponse(json.dumps({'code': 1, 'msg': 'parameter error!'}))
-        date, score, vtime,seven_day = [], [], [],[]
+        date, score, vtime = [], [], []
+        seven_day = []
         for i in range(-7, 1):
             tmp = {}
             tmp['date'] = str(get_day_of_day(i))
@@ -238,6 +240,8 @@ def record_timu(request):
         today = time.strftime('%Y-%m-%d')
         userid = request.session['user']['id']
         timuid = request.GET.get('timuid')
+        timu = Timu.objects.get(id=timuid)
+        skill = timu.video.section.skill
         courseid = request.GET.get('courseid')
         status = request.GET.get('status')
         try:
@@ -246,8 +250,62 @@ def record_timu(request):
             obj.createtime = today
             obj.save()
         except WatchTimu.DoesNotExist:
-            WatchTimu.objects.create(userid=userid, createtime=today, status=status, timuid=timuid, courseid=courseid)
+            WatchTimu.objects.create(userid=userid, createtime=today, status=status, timuid=timuid, courseid=courseid,
+                                     skill=skill)
         return HttpResponse('ok')
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
+# @require_login()
+def face(request):
+    """记录用户观看视频时表情状态"""
+    try:
+        if request.method == "POST":
+            userid = 1
+            joy = request.POST.get('joy')
+            joy = round(float(request.POST.get('joy')[0]), 3)
+            engagement = round(float(request.POST.get('engagement')[0]), 3)
+            sadness = round(float(request.POST.get('sadness')[0]), 3)
+            anger = round(float(request.POST.get('anger')[0]), 3)
+            surprise = round(float(request.POST.get('surprise')[0]), 3)
+            fear = round(float(request.POST.get('fear')[0]), 3)
+            valence = round(float(request.POST.get('valence')[0]), 3)
+            contempt = round(float(request.POST.get('contempt')[0]), 3)
+            disgust = round(float(request.POST.get('disgust')[0]), 3)
+            vtime = request.POST.get('vtime', 0)
+            vtime = int(vtime.split('.')[0])
+            logging.getLogger().info('%s %s  %s  %s %s %s' % (engagement, surprise, valence, contempt, disgust, vtime))
+            Watchface.objects.create(userid=userid, joy=joy, engagement=engagement, sadness=sadness, anger=anger,
+                                     surprise=surprise, fear=fear, valence=valence, contempt=contempt, vtime=vtime,
+                                     disgust=disgust)
+        return HttpResponse(json.dumps({'code': 0}))
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+
+
+def getface(request):
+    try:
+        sql = "select *, count(distinct vtime) as tmp from vrecord_watchface group by vtime;"
+        result = dictfetchall(sql)
+        print result
+        joy, surprise, valence, engagement, sadness, disgust, anger, fear = [], [], [], [], [], [], [], []
+        for item in result:
+            print item
+            joy.append(item['joy'])
+            surprise.append(item['surprise'])
+            valence.append(item['valence'])
+            engagement.append(item['engagement'])
+            sadness.append(item['sadness'])
+            disgust.append(item['disgust'])
+            anger.append(item['anger'])
+            fear.append(item['fear'])
+
+        return HttpResponse(
+            json.dumps({'code': 0, 'joy': joy, 'surprise': surprise, 'valence': valence, 'engagement': engagement,
+                        'sadness': sadness, 'disgust': disgust, 'anger': anger, 'fear': fear}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

@@ -57,6 +57,20 @@ class WatchTimu(models.Model):
     timuid = models.IntegerField('题目ID')
     courseid = models.IntegerField('课程ID')
     status = models.CharField(verbose_name='习题状态', max_length=1)   #0正确, 1错误
+    skill = models.CharField(verbose_name='相关技能点', max_length=100, default='')
 
 
+class Watchface(models.Model):
+    """记录脸部表情"""
+    userid = models.FloatField()
+    joy = models.FloatField()
+    engagement = models.FloatField()
+    sadness = models.FloatField()
+    anger = models.FloatField()
+    surprise = models.FloatField()
+    fear = models.FloatField()
+    valence = models.FloatField()
+    contempt = models.FloatField()
+    vtime = models.FloatField()
+    disgust = models.FloatField()
 
