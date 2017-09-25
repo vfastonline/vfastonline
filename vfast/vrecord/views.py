@@ -292,8 +292,8 @@ def getface(request):
         result = dictfetchall(sql)
         print result
         joy, surprise, valence, engagement, sadness, disgust, anger, fear = [], [], [], [], [], [], [], []
+        vtime = []
         for item in result:
-            print item
             joy.append(item['joy'])
             surprise.append(item['surprise'])
             valence.append(item['valence'])
@@ -302,10 +302,9 @@ def getface(request):
             disgust.append(item['disgust'])
             anger.append(item['anger'])
             fear.append(item['fear'])
-
-        return HttpResponse(
-            json.dumps({'code': 0, 'joy': joy, 'surprise': surprise, 'valence': valence, 'engagement': engagement,
-                        'sadness': sadness, 'disgust': disgust, 'anger': anger, 'fear': fear}))
+            vtime.append(item['vtime'])
+        return HttpResponse(json.dumps({'code':0, 'joy':joy, 'surprise':surprise, 'valence':valence,'engagement':engagement,
+                                        'sadness':sadness, 'disgust':disgust,'anger':anger, 'fear':fear, 'vtime':vtime}))
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

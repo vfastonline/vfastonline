@@ -153,9 +153,10 @@ def forget_pwd_reset(request):
             code = request.POST.get('code')
             passwd = request.POST.get('password')
             password = encry_password(password=passwd)
-            user = User.objects.filter(phone=phone).values('phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
+            user = User.objects.filter(phone=phone).values('phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid', 'code').first()
             if user['code'] == code:
                 User.objects.filter(phone=phone).update(password=password)
+                request.session['login'] = True
                 request.session['user'] = user
                 return HttpResponse(json.dumps({'code':0, 'url':'/u/%s' % user['id']}))
             else:
