@@ -153,9 +153,10 @@ def forget_pwd_reset(request):
             code = request.POST.get('code')
             passwd = request.POST.get('password')
             password = encry_password(password=passwd)
-            user = User.objects.filter(phone=phone).values().first()
+            user = User.objects.filter(phone=phone).values('phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid').first()
             if user['code'] == code:
                 User.objects.filter(phone=phone).update(password=password)
+                request.session['user'] = user
                 return HttpResponse(json.dumps({'code':0, 'url':'/u/%s' % user['id']}))
             else:
                 return HttpResponse(json.dumps({'code':1, 'msg':'验证码错误'}))
@@ -243,7 +244,7 @@ def dashboard(request, param):
         else:
             flag, tasks = False, []
 
-        if user.pathid == 0:
+        if user.pathid == 0 or Path.objects.filter(id=user.pathid).exists():
             pass
 
         # 显示正在学习的路线
