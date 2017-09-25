@@ -55,7 +55,7 @@ GITHUB_AUTHORIZE_URL = config.get('callback', 'GITHUB_AUTHORIZE_URL')
 SECRET_KEY = '+ysv^a@qqp+@)ajj=cve@o9o!1^lmrb0-2_a)8utou6ngct9)&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 

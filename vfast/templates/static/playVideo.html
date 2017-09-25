@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE>
+<html lang="en">
 <head>
     <title></title>
     {% include "head.html" %}
     <link rel="stylesheet" href="/static/css/score.css" media="screen" type="text/css" />
     <link href="/static/css/video-js.css" rel="stylesheet">
     <link href="/static/css/video-js-develop.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/zhuanyong.css">
-    <script src="/static/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+{#    <link rel="stylesheet" href="/static/css/zhuanyong.css">#}
+{#    <script src="/static/js/highlight.pack.js"></script>#}
+{#    <script>hljs.initHighlightingOnLoad();</script>#}
     <style>
         #head_cont{
             box-shadow: none;
@@ -428,6 +428,9 @@
         }
 
         .note_pre{
+            width: 1200px;
+            height: 500px;
+            overflow: auto;
             background-color: transparent;
             border:none;
         }
@@ -1054,20 +1057,20 @@
     </div>
     </div>
     <div id="charts_container" class="charts--container">
-        <ul>
-            <li class="chart">
-                <div id="lineChart">
-                    <svg id="lineChartSVG" class="lineChart--svg">
-                        <defs>
-                            <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
-                                <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
-                                <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-            </li>
-        </ul>
+{#        <ul>#}
+{#            <li class="chart">#}
+{#                <div id="lineChart">#}
+{#                    <svg id="lineChartSVG" class="lineChart--svg">#}
+{#                        <defs>#}
+{#                            <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">#}
+{#                                <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />#}
+{#                                <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />#}
+{#                            </linearGradient>#}
+{#                        </defs>#}
+{#                    </svg>#}
+{#                </div>#}
+{#            </li>#}
+{#        </ul>#}
         <div id="charts_container_div" class="charts--container_div">
             <p>做的不错，{{ request.session.user.nickname }}</p>
             <p>保持住这股劲头!</p>
@@ -1234,8 +1237,6 @@
         {% endif %}
     {% endfor %}
 </div>
-    <script src="/static/js/d3.v3.min.js"></script>
-     <script src="/static/js/score.js"></script>
 <div class="slideDIV" style="height: 150px;"></div>
 <div class="tab_menu" id="tab_menu">
     <ul>
@@ -1295,9 +1296,9 @@
     </section>
 </div>
 <div class="tab_NOTE" id="tab_NOTE">
-    <div>
-        <div id="content" class="note_pre">{{ video_obj.notes|safe }}</div>
-    </div>
+
+      < id="content" class="note_pre">{{ video_obj.notes|safe }}</div>
+
 </div>
 <div class="tab_faq" id="tab_faq">
         <div class="tab_faq_a">
