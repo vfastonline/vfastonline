@@ -428,8 +428,6 @@
         }
 
         .note_pre{
-            width: 1200px;
-            height: 500px;
             overflow: auto;
             background-color: transparent;
             border:none;
@@ -438,7 +436,6 @@
             width: 1200px;
             margin: 0 auto;
             background-color: #FFFFFF;
-            padding: 30px 20px 20px;
             display: none;
             box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
             border-radius:0px 0px 8px 8px;
@@ -563,7 +560,7 @@
             float: left;
         }
         .tab_Course_viewNO>div:first-child>div{
-
+            margin-top: 16px;
         }
         .tab_Course_viewNO>div>span{
             margin-left: 65px;
@@ -935,8 +932,6 @@
             border-radius:0px 0px 8px 8px;
             height:auto;
         }
-        .tab_faq_a{height: 50px;line-height: 50px}
-        .tab_faq_a  h4{float: left}
         .tab_xi{height: 50px;
         line-height: 50px}
         .tab_xi>div{float: left;
@@ -950,6 +945,20 @@
             overflow: hidden;
         }
         .tab_xi>div>span{  }
+        .video_x{
+            background-color:#2F3746;
+            left:1150px;
+            width: 50px;
+            height:50px;
+            display: inline-block;
+            position: absolute;
+            bottom: 350px;
+            display: none;
+        }
+        .video_x>svg{
+            margin-top: 10px;
+            margin-left: 10px;
+        }
         .video_ul{
             background-color:#2F3746;
             left:1150px;
@@ -984,6 +993,7 @@
         }
     </style>
     <script>
+
         function saveTime(t){
             clearInterval(autoFI);
             faceNumber = 0;
@@ -1021,6 +1031,20 @@
         <input id="video_process" type="hidden" value="{{ video_process }}"/>
         <input id="video_id" type="hidden" value="{{ video_obj.id }}"/>
     </video>
+     <div onclick="video_Pause()"></div>
+     <script>
+                var elem = document.getElementsByTagName("video")[0];
+         document.onkeydown=function(event){
+                  var e = event || window.event || arguments.callee.caller.arguments[0];
+                if(e && e.keyCode==32&&elem.paused) { // 按 F2
+                           video_play()
+                      console.log("eee");
+                }else {
+                       video_Paused()
+                    console.log("ccc");
+                }
+               };
+     </script>
     <div class="video_play_svg_div" id="video_play_svg_div"></div>
     <svg onclick="video_play()" id="video_bofang" class="video_bofang" width="40px" height="40px" viewBox="153 689 24 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
@@ -1045,7 +1069,8 @@
                     video_diy.style.display = "none";
                 else
                     video_diy.style.display = "block";
-            }
+            };
+
     </script>
     <div>
         <svg onclick="video_back5()" width="24px" height="24px"  viewBox="963 746 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1097,13 +1122,13 @@
       </svg>
       <p style="color: #fff">菜单</p>
     </div>
-  <!--视频菜单-->
-    <div id="menu" class="menu">
-    <div style="width: 20px;height: 20px;float: right;margin-top: 12px;margin-right: 20px">
-                 <svg t="1504780550984" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="956" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"><defs>
+     <div class="video_x" id="video_x">
+                 <svg t="1504780550984" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="956" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30"><defs>
                  <style type="text/css"></style></defs>
                 <path d="M512 456.310154L94.247385 38.557538a39.542154 39.542154 0 0 0-55.689847 0 39.266462 39.266462 0 0 0 0 55.689847L456.310154 512 38.557538 929.752615a39.542154 39.542154 0 0 0 0 55.689847 39.266462 39.266462 0 0 0 55.689847 0L512 567.689846l417.752615 417.752616c15.163077 15.163077 40.290462 15.36 55.689847 0a39.266462 39.266462 0 0 0 0-55.689847L567.689846 512 985.442462 94.247385a39.542154 39.542154 0 0 0 0-55.689847 39.266462 39.266462 0 0 0-55.689847 0L512 456.310154z" p-id="957" fill="#ffffff"></path></svg>
     </div>
+  <!--视频菜单-->
+    <div id="menu" class="menu">
     <div class="tab_Course" id="tab_Course">
     <div>
         <div>
@@ -1184,16 +1209,16 @@
                   $(document).ready(function(){
                $("#video_ul").click(function(){
                      $("#menu").animate({left:'900px'});
-                     $("#video_ul").animate({left:'850px'});
+                     $("#video_x").animate({left:'850px'});
+                     $("#video_x").show();
                   });
+               $("#video_x").click(
+                   function () {
+                       $("#menu").animate({left:'1200px'});
+                       $("#video_x").animate({left:'1150px'});
+                       $("#video_x").hide();
+                   })
                });
-{#            function menu_video1() {#}
-{#                if (menu.style.display == "block")#}
-{#                    menu.style.display = "none";#}
-{##}
-{#                else#}
-{#                    menu.style.display = "block";#}
-{#            }#}
        </script>
    </div>
     </div>
@@ -1296,28 +1321,15 @@
     </section>
 </div>
 <div class="tab_NOTE" id="tab_NOTE">
-
-      < id="content" class="note_pre">{{ video_obj.notes|safe }}</div>
-
+ <div>{{ video_obj.notes|safe }}</div>
 </div>
 <div class="tab_faq" id="tab_faq">
-        <div class="tab_faq_a">
-            <h4>Q:</h4><P>求问这个c++插件有什么bug？</P>
-        </div>
-        <div>
-            <span>
-               <p>这个插件的存在本来就是个BUG</p>
-        </span>
-        </div>
-
     {% for faq in faqs %}
         <div class="tab_faq_a">
-            <h4>Q:</h4><P>{{ faq.question }}</P>
+            <div style="font-size: 18px;">Q:</div><P>{{ faq.question }}</P>
         </div>
         <div>
-            <span>
-               <p>A: {{ faq.answer }}</p>
-        </span>
+            <div>A:</div><p>{{ faq.answer }}</p>
         </div>
     {% endfor %}
 </div>
@@ -1408,12 +1420,17 @@
         clearInterval(autoFI);
         faceNumber = 0;
     }
+
     function video_play(){
         var elem = document.getElementsByTagName("video")[0];
         elem.play();
         video_bofang.style.display = "none";
         video_name.style.display = "none";
         video_play_svg_div.style.display = "none";
+    }
+    function video_Paused() {
+        var elem = document.getElementsByTagName("video")[0];
+        elem.pause();
     }
     function video_speed(t,video_speed){
         var liArr = video_diy.getElementsByTagName("li");

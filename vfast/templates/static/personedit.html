@@ -246,7 +246,12 @@
                            <span></span>
                           <div style="float: right;left: 50px">
                               <p style="float: left;margin-right: 30px">真实姓名</p>
-                              <input style="width: 240px; height: 30px;margin-right: 35px " value="" type="text">
+                              <input style="width: 240px; height: 30px;margin-right: 35px " value="" type="text" id="realname">
+                              <script>
+{#                                  $("#realname").blur(function () {#}
+{#                                      #}
+{#                                  })#}
+                              </script>
                           </div>
                           </div>
                        </div>
@@ -277,13 +282,15 @@
                                </select>
 	                        </div>
 	                         <script type="text/javascript">
+                                 var birthday;
 		                      $(function(){
 			                        $("#date").selectDate()
 			                                $("#days").focusout(function(){
 				                            var year = $("#year option:selected").html()
 				                             var month = $("#month option:selected").html()
 				                              var day = $("#days option:selected").html()
-				                                console.log(year+month+day)
+                                                birthday =(year+month+day);
+				                                console.log(birthday);
 			                                 })
 		                                     })
                              </script>
@@ -308,7 +315,7 @@
                          </script>
                          <div style="float: right;margin-left: 50px">
                               <span>大学名称</span>
-                             <input style="width: 240px; height: 30px; margin-left: 36px" value="" type="text">
+                             <input style="width: 240px; height: 30px; margin-left: 36px" id="collegename" type="text">
                          </div>
                      </div>
                   </li>
@@ -323,22 +330,23 @@
                             </p>
                     </div>
                           <script type="text/javascript">
+                                    var borncity
                                    $('#demo').citys({
                                        code:110000,
                                         required:false,
                                           nodata:'disabled',
                                           onChange:function(data){
                                             var text = data['direct']?'(直辖市)':'';
-                                         console.log(data['province']+text+' '+data['city']+' '+data['area']);
+                                             borncity =(data['province']+text+' '+data['city']+' '+data['area']);
+                                         console.log(borncity);
                                            }
                                          });
-
                            </script>
                   </li>
                   <li>
                       <div style="float: left;margin-left: 20px;margin-top: 15px">
                           <span>期望职位</span>
-                          <input type="text"  style="width: 240px;height: 30px;margin-left: 20px">
+                          <input type="text"  style="width: 240px;height: 30px;margin-left: 20px" id="expect_job">
                           <div style="float: right;margin-left: 50px">
                               期望薪资
                               <select id="select3" style="width: 240px;height: 30px;margin-left: 35px">
@@ -391,22 +399,28 @@
                                     <option value="B" >B</option>
                                     <option value="AB" >AB</option>
                                     <option value="O">O</option>
-                                    <option value="狗血">狗血</option>
                              </select>
-                             <script>
-                                  $('#select2').change(function(){
-                              var p2=$(this).children('option:selected').val();//这就是selected的值
-                                    console.log(p2)
-                             });
-                             </script>
                       </div>
                   </div>
               </li>
               <li>
                   <div style="float: left;background: #F0F2F4;width: 100%;height: 70px;margin-top: 25px ">
-                      <button  style="margin-left: 40px;margin-top: 15px;width: 140px;height: 40px;background-color: #5ACD91;color: #FFFFFF;border-radius: 3px; border-width: 0px ;" id="">完成修改</button>
+                      <button  style="margin-left: 40px;margin-top: 15px;width: 140px;height: 40px;background-color: #5ACD91;color: #FFFFFF;border-radius: 3px; border-width: 0px ;" id="send">完成修改</button>
                   </div>
               </li>
+              <script>
+                      $("#send").click(function () {
+                              var xingzuo=$("#select1").children('option:selected').val();//这就是selected的值
+                              var blood=$("#select2").children('option:selected').val();
+                              var expect_salary=$("#select3").children('option:selected').val();
+                              var edution=$("#select4").children('option:selected').val();
+                              var realname=$("#realname").val();
+                              var collegename=$("#collegename").val();
+                              var expect_job=$("#expect_job").val();
+                          console.log(xingzuo+blood+expect_salary+edution+realname+collegename+expect_job+borncity+birthday)
+                          $.post("/u/editelse",{"xingzuo=":xingzuo,"blood=":blood,"expect_salary=":expect_salary,"edution=":edution,"realname=":realname,"collegename=":collegename,"expect_job=":expect_job})
+                      })
+              </script>
               </ul>
               <ul>
                   <li>
