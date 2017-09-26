@@ -595,25 +595,24 @@ def nikcname(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+@require_login()
 def editelse(request):
     """用户编辑页面修改"""
     try:
         if request.method == 'POST':
-            realname = request.POST.get('realname')
+            userid = request.session['user']['id']
             birthday = request.POST.get('birthday')
-            city = request.POST.get('city')
-            intro = request.POST.get('intro')
+            edution = request.POST.get('edution')
+            collegename = request.POST.get('collegename')
+            borncity = request.POST.get('borncity')
+            realname = request.POST.get('realname')
+            xingzuo = request.POST.get('xingzuo')
+            blood = request.POST.get('blood')
             expect_job = request.POST.get('expect_job')
-            expect_level = request.POST.get('expect_level')
-            email = request.POST.get('email')
-            current_company = request.POST.get('current_company')
-            company_gangwei = request.POST.get('company_gangwei')
-            uid = request.session['user']['id']
-            User.objects.filter(id=uid).update(email=email, realname=realname, birthday=birthday, city=city,
-                                               intro=intro,
-                                               expect_job=expect_job, expect_level=expect_level,
-                                               current_company=current_company,
-                                               company_gangwei=company_gangwei)
+            expect_salary = request.POST.get('expect_salary')
+            User.objects.filter(id=userid).update(birthday=birthday, edution=edution, collegename=collegename,
+                                                  borncity=borncity, realname=realname, xingzuo=xingzuo, blood=blood,
+                                                  expect_job=expect_job, expect_salary=expect_salary)
             return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
