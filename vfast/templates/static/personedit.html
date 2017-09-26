@@ -3,96 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-     {% include "head.html" %}
+    {% include "head.html" %}
     <script src="/static/js/image_compress.js"></script>
-    <link rel="stylesheet" href="/static/css/drop-down.css" />
+    <link rel="stylesheet" href="/static/css/drop-down.css"/>
     <script src="/static/js/jquery-ui.min.js"></script>
     <script src="/static/js/select-widget-min.js"></script>
     <script src="/static/js/select.js"></script>
     <script src="/static/js/jquery.citys.js"></script>
     <style>
-        body{font-size: 14px;
-              color: #5A646E;
-              letter-spacing: 0.4px;}
-        input{
+        body {
+            font-size: 14px;
+            color: #5A646E;
+            letter-spacing: 0.4px;
+        }
+
+        input {
             border: 2px solid #ECEFF1;
             border-radius: 4px;
         }
-        #head_cont{
+
+        #head_cont {
             box-shadow: none;
         }
-        .my-persona{width: 1200px;
-        margin: 0 auto}
-        .persona-left{
+
+        .my-persona {
+            width: 1200px;
+            margin: 0 auto
+        }
+
+        .persona-left {
             width: 65%;
             background-color: #ffffff;
             float: left;
         }
-        .persona-right{
+
+        .persona-right {
             width: 25%;;
             float: right;
             background-color: #F0F2F4;
         }
-        .persona-img{width: 160px;
-        height: 160px;
-        background-color: red;
-        border-radius: 80px;
-        float: left}
-        #persona-left ul{display: none}
-        #persona-left ul.fdiv{display: block}
-        .info_1_head{
+
+        .persona-img {
+            width: 160px;
+            height: 160px;
+            background-color: red;
+            border-radius: 80px;
+            float: left
+        }
+
+        #persona-left ul {
+            display: none
+        }
+
+        #persona-left ul.fdiv {
+            display: block
+        }
+
+        .info_1_head {
             margin-top: 50px;
             height: 100px;
             line-height: 100px;
         }
-       .info_1_head>p{
-           float: left;
-           height: 100px;
-           line-height: 100px;
-           margin: 0px !important;
-           width: 100px;
-           text-align: center;
-       }
-       .info_1_head_1{
-           float: left;
-           height: 100px;
-           position:relative;
-       }
-       .info_1_head>.info_1_head_1>img{
-            position:absolute;
-           width: 88px;
-           height: 88px;
+
+        .info_1_head > p {
+            float: left;
+            height: 100px;
+            line-height: 100px;
+            margin: 0px !important;
+            width: 100px;
+            text-align: center;
         }
-        .info_1_head>.info_1_head_1>img:first-child{
+
+        .info_1_head_1 {
+            float: left;
+            height: 100px;
+            position: relative;
+        }
+
+        .info_1_head > .info_1_head_1 > img {
+            position: absolute;
+            width: 88px;
+            height: 88px;
+        }
+
+        .info_1_head > .info_1_head_1 > img:first-child {
             left: 1px;
-           width: 88px;
-           height: 88px;;
+            width: 88px;
+            height: 88px;;
             border-radius: 88px;
         }
-        .info_1_head>.info_1_head_1>img:last-child{
-            top:5px;
+
+        .info_1_head > .info_1_head_1 > img:last-child {
+            top: 5px;
             left: 70px;
         }
-        .info_1_head>.info_1_head_2{
+
+        .info_1_head > .info_1_head_2 {
             width: 115px;
             height: 35px;
             float: left;
-            position:relative;
+            position: relative;
             padding: 8px 0px 0px 20px;
         }
-        .info_1_head_2>div{
-            width:96px;
-            height:38px;
+
+        .info_1_head_2 > div {
+            width: 96px;
+            height: 38px;
         }
-        .info_1_head_2>div:hover{
+
+        .info_1_head_2 > div:hover {
             cursor: pointer;
-            opacity:0.8;
+            opacity: 0.8;
         }
-        .info_1_head_2>div>div:first-child{
-            width:115px;
-            height:35px;
+
+        .info_1_head_2 > div > div:first-child {
+            width: 115px;
+            height: 35px;
             line-height: 35px;
-            border:2px solid #ECEFF1;
+            border: 2px solid #ECEFF1;
             position: absolute;
             background: #FFFFFF;
             border-radius: 4px;
@@ -102,23 +130,26 @@
             left: 130px;
             top: 24px;
         }
-        .info_1_head_2>div>input{
-            width:96px;
-            height:40px;
+
+        .info_1_head_2 > div > input {
+            width: 96px;
+            height: 40px;
             position: relative;
             border: none;
             margin: 0;
             opacity: 0;
             display: none;
         }
-        .info_1_head_2>input:hover{
-            cursor:pointer;
+
+        .info_1_head_2 > input:hover {
+            cursor: pointer;
         }
-        .info_1_head_2>div:last-child{
-            width:115px;
-            height:35px;
+
+        .info_1_head_2 > div:last-child {
+            width: 115px;
+            height: 35px;
             line-height: 38px;
-            border:2px solid #ECEFF1;
+            border: 2px solid #ECEFF1;
             background: #ECEFF1;
             border-radius: 4px;
             text-align: center;
@@ -128,65 +159,81 @@
             user-select: none;
             margin-left: 110px;
         }
-        .info_1_head_2>div:last-child:hover{
+
+        .info_1_head_2 > div:last-child:hover {
             cursor: pointer;
             opacity: 0.8;
         }
-        .info_1_head_2>div:last-child:active{
+
+        .info_1_head_2 > div:last-child:active {
             background: #FFFFFF;
         }
-        .conmmcpone>p{
-           text-align:center;
-            float: left;
-            width: 100px;
-            margin: 0px !important;
-        }
-        .conmmcpone>input{
-            line-height: initial!important;
-            width: 240px;
-            height: 30px;
-        }
-        .conmmcpone>div>input{
-            line-height: initial!important;
-            width: 240px;
-            height: 30px;
-        }
-        .conmmcpone{
-            height: 100px;
-            line-height: 100px;
-        }
-        .conmmcptwo{
-            height: 100px;
-            line-height: 100px;
-        }
-        .conmmcptwo>p{
+
+        .conmmcpone > p {
             text-align: center;
             float: left;
             width: 100px;
             margin: 0px !important;
         }
-        .conmmcptwo>input{
+
+        .conmmcpone > input {
+            line-height: initial !important;
+            width: 240px;
+            height: 30px;
+        }
+
+        .conmmcpone > div > input {
+            line-height: initial !important;
+            width: 240px;
+            height: 30px;
+        }
+
+        .conmmcpone {
+            height: 100px;
+            line-height: 100px;
+        }
+
+        .conmmcptwo {
+            height: 100px;
+            line-height: 100px;
+        }
+
+        .conmmcptwo > p {
+            text-align: center;
+            float: left;
+            width: 100px;
+            margin: 0px !important;
+        }
+
+        .conmmcptwo > input {
             width: 300px;
         }
-        .conmm_1{
+
+        .conmm_1 {
             height: 50px;
             line-height: 50px;
         }
-        .conmm_1>div{
+
+        .conmm_1 > div {
             margin-right: 10%;
             margin-left: 20%;
             float: left;
             height: 45px;
             margin-top: 5px;
         }
-        .conmm_1>p{
+
+        .conmm_1 > p {
             margin: 0px !important;
         }
-        .fli{ background-color:  #B7C0C7}
-         .promptDIV{
-            width:100%;
-            height:73px;
-            box-shadow: 0 2px 1px 0 rgba(0,0,0,0.25);
+
+        .fli {
+            background-color: #B7C0C7
+        }
+
+        .promptDIV {
+            width: 100%;
+            height: 73px;
+            box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.25);
             background: #5ACD91;
             color: #FFFFFF;
             text-align: center;
@@ -197,301 +244,353 @@
             z-index: 2001;
             transition: all 0.35s ease-out;
         }
-        .conmmcpone_1{
+
+        .conmmcpone_1 {
             float: right;
         }
-        select{
-           border: 2px solid #ECEFF1;
+
+        select {
+            border: 2px solid #ECEFF1;
             margin-left: 6px;
-			padding: 5px;
-			border-radius: 4px;
-			outline: none;
-		}
+            padding: 5px;
+            border-radius: 4px;
+            outline: none;
+        }
     </style>
 </head>
 <body>
 <main class="main-wrap">
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
-     <section class="promptDIV" id="promptDIV"></section>
+    <section class="promptDIV" id="promptDIV"></section>
     <div style="height: 50px"></div>
-     <div class="my-persona">
-         <section class="container">
-          <div class="persona-left" id="persona-left">
-              <ul class="fdiv">
-                  <li>
-                  <div class="info_1_head">
-                <p>你的头像</p>
-                <div class="info_1_head_1">
-                    <img id="uheadimg_this" src="{{ user.headimg }}" alt=""/>
-                    <img src="/static/head/OvalBIG.svg" alt=""/>
-                    <img style="display: none" src="/static/head/online.svg" alt=""/>
-                </div>
-                    <div class="info_1_head_2">
-                        <div>
-                           <div onclick="$('#headimg').click()">更换图片</div>
-                           <input name="headimg" id="headimg" type="file">
-                            <div onclick="resetHP()" style="display: none">恢复预设</div>
-                            <div style="margin-top: 37px">
-                              没有选择文件
+    <div class="my-persona">
+        <section class="container">
+            <div class="persona-left" id="persona-left">
+                <ul class="fdiv">
+                    <li>
+                        <div class="info_1_head">
+                            <p>你的头像</p>
+                            <div class="info_1_head_1">
+                                <img id="uheadimg_this" src="{{ user.headimg }}" alt=""/>
+                                <img src="/static/head/OvalBIG.svg" alt=""/>
+                                <img style="display: none" src="/static/head/online.svg" alt=""/>
+                            </div>
+                            <div class="info_1_head_2">
+                                <div>
+                                    <div onclick="$('#headimg').click()">更换图片</div>
+                                    <input name="headimg" id="headimg" type="file">
+                                    <div onclick="resetHP()" style="display: none">恢复预设</div>
+                                    <div style="margin-top: 37px">
+                                        没有选择文件
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                     </div>
-                   </div>
-                  </li>
-                  <li>
-                      <div class="conmmcpone">
-                         <p>称呼</p>
-                          <div>
-                           <input value="{{ user.nickname }}" type="text" onblur="submitINFO_name(this)" placeholder="昵称">
-                           <span></span>
-                          <div style="float: right;left: 50px">
-                              <p style="float: left;margin-right: 30px">真实姓名</p>
-                              <input style="width: 240px; height: 30px;margin-right: 35px " value="" type="text" id="realname">
-                              <script>
-{#                                  $("#realname").blur(function () {#}
-{#                                      #}
-{#                                  })#}
-                              </script>
-                          </div>
-                          </div>
-                       </div>
-                  </li>
-                  <li>
-                      <div class="conmmcptwo">
-                      <p>自我描述</p>
-                      <div class="info_3">
-                      <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="76.5" rows="1" onblur="submitINFO('自我介绍')" style=" border: 2px solid #ECEFF1;border-radius: 4px;">{{ user.intro }}</textarea>
-                       </div>
-                      </div>
-                  </li>
-                  <li>
-                      <div style="margin-left: 30px; margin-top: 35px;">
-                          <span>邮箱</span>
-                           <input style="width: 240px;height: 30px;margin-left: 38px" value="{% if user.email != None %}{{ user.email }}{% endif %}" onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
-                           <div style="float: right;width: 370px">
-                             <p style="float: left;width: 40px">生日</p>
-                              <div id="date" style="width: 340px">
-		                      <select name="year" style="position: absolute;z-index: 1;" id="year" onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0" onchange="this.size=0">
-			                        <option value="">选择年份</option>
-                              </select>
-		                       <select name="month" id="month" style="position: absolute;z-index: 1;margin-left: 107px;"  onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0" onchange="this.size=0">
-			                         <option value="">选择月份</option>
-		                       </select>
-		                       <select id="days" class="day" style="position: absolute;z-index: 1;margin-left: 207px;"  onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0" onchange="this.size=0">
-			                         <option value="">选择日期</option>
-                               </select>
-	                        </div>
-	                         <script type="text/javascript">
-                                 var birthday;
-		                      $(function(){
-			                        $("#date").selectDate()
-			                                $("#days").focusout(function(){
-				                            var year = $("#year option:selected").html()
-				                             var month = $("#month option:selected").html()
-				                              var day = $("#days option:selected").html()
-                                                birthday =(year+month+day);
-				                                console.log(birthday);
-			                                 })
-		                                     })
-                             </script>
-                      </div>
-                      </div>
-                  </li>
-                  <li>
-                     <div style="float: left;margin-left: 20px;margin-top: 25px">最高学历
-                        <select id="select4" style="width: 240px;height: 30px;margin-left: 20px">
-                             <option value="博士">博士</option>
-                             <option value="研究生" >研究生</option>
-                             <option value="本科" selected>本科</option>
-                             <option value="大专">大专</option>
-                             <option value="高中">高中</option>
-                             <option value="高中以下">高中以下</option>
-                        </select>
-                         <script>
-                              $('#select4').change(function(){
-                              var p4=$(this).children('option:selected').val();//这就是selected的值
+                    </li>
+                    <li>
+                        <div class="conmmcpone">
+                            <p>称呼</p>
+                            <div>
+                                <input value="{{ user.nickname }}" type="text" onblur="submitINFO_name(this)"
+                                       placeholder="昵称">
+                                <span></span>
+                                <div style="float: right;left: 50px">
+                                    <p style="float: left;margin-right: 30px">真实姓名</p>
+                                    <input style="width: 240px; height: 30px;margin-right: 35px " value="" type="text"
+                                           id="realname">
+                                    <script>
+                                        {#                                  $("#realname").blur(function () {#}
+                                        {#                                      #}
+                                        {#                                  })#}
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="conmmcptwo">
+                            <p>自我描述</p>
+                            <div class="info_3">
+                                <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="76.5" rows="1"
+                                          onblur="submitINFO('自我介绍')"
+                                          style=" border: 2px solid #ECEFF1;border-radius: 4px;">{{ user.intro }}</textarea>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="margin-left: 30px; margin-top: 35px;">
+                            <span>邮箱</span>
+                            <input style="width: 240px;height: 30px;margin-left: 38px"
+                                   value="{% if user.email != None %}{{ user.email }}{% endif %}"
+                                   onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                            <div style="float: right;width: 370px">
+                                <p style="float: left;width: 40px">生日</p>
+                                <div id="date" style="width: 340px">
+                                    <select name="year" style="position: absolute;z-index: 1;" id="year"
+                                            onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0"
+                                            onchange="this.size=0">
+                                        <option value="">选择年份</option>
+                                    </select>
+                                    <select name="month" id="month"
+                                            style="position: absolute;z-index: 1;margin-left: 107px;"
+                                            onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0"
+                                            onchange="this.size=0">
+                                        <option value="">选择月份</option>
+                                    </select>
+                                    <select id="days" class="day"
+                                            style="position: absolute;z-index: 1;margin-left: 207px;"
+                                            onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0"
+                                            onchange="this.size=0">
+                                        <option value="">选择日期</option>
+                                    </select>
+                                </div>
+                                <script type="text/javascript">
+                                    var birthday;
+                                    $(function () {
+                                        $("#date").selectDate()
+                                        $("#days").focusout(function () {
+                                            var year = $("#year option:selected").html()
+                                            var month = $("#month option:selected").html()
+                                            var day = $("#days option:selected").html()
+                                            birthday = (year + month + day);
+                                            console.log(birthday);
+                                        })
+                                    })
+                                </script>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="float: left;margin-left: 20px;margin-top: 25px">最高学历
+                            <select id="select4" style="width: 240px;height: 30px;margin-left: 20px">
+                                <option value="博士">博士</option>
+                                <option value="研究生">研究生</option>
+                                <option value="本科" selected>本科</option>
+                                <option value="大专">大专</option>
+                                <option value="高中">高中</option>
+                                <option value="高中以下">高中以下</option>
+                            </select>
+                            <script>
+                                $('#select4').change(function () {
+                                    var p4 = $(this).children('option:selected').val();//这就是selected的值
                                     console.log(p4)
-                             });
-                         </script>
-                         <div style="float: right;margin-left: 50px">
-                              <span>大学名称</span>
-                             <input style="width: 240px; height: 30px; margin-left: 36px" id="collegename" type="text">
-                         </div>
-                     </div>
-                  </li>
-                  <li>
-                      <div id="demo" style="float: left;margin-left: 7px;margin-top: 25px">
-                             <p>
-                                 <span>出生地（省）</span>
-                                 <select name="province" style="width: 240px;height: 30px"></select>
-                                 <span style="margin-left: 47px">出生地（市）</span>
-                                 <select name="city"></select>
-                                 <select name="area"></select>
+                                });
+                            </script>
+                            <div style="float: right;margin-left: 50px">
+                                <span>大学名称</span>
+                                <input style="width: 240px; height: 30px; margin-left: 36px" id="collegename"
+                                       type="text">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="demo" style="float: left;margin-left: 7px;margin-top: 25px">
+                            <p>
+                                <span>出生地（省）</span>
+                                <select name="province" style="width: 240px;height: 30px"></select>
+                                <span style="margin-left: 47px">出生地（市）</span>
+                                <select name="city"></select>
+                                <select name="area"></select>
                             </p>
-                    </div>
-                          <script type="text/javascript">
-                                    var borncity
-                                   $('#demo').citys({
-                                       code:110000,
-                                        required:false,
-                                          nodata:'disabled',
-                                          onChange:function(data){
-                                            var text = data['direct']?'(直辖市)':'';
-                                             borncity =(data['province']+text+' '+data['city']+' '+data['area']);
-                                         console.log(borncity);
-                                           }
-                                         });
-                           </script>
-                  </li>
-                  <li>
-                      <div style="float: left;margin-left: 20px;margin-top: 15px">
-                          <span>期望职位</span>
-                          <input type="text"  style="width: 240px;height: 30px;margin-left: 20px" id="expect_job">
-                          <div style="float: right;margin-left: 50px">
-                              期望薪资
-                              <select id="select3" style="width: 240px;height: 30px;margin-left: 35px">
+                        </div>
+                        <script type="text/javascript">
+                            var borncity
+                            $('#demo').citys({
+                                code: 110000,
+                                required: false,
+                                nodata: 'disabled',
+                                onChange: function (data) {
+                                    var text = data['direct'] ? '(直辖市)' : '';
+                                    borncity = (data['province'] + text + ' ' + data['city'] + ' ' + data['area']);
+                                    console.log(borncity);
+                                }
+                            });
+                        </script>
+                    </li>
+                    <li>
+                        <div style="float: left;margin-left: 20px;margin-top: 15px">
+                            <span>期望职位</span>
+                            <input type="text" style="width: 240px;height: 30px;margin-left: 20px" id="expect_job">
+                            <div style="float: right;margin-left: 50px">
+                                期望薪资
+                                <select id="select3" style="width: 240px;height: 30px;margin-left: 35px">
                                     <option value="20k以上">20k以上</option>
-                                    <option value="18k-20k" >18k-20k</option>
-                                    <option value="15k-18k" >15k-18k</option>
+                                    <option value="18k-20k">18k-20k</option>
+                                    <option value="15k-18k">15k-18k</option>
                                     <option value="10k-15k">10k-15k</option>
                                     <option value="9k-10k">9k-10k</option>
                                     <option value="5k-9k" selected>5k-9k</option>
                                     <option value="5k以下">5k以下</option>
-                             </select>
-                              <script>
-                                   $('#select3').change(function(){
-                              var p3=$(this).children('option:selected').val();//这就是selected的值
-                                    console.log(p3)
-                             });
-                              </script>
-                         </div>
-                      </div>
-                  </li>
-              <li>
-                  <div style="float: left;margin-top: 25px">
-                      <div style="float: left;margin-left: 33px">
-                          星座
-                           <select id="select1" style="width: 240px;height: 30px;margin-left: 35px">
+                                </select>
+                                <script>
+                                    $('#select3').change(function () {
+                                        var p3 = $(this).children('option:selected').val();//这就是selected的值
+                                        console.log(p3)
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="float: left;margin-top: 25px">
+                            <div style="float: left;margin-left: 33px">
+                                星座
+                                <select id="select1" style="width: 240px;height: 30px;margin-left: 35px">
                                     <option value="白羊座">白羊座</option>
-                                    <option value="金牛座" >金牛座</option>
-                                    <option value="双子座" >双子座</option>
+                                    <option value="金牛座">金牛座</option>
+                                    <option value="双子座">双子座</option>
                                     <option value="巨蟹座">巨蟹座</option>
                                     <option value="狮子座">狮子座</option>
                                     <option value="处女座">处女座</option>
                                     <option value="天平座" selected>天平座</option>
                                     <option value="天蝎座">天蝎座</option>
                                     <option value="射手座">射手座</option>
-                                    <option value="摩羯座" >摩羯座</option>
+                                    <option value="摩羯座">摩羯座</option>
                                     <option value="水瓶座">水瓶座</option>
                                     <option value="双鱼座">双鱼座</option>
-                             </select>
-                            <script>
-                                $('#select1').change(function(){
-                              var p1=$(this).children('option:selected').val();//这就是selected的值
-                                    console.log(p1)
-                             });
-                            </script>
-                      </div>
-                      <div style="float: right;margin-left: 50px">
-                          血型
-                           <select id="select2" style="width: 240px;height: 30px;margin-left: 63px;">
+                                </select>
+                                <script>
+                                    $('#select1').change(function () {
+                                        var p1 = $(this).children('option:selected').val();//这就是selected的值
+                                        console.log(p1)
+                                    });
+                                </script>
+                            </div>
+                            <div style="float: right;margin-left: 50px">
+                                血型
+                                <select id="select2" style="width: 240px;height: 30px;margin-left: 63px;">
                                     <option value="A">A</option>
-                                    <option value="B" >B</option>
-                                    <option value="AB" >AB</option>
+                                    <option value="B">B</option>
+                                    <option value="AB">AB</option>
                                     <option value="O">O</option>
-                             </select>
-                      </div>
-                  </div>
-              </li>
-              <li>
-                  <div style="float: left;background: #F0F2F4;width: 100%;height: 70px;margin-top: 25px ">
-                      <button  style="margin-left: 40px;margin-top: 15px;width: 140px;height: 40px;background-color: #5ACD91;color: #FFFFFF;border-radius: 3px; border-width: 0px ;" id="send">完成修改</button>
-                  </div>
-              </li>
-              <script>
-                      $("#send").click(function () {
-                              var xingzuo=$("#select1").children('option:selected').val();//这就是selected的值
-                              var blood=$("#select2").children('option:selected').val();
-                              var expect_salary=$("#select3").children('option:selected').val();
-                              var edution=$("#select4").children('option:selected').val();
-                              var realname=$("#realname").val();
-                              var collegename=$("#collegename").val();
-                              var expect_job=$("#expect_job").val();
-                          console.log(xingzuo+blood+expect_salary+edution+realname+collegename+expect_job+borncity+birthday)
-                          $.post("/u/editpage/editelse",{"xingzuo=":xingzuo,"blood=":blood,"expect_salary=":expect_salary,"edution=":edution,"realname=":realname,"collegename=":collegename,"expect_job=":expect_job},function (data) {
-                              
-                          })
-                      })
-              </script>
-              </ul>
-              <ul>
-                  <li>
-                      <p>新密码</p><input style="width: 300px;height: 30px" type="password" id="passwprdi" value="输入新密码">
-                  </li>
-                  <li>
-                      <p>再次确认</p><input style="width: 300px;height: 30px" type="password" id="passwprdii" value="再次确认" onblur="check()">
-                      <p id="warning"></p>
-                  </li>
-                 <li>
-                     <input style="width: 140px;height: 30px;background-color: #5ACD91 ;" type="button" id="fasong" value="确认新密码">
-                 </li>
-                  <script>
-                      function check(){
-              if(document.getElementById("passwprdi").value!= document.getElementById("passwprdii").value)
-    {
-        document.getElementById("warning").innerHTML="   两次密码的输入不一致";
-    }else{
-        document.getElementById("warning").innerHTML="   ";
-    }
-}
-                  </script>
-              </ul>
-              <ul>
-                 <li>
-                     <p>新手机号</p><input value="{{ user.phone }}" onblur="submitINFO_phone(this)" type="text" id="phone" placeholder="手机号码"><span></span>
-                 </li>
-                  <li>
-                       <button onclick="getVCode()" id="phone_button" class="phone_button">发送验证码</button>
-                  </li>
-              </ul>
-           <div style="clear: none"></div>
-          </div>
-          <div class="persona-right" id="persona-right">
-              <ul id="right_ul">
-                  <li class="fli">
-                      <div class="conmm_1">
-                          <div>
-                              <svg t="1504939670936" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3280" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
-                              <defs><style type="text/css"></style></defs>
-                              <path d="M500 128.8c-95.2 5.6-173.6 83.2-180 178.4-7.2 112 80.8 205.6 191.2 205.6 106.4 0 192-86.4 192-192 0.8-110.4-92-198.4-203.2-192zM512 575.2c-128 0-383.2 64-383.2 192v96c0 17.6 14.4 32 32 32h702.4c17.6 0 32-14.4 32-32V766.4c0-127.2-255.2-191.2-383.2-191.2z" p-id="3281"></path></svg>
-                          </div>
-                          <p>个人设置</p>
-                      </div >
-                      </li>
-                  <li>
-                      <div class="conmm_1">
-                          <div>
-                              <svg t="1504939491386" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3544" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
-                              <defs><style type="text/css"></style></defs>
-                              <path d="M800 448H704V320c0-106.4-85.6-192-192-192S320 213.6 320 320v128H224c-17.6 0-32 14.4-32 32v384c0 17.6 14.4 32 32 32h576c17.6 0 32-14.4 32-32V480c0-17.6-14.4-32-32-32zM512 736c-35.2 0-64-28.8-64-64s28.8-64 64-64 64 28.8 64 64-28.8 64-64 64z m128-288H384V320c0-70.4 57.6-128 128-128s128 57.6 128 128v128z" p-id="3545"></path></svg>
-                          </div>
-                          <p>修改密码</p>
-                      </div>
-                  </li>
-                  <li>
-                      <div class="conmm_1">
-                          <div>
-                              <svg t="1504939629255" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2120" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
-                              <defs><style type="text/css"></style></defs><path d="M798.723234 174.782745c0-60.576657-49.106418-109.683075-109.683075-109.683075l-354.708628 0c-60.576657 0-109.683075 49.106418-109.683075 109.683075l0 673.980161c0 60.576657 49.106418 109.683075 109.683075 109.683075l354.708628 0c60.576657 0 109.683075-49.106418 109.683075-109.683075L798.723234 174.782745zM264.557398 237.015112l494.256894 0 0 529.049305-494.256894 0L264.557398 237.015112zM334.356091 105.008612 689.016623 105.008612c38.548968 0 69.798692 31.249725 69.798692 69.798692l0 22.298865-494.256894 0 0-22.298865C264.557398 136.25936 295.807123 105.008612 334.356091 105.008612zM689.016623 918.53704 334.356091 918.53704c-38.548968 0-69.798692-31.249725-69.798692-69.798692l0-43.788296 494.256894 0 0 43.788296C758.814292 887.287315 727.564567 918.53704 689.016623 918.53704z" p-id="2121"></path><path d="M513.173732 829.943282c-16.70752 0-30.30112 13.5936-30.30112 30.30112 0 16.70752 13.5936 30.30112 30.30112 30.30112s30.299073-13.5936 30.299073-30.30112C543.472805 843.536882 529.881253 829.943282 513.173732 829.943282z" p-id="2122"></path></svg>
-                          </div>
-                          <p>手机号变更</p>
-                      </div>
-                  </li>
-              </ul>
-          </div>
-         </section>
-    <div class="slideDIV" style="height:150px;"></div>
-         <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer></div>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="float: left;background: #F0F2F4;width: 100%;height: 70px;margin-top: 25px ">
+                            <button style="margin-left: 40px;margin-top: 15px;width: 140px;height: 40px;background-color: #5ACD91;color: #FFFFFF;border-radius: 3px; border-width: 0px ;"
+                                    id="send">完成修改
+                            </button>
+                        </div>
+                    </li>
+                    <script>
+                        $("#send").click(function () {
+                            var xingzuo = $("#select1").children('option:selected').val();//这就是selected的值
+                            var blood = $("#select2").children('option:selected').val();
+                            var expect_salary = $("#select3").children('option:selected').val();
+                            var edution = $("#select4").children('option:selected').val();
+                            var realname = $("#realname").val();
+                            var collegename = $("#collegename").val();
+                            var expect_job = $("#expect_job").val();
+                            console.log(xingzuo + blood + expect_salary + edution + realname + collegename + expect_job + borncity + birthday)
+                            $.post("/u/editpage/editelse", {
+                                "xingzuo": xingzuo,
+                                "blood": blood,
+                                "expect_salary": expect_salary,
+                                "edution": edution,
+                                "realname": realname,
+                                "collegename": collegename,
+                                "expect_job": expect_job,
+                                "borncity": borncity,
+                                "birthday": birthday
+                            }, function (data) {
+                            })
+                        })
+                    </script>
+                </ul>
+                <ul>
+                    <li>
+                        <p>新密码</p><input style="width: 300px;height: 30px" type="password" id="passwprdi" value="输入新密码">
+                    </li>
+                    <li>
+                        <p>再次确认</p><input style="width: 300px;height: 30px" type="password" id="passwprdii" value="再次确认"
+                                          onblur="check()">
+                        <p id="warning"></p>
+                    </li>
+                    <li>
+                        <input style="width: 140px;height: 30px;background-color: #5ACD91 ;" type="button" id="fasong"
+                               value="确认新密码">
+                    </li>
+                    <script>
+                        function check() {
+                            if (document.getElementById("passwprdi").value != document.getElementById("passwprdii").value) {
+                                document.getElementById("warning").innerHTML = "   两次密码的输入不一致";
+                            } else {
+                                document.getElementById("warning").innerHTML = "   ";
+                            }
+                        }
+                    </script>
+                </ul>
+                <ul>
+                    <li>
+                        <p>新手机号</p><input value="{{ user.phone }}" onblur="submitINFO_phone(this)" type="text"
+                                          id="phone" placeholder="手机号码"><span></span>
+                    </li>
+                    <li>
+                        <button onclick="getVCode()" id="phone_button" class="phone_button">发送验证码</button>
+                    </li>
+                </ul>
+                <div style="clear: none"></div>
+            </div>
+            <div class="persona-right" id="persona-right">
+                <ul id="right_ul">
+                    <li class="fli">
+                        <div class="conmm_1">
+                            <div>
+                                <svg t="1504939670936" class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg" p-id="3280"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                                    <defs>
+                                        <style type="text/css"></style>
+                                    </defs>
+                                    <path d="M500 128.8c-95.2 5.6-173.6 83.2-180 178.4-7.2 112 80.8 205.6 191.2 205.6 106.4 0 192-86.4 192-192 0.8-110.4-92-198.4-203.2-192zM512 575.2c-128 0-383.2 64-383.2 192v96c0 17.6 14.4 32 32 32h702.4c17.6 0 32-14.4 32-32V766.4c0-127.2-255.2-191.2-383.2-191.2z"
+                                          p-id="3281"></path>
+                                </svg>
+                            </div>
+                            <p>个人设置</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="conmm_1">
+                            <div>
+                                <svg t="1504939491386" class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg" p-id="3544"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                                    <defs>
+                                        <style type="text/css"></style>
+                                    </defs>
+                                    <path d="M800 448H704V320c0-106.4-85.6-192-192-192S320 213.6 320 320v128H224c-17.6 0-32 14.4-32 32v384c0 17.6 14.4 32 32 32h576c17.6 0 32-14.4 32-32V480c0-17.6-14.4-32-32-32zM512 736c-35.2 0-64-28.8-64-64s28.8-64 64-64 64 28.8 64 64-28.8 64-64 64z m128-288H384V320c0-70.4 57.6-128 128-128s128 57.6 128 128v128z"
+                                          p-id="3545"></path>
+                                </svg>
+                            </div>
+                            <p>修改密码</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="conmm_1">
+                            <div>
+                                <svg t="1504939629255" class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg" p-id="2120"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20">
+                                    <defs>
+                                        <style type="text/css"></style>
+                                    </defs>
+                                    <path d="M798.723234 174.782745c0-60.576657-49.106418-109.683075-109.683075-109.683075l-354.708628 0c-60.576657 0-109.683075 49.106418-109.683075 109.683075l0 673.980161c0 60.576657 49.106418 109.683075 109.683075 109.683075l354.708628 0c60.576657 0 109.683075-49.106418 109.683075-109.683075L798.723234 174.782745zM264.557398 237.015112l494.256894 0 0 529.049305-494.256894 0L264.557398 237.015112zM334.356091 105.008612 689.016623 105.008612c38.548968 0 69.798692 31.249725 69.798692 69.798692l0 22.298865-494.256894 0 0-22.298865C264.557398 136.25936 295.807123 105.008612 334.356091 105.008612zM689.016623 918.53704 334.356091 918.53704c-38.548968 0-69.798692-31.249725-69.798692-69.798692l0-43.788296 494.256894 0 0 43.788296C758.814292 887.287315 727.564567 918.53704 689.016623 918.53704z"
+                                          p-id="2121"></path>
+                                    <path d="M513.173732 829.943282c-16.70752 0-30.30112 13.5936-30.30112 30.30112 0 16.70752 13.5936 30.30112 30.30112 30.30112s30.299073-13.5936 30.299073-30.30112C543.472805 843.536882 529.881253 829.943282 513.173732 829.943282z"
+                                          p-id="2122"></path>
+                                </svg>
+                            </div>
+                            <p>手机号变更</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <div class="slideDIV" style="height:150px;"></div>
+        <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+    </div>
 </main>
 <form id="fileForm"></form>
 
@@ -499,214 +598,223 @@
 {% include "feedback.html" %}
 </body>
 {% include "commonJS.html" %}
-   <script type="text/javascript">
-         var tabs=document.getElementById("persona-right").getElementsByTagName("li");
-    var divs=document.getElementById("persona-left").getElementsByTagName("ul");
-    for(var i=0;i<tabs.length;i++){
-        tabs[i].onclick=function(){change(this);}
-    }
-    function change(obj){
-        for(var i=0;i<tabs.length;i++)
-        {
-            if(tabs[i]==obj){
-                tabs[i].className="fli";
-                divs[i].className="fdiv";
-            }
-            else{
-                tabs[i].className="stote";
-                divs[i].className="";
-            }
+<script type="text/javascript">
+    var tabs = document.getElementById("persona-right").getElementsByTagName("li");
+    var divs = document.getElementById("persona-left").getElementsByTagName("ul");
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].onclick = function () {
+            change(this);
         }
     }
-     </script>
-<script>
-    window.document.onscroll = function(){
-        if($(document).scrollTop() == 0){
-            $("#head_cont").css("box-shadow","none");
-        }else{
-            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+    function change(obj) {
+        for (var i = 0; i < tabs.length; i++) {
+            if (tabs[i] == obj) {
+                tabs[i].className = "fli";
+                divs[i].className = "fdiv";
+            }
+            else {
+                tabs[i].className = "stote";
+                divs[i].className = "";
+            }
         }
     }
 </script>
 <script>
-    $(document).ready(function(){
-		$(".ui-select").selectWidget({
-			change       : function (changes) {
-				return changes;
-			},
-			effect       : "slide",
-			keyControl   : true,
-			speed        : 200
-		});
-	});
+    window.document.onscroll = function () {
+        if ($(document).scrollTop() == 0) {
+            $("#head_cont").css("box-shadow", "none");
+        } else {
+            $("#head_cont").css("box-shadow", "0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $(".ui-select").selectWidget({
+            change: function (changes) {
+                return changes;
+            },
+            effect: "slide",
+            keyControl: true,
+            speed: 200
+        });
+    });
 
-function resetHP(){
-        $.post("/u/editpage/default_headimg",function(data){
-            $("#uheadimg_this").attr("src",data.headimg);
-            $("#uheadimg").attr("src",data.headimg);
+    function resetHP() {
+        $.post("/u/editpage/default_headimg", function (data) {
+            $("#uheadimg_this").attr("src", data.headimg);
+            $("#uheadimg").attr("src", data.headimg);
             showPrompt("已经恢复预设头像~");
-        },"json")
+        }, "json")
     }
 
-    function showPrompt(message){
+    function showPrompt(message) {
         $("#promptDIV").html(message);
-        $("#promptDIV").css("top","0px");
-        setTimeout(function(){
-            $("#promptDIV").css("top","-75px");
-        },2000)
+        $("#promptDIV").css("top", "0px");
+        setTimeout(function () {
+            $("#promptDIV").css("top", "-75px");
+        }, 2000)
     }
     $("#headimg").on("change", imageCompress);
 
-    function submitINFO(info_name){
-        $.post("/u/editpage/editelse",$("#fileForm").serialize(),function(data){
-            showPrompt(info_name+" 修改成功~");
+    function submitINFO(info_name) {
+        $.post("/u/editpage/editelse", $("#fileForm").serialize(), function (data) {
+            showPrompt(info_name + " 修改成功~");
         })
     }
-    function submitINFO_name(t){
-        if(t.value.trim() == ""){
-            input_error(t,"昵称不能为空~");
+    function submitINFO_name(t) {
+        if (t.value.trim() == "") {
+            input_error(t, "昵称不能为空~");
             t.focus();
-        }else{
-            $.post("/u/editpage/nickname",{"uid":$("#uid").val(),"nickname":t.value},function(data){
+        } else {
+            $.post("/u/editpage/nickname", {"uid": $("#uid").val(), "nickname": t.value}, function (data) {
 
-                if(data.code == 0){
+                if (data.code == 0) {
                     input_blur(t);
                     showPrompt("昵称修改成功~");
-                }else{
-                    input_error(t,"昵称已存在! 换一个呗~");
+                } else {
+                    input_error(t, "昵称已存在! 换一个呗~");
                     t.focus();
                 }
-            },"json")
+            }, "json")
         }
     }
-    function submitINFO_pad(t){
-        if(t.value.trim() == ""){
-            input_error(t,"密码不能为空~");
+    function submitINFO_pad(t) {
+        if (t.value.trim() == "") {
+            input_error(t, "密码不能为空~");
             t.focus();
-        }else{
-            $.post("/u/editpage/resetpw",{"password":t.value},function(data){
-                if(data.code==0){
+        } else {
+            $.post("/u/editpage/resetpw", {"password": t.value}, function (data) {
+                if (data.code == 0) {
                     input_blur(t);
                     showPrompt("密码修改成功");
                     $(t).slideUp(50);
                     $(t).parent().parent().find("button").slideDown(200);
-                }else{
-                    input_error(t,"服务器异常，请稍后再试~");
+                } else {
+                    input_error(t, "服务器异常，请稍后再试~");
                     t.focus();
                 }
-            },"json")
+            }, "json")
         }
     }
-    function submitINFO_phone(t){
-        if(t.value.trim() == ""){
-            input_error(t,"手机号不能为空~");
+    function submitINFO_phone(t) {
+        if (t.value.trim() == "") {
+            input_error(t, "手机号不能为空~");
             t.focus();
-        }else{
-            if(!checkPhone(t.value.trim())){
-                input_error(t,"手机号格式有误！");
+        } else {
+            if (!checkPhone(t.value.trim())) {
+                input_error(t, "手机号格式有误！");
                 t.focus();
-            }else{
-                $.post("/u/exists","phone="+t.value,function(data){
-                    if(data.code == "0"){
+            } else {
+                $.post("/u/exists", "phone=" + t.value, function (data) {
+                    if (data.code == "0") {
                         input_blur(t);
                         $("#phone_span").show();
                         $("#phone_span").focus();
                         phoneNumber = t.value;
-                        $.post("/u/phonecode",{phone:t.value},function(data){
-                            if(data.code == 0){
+                        $.post("/u/phonecode", {phone: t.value}, function (data) {
+                            if (data.code == 0) {
                                 pcode = data.phone_code;
-                                showPrompt("验证码已发送至 "+t.value+", 请查看短信、并输入验证码！");
-                            }else{
+                                showPrompt("验证码已发送至 " + t.value + ", 请查看短信、并输入验证码！");
+                            } else {
                                 swal("验证码错误", "短信发送失败~！请您稍后再试！", "error");
                             }
-                        },"json")
-                    }else{
-                        input_error(t,"手机号已被使用！");
+                        }, "json")
+                    } else {
+                        input_error(t, "手机号已被使用！");
                         t.focus();
                     }
-                },'json')
+                }, 'json')
             }
         }
     }
 
-    function submitINFO_phone_add(t){
-        if(pcode == MD5(t.value)){
-            if(phoneNumber == $("#phone").val()){
-                $.post("/u/editpage/resetphone",{phone:$("#phone").val()},function(data){
-                    if(data.code == "0"){
-                        showPrompt("手机号修改成功！ 登陆账号为："+$("#phone").val());
+    function submitINFO_phone_add(t) {
+        if (pcode == MD5(t.value)) {
+            if (phoneNumber == $("#phone").val()) {
+                $.post("/u/editpage/resetphone", {phone: $("#phone").val()}, function (data) {
+                    if (data.code == "0") {
+                        showPrompt("手机号修改成功！ 登陆账号为：" + $("#phone").val());
                         input_blur(t);
                         $("#phone_span").slideUp();
                         t.value = "";
-                    }else{
+                    } else {
                         swal("修改错误", "手机号修改失败~！请您稍后再试！", "error");
                     }
-                },"json")
-            }else{
-                input_error($("#phone"),"手机号与之前不匹配！");
+                }, "json")
+            } else {
+                input_error($("#phone"), "手机号与之前不匹配！");
                 $("#phone").focus();
             }
-        }else{
-            input_error(t,"验证码错误！");
+        } else {
+            input_error(t, "验证码错误！");
             t.focus();
         }
     }
-    function input_error(t,message){
-        $(t).css("border","2px solid rgb(214,96,97)");
+    function input_error(t, message) {
+        $(t).css("border", "2px solid rgb(214,96,97)");
         $(t).parent().find("span").html(message);
         $(t).parent().find("span").slideDown();
     }
-    function input_blur(t){
-        $(t).css("border","2px solid #ECEFF1");
+    function input_blur(t) {
+        $(t).css("border", "2px solid #ECEFF1");
         $(t).parent().find("span").slideUp();
     }
-    function showPassword(t){
+    function showPassword(t) {
         $(t).slideUp(100);
         $(t).parent().find(".password").slideDown(100);
         $(t).parent().find(".password").focus();
     }
-    function bindGitHub(t){
-        if($(t).attr("class") == "off"){
-            $(t).attr("class","on_github");
-            $(t).find("img").attr("src","/static/svg/fangmao.svg");
+    function bindGitHub(t) {
+        if ($(t).attr("class") == "off") {
+            $(t).attr("class", "on_github");
+            $(t).find("img").attr("src", "/static/svg/fangmao.svg");
             location.href = "/u/editpage/github?status=on";
             showPrompt("正在绑定GitHub账号~请您稍后~");
-        }else{
-            $(t).attr("class","off");
-            $(t).find("img").attr("src","/static/svg/fangmao_hui.svg");
-            $.get("/u/editpage/github?status=off",function(data){
-                if(data.code == 0){
+        } else {
+            $(t).attr("class", "off");
+            $(t).find("img").attr("src", "/static/svg/fangmao_hui.svg");
+            $.get("/u/editpage/github?status=off", function (data) {
+                if (data.code == 0) {
                     showPrompt("成功解绑GitHub账号~");
                 }
-            },"json");
+            }, "json");
         }
     }
-    function showbindP(t){
-        if($(t).attr("class") == "off"){
-            $(t).attr("class","on_p");
-            $(t).find("img").attr("src","/static/svg/www.svg");
-            setTimeout(function(){
-                $(t).animate({width: 'toggle', opacity: 'hide'}, 'normal',function(){ $(t).hide();});
-                $(t).parent().find("input").animate({width: 'toggle', opacity: 'show'}, 'normal',function(){ $(t).parent().find("input").show();});
+    function showbindP(t) {
+        if ($(t).attr("class") == "off") {
+            $(t).attr("class", "on_p");
+            $(t).find("img").attr("src", "/static/svg/www.svg");
+            setTimeout(function () {
+                $(t).animate({width: 'toggle', opacity: 'hide'}, 'normal', function () {
+                    $(t).hide();
+                });
+                $(t).parent().find("input").animate({width: 'toggle', opacity: 'show'}, 'normal', function () {
+                    $(t).parent().find("input").show();
+                });
                 $(t).parent().find("input").focus();
-            },350);
-        }else{
-            $(t).attr("class","off");
-            $(t).find("img").attr("src","/static/svg/www_hui.svg");
-            $.post("/u/editpage/personpage",{"personpage":""},function(data){
+            }, 350);
+        } else {
+            $(t).attr("class", "off");
+            $(t).find("img").attr("src", "/static/svg/www_hui.svg");
+            $.post("/u/editpage/personpage", {"personpage": ""}, function (data) {
                 showPrompt("成功解绑个人主页~");
             })
         }
     }
-    function bindP(t){
+    function bindP(t) {
         var www = t.value;
-        if(www.indexOf("http") == -1){
-            www = "http://"+www;
+        if (www.indexOf("http") == -1) {
+            www = "http://" + www;
         }
-        $.post("/u/editpage/personpage",{"personpage":www},function(data){
+        $.post("/u/editpage/personpage", {"personpage": www}, function (data) {
             showPrompt("绑定个人主页成功~");
-            $(t).animate({width: 'toggle', opacity: 'show'}, 'normal',function(){ $(t).show();});
-            $(t).parent().find("div").animate({width: 'toggle', opacity: 'hide'}, 'normal',function(){ $(t).parent().find("input").hide();});
+            $(t).animate({width: 'toggle', opacity: 'show'}, 'normal', function () {
+                $(t).show();
+            });
+            $(t).parent().find("div").animate({width: 'toggle', opacity: 'hide'}, 'normal', function () {
+                $(t).parent().find("input").hide();
+            });
         })
     }
 </script>

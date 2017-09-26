@@ -245,7 +245,7 @@ def dashboard(request, param):
         else:
             flag, tasks = False, []
 
-        if user.pathid == 0 or Path.objects.filter(id=user.pathid).exists():
+        if user.pathid == 0 or not Path.objects.filter(id=user.pathid).exists():
             pass
 
         # 显示正在学习的路线
@@ -600,6 +600,7 @@ def editelse(request):
     """用户编辑页面修改"""
     try:
         if request.method == 'POST':
+            print request.POST
             userid = request.session['user']['id']
             birthday = request.POST.get('birthday')
             edution = request.POST.get('edution')
@@ -610,6 +611,7 @@ def editelse(request):
             blood = request.POST.get('blood')
             expect_job = request.POST.get('expect_job')
             expect_salary = request.POST.get('expect_salary')
+            print userid, birthday, expect_job
             User.objects.filter(id=userid).update(birthday=birthday, edution=edution, collegename=collegename,
                                                   borncity=borncity, realname=realname, xingzuo=xingzuo, blood=blood,
                                                   expect_job=expect_job, expect_salary=expect_salary)
