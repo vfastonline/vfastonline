@@ -16,7 +16,6 @@ class User(models.Model):
         (1, '激活')
     )
     role = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
-    realname = models.CharField('用户真实姓名', max_length=30, null=True, blank=True, default='')
     email = models.EmailField('邮箱', max_length=50, null=True, unique=True)
     password = models.CharField('密码', max_length=100, null=True)
     sex = models.CharField('性别', max_length=4, default='')
@@ -24,7 +23,6 @@ class User(models.Model):
     city = models.CharField('所在城市', max_length=50, null=True, blank=True, default='')
     intro = models.TextField('个人简介', null=True, blank=True, default='')
     is_open = models.IntegerField('个人信息是否展示', choices=IS_OPEN, default=0, null=True)
-    birthday = models.CharField('出生日期', max_length=20, null=True, blank=True, default='')
     program_exp = models.CharField('计算机编程经验', max_length=50, null=True, blank=True, default='')
     into_it = models.CharField('是否从事IT行业', max_length=10, null=True, blank=True, default='')
     comp_use_time_day = models.CharField('使用电脑频率', max_length=50, null=True, blank=True, default='')
@@ -32,7 +30,6 @@ class User(models.Model):
     githuburl = models.CharField('github主页', max_length=50, null=True, blank=True, default='')
     githubrepo = models.CharField('github 项目', max_length=50, null=True, blank=True, default='')
     personpage = models.CharField('个人主页', max_length=50, null=True, blank=True, default='')
-    expect_job = models.CharField('期望工作', max_length=100, null=True, blank=True, default='')
     expect_level = models.CharField('期望级别', max_length=50, null=True, blank=True, default='')
     current_company = models.CharField('当前所在公司', max_length=100, null=True, blank=True, default='')
     company_gangwei = models.CharField('岗位', max_length=100, null=True, blank=True, default='')
@@ -45,6 +42,17 @@ class User(models.Model):
     phone = models.CharField('手机号码', max_length=15, unique=True)
     nickname = models.CharField('昵称', max_length=30, unique=True)
     code = models.CharField('验证码', max_length=10, default='0000', null=True, blank=True)
+    birthday = models.CharField('出生日期', max_length=20, null=True, blank=True, default='')
+    edution = models.CharField('最高学历', max_length=100, null=True, blank=True, default='')
+    collegename = models.CharField('大学名称', max_length=200, null=True, blank=True, default='')
+    borncity = models.CharField('出生地', max_length=100, null=True, blank=True, default='')
+    realname = models.CharField('用户真实姓名', max_length=30, null=True, blank=True, default='')
+    xingzuo = models.CharField('星座', max_length=10, null=True, blank=True, default='')
+    blood = models.CharField('血型', max_length=5, null=True, blank=True, default='')
+    expect_job = models.CharField('期望工作', max_length=100, null=True, blank=True, default='')
+    expect_salary = models.CharField('期望薪资', max_length=10, null=True, blank=True, default='')
+
+
 
     #HR注册的相关信息
     hr_phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')
