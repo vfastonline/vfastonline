@@ -168,6 +168,7 @@ def forget_pwd_reset(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+@require_login()
 def reset_password(request):
     """重置密码"""
     try:
