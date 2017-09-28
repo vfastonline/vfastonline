@@ -120,7 +120,7 @@
                  if (sry === true && srt === true) {
                      var phone = document.getElementById('phone').value
                      $.post('/u/newforget', {'phone': phone}, function (data) {
-                         data = JSON.parse(data)
+                         data = JSON.parse(data);
                          if (data.code == 0) {
                              console.log(data.url)
                              location.href = data.url;

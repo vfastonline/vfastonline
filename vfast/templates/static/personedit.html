@@ -293,11 +293,15 @@
                             <div>
                                 <input value="{{ user.nickname }}" type="text" onblur="submitINFO_name(this)"
                                        placeholder="昵称">
-                                <span></span>
+                                <span style="position: absolute; top: 305px;left: 26%;"></span>
                                 <div style="float: right;left: 50px">
                                     <p style="float: left;margin-right: 30px">真实姓名</p>
+<<<<<<< HEAD
+                                    <input style="width: 240px; height: 30px;margin-right: 35px " value="" type="text" id="realname">
+=======
                                     <input style="width: 240px; height: 30px;margin-right: 35px " value="{{ user.realname }}" type="text"
                                            id="realname">
+>>>>>>> 70900d373441e8af3b3dc9181c563bed4e8866d1
                                 </div>
                             </div>
                         </div>
@@ -464,9 +468,9 @@
                     </li>
                     <li>
                         <div style="float: left;background: #F0F2F4;width: 100%;height: 70px;margin-top: 25px ">
-                            <button style="margin-left: 40px;margin-top: 15px;width: 140px;height: 40px;background-color: #5ACD91;color: #FFFFFF;border-radius: 3px; border-width: 0px ;"
-                                    id="send">完成修改
+                            <button style="margin-left: 40px;margin-top: 15px;width: 140px;height: 40px;background-color: #5ACD91;color: #FFFFFF;border-radius: 3px; border-width: 0px ;" id="send">完成修改
                             </button>
+                            <span style="color: #00BCD4" id="tishi"></span>
                         </div>
                     </li>
                     <script>
@@ -490,6 +494,13 @@
                                 "borncity": borncity,
                                 "birthday": birthday
                             }, function (data) {
+                                data = JSON.parse(data);
+                                if(data.code == 0){
+                                    $("#tishi").html("修改成功了！！");
+                                    console.log("修改成功！")
+                                }if(data.code == 128){
+                                    $("#tishi").html("服务器故障稍后重试！")
+                                }
                             })
                         })
                     </script>
@@ -516,14 +527,72 @@
                             }
                         }
                     </script>
+                    <script>
+                        $("#fasong").click(function () {
+                            var password=$("#passwprdii").val();
+                          $.post("/u/editpage/resetpw",{"password":password},function (data) {
+                              data = JSON.parse(data);
+                              if(data.code== 0){
+                                  alert("修改成功");
+                              }
+                          })
+                        })
+                    </script>
                 </ul>
                 <ul>
                     <li>
-                        <p>新手机号</p><input value="{{ user.phone }}" onblur="submitINFO_phone(this)" type="text"
-                                          id="phone" placeholder="手机号码"><span></span>
+                        <div>
+                        <span>新手机号</span><input style="margin-left: 40px; height: 30px;width: 300px;/*border: 2px solid rgb(214, 96, 97)*/;margin-top: 15px;margin-bottom: 25px;" value="{{ user.phone }}"  type="text" id="phone" placeholder="手机号码" onblur="checkMobile()">
+                         <div id="phone_info" style="color: red"></div>
+                         <p>验证码<input style="width: 200px;height: 30px;margin-left: 53px;" type="text" id="trdult"><input type="button" style="width: 100px; height: 30px;" id="btnSendCode" onclick="sendMessage()" value="发送验证码"/></p>
+                         <script>
+                             var sry = false;
+
+                             function checkMobile() {
+                                 var sMobile = document.getElementById("phone").value;
+                                 if (!(/^1[34578]\d{9}$/.test(sMobile))) {
+                                     document.getElementById("phone_info").innerText = "输入有误！";
+                                     sry = false;
+                                 } else {
+                                     document.getElementById("phone_info").innerText = "";
+                                     sry = true;
+                                     console.log(sry);
+                                 }
+                             }
+                             var InterValObj; //timer变量，控制时间
+                             var count = 59; //间隔函数，1秒执行
+                             var curCount;//当前剩余秒数
+                             function sendMessage() {
+                                 curCount = count;
+//设置button效果，开始计时
+                                 $("#btnSendCode").val(+curCount + "秒再获取");
+                                 InterValObj = window.setInterval(SetRemainTime, 1000);//启动计时器，1秒执行一次
+                                 console.log(InterValObj)
+                                 var phone =$("#phone").val();
+                                $.post('/u/newforget',{"phone=":phone},function (data) {
+                                   data = JSON.parse(data);
+                                    if(data.code==0){
+                                            alert("以发送!")
+                                     }
+                                 });
+                             //timer处理函数
+                             function SetRemainTime() {
+                                 if (curCount == 0) {
+                                     window.clearInterval(InterValObj);//停止计时器
+                                     $("#btnSendCode").removeAttr("disabled");//启用按钮
+                                     $("#btnSendCode").val("重新发送验证码");
+                                     code = ""; //清除验证码。如果不清除，过时间后，输入收到的验证码依然有效
+                                 }
+                                 else {
+                                     curCount--;
+                                     $("#btnSendCode").val(+curCount + "秒再获取");
+                                 }
+                             }};
+                         </script>
+                        </div>
                     </li>
                     <li>
-                        <button onclick="getVCode()" id="phone_button" class="phone_button">发送验证码</button>
+                        <button id="" style="background-color: #00BCD4;width: 150px;height: 30px;border: 1px solid #fff5d4">确认提交</button>
                     </li>
                 </ul>
                 <div style="clear: none"></div>

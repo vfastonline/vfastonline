@@ -490,6 +490,7 @@ function clear_remind(){
         $("#remind_div").html("");
         $("#remindSum").html("0");
         $("#remindSum").hide();
+        $("#remind_div1").show();
         $.get("/info/dall",function(){});
     },350);
 }
