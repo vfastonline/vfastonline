@@ -547,6 +547,8 @@
         }
         function next_Q(){
             var next_QA = parseInt($("#curr_Q").html())+1;
+            var  sser =$("#curr_Q").html();
+            console.log(sser);
             var title = $("#question_"+next_QA+" #title").val();
             var answer = $("#question_"+next_QA+" #answer").val();
             var tips = $("#question_"+next_QA+" #tips").val();
@@ -603,7 +605,7 @@
             console.log(sum, next_QA)
             console.log($("#skip_url_Q").val())
             if(sum == next_QA && $("#skip_url_Q").val() != 'False'){
-                console.log(sum)
+                console.log(sum);
                 $("#next_btn").html("下一节<img src='/static/svg/arrow.svg'/>");
                 $("#next_btn").removeAttr("click");
                 $("#next_btn").bind("click",next_video);
