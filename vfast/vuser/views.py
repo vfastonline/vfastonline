@@ -115,7 +115,6 @@ def phone_code(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
-
 def forget_pwd_phone(request):
     """忘记密码检测电话号码"""
     try:
@@ -131,13 +130,13 @@ def forget_pwd_phone(request):
                     for i in range(4):
                         code += str(random.randint(0, 9))
                     User.objects.filter(phone=phone).update(code=code)
-                    sendmessage(phone, {'code':code})
+                    sendmessage(phone, {'code': code})
                     request.session['codetimes'] += 1
                     return HttpResponse(json.dumps({'code': 0, 'url': '/u/newpasswd'}))
                 else:
                     return HttpResponse(json.dumps({'code': 1, 'msg': '该手机号今天发送验证码已超过三次'}, ensure_ascii=False))
             else:
-                return HttpResponse(json.dumps({'code':2, 'msg':'您还不是智量酷用户,请先注册'}, ensure_ascii=False))
+                return HttpResponse(json.dumps({'code': 2, 'msg': '您还不是智量酷用户,请先注册'}, ensure_ascii=False))
         else:
             return render(request, 'wangjimima.html')
     except:
@@ -153,14 +152,15 @@ def forget_pwd_reset(request):
             code = request.POST.get('code')
             passwd = request.POST.get('password')
             password = encry_password(password=passwd)
-            user = User.objects.filter(phone=phone).values('phone', 'id', 'role', 'nickname', 'totalscore', 'headimg', 'pathid', 'code').first()
+            user = User.objects.filter(phone=phone).values('phone', 'id', 'role', 'nickname', 'totalscore', 'headimg',
+                                                           'pathid', 'code').first()
             if user['code'] == code:
                 User.objects.filter(phone=phone).update(password=password)
                 request.session['login'] = True
                 request.session['user'] = user
-                return HttpResponse(json.dumps({'code':0, 'url':'/u/%s' % user['id']}))
+                return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s' % user['id']}))
             else:
-                return HttpResponse(json.dumps({'code':1, 'msg':'验证码错误'}))
+                return HttpResponse(json.dumps({'code': 1, 'msg': '验证码错误'}))
         else:
             return render(request, 'reset_passwprd.html')
     except:
@@ -239,7 +239,6 @@ def dashboard(request, param):
         # 显示已经学过的或者正在学习的课程
         sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
         courses_learning = dictfetchall(sql)
-
         task_create = task_daily(user)
         if task_create:
             flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
@@ -247,7 +246,8 @@ def dashboard(request, param):
             flag, tasks = False, []
 
         if user.pathid == 0 or not Path.objects.filter(id=user.pathid).exists():
-            pass
+            if not WatchRecord.objects.filter(user_id=user.id).exists():
+                return HttpResponseRedirect('/course/tracks')
 
         # 显示正在学习的路线
         else:
