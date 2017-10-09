@@ -140,13 +140,20 @@ def add_replay(request):
         question = Question.objects.get(id=qid)
         ret = Replay.objects.create(content=content, question=question, replay_user=user, like=0, dislike=0,
                                     createtime=time.strftime('%Y-%m-%d %H:%M:%S'), best=0)
-        attention = Attention.objects.filter(uid=uid, qid=qid).exists()
-        if attention:
-            type = InformType.objects.get(id=3)
-            url = '%s/community/question?qid=%s' % (settings.HOST, qid)
-            Inform.objects.create(color=question.video.course.color, pubtime=timezone.now(),
-                                  desc=question.title,
-                                  type=type, user=question.user, url=url)
+
+        attention = Attention.objects.filter(qid=qid).values('uid')
+        type = InformType.objects.get(id=2)
+        url = '/community/question?qid=%s' % qid
+        Inform.objects.create(color=question.video.course.color, pubtime=timezone.now(),
+                              desc=question.title,
+                              type=type, user=question.user, url=url)
+        for item in attention:
+            userid = item['uid']
+            if userid != uid:
+                user_attention = User.objects.get(id=userid)
+                Inform.objects.create(color=question.video.course.color, pubtime=timezone.now(),
+                                      desc=question.title,
+                                      type=type, user=user_attention, url=url)
         return HttpResponse(json.dumps({'code': 0, 'rid': ret.id}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
