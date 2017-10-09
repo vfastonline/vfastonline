@@ -3,9 +3,9 @@
 <head>
     <title></title>
     {% include "head.html" %}
-    <link rel="stylesheet" href="/static/css/score.css" media="screen" type="text/css" />
     <link href="/static/css/video-js.css" rel="stylesheet">
     <link href="/static/css/video-js-develop.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/score.css" media="screen" type="text/css" />
 {#    <link rel="stylesheet" href="/static/css/zhuanyong.css">#}
 {#    <script src="/static/js/highlight.pack.js"></script>#}
 {#    <script>hljs.initHighlightingOnLoad();</script>#}
@@ -32,7 +32,6 @@
             top: 95%;
             left: 85%;
             position: absolute;
-            display: block;
         }
         .video_div1:after{content: "";display: block;clear:both;}
         .video_div1 ul:after{content: "";display: block;clear:both;}
@@ -1040,13 +1039,16 @@
     </video>
      <div onclick="video_Pause()"></div>
      <script>
+
                 var elem = document.getElementsByTagName("video")[0];
          document.onkeydown=function(event){
                   var e = event || window.event || arguments.callee.caller.arguments[0];
                 if(e && e.keyCode==32&&elem.paused) { // 按 F2
-                           video_play()
+                    event.preventDefault();
+                           video_play();
                       console.log("eee");
                 }else {
+                    event.preventDefault();
                        video_Paused()
                     console.log("ccc");
                 }
@@ -1057,7 +1059,7 @@
         <path d="M155.84938,711.622493 C154.196012,711.622493 153.529394,710.455609 154.352536,709.029884 L163.566059,693.071595 C164.392743,691.639737 165.736603,691.64587 166.559746,693.071595 L175.773269,709.029884 C176.599952,710.461743 175.922711,711.622493 174.276425,711.622493 L155.84938,711.622493 Z" id="Star-3" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" fill-rule="evenodd" transform="translate(165.063044, 701.811247) rotate(90.000000) translate(-165.063044, -701.811247) "></path>
     </svg>
     <span class="video_name" id="video_name">{{ video_obj.name }}</span>
-    <div class="video_div1">
+    <div class="video_div1" id="video_div1">
     <ul id="video_diy" style="display: none">
         <li onclick="video_speed(this,10)">0.75x</li>
         <li onclick="video_speed(this,1)">1.0x</li>
@@ -1089,20 +1091,20 @@
     </div>
     </div>
     <div id="charts_container" class="charts--container">
-{#        <ul>#}
-{#            <li class="chart">#}
-{#                <div id="lineChart">#}
-{#                    <svg id="lineChartSVG" class="lineChart--svg">#}
-{#                        <defs>#}
-{#                            <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">#}
-{#                                <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />#}
-{#                                <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />#}
-{#                            </linearGradient>#}
-{#                        </defs>#}
-{#                    </svg>#}
-{#                </div>#}
-{#            </li>#}
-{#        </ul>#}
+       <ul>
+           <li class="chart">
+                <div id="lineChart">
+                    <svg id="lineChartSVG" class="lineChart--svg">
+                        <defs>
+                            <linearGradient id="lineChart--gradientBackgroundArea" x1="0" x2="0" y1="0" y2="1">
+                                <stop class="lineChart--gradientBackgroundArea--top" offset="0%" />
+                                <stop class="lineChart--gradientBackgroundArea--bottom" offset="100%" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+               </div>
+           </li>
+        </ul>
         <div id="charts_container_div" class="charts--container_div">
             <p>做的不错，{{ request.session.user.nickname }}</p>
             <p>保持住这股劲头!</p>
@@ -1516,7 +1518,7 @@
                 if(svgJS){
                     $.getJSON("/r/weekscore?uid=2",function(data,status){
                         drawLineChart('lineChart',data.weekscore);
-                        console.log(data.weekscore)
+                        console.log(data.weekscore);
                         svgJS = false;
                     });
                 }

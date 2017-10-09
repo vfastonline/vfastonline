@@ -547,7 +547,7 @@
         }
         function next_Q(){
             var next_QA = parseInt($("#curr_Q").html())+1;
-            var  sser =$("#curr_Q").html();
+            var  sser =$("#curr_Q").html()
             console.log(sser);
             var title = $("#question_"+next_QA+" #title").val();
             var answer = $("#question_"+next_QA+" #answer").val();
@@ -561,7 +561,14 @@
             $("#tips_Q").val(tips);
             $("#right_wrong").html("");
             $("#tips_content").html("");
+
             var optionArr = document.getElementById("option_"+next_QA);
+            if(optionArr == null){
+                 var str = location.href;
+               var ipos = str.indexOf("/p");
+                str1=str.substring(0,ipos);//取后部分
+              location.href =(str1+"/course/courses")
+            }
             optionArr = optionArr.getElementsByTagName("input");
             var str = "";
             for(var i = 0 ; i < optionArr.length; i++){
@@ -602,14 +609,17 @@
             }
             $("#option_div").html(str);
             var sum = parseInt($("#sum_Q").html());
-            console.log(sum, next_QA)
-            console.log($("#skip_url_Q").val())
+            console.log(sum, next_QA);
+            console.log($("#skip_url_Q").val());
             if(sum == next_QA && $("#skip_url_Q").val() != 'False'){
                 console.log(sum);
                 $("#next_btn").html("下一节<img src='/static/svg/arrow.svg'/>");
                 $("#next_btn").removeAttr("click");
                 $("#next_btn").bind("click",next_video);
-            }else{
+            }else if(sum == next_QA && $("#skip_url_Q").val() == 'False'){
+               $("#next_btn").html("章节结束<img src='/static/svg/arrow.svg'/>");
+            }
+            else{
                 $("#next_btn").html("");
                 $("#next_btn").html("下一题");
             }
