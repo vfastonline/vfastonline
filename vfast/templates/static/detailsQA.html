@@ -533,12 +533,9 @@
         </div>
         <input type="hidden" id="q_uid" value="{{ question.user.id }}">
         <input type="hidden" id="qid" value="{{ question.id }}">
-
     </section>
     <div class="slideDIV" style="height: 150px;"></div>
-
     <div class="QA_div">
-
         {% if request.session.user.id == question.user_id %}
             <section id="QA_Q_content" class="QA_Q_content clearfix">
             <div><span id="createTime">{{ question.createtime|time_comp_now }}</span><span>{{ question.user.nickname }}</span></div>

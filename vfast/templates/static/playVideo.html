@@ -1342,6 +1342,8 @@
         </div>
     {% endfor %}
 </div>
+<script src="/static/js/d3.v3.min.js"></script>
+<script src="/static/js/score.js"></script>
 <script defer="defer">
     window.onload = function(){
         var vjs_volume_bar = document.getElementsByClassName("vjs-volume-bar")[0];
@@ -1558,7 +1560,6 @@
                 $("#global_30").css("opacity","1");
             },350)
         },450)
-
     }
     function video_cc(t){
         var vjs_cc = document.getElementsByClassName("vjs-menu-content")[0];

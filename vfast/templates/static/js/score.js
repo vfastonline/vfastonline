@@ -10,7 +10,8 @@
     // parse helper functions on top
     var parse = d3.time.format( '%Y-%m-%d' ).parse;
     // data manipulation first
-    data = data.map( function( datum ) {
+    data = data.map(
+        function( datum ) {
       datum.date = parse( datum.date );
       return datum;
     } );
