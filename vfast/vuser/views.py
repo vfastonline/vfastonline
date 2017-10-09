@@ -235,7 +235,9 @@ def dashboard(request, param):
     """个人Dashboard页面"""
     try:
         param = int(param)
+        today = time.strftime('%y-%m-%d')
         user = User.objects.get(id=param)
+        userplan = Userplan.objects.filter(userid=user.id, createtime=today).values().first()
         # 显示已经学过的或者正在学习的课程
         sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
         courses_learning = dictfetchall(sql)
@@ -257,7 +259,6 @@ def dashboard(request, param):
             courses = dictfetchall(sql)  # 获取路线在的所有课程, sequence
             sql2 = 'select * from vrecord_watchcourse where user_id = %s AND course_id in (%s)' % (user.id, sequence)
             courses_wathced = dictfetchall(sql2)  # 获取用户观看过当前路线的课程,是否观看完成
-
             # 课程时间显示转换, 如果以看完课程,显示课程观看时间, 如果没有看完课程,显示课程总时间
             for item in courses:
                 for j in courses_wathced:
@@ -312,11 +313,11 @@ def dashboard(request, param):
             return render(request, 'dashBoard.html',
                           {'courses_path': courses, 'jindu': jindu, 'path_name': path.name,
                            'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4], 'path_flag': True,
-                           'tasks': tasks, 'flag': flag})
+                           'tasks': tasks, 'flag': flag, 'userplan': userplan})
 
         return render(request, 'dashBoard.html',
                       {'courses': courses_learning, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
-                       'tasks': tasks})
+                       'tasks': tasks, 'userplan': userplan})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))

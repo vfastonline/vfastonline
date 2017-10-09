@@ -675,10 +675,12 @@
              <div class="charts">
                 <div class="ct-chart ct-perfect-fourth"></div>
             </div>
+            {% if userplan.opinion %}
             <div class="erbi">
              <h3>学习建议</h3>
-             <p>构我饿i 微机软件哦尚德加工而哦提味儿哦啊哦尚德结果 i 饿哦人体肌肤尚德可积分卡尚德将罚款金额为 i 感觉哦电饭锅就哦</p>
+             <p>{{ userplan.opinion }}</p>
             </div>
+            {% endif %}
             <script>
               //图表js
 
