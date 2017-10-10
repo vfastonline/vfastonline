@@ -245,6 +245,7 @@
                     <button   style="width: 100px;height: 50px;background-color: #3c763d">发布内容</button>
                     <!--<div class="bnt_right_1" id="fasong"><p>发布内容</p></div>-->
                 </div>
+                <input type="hidden" id="uid" value="{{ user.id }}">
             </div>
      </div>
      <script>
@@ -253,11 +254,13 @@
                  var plan_desc = $("#plan_desc").val();
                  var nums = $("#nums").val();
                  var opinion = $("#opinion").val();
+                 var uid = $('#uid').val()
                  console.log(plan_desc + nums + opinion)
                  $.post("/u/uplan", {
                      plan_desc: plan_desc,
                      nums: nums,
                      opinion: opinion,
+                     uid: uid,
                  }, function (data, status) {
                      if (data.code == 0) {
                          alert("发布成功！");

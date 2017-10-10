@@ -127,3 +127,12 @@ class Faq(models.Model):
 
     def __unicode__(self):
         return self.question
+
+
+class Skill(models.Model):
+    path = models.ForeignKey(Path)
+    name = models.CharField(max_length=50, verbose_name='技能点名称')
+    weight = models.IntegerField(verbose_name='权重')
+
+    def __unicode__(self):
+        return self.name

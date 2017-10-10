@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db.models import Q, Sum
 from vuser.models import User, DailyTask, PtoP, DailyTaskstatus, Userplan
 from vperm.models import Role
-from vcourse.models import Path, Course, Video
+from vcourse.models import Path, Course, Skill
 from vrecord.models import WatchRecord, Score
 from vbadge.models import UserBadge
 from vfast.api import encry_password, get_validate, time_comp_now, require_login, get_day_of_day, sendmessage
@@ -22,8 +22,12 @@ import time
 import random
 
 
+
 # Create your views here.
 def test(request):
+    skill = Skill.objects.all().values()
+    for item in skill:
+        print item
     return render(request, '500.html')
 
 
@@ -235,7 +239,7 @@ def dashboard(request, param):
     """个人Dashboard页面"""
     try:
         param = int(param)
-        today = time.strftime('%y-%m-%d')
+        today = time.strftime('%Y-%m-%d')
         user = User.objects.get(id=param)
         userplan = Userplan.objects.filter(userid=user.id, createtime=today).values().first()
         # 显示已经学过的或者正在学习的课程
@@ -320,7 +324,7 @@ def dashboard(request, param):
                        'tasks': tasks, 'userplan': userplan})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        return render(request, '404.html')
 
 
 def task_daily(user):
@@ -328,13 +332,14 @@ def task_daily(user):
     try:
         today = time.strftime('%Y-%m-%d')
         ret = WatchRecord.objects.filter(user=user).exists()
-        d_ret = DailyTask.objects.filter(createtime__contains=today, user_id=user.id).exists()
+        d_ret = DailyTask.objects.filter(createtime=today, user_id=user.id).exists()
         user_plan = Userplan.objects.filter(userid=user.id, createtime=today).values().first()
         if ret and not d_ret:
             sql = 'select vw.*, vv.sequence from vrecord_watchrecord as vw, vcourse_video as vv where user_id = %s and vw.video_id=vv.id order by createtime desc limit 1;' % user.id
             result = dictfetchall(sql)
+            print  'ret not d_ret', user_plan['nums']
             if user_plan:
-                seqs = [str(result[0]['sequence'] + i) for i in range(1, user_plan.nums)]
+                seqs = [str(result[0]['sequence'] + i) for i in range(1, user_plan['nums'])]
             else:
                 seqs = [str(result[0]['sequence'] + i) for i in range(1, 4)]
             sql_recommand = "select * from vcourse_video where course_id = %s and sequence in (%s)" % (
@@ -346,10 +351,8 @@ def task_daily(user):
                                              vtime=item['vtime'], vtype=item['vtype'], video_name=item['name'])
                 DailyTaskstatus.objects.create(user_id=user.id, createtime=time.strftime('%Y-%m-%d'), taskstatus=1)
                 return True
-        elif ret and d_ret:
-            return True
         else:
-            return False
+            return True
     except:
         logging.getLogger().error(traceback.format_exc())
         return False
@@ -453,9 +456,10 @@ def person_page(request):
                        'totaltime': sum_watch_video_time['totaltime']})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        return render(request, '404.html')
 
 
+@require_login()
 def editpage(request):
     """个人编辑页面"""
     try:
@@ -468,7 +472,7 @@ def editpage(request):
             return HttpResponse(u'请求错误')
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
+        return render(request, '404.html')
 
 
 def is_open(request):
@@ -487,6 +491,7 @@ def is_open(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+@require_login()
 def change_headimg(request):
     """修改个人头像呢"""
     try:
@@ -516,6 +521,7 @@ def change_headimg(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+@require_login()
 def default_headimg(request):
     """恢复默认"""
     try:
@@ -532,6 +538,7 @@ def default_headimg(request):
         return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
 
 
+@require_login()
 def github(request):
     """绑定github账号"""
     try:
@@ -664,7 +671,7 @@ def ucenter(request):
         return render(request, 'xueyuanliebiao.html', {'users': users})
     except:
         logging.getLogger().error(traceback.format_exc())
-        return page_error(request)
+        return render(request, '404.html')
 
 
 def uinfo(request):
@@ -693,7 +700,7 @@ def uinfo(request):
             return page_not_found(request)
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse('error')
+        return render(request, '404.html')
 
 
 def uplan(request):
@@ -715,7 +722,7 @@ def uplan(request):
             return HttpResponse(json.dumps({'code': 1, 'msg': '请使用post method'}, ensure_ascii=False))
     except:
         logging.getLogger().error(traceback.format_exc())
-        return HttpResponse(json.dumps({'code': 128, 'msg': '请求错误', 'error': traceback.format_exc()}))
+        return render(request, '404.html')
 
 
 def studydetail(request):
