@@ -496,8 +496,8 @@
                     <span>{{ user.city }}</span>
                     <div>{{ user.intro|safe }}</div>
                     <div>
-                     <p>北京-天俺们</p>
-                     <p>我只是一行站位的傻逼！别哔哔！</p>
+                     <p>{{ user.city }}</p>
+                     <p>{{ user.intro }}</p>
                     </div>
                 </div>
 {#                <div>#}
@@ -514,12 +514,12 @@
             </div>
             <div class="info_left_1">
                <ul class="info_xin">
-                  <li>姓名<p>盖伦 </p></li>
-                  <li>生日<p>1937-08-03</p></li>
+                  <li>姓名<p>{{ user.realname }}</p></li>
+                  <li>生日<p>{{ user.birthday }}</p></li>
                </ul>
                 <ul class="info_xins">
-                    <li>性别<p>男</p></li>
-                    <li>邮箱<p>90745913@163.com</p></li>
+                    <li>性别<p>{{ user.sex }}</p></li>
+                    <li>邮箱<p>{{ user.email }}</p></li>
                 </ul>
             </div>
             <div style="clear: both;height: 30px"></div>
