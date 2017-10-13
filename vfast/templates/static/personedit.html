@@ -11,6 +11,9 @@
     <script src="/static/js/select.js"></script>
     <script src="/static/js/jquery.citys.js"></script>
     <style>
+        textarea {
+            resize: none;
+        }
         body {
             font-size: 14px;
             color: #5A646E;
@@ -58,7 +61,6 @@
         #persona-left ul.fdiv {
             display: block
         }
-
         .info_1_head {
             margin-top: 50px;
             height: 100px;
@@ -302,13 +304,11 @@
                         </div>
                     </li>
                     <li>
-                        <div class="conmmcptwo">
-                            <p>自我描述</p>
-                            <div class="info_3">
-                                <textarea placeholder="自我介绍" form="fileForm" name="intro" id="" cols="76.5" rows="1"
-                                          onblur="submitINFO('自我介绍')"
-                                          style=" border: 2px solid #ECEFF1;border-radius: 4px;">{{ user.intro }}</textarea>
-                            </div>
+                        <div>
+                            <P>
+                               <label for="content" style="margin-top: 10px;float: left;margin-left: 25px;">自我描述</label>
+                               <textarea name="content" style="border-radius: 5px;margin-left: 20px;border: 2px solid #ECEFF1;" id="content" value="{{ user.intro }}" cols="75" rows="5" onblur="submitINFO('自我介绍')" form="fileForm" type="text" placeholder="个人描述"></textarea>
+                            </P>
                         </div>
                     </li>
                     <li>
@@ -510,7 +510,7 @@
                         <p id="warning"></p>
                     </li>
                     <li>
-                        <input style="width: 140px;height: 30px;background-color: #5ACD91 ;" type="button" id="fasong"
+                        <input style="width: 140px;height: 40px;background-color: #5ACD91 ;color: #FFFFFF" type="button" id="fasong"
                                value="确认新密码">
                     </li>
                     <script>
@@ -587,7 +587,7 @@
                         </div>
                     </li>
                     <li>
-                        <button id="" style="background-color: #00BCD4;width: 150px;height: 30px;border: 1px solid #fff5d4">确认提交</button>
+                        <button id="" style="background-color: #5ACD91;color: #FFFFFF;width: 150px;height: 40px;border: 1px solid #fff5d4">确认提交</button>
                     </li>
                 </ul>
                 <div style="clear: none"></div>
