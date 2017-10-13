@@ -176,3 +176,12 @@ def course_detail(request):
     except:
         logging.getLogger().error(traceback.format_exc())
         return page_not_found(request)
+
+
+def lobby_live(request):
+    try:
+        vps = Technology.objects.all().values()
+        return render(request, 'lobby_live.html', )
+    except:
+        logging.getLogger().error(traceback.format_exc())
+        return page_not_found(request)

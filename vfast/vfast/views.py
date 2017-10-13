@@ -305,3 +305,9 @@ def upload(request):
     # res.headers['Access-Control-Allow-Headers'] = 'X-Requested-With,X_Requested_With'
     return HttpResponse(result)
 
+
+def live(request):
+    try:
+        return render(request, 'live.html')
+    except:
+        return HttpResponse('error')

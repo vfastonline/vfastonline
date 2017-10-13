@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^track$', views.getpath, name='getpath'),
     url(r'^join_track$', views.join_path, name='joinpath'),
     url(r'^course$', views.course_detail, name='course_detail'),
+    url(r'^labboylive$', views.lobby_live,),
 ]

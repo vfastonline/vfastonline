@@ -46,6 +46,7 @@ urlpatterns = [
     url('^add_question$', add_question, name='add_question'),
     url(r'^question$', question_detail, name='question_detail'),
     url(r'^replay$', replay_detail, name='replay_detail'),
+    url(r'^live$', views.live),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
