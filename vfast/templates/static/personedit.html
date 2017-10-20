@@ -307,7 +307,7 @@
                         <div>
                             <P>
                                <label for="content" style="margin-top: 10px;float: left;margin-left: 25px;">自我描述</label>
-                               <textarea name="content" style="border-radius: 5px;margin-left: 20px;border: 2px solid #ECEFF1;" id="content" value="{{ user.intro }}" cols="75" rows="5" onblur="submitINFO('自我介绍')" form="fileForm" type="text" placeholder="个人描述"></textarea>
+                               <textarea name="content" style="border-radius: 5px;margin-left: 20px;border: 2px solid #ECEFF1;" id="content"  cols="75" rows="5"  form="fileForm" type="text" placeholder="个人描述">{{ user.intro }}sdsdsdsd</textarea>
                             </P>
                         </div>
                     </li>
@@ -316,7 +316,7 @@
                             <span>邮箱</span>
                             <input style="width: 240px;height: 30px;margin-left: 38px"
                                    value="{% if user.email != None %}{{ user.email }}{% endif %}"
-                                   onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                                    name="email" form="fileForm" id="email" type="text" placeholder="邮箱">
                             <div style="float: right;width: 370px">
                                 <p style="float: left;width: 40px">生日</p>
                                 <div id="date" style="width: 340px">
@@ -477,7 +477,9 @@
                             var realname = $("#realname").val();
                             var collegename = $("#collegename").val();
                             var expect_job = $("#expect_job").val();
-                            console.log(xingzuo + blood + expect_salary + edution + realname + collegename + expect_job + borncity + birthday)
+                            var email =$("#email").val();
+                            var content =$("#content").val();
+                            console.log( content+email+ xingzuo + blood + expect_salary + edution + realname + collegename + expect_job + borncity + birthday)
                             $.post("/u/editpage/editelse", {
                                 "xingzuo": xingzuo,
                                 "blood": blood,
@@ -487,7 +489,9 @@
                                 "collegename": collegename,
                                 "expect_job": expect_job,
                                 "borncity": borncity,
-                                "birthday": birthday
+                                "birthday": birthday,
+                                "email":email,
+                                "content":content
                             }, function (data) {
                                 data = JSON.parse(data);
                                 if(data.code == 0){
