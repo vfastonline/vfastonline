@@ -181,7 +181,7 @@ def course_detail(request):
 def lobby_live(request):
     try:
         vps = Technology.objects.all().values()
-        return render(request, 'lobby_live.html', )
+        return render(request, 'lobby_live.html', {'vps':vps} )
     except:
         logging.getLogger().error(traceback.format_exc())
         return page_not_found(request)

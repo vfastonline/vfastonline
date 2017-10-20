@@ -25,12 +25,10 @@ import random
 
 # Create your views here.
 def test(request):
-    skill = Skill.objects.all().values()
-    for item in skill:
-        print item
-    return render(request, '500.html')
-
-
+    # skill = Skill.objects.all().values()
+    # for item in skill:
+    #     print item
+    return render(request,'interview_one.html')
 def userexists(request):
     """判断email, nickname是否存在"""
     try:

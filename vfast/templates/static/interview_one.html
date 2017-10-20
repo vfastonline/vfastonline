@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include "head.html" %}
+    <link href="/static/css/zhuanyong.css" rel="stylesheet">
+    <script src="/static/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        .waiceng{
+            width: 1200px;
+            margin:  0 auto;
+            background-color: #FFFFFF;
+        }
+        .timua>p{
+              font-size: 18px;
+              color: #8C96A5;
+              margin-left: 100px;
+              padding-top: 30px;
+        }
+        .timua>p>span{
+            font-weight: 800;
+        }
+        .bianji{
+            margin-top: 30px;
+            width: 1200px;
+            height: 500px;
+            background-color: #343D46;
+        }
+        .kongzhi_a{
+            float: right;
+        }
+        .kongzhi_a>ul>li{
+            float: left;
+            margin: 20px 20px 20px 0px;
+        }
+        .kongzhi_a>ul>li>button{
+            background-color: #00BCD4;
+            width: 100px;
+            height: 40px;
+            border: 1px solid #00BCD4;
+            border-radius: 5px;
+            color: #FFFFFF;
+        }
+        .kongzhi{
+            background-color: #FFFFFF;
+        }
+        .time_st{
+                margin-bottom: 30px;
+                float: right;
+                font-size: 18px;
+                color: #5A646E;
+                letter-spacing: 0.6px;
+                font-weight: 800;
+        }
+        .jieshao{
+            font-size: 18px;
+            color: #5B646C;
+            letter-spacing: 0.5px;
+            line-height: 22px;
+            width: 1000px;
+            margin: 0 auto;
+            font-weight: 600;
+        }
+        .kongzhi_b{
+                width: 700px;
+                float: left;
+                height: 80px;
+                line-height: 80px;
+                padding-left: 10%;
+        }
+        pre{
+            !important;border: 0px;
+        }
+        .daohang{
+            width: 90%;
+            height: 50px;
+            margin: 0 auto;
+        }
+        .daohang>li{
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            float: left;
+            color: #FFFFFF;
+        }
+        .xuan_ti{
+            width: 1200px;
+            margin:  0 auto;
+        }
+        .xuan_ti>li{
+            background-color: #F0F2F4;
+            height: 80px;
+            line-height: 80px;
+            box-shadow: inset 0 1px 0 0 rgba(181,181,181,0.10);
+        }
+        .xuan_ti>li>div{
+            margin-left: 10%
+        }
+        .xuan_ti>li>div>span{
+            margin-right: 40px;
+            font-size: 24px;
+            color: #7C828C
+
+        }
+    </style>
+</head>
+<body>
+    <main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+         <div style="height: 80px"></div>
+         <div style="width: 1200px;margin: 0 auto;">
+             <div style="float: right" class="time_st">距离测试结束时间还有1小时09分57秒</div>
+             <div style="clear: both"></div>
+         </div>
+        <div class="waiceng">
+            <div>
+                <div class="timua">
+                    <p>编程题<span>3/10</span></p>
+                    <div class="jieshao">阅读如下代码，该代码在浏览器中运行时，点击段落中的文本"ClickMe"，页面效果为( )？</div>
+                </div>
+                <div class="bianji">
+                       <div>
+                           <div>
+                               <pre style="background-color: #343D46">
+                                   <code class="javascript">
+                                       !(function(window, document) {
+	                                        function GVerify(options) { //创建一个图形验证码对象，接收options对象为参数
+                                             this.options = { //默认options参数值
+			                                 id: "", //容器Id
+			                                 canvasId: "verifyCanvas", //canvas的ID
+			                                 width: "90", //默认canvas宽度
+			                                 height: "30", //默认canvas高度
+			                                 type: "blend", //图形验证码默认类型blend:数字字母混合类型、number:纯数字、letter:纯字母
+			                                 code: ""
+		                                     }
+                                   </code>
+                                </pre>
+                           </div>
+                       </div>
+                </div>
+                <div class="kongzhi">
+                    <div class="kongzhi_a">
+                        <ul>
+                            <li>
+                                <button style="background-color: #7C828C;border: 1px solid  #7C828C">跳过问题</button>
+                            </li>
+                            <li>
+                                <button>提交</button>
+                            </li>
+                        </ul>
+                    </div>
+                   <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+       <ul class="xuan_ti">
+           <li>
+                  <div>
+                     <span>A.</span>
+                      大多数视频游戏都是动作游戏，高速刺激的游戏风格。这不同于回合制类型的游戏。
+                  </div>
+           </li>
+           <li>
+                  <div>
+                      <span>B.</span>
+                      视频游戏是通过每秒钟渲染一幅画面来呈现出运动的幻觉，这项技术叫做实时渲染。
+                  </div>
+           </li>
+           <li>
+                  <div>
+                      <span>C.</span>
+                      视频游戏在屏幕上按需渲染每幅画面，理论上每秒钟60帧或者个更高。
+                  </div>
+           </li>
+       </ul>
+    </main>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+</html>
