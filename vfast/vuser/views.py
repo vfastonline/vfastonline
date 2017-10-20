@@ -466,7 +466,6 @@ def editpage(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-            # return render(request, 'editInfo.html', {'user': user})
             return render(request, 'personedit.html', {'user': user})
         else:
             return HttpResponse(u'请求错误')
@@ -620,10 +619,12 @@ def editelse(request):
             blood = request.POST.get('blood')
             expect_job = request.POST.get('expect_job')
             expect_salary = request.POST.get('expect_salary')
+            intro = request.POST.get('content')
+            email = request.POST.get('email')
             print userid, birthday, expect_job
             User.objects.filter(id=userid).update(birthday=birthday, edution=edution, collegename=collegename,
                                                   borncity=borncity, realname=realname, xingzuo=xingzuo, blood=blood,
-                                                  expect_job=expect_job, expect_salary=expect_salary)
+                                                  expect_job=expect_job, expect_salary=expect_salary, intro=intro, email=email)
             return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())

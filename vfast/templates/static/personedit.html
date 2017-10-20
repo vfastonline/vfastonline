@@ -307,7 +307,7 @@
                         <div>
                             <P>
                                <label for="content" style="margin-top: 10px;float: left;margin-left: 25px;">自我描述</label>
-                               <textarea name="content" style="border-radius: 5px;margin-left: 20px;border: 2px solid #ECEFF1;" id="content"  cols="75" rows="5"  form="fileForm" type="text" placeholder="个人描述">{{ user.intro }}sdsdsdsd</textarea>
+                               <textarea name="content" style="border-radius: 5px;margin-left: 20px;border: 2px solid #ECEFF1;" id="content"  cols="75" rows="5"  form="fileForm" type="text" placeholder="个人描述">{{ user.intro }}</textarea>
                             </P>
                         </div>
                     </li>
@@ -373,7 +373,7 @@
                             <div style="float: right;margin-left: 50px">
                                 <span>大学名称</span>
                                 <input style="width: 240px; height: 30px; margin-left: 36px" id="collegename"
-                                       type="text">
+                                       type="text" value="{{ user.collegename }}">
                             </div>
                         </div>
                     </li>
@@ -404,7 +404,7 @@
                     <li>
                         <div style="float: left;margin-left: 20px;margin-top: 15px">
                             <span>期望职位</span>
-                            <input type="text" style="width: 240px;height: 30px;margin-left: 20px" id="expect_job">
+                            <input type="text" style="width: 240px;height: 30px;margin-left: 20px" id="expect_job" value="{{ user.expect_job }}">
                             <div style="float: right;margin-left: 50px">
                                 期望薪资
                                 <select id="select3" style="width: 240px;height: 30px;margin-left: 35px">
