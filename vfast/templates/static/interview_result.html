@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面试题结果页面</title>
+    {% include "head.html" %}
+    <style>
+        .z {
+            float: left;
+        }
+        .y {
+            float: right;
+        }
+        .cl {
+            clear: both;
+        }
+        .interview-bg {
+            background-color: white;
+            width:80%;
+            margin: 0 auto;
+            position: relative;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+        .interview-title h4 {
+            height:11px;
+            padding: 16px 0px;
+            font-weight: bold;
+        }
+        .margin-l {
+            margin-left: 25px;
+        }
+        .interview-feedback-title {
+            font-size: small;
+            padding: 10px;
+        }
+        .interview-feedback-content li {
+            list-style: none;
+            float: left;
+            margin-right: 100px;
+            margin-top:10px;
+        }
+        .interview-feedback-total {
+            clear: both;
+            padding: 20px 0 30px 0;
+            border-bottom: 1px solid #f0f0f0;
+            width: 90%;
+
+        }
+        .li-content {
+            color: #5ACD91;
+            text-align: center;
+            padding: 5px;
+        }
+        .li-content span {
+            font-size: x-large;
+        }
+        .li-description {
+            font-size: 10px;
+            margin:5px 0px 12px 0;
+        }
+
+        .interview-not-master li {
+            float: left;
+            width:70px;
+            height:30px;
+            background-color: #00b7ee;
+            border-radius: 10px;
+            text-align: center;
+            line-height:30px ;
+            margin: 20px;
+            color: white;
+        }
+        .interview-recommand {
+            clear: both;
+        }
+        .interview-recommand-c {
+            margin:10px 0 20px 0;
+        }
+        .recommand-point {
+            width: 400px;
+            height:230px;
+            margin-right: 20px;
+            border-radius: 10px;
+            border: 2px solid #00b7ee;
+        }
+        .interview-summary {
+            margin: 30px 0 20px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        button {
+            width:150px;
+            height: 50px;
+            background-color: #3ABAAE;
+            border: none;
+            border-radius: 10px ;
+            color: white;
+            margin: 15px;
+        }
+        .point-header {
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 15px;
+        }
+        .point-course {
+            margin: 10px 0 0 15px;
+        }
+        .course-name {
+            font-size: 20px;
+            line-height: 24px;
+            margin: 10px 0 0 15px;
+        }
+        .course-desc {
+            width: 90%;
+            height: 60px;
+            overflow: hidden;
+            margin: 5px 0 0 15px;
+        }
+        .course-tech {
+            float: left;
+            width:70px;
+            height:30px;
+            background-color: #00b7ee;
+            border-radius: 10px;
+            text-align: center;
+            line-height:30px ;
+            margin: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+
+<div class="interview-bg">
+    <div class="interview-title margin-l">
+        <h4>面试题测试反馈</h4>
+    </div>
+
+    <div class="interview-feedback margin-l">
+        <div class="interview-feedback-title">北京星尘纪元智能科技有限公司（前端开发工程师)</div>
+        <div class="interview-feedback-content">
+            <ul>
+                <li>
+                    <div class="li-content"><span>9</span>/10</div>
+                    <div class="li-description">选择题正确率</div>
+                </li>
+                <li>
+                    <div class="li-content"><span>3</span>/3</div>
+                    <div class="li-description">编程题正确率</div>
+                </li>
+                <li>
+                    <div class="li-content"><span>3</span>次</div>
+                    <div class="li-description">离开次数</div>
+                </li>
+            </ul>
+        </div>
+        <div class="interview-feedback-total">你的评测代码已反馈给招聘企业,请等候企业通知,届时您会收到邮件通知,请注意查收</div>
+    </div>
+
+    <div class="interview-not-master margin-l">
+        <div><h3>你尚未完全掌握的知识点有</h3></div>
+        <div>
+            <ul>
+                <li><div>Dom</div></li>
+                <li><div>Yaml</div></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="interview-recommand margin-l">
+        <div class="interview-recommand-c">你可以通过以下课程补充学习到这些知识点</div>
+        <div>
+            <ul>
+                <li>
+                    <div class="recommand-point z">
+                        <div  class="point-header">
+                            <div class="z">图片</div>
+                            <div class="y">59小时</div>
+                        </div>
+                        <div class="cl"></div>
+                        <div class="point-course">系列课程</div>
+                        <div class="course-name">HTML文档操作标准</div>
+                        <div class="course-desc">Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars. In many ways, it is a big step from someone who is just fooling around with astronomy to a serious student of the science. But you and I both know that there is still another big step after buying a telescope before you really know how to use it.
+So it is critically important that you get just the right telescope for where you are and what your star gazing preferences are. To start with, let’s discuss the three major kinds of telescopes and then lay down some “Telescope 101″ concepts to increase your chances that you will buy the right thing.
+The three primary types of telescopes that the amateur astronomer might buy are the Refractor, the Reflector and the Schmidt Cassegrain telescope. The first two are named for the kind of lens that is used. It is pretty easy to see that the lens is the heart of the telescope so the kind that you will use will determine the success of your use of that telescope.
+The refractor lens is the simplest because it uses a convex lens to focus the light on the eyepiece. So the lens bends outwards for this purpose. The refractor telescope’s strength is in viewing planets. The reflector’s strength is in seeing more distant objects and the lens is concave or bends in. It uses mirrors to focus the image that you eventually see. The final type, the Schmidt Cassegrain telescope is the most complex and accomplishes the goals of both but it uses an involved system of mirrors to capture the image you want to see.
+So to select just the right kind of telescope, your objectives in using the telescope are important. To really understand the strengths and weaknesses not only of the lenses and telescope design but also in how the telescope performs in various star gazing situations, it is best to do some homework up front and get exposure to the different kinds. So before you make your first purchase…
+*	Above all, establish a relationship with a reputable telescope shop that employs people who know their stuff. If you buy your telescope at a Wal-Mart or department store, the odds you will get the right thing are remote.
+*	Pick the brains of the experts. If you are not already active in an astronomy society or club, the sales people at the telescope store will be able to guide you to the active societies in your area. Once you have connections with people who have bought telescopes, you can get advice about what works and what to avoid that is more valid than anything you will get from a web article or a salesperson at Wal-Mart.
+*	Try before you buy. This is another advantage of going on some field trips with the astronomy club. You can set aside some quality hours with people who know telescopes and have their rigs set up to examine their equipment, learn the key technical aspects, and try them out before you sink money in your own set up.
+There are other considerations to factor into your final purchase decision. How mobile must your telescope be? The tripod or other accessory decisions will change significantly with a telescope that will live on your deck versus one that you plan to take to many remote locations. Along those lines, how difficult is the set up and break down? How complex is the telescope and will you have trouble with maintenance? Network to get the answers to these and other questions. If you do your homework like this, you will find just the right telescope for this next big step in the evolution of your passion for astronomy.</div>
+                        <div class="course-tech">HTML</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="recommand-point z">
+                        <div  class="point-header">
+                            <div class="z">图片</div>
+                            <div class="y">59小时</div>
+                        </div>
+                        <div class="cl"></div>
+                        <div class="point-course">系列课程</div>
+                        <div class="course-name">HTML文档操作标准</div>
+                        <div class="course-desc">Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars. In many ways, it is a big step from someone who is just fooling around with astronomy to a serious student of the science. But you and I both know that there is still another big step after buying a telescope before you really know how to use it.
+So it is critically important that you get just the right telescope for where you are and what your star gazing preferences are. To start with, let’s discuss the three major kinds of telescopes and then lay down some “Telescope 101″ concepts to increase your chances that you will buy the right thing.
+The three primary types of telescopes that the amateur astronomer might buy are the Refractor, the Reflector and the Schmidt Cassegrain telescope. The first two are named for the kind of lens that is used. It is pretty easy to see that the lens is the heart of the telescope so the kind that you will use will determine the success of your use of that telescope.
+The refractor lens is the simplest because it uses a convex lens to focus the light on the eyepiece. So the lens bends outwards for this purpose. The refractor telescope’s strength is in viewing planets. The reflector’s strength is in seeing more distant objects and the lens is concave or bends in. It uses mirrors to focus the image that you eventually see. The final type, the Schmidt Cassegrain telescope is the most complex and accomplishes the goals of both but it uses an involved system of mirrors to capture the image you want to see.
+So to select just the right kind of telescope, your objectives in using the telescope are important. To really understand the strengths and weaknesses not only of the lenses and telescope design but also in how the telescope performs in various star gazing situations, it is best to do some homework up front and get exposure to the different kinds. So before you make your first purchase…
+*	Above all, establish a relationship with a reputable telescope shop that employs people who know their stuff. If you buy your telescope at a Wal-Mart or department store, the odds you will get the right thing are remote.
+*	Pick the brains of the experts. If you are not already active in an astronomy society or club, the sales people at the telescope store will be able to guide you to the active societies in your area. Once you have connections with people who have bought telescopes, you can get advice about what works and what to avoid that is more valid than anything you will get from a web article or a salesperson at Wal-Mart.
+*	Try before you buy. This is another advantage of going on some field trips with the astronomy club. You can set aside some quality hours with people who know telescopes and have their rigs set up to examine their equipment, learn the key technical aspects, and try them out before you sink money in your own set up.
+There are other considerations to factor into your final purchase decision. How mobile must your telescope be? The tripod or other accessory decisions will change significantly with a telescope that will live on your deck versus one that you plan to take to many remote locations. Along those lines, how difficult is the set up and break down? How complex is the telescope and will you have trouble with maintenance? Network to get the answers to these and other questions. If you do your homework like this, you will find just the right telescope for this next big step in the evolution of your passion for astronomy.</div>
+                        <div class="course-tech">HTML</div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+        <div class="cl"></div>
+        <div class="interview-summary">
+            <p>加入智量酷进一步提升你的编程能力吧</p>
+            <p>我们是一群拼搏进取,曲艺风华的少年</p>
+        </div>
+    </div>
+
+
+    <div class="interview-challenge margin-l">
+        <button>挑战更多面试题</button>
+    </div>
+</div>
+</main>
+
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+</html>
