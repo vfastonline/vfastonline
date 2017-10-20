@@ -19,21 +19,10 @@ from uploader import Uploader
 
 
 import time
-def gettime(func):
 
-    def inner(request, *args, **kwargs):
-        time1 = int(time.time())
-        time.sleep(2)
-        print request.META
-
-        return func(request)
-    return inner
-
-
-@gettime
 def test(request):
     print '/test'
-    return HttpResponse('/test')
+    return render(request, 'interview_result.html')
 
 
 def project(request):
