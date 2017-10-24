@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include "head.html" %}
+     <script src="/static/js/select.js"></script>
+    <style>
+        .maximun{
+            width: 750px;
+            margin: 0 auto;
+        }
+        /*左侧导航栏*/
+        .max_left{
+            width: 286px;
+            height: 440px;
+            background-color: #3ABAAE;
+            float: left;
+        }
+        .max_left li{
+            height: 50px;
+            margin-top: 30px;
+        }
+        .max_left li div{
+            float: left;
+            width: 49px;
+            height: 49px;
+            line-height: 49px;
+            border: 2px solid #fffee8;
+            border-radius: 50%;
+            font-size: 26px;
+            color: #FFFFFF;
+            text-align:center;
+            margin-left: 30px;
+        }
+        .max_left li p{
+            height: 50px;
+            line-height: 50px;
+            opacity: 0.6;
+            font-size: 14px;
+            color: #FFFFFF;
+            margin-left: 100px;
+        }
+        /*右侧内容区*/
+        .max_right{
+            height: 440px;
+            width: 464px;
+            float: right;
+            background-color: #FFFFFF;
+        }
+        .max_right li{
+            margin-left: 38px;
+        }
+        .max_right_one{
+            height: 100px;
+            line-height: 100px;
+            margin-left: 38px;
+        }
+        .max_right_left{
+            height: 100px;
+            float: left;
+        }
+        .max_right_left p{
+            margin-bottom: 0px!important;
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            color: #5A646E;
+            letter-spacing: 0.51px;
+            font-weight: 600;
+        }
+        .tongyong_one{
+            width: 180px;
+            height: 40px;
+            background: #FFFFFF;
+            border: 2px solid #ECEFF1;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #829191;
+            letter-spacing: 0.4px;
+        }
+        .max_right_right{
+            float: right;
+        }
+        .max_right_right div{
+            width: 90px;
+            height: 90px;
+            background-color:  #ECEFF1;
+            border-radius: 50%;
+            margin-top: 10px;
+            margin-right: 80px;
+        }
+        .tongyong_tow{
+           position: absolute;
+            z-index: 1;
+            width: 118px;
+            height: 40px !important;
+            background: #FFFFFF;
+            border: 2px solid #ECEFF1;
+            border-radius: 4px;
+        }
+        .tongyong_san{
+            width: 383px;
+            height: 40px;
+            background: #FFFFFF;
+            border: 2px solid #ECEFF1;
+            border-radius: 4px;
+        }
+        .tongyong_si{
+            width: 120px;
+            height: 40px;
+            background: #3ABAAE;
+            border: none;
+            border-radius: 2px;
+            font-size: 16px;
+            color: #FFFFFF;
+            letter-spacing: 0.46px;
+        }
+        .tongyong_div{
+            margin-top: 20px;
+        }
+        #max_right_wai ul {
+            display: none
+        }
+
+        #max_right_wai ul.fdiv {
+            display: block
+        }
+        .fli {
+
+        }
+        .fli div{
+            background-color:#FFFFFF;
+        }
+        .fli p{
+            opacity: 1;
+        }
+        .max_right_wai{
+             height: 440px;
+            width: 464px;
+            float: right;
+            background-color: #FFFFFF;
+        }
+        .max_right_wai ul li {
+            margin-left: 30px;
+        }
+        .tongyong_wu{
+            margin-bottom: 0px!important;
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            color: #5A646E;
+            letter-spacing: 0.51px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <div style="height: 75px"></div>
+    <div class="maximun">
+        <ul class="max_left" id="max_left">
+            <li class="fli">
+                <div>1</div>
+                <p>设置一下你的基本信息</p>
+            </li>
+            <li>
+                <div>2</div>
+                <p>添加一份工作经历</p>
+            </li>
+            <li>
+                <div>3</div>
+                <p>学历信息</p>
+            </li>
+            <li>
+                <div>4</div>
+                <p>期待的工作</p>
+            </li>
+            <li>
+                <div>5</div>
+                <p>简述你的优势</p>
+            </li>
+        </ul>
+        <div class="max_right_wai" id="max_right_wai">
+        <ul class="max_right fdiv">
+            <li class="max_right_one">
+                <div class="max_right_left">
+                    <p>你的基本信息</p>
+                    <p><input class="tongyong_one" type="text" name="name" value="你的名字"></p>
+                </div>
+                <div class="max_right_right">
+                    <div>
+                        头像
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div style="width: 390px;margin-top: 18px">
+                <button class="tongyong_one">男</button>
+                <button class="tongyong_one" style="margin-left: 20px">女</button>
+                </div>
+            </li>
+            <li>
+               <div id="date" style="margin-top: 18px">
+                                    <select name="year" class="tongyong_tow" id="year"
+                                            onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0"
+                                            onchange="this.size=0">
+                                        <option value="">生日-年</option>
+                                    </select>
+                                    <select name="month" id="month" class="tongyong_tow"
+                                            style="margin-left: 133px;"
+                                            onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0"
+                                            onchange="this.size=0">
+                                        <option value="">生日-月</option>
+                                    </select>
+                                    <select id="days"  class="tongyong_tow"
+                                            style="margin-left: 265px;"
+                                            onmousedown="if(this.options.length>5){this.size=6}" onblur="this.size=0"
+                                            onchange="this.size=0">
+                                        <option value="">生日-日</option>
+                                    </select>
+                                </div>
+                                <script type="text/javascript">
+                                    var birthday;
+                                    $(function () {
+                                        $("#date").selectDate()
+                                        $("#days").focusout(function () {
+                                            var year = $("#year option:selected").html()
+                                            var month = $("#month option:selected").html()
+                                            var day = $("#days option:selected").html()
+                                            birthday = (year + month + day);
+                                            console.log(birthday);
+                                        })
+                                    })
+                                </script>
+            </li>
+            <li style="margin-top: 75px">
+                <select class="tongyong_san">
+                    <option value="">离职-随时到岗</option>
+                    <option value="">在职-不考虑机会</option>
+                    <option value="" selected>在职-月内到岗</option>
+                    <option value="">在职考虑机会</option>
+                </select>
+            </li>
+            <li>
+               <div class="tongyong_div">
+                  <select class="tongyong_san">
+                    <option value=""selected>工作年限</option>
+                    <option value="">一年</option>
+                    <option value="" >三年</option>
+                    <option value="">三年以上</option>
+                  </select>
+               </div>
+            </li>
+            <li>
+                <div class="tongyong_div">
+                   <button class="tongyong_si">
+                      下一步
+                   </button>
+                </div>
+            </li>
+        </ul>
+        <ul class="max_right">
+            <li>
+                    <p class="tongyong_wu">最近一份工作经历</p>
+            </li>
+            <li>
+               <input class="tongyong_san" type="text" name="gongsiname" value="公司名称">
+            </li>
+            <li>
+               <input class="tongyong_san" type="text" name="gongsiname" value="您的职位" style="margin-top: 18px">
+            </li>
+            <li>
+                <div style="width: 390px;margin-top: 18px">
+                <button class="tongyong_one">入职年</button>
+                <button class="tongyong_one" style="margin-left: 20px">入职月</button>
+                </div>
+            </li>
+            <li>
+                <div style="width: 390px;margin-top: 18px">
+                <button class="tongyong_one">离职年</button>
+                <button class="tongyong_one" style="margin-left: 20px">离职月</button>
+                </div>
+            </li>
+            <li>
+                <textarea></textarea>
+            </li>
+            <li>
+                <div class="tongyong_div">
+                   <button class="tongyong_si">
+                      下一步
+                   </button>
+                </div>
+            </li>
+        </ul>
+        <ul class="max_right">
+            <li>
+                    <p class="tongyong_wu">您的学历信息</p>
+            </li>
+            <li>
+               <input class="tongyong_san" type="text" name="gongsiname" value="您的大学名" style="margin-top: 18px">
+            </li>
+            <li>
+               <input class="tongyong_san" type="text" name="gongsiname" value="您的大学专业" style="margin-top: 18px">
+            </li>
+            <li>
+                <select class="tongyong_san" style="margin-top: 18px">
+                     <option value="" selected>您的学历</option>
+                    <option value="">本科</option>
+                    <option value="">大专</option>
+                    <option value="">研究生</option>
+                </select>
+            </li>
+            <li>
+               <div style="width: 390px;margin-top: 18px">
+                <button class="tongyong_one">入学时间年</button>
+                <button class="tongyong_one" style="margin-left: 20px">入学时间月</button>
+                </div>
+            </li>
+            <li>
+                <div style="width: 390px;margin-top: 18px">
+                <button class="tongyong_one">毕业时间年</button>
+                <button class="tongyong_one" style="margin-left: 20px">毕业时间月</button>
+                </div>
+            </li>
+            <li>
+                <div class="tongyong_div">
+                   <button class="tongyong_si">
+                      下一步
+                   </button>
+                </div>
+            </li>
+        </ul>
+        <ul class="max_right">
+            <li>
+                    <p class="tongyong_wu">你的期待怎样的工作？</p>
+            </li>
+            <li>
+               <select class="tongyong_san" style="margin-top: 18px">
+                     <option value="" selected>选择期望职位</option>
+                    <option value="">本科</option>
+                    <option value="">大专</option>
+                    <option value="">研究生</option>
+                </select>
+            </li>
+            <li>
+              <select class="tongyong_san" style="margin-top: 18px">
+                     <option value="" selected>期望的薪资范围</option>
+                    <option value="">本科</option>
+                    <option value="">大专</option>
+                    <option value="">研究生</option>
+                </select>
+            </li>
+            <li>
+                <select class="tongyong_san" style="margin-top: 18px">
+                    <option value="">离职-随时到岗</option>
+                    <option value="">在职-不考虑机会</option>
+                    <option value="" selected>期望行业</option>
+                    <option value="">在职考虑机会</option>
+                </select>
+            </li>
+            <li>
+               <input class="tongyong_san" type="text" name="gongsiname" value="期望的工作城市" style="margin-top: 18px">
+            </li>
+            <li>
+                <div class="tongyong_div">
+                   <button class="tongyong_si">
+                      下一步
+                   </button>
+                </div>
+            </li>
+        </ul>
+        <ul class="max_right">
+            <li>
+                    <p class="tongyong_wu">描述一下您的优势</p>
+            </li>
+            <li>
+                <div style="width: 390px;margin-top: 18px">
+                <button class="tongyong_one">男</button>
+                <button class="tongyong_one" style="margin-left: 20px">女</button>
+                </div>
+            </li>
+            <li>
+                <div class="tongyong_div">
+                   <button class="tongyong_si">
+                      下一步
+                   </button>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+</main>
+<script>
+ var tabs = document.getElementById("max_left").getElementsByTagName("li");
+    var divs = document.getElementById("max_right_wai").getElementsByTagName("ul");
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].onclick = function () {
+            change(this);
+        }
+    }
+    function change(obj) {
+        for (var i = 0; i < tabs.length; i++) {
+            if (tabs[i] == obj) {
+                tabs[i].className = "fli";
+                divs[i].className = "fdiv";
+            }
+            else {
+                tabs[i].className = "";
+                divs[i].className = "";
+            }
+        }
+    }
+</script>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+</html>
