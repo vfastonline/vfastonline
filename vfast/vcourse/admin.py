@@ -7,6 +7,7 @@ from vcourse.models import Path, Technology, Course, Video, Section, Faq, Skill
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'section', 'vtime', 'score', 'scorepeople', 'course', 'createtime', 'sequence')
     search_fields = ('name', 'createtime',)
+    ordering = ('-course',)
 
 
 class PathAdmin(admin.ModelAdmin):
