@@ -96,6 +96,7 @@ class Video(models.Model):
     vurl = models.FileField('视频存放位置', upload_to='video/%y%m%d', null=True, blank=True)
     cc = models.FileField('字幕存放位置', upload_to='video/%y%m%d', null=True, blank=True, default=' ')
     notes = models.TextField('讲师笔记', default='', null=True, blank=True)
+    video_test = models.TextField('课后实验', default='', null=True, blank=True)
     score = models.IntegerField('总评星', null=True, blank=True, default=0)
     scorepeople = models.IntegerField('评星人数', null=True, blank=True, default=0)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='课程ID')
