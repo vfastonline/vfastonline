@@ -997,6 +997,16 @@
         .menu1{
          display:block;
         }
+        .tab_test{
+             width: 1200px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            padding: 30px 20px 20px;
+            display: none;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius:0px 0px 8px 8px;
+            height:auto;
+        }
     </style>
     <script>
 
@@ -1275,6 +1285,7 @@
 <div class="tab_menu" id="tab_menu">
     <ul>
         <li onclick="tab_sel(this,'tab_NOTE')">讲师笔记</li>
+        <li onclick="tab_sel(this,'tab_test')">课后实验</li>
         <li onclick="tab_sel(this,'tab_faq')">常见问题</li>
         <li id="button_QA" onclick="tab_sel(this,'tab_QA')">问答版</li>
     </ul>
@@ -1328,6 +1339,10 @@
         </div>
     {% endfor %}
     </section>
+</div>
+<div class="tab_test" id =tab_test>
+    我在这里啊
+    <img src="/static/imgs/style.png">
 </div>
 <div class="tab_NOTE" id="tab_NOTE">
  <div style="margin: 30px">{{ video_obj.notes|safe }}</div>
@@ -1582,6 +1597,7 @@
         tab_QA.style.display = "none";
         tab_NOTE.style.display = "none";
         tab_faq.style.display = "none";
+        tab_test.style.display = "none";
         document.getElementById(tab_id).style.display = "block";
 
         var liArr = tab_menu.getElementsByTagName("li");
