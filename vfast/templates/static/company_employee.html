@@ -130,7 +130,7 @@
 
         }
         .fli div{
-            background-color:#FFFFFF;
+            background-color:#555555;
         }
         .fli p{
             opacity: 1;
@@ -153,6 +153,7 @@
             letter-spacing: 0.51px;
             font-weight: 600;
         }
+        .hehe{display: none}
     </style>
 </head>
 <body>
@@ -191,7 +192,7 @@
                 </div>
                 <div class="max_right_right">
                     <div>
-                        头像
+                        <img style="margin-bottom: 15px;margin-left: 30px;width: 30px;" src="/static/imgs/zhaoxiangji.png" alt="你的头像">
                     </div>
                 </div>
             </li>
@@ -255,7 +256,7 @@
             </li>
             <li>
                 <div class="tongyong_div">
-                   <button class="tongyong_si">
+                   <button class="tongyong_si" onclick="add()">
                       下一步
                    </button>
                 </div>
@@ -273,25 +274,126 @@
             </li>
             <li>
                 <div style="width: 390px;margin-top: 18px">
-                <button class="tongyong_one">入职年</button>
-                <button class="tongyong_one" style="margin-left: 20px">入职月</button>
+                    <select class="tongyong_one">
+            <option selected>入职时间-年</option>
+            <option>1997</option>
+            <option>1998</option>
+            <option>1999</option>
+            <option>2000</option>
+            <option>2001</option>
+            <option>2002</option>
+            <option>2003</option>
+            <option>2004</option>
+            <option>2005</option>
+            <option>2006</option>
+            <option>2007</option>
+            <option>2008</option>
+            <option>2009</option>
+            <option>2010</option>
+            <option>2011</option>
+            <option>2012</option>
+            <option>2013</option>
+            <option>2014</option>
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+        </select>
+                     <select class="tongyong_one" style="margin-left: 20px">
+            <option selected>入职时间-月</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
                 </div>
             </li>
             <li>
                 <div style="width: 390px;margin-top: 18px">
-                <button class="tongyong_one">离职年</button>
-                <button class="tongyong_one" style="margin-left: 20px">离职月</button>
+                 <select class="tongyong_one">
+            <option selected>离职时间-年</option>
+            <option>1997</option>
+            <option>1998</option>
+            <option>1999</option>
+            <option>2000</option>
+            <option>2001</option>
+            <option>2002</option>
+            <option>2003</option>
+            <option>2004</option>
+            <option>2005</option>
+            <option>2006</option>
+            <option>2007</option>
+            <option>2008</option>
+            <option>2009</option>
+            <option>2010</option>
+            <option>2011</option>
+            <option>2012</option>
+            <option>2013</option>
+            <option>2014</option>
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+        </select>
+                 <select class="tongyong_one" style="margin-left: 20px">
+            <option selected>离职时间-月</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
                 </div>
             </li>
             <li>
-                <textarea></textarea>
+                <textarea id="updateInput" class="updateInput" style="margin-top:10px;height:117px;width:385px;resize:none;border: 2px solid #f0f3f5;border-radius: 5px" onkeyup="javascript:checkWord(this);" onmousedown="javascript:checkWord(this);" placeholder="请简述你的工作内容
+                  例如： 1. 负责新员工入职培训；2.分析制定员工每月销售业绩等"></textarea>
+                  <div style="position: absolute;top: 497px;left: 1200px;"><span style="font-size: 16px;" id="wordCheck">1600</span>个字 </div>
+            <script>
+                  function Q(s) { return document.getElementById(s); }
+                    function checkWord(c) {
+                        var maxstrlen = 1600;
+                        len = maxstrlen;
+                        var str = c.value;              //对象的内容
+                        myLen = getStrleng(str);   //计算str的字符个数
+                        var wck = Q("wordCheck");
+                        if (myLen > len * 2) {
+                                c.value = str.substring(0, i - 1);
+                                } else {
+                                wck.innerHTML = Math.floor((len * 2 - myLen) / 2);    //Math.floor(x),返回值：小于等于 x，且与 x 最接近的整数
+                                     }                                                                                       //但是Math.floor((5 * 2 - 1) / 2)=4
+                                             }
+                         function getStrleng(str) {
+                                      var maxstrlen = 1600;
+                                                         myLen = 0;
+                                                             i = 0;
+                                                         for (; (i < str.length) && (myLen <= maxstrlen * 2); i++) {
+                                                     if (str.charCodeAt(i) > 0 && str.charCodeAt(i) < 128)           //根据Unicode编码值判断是否汉字
+                                                             myLen++;
+                                                             else
+                                                                 myLen += 2;
+                                                                      }
+                                                                 return myLen;
+                                                                  }
+                                                        </script>
             </li>
             <li>
-                <div class="tongyong_div">
                    <button class="tongyong_si">
                       下一步
                    </button>
-                </div>
             </li>
         </ul>
         <ul class="max_right">
@@ -314,14 +416,88 @@
             </li>
             <li>
                <div style="width: 390px;margin-top: 18px">
-                <button class="tongyong_one">入学时间年</button>
-                <button class="tongyong_one" style="margin-left: 20px">入学时间月</button>
+                <select class="tongyong_one">
+            <option selected>入学时间-年</option>
+            <option>1997</option>
+            <option>1998</option>
+            <option>1999</option>
+            <option>2000</option>
+            <option>2001</option>
+            <option>2002</option>
+            <option>2003</option>
+            <option>2004</option>
+            <option>2005</option>
+            <option>2006</option>
+            <option>2007</option>
+            <option>2008</option>
+            <option>2009</option>
+            <option>2010</option>
+            <option>2011</option>
+            <option>2012</option>
+            <option>2013</option>
+            <option>2014</option>
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+        </select>
+                <select class="tongyong_one" style="margin-left: 20px">
+            <option selected>入学时间-月</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
                 </div>
             </li>
             <li>
                 <div style="width: 390px;margin-top: 18px">
-                <button class="tongyong_one">毕业时间年</button>
-                <button class="tongyong_one" style="margin-left: 20px">毕业时间月</button>
+                <select class="tongyong_one">
+            <option selected>毕业时间-年</option>
+            <option>1997</option>
+            <option>1998</option>
+            <option>1999</option>
+            <option>2000</option>
+            <option>2001</option>
+            <option>2002</option>
+            <option>2003</option>
+            <option>2004</option>
+            <option>2005</option>
+            <option>2006</option>
+            <option>2007</option>
+            <option>2008</option>
+            <option>2009</option>
+            <option>2010</option>
+            <option>2011</option>
+            <option>2012</option>
+            <option>2013</option>
+            <option>2014</option>
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+        </select>
+                <select class="tongyong_one" style="margin-left: 20px">
+            <option selected>入学时间-月</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+        </select>
                 </div>
             </li>
             <li>
@@ -339,25 +515,26 @@
             <li>
                <select class="tongyong_san" style="margin-top: 18px">
                      <option value="" selected>选择期望职位</option>
-                    <option value="">本科</option>
-                    <option value="">大专</option>
-                    <option value="">研究生</option>
+                    <option value="">IT实习</option>
+                    <option value="">运维工程师</option>
+                    <option value="">大数据工程师</option>
                 </select>
             </li>
             <li>
               <select class="tongyong_san" style="margin-top: 18px">
                      <option value="" selected>期望的薪资范围</option>
-                    <option value="">本科</option>
-                    <option value="">大专</option>
-                    <option value="">研究生</option>
+                    <option value="">8k以下</option>
+                    <option value="">15k</option>
+                    <option value="">30k以上</option>
                 </select>
             </li>
             <li>
                 <select class="tongyong_san" style="margin-top: 18px">
-                    <option value="">离职-随时到岗</option>
-                    <option value="">在职-不考虑机会</option>
+                    <option value="">机械 制造</option>
+                    <option value="">经济 财经</option>
                     <option value="" selected>期望行业</option>
-                    <option value="">在职考虑机会</option>
+                    <option value="">政府 国企</option>
+                    <option >知名互联网公司</option>
                 </select>
             </li>
             <li>
@@ -398,6 +575,7 @@
     for (var i = 0; i < tabs.length; i++) {
         tabs[i].onclick = function () {
             change(this);
+            add(this)
         }
     }
     function change(obj) {
@@ -410,6 +588,14 @@
                 tabs[i].className = "";
                 divs[i].className = "";
             }
+        }
+    }
+    function add(){
+        for(var j = 0;j<divs.length;j++){
+            divs[j].style.display ="none"
+            divs = divs[j+1];
+            divs.className = "fdiv";
+
         }
     }
 </script>
