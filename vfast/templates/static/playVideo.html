@@ -1341,8 +1341,7 @@
     </section>
 </div>
 <div class="tab_test" id =tab_test>
-    我在这里啊
-    <img src="/static/imgs/style.png">
+    {{ video_obj.video_test | safe }}
 </div>
 <div class="tab_NOTE" id="tab_NOTE">
  <div style="margin: 30px">{{ video_obj.notes|safe }}</div>
