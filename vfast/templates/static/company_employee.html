@@ -541,7 +541,7 @@
                <input class="tongyong_san" type="text" name="gongsiname" value="期望的工作城市" style="margin-top: 18px">
             </li>
             <li>
-                <div class="tongyong_div">
+                <div class="tongyong_div" id="next">
                    <button class="tongyong_si">
                       下一步
                    </button>
@@ -572,11 +572,11 @@
 <script>
  var tabs = document.getElementById("max_left").getElementsByTagName("li");
     var divs = document.getElementById("max_right_wai").getElementsByTagName("ul");
+
     for (var i = 0; i < tabs.length; i++) {
         tabs[i].onclick = function () {
             change(this);
-            add(this)
-        }
+        };
     }
     function change(obj) {
         for (var i = 0; i < tabs.length; i++) {
@@ -590,14 +590,13 @@
             }
         }
     }
-    function add(){
-        for(var j = 0;j<divs.length;j++){
-            divs[j].style.display ="none"
-            divs = divs[j+1];
-            divs.className = "fdiv";
-
-        }
-    }
+{#   function add(){#}
+{#       for(var j = 0;j<divs.length;j++){#}
+{#           divs[j].style.display ="none"#}
+{#            divs = divs[j+1];#}
+{#           divs.className = "fdiv";#}
+{#        }#}
+{#  }#}
 </script>
 {% include "search_div.html" %}
 {% include "feedback.html" %}
