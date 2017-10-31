@@ -259,8 +259,8 @@ function reg_submit(){
                     closeOnConfirm: false
                 },
                 function(){
-                    // window.location.reload(true);
-                    window.open('/course/tracks')
+                     window.location.reload(true);
+                    window.open('/course/tracks');
                 });
             }else{
                 swal("错误！", "注册失败！", "warning");
