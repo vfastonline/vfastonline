@@ -1208,7 +1208,7 @@
         </div>
     </div>
             {% else %}
-                    <div class="tab_xi" onclick="tab_video_play('/practice/{{ video.id }}')">
+                    <div class="tab_xi" onclick="tab_video_play('/practice/{{ video.id }}')" >
             <div style="margin-top: 15px">
                 <svg width="12" height="18" viewBox="0 0 12 18">
                   <g fill="#FFF" fill-rule="evenodd" transform="translate(.667 .667)">
@@ -1608,7 +1608,10 @@
     function tab_video_play(source){
         window.location.href = source;
     }
+    function tab_video_play() {
+        var stre =document.getElementsByClassName("")
 
+    }
     setTimeout(function(){
         medal_circle_1.style.animation = "medal_circle_1_animation 5s";
         setTimeout(function(){
