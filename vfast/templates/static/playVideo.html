@@ -531,6 +531,7 @@
             background: #5ACD91!important;
         }
         .tab_Course_ongoing:hover{
+            cursor:pointer;
             opacity: 0.8;
         }
         .tab_Course_ongoing p{
@@ -894,6 +895,10 @@
          height: 50px;
          line-height: 50px;
         }
+        .tab_Course_ongoing_one:hover{
+            opacity: 0.8;
+            cursor:pointer
+        }
         .tab_Course_ongoing_one>div>div{
             float: left;
             width: 10%;
@@ -928,6 +933,10 @@
             height: 50px;
             line-height: 50px;
         }
+        .tab_Course_viewNO:hover{
+            opacity: 0.8;
+            cursor:pointer;
+        }
         .tab_faq{
             width: 1200px;
             margin: 0 auto;
@@ -938,8 +947,13 @@
             border-radius:0px 0px 8px 8px;
             height:auto;
         }
-        .tab_xi{height: 50px;
+        .tab_xi{
+            height: 50px;
         line-height: 50px}
+        .tab_xi:hover{
+            opacity: 0.8;
+            cursor:pointer;
+        }
         .tab_xi>div{float: left;
         margin-left: 10%}
         .tab_xi>div>p{
@@ -1607,10 +1621,6 @@
     }
     function tab_video_play(source){
         window.location.href = source;
-    }
-    function tab_video_play() {
-        var stre =document.getElementsByClassName("")
-
     }
     setTimeout(function(){
         medal_circle_1.style.animation = "medal_circle_1_animation 5s";
