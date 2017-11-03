@@ -1,7 +1,7 @@
 # 项目目录结构
 oauth:github auth登陆，获取账号相关信息，项目信息
 templates:前端模版文件.
-top:
+top:第三方接口。
 vbadge:
 vcompany:
 vcourse:
