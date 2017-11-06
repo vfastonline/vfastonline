@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'vpractice',
     'vinform',
     'vinspect',
+    'vresume',
 ]
 
 MIDDLEWARE = [
