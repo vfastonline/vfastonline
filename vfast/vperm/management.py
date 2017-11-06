@@ -9,7 +9,7 @@ from vperm.models import *
 
 
 @receiver(post_migrate)
-def init_role_info(sender, **kwargs):
+def init_db_info(sender, **kwargs):
     """初始化字典信息
     :param sender:
     :param kwargs:
