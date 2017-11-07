@@ -1,11 +1,12 @@
 #!encoding:utf-8
 from __future__ import unicode_literals
+
 from django.db import models
+
 from vcourse.models import Course, Path
 from vuser.models import User
 
 
-# Create your models here.
 class Badge(models.Model):
     badgename = models.CharField('勋章名称', max_length=100, unique=True)
     large_url = models.FileField('大勋章', upload_to='badge')
@@ -18,6 +19,9 @@ class Badge(models.Model):
     def __unicode__(self):
         return self.badgename
 
+    class Meta:
+        verbose_name = "勋章"
+
 
 class UserBadge(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='用户ID')
@@ -26,3 +30,6 @@ class UserBadge(models.Model):
 
     def __unicode__(self):
         return self.user.nickname
+
+    class Meta:
+        verbose_name = "用户勋章"

@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+
 from vuser.models import User
-# Create your models here.
 
 
 class Inspect(models.Model):
@@ -12,6 +12,8 @@ class Inspect(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "问卷"
 
 
 class InspectOption(models.Model):
@@ -25,11 +27,14 @@ class InspectOption(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "问卷选项"
+
 
 class InspectResult(models.Model):
     inspect = models.ForeignKey(Inspect, on_delete=models.CASCADE)
     inspectoption = models.ForeignKey(InspectOption, verbose_name='选项', null=True)
-    option  = models.CharField(verbose_name='选项', max_length=2, null=True)
+    option = models.CharField(verbose_name='选项', max_length=2, null=True)
     user = models.ForeignKey(User, verbose_name='用户', null=True)
     opinion = models.TextField(verbose_name='意见', default='')
 

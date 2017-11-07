@@ -1,10 +1,11 @@
 #!encoding:utf-8
 from __future__ import unicode_literals
+
 from django.db import models
+
 from vuser.models import User
 
 
-# Create your models here.
 class Technology(models.Model):
     name = models.CharField('技术类别', max_length=50)
     color = models.CharField('颜色', max_length=50, default='#FFFFFF')
@@ -12,6 +13,9 @@ class Technology(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "技能类别"
 
 
 class Course(models.Model):
@@ -49,6 +53,9 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "课程"
+
 
 class Section(models.Model):
     title = models.CharField('章节标题', max_length=100, default='')
@@ -58,6 +65,9 @@ class Section(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "章节"
 
 
 class Path(models.Model):
@@ -80,6 +90,9 @@ class Path(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "学习路线"
 
 
 class Video(models.Model):
@@ -110,6 +123,9 @@ class Video(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "视频"
+
 
 class UserPath(models.Model):
     createtime = models.CharField('用户加入学习路线时间', max_length=20)
@@ -119,15 +135,21 @@ class UserPath(models.Model):
     def __unicode__(self):
         return '%s,%s' % (self.user.nickname, self.path.name)
 
+    class Meta:
+        verbose_name = "用户学习路线"
+
 
 class Faq(models.Model):
-    video = models.ForeignKey(Video, limit_choices_to={'vtype':0})
+    video = models.ForeignKey(Video, limit_choices_to={'vtype': 0})
     question = models.CharField(max_length=200, verbose_name='问题')
     answer = models.TextField(verbose_name='回答')
     language = models.CharField(verbose_name='语言', null=True, blank=True, max_length=10)
 
     def __unicode__(self):
         return self.question
+
+    class Meta:
+        verbose_name = "问题"
 
 
 class Skill(models.Model):
@@ -137,3 +159,6 @@ class Skill(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "技能点"
