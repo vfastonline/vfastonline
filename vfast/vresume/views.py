@@ -4,6 +4,7 @@ import logging
 import traceback
 
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.views.generic import DetailView, View
 
 from share_module.permissionMixin import class_view_decorator
@@ -30,6 +31,7 @@ class ResumeDetail(DetailView):
 
 
 resume_type_model_dict = {
+    "resume": Resume,
     "careerobjective": CareerObjective,
     "workexperience": WorkExperience,
     "projectexperience": ProjectExperience,
@@ -46,13 +48,13 @@ class ResumeDelete(View):
             pk_id = self.kwargs.get("pk", "")
             resume_type_model = resume_type_model_dict.get(resume_type)
             if resume_type_model:
-                resume_type_model.objects.filter(pk_id=pk_id).delete()
-            return json.dumps(result_dict)
+                resume_type_model.objects.filter(id=pk_id).delete()
         except:
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
-            result_dict["msg"] = traceback.print_exc()
-            return json.dumps(result_dict)
+            result_dict["msg"] = traceback.format_exc()
+        finally:
+            return HttpResponse(json.dumps(result_dict, ensure_ascii=False))
 
 
 @class_view_decorator(login_required)
@@ -62,16 +64,23 @@ class ResumeAdd(View):
         try:
             resume_type = self.kwargs.get("resume_type", "")
             resume_info_dict = self.request.POST.get("resume_info_dict", {})
-            resume_type_model = resume_type_model_dict.get(resume_type)
-            obj_id = resume_type_model.objects.create(**resume_info_dict)
-            result_dict["id"] = obj_id.id
-            return json.dumps(result_dict)
+            resume_info_dict = eval(resume_info_dict)
+            user_id = resume_info_dict.get("user_id")
+            user_obj = User.objects.filter(id=user_id)
+            if user_obj.exists():
+                resume_info_dict["user_id"] = user_obj[0]
+                resume_type_model = resume_type_model_dict.get(resume_type)
+                obj_id = resume_type_model.objects.create(**resume_info_dict)
+                result_dict["id"] = obj_id.id
+            else:
+                result_dict["err"] = 1
+                result_dict["msg"] = u"未找到用户信息"
         except:
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
-            result_dict["msg"] = traceback.print_exc()
-            result_dict["id"] = ""
-            return json.dumps(result_dict)
+            result_dict["msg"] = traceback.format_exc()
+        finally:
+            return HttpResponse(json.dumps(result_dict, ensure_ascii=False))
 
 
 @class_view_decorator(login_required)
@@ -82,11 +91,12 @@ class ResumeUpdate(View):
             resume_type = self.kwargs.get("resume_type", "")
             pk_id = self.kwargs.get("pk", "")
             resume_info_dict = self.request.POST.get("resume_info_dict", {})
+            resume_info_dict = eval(resume_info_dict)
             resume_type_model = resume_type_model_dict.get(resume_type)
-            resume_type_model.objects.filter(pk_id=pk_id).update(**resume_info_dict)
-            return json.dumps(result_dict)
+            resume_type_model.objects.filter(id=pk_id).update(**resume_info_dict)
         except:
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
-            result_dict["msg"] = traceback.print_exc()
-            return json.dumps(result_dict)
+            result_dict["msg"] = traceback.format_exc()
+        finally:
+            return HttpResponse(json.dumps(result_dict, ensure_ascii=False))
