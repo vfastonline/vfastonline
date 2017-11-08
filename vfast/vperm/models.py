@@ -12,3 +12,4 @@ class Role(models.Model):
 
     class Meta:
         verbose_name = "身份角色"
+        verbose_name_plural = "身份角色"

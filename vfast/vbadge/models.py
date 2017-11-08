@@ -21,6 +21,7 @@ class Badge(models.Model):
 
     class Meta:
         verbose_name = "勋章"
+        verbose_name_plural = "勋章"
 
 
 class UserBadge(models.Model):

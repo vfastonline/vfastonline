@@ -26,6 +26,7 @@ class Timu(models.Model):
 
     class Meta:
         verbose_name = "练习"
+        verbose_name_plural = "练习"
 
 
 class Question(models.Model):

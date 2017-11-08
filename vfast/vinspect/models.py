@@ -14,6 +14,7 @@ class Inspect(models.Model):
 
     class Meta:
         verbose_name = "问卷"
+        verbose_name_plural = "问卷"
 
 
 class InspectOption(models.Model):
@@ -29,6 +30,7 @@ class InspectOption(models.Model):
 
     class Meta:
         verbose_name = "问卷选项"
+        verbose_name_plural = "问卷选项"
 
 
 class InspectResult(models.Model):

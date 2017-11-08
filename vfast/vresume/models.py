@@ -22,6 +22,7 @@ class Resume(models.Model):
 
     class Meta:
         verbose_name = u"个人简历基础信息"
+        verbose_name_plural = u"个人简历基础信息"
         index_together = ["user_id"]
 
 
@@ -39,6 +40,7 @@ class CareerObjective(models.Model):
 
     class Meta:
         verbose_name = u"求职意向"
+        verbose_name_plural = u"求职意向"
         index_together = ["user_id"]
 
 
@@ -56,6 +58,7 @@ class WorkExperience(models.Model):
 
     class Meta:
         verbose_name = u"工作经历"
+        verbose_name_plural = u"工作经历"
         index_together = ["user_id"]
 
 
@@ -74,6 +77,7 @@ class ProjectExperience(models.Model):
 
     class Meta:
         verbose_name = u"项目经验"
+        verbose_name_plural = u"项目经验"
         index_together = ["user_id"]
 
 
@@ -92,4 +96,5 @@ class EducationExperience(models.Model):
 
     class Meta:
         verbose_name = u"教育经历"
+        verbose_name_plural = u"教育经历"
         index_together = ["user_id"]

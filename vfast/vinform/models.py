@@ -14,6 +14,7 @@ class InformType(models.Model):
 
     class Meta:
         verbose_name = "通知类型"
+        verbose_name_plural = "通知类型"
 
 
 class InformTask(models.Model):
@@ -33,6 +34,7 @@ class InformTask(models.Model):
 
     class Meta:
         verbose_name = "通知任务"
+        verbose_name_plural = "通知任务"
 
 
 class Inform(models.Model):
@@ -52,6 +54,7 @@ class Inform(models.Model):
 
     class Meta:
         verbose_name = "通知"
+        verbose_name_plural = "通知"
 
 
 class Feedback(models.Model):

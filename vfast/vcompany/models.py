@@ -34,3 +34,4 @@ class Company(models.Model):
 
     class Meta:
         verbose_name = "公司"
+        verbose_name_plural = "公司"

@@ -65,6 +65,7 @@ class User(models.Model):
 
     class Meta:
         verbose_name = "最终用户"
+        verbose_name_plural = "最终用户"
 
 
 class DailyTask(models.Model):

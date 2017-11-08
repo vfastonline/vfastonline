@@ -16,6 +16,7 @@ class Technology(models.Model):
 
     class Meta:
         verbose_name = "技能类别"
+        verbose_name_plural = "技能类别"
 
 
 class Course(models.Model):
@@ -55,6 +56,7 @@ class Course(models.Model):
 
     class Meta:
         verbose_name = "课程"
+        verbose_name_plural = "课程"
 
 
 class Section(models.Model):
@@ -68,6 +70,7 @@ class Section(models.Model):
 
     class Meta:
         verbose_name = "章节"
+        verbose_name_plural = "章节"
 
 
 class Path(models.Model):
@@ -93,6 +96,7 @@ class Path(models.Model):
 
     class Meta:
         verbose_name = "学习路线"
+        verbose_name_plural = "学习路线"
 
 
 class Video(models.Model):
@@ -125,6 +129,7 @@ class Video(models.Model):
 
     class Meta:
         verbose_name = "视频"
+        verbose_name_plural = "视频"
 
 
 class UserPath(models.Model):
@@ -137,6 +142,7 @@ class UserPath(models.Model):
 
     class Meta:
         verbose_name = "用户学习路线"
+        verbose_name_plural = "用户学习路线"
 
 
 class Faq(models.Model):
@@ -150,6 +156,7 @@ class Faq(models.Model):
 
     class Meta:
         verbose_name = "问题"
+        verbose_name_plural = "问题"
 
 
 class Skill(models.Model):
@@ -162,3 +169,4 @@ class Skill(models.Model):
 
     class Meta:
         verbose_name = "技能点"
+        verbose_name_plural = "技能点"
