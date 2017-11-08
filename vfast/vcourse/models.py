@@ -146,7 +146,7 @@ class UserPath(models.Model):
 
 
 class Faq(models.Model):
-    video = models.ForeignKey(Video, limit_choices_to={'vtype': 0})
+    video = models.ForeignKey(Video, verbose_name="视频", limit_choices_to={'vtype': 0})
     question = models.CharField(max_length=200, verbose_name='问题')
     answer = models.TextField(verbose_name='回答')
     language = models.CharField(verbose_name='语言', null=True, blank=True, max_length=10)
@@ -160,7 +160,7 @@ class Faq(models.Model):
 
 
 class Skill(models.Model):
-    path = models.ForeignKey(Path)
+    path = models.ForeignKey(Path, verbose_name="学习路线")
     name = models.CharField(max_length=50, verbose_name='技能点名称')
     weight = models.IntegerField(verbose_name='权重')
 

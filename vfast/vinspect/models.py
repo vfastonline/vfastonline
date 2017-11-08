@@ -18,7 +18,7 @@ class Inspect(models.Model):
 
 
 class InspectOption(models.Model):
-    inspect = models.ForeignKey(Inspect, on_delete=models.CASCADE)
+    inspect = models.ForeignKey(Inspect, verbose_name="问卷名称", on_delete=models.CASCADE)
     title = models.CharField(verbose_name='名字', max_length=200)
     A = models.CharField(verbose_name='选项A', max_length=100)
     B = models.CharField(verbose_name='选项B', max_length=100)

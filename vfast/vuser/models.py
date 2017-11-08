@@ -15,7 +15,7 @@ class User(models.Model):
         (0, '未激活'),
         (1, '激活')
     )
-    role = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
+    role = models.ForeignKey(Role, verbose_name=u"角色", null=True, blank=True, on_delete=models.SET_NULL)
     email = models.EmailField('邮箱', max_length=50, null=True, unique=True)
     password = models.CharField('密码', max_length=100, null=True)
     sex = models.CharField('性别', max_length=4, default='')
