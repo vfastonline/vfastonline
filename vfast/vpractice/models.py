@@ -24,6 +24,9 @@ class Timu(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "练习"
+
 
 class Question(models.Model):
     title = models.CharField('问题标题', max_length=50)
