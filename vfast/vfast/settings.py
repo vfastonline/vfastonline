@@ -63,6 +63,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'vfast.apps.SuitConfig',
+    'django_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
