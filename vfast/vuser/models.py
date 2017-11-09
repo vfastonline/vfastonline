@@ -15,7 +15,7 @@ class User(models.Model):
         (0, '未激活'),
         (1, '激活')
     )
-    role = models.ForeignKey(Role, null=True, blank=True, on_delete=models.SET_NULL)
+    role = models.ForeignKey(Role, verbose_name=u"角色", null=True, blank=True, on_delete=models.SET_NULL)
     email = models.EmailField('邮箱', max_length=50, null=True, unique=True)
     password = models.CharField('密码', max_length=100, null=True)
     sex = models.CharField('性别', max_length=4, default='')
@@ -52,9 +52,7 @@ class User(models.Model):
     expect_job = models.CharField('期望工作', max_length=100, null=True, blank=True, default='')
     expect_salary = models.CharField('期望薪资', max_length=10, null=True, blank=True, default='')
 
-
-
-    #HR注册的相关信息
+    # HR注册的相关信息
     hr_phone = models.CharField('公司电话号码', max_length=20, null=True, blank=True, default='')
     idcard = models.CharField('身份证图片', max_length=200, null=True, blank=True, default='')
     gongpai = models.CharField('工牌图片', max_length=100, null=True, blank=True, default='')
@@ -64,6 +62,10 @@ class User(models.Model):
 
     def __unicode__(self):
         return self.nickname
+
+    class Meta:
+        verbose_name = "最终用户"
+        verbose_name_plural = "最终用户"
 
 
 class DailyTask(models.Model):
@@ -80,7 +82,7 @@ class DailyTask(models.Model):
 
 class DailyTaskstatus(models.Model):
     user_id = models.IntegerField('用户ID')
-    taskstatus = models.IntegerField('任务状态')      #0未完成, 1已完成
+    taskstatus = models.IntegerField('任务状态')  # 0未完成, 1已完成
     createtime = models.CharField(verbose_name='每日任务时间', max_length=10)
 
     def __unicode__(self):
@@ -100,7 +102,7 @@ class Headimg(models.Model):
     createtime = models.DateTimeField('创建时间', auto_now=True)
 
     def __unicode__(self):
-        return self.name
+        return self.url
 
 
 class Userplan(models.Model):
@@ -109,8 +111,4 @@ class Userplan(models.Model):
     nums = models.IntegerField(verbose_name='视频个数', null=True, blank=True)
     createtime = models.CharField(verbose_name='推送时间', max_length=11)
     userid = models.IntegerField(verbose_name='用户ID')
-    status = models.IntegerField(verbose_name='学习计划推送状态')    #0已经推送, 1未推送
-
-
-
-
+    status = models.IntegerField(verbose_name='学习计划推送状态')  # 0已经推送, 1未推送

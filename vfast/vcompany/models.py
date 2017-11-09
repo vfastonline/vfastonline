@@ -1,9 +1,11 @@
 #!encoding:utf-8
 from __future__ import unicode_literals
+
 from django.db import models
+
 from vuser.models import User
 
-# Create your models here.
+
 class Company(models.Model):
     AUDIT_STATUS = (
         (0, '未通过'),
@@ -29,3 +31,7 @@ class Company(models.Model):
 
     def __unicode__(self):
         return self.fullname
+
+    class Meta:
+        verbose_name = "公司"
+        verbose_name_plural = "公司"

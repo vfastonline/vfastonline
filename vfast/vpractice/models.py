@@ -1,7 +1,9 @@
 #!encoding:utf-8
 from __future__ import unicode_literals
-from vcourse.models import Video
+
 from django.db import models
+
+from vcourse.models import Video
 from vuser.models import User
 
 
@@ -17,10 +19,14 @@ class Timu(models.Model):
     D = models.CharField('选项D', max_length=60, null=True, blank=True)
     E = models.CharField('选项E', max_length=60, null=True, blank=True)
     F = models.CharField('选项F', max_length=60, null=True, blank=True)
-    video = models.ForeignKey(Video, on_delete=models.CASCADE, verbose_name='视频ID', limit_choices_to={'vtype':1})
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, verbose_name='视频ID', limit_choices_to={'vtype': 1})
 
     def __unicode__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "练习"
+        verbose_name_plural = "练习"
 
 
 class Question(models.Model):
@@ -31,17 +37,19 @@ class Question(models.Model):
     user = models.ForeignKey(User, verbose_name='用户ID')
     like = models.IntegerField('点赞数', default=0)
     dislike = models.IntegerField('不赞数', default=0)
-    email_status = models.IntegerField('是否发送邮件', default=0)   #0发送邮件, 1不发送邮件
-    score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
-    status = models.IntegerField('问题状态', default=0)   #0为未解决状态, 1为解决状态
+    email_status = models.IntegerField('是否发送邮件', default=0)  # 0发送邮件, 1不发送邮件
+    score = models.IntegerField('分数', default=0)  # 点赞+1分, 踩-1分
+    status = models.IntegerField('问题状态', default=0)  # 0为未解决状态, 1为解决状态
     add_repatation = models.IntegerField('悬赏声望', default=0)
     add_repatation_userid = models.IntegerField('悬赏人的ID', null=True, blank=True)
     add_repatation_username = models.CharField('悬赏人名字', max_length=20, default='')
     default_repatation = models.IntegerField('默认声望', default=5)
 
-
     def __unicode__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "问题"
 
 
 class Replay(models.Model):
@@ -51,8 +59,8 @@ class Replay(models.Model):
     content = models.TextField('回复内容')
     like = models.IntegerField('点赞数', default=0)
     dislike = models.IntegerField('不赞数', default=0)
-    score = models.IntegerField('分数', default=0)        #点赞+1分, 踩-1分
-    best = models.IntegerField('是否最佳', default=0)      #0不是最佳, 1为最佳答案
+    score = models.IntegerField('分数', default=0)  # 点赞+1分, 踩-1分
+    best = models.IntegerField('是否最佳', default=0)  # 0不是最佳, 1为最佳答案
 
     def __unicode__(self):
         return self.question.title
@@ -62,8 +70,8 @@ class QRcomment(models.Model):
     qid = models.IntegerField('问题ID', null=True)
     rid = models.IntegerField('回复ID', null=True)
     uid = models.IntegerField('用户ID')
-    type = models.CharField('问题或回复, 是否点赞', max_length=1)    #(Q, R)
-    status = models.IntegerField('赞,踩', default=0)   #(1, 赞, -1, 猜)
+    type = models.CharField('问题或回复, 是否点赞', max_length=1)  # (Q, R)
+    status = models.IntegerField('赞,踩', default=0)  # (1, 赞, -1, 猜)
 
     def __unicode__(self):
         return '%s, %s' % (self.qid, self.uid)
