@@ -11,10 +11,10 @@ from share_module.permissionMixin import class_view_decorator
 from vresume.models import *
 
 
-@class_view_decorator(login_required)
+# @class_view_decorator(login_required)
 class ResumeDetail(DetailView):
     context_object_name = "Resume"
-    template_name = ""
+    template_name = "resume.html"
     pk_url_kwarg = "id"
     model = Resume
 
