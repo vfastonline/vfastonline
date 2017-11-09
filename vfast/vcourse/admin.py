@@ -1,3 +1,4 @@
+# encoding: utf8
 from django.contrib import admin
 from vcourse.models import Path, Technology, Course, Video, Section, Faq, Skill
 
@@ -18,6 +19,14 @@ class PathAdmin(admin.ModelAdmin):
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'desc', 'totaltime', 'difficult', 'pubstatus', 'teach', 'tech', 'tag')
     search_fields = ('name',)
+
+    class Media:
+        js = [
+            '/static/tinymce/js/jquery.min.js',   # 必须首先加载的jquery，手动添加文件
+            '/static/tinymce/js/tinymce/tinymce.min.js',   # tinymce自带文件
+            '/static/tinymce/js/tinymce/plugins/jquery.form.js',    # 手动添加文件
+            '/static/tinymce/js/tinymce/textarea.js',   # 手动添加文件，用户初始化参数
+        ]
 
 
 class TechnologyAdmin(admin.ModelAdmin):
