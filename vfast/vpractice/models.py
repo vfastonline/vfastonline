@@ -25,8 +25,8 @@ class Timu(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = "练习"
-        verbose_name_plural = "练习"
+        verbose_name = "练习题"
+        verbose_name_plural = "练习题"
 
 
 class Question(models.Model):
@@ -50,6 +50,7 @@ class Question(models.Model):
 
     class Meta:
         verbose_name = "问题"
+        verbose_name_plural = "问题"
 
 
 class Replay(models.Model):
@@ -64,6 +65,10 @@ class Replay(models.Model):
 
     def __unicode__(self):
         return self.question.title
+
+    class Meta:
+        verbose_name = "问题回复"
+        verbose_name_plural = "问题回复"
 
 
 class QRcomment(models.Model):
@@ -91,6 +96,13 @@ class Repatation(models.Model):
     createtime = models.CharField('创建时间', max_length=22)
     repa_grade = models.IntegerField('所得声望')
     repatype = models.IntegerField('获取声望途径', default=1)
+
+    def __str__(self):
+        return self.repa_grade
+
+    class Meta:
+        verbose_name = "声望"
+        verbose_name_plural = "声望"
 
 
 class RepaType(models.Model):

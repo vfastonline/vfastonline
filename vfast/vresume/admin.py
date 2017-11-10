@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from vfast.settings import tinymce_js
 from vresume.models import *
 
 
@@ -17,6 +18,9 @@ class ResumeAdmin(admin.ModelAdmin):
         "my_advantage",
     )
     search_fields = ('years_of_service', "education")
+
+    class Media:
+        js = tinymce_js
 
 
 class CareerObjectiveAdmin(admin.ModelAdmin):
@@ -44,6 +48,9 @@ class WorkExperienceAdmin(admin.ModelAdmin):
     )
     search_fields = ('company',)
 
+    class Media:
+        js = tinymce_js
+
 
 class ProjectExperienceAdmin(admin.ModelAdmin):
     list_display = (
@@ -58,6 +65,9 @@ class ProjectExperienceAdmin(admin.ModelAdmin):
     )
     search_fields = ('project_name',)
 
+    class Media:
+        js = tinymce_js
+
 
 class EducationExperienceAdmin(admin.ModelAdmin):
     list_display = (
@@ -71,6 +81,9 @@ class EducationExperienceAdmin(admin.ModelAdmin):
         "experience_at_school",
     )
     search_fields = ('school',)
+
+    class Media:
+        js = tinymce_js
 
 
 admin.site.register(Resume, ResumeAdmin)

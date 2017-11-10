@@ -15,6 +15,6 @@ tinymce.init({
     content_css: [
         // '/static/tinymce/css/codepen.min.css'
     ],
-    imageupload_url: '/upload',    // 指定图片上传处理目录
+    imageupload_url: '/upload?action=uploadimage',    // 指定图片上传处理目录
     language: 'zh_CN'
 });

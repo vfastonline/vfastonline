@@ -112,3 +112,10 @@ class Userplan(models.Model):
     createtime = models.CharField(verbose_name='推送时间', max_length=11)
     userid = models.IntegerField(verbose_name='用户ID')
     status = models.IntegerField(verbose_name='学习计划推送状态')  # 0已经推送, 1未推送
+
+    def __str__(self):
+        return self.plan_desc
+
+    class Meta:
+        verbose_name = "学习计划"
+        verbose_name_plural = "学习计划"

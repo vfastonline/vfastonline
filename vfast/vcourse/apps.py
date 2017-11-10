@@ -6,4 +6,4 @@ from django.apps import AppConfig
 
 class VcourseConfig(AppConfig):
     name = 'vcourse'
-    verbose_name = "路线"
+    verbose_name = "学习路线"
