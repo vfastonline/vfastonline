@@ -47,8 +47,11 @@ class ResumeDelete(View):
             resume_type = self.kwargs.get("resume_type", "")
             pk_id = self.kwargs.get("pk", "")
             resume_type_model = resume_type_model_dict.get(resume_type)
-            if resume_type_model:
+            if resume_type_model and pk_id:
                 resume_type_model.objects.filter(id=pk_id).delete()
+            else:
+                result_dict["err"] = 1
+                result_dict["msg"] = "删除简历信息不完善，删除失败!"
         except:
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
@@ -74,7 +77,7 @@ class ResumeAdd(View):
                 result_dict["id"] = obj_id.id
             else:
                 result_dict["err"] = 1
-                result_dict["msg"] = u"未找到用户信息"
+                result_dict["msg"] = "未找到用户信息，新增失败!"
         except:
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
@@ -92,8 +95,12 @@ class ResumeUpdate(View):
             pk_id = self.kwargs.get("pk", "")
             resume_info_dict = self.request.POST.get("resume_info_dict", {})
             resume_info_dict = eval(resume_info_dict)
-            resume_type_model = resume_type_model_dict.get(resume_type)
-            resume_type_model.objects.filter(id=pk_id).update(**resume_info_dict)
+            if resume_type and pk_id and resume_info_dict:
+                resume_type_model = resume_type_model_dict.get(resume_type)
+                resume_type_model.objects.filter(id=pk_id).update(**resume_info_dict)
+            else:
+                result_dict["err"] = 1
+                result_dict["msg"] = "简历修改数据不完善，修改失败!"
         except:
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
