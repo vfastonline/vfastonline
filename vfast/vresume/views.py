@@ -13,18 +13,21 @@ from vresume.models import *
 
 @class_view_decorator(login_required)
 class ResumeDetail(DetailView):
-    context_object_name = "Resume"
+    context_object_name = "User"
     template_name = "resume.html"
-    pk_url_kwarg = "id"
-    model = Resume
+    pk_url_kwarg = "user_id"
+    model = User
 
     def get_context_data(self, **kwargs):
         try:
-            user_id = self.kwargs.get("id")
-            kwargs["CareerObjective"] = CareerObjective.objects.filter(user_id=user_id)
-            kwargs["WorkExperience"] = WorkExperience.objects.filter(user_id=user_id)
-            kwargs["ProjectExperience"] = ProjectExperience.objects.filter(user_id=user_id)
-            kwargs["EducationExperience"] = EducationExperience.objects.filter(user_id=user_id)
+            user_id = self.kwargs.get("user_id")
+
+            if user_id:
+                kwargs["Resumes"] = Resume.objects.filter(user_id=user_id).first()
+                kwargs["CareerObjectives"] = CareerObjective.objects.filter(user_id=user_id)
+                kwargs["WorkExperiences"] = WorkExperience.objects.filter(user_id=user_id)
+                kwargs["ProjectExperiences"] = ProjectExperience.objects.filter(user_id=user_id)
+                kwargs["EducationExperiences"] = EducationExperience.objects.filter(user_id=user_id)
             return super(ResumeDetail, self).get_context_data(**kwargs)
         except:
             logging.getLogger().error(traceback.format_exc())
