@@ -67,7 +67,7 @@ class ResumeAdd(View):
             resume_info_dict = eval(resume_info_dict)
             user_id = resume_info_dict.get("user_id")
             user_obj = User.objects.filter(id=user_id)
-            if user_obj.exists():
+            if user_obj.exists() and resume_info_dict:
                 resume_info_dict["user_id"] = user_obj[0]
                 resume_type_model = resume_type_model_dict.get(resume_type)
                 obj_id = resume_type_model.objects.create(**resume_info_dict)
