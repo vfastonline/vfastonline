@@ -46,8 +46,8 @@ class ResumeDelete(View):
         try:
             resume_type = self.kwargs.get("resume_type", "")
             pk_id = self.kwargs.get("pk", "")
-            resume_type_model = resume_type_model_dict.get(resume_type)
-            if resume_type_model and pk_id:
+            if resume_type and pk_id:
+                resume_type_model = resume_type_model_dict.get(resume_type)
                 resume_type_model.objects.filter(id=pk_id).delete()
             else:
                 result_dict["err"] = 1
