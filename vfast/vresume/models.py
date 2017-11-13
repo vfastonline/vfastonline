@@ -7,7 +7,7 @@ from vuser.models import User
 
 class Resume(models.Model):
     """个人简历基础信息"""
-    user_id = models.ForeignKey(User, verbose_name=u"用户信息", related_name="resume_user_id")
+    user_id = models.ForeignKey(User, verbose_name=u"用户信息", related_name="resume_user_id", unique=True)
     years_of_service = models.IntegerField(u"工作年限", null=True, blank=True, default=0)
     education = models.CharField(u"最高学历", max_length=255, null=True, blank=True, default="")
     expect_salary_low = models.CharField(u"期望薪资最低", max_length=255, null=True, blank=True, default="")
@@ -18,7 +18,7 @@ class Resume(models.Model):
     my_advantage = models.TextField(u"我的优势", null=True, blank=True, default="")
 
     def __str__(self):
-        return self.user_id.realname
+        return self.user_id.nickname
 
     class Meta:
         verbose_name = u"个人简历基础信息"
@@ -41,6 +41,7 @@ class CareerObjective(models.Model):
     class Meta:
         verbose_name = u"求职意向"
         verbose_name_plural = u"求职意向"
+        ordering = ['-id']
         index_together = ["user_id"]
 
 
@@ -59,6 +60,7 @@ class WorkExperience(models.Model):
     class Meta:
         verbose_name = u"工作经历"
         verbose_name_plural = u"工作经历"
+        ordering = ['-id']
         index_together = ["user_id"]
 
 
@@ -78,6 +80,7 @@ class ProjectExperience(models.Model):
     class Meta:
         verbose_name = u"项目经验"
         verbose_name_plural = u"项目经验"
+        ordering = ['-id']
         index_together = ["user_id"]
 
 
@@ -97,4 +100,5 @@ class EducationExperience(models.Model):
     class Meta:
         verbose_name = u"教育经历"
         verbose_name_plural = u"教育经历"
+        ordering = ['-id']
         index_together = ["user_id"]
