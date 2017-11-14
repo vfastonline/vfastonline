@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from vuser.models import User
@@ -88,6 +89,7 @@ class Path(models.Model):
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
     createtime = models.DateField('路线创建时间', auto_now=True)
     p_sequence = models.CharField('课程顺序', null=True, blank=True, max_length=30)
+    course = models.ManyToManyField('Course', verbose_name="包含课程")
     color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
     avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='9000')
     job_wanted = models.IntegerField('岗位空缺度', null=True, default=5)
@@ -175,3 +177,23 @@ class Skill(models.Model):
     class Meta:
         verbose_name = "技能点"
         verbose_name_plural = "技能点"
+
+
+class PathCourseOrder(models.Model):
+    """
+    指定课程在指定学习路线中显示顺序
+    """
+
+    path = models.ForeignKey(Path, verbose_name="学习路线")
+    course = models.ForeignKey(Course, verbose_name="课程")
+    sequence_number = models.PositiveIntegerField("顺序号", validators=[MinValueValidator(1)])
+
+    def __unicode__(self):
+        return self.path.name
+
+    class Meta:
+        verbose_name = "学习路线中课程的顺序"
+        verbose_name_plural = "学习路线中课程的顺序"
+        unique_together = (("path", "course"), ("path", "sequence_number"))
+        ordering = ['path', 'sequence_number']
+        index_together = ["path", "course"]

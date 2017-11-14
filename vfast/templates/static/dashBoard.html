@@ -603,7 +603,7 @@
                   y: 'bottom',
                   //orient: 'vertical',
                    selectedMode:false,
-                  data:['TCP/IP','Windows','Nagios','Zabbix','Linux',]
+                  data:['TCP/IP','Windows','Nagios','Zabbix','Linux']
               },
               series: [
                   {
@@ -626,7 +626,7 @@
                           {value:15, name:'Windows'},
                           {value:15, name:'Nagios'},
                           {value:18, name:'Zabbix'},
-                          {value:46, name:'Linux'},
+                          {value:46, name:'Linux'}
                       ]
                   },
                   {
@@ -634,9 +634,18 @@
                       type:'pie',
                       radius: ['40%', '55%'],
                       data:[
-                          {value:6, name:'TCP/IP'},
-                          {value:94, name:'未完成课程'},
-                      ]
+                          {value:3, name:'TCP/IP'},
+                          {value:3, name:'TCP/IP未完成'},
+                          {value:7.5, name:'Windows'},
+                          {value:7.5, name:'Windows未完成'},
+                          {value:7.5, name:'Nagios'},
+                          {value:7.5, name:'Nagios未完成'},
+                          {value:9, name:'Zabbix'},
+                          {value:9, name:'Zabbix未完成'},
+                          {value:23, name:'Linux'},
+                          {value:23, name:'Linux未完成'}
+                      ].sort(function (a, b) { return a.value - b.value; }),
+                      color:['#E0E5E9 ', '#E0E5E9 ','#E0E5E9 ','#E0E5E9 ','#E0E5E9']
                   }
               ]
           };
