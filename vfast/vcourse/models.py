@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import traceback
 
+from colorfield.fields import ColorField
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -13,7 +14,7 @@ from vuser.models import User
 
 class Technology(models.Model):
     name = models.CharField('技术类别', max_length=50)
-    color = models.CharField('颜色', max_length=50, default='#FFFFFF')
+    color = ColorField('颜色', max_length=50, default='#FFFFFF')
     desc = models.TextField('技术简介', default='')
 
     def __unicode__(self):
@@ -41,7 +42,7 @@ class Course(models.Model):
     difficult = models.IntegerField('课程难度', null=True, blank=True, default=4)
     tech = models.ForeignKey(Technology, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='技术分类')
     icon = models.IntegerField('课程对应的图标', choices=ICON_STATUS, default=0)
-    color = models.CharField('颜色', max_length=30, null=True, blank=True)
+    color = ColorField('颜色', max_length=30, null=True, blank=True)
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=1)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
     createtime = models.DateField('课程创建时间', auto_now=True)
@@ -93,7 +94,7 @@ class Path(models.Model):
     createtime = models.DateField('路线创建时间', auto_now=True)
     p_sequence = models.CharField('课程顺序', null=True, blank=True, max_length=30)
     course = models.ManyToManyField('Course', verbose_name="包含课程")
-    color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='#4DB5AB')
+    color = ColorField('路线颜色', null=True, blank=True, max_length=30, default='#4DB5AB')
     avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='9000')
     job_wanted = models.IntegerField('岗位空缺度', null=True, default=5)
 
