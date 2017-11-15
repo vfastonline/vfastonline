@@ -47,19 +47,28 @@ class UserPathAdmin(admin.ModelAdmin):
 
 
 class FaqAdmin(admin.ModelAdmin):
-    list_display = ('video', 'question', 'answer', 'language')
+    list_display = ('id', 'video', 'question', 'answer', 'language')
+    search_fields = ('video', 'question',)
 
     class Media:
         js = tinymce_js
 
 
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ('id', 'path', 'name', 'weight')
+    search_fields = ('path', 'name',)
+
+
 class SectionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'desc', 'course', 'skill')
+    search_fields = ('title', 'course',)
+
     class Media:
         js = tinymce_js
 
 
 class PathCourseOrderAdmin(admin.ModelAdmin):
-    list_display = ('path', 'course', 'sequence_number')
+    list_display = ('id', 'path', 'course', 'sequence_number')
     search_fields = ('path__name', 'course__name')
 
 
@@ -69,5 +78,5 @@ admin.site.register(Technology, TechnologyAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(Faq, FaqAdmin)
-admin.site.register(Skill)
+admin.site.register(Skill, SkillAdmin)
 admin.site.register(PathCourseOrder, PathCourseOrderAdmin)

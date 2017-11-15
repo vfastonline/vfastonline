@@ -190,7 +190,7 @@ class Skill(models.Model):
     """
     path = models.ForeignKey(Path, verbose_name="学习路线")
     name = models.CharField(max_length=50, verbose_name='技能点名称')
-    weight = models.IntegerField(verbose_name='权重')
+    weight = models.IntegerField(verbose_name='权重', validators=[MinValueValidator(1)])
 
     def __unicode__(self):
         return self.name
@@ -198,6 +198,7 @@ class Skill(models.Model):
     class Meta:
         verbose_name = "技能点"
         verbose_name_plural = "技能点"
+        unique_together = (("path", "name"),)
 
 
 class PathCourseOrder(models.Model):
