@@ -24,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config = ConfigParser.ConfigParser()
 config.read(os.path.join(BASE_DIR, 'vfast.conf'))
 
-
 # mail config
 MAIL_ENABLE = config.get('mail', 'mail_enable')
 EMAIL_HOST = config.get('mail', 'email_host')
@@ -42,12 +41,11 @@ EMAIL_TIMEOUT = 5
 # host
 HOST = config.get('host', 'host')
 
-#callback_url
+# callback_url
 GITHUB_CALLBACK = config.get('callback', 'GITHUB_CALLBACK')
 GITHUB_CLIENTID = config.get('callback', 'GITHUB_CLIENTID')
 GITHUB_CLIENTSECRET = config.get('callback', 'GITHUB_CLIENTSECRET')
 GITHUB_AUTHORIZE_URL = config.get('callback', 'GITHUB_AUTHORIZE_URL')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -183,7 +181,7 @@ USE_L10N = True
 
 USE_TZ = False
 
-#session cookie
+# session cookie
 SESSION_COOKIE_AGE = 1209600
 
 # Static files (CSS, JavaScript, Images)
@@ -207,3 +205,6 @@ tinymce_js = [
     '/static/tinymce/js/tinymce/plugins/jquery.form.js',  # 手动添加文件
     '/static/tinymce/js/tinymce/textarea.js',  # 手动添加文件，用户初始化参数
 ]
+
+# 默认登录url
+LOGIN_URL = "/"
