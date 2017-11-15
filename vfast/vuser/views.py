@@ -323,12 +323,19 @@ def dashboard(request, param):
                 'flag': flag,
                 'userplan': userplan
             }
+            from vuser.skill_mastery_level import statistics_skill_mastery_level_by_path
+            statistics_dict = statistics_skill_mastery_level_by_path(user.id, user.pathid)
+            result_dict.update(statistics_dict)
             return render(request, 'dashBoard.html',result_dict)
-        # from vuser.skill_mastery_level import statistics_skill_mastery_le   vel_by_path
 
         return render(request, 'dashBoard.html',
                       {'courses': courses_learning, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
-                       'tasks': tasks, 'userplan': userplan})
+                       'tasks': tasks, 'userplan': userplan,
+                       "skill_name_data": [],  # 路线下所有技能点
+                       "undone_color_data": [],  # 技能点未完成底色
+                       "inner_ring_data": [],  # 内环技能点占比
+                       "outer_ring_data": [],  # 外环技能点完成占比
+                       })
     except:
         logging.getLogger().error(traceback.format_exc())
         return render(request, '404.html')
