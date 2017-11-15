@@ -1068,11 +1068,11 @@
          document.onkeydown=function(event){
                   var e = event || window.event || arguments.callee.caller.arguments[0];
                 if(e && e.keyCode==32&&elem.paused) { // 按 F2
-                    event.preventDefault();
+                   // event.preventDefault();
                            video_play();
                       console.log("eee");
                 }else {
-                    event.preventDefault();
+                   // event.preventDefault();
                        video_Paused()
                     console.log("ccc");
                 }

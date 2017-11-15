@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/static/js/jquery-2.1.4.js"></script>
+</head>
+<body>
+<div>
+    <b>基础信息</b>
+
+    {% if Resumes %}
+        <p>昵称：{{ Resumes.user_id.nickname }}</p>
+        <p>工作年限：{{ Resumes.years_of_service }}</p>
+    {% endif %}
+</div>
+<div>
+    <b>工作经验</b>
+    <button onclick="add()">添加</button>
+    <div id="all_workexperience">
+        {% for one_workexperience in WorkExperiences %}
+            <div id="{{ one_workexperience.id }}">
+                <button onclick="edit({{ one_workexperience.id }})">编辑</button>
+                <p id="item_id_{{ one_workexperience.id }}">
+                    ID：{{ one_workexperience.id }}
+                </p>
+                公司名称：<p id="item_company_{{ one_workexperience.id }}">{{ one_workexperience.company }}</p>
+                职位名称：<p id="item_position_{{ one_workexperience.id }}">{{ one_workexperience.position }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="add_form" hidden>
+        公司名称：<input type="text" id="company">
+        职位名称：<input type="text" id="position">
+        <button onclick="add_save()">保存</button>
+    </div>
+    <div id="all_workexperience">
+        {% for one_workexperience in WorkExperiences %}
+            <div id="{{ one_workexperience.id }}">
+                <button onclick="edit({{ one_workexperience.id }})">编辑</button>
+                <p id="item_id_{{ one_workexperience.id }}">
+                    ID：{{ one_workexperience.id }}
+                </p>
+                公司名称：<p id="item_company_{{ one_workexperience.id }}">{{ one_workexperience.company }}</p>
+                职位名称：<p id="item_position_{{ one_workexperience.id }}">{{ one_workexperience.position }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="add_form" hidden>
+        公司名称：<input type="text" id="company">
+        职位名称：<input type="text" id="position">
+        <button onclick="add_save()">保存</button>
+    </div>
+</div>
+<script>
+    function add() {
+        $("#add_form").show();
+    }
+    function edit(data_id) {
+        var a = $("#" + data_id);
+        var company_id = "item_company_" + data_id;
+        var position_id = "item_position_" + data_id;
+        var company = a.find('p[id^=' + company_id + ']').text();
+        var position = a.find('p[id^=' + position_id + ']').text();
+        var form_str = "公司名称：<input type=\"text\" id=\"company\" value=" + company + ">"
+            + "职位名称：<input type=\"text\" id=\"position\" value=" + position + ">"
+            + "<button onclick='edit_save(" + data_id + ")'>保存</button>";
+        a.html(form_str)
+    }
+    function add_save() {
+        $("#add_form").hide();
+
+        var add_str = "<div id='2'><p>ID：2<button>编辑</button></p><p>公司名称：++1</p><p>职位名称：++2</p></div>";
+        $("#all_workexperience").append(add_str)
+
+    }
+
+    function edit_save(data_id) {
+        var a = $("#" + data_id);
+        var item_str = '<button onclick="edit(' + data_id + ')">编辑</button>'
+            + '<p id="item_id_' + data_id + '">ID：' + data_id + '</p>'
+            + '公司名称:<p id="item_company_' + data_id + '">质量库</p>'
+            + '职位名称:<p id="item_position_' + data_id + '">python程序员</p>';
+        a.html(item_str)
+    }
+
+</script>
+
+</body>
+</html>
