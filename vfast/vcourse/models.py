@@ -93,7 +93,7 @@ class Path(models.Model):
     createtime = models.DateField('路线创建时间', auto_now=True)
     p_sequence = models.CharField('课程顺序', null=True, blank=True, max_length=30)
     course = models.ManyToManyField('Course', verbose_name="包含课程")
-    color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
+    color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='#4DB5AB')
     avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='9000')
     job_wanted = models.IntegerField('岗位空缺度', null=True, default=5)
 
