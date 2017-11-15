@@ -1,16 +1,14 @@
 #!encoding:utf-8
-import logging, traceback
-import json
+import logging
 import time
 
-from vfast.error_page import *
+from django.http import HttpResponseRedirect
+
+from vcourse.api import course_process
+from vcourse.models import *
 from vfast.api import require_login
-from vuser.models import User
-from vcourse.models import Technology, Course, Video, Path, UserPath, Section
+from vfast.error_page import *
 from vrecord.models import WatchRecord
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from vcourse.api import course_process, track_process
 
 
 # Create your views here.
@@ -22,26 +20,33 @@ def test(request):
 
 
 def getpath(request):
-    """获取学习路线详细信息, 学习路线下包含的所有课程
-        path为path对象, courseall包含所有的course对象
     """
+    获取学习路线详细信息, 学习路线下包含的所有课程
+    path为path对象, courseall包含所有的course对象
+    """
+    result_dict = dict()
     try:
-        pid = request.GET.get('id')
+        pid = request.GET.get('id')  # 学习路线ID
         path = Path.objects.get(id=pid)
-        sequence = path.p_sequence
-        course = sequence.split(',')
+        courses_obj_list, courses_dict_list = path.get_after_sorted_course()  # 路线中所有课程
+
+        courses_list = []
+        for one_course in courses_obj_list:
+            videos = Video.objects.filter(course=one_course).order_by('sequence').values()
+            courses_list.append(dict(course=one_course, video=videos))
+
+        # 获取用户现有学习路线，如果没有页面显示切换路线
         try:
             uid = request.session['user']['id']
             path_id = User.objects.get(id=uid).pathid
         except:
             path_id = 0
-        courses = []
-        for cid in course:
-            c = Course.objects.get(id=cid)
-            videos = Video.objects.filter(course=c).order_by('sequence').values()
-            courses.append(dict(course=c, video=videos))
-        return render(request, 'learnPath_show.html',
-                      {'path': path, 'path_id': path_id, 'courses': courses, 'xingxing': [0, 1, 2, 3, 4]})
+
+        result_dict["path"] = path
+        result_dict["path_id"] = path_id
+        result_dict["courses"] = courses_list
+        result_dict["xingxing"] = [0, 1, 2, 3, 4]
+        return render(request, 'learnPath_show.html', result_dict)
     except:
         logging.getLogger().error(traceback.format_exc())
         return page_not_found(request)
@@ -93,30 +98,27 @@ def join_path(request):
         uid = request.session['user']['id']
         user = User.objects.get(id=uid)
         path = Path.objects.get(id=pid)
-        sequence = path.p_sequence.split(',')
+        courses, courses_values = path.get_after_sorted_course()
         User.objects.filter(id=uid).update(pathid=pid)
         if UserPath.objects.filter(user=user, path=path).exists():
-            video = WatchRecord.objects.filter(user=user, course_id__in=sequence).order_by('-createtime').values(
+            video = WatchRecord.objects.filter(user=user, course__in=courses).order_by('-createtime').values(
                 'video_id', 'video__vtype', 'createtime').first()
             logging.getLogger().info(video)
             if video:
                 url = '/video/%s' % video['video_id'] if video['video__vtype'] == 0 else '/practice/%s' % video[
                     'video_id']
             else:
-                course_id = sequence[0]
-                video = Video.objects.filter(course_id=course_id, sequence=1).values('vtype', 'id').first()
+                video = Video.objects.filter(course=courses[0], sequence=1).values('vtype', 'id').first()
                 url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
             return HttpResponseRedirect(url)
         else:
             t = time.strftime('%Y-%m-%d %H:%M:%S')
             UserPath.objects.create(user=user, path=path, createtime=t)
-            course_id = sequence[0]
-            video = Video.objects.filter(course_id=course_id, sequence=1).values('vtype', 'id').first()
+            video = Video.objects.filter(course=courses[0], sequence=1).values('vtype', 'id').first()
             url = '/video/%s' % video['id'] if video['vtype'] == 0 else '/practice/%s' % video['id']
             return HttpResponseRedirect(url)
     except:
         logging.getLogger().error(traceback.format_exc())
-        # return HttpResponse(json.dumps({'code': 128}, ensure_ascii=False))
         return page_error(request)
 
 

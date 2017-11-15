@@ -20,6 +20,7 @@ class PathAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'desc', 'intrv', 'jobscount', 'pathimg', 'totaltime', 'createtime', 'color')
     search_fields = ('name',)
     filter_horizontal = ('course',)
+    readonly_fields = ('p_sequence',)
 
     class Media:
         js = tinymce_js

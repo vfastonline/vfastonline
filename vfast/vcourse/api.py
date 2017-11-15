@@ -2,7 +2,11 @@
 #encoding: utf-8
 import logging
 import traceback
+
+from vcourse.models import Video
 from vfast.api import dictfetchall
+from vrecord.models import WatchRecord
+
 
 def course_process(uid, cid):
     try:
@@ -18,14 +22,19 @@ def course_process(uid, cid):
 
 
 def track_process(uid, sequence):
+    """
+    :param uid: 最终用户id
+    :param sequence: 指定路线下所有课程
+    :return:
+    """
+    p_num = 0
     try:
-        p_num_sql = 'select count(1) as sum from vcourse_video where course_id in (%s)' % sequence
-        v_num_sql = 'select COUNT(1) as sum from vrecord_watchrecord where course_id in  (%s) AND user_id = %s  AND status = 0' % (
-            sequence, uid)
-        p_num = dictfetchall(p_num_sql)[0]['sum']
-        v_num = dictfetchall(v_num_sql)[0]['sum']
+        p_num = Video.objects.filter(course__in=sequence).count()
+        v_num = WatchRecord.objects.filter(course__in=sequence, user=uid, status=0).count()
+
         jindu = v_num / 1.0 / p_num
         return ('%.2f%%' % (jindu * 100), '%s/%s' % (v_num, p_num))
     except:
+        traceback.print_exc()
         logging.getLogger().error(traceback.format_exc())
         return ('0.00%', '0/%s' % p_num)

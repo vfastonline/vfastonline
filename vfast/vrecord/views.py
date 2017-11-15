@@ -1,17 +1,18 @@
 #!encoding: utf-8
 # from django.shortcuts import render
-from vuser.models import User
-from vcourse.models import Course, Video, Technology, Path
-from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu, Watchface
-from vpractice.models import Timu
-from django.http import HttpResponse
-from django.db import connection
-from vbadge.models import UserBadge, Badge
-from vfast.api import get_day_of_day, dictfetchall, require_login
-
-import time
 import json
-import logging, traceback
+import logging
+import time
+import traceback
+
+from django.http import HttpResponse
+
+from vbadge.models import UserBadge, Badge
+from vcourse.models import Course, Video, Technology, Path
+from vfast.api import get_day_of_day, dictfetchall, require_login
+from vpractice.models import Timu
+from vrecord.models import WatchRecord, Score, WatchCourse, Watchtime, WatchTimu, Watchface
+from vuser.models import User
 
 
 def test(request):
@@ -47,18 +48,15 @@ def get_mengxin(user):
 def get_track_badge(user, cid, cname):
     try:
         logging.getLogger().info('用户%s学完课程%s, 判断是否给用户%s发送相关路线勋章' % (user.nickname, cname, user.nickname))
-        paths = Path.objects.all().values('id', 'p_sequence')
+        paths = Path.objects.all()
         watched_courses = WatchCourse.objects.filter(user=user)
         user_wathced_cids, tracks = [], []
         for item in watched_courses:
             user_wathced_cids.append(str((item.course.id)))
 
         for path in paths:
-            path_cids = path['p_sequence'].split(',')
-            print path_cids
+            path_cids = [str(one.id) for one in path.course.all()]
             if (str(cid) in path_cids) and (not set(path_cids).difference(user_wathced_cids)):
-                path = Path.objects.get(id=int(path['id']))
-                # print path.name
                 badge = Badge.objects.get(path=path)
                 if UserBadge.objects.filter(user=user, badge=badge).__len__() == 0:
                     UserBadge.objects.create(user=user, badge=badge, createtime=time.strftime('%Y-%d-%m'))

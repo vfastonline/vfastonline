@@ -37,7 +37,7 @@ class User(models.Model):
     createtime = models.CharField('创建时间', max_length=20)
     active = models.CharField('激活账号码', max_length=250, null=True, blank=True)
     status = models.IntegerField('是否激活', default=0)
-    pathid = models.IntegerField('正在进行的路径ID', default=0)
+    pathid = models.IntegerField('正在进行的学习路线ID', default=0)
     position = models.CharField('讲师职位', default='讲师', max_length=100)
     phone = models.CharField('手机号码', max_length=15, unique=True)
     nickname = models.CharField('昵称', max_length=30, unique=True)
