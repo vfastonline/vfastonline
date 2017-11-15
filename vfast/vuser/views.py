@@ -291,9 +291,9 @@ def dashboard(request, param):
                         item['createtime'] = 0
                         item['video_name'] = ret_sql_v.name
                     else:
-                        item['video_id'] = ret_video.id
-                        item['video_name'] = ret_video.name
-                        item['vtype'] = ret_video.vtype
+                        item['video_id'] = ret_video.first().id
+                        item['video_name'] = ret_video.first().name
+                        item['vtype'] = ret_video.first().vtype
                         item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
             tmp = []
             for z in courses:
