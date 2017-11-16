@@ -21,8 +21,8 @@ class Technology(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "技能类别"
-        verbose_name_plural = "技能类别"
+        verbose_name = "技术分类"
+        verbose_name_plural = "技术分类"
 
 
 class Course(models.Model):

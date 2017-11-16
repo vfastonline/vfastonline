@@ -22,7 +22,8 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
         # 获取路线下所有技能点信息
         skill_objs = Skill.objects.filter(path_id=path_id)
         skill_name_list = list(skill_objs.values_list("name", flat=True))
-        result_dict["skill_name_data"] = [one.encode('unicode-escape').decode('string_escape') for one in skill_name_list]
+        result_dict["skill_name_data"] = [one.encode('unicode-escape').decode('string_escape') for one in
+                                          skill_name_list]
 
         # 未完成课程图表底色
         result_dict["undone_color_data"] = ['#F0F2F4' for i in range(len(skill_name_list))]
@@ -31,8 +32,8 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
         skill_dict = {}
         # 获取路线信息
         path_objs = Path.objects.filter(id=path_id)
-        for one_path in path_objs:
-            course_objs = one_path.course.all()
+        if path_objs.exists():
+            course_objs = path_objs[0].course.all()  # 路线下所有课程
             for one_course in course_objs:
                 section_objs = Section.objects.filter(course=one_course)
                 for one_section in section_objs:
@@ -43,7 +44,7 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
 
                         # 组装指定技能下视频观看进度
                         if not skill_dict.has_key(section_skill):
-                            skill_dict[section_skill] = {"total": 0, "undone": 0}  # 视频总数，未完成，已完成
+                            skill_dict[section_skill] = {"total": 0, "undone": 0}  # 视频总数，未完成
                         skill_dict[section_skill]["total"] += video_objs.count()
 
                         for one_video in video_objs:
@@ -60,22 +61,31 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
         for one_skill in skill_objs:
             one_skill_weight = one_skill.weight
             one_skill_name = one_skill.name
-            one_skill_undone_name = one_skill.name+' Undone'
+            one_skill_undone_name = one_skill.name + ' Undone'
 
             # 内环技能点占比
-            result_dict["inner_ring_data"].append({"value": int(one_skill_weight), "name": one_skill_name.encode('unicode-escape').decode('string_escape')})
+            result_dict["inner_ring_data"].append({"value": int(one_skill_weight),
+                                                   "name": one_skill_name.encode('unicode-escape').decode(
+                                                       'string_escape')})
 
             # 外环技能学习进度
             schedule_dict = skill_dict.get(one_skill_name, {})
             if not schedule_dict:  # 没有观看进度，全部未完成
-                result_dict["outer_ring_data"].append({"value": 0, "name": one_skill_name.encode('unicode-escape').decode('string_escape')})
-                result_dict["outer_ring_data"].append({"value": int(one_skill_weight), "name": one_skill_undone_name.encode('unicode-escape').decode('string_escape')})
+                result_dict["outer_ring_data"].append(
+                    {"value": 0, "name": one_skill_name.encode('unicode-escape').decode('string_escape')})
+                result_dict["outer_ring_data"].append({"value": int(one_skill_weight),
+                                                       "name": one_skill_undone_name.encode('unicode-escape').decode(
+                                                           'string_escape')})
             else:
                 total = schedule_dict.get("total", 0)
                 undone = schedule_dict.get("undone", 0)
                 tmp_undone = (undone / 1.0 / total) * one_skill_weight
-                result_dict["outer_ring_data"].append({"value": int(one_skill_weight - tmp_undone), "name": one_skill_name.encode('unicode-escape').decode('string_escape')})
-                result_dict["outer_ring_data"].append({"value": int(tmp_undone), "name": one_skill_undone_name.encode('unicode-escape').decode('string_escape')})
+                result_dict["outer_ring_data"].append({"value": int(one_skill_weight - tmp_undone),
+                                                       "name": one_skill_name.encode('unicode-escape').decode(
+                                                           'string_escape')})
+                result_dict["outer_ring_data"].append({"value": int(tmp_undone),
+                                                       "name": one_skill_undone_name.encode('unicode-escape').decode(
+                                                           'string_escape')})
     except:
         logging.getLogger().error(traceback.format_exc())
         traceback.print_exc()
