@@ -72,11 +72,11 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
             else:
                 total = schedule_dict.get("total", 0)
                 done = schedule_dict.get("done", 0)
-                tmp_undone = round((total - done / 1.0 / total) * one_skill_weight, 2)
-                result_dict["outer_ring_data"].append({"value": str(one_skill_weight - tmp_undone),
+                tmp_done = round(((total - done) / 1.0 / total) * one_skill_weight, 2)
+                result_dict["outer_ring_data"].append({"value": str(tmp_done),
                                                        "name": one_skill_name.encode('unicode-escape').decode(
                                                            'string_escape')})
-                result_dict["outer_ring_data"].append({"value": str(tmp_undone),
+                result_dict["outer_ring_data"].append({"value": str(one_skill_weight - tmp_done),
                                                        "name": one_skill_undone_name.encode('unicode-escape').decode(
                                                            'string_escape')})
     except:
