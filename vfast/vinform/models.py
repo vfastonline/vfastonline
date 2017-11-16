@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import django.utils.timezone as timezone
+from colorfield.fields import ColorField
 from django.db import models
 
 from vuser.models import User
@@ -24,7 +25,7 @@ class InformTask(models.Model):
         (1, '已完成'),
     )
     type = models.ForeignKey(InformType, verbose_name="通知类型")
-    color = models.CharField(verbose_name='通知颜色', max_length=15, blank=True, null=True, default='')
+    color = ColorField(verbose_name='通知颜色', max_length=15, blank=True, null=True, default='')
     pubtime = models.DateTimeField(verbose_name='任务发布时间')
     desc = models.CharField(verbose_name='简介', max_length=100, default='')
     url = models.CharField(verbose_name='跳转URL', max_length=100, default='')
@@ -45,7 +46,7 @@ class Inform(models.Model):
     )
     type = models.ForeignKey(InformType, verbose_name="通知类型")
     user = models.ForeignKey(User, models.CASCADE)
-    color = models.CharField(verbose_name='通知颜色', max_length=15, blank=True, null=True, default='')
+    color = ColorField(verbose_name='通知颜色', max_length=15, blank=True, null=True, default='')
     pubtime = models.DateTimeField(verbose_name='任务发布时间', default=timezone.now)
     desc = models.CharField(verbose_name='简介', max_length=100, default='')
     url = models.CharField(verbose_name='跳转URL', max_length=100, default='')

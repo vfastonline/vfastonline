@@ -7,7 +7,7 @@ from vuser.models import User
 
 class Resume(models.Model):
     """个人简历基础信息"""
-    user_id = models.ForeignKey(User, verbose_name=u"用户信息", related_name="resume_user_id", unique=True)
+    user_id = models.OneToOneField(User, verbose_name=u"用户信息", related_name="resume_user_id", unique=True)
     years_of_service = models.IntegerField(u"工作年限", null=True, blank=True, default=0)
     education = models.CharField(u"最高学历", max_length=255, null=True, blank=True, default="")
     expect_salary_low = models.CharField(u"期望薪资最低", max_length=255, null=True, blank=True, default="")

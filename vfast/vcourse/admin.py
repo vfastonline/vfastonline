@@ -1,7 +1,7 @@
 # encoding: utf8
 from django.contrib import admin
 
-from vcourse.models import Path, Technology, Course, Video, Section, Faq, Skill
+from vcourse.models import *
 from vfast.settings import tinymce_js
 
 
@@ -19,6 +19,8 @@ class VideoAdmin(admin.ModelAdmin):
 class PathAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'desc', 'intrv', 'jobscount', 'pathimg', 'totaltime', 'createtime', 'color')
     search_fields = ('name',)
+    filter_horizontal = ('course',)
+    readonly_fields = ('p_sequence',)
 
     class Media:
         js = tinymce_js
@@ -45,15 +47,29 @@ class UserPathAdmin(admin.ModelAdmin):
 
 
 class FaqAdmin(admin.ModelAdmin):
-    list_display = ('video', 'question', 'answer', 'language')
+    list_display = ('id', 'video', 'question', 'answer', 'language')
+    search_fields = ('video', 'question',)
 
     class Media:
         js = tinymce_js
+
+
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ('id', 'path', 'name', 'weight')
+    search_fields = ('path', 'name',)
 
 
 class SectionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'desc', 'course', 'skill')
+    search_fields = ('title', 'course',)
+
     class Media:
         js = tinymce_js
+
+
+class PathCourseOrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'path', 'course', 'sequence_number')
+    search_fields = ('path__name', 'course__name')
 
 
 admin.site.register(Path, PathAdmin)
@@ -62,4 +78,5 @@ admin.site.register(Technology, TechnologyAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.register(Faq, FaqAdmin)
-admin.site.register(Skill)
+admin.site.register(Skill, SkillAdmin)
+admin.site.register(PathCourseOrder, PathCourseOrderAdmin)

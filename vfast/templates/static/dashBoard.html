@@ -591,9 +591,9 @@
                 <div id="main" style="width: 450px;height:450px;"></div>
             </div>
     <script>
-          var myChart = echarts.init(document.getElementById('main'),'macarons');
+            var myChart = echarts.init(document.getElementById('main'), 'macarons');
 
-          option = {
+          var option = {
               tooltip: {
                   trigger: 'item',
                   formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -603,7 +603,7 @@
                   y: 'bottom',
                   //orient: 'vertical',
                    selectedMode:false,
-                  data:['TCP/IP','Windows','Nagios','Zabbix','Linux',]
+                  data:{{ skill_name_data| safe}}
               },
               series: [
                   {
@@ -621,26 +621,21 @@
                               show: false
                           }
                       },
-                      data:[
-                          {value:6, name:'TCP/IP', selected:true},
-                          {value:15, name:'Windows'},
-                          {value:15, name:'Nagios'},
-                          {value:18, name:'Zabbix'},
-                          {value:46, name:'Linux'},
-                      ]
+                        data:{{ inner_ring_data | safe}}
                   },
                   {
                       name:'完成度',
                       type:'pie',
                       radius: ['40%', '55%'],
-                      data:[
-                          {value:6, name:'TCP/IP'},
-                          {value:94, name:'未完成课程'},
-                      ]
+                      data:{{ outer_ring_data | safe}},//.sort(function (a, b) { return a.value - b.value; }),
+                      color:{{ undone_color_data | safe}},
                   }
               ]
           };
           myChart.setOption(option);
+
+
+
       </script>
             <div class="plan_head">
                 <h3>今日学习计划</h3>

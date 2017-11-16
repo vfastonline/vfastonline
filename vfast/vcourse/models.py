@@ -1,23 +1,28 @@
 #!encoding:utf-8
 from __future__ import unicode_literals
 
+import traceback
+
+from colorfield.fields import ColorField
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
+from django.forms.models import model_to_dict
 
 from vuser.models import User
 
 
 class Technology(models.Model):
     name = models.CharField('技术类别', max_length=50)
-    color = models.CharField('颜色', max_length=50, default='#FFFFFF')
+    color = ColorField('颜色', max_length=50, default='#FFFFFF')
     desc = models.TextField('技术简介', default='')
 
     def __unicode__(self):
         return self.name
 
     class Meta:
-        verbose_name = "技能类别"
-        verbose_name_plural = "技能类别"
+        verbose_name = "技术分类"
+        verbose_name_plural = "技术分类"
 
 
 class Course(models.Model):
@@ -37,7 +42,7 @@ class Course(models.Model):
     difficult = models.IntegerField('课程难度', null=True, blank=True, default=4)
     tech = models.ForeignKey(Technology, null=True, on_delete=models.SET_NULL, blank=True, verbose_name='技术分类')
     icon = models.IntegerField('课程对应的图标', choices=ICON_STATUS, default=0)
-    color = models.CharField('颜色', max_length=30, null=True, blank=True)
+    color = ColorField('颜色', max_length=30, null=True, blank=True)
     pubstatus = models.IntegerField('发布状态', choices=PUB_STATUS, null=True, default=1)
     subscibe = models.IntegerField('学习课程人数', null=True, blank=True, default=0)
     createtime = models.DateField('课程创建时间', auto_now=True)
@@ -88,12 +93,27 @@ class Path(models.Model):
     subscibe = models.IntegerField('参加路线人数', null=True, blank=True)
     createtime = models.DateField('路线创建时间', auto_now=True)
     p_sequence = models.CharField('课程顺序', null=True, blank=True, max_length=30)
-    color = models.CharField('路线颜色', null=True, blank=True, max_length=30, default='red')
+    course = models.ManyToManyField('Course', verbose_name="包含课程")
+    color = ColorField('路线颜色', null=True, blank=True, max_length=30, default='#4DB5AB')
     avrage_salary = models.CharField('平均入门薪水', max_length=10, null=True, blank=True, default='9000')
     job_wanted = models.IntegerField('岗位空缺度', null=True, default=5)
 
     def __unicode__(self):
         return self.name
+
+    # 获取路线下带顺序的课程信息
+    def get_after_sorted_course(self):
+        sorted_course = self.course.all()
+        sorted_course_values = self.course.all().values()
+        try:
+            sorted_course = [one.course for one in PathCourseOrder.objects.filter(path=self.id)]
+            not_sort_course = list(set(self.course.all()) - set(sorted_course))
+            sorted_course += not_sort_course
+            sorted_course_values = [model_to_dict(one) for one in sorted_course]
+        except:
+            traceback.print_exc()
+        finally:
+            return sorted_course, sorted_course_values
 
     class Meta:
         verbose_name = "学习路线"
@@ -165,9 +185,12 @@ class Faq(models.Model):
 
 
 class Skill(models.Model):
+    """
+    技能点在路线中的权重
+    """
     path = models.ForeignKey(Path, verbose_name="学习路线")
     name = models.CharField(max_length=50, verbose_name='技能点名称')
-    weight = models.IntegerField(verbose_name='权重')
+    weight = models.IntegerField(verbose_name='权重', validators=[MinValueValidator(1)])
 
     def __unicode__(self):
         return self.name
@@ -175,3 +198,24 @@ class Skill(models.Model):
     class Meta:
         verbose_name = "技能点"
         verbose_name_plural = "技能点"
+        unique_together = (("path", "name"),)
+
+
+class PathCourseOrder(models.Model):
+    """
+    指定课程在指定学习路线中显示顺序
+    """
+
+    path = models.ForeignKey(Path, verbose_name="学习路线")
+    course = models.ForeignKey(Course, verbose_name="课程")
+    sequence_number = models.PositiveIntegerField("顺序号", validators=[MinValueValidator(1)])
+
+    def __unicode__(self):
+        return self.path.name + "/" + self.course.name + "/" + str(self.sequence_number)
+
+    class Meta:
+        verbose_name = "学习路线中课程的顺序"
+        verbose_name_plural = "学习路线中课程的顺序"
+        unique_together = (("path", "course"), ("path", "sequence_number"))
+        ordering = ['path', 'sequence_number']
+        index_together = ["path", "course"]
