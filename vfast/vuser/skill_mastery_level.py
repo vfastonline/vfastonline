@@ -79,8 +79,7 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
             else:
                 total = schedule_dict.get("total", 0)
                 undone = schedule_dict.get("undone", 0)
-                tmp_undone = (undone / 1.0 / total) * one_skill_weight
-                print tmp_undone
+                tmp_undone = round((undone / 1.0 / total) * one_skill_weight, 2)
                 result_dict["outer_ring_data"].append({"value": str(one_skill_weight - tmp_undone),
                                                        "name": one_skill_name.encode('unicode-escape').decode(
                                                            'string_escape')})
@@ -94,5 +93,5 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
         # print "skill_name_data==", result_dict["skill_name_data"]
         # print "undone_color_data==", result_dict["undone_color_data"]
         # print "inner_ring_data==", result_dict["inner_ring_data"]
-        print "outer_ring_data==", result_dict["outer_ring_data"]
+        # print "outer_ring_data==", result_dict["outer_ring_data"]
         return result_dict
