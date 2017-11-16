@@ -44,19 +44,12 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
 
                         # 组装指定技能下视频观看进度
                         if not skill_dict.has_key(section_skill):
-                            skill_dict[section_skill] = {"total": 0, "undone": 0}  # 视频总数，未完成
+                            skill_dict[section_skill] = {"total": 0, "done": 0}  # 视频总数, 已完成
                         skill_dict[section_skill]["total"] += video_objs.count()
 
-                        for one_video in video_objs:
-                            # 获取这个用户对这些视频的观看进度
-                            watchrecord_obj = WatchRecord.objects.filter(video=one_video, user_id=user_id)
-                            if not watchrecord_obj.exists():  # 没有观看进度，未完成加1
-                                skill_dict[section_skill]["undone"] += 1
-                            else:
-                                status = watchrecord_obj[0].status  # 观看状态，0：已看完；1：未看完
-
-                                if status == 1:
-                                    skill_dict[section_skill]["undone"] += 1
+                        # 查找已完成数
+                        done_count = WatchRecord.objects.filter(video__in=video_objs, user_id=user_id, status=0).count()
+                        skill_dict[section_skill]["done"] += done_count
 
         for one_skill in skill_objs:
             one_skill_weight = one_skill.weight
@@ -78,8 +71,8 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
                                                            'string_escape')})
             else:
                 total = schedule_dict.get("total", 0)
-                undone = schedule_dict.get("undone", 0)
-                tmp_undone = round((undone / 1.0 / total) * one_skill_weight, 2)
+                done = schedule_dict.get("done", 0)
+                tmp_undone = round((total - done / 1.0 / total) * one_skill_weight, 2)
                 result_dict["outer_ring_data"].append({"value": str(one_skill_weight - tmp_undone),
                                                        "name": one_skill_name.encode('unicode-escape').decode(
                                                            'string_escape')})
