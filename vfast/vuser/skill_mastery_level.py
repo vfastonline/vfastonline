@@ -55,7 +55,7 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
                             else:
                                 status = watchrecord_obj[0].status  # 观看状态，0：已看完；1：未看完
 
-                                if status == 1:  # 已看完
+                                if status == 1:
                                     skill_dict[section_skill]["undone"] += 1
 
         for one_skill in skill_objs:
@@ -64,7 +64,7 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
             one_skill_undone_name = one_skill.name + ' Undone'
 
             # 内环技能点占比
-            result_dict["inner_ring_data"].append({"value": int(one_skill_weight),
+            result_dict["inner_ring_data"].append({"value": str(one_skill_weight),
                                                    "name": one_skill_name.encode('unicode-escape').decode(
                                                        'string_escape')})
 
@@ -73,17 +73,18 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
             if not schedule_dict:  # 没有观看进度，全部未完成
                 result_dict["outer_ring_data"].append(
                     {"value": 0, "name": one_skill_name.encode('unicode-escape').decode('string_escape')})
-                result_dict["outer_ring_data"].append({"value": int(one_skill_weight),
+                result_dict["outer_ring_data"].append({"value": str(one_skill_weight),
                                                        "name": one_skill_undone_name.encode('unicode-escape').decode(
                                                            'string_escape')})
             else:
                 total = schedule_dict.get("total", 0)
                 undone = schedule_dict.get("undone", 0)
                 tmp_undone = (undone / 1.0 / total) * one_skill_weight
-                result_dict["outer_ring_data"].append({"value": int(one_skill_weight - tmp_undone),
+                print tmp_undone
+                result_dict["outer_ring_data"].append({"value": str(one_skill_weight - tmp_undone),
                                                        "name": one_skill_name.encode('unicode-escape').decode(
                                                            'string_escape')})
-                result_dict["outer_ring_data"].append({"value": int(tmp_undone),
+                result_dict["outer_ring_data"].append({"value": str(tmp_undone),
                                                        "name": one_skill_undone_name.encode('unicode-escape').decode(
                                                            'string_escape')})
     except:
@@ -93,5 +94,5 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
         # print "skill_name_data==", result_dict["skill_name_data"]
         # print "undone_color_data==", result_dict["undone_color_data"]
         # print "inner_ring_data==", result_dict["inner_ring_data"]
-        # print "outer_ring_data==", result_dict["outer_ring_data"]
+        print "outer_ring_data==", result_dict["outer_ring_data"]
         return result_dict
