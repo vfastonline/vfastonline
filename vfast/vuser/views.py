@@ -7,7 +7,6 @@ import traceback
 
 from django.conf import settings
 from django.db.models import Q, Sum
-from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
 
 from vbadge.models import UserBadge
@@ -21,6 +20,7 @@ from vrecord.models import WatchCourse
 from vrecord.models import WatchRecord, Score
 from vuser.api import *
 from vuser.models import User, DailyTask, PtoP, DailyTaskstatus, Userplan
+from vuser.skill_mastery_level import statistics_skill_mastery_level_by_path
 
 
 # Create your views here.
@@ -323,9 +323,11 @@ def dashboard(request, param):
                 'flag': flag,
                 'userplan': userplan
             }
-            from vuser.skill_mastery_level import statistics_skill_mastery_level_by_path
+
+            # 统计各个技能点的学习进度，页面嵌套环形图使用
             statistics_dict = statistics_skill_mastery_level_by_path(user.id, user.pathid)
             result_dict.update(statistics_dict)
+            
             return render(request, 'dashBoard.html',result_dict)
 
         return render(request, 'dashBoard.html',
