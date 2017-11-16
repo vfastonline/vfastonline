@@ -11,7 +11,7 @@ from share_module.permissionMixin import class_view_decorator
 from vresume.models import *
 
 
-@class_view_decorator(login_required)
+# @class_view_decorator(login_required)
 class ResumeDetail(DetailView):
     context_object_name = "User"
     template_name = "resume.html"
@@ -42,7 +42,7 @@ resume_type_model_dict = {
 }
 
 
-@class_view_decorator(login_required)
+# @class_view_decorator(login_required)
 class ResumeDelete(View):
     def post(self, request, *args, **kwargs):
         result_dict = {"err": 0, "msg": ""}
@@ -63,13 +63,16 @@ class ResumeDelete(View):
             return HttpResponse(json.dumps(result_dict, ensure_ascii=False))
 
 
-@class_view_decorator(login_required)
+# @class_view_decorator(login_required)
 class ResumeAdd(View):
     def post(self, request, *args, **kwargs):
         result_dict = {"err": 0, "msg": "", "id": ""}
         try:
             resume_type = self.kwargs.get("resume_type", "")
             resume_info_dict = self.request.POST.get("resume_info_dict", {})
+            print resume_type
+            print request.POST.keys()
+            print resume_info_dict
             resume_info_dict = eval(resume_info_dict)
             user_id = resume_info_dict.get("user_id")
             user_obj = User.objects.filter(id=user_id)
@@ -89,7 +92,7 @@ class ResumeAdd(View):
             return HttpResponse(json.dumps(result_dict, ensure_ascii=False))
 
 
-@class_view_decorator(login_required)
+# @class_view_decorator(login_required)
 class ResumeUpdate(View):
     def post(self, request, *args, **kwargs):
         result_dict = {"err": 0, "msg": ""}

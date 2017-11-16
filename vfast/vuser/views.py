@@ -28,7 +28,7 @@ def test(request):
     skill = Skill.objects.all().values()
     for item in skill:
         print item
-    return render(request, '500.html')
+    return render(request, 'resume.html')
 
 
 def userexists(request):
