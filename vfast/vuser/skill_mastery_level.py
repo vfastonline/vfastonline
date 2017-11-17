@@ -61,10 +61,6 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
         logging.getLogger().error(traceback.format_exc())
         traceback.print_exc()
     finally:
-        # print "skill_name_data==", result_dict["skill_name_data"]
-        # print "undone_color_data==", result_dict["undone_color_data"]
-        # print "inner_ring_data==", result_dict["inner_ring_data"]
-        # print "outer_ring_data==", result_dict["outer_ring_data"]
         return result_dict
 
 
