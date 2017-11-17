@@ -29,7 +29,7 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
             result_dict["skill_name_data"] = [format_str(one) for one in skill_name_list]
 
             # 未完成课程图表底色
-            result_dict["undone_color_data"] = ['#F0F2F4' for i in range(len(skill_name_list))]
+            result_dict["undone_color_data"] = ['#F0F2F4'] * len(skill_name_list)
 
             for one_skill in skill_objs:
                 one_skill_weight = one_skill.weight
@@ -43,7 +43,8 @@ def statistics_skill_mastery_level_by_path(user_id, path_id):
                 done_count = WatchRecord.objects.filter(video__in=video_objs, user_id=user_id, status=0).count()
 
                 # 内环技能点占比
-                result_dict["inner_ring_data"].append({"value": str(one_skill_weight), "name": format_str(one_skill_name)})
+                result_dict["inner_ring_data"].append(
+                    {"value": str(one_skill_weight), "name": format_str(one_skill_name)})
 
                 # 外环技能点课程学习进度占比数据
                 if total_count:
