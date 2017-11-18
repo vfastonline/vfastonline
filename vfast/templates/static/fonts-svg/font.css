@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?w7bxkk');
+  src:  url('fonts/icomoon.eot?w7bxkk#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?w7bxkk') format('truetype'),
+    url('fonts/icomoon.woff?w7bxkk') format('woff'),
+    url('fonts/icomoon.svg?w7bxkk#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zhuangtai:before {
+  content: "\e900";
+  color: #5a646e;
+}
+.icon-youshi:before {
+  content: "\e901";
+  color: #5a646e;
+}
+.icon-xueli:before {
+  content: "\e902";
+  color: #5a646e;
+}
+.icon-xinzi:before {
+  content: "\e903";
+  color: #5a646e;
+}
+.icon-tianjia:before {
+  content: "\e904";
+  color: #757575;
+}
+.icon-romer:before {
+  content: "\e905";
+  color: #757575;
+}
+.icon-nv:before {
+  content: "\e906";
+  color: #5a646e;
+}
+.icon-nianxian:before {
+  content: "\e907";
+  color: #5a646e;
+}
+.icon-nan:before {
+  content: "\e908";
+  color: #5a646e;
+}
+.icon-jingyan:before {
+  content: "\e909";
+  color: #5a646e;
+}
+.icon-geren:before {
+  content: "\e90a";
+  color: #5a646e;
+}
+.icon-bianji:before {
+  content: "\e90b";
+  color: #757575;
+}

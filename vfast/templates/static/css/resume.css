@@ -174,8 +174,6 @@ textarea:focus{
 }
 .floor-nav{
     height: auto;
-    position: fixed;
-    top: calc(50% - 20px);
     z-index: 999;
     background-color: rgba(0, 0, 0, .5);
 }
@@ -237,7 +235,7 @@ textarea:focus{
 .text-border{
     border-top: 2px solid #ECEFF1;
     width: 728px;
-    margin: 15px auto;
+    margin: 0px 65px;
 }
 .text-border>div{
     height: 50px;
@@ -320,7 +318,6 @@ textarea:focus{
 }
 .educations-one{
     width: 864px;
-    margin-top: 30px;
     background: #F0F2F4;
     box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
     border-radius: 4px;

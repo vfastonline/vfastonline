@@ -5,10 +5,20 @@
     <title>Title</title>
     {% include "head.html" %}
     <link href="/static/css/resume.css" rel="stylesheet">
+    <link href="/static/fonts-svg/font.css">
     <style>
         .log-head{
             width: 100px;
             height: 100px;
+        }
+        a{
+            text-decoration:none;
+            display: block;
+        }
+        .classa{
+            float: right;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -20,89 +30,74 @@
         <div class="cent_left">
             <section class="scroll-floor">
                 <div class="resume_one">
+                    <div>
                     <div class="resume_one_nei">
                         <div class="resume_img">
                             <img src="/static/imgs/kong.jpg" alt="因为您太丑该图像无法显示" class="log-head">
                         </div>
                         <ul class="jiben">
-                            <li id="lijiben">
+                            <li id="ulone">
                                 <p>肖莹</p>
-                                <p>
-                                    女
-                                </p>
-                                <p>
-                                    25岁
-                                </p>
-                                <button class="button" style="margin-left: 300px" onclick="srr()" id="button_one">
+                                <p>女</p>
+                                <p>25岁</p>
+                                <button class="button" style="margin-left: 300px" onclick="myadd()" id="button_one">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="3" height="15" viewBox="0 0 3 15">
                                         <path fill="#757575"
                                               d="M3,3.5 L3,4 L0,4 L0,3.5 C0,2.671 0.672,2 1.5,2 C2.328,2 3,2.671 3,3.5 Z M3,14 L1.5,17 L0,14 L0,5 L3,5 L3,14 Z"
                                               transform="translate(0 -2)"/>
                                     </svg>
+                                    <span>
                                     编辑
+                                    </span>
                                 </button>
                             </li>
-                            <li>
-                                <p>现任</p>
+                            <li id="ultowe">
                                 <p>市场及社会传播</p>
                                 <p>乐视网</p>
                             </li>
                         </ul>
-                        <div class="both"
-                             style="border-bottom: 1px solid #ECEFF1;margin-top: 120px;width: 730px;"></div>
+                        <div class="both"style="border-bottom: 1px solid #ECEFF1;margin-top: 120px;width: 730px;"></div>
                     </div>
-                    <ul class="education">
+                    <ul class="education" id="hangli">
                         <li>
-                <span>
-                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19">
-                       <path fill="#5A646E"
-                             d="M12,4 L8,4 L8,2 L12,2 L12,4 Z M18,4 L14,4 L14,2 L12,0 L8,0 L6,2 L6,4 L2,4 C0.89,4 0,4.89 0,6 L0,17 C0,18.1 0.9,19 2,19 L18,19 C19.1,19 20,18.1 20,17 L20,6 C20,4.89 19.1,4 18,4 Z"
-                             opacity=".99"/>
-                     </svg>
-                </span>
-                            <span>
-                    2年
-                </span>
+                            <span class="icon-youshi">
+                            </span>
+                            <span>2年</span>
                         </li>
                         <li>
-                  <span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                        <path fill="#5A646E"
-                              d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z"
-                              opacity=".99"/>
-                      </svg>
-                  </span>
-                            <span>
-                      硕士
-                  </span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
+                              <path fill="#5A646E"
+                                    d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z"
+                                    opacity=".99"/>
+                            </svg>
+                        </span>
+                            <span>硕士</span>
                         </li>
                         <li>
-                  <span>
-                       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
-                           <path fill="#5A646E"
-                                 d="M11,0 C17.0719657,0 22,4.92792433 22,11 C22,17.0719657 17.0719657,22 11,22 C4.92803431,22 0,17.0719657 0,11 C0,4.92792433 4.92792431,0 11,0 Z M13.4142136,9 L15.7071068,6.70710678 C16.0976311,6.31658249 16.0976311,5.68341751 15.7071068,5.29289322 C15.3165825,4.90236893 14.6834175,4.90236893 14.2928932,5.29289322 L11,8.58578644 L7.70710678,5.29289322 C7.31658249,4.90236893 6.68341751,4.90236893 6.29289322,5.29289322 C5.90236893,5.68341751 5.90236893,6.31658249 6.29289322,6.70710678 L8.58578644,9 L7,9 C6.44771525,9 6,9.44771525 6,10 C6,10.5522847 6.44771525,11 7,11 L10,11 L10,12 L8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L10,14 L10,16 C10,16.5522847 10.4477153,17 11,17 C11.5522847,17 12,16.5522847 12,16 L12,14 L14,14 C14.5522847,14 15,13.5522847 15,13 C15,12.4477153 14.5522847,12 14,12 L12,12 L12,11 L15,11 C15.5522847,11 16,10.5522847 16,10 C16,9.44771525 15.5522847,9 15,9 L13.4142136,9 Z"
-                                 opacity=".99"/>
-                       </svg>
-                  </span>
                             <span>
-                      10k-12k
-                  </span>
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+                                     <path fill="#5A646E"
+                                           d="M11,0 C17.0719657,0 22,4.92792433 22,11 C22,17.0719657 17.0719657,22 11,22 C4.92803431,22 0,17.0719657 0,11 C0,4.92792433 4.92792431,0 11,0 Z M13.4142136,9 L15.7071068,6.70710678 C16.0976311,6.31658249 16.0976311,5.68341751 15.7071068,5.29289322 C15.3165825,4.90236893 14.6834175,4.90236893 14.2928932,5.29289322 L11,8.58578644 L7.70710678,5.29289322 C7.31658249,4.90236893 6.68341751,4.90236893 6.29289322,5.29289322 C5.90236893,5.68341751 5.90236893,6.31658249 6.29289322,6.70710678 L8.58578644,9 L7,9 C6.44771525,9 6,9.44771525 6,10 C6,10.5522847 6.44771525,11 7,11 L10,11 L10,12 L8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L10,14 L10,16 C10,16.5522847 10.4477153,17 11,17 C11.5522847,17 12,16.5522847 12,16 L12,14 L14,14 C14.5522847,14 15,13.5522847 15,13 C15,12.4477153 14.5522847,12 14,12 L12,12 L12,11 L15,11 C15.5522847,11 16,10.5522847 16,10 C16,9.44771525 15.5522847,9 15,9 L13.4142136,9 Z"
+                                           opacity=".99"/>
+                                 </svg>
+                            </span>
+                            <span>10k-12k</span>
                         </li>
                         <li>
-                  <span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="14" viewBox="0 0 10 14">
-                          <path fill="#5A646E"
-                                d="M6.003,15.004 L7.003,15.004 L7.003,19.004 C7.003,19.557 7.451,20.004 8.003,20.004 L12.003,20.004 C12.555,20.004 13.003,19.557 13.003,19.004 L13.003,15.004 L14.003,15.004 C14.555,15.004 15.003,14.557 15.003,14.004 L15.003,12.004 C15.003,9.248 12.76,7.004 10.003,7.004 C7.246,7.004 5.003,9.248 5.003,12.004 L5.003,14.004 C5.003,14.557 5.451,15.004 6.003,15.004 Z"
-                                opacity=".99" transform="translate(-5 -7)"/>
-                      </svg>
-                  </span>
                             <span>
-                     在职-考虑机会
-                  </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="14" viewBox="0 0 10 14">
+                                    <path fill="#5A646E"
+                                          d="M6.003,15.004 L7.003,15.004 L7.003,19.004 C7.003,19.557 7.451,20.004 8.003,20.004 L12.003,20.004 C12.555,20.004 13.003,19.557 13.003,19.004 L13.003,15.004 L14.003,15.004 C14.555,15.004 15.003,14.557 15.003,14.004 L15.003,12.004 C15.003,9.248 12.76,7.004 10.003,7.004 C7.246,7.004 5.003,9.248 5.003,12.004 L5.003,14.004 C5.003,14.557 5.451,15.004 6.003,15.004 Z"
+                                          opacity=".99" transform="translate(-5 -7)"/>
+                                </svg>
+                            </span>
+                            <span>在职-考虑机会</span>
                         </li>
                     </ul>
                 </div>
-                <div class="resume_one_1" id="resume_one_1" style="display: none">
+                </div>
+                <div class="resume_one_1" id="resumeone" style="display: none;">
                     <p>
                          <span>
                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -113,40 +108,103 @@
                          </span>
                         个人信息
                     </p>
-                    <div>
-                        <p><span>姓名：</span><input id="name" class="class_input" type="text" name="name" value=""></p>
-                        <p><span>性别：</span>
-                            <button class="class_button" id="man">男</button>
-                            <button class="class_button" id="woman" style="margin-left: 30px">女</button>
-                        </p>
-                        <p><span>生日：</span><input class="class_input" id="shengri" type="date" name="name" value=""></p>
-                        <p><span>开始工作年份：</span><input class="class_input" style="width:527px" type="date"
-                                                      name="years_of_service"
-                                                      value=""></p>
-                        <p><span>求职状态：</span><select class="class_input" style="width:563px" type="text" name="name"
-                                                     value="">
-                            <option value="在职-考虑机会">在职-考虑机会</option>
-                            <option value="离职-正在找工作">离职-正在找工作</option>
-                        </select></p>
-                    </div>
-                    <p>
-                        <button class="button_nove">完成</button>
-                        <button class="button" style="margin-left: 30px" id="xyz_one">取消</button>
-                    </p>
+                    <form id="myfrom">
+                            <table>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">姓名</td>
+                                    <td><input type="text"  class="input-lang" value=""></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">性别</td>
+                                    <td><input type="text" class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">年龄</td>
+                                   <td><input type="text" class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">公司职务</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">任职公司</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">工作年限</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width ="30%">最高学历</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">期望薪资</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">求职状态</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                            </table>
+                        </form>
+                        <div style="margin-left: 65px;height: 50px">
+                            <input type="button" class="button_nove" value="完成" onclick="mycun()">
+                            <input type="button" class="button" value="取消" onclick="xiao()">
+                        </div>
                 </div>
                 <script>
-                    var lione = document.getElementById("lijiben").getElementsByTagName("p");
-                    document.getElementById("name").value = lione[0].innerHTML;
-                    var man = document.getElementById("man");
-                    var woman = document.getElementById("woman");
-                    if (lione[1].innerHTML == man.innerHTML) {
-                        man.style.background = "red"
-                    } else {
-                        woman.style.background = "red"
-                    }
-                    var years = new Date();
-                    var shengri = document.getElementById("shengri").value;
-                    console.log(years.getFullYear())
+                          var ulone=document.getElementById("ulone").getElementsByTagName("p");
+                          var ultowe=document.getElementById("ultowe").getElementsByTagName("p");
+                          var hangli =document.getElementById("hangli").getElementsByTagName("li");
+                          var myfrom =document.getElementById("myfrom").getElementsByTagName("tr");
+                          var resumeone=document.getElementById("resumeone");
+                          console.log(ultowe[0])
+                          console.log(ultowe[1])
+
+                     function myadd() {
+                         if(resumeone.style.display =="none"){
+                             resumeone.style.display ="block";
+                             document.getElementById("button_one").getElementsByTagName("span")[0].innerHTML="取消"
+                         }else {
+                             resumeone.style.display ="none";
+                             document.getElementById("button_one").getElementsByTagName("span")[0].innerHTML="编辑"
+                         }
+                     }
+                               myfrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ulone[0].innerHTML;
+                               myfrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ulone[1].innerHTML;
+                               myfrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ulone[2].innerHTML;
+                               myfrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ultowe[0].innerHTML;
+                               myfrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ultowe[1].innerHTML;
+                               myfrom[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[0].getElementsByTagName("span")[1].innerHTML;
+                               myfrom[6].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[1].getElementsByTagName("span")[1].innerHTML;
+                               myfrom[7].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[2].getElementsByTagName("span")[1].innerHTML;
+                               myfrom[8].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[3].getElementsByTagName("span")[1].innerHTML;
+                     function mycun(){
+                               var myname=ulone[0].innerHTML=myfrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mygender=ulone[1].innerHTML=myfrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var myage=ulone[2].innerHTML=myfrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var myjob=ultowe[0].innerHTML=myfrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mycompay=ultowe[1].innerHTML=myfrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var myjobage=hangli[0].getElementsByTagName("span")[1].innerHTML=myfrom[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mymaxeduc=hangli[1].getElementsByTagName("span")[1].innerHTML=myfrom[6].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mypay=hangli[2].getElementsByTagName("span")[1].innerHTML=myfrom[7].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mymp=hangli[3].getElementsByTagName("span")[1].innerHTML=myfrom[8].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var myform ={
+                                    "years_of_service": myjobage,
+                                    "expect_salary_low": mypay,
+                                    "education":mymaxeduc,
+                                    "work_status":mymp,
+                                    "company": mycompay,
+                                    "position": myjob,
+                               };
+                               var resume_info_dict =JSON.stringify(myform);
+                               $.post("/resume/resume/1/update",{"resume_info_dict":resume_info_dict},function (data) {
+                                    var data =JSON.parse(data);
+                                     console.log(data.msg)
+                               })
+                     }
+
                 </script>
             </section>
             <section class="scroll-floor">
@@ -217,7 +275,16 @@
                         skty.style.display = "none";
                         skty1.innerHTML = "编辑";
                         var my_advantage=document.getElementById("youshi").innerHTML = document.getElementById("advantage").value;
-                        $.post("")
+                         var youshi ={
+                  "my_advantage":my_advantage
+              };
+              var resume_info_dict =JSON.stringify(youshi);
+                        $.post("/resume/resume/1/update",{"resume_info_dict":resume_info_dict},function (data) {
+                            var data =JSON.parse(data);
+                            if(data.err ==0){
+                                alert("请求成功")
+                            }
+                        })
                     }
                     document.getElementById("goodq").onclick = function () {
                         document.getElementById("advantage").value = document.getElementById("youshi").innerHTML;
@@ -227,50 +294,71 @@
                 </script>
             </section>
             <section class="scroll-floor">
-                <div class="common-show" id="expected-job">
-                    <div class="expected-title">
+                   <div class="common-show">
+                    <div class="table_w">
                         <span>求职意向</span>
-                        <input type="button" value="添加" class="button"/>
+                        <input type="button" value="添加" class="button" onclick="careeroadd()"/>
                     </div>
-                    <div class="each-expected" id="xian_div">
-                        <div>期望职位：活动策划</div>
-                        <div>期望薪资：5k-8k</div>
-                        <div>期望城市：北京</div>
-                        <div>期望行业： 旅游 | 互联网 | 社交网络</div>
+                     <div  id="careeroshow">
+                       <div class="text-border">
+                        <div class="schoolname">
+                            期望职位
+                        </div>
+                        <div>
+                            期望薪资
+                        </div>
+                        <div>
+                            期望城市
+                        </div>
+                        <div>
+                            期望行业
+                        </div>
+                        <div class="input-c">
+                        <input class="button" type="button" value ="修改" onclick="careeroxiu(this)">
+                        <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='careerorom(this)'>
+                        </div>
+                       </div>
                     </div>
                 </div>
-                <div class="yixiang_editor" id="expected-form" style="display: none">
-                   <form id="">
+                <div class="yixiang_editor" id="careerobiao" style="display: none">
                        <div class="table_w">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13">
-                             <path fill="#5A646E"
+                                 <path fill="#5A646E"
                                    d="M5,4 C5.552,4 6,4.448 6,5 L6,12 C6,12.552 5.552,13 5,13 L1,13 C0.448,13 0,12.552 0,12 L0,5 C0,4.448 0.448,4 1,4 L5,4 Z M12,0 C12.552,0 13,0.448 13,1 L13,12 C13,12.552 12.552,13 12,13 L8,13 C7.448,13 7,12.552 7,12 L7,1 C7,0.448 7.448,0 8,0 L12,0 Z M19,5 C19.552,5 20,5.448 20,6 L20,12 C20,12.552 19.552,13 19,13 L15,13 C14.448,13 14,12.552 14,12 L14,6 C14,5.448 14.448,5 15,5 L19,5 Z"/>
-                        </svg>
+                                </svg>
                             </span>
                             <span>求职意向</span>
                         </div>
-                       <table>
-
-                       </table>
-                   </form>
-
-                    <div class="text-border" id="qiwang1">
-                        <p>期望职位：<input class="input-lang" type="text" value="1"/></p>
-                        <p>期望月薪：<input class="input-lang" type="text" value="2"/></p>
-                        <p>期望城市：<input class="input-lang" type="text" value=""></p>
-                        <p>期望行业：<input class="input-lang" type="text" value="不限"></p>
-                    </div>
-                    <div class="bottom-jian">
-                        <button class="button_nove" onclick="add()">完成</button>
-                        <button class="button" id="xyz_3">取消</button>
-                    </div>
-                </form>
+                         <form id="careerofrom">
+                            <table>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">期望职位</td>
+                                    <td><input type="text"  class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">期望薪资</td>
+                                    <td><input type="text" class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">期望城市</td>
+                                    <td><input type="text" class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">期望行业</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                            </table>
+                        </form>
+                        <div style="margin-left: 65px;height: 50px">
+                            <input type="button" class="button_nove" value="完成" onclick="careerocun()">
+                            <input type="button" class="button" value="取消" onclick="carquxiao()">
+                        </div>
                 </div>
             </section>
             <section class="scroll-floor">
                 <div class="job-resume">
-                    <div class="table_x">
+                    <div class="table_w">
                       <span>
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19">
                                     <path fill="#5A646E"
@@ -281,20 +369,33 @@
                         <span>
                           工作经历
                       </span>
-                        <input type="button" value="添加" class="button" />
+                        <input type="button" value="添加" class="button" onclick="workedadd()" />
                     </div>
-                    <div class="concet-border">
-                        <p>乐视网</p>
-                        <p>市场级社会传播</p>
-                        <p>工作业绩</p>
-                        <P>
-                            萨达萨达大萨达阿萨德阿萨德as
-                        </P>
-                        <P>工作内容</P>
-                        <p>sdsd</p>
+                     <div  id="workedshow">
+                       <div class="text-border">
+                        <div class="schoolname">
+                            公司名称
+                        </div>
+                        <div>
+                            公司职位
+                        </div>
+                        <div>
+                            在职时间
+                        </div>
+                        <div>
+                           离职时间
+                        </div>
+                        <div>
+                            工作内容
+                        </div>
+                        <div class="input-c">
+                        <input class="button" type="button" value ="修改" onclick="workedxiu(this)">
+                        <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>
+                        </div>
+                       </div>
                     </div>
                 </div>
-                <div class="job-resume-1" style="display: none">
+                <div class="job-resume-1" id="workedbiao" style="display: none">
                     <div class="table_w">
                          <span>
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19">
@@ -307,22 +408,34 @@
                           工作经历
                       </span>
                     </div>
-                    <div class="text-border">
-                        <p><span>公司名称</span><input class="input-lang" type="text" placeholder="老夫要上天"/></p>
-                        <p><span>职位名称</span><input class="input-lang" type="text" placeholder="老夫要上天"/></p>
-                        <p><span>在职时间</span><input class="input-lang" type="text" placeholder="老夫要上天"/></p>
-                        <div>
-                            <span>工作内容</span>
-                            <textarea class="job-text" placeholder="老夫要上天">
-
-                            </textarea>
+                    <form id="workedform">
+                            <table>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">公司名称</td>
+                                    <td><input type="text"  class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">公司职位</td>
+                                    <td><input type="text" class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">在职时间</td>
+                                    <td><input type="text" class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">离职时间</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">工作描述</td>
+                                    <td><input type="text" class="input-lang"></td>
+                                </tr>
+                            </table>
+                        </form>
+                        <div style="margin-left: 65px;height: 50px">
+                            <input type="button" class="button_nove" value="完成" onclick="workedcun()">
+                            <input type="button" class="button" value="取消" onclick="workedqi()">
                         </div>
-                        <p>对该公司隐藏我的简历</p>
-                    </div>
-                    <div class="bottom-jian">
-                        <button class="button_nove" onclick="add()">完成</button>
-                        <button class="button">取消</button>
-                    </div>
                 </div>
             </section>
             <section class="scroll-floor">
@@ -338,7 +451,7 @@
                         <span>
                             项目经验
                         </span>
-                        <input type="button" value="添加" class="button" onclick="projectadd()"/>
+                        <a  value="添加" class="button classa" onclick="projectadd()" href="#projectbiao"/>添加</a>
                     </div>
                     <div  id="projectshow">
                        <div class="text-border">
@@ -357,16 +470,12 @@
                         <div>
                             项目描述
                         </div>
-                        <div>
-                            项目业绩
-                        </div>
                         <div class="input-c">
-                        <input class='button' type='button' value ='修改' onclick='updateRow(this)'/>
-                        <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>
+                        <input class='button' type='button' value ='修改' onclick='projectxiu(this)'/>
+                        <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='deletepro(this)'>
                         </div>
                        </div>
                     </div>
-
                 </div>
                 <div class="job-items-one">
                      <div class="biaodan" id="projectbiao" style="display: none">
@@ -401,10 +510,6 @@
                                     <td><input type="text" class="input-lang" ></td>
                                 </tr>
                                 <tr class="row_class">
-                                    <td align="center" width ="30%">结束时间</td>
-                                    <td><input type="text" class="input-lang"></td>
-                                </tr>
-                                <tr class="row_class">
                                     <td align="center" width ="30%">项目描述</td>
                                     <td><input type="text" class="input-lang"></td>
                                 </tr>
@@ -412,7 +517,7 @@
                         </form>
                         <div style="margin-left: 65px;height: 50px">
                             <input type="button" class="button_nove" value="完成" onclick="projectcun()">
-                            <input type="button" class="button" value="取消" onclick="quxiao()">
+                            <input type="button" class="button" value="取消" onclick="proqi()">
                         </div>
                     </div>
                 </div>
@@ -426,12 +531,12 @@
                         <span>
                          学历信息
                          </span>
-                          <input type="button" class="button_nove" value="添加" onclick="trdadd()">
+                         <a class="button_nove classa" value="添加" onclick="trdadd()" href="#biaodan">添加</a>
                     </div>
                     <div id="zhanshi">
                       <div class="table_class" id="47">
                         <div class="schoolname">学校名称</div>
-                        <div>所学专业</div>
+                        <div>所学专业   <span>北京大学</span></div>
                         <div>最高学历</div>
                         <div>就读时间</div>
                         <div>在校经历</div>
@@ -551,6 +656,7 @@
             </ul>
         </div>
     </div>
+
 </main>
 {% include "search_div.html" %}
 {% include "feedback.html" %}
@@ -569,21 +675,7 @@
     });
 </script>
 <script>
-    function srr() {
-        var srr = document.getElementById("resume_one_1");
-        var one = document.getElementById("button_one");
-        document.getElementById("xyz_one").onclick = function () {
-            srr.style.display = "none";
-            one.innerHTML = "编辑";
-        };
-        if (srr.style.display == "none") {
-            srr.style.display = "block";
-            one.innerHTML = "取消"
-        } else {
-            srr.style.display = "none";
-            one.innerHTML = "编辑"
-        }
-    }
+
 {##}
 {#    document.getElementById("xyz_tow").onclick = function () {#}
 {#        var chu = document.getElementById("woca");#}
@@ -608,15 +700,244 @@
 <script type="text/javascript">
     //判断当前是添加状态还是修改
     var flag = false;
-    //要修改的table下标
-    var getselectrow;
-    //填写单的tr
-    var index = document.getElementById("formid").getElementsByTagName("tr");
-    //当前的table
-    var s1 = document.getElementById("zhanshi").getElementsByTagName("div");
     //当前用户id
     var uid =document.getElementById("uid").value;
-   //项目描述开始
+
+    //求职意向开始
+    var getcareero;
+    var careerofrom =document.getElementById("careerofrom").getElementsByTagName("tr");
+    var careeroshow =document.getElementById("careeroshow").getElementsByTagName("div");
+    //求职意向添加
+    function careeroadd() {
+        flag = false;
+                document.getElementById("careerobiao").style.display = "block";
+                document.getElementById("workedbiao").style.display = "none";
+                document.getElementById("projectbiao").style.display= "none";
+                document.getElementById("biaodan").style.display = "none";
+        careerochong();
+    }
+    //重置表
+    function careerochong() {
+        document.getElementById("careerofrom").reset();
+    }
+
+    function careerocun() {
+         if (flag == false) {
+                careeromax(flag);
+            document.getElementById("careerobiao").style.display = "none";
+        } else {
+                careeromax(flag);
+            document.getElementById("careerobiao").style.display = "none";
+        }
+    }
+
+   function careeromax() {
+       document.getElementById("careerobiao").style.display = "none";
+       if(!flag){
+          var career = careerofrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+          var career1 = careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+          var career2 = careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+          var career3 = careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+            var  qiwang ={
+                  "position":career,
+                  "expect_salary_low":career1,
+                  "city":career2,
+                  "industry":career3,
+                   "user_id":uid
+              };
+              var resume_info_dict =JSON.stringify(qiwang);
+              $.post("/resume/careerobjective/add",{"resume_info_dict":resume_info_dict},function (data){
+                  var data =JSON.parse(data);
+                     var qiwanid =data.id;
+                  if(data.err ==0){
+                      alert("添加成功");
+                       var carees =  $("<div class='schoolname'></div>").html(career);
+                        var carees1 = $("<div></div>").html(career1);
+                        var carees2 = $("<div></div>").html(career2);
+                        var carees3 = $("<div></div>").html(career3);
+                        var carees4 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='careeroxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>");
+                        var careess= $("<div class='text-border' id='"+qiwanid+"'></div>").append(carees,carees1,carees2,carees3,carees4);
+                    $('#careeroshow').append(careess);
+                  }
+              })
+
+       }else {
+           var careero2 =careeroshow[getcareero];
+           var sdsid =careero2.id;
+         var position=  careero2.getElementsByTagName("div")[0].innerHTML =careerofrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+         var expect_salary_low=  careero2.getElementsByTagName("div")[1].innerHTML =careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value
+          var city= careero2.getElementsByTagName("div")[2].innerHTML =careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value
+         var industry=  careero2.getElementsByTagName("div")[3].innerHTML =careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value
+           var   qiwang1 ={
+                  "position":position,
+                  "expect_salary_low":expect_salary_low,
+                  "city":city,
+                  "industry":industry,
+                   "user_id":uid
+              };
+                var resume_info_dict =JSON.stringify(qiwang1);
+                $.post("/resume/careerobjective/"+sdsid+"/update",{"resume_info_dict":resume_info_dict},function (data) {
+                    var data =JSON.parse(data);
+                    if(data.err ==0){
+                        alert("修改成功！")
+                    }
+                })
+       }
+   }
+
+   function careeroxiu(input){
+         flag = true;
+        document.getElementById("careerobiao").style.display = "block";
+        var i = input.parentNode.parentNode;
+             console.log(i);
+             var why= [].indexOf.call(i.parentNode.querySelectorAll(i.tagName), i);
+              getcareero=why;
+              careerofrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[0].innerHTML;
+              careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[1].innerHTML;
+              careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[2].innerHTML;
+              careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[3].innerHTML;
+   }
+       function careerorom(input) {
+           var quchu =input.parentNode.parentNode;
+           var quchuid= quchu.id;
+            $.post("/resume/careerobjective/"+quchuid+"/delete",function (data) {
+                var data =JSON.parse(data);
+                    if(data.err ==0){
+                        alert("删除成功！")
+                    }
+            });
+          quchu.remove()
+       }
+       function carquxiao() {
+            document.getElementById("careerobiao").style.display ="none"
+       }
+
+
+
+
+    //worked开始
+    var getworked;
+    var workedform =document.getElementById("workedform").getElementsByTagName("tr");
+    var workedshow =document.getElementById("workedshow").getElementsByTagName("div");
+    //工作经历添加
+     function workedadd() {
+         flag = false;
+                document.getElementById("workedbiao").style.display = "block";
+                document.getElementById("projectbiao").style.display= "none";
+                document.getElementById("careerobiao").style.display = "none";
+                document.getElementById("biaodan").style.display = "none";
+         workedchong()
+     }
+    //重置内容
+    function workedchong() {
+        document.getElementById("workedform").reset();
+    }
+    //工作内容保存
+   function workedcun() {
+         if (flag == false) {
+                workeddd(flag);
+            document.getElementById("workedbiao").style.display = "none";
+        } else {
+                workeddd(flag);
+            document.getElementById("workedbiao").style.display = "none";
+        }
+   }
+   function workeddd() {
+         document.getElementById("workedbiao").style.display = "none";
+         if(!flag){
+              var worke = workedform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+              var worke1 = workedform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+              var worke2 = workedform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+              var worke3 = workedform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+              var worke4 = workedform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+              var  str ={
+                  "company":worke,
+                  "position":worke1,
+                  "start_time":worke2,
+                  "end_time":worke3,
+                  "content":worke4,
+                  "user_id":uid
+              };
+              var resume_info_dict =JSON.stringify(str);
+
+              $.post("/resume/workexperience/add",{"resume_info_dict":resume_info_dict},function (data) {
+                   var data =JSON.parse(data);
+                   if (data.err ==0){
+                       var job=data.id;
+                       alert("添加成功！")
+                        var worked =  $("<div class='schoolname'></div>").html(worke);
+                        var worked1 = $("<div></div>").html(worke1);
+                        var worked2 = $("<div></div>").html(worke2);
+                        var worked3 = $("<div></div>").html(worke3);
+                        var worked4 = $("<div></div>").html(worke4);
+                        var worked5 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='workedxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>");
+                        var workes= $("<div class='text-border' id='"+job+"'></div>").append(worked,worked1,worked2,worked3,worked4,worked5);
+                    $('#workedshow').append(workes);
+                   }
+              })
+
+         }else {
+                var worked2 = workedshow[getworked];
+                   var weid =worked2.id;
+                console.log(worked2);
+             var company=worked2.getElementsByTagName("div")[0].innerHTML= workedform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var position= worked2.getElementsByTagName("div")[1].innerHTML= workedform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var start_time= worked2.getElementsByTagName("div")[2].innerHTML= workedform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var end_time= worked2.getElementsByTagName("div")[3].innerHTML= workedform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var content= worked2.getElementsByTagName("div")[4].innerHTML= workedform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                var  str1 ={
+                  "company":company,
+                  "position":position,
+                  "start_time":start_time,
+                  "end_time":end_time,
+                  "content":content,
+                  "user_id":uid
+              };
+                var resume_info_dict =JSON.stringify(str1);
+                $.post("/resume/workexperience/"+weid+"/update",{"resume_info_dict":resume_info_dict},function (data) {
+                    var data =JSON.parse(data);
+                    if(data.err ==0){
+                        alert("修改成功！")
+                    }
+                })
+         }
+   }
+            function  workedxiu(input){
+              flag =true;
+              document.getElementById("workedbiao").style.display ="block";
+             var i = input.parentNode.parentNode;
+             console.log(i);
+             var ta= [].indexOf.call(i.parentNode.querySelectorAll(i.tagName), i);
+             getworked =ta;
+                 workedform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[0].innerHTML;
+                 workedform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[1].innerHTML;
+                 workedform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[2].innerHTML;
+                 workedform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[3].innerHTML;
+                 workedform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[4].innerHTML;
+         }
+         //删除经历
+         function deleteworked(input){
+          var hah= input.parentNode.parentNode;
+          var hahid= hah.id;
+            $.post("/resume/workexperience/"+hahid+"/delete",function (data) {
+                var data =JSON.parse(data);
+                    if(data.err ==0){
+                        alert("删除成功！")
+                    }
+            });
+           hah.remove();
+         }
+          function workedqi() {
+        document.getElementById("workedbiao").style.display = "none";
+        workedchong();
+       }
+
+
+
+
+
+    //项目描述开始
+         var getproject;
          var projectform = document.getElementById("projectform").getElementsByTagName("tr");
                console.log(projectform)
           var projectshow = document.getElementById("projectshow").getElementsByTagName("div");
@@ -624,6 +945,9 @@
             function  projectadd(){
                 flag = false;
                 document.getElementById("projectbiao").style.display= "block";
+                document.getElementById("workedbiao").style.display = "none";
+                document.getElementById("careerobiao").style.display = "none";
+                document.getElementById("biaodan").style.display = "none";
                 projectrm()
             }
             //重置
@@ -641,22 +965,20 @@
         }
     }
       function addporject() {
-           document.getElementById("biaodan").style.display = "none";
+           document.getElementById("projectbiao").style.display = "none";
            if(!flag){
                var pro = projectform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                var pro1 = projectform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                var pro2 = projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                var pro3 = projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                var pro4 = projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-               var pro5 = projectform[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-               console.log(pro+pro1+pro2+pro3+pro4+pro5);
+               console.log(pro+pro1+pro2+pro3+pro4);
                var resume_info_dict={
                    "project_name":pro,
                    "role":pro1,
                    "url":pro2,
                    "start_time":pro3,
-                   "end_time":pro4,
-                   "description":pro5,
+                   "description":pro4,
                    "user_id":uid
                };
                var json_project = JSON.stringify(resume_info_dict);
@@ -666,27 +988,93 @@
                        alert("添加成功")
                        var b =data.id;
                        console.log(b);
-                        var pros =  $("<div></div>").html(pro);
-                        var pros1 = $("<div></div>").html(pro);
-                        var pros2 = $("<div></div>").html(pro);
-                        var pros3 = $("<div></div>").html(pro);
-                        var pros4 = $("<div></div>").html(pro);
-                        var pros5 = $("<div></div>").html(pro);
-                        var pros6 = $("<div></div>").html("<input class='button' type='button' value ='修改' onclick='updateRow(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>");
-                        var porject= $("<div class='text-border' id='"+b+"'>"+"</div>").append(pros, pros1, pros2, pros3,pros4, pros5,pros6);
+                        var pros =  $("<div class='schoolname'></div>").html(pro);
+                        var pros1 = $("<div></div>").html(pro1);
+                        var pros2 = $("<div></div>").html(pro2);
+                        var pros3 = $("<div></div>").html(pro3);
+                        var pros4 = $("<div></div>").html(pro4);
+                        var pros6 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='projectxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>");
+                        var porject= $("<div class='text-border' id='"+b+"'>"+"</div>").append(pros, pros1, pros2, pros3,pros4,pros6);
                     $('#projectshow').append(porject);
-                   }else {
-
                    }
                })
+           }else {
+                document.getElementById("biaodan").style.display = "none";
+                var preee2 = projectshow[getproject];
+                var project2 =preee2.id ;
+                console.log(preee2);
+             var  project_name =preee2.getElementsByTagName("div")[0].innerHTML=projectform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  role =  preee2.getElementsByTagName("div")[1].innerHTML=projectform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  url =  preee2.getElementsByTagName("div")[2].innerHTML=projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  start_time =  preee2.getElementsByTagName("div")[3].innerHTML=projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+              var description = preee2.getElementsByTagName("div")[4].innerHTML=projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                 var resume_info_dict={
+                     "project_name":project_name,
+                     "role":role,
+                     "url":url,
+                     "start_time":start_time,
+                     "description":description,
+                     "user_id":uid
+                 }
+                 var json_project = JSON.stringify(resume_info_dict);
+             $.post("/resume/projectexperience/"+project2+"/update",{"resume_info_dict":json_project},function (data) {
+                 var data =JSON.parse(data);
+                 if(data.err==0){
+                     alert("请求成功！")
+                 }
+             })
            }
       }
+         //修改项目经验
+      function projectxiu(input) {
+           flag =true;
+           document.getElementById("projectbiao").style.display ="block";
+           var i = input.parentNode.parentNode;
+           console.log(i);
+           var ni= [].indexOf.call(i.parentNode.querySelectorAll(i.tagName), i);
+           console.log(ni)
+           getproject = ni;
+
+           projectform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject].getElementsByTagName("div")[0].innerHTML;
+           projectform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = projectshow[getproject].getElementsByTagName("div")[1].innerHTML;
+           projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject] .getElementsByTagName("div")[2].innerHTML;
+           projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject].getElementsByTagName("div")[3].innerHTML;
+           projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = projectshow[getproject].getElementsByTagName("div")[4].innerHTML;
+      }
+     //删除项目经验
+    function deletepro(input) {
+        var fu =input.parentNode.parentNode;
+           var weid =fu.id;
+          $.post("/resume/projectexperience/"+weid+"/delete",function (data) {
+              var data =JSON.parse(data);
+              if (data.err ==0){
+                  alert("删除成功")
+              }
+          })
+         fu.remove();
+    }
+    function proqi() {
+        document.getElementById("projectbiao").style.display = "none"
+        projectrm()
+    }
 
 
+
+
+
+       //填写单的tr
+    var index = document.getElementById("formid").getElementsByTagName("tr");
+    //当前的table
+    var s1 = document.getElementById("zhanshi").getElementsByTagName("div");
+    //要修改的table下标
+    var getselectrow;
     //个人教育背景
     function trdadd() {
         flag = false;
         document.getElementById("biaodan").style.display = "block";
+         document.getElementById("careerobiao").style.display = "none";
+                document.getElementById("workedbiao").style.display = "none";
+                document.getElementById("projectbiao").style.display= "none";
         chongzhi()
     }
 
@@ -694,7 +1082,6 @@
     function chongzhi() {
         document.getElementById("formid").reset();
     }
-
     function baocun() {
         if (flag == false) {
             add(flag);
@@ -728,7 +1115,7 @@
             $.post("/resume/educationexperience/add", {"resume_info_dict":json_data}, function (data) {
                 var data =JSON.parse(data);
                 if(data.err == "0"){
-                    console.log("请求成功！");
+                    alert("请求成功！");
                     var a=data.id;
                     var yaya =  $("<div class='schoolname'></div>").html(add1);
                     var yaya1 = $("<div></div>").html(add2);
@@ -740,7 +1127,6 @@
                     $('#zhanshi').append(schoolpost);
                 }
             });
-
         } else {
             var row2 = s1[getselectrow];
                var rowid= row2.id;
@@ -757,14 +1143,14 @@
                 "education": test2,
                 "start_time": test3,
                 "experience_at_school":test4,
-                "user_id":1
+                "user_id":uid
 
             };
                var json_data = JSON.stringify(resume_info_dict);
             $.post("/resume/educationexperience/"+rowid+"/update",{"resume_info_dict":json_data},function (data) {
                 var data =JSON.parse(data);
                 if(data.err == "0"){
-                    console.log("请求成功")
+                    alert("请求成功")
                 }
             })
         }
@@ -776,7 +1162,7 @@
         $.post("/resume/educationexperience/"+sid+"/delete",function (data) {
             var data =JSON.parse(data);
             if(data.err ==0){
-                console.log("删除成功")
+               alert("删除成功")
             }
         });
         s.remove();
@@ -791,7 +1177,7 @@
         var wo = [].indexOf.call(i.parentNode.querySelectorAll(i.tagName), i);
         getselectrow = wo;
         console.log(wo);
-        console.log(s1)
+        console.log(s1);
 
        //得到选中行的内容放到文本框
         index[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[0].innerHTML;
