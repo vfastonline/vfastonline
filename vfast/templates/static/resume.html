@@ -33,12 +33,12 @@
                     <div>
                     <div class="resume_one_nei">
                         <div class="resume_img">
-                            <img src="/static/imgs/kong.jpg" alt="因为您太丑该图像无法显示" class="log-head">
+                            <img src="{{ Resumes.user_id.headimg }}" alt="因为您太丑该图像无法显示" class="log-head">
                         </div>
                         <ul class="jiben">
                             <li id="ulone">
-                                <p>肖莹</p>
-                                <p>女</p>
+                                <p>{{ Resumes.user_id.realname }}</p>
+                                <p>{{ Resumes.user_id.sex }}</p>
                                 <p>25岁</p>
                                 <button class="button" style="margin-left: 300px" onclick="myadd()" id="button_one">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="3" height="15" viewBox="0 0 3 15">
@@ -52,8 +52,8 @@
                                 </button>
                             </li>
                             <li id="ultowe">
-                                <p>市场及社会传播</p>
-                                <p>乐视网</p>
+                                <p>{{ Resumes.position }}</p>
+                                <p>{{ Resumes.company }}</p>
                             </li>
                         </ul>
                         <div class="both"style="border-bottom: 1px solid #ECEFF1;margin-top: 120px;width: 730px;"></div>
@@ -62,7 +62,7 @@
                         <li>
                             <span class="icon-youshi">
                             </span>
-                            <span>2年</span>
+                            <span>{{ Resumes.years_of_service }}年</span>
                         </li>
                         <li>
                         <span>
@@ -72,7 +72,7 @@
                                     opacity=".99"/>
                             </svg>
                         </span>
-                            <span>硕士</span>
+                            <span>{{ Resumes.education }}</span>
                         </li>
                         <li>
                             <span>
@@ -82,7 +82,7 @@
                                            opacity=".99"/>
                                  </svg>
                             </span>
-                            <span>10k-12k</span>
+                            <span>{{ Resumes.expect_salary_low }}K-{{ Resumes.expect_salary_high }}K</span>
                         </li>
                         <li>
                             <span>
@@ -92,7 +92,7 @@
                                           opacity=".99" transform="translate(-5 -7)"/>
                                 </svg>
                             </span>
-                            <span>在职-考虑机会</span>
+                            <span>{{ Resumes.work_status }}</span>
                         </li>
                     </ul>
                 </div>
@@ -231,7 +231,7 @@
                     <div class="bianxian"></div>
                     <div>
                         <P id="youshi">
-                            毕业一年多了，这段时间带给我很多很多的新体验和成长。我是个很有责任心的人，做一件事情尽量做到完美，也可以说是一种强迫症。从一名新媒体编辑到一名可以出运营方案、可以搞定官网策划，懂点SEM、也了解cps，做的了合作对接，也做的了用户运营。在工作中学习，在学习中进步，为自己的未来努力。
+                            {{ Resumes.my_advantage | safe }}
                         </P>
                     </div>
                 </div>
@@ -294,31 +294,36 @@
                 </script>
             </section>
             <section class="scroll-floor">
-                   <div class="common-show">
+                <div class="common-show">
                     <div class="table_w">
                         <span>求职意向</span>
                         <input type="button" value="添加" class="button" onclick="careeroadd()"/>
                     </div>
-                     <div  id="careeroshow">
-                       <div class="text-border">
-                        <div class="schoolname">
-                            期望职位
-                        </div>
-                        <div>
-                            期望薪资
-                        </div>
-                        <div>
-                            期望城市
-                        </div>
-                        <div>
-                            期望行业
-                        </div>
-                        <div class="input-c">
-                        <input class="button" type="button" value ="修改" onclick="careeroxiu(this)">
-                        <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='careerorom(this)'>
-                        </div>
-                       </div>
-                    </div>
+                    {% if CareerObjectives %}
+                        {% for careerobjective in CareerObjectives %}
+                            <div id="careeroshow">
+                                <div class="text-border">
+                                    <div class="schoolname">
+                                        期望职位：{{ careerobjective.position }}
+                                    </div>
+                                    <div>
+                                        期望薪资：{{ careerobjective.expect_salary_low }}-{{ careerobjective.expect_salary_high }}
+                                    </div>
+                                    <div>
+                                        期望城市：{{ careerobjective.city }}
+                                    </div>
+                                    <div>
+                                        期望行业：{{ careerobjective.industry }}
+                                    </div>
+                                    <div class="input-c">
+                                        <input class="button" type="button" value="修改" onclick="careeroxiu(this)">
+                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
+                                               onclick='careerorom(this)'>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="yixiang_editor" id="careerobiao" style="display: none">
                        <div class="table_w">
@@ -371,29 +376,34 @@
                       </span>
                         <input type="button" value="添加" class="button" onclick="workedadd()" />
                     </div>
-                     <div  id="workedshow">
-                       <div class="text-border">
-                        <div class="schoolname">
-                            公司名称
-                        </div>
-                        <div>
-                            公司职位
-                        </div>
-                        <div>
-                            在职时间
-                        </div>
-                        <div>
-                           离职时间
-                        </div>
-                        <div>
-                            工作内容
-                        </div>
-                        <div class="input-c">
-                        <input class="button" type="button" value ="修改" onclick="workedxiu(this)">
-                        <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>
-                        </div>
-                       </div>
-                    </div>
+                    {% if WorkExperiences %}
+                        {% for workexperiences in WorkExperiences %}
+                            <div id="workedshow">
+                                <div class="text-border">
+                                    <div class="schoolname">
+                                        公司名称:{{ workexperiences.company }}
+                                    </div>
+                                    <div>
+                                        公司职位:{{ workexperiences.position }}
+                                    </div>
+                                    <div>
+                                        在职时间:{{ workexperiences.start_time }}
+                                    </div>
+                                    <div>
+                                        离职时间:{{ workexperiences.end_time }}
+                                    </div>
+                                    <div>
+                                        工作内容:{{ workexperiences.content | safe }}
+                                    </div>
+                                    <div class="input-c">
+                                        <input class="button" type="button" value="修改" onclick="workedxiu(this)">
+                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
+                                               onclick='deleteworked(this)'>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="job-resume-1" id="workedbiao" style="display: none">
                     <div class="table_w">
@@ -453,29 +463,35 @@
                         </span>
                         <a  value="添加" class="button classa" onclick="projectadd()" href="#projectbiao"/>添加</a>
                     </div>
-                    <div  id="projectshow">
-                       <div class="text-border">
-                        <div class="schoolname">
-                            项目名称
-                        </div>
-                        <div>
-                            项目角色
-                        </div>
-                        <div>
-                            项目URL
-                        </div>
-                        <div>
-                            项目时间
-                        </div>
-                        <div>
-                            项目描述
-                        </div>
-                        <div class="input-c">
-                        <input class='button' type='button' value ='修改' onclick='projectxiu(this)'/>
-                        <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='deletepro(this)'>
-                        </div>
-                       </div>
-                    </div>
+                    {% if ProjectExperiences %}
+                        {% for projectexperience in ProjectExperiences %}
+                            <div id="projectshow">
+                                <div class="text-border">
+                                    <div class="schoolname">
+                                        项目名称:{{ projectexperience.project_name }}
+                                    </div>
+                                    <div>
+                                        项目角色:{{ projectexperience.role }}
+                                    </div>
+                                    <div>
+                                        项目URL:<a href="{{ projectexperience.url }}">{{ projectexperience.url }}</a>
+                                    </div>
+                                    <div>
+                                        项目时间:{{ projectexperience.start_time }}-{{ projectexperience.end_time }}
+                                    </div>
+                                    <div>
+                                        项目描述:{{ projectexperience.description | safe }}
+
+                                    </div>
+                                    <div class="input-c">
+                                        <input class='button' type='button' value='修改' onclick='projectxiu(this)'/>
+                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
+                                               onclick='deletepro(this)'>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="job-items-one">
                      <div class="biaodan" id="projectbiao" style="display: none">
@@ -524,28 +540,35 @@
             </section>
             <section class="scroll-floor">
                 <div class="educations">
-                     <div class="table_w">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                                <path fill="#5A646E" d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z" opacity=".99"/>
-                         </svg>
+                    <div class="table_w">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
+                            <path fill="#5A646E"
+                                  d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z"
+                                  opacity=".99"/>
+                        </svg>
                         <span>
                          学历信息
                          </span>
-                         <a class="button_nove classa" value="添加" onclick="trdadd()" href="#biaodan">添加</a>
+                        <a class="button_nove classa" value="添加" onclick="trdadd()" href="#biaodan">添加</a>
                     </div>
-                    <div id="zhanshi">
-                      <div class="table_class" id="47">
-                        <div class="schoolname">学校名称</div>
-                        <div>所学专业   <span>北京大学</span></div>
-                        <div>最高学历</div>
-                        <div>就读时间</div>
-                        <div>在校经历</div>
-                        <div>
-                            <input class='button' type='button' value ='修改' onclick='updateRow(this)'/>
-                            <input class='button' type='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>
-                        </div>
-                      </div>
-                    </div>
+                    {% if EducationExperiences %}
+                        {% for educationexperience in EducationExperiences %}
+                            <div id="zhanshi">
+                                <div class="table_class" id="47">
+                                    <div class="schoolname">学校名称:{{ educationexperience.school }}</div>
+                                    <div>所学专业:{{ educationexperience.discipline }}</div>
+                                    <div>最高学历:{{ educationexperience.education }}</div>
+                                    <div>就读时间:{{ educationexperience.start_time }}-{{ educationexperience.end_time }}</div>
+                                    <div>在校经历:{{ educationexperience.experience_at_school | safe }}</div>
+                                    <div>
+                                        <input class='button' type='button' value='修改' onclick='updateRow(this)'/>
+                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
+                                               onclick='deleteRow(this)'>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="educations-one ">
                     <div class="biaodan" id="biaodan" style="display: none">
