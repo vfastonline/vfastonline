@@ -16,6 +16,7 @@ class Resume(models.Model):
     company = models.CharField(u"现任公司", max_length=255, null=True, blank=True, default="")
     position = models.CharField(u"现任职务", max_length=255, null=True, blank=True, default="")
     my_advantage = models.TextField(u"我的优势", null=True, blank=True, default="")
+    age = models.PositiveIntegerField("年龄", null=True, blank=True)
 
     def __str__(self):
         return self.user_id.nickname

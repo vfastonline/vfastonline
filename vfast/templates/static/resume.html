@@ -39,7 +39,7 @@
                             <li id="ulone">
                                 <p>{{ Resumes.user_id.realname }}</p>
                                 <p>{{ Resumes.user_id.sex }}</p>
-                                <p>25岁</p>
+                                <p>{{ Resumes.age }}岁</p>
                                 <button class="button" style="margin-left: 300px" onclick="myadd()" id="button_one">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="3" height="15" viewBox="0 0 3 15">
                                         <path fill="#757575"
@@ -301,7 +301,7 @@
                     </div>
                     {% if CareerObjectives %}
                         {% for careerobjective in CareerObjectives %}
-                            <div id="careeroshow">
+                            <div id="careeroshow_{{ careerobjective.id }}">
                                 <div class="text-border">
                                     <div class="schoolname">
                                         期望职位：{{ careerobjective.position }}
@@ -377,23 +377,23 @@
                         <input type="button" value="添加" class="button" onclick="workedadd()" />
                     </div>
                     {% if WorkExperiences %}
-                        {% for workexperiences in WorkExperiences %}
+                        {% for workexperience in WorkExperiences %}
                             <div id="workedshow">
                                 <div class="text-border">
                                     <div class="schoolname">
-                                        公司名称:{{ workexperiences.company }}
+                                        公司名称:{{ workexperience.company }}
                                     </div>
                                     <div>
-                                        公司职位:{{ workexperiences.position }}
+                                        公司职位:{{ workexperience.position }}
                                     </div>
                                     <div>
-                                        在职时间:{{ workexperiences.start_time }}
+                                        在职时间:{{ workexperience.start_time }}
                                     </div>
                                     <div>
-                                        离职时间:{{ workexperiences.end_time }}
+                                        离职时间:{{ workexperience.end_time }}
                                     </div>
                                     <div>
-                                        工作内容:{{ workexperiences.content | safe }}
+                                        工作内容:{{ workexperience.content | safe }}
                                     </div>
                                     <div class="input-c">
                                         <input class="button" type="button" value="修改" onclick="workedxiu(this)">
