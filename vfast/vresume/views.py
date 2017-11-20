@@ -70,9 +70,6 @@ class ResumeAdd(View):
         try:
             resume_type = self.kwargs.get("resume_type", "")
             resume_info_dict = self.request.POST.get("resume_info_dict", {})
-            print resume_type
-            print request.POST.keys()
-            print resume_info_dict
             resume_info_dict = eval(resume_info_dict)
             user_id = resume_info_dict.get("user_id")
             user_obj = User.objects.filter(id=user_id)

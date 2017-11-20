@@ -718,7 +718,7 @@
             $("#promptDIV").css("top", "-75px");
         }, 2000)
     }
-    $("#headimg").on("change", imageCompress);
+    $("#headimg").on("change", {"head_img_type": "user_head"}, imageCompress);
 
     function submitINFO(info_name) {
         $.post("/u/editpage/editelse", $("#fileForm").serialize(), function (data) {

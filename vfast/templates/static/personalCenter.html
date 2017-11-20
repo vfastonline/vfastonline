@@ -71,7 +71,7 @@
             border-radius: 4px;
             padding: 30px 50px 10px 50px;
             position: relative;
-{#            height:185px;#}
+         height:150px;
         }
         .info_left_1>span{
             float: left;
@@ -519,7 +519,7 @@
                 </ul>
             </div>
             <div style="clear: both;height: 30px"></div>
-           <div style="width: 100%;height: 140px;">
+           <div style="width: 100%;height: 140px;background: #FFFFFF">
                <ul class="tnts">
                    <li>Cisco</li>
                    <li>Windows</li>
@@ -631,6 +631,17 @@
             </div>
             <div class="slideDIV" style="height:50px;"></div>
             <div class="info_right_2">
+                <div onclick="jianli()">
+                    <span style="background-image: url('/static/svg/bianjihei.svg')"></span>
+                    我的简历
+                </div>
+                <script>
+                    var uid=document.getElementById("uid").value;
+                    function jianli() {
+
+                        location.href ="/resume/"+uid+"/detail"
+                    }
+                </script>
                 <div onclick="location.href = '/u/editpage'">
                     <span style="background-image: url('/static/svg/bianjihei.svg')"></span>
                     账户设置
