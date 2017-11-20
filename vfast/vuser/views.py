@@ -21,6 +21,7 @@ from vrecord.models import WatchRecord, Score
 from vuser.api import *
 from vuser.models import User, DailyTask, PtoP, DailyTaskstatus, Userplan
 from vuser.skill_mastery_level import statistics_skill_mastery_level_by_path
+from vresume.models import Resume
 
 
 # Create your views here.
@@ -519,8 +520,8 @@ def change_headimg(request):
             destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
             if head_img_type == "resume":
                 destination = os.path.join(settings.MEDIA_ROOT, 'resume_user_headimg')
-            print head_img_type
-            print destination
+            # print head_img_type
+            # print destination
             if not os.path.isdir(destination):
                 os.system('mkdir -p %s ' % destination)
             # print destination
@@ -534,7 +535,6 @@ def change_headimg(request):
 
             headimg_url = '/media/user_headimg/%s' % filename
             if head_img_type == "resume":
-                from vresume.models import Resume
                 resume_obj = Resume.objects.filter(user_id=user)
                 resume_obj.head_img =headimg_url
                 resume_obj.save()
