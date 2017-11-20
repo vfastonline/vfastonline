@@ -8,6 +8,7 @@ from vuser.models import User
 class Resume(models.Model):
     """个人简历基础信息"""
     user_id = models.OneToOneField(User, verbose_name=u"用户信息", related_name="resume_user_id", unique=True)
+    age = models.PositiveIntegerField("年龄", null=True, blank=True)
     years_of_service = models.IntegerField(u"工作年限", null=True, blank=True, default=0)
     education = models.CharField(u"最高学历", max_length=255, null=True, blank=True, default="")
     expect_salary_low = models.CharField(u"期望薪资最低", max_length=255, null=True, blank=True, default="")
@@ -16,7 +17,6 @@ class Resume(models.Model):
     company = models.CharField(u"现任公司", max_length=255, null=True, blank=True, default="")
     position = models.CharField(u"现任职务", max_length=255, null=True, blank=True, default="")
     my_advantage = models.TextField(u"我的优势", null=True, blank=True, default="")
-    age = models.PositiveIntegerField("年龄", null=True, blank=True)
 
     def __str__(self):
         return self.user_id.nickname
