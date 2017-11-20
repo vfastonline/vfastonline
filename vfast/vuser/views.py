@@ -513,9 +513,14 @@ def change_headimg(request):
         if request.method == 'POST':
             headimg = request.FILES.get('headimg', None)
             uid = request.POST.get('uid', None)
+            head_img_type = request.POST.get('head_img_type', None)
             if not headimg:
                 return HttpResponse('no headimg for upload!')
             destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
+            if head_img_type == "resume":
+                destination = os.path.join(settings.MEDIA_ROOT, 'resume_user_headimg')
+            print head_img_type
+            print destination
             if not os.path.isdir(destination):
                 os.system('mkdir -p %s ' % destination)
             # print destination
@@ -527,8 +532,15 @@ def change_headimg(request):
                 headfile.write(chunk)
             headfile.close()
 
-            user.headimg = '/media/user_headimg/%s' % filename
-            user.save()
+            headimg_url = '/media/user_headimg/%s' % filename
+            if head_img_type == "resume":
+                from vresume.models import Resume
+                resume_obj = Resume.objects.filter(user_id=user)
+                resume_obj.head_img =headimg_url
+                resume_obj.save()
+            else:
+                user.headimg = headimg_url
+                user.save()
             return HttpResponse(json.dumps({'headimg': '/media/user_headimg/%s' % filename}))
         return HttpResponse('get method ok')
     except:

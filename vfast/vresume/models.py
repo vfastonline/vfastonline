@@ -8,6 +8,7 @@ from vuser.models import User
 class Resume(models.Model):
     """个人简历基础信息"""
     user_id = models.OneToOneField(User, verbose_name=u"用户信息", related_name="resume_user_id", unique=True)
+    head_img = models.CharField('简历头像', max_length=100, null=True, blank=True, default='')
     age = models.PositiveIntegerField("年龄", null=True, blank=True)
     years_of_service = models.IntegerField(u"工作年限", null=True, blank=True, default=0)
     education = models.CharField(u"最高学历", max_length=255, null=True, blank=True, default="")
