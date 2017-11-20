@@ -20,6 +20,9 @@
             text-align: center;
             margin-top: 10px;
         }
+        .aon{
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +42,7 @@
                             <li id="ulone">
                                 <p>{{ Resumes.user_id.realname }}</p>
                                 <p>{{ Resumes.user_id.sex }}</p>
-                                <p>{{ Resumes.age }}岁</p>
+                                <p><span>{{ Resumes.age }}</span>岁</p>
                                 <button class="button" style="margin-left: 300px" onclick="myadd()" id="button_one">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="3" height="15" viewBox="0 0 3 15">
                                         <path fill="#757575"
@@ -60,9 +63,14 @@
                     </div>
                     <ul class="education" id="hangli">
                         <li>
-                            <span class="icon-youshi">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
+                                  <path fill="#5A646E"
+                                    d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z"
+                                    opacity=".99"/>
+                                </svg>
                             </span>
-                            <span>{{ Resumes.years_of_service }}年</span>
+                            <span>{{ Resumes.years_of_service }}</span>年
                         </li>
                         <li>
                         <span>
@@ -75,14 +83,12 @@
                             <span>{{ Resumes.education }}</span>
                         </li>
                         <li>
-                            <span>
                                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
                                      <path fill="#5A646E"
                                            d="M11,0 C17.0719657,0 22,4.92792433 22,11 C22,17.0719657 17.0719657,22 11,22 C4.92803431,22 0,17.0719657 0,11 C0,4.92792433 4.92792431,0 11,0 Z M13.4142136,9 L15.7071068,6.70710678 C16.0976311,6.31658249 16.0976311,5.68341751 15.7071068,5.29289322 C15.3165825,4.90236893 14.6834175,4.90236893 14.2928932,5.29289322 L11,8.58578644 L7.70710678,5.29289322 C7.31658249,4.90236893 6.68341751,4.90236893 6.29289322,5.29289322 C5.90236893,5.68341751 5.90236893,6.31658249 6.29289322,6.70710678 L8.58578644,9 L7,9 C6.44771525,9 6,9.44771525 6,10 C6,10.5522847 6.44771525,11 7,11 L10,11 L10,12 L8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L10,14 L10,16 C10,16.5522847 10.4477153,17 11,17 C11.5522847,17 12,16.5522847 12,16 L12,14 L14,14 C14.5522847,14 15,13.5522847 15,13 C15,12.4477153 14.5522847,12 14,12 L12,12 L12,11 L15,11 C15.5522847,11 16,10.5522847 16,10 C16,9.44771525 15.5522847,9 15,9 L13.4142136,9 Z"
                                            opacity=".99"/>
                                  </svg>
-                            </span>
-                            <span>{{ Resumes.expect_salary_low }}K-{{ Resumes.expect_salary_high }}K</span>
+                            <span>{{ Resumes.expect_salary_low }}</span>k-<span>{{ Resumes.expect_salary_high }}</span>k
                         </li>
                         <li>
                             <span>
@@ -111,14 +117,6 @@
                     <form id="myfrom">
                             <table>
                                 <tr class="row_class">
-                                    <td align="center" width ="30%">姓名</td>
-                                    <td><input type="text"  class="input-lang" value=""></td>
-                                </tr>
-                                <tr class="row_class">
-                                    <td align="center" width ="30%">性别</td>
-                                    <td><input type="text" class="input-lang"></td>
-                                </tr>
-                                <tr class="row_class">
                                     <td align="center" width ="30%">年龄</td>
                                    <td><input type="text" class="input-lang"></td>
                                 </tr>
@@ -139,7 +137,11 @@
                                     <td><input type="text" class="input-lang" ></td>
                                 </tr>
                                 <tr class="row_class">
-                                    <td align="center" width ="30%">期望薪资</td>
+                                    <td align="center" width ="30%">薪资最低</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                 <tr class="row_class">
+                                    <td align="center" width ="30%">薪资最高</td>
                                     <td><input type="text" class="input-lang" ></td>
                                 </tr>
                                 <tr class="row_class">
@@ -161,7 +163,6 @@
                           var resumeone=document.getElementById("resumeone");
                           console.log(ultowe[0])
                           console.log(ultowe[1])
-
                      function myadd() {
                          if(resumeone.style.display =="none"){
                              resumeone.style.display ="block";
@@ -171,40 +172,48 @@
                              document.getElementById("button_one").getElementsByTagName("span")[0].innerHTML="编辑"
                          }
                      }
-                               myfrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ulone[0].innerHTML;
-                               myfrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ulone[1].innerHTML;
-                               myfrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ulone[2].innerHTML;
-                               myfrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ultowe[0].innerHTML;
-                               myfrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ultowe[1].innerHTML;
-                               myfrom[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[0].getElementsByTagName("span")[1].innerHTML;
-                               myfrom[6].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[1].getElementsByTagName("span")[1].innerHTML;
-                               myfrom[7].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[2].getElementsByTagName("span")[1].innerHTML;
-                               myfrom[8].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[3].getElementsByTagName("span")[1].innerHTML;
+                               myfrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ulone[2].getElementsByTagName("span")[0].innerHTML;
+                               myfrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ultowe[0].innerHTML;
+                               myfrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=ultowe[1].innerHTML;
+                               myfrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[0].getElementsByTagName("span")[1].innerHTML;
+                               myfrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[1].getElementsByTagName("span")[1].innerHTML;
+                               myfrom[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[2].getElementsByTagName("span")[0].innerHTML;
+                               myfrom[6].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[2].getElementsByTagName("span")[1].innerHTML;
+                               myfrom[7].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=hangli[3].getElementsByTagName("span")[1].innerHTML;
                      function mycun(){
-                               var myname=ulone[0].innerHTML=myfrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var mygender=ulone[1].innerHTML=myfrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var myage=ulone[2].innerHTML=myfrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var myjob=ultowe[0].innerHTML=myfrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var mycompay=ultowe[1].innerHTML=myfrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var myjobage=hangli[0].getElementsByTagName("span")[1].innerHTML=myfrom[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var mymaxeduc=hangli[1].getElementsByTagName("span")[1].innerHTML=myfrom[6].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var mypay=hangli[2].getElementsByTagName("span")[1].innerHTML=myfrom[7].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-                               var mymp=hangli[3].getElementsByTagName("span")[1].innerHTML=myfrom[8].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var myage=ulone[2].innerHTML=myfrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var myjob=ultowe[0].innerHTML=myfrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mycompay=ultowe[1].innerHTML=myfrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var myjobage=hangli[0].getElementsByTagName("span")[1].innerHTML=myfrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mymaxeduc=hangli[1].getElementsByTagName("span")[1].innerHTML=myfrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mypay=hangli[2].getElementsByTagName("span")[0].innerHTML=myfrom[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mypay1=hangli[2].getElementsByTagName("span")[1].innerHTML=myfrom[6].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                               var mymp=hangli[3].getElementsByTagName("span")[1].innerHTML=myfrom[7].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                                var myform ={
                                     "years_of_service": myjobage,
                                     "expect_salary_low": mypay,
+                                    "expect_salary_high":mypay1,
                                     "education":mymaxeduc,
+                                    "age":myage,
                                     "work_status":mymp,
                                     "company": mycompay,
-                                    "position": myjob,
+                                    "position": myjob
                                };
                                var resume_info_dict =JSON.stringify(myform);
                                $.post("/resume/resume/1/update",{"resume_info_dict":resume_info_dict},function (data) {
                                     var data =JSON.parse(data);
-                                     console.log(data.msg)
-                               })
-                     }
+                                    if (data.err==0){
+                                        alert("请求成功！")
+                                    }
 
+                               });
+                               resumeone.style.display ="none";
+                             document.getElementById("button_one").getElementsByTagName("span")[0].innerHTML="编辑";
+                     }
+                        function xiao() {
+                            resumeone.style.display ="none";
+                             document.getElementById("button_one").getElementsByTagName("span")[0].innerHTML="编辑";
+                        }
                 </script>
             </section>
             <section class="scroll-floor">
@@ -270,7 +279,7 @@
                             skty1.innerHTML = "编辑"
                         }
                     }
-                    document.getElementById("advantage").value = document.getElementById("youshi").innerHTML;
+                    document.getElementById("advantage").value = document.getElementById("youshi").innerText;
                     function good() {
                         skty.style.display = "none";
                         skty1.innerHTML = "编辑";
@@ -299,21 +308,21 @@
                         <span>求职意向</span>
                         <input type="button" value="添加" class="button" onclick="careeroadd()"/>
                     </div>
+                            <div id="careeroshow">
                     {% if CareerObjectives %}
                         {% for careerobjective in CareerObjectives %}
-                            <div id="careeroshow_{{ careerobjective.id }}">
-                                <div class="text-border">
+                                <div class="text-border" id="caree_{{ careerobjective.id }}">
                                     <div class="schoolname">
-                                        期望职位：{{ careerobjective.position }}
+                                        期望职位：<span>{{ careerobjective.position }}</span>
                                     </div>
                                     <div>
-                                        期望薪资：{{ careerobjective.expect_salary_low }}-{{ careerobjective.expect_salary_high }}
+                                        期望薪资：<span>{{ careerobjective.expect_salary_low }}</span>-<span>{{ careerobjective.expect_salary_high }}</span>
                                     </div>
                                     <div>
-                                        期望城市：{{ careerobjective.city }}
+                                        期望城市：<span>{{ careerobjective.city }}</span>
                                     </div>
                                     <div>
-                                        期望行业：{{ careerobjective.industry }}
+                                        期望行业：<span>{{ careerobjective.industry }}</span>
                                     </div>
                                     <div class="input-c">
                                         <input class="button" type="button" value="修改" onclick="careeroxiu(this)">
@@ -321,9 +330,9 @@
                                                onclick='careerorom(this)'>
                                     </div>
                                 </div>
-                            </div>
                         {% endfor %}
                     {% endif %}
+                            </div>
                 </div>
                 <div class="yixiang_editor" id="careerobiao" style="display: none">
                        <div class="table_w">
@@ -342,7 +351,11 @@
                                     <td><input type="text"  class="input-lang"></td>
                                 </tr>
                                 <tr class="row_class">
-                                    <td align="center" width ="30%">期望薪资</td>
+                                    <td align="center" width ="30%">期望薪资-最低</td>
+                                    <td><input type="text" class="input-lang"></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">期望薪资-最高</td>
                                     <td><input type="text" class="input-lang"></td>
                                 </tr>
                                 <tr class="row_class">
@@ -374,26 +387,26 @@
                         <span>
                           工作经历
                       </span>
-                        <input type="button" value="添加" class="button" onclick="workedadd()" />
+                        <a  class="button classa" onclick="workedadd()" href="#workedbiao">添加</a>
                     </div>
-                    {% if WorkExperiences %}
-                        {% for workexperience in WorkExperiences %}
-                            <div id="workedshow">
-                                <div class="text-border">
+                    <div id="workedshow">
+                        {% if WorkExperiences %}
+                            {% for workexperience in WorkExperiences %}
+                                <div class="text-border" id="worke_{{ workexperience.id }}">
                                     <div class="schoolname">
-                                        公司名称:{{ workexperience.company }}
+                                        公司名称:<span>{{ workexperience.company }}</span>
                                     </div>
                                     <div>
-                                        公司职位:{{ workexperience.position }}
+                                        公司职位:<span>{{ workexperience.position }}</span>
                                     </div>
                                     <div>
-                                        在职时间:{{ workexperience.start_time }}
+                                        在职时间:<span>{{ workexperience.start_time }}</span>
                                     </div>
                                     <div>
-                                        离职时间:{{ workexperience.end_time }}
+                                        离职时间:<span>{{ workexperience.end_time }}</span>
                                     </div>
                                     <div>
-                                        工作内容:{{ workexperience.content | safe }}
+                                        工作内容:<span>{{ workexperience.content | safe }}</span>
                                     </div>
                                     <div class="input-c">
                                         <input class="button" type="button" value="修改" onclick="workedxiu(this)">
@@ -401,9 +414,9 @@
                                                onclick='deleteworked(this)'>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="job-resume-1" id="workedbiao" style="display: none">
                     <div class="table_w">
@@ -463,25 +476,25 @@
                         </span>
                         <a  value="添加" class="button classa" onclick="projectadd()" href="#projectbiao"/>添加</a>
                     </div>
-                    {% if ProjectExperiences %}
-                        {% for projectexperience in ProjectExperiences %}
-                            <div id="projectshow">
-                                <div class="text-border">
-                                    <div class="schoolname">
-                                        项目名称:{{ projectexperience.project_name }}
-                                    </div>
-                                    <div>
-                                        项目角色:{{ projectexperience.role }}
-                                    </div>
-                                    <div>
-                                        项目URL:<a href="{{ projectexperience.url }}">{{ projectexperience.url }}</a>
-                                    </div>
-                                    <div>
-                                        项目时间:{{ projectexperience.start_time }}-{{ projectexperience.end_time }}
-                                    </div>
-                                    <div>
-                                        项目描述:{{ projectexperience.description | safe }}
 
+                            <div id="projectshow">
+                                 {% if ProjectExperiences %}
+                                 {% for projectexperience in ProjectExperiences %}
+                                <div class="text-border" id="porje_{{ projectexperience.id }}">
+                                    <div class="schoolname">
+                                        项目名称:<span>{{ projectexperience.project_name }}</span>
+                                    </div>
+                                    <div>
+                                        项目角色:<span>{{ projectexperience.role }}</span>
+                                    </div>
+                                    <div>
+                                        项目URL:<a class="aon" href="{{ projectexperience.url }}">{{ projectexperience.url }}</a>
+                                    </div>
+                                    <div>
+                                        项目时间:<span>{{ projectexperience.start_time }}</span>-<span>{{ projectexperience.end_time }}</span>
+                                    </div>
+                                    <div>
+                                        项目描述:<span>{{ projectexperience.description | safe }}</span>
                                     </div>
                                     <div class="input-c">
                                         <input class='button' type='button' value='修改' onclick='projectxiu(this)'/>
@@ -489,9 +502,9 @@
                                                onclick='deletepro(this)'>
                                     </div>
                                 </div>
-                            </div>
                         {% endfor %}
                     {% endif %}
+                            </div>
                 </div>
                 <div class="job-items-one">
                      <div class="biaodan" id="projectbiao" style="display: none">
@@ -525,6 +538,10 @@
                                     <td align="center" width ="30%">起始时间</td>
                                     <td><input type="text" class="input-lang" ></td>
                                 </tr>
+                                <tr>
+                                    <td align="center" width ="30%">结束时间</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
                                 <tr class="row_class">
                                     <td align="center" width ="30%">项目描述</td>
                                     <td><input type="text" class="input-lang"></td>
@@ -551,24 +568,24 @@
                          </span>
                         <a class="button_nove classa" value="添加" onclick="trdadd()" href="#biaodan">添加</a>
                     </div>
+                            <div id="zhanshi">
                     {% if EducationExperiences %}
                         {% for educationexperience in EducationExperiences %}
-                            <div id="zhanshi">
-                                <div class="table_class" id="47">
-                                    <div class="schoolname">学校名称:{{ educationexperience.school }}</div>
-                                    <div>所学专业:{{ educationexperience.discipline }}</div>
-                                    <div>最高学历:{{ educationexperience.education }}</div>
-                                    <div>就读时间:{{ educationexperience.start_time }}-{{ educationexperience.end_time }}</div>
-                                    <div>在校经历:{{ educationexperience.experience_at_school | safe }}</div>
+                                <div class="table_class" id="educa_{{ educationexperience.id }}">
+                                    <div class="schoolname">学校名称:<span>{{ educationexperience.school }}</span></div>
+                                    <div>就读时间:<span>{{ educationexperience.start_time }}</span>-<span>{{ educationexperience.end_time }}</span></div>
+                                    <div>所学专业:<span>{{ educationexperience.discipline }}</span></div>
+                                    <div>最高学历:<span>{{ educationexperience.education }}</span></div>
+                                    <div>在校经历:<span>{{ educationexperience.experience_at_school | safe }}</span></div>
                                     <div>
                                         <input class='button' type='button' value='修改' onclick='updateRow(this)'/>
                                         <input class='button' type='button' style='margin-left: 65px' value='删除'
                                                onclick='deleteRow(this)'>
                                     </div>
                                 </div>
-                            </div>
                         {% endfor %}
                     {% endif %}
+                            </div>
                 </div>
                 <div class="educations-one ">
                     <div class="biaodan" id="biaodan" style="display: none">
@@ -591,20 +608,24 @@
                                     <td><input type="text"  class="input-lang" name="schoolname"></td>
                                 </tr>
                                 <tr class="row_class">
-                                    <td align="center" width ="30%">时间段</td>
-                                    <td><input type="text" class="input-lang" name="schooltime"></td>
+                                    <td align="center" width ="30%">入学时间</td>
+                                    <td><input type="text" class="input-lang" ></td>
+                                </tr>
+                                <tr class="row_class">
+                                    <td align="center" width ="30%">毕业时间</td>
+                                    <td><input type="text" class="input-lang" ></td>
                                 </tr>
                                 <tr class="row_class">
                                     <td align="center" width ="30%">所学专业</td>
-                                    <td><input type="text" class="input-lang" name="schoozhuanyi"></td>
+                                    <td><input type="text" class="input-lang"></td>
                                 </tr>
                                 <tr class="row_class">
-                                    <td align="center" width ="30%">学历</td>
-                                    <td><input type="text" class="input-lang" name="school"></td>
+                                    <td align="center" width ="30%">最高学历</td>
+                                    <td><input type="text" class="input-lang" ></td>
                                 </tr>
                                 <tr class="row_class">
                                     <td align="center" width ="30%">在校经历</td>
-                                    <td><input type="text" class="input-lang" name="school经历"></td>
+                                    <td><input type="text" class="input-lang"></td>
                                 </tr>
                             </table>
                         </form>
@@ -761,11 +782,13 @@
           var career1 = careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
           var career2 = careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
           var career3 = careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+          var career4 = careerofrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
             var  qiwang ={
                   "position":career,
                   "expect_salary_low":career1,
-                  "city":career2,
-                  "industry":career3,
+                   "expect_salary_high": career2,
+                  "city":career3,
+                  "industry":career4,
                    "user_id":uid
               };
               var resume_info_dict =JSON.stringify(qiwang);
@@ -774,32 +797,35 @@
                      var qiwanid =data.id;
                   if(data.err ==0){
                       alert("添加成功");
-                       var carees =  $("<div class='schoolname'></div>").html(career);
-                        var carees1 = $("<div></div>").html(career1);
-                        var carees2 = $("<div></div>").html(career2);
-                        var carees3 = $("<div></div>").html(career3);
+                       var carees =  $("<div class='schoolname'></div>").html("期望职位:"+"<span>"+career+"</span>");
+                        var carees1 = $("<div></div>").html("期望薪资:"+"<span>"+career1+"</span>-<span>"+career2+"</span>");
+                        var carees2 = $("<div></div>").html("期望城市:"+"<span>"+career3+"</span>");
+                        var carees3 = $("<div></div>").html("期望行业:"+"<span>"+career4+"</span>");
                         var carees4 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='careeroxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>");
-                        var careess= $("<div class='text-border' id='"+qiwanid+"'></div>").append(carees,carees1,carees2,carees3,carees4);
+                        var careess= $("<div class='text-border' id='caree_"+qiwanid+"'></div>").append(carees,carees1,carees2,carees3,carees4);
                     $('#careeroshow').append(careess);
                   }
               })
 
        }else {
            var careero2 =careeroshow[getcareero];
-           var sdsid =careero2.id;
-         var position=  careero2.getElementsByTagName("div")[0].innerHTML =careerofrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-         var expect_salary_low=  careero2.getElementsByTagName("div")[1].innerHTML =careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value
-          var city= careero2.getElementsByTagName("div")[2].innerHTML =careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value
-         var industry=  careero2.getElementsByTagName("div")[3].innerHTML =careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value
+           var sdsid =String(careero2.id);
+                    var sdsid1=sdsid.substring(6);
+         var position=  careero2.getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML =careerofrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+         var expect_salary_low=  careero2.getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML =careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+         var expect_salary_high=  careero2.getElementsByTagName("div")[1].getElementsByTagName("span")[1].innerHTML =careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+           var city= careero2.getElementsByTagName("div")[2].getElementsByTagName("span")[0].innerHTML =careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+         var industry=  careero2.getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML =careerofrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
            var   qiwang1 ={
                   "position":position,
                   "expect_salary_low":expect_salary_low,
+                  "expect_salary_high":expect_salary_high,
                   "city":city,
                   "industry":industry,
                    "user_id":uid
               };
                 var resume_info_dict =JSON.stringify(qiwang1);
-                $.post("/resume/careerobjective/"+sdsid+"/update",{"resume_info_dict":resume_info_dict},function (data) {
+                $.post("/resume/careerobjective/"+sdsid1+"/update",{"resume_info_dict":resume_info_dict},function (data) {
                     var data =JSON.parse(data);
                     if(data.err ==0){
                         alert("修改成功！")
@@ -815,15 +841,18 @@
              console.log(i);
              var why= [].indexOf.call(i.parentNode.querySelectorAll(i.tagName), i);
               getcareero=why;
-              careerofrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[0].innerHTML;
-              careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[1].innerHTML;
-              careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[2].innerHTML;
-              careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[3].innerHTML;
+              careerofrom[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML;
+           var sds=   careerofrom[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML;
+              console.log(sds)
+           careerofrom[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[1].getElementsByTagName("span")[1].innerHTML;
+              careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[2].getElementsByTagName("span")[0].innerHTML;
+              careerofrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML;
    }
        function careerorom(input) {
            var quchu =input.parentNode.parentNode;
-           var quchuid= quchu.id;
-            $.post("/resume/careerobjective/"+quchuid+"/delete",function (data) {
+           var quchuid= String(quchu.id);
+           var quchuid1=quchuid.substring(6)
+            $.post("/resume/careerobjective/"+quchuid1+"/delete",function (data) {
                 var data =JSON.parse(data);
                     if(data.err ==0){
                         alert("删除成功！")
@@ -888,26 +917,27 @@
                    if (data.err ==0){
                        var job=data.id;
                        alert("添加成功！")
-                        var worked =  $("<div class='schoolname'></div>").html(worke);
-                        var worked1 = $("<div></div>").html(worke1);
-                        var worked2 = $("<div></div>").html(worke2);
-                        var worked3 = $("<div></div>").html(worke3);
-                        var worked4 = $("<div></div>").html(worke4);
+                        var worked =  $("<div class='schoolname'></div>").html("公司名称:"+"<span>"+worke+"</span>");
+                        var worked1 = $("<div></div>").html("公司职位:"+"<span>"+worke1+"</span>");
+                        var worked2 = $("<div></div>").html("在职时间:"+"<span>"+worke2+"</span>");
+                        var worked3 = $("<div></div>").html("离职时间:"+"<span>"+worke3+"</span>");
+                        var worked4 = $("<div></div>").html("工作内容:"+"<span>"+worke4+"</span>");
                         var worked5 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='workedxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>");
-                        var workes= $("<div class='text-border' id='"+job+"'></div>").append(worked,worked1,worked2,worked3,worked4,worked5);
+                        var workes= $("<div class='text-border' id='worke_"+job+"'></div>").append(worked,worked1,worked2,worked3,worked4,worked5);
                     $('#workedshow').append(workes);
                    }
               })
 
          }else {
                 var worked2 = workedshow[getworked];
-                   var weid =worked2.id;
-                console.log(worked2);
-             var company=worked2.getElementsByTagName("div")[0].innerHTML= workedform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-               var position= worked2.getElementsByTagName("div")[1].innerHTML= workedform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-               var start_time= worked2.getElementsByTagName("div")[2].innerHTML= workedform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-               var end_time= worked2.getElementsByTagName("div")[3].innerHTML= workedform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-               var content= worked2.getElementsByTagName("div")[4].innerHTML= workedform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+                   var weid =String(worked2.id);
+                    var weid1=weid.substring(6);
+                console.log(weid1);
+             var company=worked2.getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML= workedform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var position= worked2.getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML= workedform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var start_time= worked2.getElementsByTagName("div")[2].getElementsByTagName("span")[0].innerHTML= workedform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var end_time= worked2.getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML= workedform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               var content= worked2.getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML= workedform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                 var  str1 ={
                   "company":company,
                   "position":position,
@@ -917,7 +947,7 @@
                   "user_id":uid
               };
                 var resume_info_dict =JSON.stringify(str1);
-                $.post("/resume/workexperience/"+weid+"/update",{"resume_info_dict":resume_info_dict},function (data) {
+                $.post("/resume/workexperience/"+weid1+"/update",{"resume_info_dict":resume_info_dict},function (data) {
                     var data =JSON.parse(data);
                     if(data.err ==0){
                         alert("修改成功！")
@@ -932,17 +962,18 @@
              console.log(i);
              var ta= [].indexOf.call(i.parentNode.querySelectorAll(i.tagName), i);
              getworked =ta;
-                 workedform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[0].innerHTML;
-                 workedform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[1].innerHTML;
-                 workedform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[2].innerHTML;
-                 workedform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[3].innerHTML;
-                 workedform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[4].innerHTML;
+                 workedform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML;
+                 workedform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML;
+                 workedform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[2].getElementsByTagName("span")[0].innerHTML;
+                 workedform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML;
+                 workedform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = workedshow[getworked].getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML;
          }
          //删除经历
          function deleteworked(input){
           var hah= input.parentNode.parentNode;
-          var hahid= hah.id;
-            $.post("/resume/workexperience/"+hahid+"/delete",function (data) {
+          var hahid= String(hah.id);
+                    var hahid1=hahid.substring(6);
+            $.post("/resume/workexperience/"+hahid1+"/delete",function (data) {
                 var data =JSON.parse(data);
                     if(data.err ==0){
                         alert("删除成功！")
@@ -995,13 +1026,15 @@
                var pro2 = projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                var pro3 = projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                var pro4 = projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-               console.log(pro+pro1+pro2+pro3+pro4);
+               var pro5 = projectform[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+               //console.log(pro+pro1+pro2+pro3+pro4);
                var resume_info_dict={
                    "project_name":pro,
                    "role":pro1,
                    "url":pro2,
                    "start_time":pro3,
-                   "description":pro4,
+                   "end_time":pro4,
+                   "description":pro5,
                    "user_id":uid
                };
                var json_project = JSON.stringify(resume_info_dict);
@@ -1011,36 +1044,39 @@
                        alert("添加成功")
                        var b =data.id;
                        console.log(b);
-                        var pros =  $("<div class='schoolname'></div>").html(pro);
-                        var pros1 = $("<div></div>").html(pro1);
-                        var pros2 = $("<div></div>").html(pro2);
-                        var pros3 = $("<div></div>").html(pro3);
-                        var pros4 = $("<div></div>").html(pro4);
+                        var pros =  $("<div class='schoolname'></div>").html("项目名称:"+"<span>"+pro+"</span>");
+                        var pros1 = $("<div></div>").html("项目角色:"+"<span>"+pro1+"</span>");
+                        var pros2 = $("<div></div>").html("项目URL:"+"<a class='aon' href='"+pro2+"'>"+pro2+"</a>");
+                        var pros3 = $("<div></div>").html("项目时间:"+"<span>"+pro3+"</span>"+"-"+"<span>"+pro4+"</span>");
+                        var pros4 = $("<div></div>").html("项目描述:"+"<span>"+pro5+"</span>");
                         var pros6 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='projectxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>");
-                        var porject= $("<div class='text-border' id='"+b+"'>"+"</div>").append(pros, pros1, pros2, pros3,pros4,pros6);
+                        var porject= $("<div class='text-border' id='porje_"+b+"'>"+"</div>").append(pros, pros1, pros2, pros3,pros4,pros6);
                     $('#projectshow').append(porject);
                    }
                })
            }else {
                 document.getElementById("biaodan").style.display = "none";
                 var preee2 = projectshow[getproject];
-                var project2 =preee2.id ;
+                var project2 = String(preee2.id) ;
+                var project3 =project2.substring(6);
                 console.log(preee2);
-             var  project_name =preee2.getElementsByTagName("div")[0].innerHTML=projectform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-             var  role =  preee2.getElementsByTagName("div")[1].innerHTML=projectform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-             var  url =  preee2.getElementsByTagName("div")[2].innerHTML=projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-             var  start_time =  preee2.getElementsByTagName("div")[3].innerHTML=projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-              var description = preee2.getElementsByTagName("div")[4].innerHTML=projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  project_name =preee2.getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML=projectform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  role =  preee2.getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML=projectform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  url =  preee2.getElementsByTagName("div")[2].getElementsByTagName("a")[0].innerHTML=projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  start_time =  preee2.getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML=projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+             var  end_time =  preee2.getElementsByTagName("div")[3].getElementsByTagName("span")[1].innerHTML=projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+              var description = preee2.getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML=projectform[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
                  var resume_info_dict={
                      "project_name":project_name,
                      "role":role,
                      "url":url,
                      "start_time":start_time,
+                     "end_time":end_time,
                      "description":description,
                      "user_id":uid
                  }
                  var json_project = JSON.stringify(resume_info_dict);
-             $.post("/resume/projectexperience/"+project2+"/update",{"resume_info_dict":json_project},function (data) {
+             $.post("/resume/projectexperience/"+project3+"/update",{"resume_info_dict":json_project},function (data) {
                  var data =JSON.parse(data);
                  if(data.err==0){
                      alert("请求成功！")
@@ -1058,17 +1094,19 @@
            console.log(ni)
            getproject = ni;
 
-           projectform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject].getElementsByTagName("div")[0].innerHTML;
-           projectform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = projectshow[getproject].getElementsByTagName("div")[1].innerHTML;
-           projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject] .getElementsByTagName("div")[2].innerHTML;
-           projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject].getElementsByTagName("div")[3].innerHTML;
-           projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = projectshow[getproject].getElementsByTagName("div")[4].innerHTML;
+           projectform[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject].getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML;
+           projectform[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = projectshow[getproject].getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML;
+           projectform[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject] .getElementsByTagName("div")[2].getElementsByTagName("a")[0].innerHTML;
+           projectform[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject].getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML;
+           projectform[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = projectshow[getproject].getElementsByTagName("div")[3].getElementsByTagName("span")[1].innerHTML;
+           projectform[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value =projectshow[getproject].getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML;
       }
      //删除项目经验
     function deletepro(input) {
         var fu =input.parentNode.parentNode;
-           var weid =fu.id;
-          $.post("/resume/projectexperience/"+weid+"/delete",function (data) {
+           var weid =String(fu.id);
+           var weid1 =weid.substring(6);
+          $.post("/resume/projectexperience/"+weid1+"/delete",function (data) {
               var data =JSON.parse(data);
               if (data.err ==0){
                   alert("删除成功")
@@ -1123,13 +1161,15 @@
             var add3 = index[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
             var add4 = index[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
             var add5 = index[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+            var add6 = index[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
             //获取表单内容input的value
              var resume_info_dict = {
                 "school": add1,
-                "discipline": add3,
-                "education": add4,
+                "discipline": add4,
+                "education": add5,
                 "start_time": add2,
-                "experience_at_school":add5,
+                 "end_time":add3,
+                "experience_at_school":add6,
                 "user_id":uid
             };
 {#            var data = new Object(resume_info_dict);#}
@@ -1140,37 +1180,40 @@
                 if(data.err == "0"){
                     alert("请求成功！");
                     var a=data.id;
-                    var yaya =  $("<div class='schoolname'></div>").html(add1);
-                    var yaya1 = $("<div></div>").html(add2);
-                    var yaya2 = $("<div></div>").html(add3);
-                    var yaya3 = $("<div></div>").html(add4);
-                    var yaya4 = $("<div></div>").html(add5);
+                    var yaya =  $("<div class='schoolname'></div>").html("学校名称:"+"<span>"+add1+"</span>");
+                    var yaya1 = $("<div></div>").html("就读时间:"+"<span>"+add2+"</span>"+"-"+"<span>"+add3+"</span>");
+                    var yaya2 = $("<div></div>").html("专业名称:"+"<span>"+add4+"</span>");
+                    var yaya3 = $("<div></div>").html("最高学历:"+"<span>"+add5+"</span>");
+                    var yaya4 = $("<div></div>").html("在校经历:"+"<span>"+add6+"</span>");
                     var yaya5 = $("<div></div>").html("<input class='button' type='button' value ='修改' onclick='updateRow(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>");
-                    var schoolpost= $("<div class='table_class' id='"+a+"'>"+"</div>").append(yaya, yaya1, yaya2, yaya3, yaya4, yaya5);
+                    var schoolpost= $("<div class='table_class' id='educa_"+a+"'>"+"</div>").append(yaya, yaya1, yaya2, yaya3, yaya4, yaya5);
                     $('#zhanshi').append(schoolpost);
                 }
             });
         } else {
             var row2 = s1[getselectrow];
-               var rowid= row2.id;
+               var rowid= String(row2.id);
+               var rowid1=rowid.substring(6);
             console.log(row2.id);
             //console.log(row2);
-           var test= row2.getElementsByTagName("div")[0].innerHTML = index[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-            var test1=row2.getElementsByTagName("div")[1].innerHTML = index[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-            var test2=row2.getElementsByTagName("div")[2].innerHTML = index[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-           var test3= row2.getElementsByTagName("div")[3].innerHTML = index[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
-            var test4=row2.getElementsByTagName("div")[4].innerHTML = index[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+           var test= row2.getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML = index[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+            var test1=row2.getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML = index[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+            var test2=row2.getElementsByTagName("div")[1].getElementsByTagName("span")[1].innerHTML = index[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+            var test3=row2.getElementsByTagName("div")[2].getElementsByTagName("span")[0].innerHTML = index[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+           var test4= row2.getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML = index[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
+            var test5=row2.getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML = index[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value;
               var resume_info_dict = {
                  "school": test,
-                "discipline": test1,
-                "education": test2,
-                "start_time": test3,
-                "experience_at_school":test4,
+                "discipline": test3,
+                "education": test4,
+                "start_time": test1,
+                 "end_time":test2,
+                "experience_at_school":test5,
                 "user_id":uid
 
             };
                var json_data = JSON.stringify(resume_info_dict);
-            $.post("/resume/educationexperience/"+rowid+"/update",{"resume_info_dict":json_data},function (data) {
+            $.post("/resume/educationexperience/"+rowid1+"/update",{"resume_info_dict":json_data},function (data) {
                 var data =JSON.parse(data);
                 if(data.err == "0"){
                     alert("请求成功")
@@ -1181,8 +1224,9 @@
     //删除
     function deleteRow(input) {
          var s = input.parentNode.parentNode;
-        var sid=s.id;
-        $.post("/resume/educationexperience/"+sid+"/delete",function (data) {
+        var sid=String(s.id);
+          var sid1 =sid.substring(6);
+        $.post("/resume/educationexperience/"+sid1+"/delete",function (data) {
             var data =JSON.parse(data);
             if(data.err ==0){
                alert("删除成功")
@@ -1201,13 +1245,13 @@
         getselectrow = wo;
         console.log(wo);
         console.log(s1);
-
        //得到选中行的内容放到文本框
-        index[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[0].innerHTML;
-        index[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[1].innerHTML;
-       index[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[2].innerHTML;
-       index[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[3].innerHTML;
-        index[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[4].innerHTML;
+        index[0].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[0].getElementsByTagName("span")[0].innerHTML;
+        index[1].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[1].getElementsByTagName("span")[0].innerHTML;
+        index[2].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[1].getElementsByTagName("span")[1].innerHTML;
+        index[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[2].getElementsByTagName("span")[0].innerHTML;
+        index[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML;
+        index[5].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value = s1[getselectrow].getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML;
     }
 
     function quxiao() {
