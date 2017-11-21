@@ -30,6 +30,7 @@ class ResumeDetail(DetailView):
                 kwargs["EducationExperiences"] = EducationExperience.objects.filter(user_id=user_id)
             return super(ResumeDetail, self).get_context_data(**kwargs)
         except:
+            traceback.print_exc()
             logging.getLogger().error(traceback.format_exc())
 
 
@@ -56,6 +57,7 @@ class ResumeDelete(View):
                 result_dict["err"] = 1
                 result_dict["msg"] = "删除简历信息不完善，删除失败!"
         except:
+            traceback.print_exc()
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
             result_dict["msg"] = traceback.format_exc()
@@ -82,6 +84,7 @@ class ResumeAdd(View):
                 result_dict["err"] = 1
                 result_dict["msg"] = "未找到用户信息，新增失败!"
         except:
+            traceback.print_exc()
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
             result_dict["msg"] = traceback.format_exc()
@@ -105,6 +108,7 @@ class ResumeUpdate(View):
                 result_dict["err"] = 1
                 result_dict["msg"] = "简历修改数据不完善，修改失败!"
         except:
+            traceback.print_exc()
             logging.getLogger().error(traceback.format_exc())
             result_dict["err"] = 1
             result_dict["msg"] = traceback.format_exc()
