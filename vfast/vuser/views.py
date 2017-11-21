@@ -518,13 +518,12 @@ def change_headimg(request):
             if not headimg:
                 return HttpResponse('no headimg for upload!')
             destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
-            if head_img_type == "resume":
+            if head_img_type == "resume_user_headimg":
                 destination = os.path.join(settings.MEDIA_ROOT, 'resume_user_headimg')
             # print head_img_type
             # print destination
             if not os.path.isdir(destination):
                 os.system('mkdir -p %s ' % destination)
-            # print destination
             user = User.objects.get(id=uid)
             filename = str(user.id) + '_' + time.strftime('%y%m%d') + '.jpg'
             logging.getLogger().error(filename)
@@ -534,9 +533,9 @@ def change_headimg(request):
             headfile.close()
 
             headimg_url = '/media/user_headimg/%s' % filename
-            if head_img_type == "resume":
-                resume_obj = Resume.objects.filter(user_id=user)
-                resume_obj.head_img =headimg_url
+            if head_img_type == "resume_user_headimg":
+                resume_obj = Resume.objects.filter(user_id=user).first()
+                resume_obj.head_img ='/media/resume_user_headimg/%s' % filename
                 resume_obj.save()
             else:
                 user.headimg = headimg_url
