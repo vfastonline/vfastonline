@@ -45,17 +45,9 @@ textarea:focus{
     height: 200px;
 }
 .resume_img{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #abcdef;
-    float: left;
-    overflow: hidden;
+
 }
-.resume_one_nei{
-    padding-top: 28px;
-    margin-left: 65px;
-}
+
 .jiben{
     width: 645px;
     float: right;
