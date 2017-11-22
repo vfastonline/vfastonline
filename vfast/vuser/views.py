@@ -535,8 +535,12 @@ def change_headimg(request):
             headimg_url = '/media/user_headimg/%s' % filename
             if head_img_type == "resume_user_headimg":
                 resume_obj = Resume.objects.filter(user_id=user).first()
-                resume_obj.head_img ='/media/resume_user_headimg/%s' % filename
-                resume_obj.save()
+                headimg_url = '/media/resume_user_headimg/%s' % filename
+                if resume_obj:
+                    resume_obj.head_img = headimg_url
+                    resume_obj.save()
+                else:
+                    Resume.objects.create(user_id=user, head_img=headimg_url)
             else:
                 user.headimg = headimg_url
                 user.save()
