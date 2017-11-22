@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     {% include "head.html" %}
+    <link href="/static/fonts-svg/font.css">
     <link href="/static/css/resume.css" rel="stylesheet">
     <link href="/static/css/jHsDate.css" rel="stylesheet">
      <script src="/static/js/image_compress.js"></script>
@@ -205,6 +206,11 @@
            border: 1px solid #ECEFF1;
              border-radius: 4px;
        }
+        .right{float: right;
+                 margin-top: 5px}
+        #genghuan>svg{
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -220,40 +226,27 @@
                         <div class="resume_img">
                            <div class="info_1_head">
                                 <div class="info_1_head_1">
-                                    <img id="uheadimg_this" src="{{  Resumes.head_img }}" alt=""/>
+                                    <img id="uheadimg_this" src="{{  Resumes.head_img }}" alt="暂无头像" style="background: url('/static/svg/geren.svg')"/>
                                 </div>
                              <div class="info_1_head_2">
                                  <div>
-                                     <div onclick="$('#headimg').click()" style="opacity:0.0 " id="genghuan">更换</div>
+                                     <div onclick="$('#headimg').click()" style="opacity:0.0 " id="genghuan">
+                                         <svg t="1511334165876" class="icon" style="" viewBox="0 0 1024 1024"
+                                              version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1089"
+                                              xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32">
+                                             <defs>
+                                                 <style type="text/css"></style>
+                                             </defs>
+                                             <path d="M512 418.133333c-89.6 0-136.533333 46.933333-136.533333 136.533334s46.933333 136.533333 136.533333 136.533333 136.533333-46.933333 136.533333-136.533333-46.933333-136.533333-136.533333-136.533334z"
+                                                   p-id="1090" fill="#8a8a8a"></path>
+                                             <path d="M853.333333 213.333333h-136.533333L640 128H384L307.2 213.333333H170.666667c-46.933333 0-85.333333 38.4-85.333334 85.333334v512c0 46.933333 38.4 85.333333 85.333334 85.333333h682.666666c46.933333 0 85.333333-38.4 85.333334-85.333333V298.666667c0-46.933333-38.4-85.333333-85.333334-85.333334z m-341.333333 554.666667c-119.466667 0-213.333333-93.866667-213.333333-213.333333s93.866667-213.333333 213.333333-213.333334 213.333333 93.866667 213.333333 213.333334-93.866667 213.333333-213.333333 213.333333z"
+                                                   p-id="1091" fill="#8a8a8a"></path>
+                                         </svg>
+                                     </div>
                                      <input name="headimg" id="headimg" type="file">
                                  </div>
                                  <div onclick="resetHP()">恢复预设</div>
                              </div>
-                            <script>
-                     function resetHP(){
-                    $.post("/u/editpage/change_headimg",function(data){
-                      $("#uheadimg_this").attr("src",data.headimg);
-                      $("#uheadimg").attr("src",data.headimg);
-                      showPrompt("已经恢复预设头像~");
-                            },"json")
-                          }
-                        function showPrompt(message){
-                            $("#promptDIV").html(message);
-                            $("#promptDIV").css("top","0px");
-                            setTimeout(function(){
-                                $("#promptDIV").css("top","-75px");
-                            },2000)
-                        }
-                   $("#headimg").on("change",  {"head_img_type": "resume_user_headimg"},imageCompress);
-                  $(document).ready(function(){
-  $("#genghuan").hover(function(){
-    $("#genghuan").css("opacity","1.0");
-    },function(){
-    $("#genghuan").css("opacity","0.0");
-  });
-});
-
-                 </script>
                    </div>
                         </div>
                         <ul class="jiben">
@@ -283,11 +276,9 @@
                     <ul class="education" id="hangli">
                         <li>
                             <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                                  <path fill="#5A646E"
-                                    d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z"
-                                    opacity=".99"/>
-                                </svg>
+                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19">
+                                    <path fill="#5A646E" d="M12,4 L8,4 L8,2 L12,2 L12,4 Z M18,4 L14,4 L14,2 L12,0 L8,0 L6,2 L6,4 L2,4 C0.89,4 0,4.89 0,6 L0,17 C0,18.1 0.9,19 2,19 L18,19 C19.1,19 20,18.1 20,17 L20,6 C20,4.89 19.1,4 18,4 Z" opacity=".99"/>
+                               </svg>
                             </span>
                             <span>{{ Resumes.years_of_service }}</span>年
                         </li>
@@ -462,7 +453,7 @@
                         <span>
                             我的优势
                         </span>
-                        <button class="button" id="goode" onclick="goode()">
+                        <button class="button" style="float: right" id="goode" onclick="goode()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="3" height="15" viewBox="0 0 3 15">
                                 <path fill="#757575"
                                       d="M3,3.5 L3,4 L0,4 L0,3.5 C0,2.671 0.672,2 1.5,2 C2.328,2 3,2.671 3,3.5 Z M3,14 L1.5,17 L0,14 L0,5 L3,5 L3,14 Z"
@@ -498,7 +489,7 @@
                     </div>
                     <div class="bottom-jian">
                         <button class="button_nove" onclick="good()">完成</button>
-                        <button class="button_nove" id="goodq">取消</button>
+                        <button class="button" id="goodq">取消</button>
                     </div>
                 </div>
                 <script>
@@ -520,7 +511,8 @@
                         skty1.innerHTML = "编辑";
                         var my_advantage=document.getElementById("youshi").innerText = document.getElementById("advantage").value;
                          var youshi ={
-                  "my_advantage":my_advantage
+                  "my_advantage":my_advantage,
+                   "user_id":uid
               };
               var resume_info_dict =JSON.stringify(youshi);
                         $.post("/resume/resume/"+resume+"/update",{"resume_info_dict":resume_info_dict},function (data) {
@@ -540,8 +532,13 @@
             <section class="scroll-floor">
                 <div class="common-show">
                     <div class="table_w">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                 <path fill="#5A646E" d="M47,28 C44.51825,28 42.5,25.98175 42.5,23.5 C42.5,21.01825 44.51825,19 47,19 C49.48175,19 51.5,21.01825 51.5,23.5 C51.5,25.98175 49.48175,28 47,28 Z M47,29.125 C52.29875,29.125 56,31.900375 56,35.875 L56,37 L38,37 L38,35.875 C38,31.900375 41.70125,29.125 47,29.125 Z" transform="translate(-38 -19)"/>
+                            </svg>
+                        </span>
                         <span>求职意向</span>
-                        <input type="button" value="添加" class="button" onclick="careeroadd()"/>
+                        <input type="button" value="添加" style="float: right;margin-top: 10px" class="button" onclick="careeroadd()"/>
                     </div>
                             <div id="careeroshow">
                     {% if CareerObjectives %}
@@ -549,6 +546,7 @@
                                 <div class="text-border" id="caree_{{ careerobjective.id }}">
                                     <div class="schoolname">
                                         期望职位：<span>{{ careerobjective.position }}</span>
+                                        <input class='button right' type='button' value ='编辑' onclick='careeroxiu(this)'/>
                                     </div>
                                     <div>
                                         期望薪资：<span>{{ careerobjective.expect_salary_low }}</span>-<span>{{ careerobjective.expect_salary_high }}</span>
@@ -558,11 +556,6 @@
                                     </div>
                                     <div>
                                         期望行业：<span>{{ careerobjective.industry }}</span>
-                                    </div>
-                                    <div class="input-c">
-                                        <input class="button" type="button" value="修改" onclick="careeroxiu(this)">
-                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
-                                               onclick='careerorom(this)'>
                                     </div>
                                 </div>
                         {% endfor %}
@@ -605,6 +598,7 @@
                         </form>
                         <div style="margin-left: 65px;height: 50px">
                             <input type="button" class="button_nove" value="完成" onclick="careerocun()">
+                             <input class='button' type='button' style='margin-left: 65px' value='删除' onclick='careerorom()'>
                             <input type="button" class="button" value="取消" onclick="carquxiao()">
                         </div>
                 </div>
@@ -630,6 +624,7 @@
                                 <div class="text-border" id="worke_{{ workexperience.id }}">
                                     <div class="schoolname">
                                         公司名称:<span>{{ workexperience.company }}</span>
+                                        <input class="button right" type="button" value="编辑" onclick="workedxiu(this)">
                                     </div>
                                     <div>
                                         公司职位:<span>{{ workexperience.position }}</span>
@@ -642,11 +637,6 @@
                                     </div>
                                     <div>
                                         工作内容:<span>{{ workexperience.content | safe }}</span>
-                                    </div>
-                                    <div class="input-c">
-                                        <input class="button" type="button" value="修改" onclick="workedxiu(this)">
-                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
-                                               onclick='deleteworked(this)'>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -694,6 +684,7 @@
                         </form>
                         <div style="margin-left: 65px;height: 50px">
                             <input type="button" class="button_nove" value="完成" onclick="workedcun()">
+                             <input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteworked()'>
                             <input type="button" class="button" value="取消" onclick="workedqi()">
                         </div>
                 </div>
@@ -720,6 +711,7 @@
                                 <div class="text-border" id="porje_{{ projectexperience.id }}">
                                     <div class="schoolname">
                                         项目名称:<span>{{ projectexperience.project_name }}</span>
+                                        <input class='button right' type='button' value='编辑' onclick='projectxiu(this)'/>
                                     </div>
                                     <div>
                                         项目角色:<span>{{ projectexperience.role }}</span>
@@ -728,15 +720,10 @@
                                         项目URL:<a class="aon" href="http://{{ projectexperience.url }}">{{ projectexperience.url }}</a>
                                     </div>
                                     <div>
-                                        项目时间:<span>{{ projectexperience.start_time }}</span>-<span>{{ projectexperience.end_time }}</span>
+                                        项目时间:<span>{{ projectexperience.start_time }}</span>/<span>{{ projectexperience.end_time }}</span>
                                     </div>
                                     <div>
                                         项目描述:<span>{{ projectexperience.description | safe }}</span>
-                                    </div>
-                                    <div class="input-c">
-                                        <input class='button' type='button' value='修改' onclick='projectxiu(this)'/>
-                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
-                                               onclick='deletepro(this)'>
                                     </div>
                                 </div>
                         {% endfor %}
@@ -748,8 +735,7 @@
                          <div class="table_w">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18">
-                                   <path fill="#5A646E"
-                                         d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z"
+                                   <path fill="#5A646E" d="M11,0 L0,6 L11,12 L20,7.09 L20,14 L22,14 L22,6 L11,0 Z M4,10.18 L4,14.18 L11,18 L18,14.18 L18,10.18 L11,14 L4,10.18 Z"
                                          opacity=".99"/>
                             </svg>
                         </span>
@@ -789,6 +775,7 @@
                         </form>
                         <div style="margin-left: 65px;height: 50px">
                             <input type="button" class="button_nove" value="完成" onclick="projectcun()">
+                            <input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deletepro()'>
                             <input type="button" class="button" value="取消" onclick="proqi()">
                         </div>
                     </div>
@@ -811,16 +798,11 @@
                     {% if EducationExperiences %}
                         {% for educationexperience in EducationExperiences %}
                                 <div class="table_class" id="educa_{{ educationexperience.id }}">
-                                    <div class="schoolname">学校名称:<span>{{ educationexperience.school }}</span></div>
-                                    <div>就读时间:<span>{{ educationexperience.start_time }}</span>-<span>{{ educationexperience.end_time }}</span></div>
+                                    <div class="schoolname">学校名称:<span>{{ educationexperience.school }}</span> <input class='button right'  type='button' value='编辑' onclick='updateRow(this)'/></div>
+                                    <div>就读时间:<span>{{ educationexperience.start_time }}</span>/<span>{{ educationexperience.end_time }}</span></div>
                                     <div>所学专业:<span>{{ educationexperience.discipline }}</span></div>
                                     <div>最高学历:<span>{{ educationexperience.education }}</span></div>
                                     <div>在校经历:<span>{{ educationexperience.experience_at_school | safe }}</span></div>
-                                    <div>
-                                        <input class='button' type='button' value='修改' onclick='updateRow(this)'/>
-                                        <input class='button' type='button' style='margin-left: 65px' value='删除'
-                                               onclick='deleteRow(this)'>
-                                    </div>
                                 </div>
                         {% endfor %}
                     {% endif %}
@@ -872,6 +854,7 @@
                         </form>
                         <div style="margin-left: 65px;height: 50px">
                             <input type="button" class="button_nove" value="完成" onclick="baocun()">
+                            <input type="button" class="button" value="删除" onclick="deleteRow(this)">
                             <input type="button" class="button" value="取消" onclick="quxiao()">
                         </div>
                     </div>
@@ -996,6 +979,32 @@
     });
 </script>
 <script type="text/javascript">
+    //头像上传
+       function resetHP() {
+                                    $.post("/u/editpage/change_headimg", function (data) {
+                                        $("#uheadimg_this").attr("src", data.headimg);
+                                        $("#uheadimg").attr("src", data.headimg);
+                                        showPrompt("已经恢复预设头像~");
+                                    }, "json")
+                                }
+
+                                function showPrompt(message) {
+                                    $("#promptDIV").html(message);
+                                    $("#promptDIV").css("top", "0px");
+                                    setTimeout(function () {
+                                        $("#promptDIV").css("top", "-75px");
+                                    }, 2000)
+                                }
+
+                                $("#headimg").on("change", {"head_img_type": "resume_user_headimg"}, imageCompress);
+                                $(document).ready(function () {
+                                    $("#genghuan").hover(function () {
+                                        $("#genghuan").css("opacity", "1.0");
+                                    }, function () {
+                                        $("#genghuan").css("opacity", "0.0");
+                                    });
+                                });
+
     //判断当前是添加状态还是修改
     var flag = false;
     //当前用户id
@@ -1051,12 +1060,11 @@
                      var qiwanid =data.id;
                   if(data.err ==0){
                       alert("添加成功");
-                       var carees =  $("<div class='schoolname'></div>").html("期望职位:"+"<span>"+career+"</span>");
+                       var carees =  $("<div class='schoolname'></div>").html("期望职位:"+"<span>"+career+"</span>"+"<input class='button right' type='button' value ='编辑' onclick='careeroxiu(this)'/>");
                         var carees1 = $("<div></div>").html("期望薪资:"+"<span>"+career1+"</span>-<span>"+career2+"</span>");
                         var carees2 = $("<div></div>").html("期望城市:"+"<span>"+career3+"</span>");
                         var carees3 = $("<div></div>").html("期望行业:"+"<span>"+career4+"</span>");
-                        var carees4 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='careeroxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>");
-                        var careess= $("<div class='text-border' id='caree_"+qiwanid+"'></div>").append(carees,carees1,carees2,carees3,carees4);
+                        var careess= $("<div class='text-border' id='caree_"+qiwanid+"'></div>").append(carees,carees1,carees2,carees3);
                     $('#careeroshow').append(careess);
                   }
               })
@@ -1102,17 +1110,18 @@
               careerofrom[3].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[2].getElementsByTagName("span")[0].innerHTML;
               careerofrom[4].getElementsByTagName("td")[1].getElementsByTagName("input")[0].value=careeroshow[getcareero].getElementsByTagName("div")[3].getElementsByTagName("span")[0].innerHTML;
    }
-       function careerorom(input) {
-           var quchu =input.parentNode.parentNode;
-           var quchuid= String(quchu.id);
-           var quchuid1=quchuid.substring(6)
-            $.post("/resume/careerobjective/"+quchuid1+"/delete",function (data) {
+       function careerorom() {
+           var careero2 =careeroshow[getcareero];
+           var sdsid =String(careero2.id);
+                    var sdsid1=sdsid.substring(6);
+            $.post("/resume/careerobjective/"+sdsid1+"/delete",function (data) {
                 var data =JSON.parse(data);
                     if(data.err ==0){
                         alert("删除成功！")
                     }
             });
-          quchu.remove()
+          careero2.remove()
+           document.getElementById("careerobiao").style.display ="none"
        }
        function carquxiao() {
             document.getElementById("careerobiao").style.display ="none"
@@ -1171,13 +1180,12 @@
                    if (data.err ==0){
                        var job=data.id;
                        alert("添加成功！")
-                        var worked =  $("<div class='schoolname'></div>").html("公司名称:"+"<span>"+worke+"</span>");
+                        var worked =  $("<div class='schoolname'></div>").html("公司名称:"+"<span>"+worke+"</span>"+"<input class='button right' type='button' value ='编辑' onclick='workedxiu(this)'/>");
                         var worked1 = $("<div></div>").html("公司职位:"+"<span>"+worke1+"</span>");
                         var worked2 = $("<div></div>").html("在职时间:"+"<span>"+worke2+"</span>");
                         var worked3 = $("<div></div>").html("离职时间:"+"<span>"+worke3+"</span>");
                         var worked4 = $("<div></div>").html("工作内容:"+"<span>"+worke4+"</span>");
-                        var worked5 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='workedxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteworked(this)'>");
-                        var workes= $("<div class='text-border' id='worke_"+job+"'></div>").append(worked,worked1,worked2,worked3,worked4,worked5);
+                        var workes= $("<div class='text-border' id='worke_"+job+"'></div>").append(worked,worked1,worked2,worked3,worked4);
                     $('#workedshow').append(workes);
                    }
               })
@@ -1223,24 +1231,23 @@
                  workedform[4].getElementsByTagName("td")[1].getElementsByTagName("textarea")[0].value = workedshow[getworked].getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML;
          }
          //删除经历
-         function deleteworked(input){
-          var hah= input.parentNode.parentNode;
-          var hahid= String(hah.id);
-                    var hahid1=hahid.substring(6);
-            $.post("/resume/workexperience/"+hahid1+"/delete",function (data) {
+         function deleteworked(){
+          var worked2 = workedshow[getworked];
+                   var weid =String(worked2.id);
+                    var weid1=weid.substring(6);
+            $.post("/resume/workexperience/"+weid1+"/delete",function (data) {
                 var data =JSON.parse(data);
                     if(data.err ==0){
                         alert("删除成功！")
                     }
             });
-           hah.remove();
+           worked2.remove();
+           document.getElementById("workedbiao").style.display = "none";
          }
           function workedqi() {
         document.getElementById("workedbiao").style.display = "none";
         workedchong();
        }
-
-
 
 
 
@@ -1298,18 +1305,18 @@
                        alert("添加成功")
                        var b =data.id;
                        console.log(b);
-                        var pros =  $("<div class='schoolname'></div>").html("项目名称:"+"<span>"+pro+"</span>");
+                        var pros =  $("<div class='schoolname'></div>").html("项目名称:"+"<span>"+pro+"</span>"+"<input class='button right' type='button' value ='编辑' onclick='projectxiu(this)'/>");
                         var pros1 = $("<div></div>").html("项目角色:"+"<span>"+pro1+"</span>");
                         var pros2 = $("<div></div>").html("项目URL:"+"<a class='aon' href='http://"+pro2+"'>"+pro2+"</a>");
-                        var pros3 = $("<div></div>").html("项目时间:"+"<span>"+pro3+"</span>"+"-"+"<span>"+pro4+"</span>");
+                        var pros3 = $("<div></div>").html("项目时间:"+"<span>"+pro3+"</span>"+"/"+"<span>"+pro4+"</span>");
                         var pros4 = $("<div></div>").html("项目描述:"+"<span>"+pro5+"</span>");
-                        var pros6 = $("<div class='input-c'></div>").html("<input class='button' type='button' value ='修改' onclick='projectxiu(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>");
+                        var pros6 = $("<div class='input-c'></div>").html("");
                         var porject= $("<div class='text-border' id='porje_"+b+"'>"+"</div>").append(pros, pros1, pros2, pros3,pros4,pros6);
                     $('#projectshow').append(porject);
                    }
                })
            }else {
-                document.getElementById("biaodan").style.display = "none";
+               document.getElementById("projectbiao").style.display = "none";
                 var preee2 = projectshow[getproject];
                 var project2 = String(preee2.id) ;
                 var project3 =project2.substring(6);
@@ -1356,17 +1363,18 @@
            projectform[5].getElementsByTagName("td")[1].getElementsByTagName("textarea")[0].value =projectshow[getproject].getElementsByTagName("div")[4].getElementsByTagName("span")[0].innerHTML;
       }
      //删除项目经验
-    function deletepro(input) {
-        var fu =input.parentNode.parentNode;
-           var weid =String(fu.id);
-           var weid1 =weid.substring(6);
-          $.post("/resume/projectexperience/"+weid1+"/delete",function (data) {
+    function deletepro() {
+         var preee2 = projectshow[getproject];
+                var project2 = String(preee2.id) ;
+                var project3 =project2.substring(6);
+          $.post("/resume/projectexperience/"+project3+"/delete",function (data) {
               var data =JSON.parse(data);
               if (data.err ==0){
                   alert("删除成功")
               }
-          })
-         fu.remove();
+          });
+         preee2.remove();
+         document.getElementById("projectbiao").style.display = "none";
     }
     function proqi() {
         document.getElementById("projectbiao").style.display = "none"
@@ -1434,13 +1442,12 @@
                 if(data.err == "0"){
                     alert("请求成功！");
                     var a=data.id;
-                    var yaya =  $("<div class='schoolname'></div>").html("学校名称:"+"<span>"+add1+"</span>");
-                    var yaya1 = $("<div></div>").html("就读时间:"+"<span>"+add2+"</span>"+"-"+"<span>"+add3+"</span>");
+                    var yaya =  $("<div class='schoolname'></div>").html("学校名称:"+"<span>"+add1+"</span>"+"<input class='button right' type='button' value ='编辑' onclick='updateRow(this)'/>");
+                    var yaya1 = $("<div></div>").html("就读时间:"+"<span>"+add2+"</span>"+"/"+"<span>"+add3+"</span>");
                     var yaya2 = $("<div></div>").html("专业名称:"+"<span>"+add4+"</span>");
                     var yaya3 = $("<div></div>").html("最高学历:"+"<span>"+add5+"</span>");
                     var yaya4 = $("<div></div>").html("在校经历:"+"<span>"+add6+"</span>");
-                    var yaya5 = $("<div></div>").html("<input class='button' type='button' value ='修改' onclick='updateRow(this)'/><input type='button' class='button' style='margin-left: 65px' value='删除'onclick='deleteRow(this)'>");
-                    var schoolpost= $("<div class='table_class' id='educa_"+a+"'>"+"</div>").append(yaya, yaya1, yaya2, yaya3, yaya4, yaya5);
+                    var schoolpost= $("<div class='table_class' id='educa_"+a+"'>"+"</div>").append(yaya, yaya1, yaya2, yaya3, yaya4);
                     $('#zhanshi').append(schoolpost);
                 }
             });
@@ -1476,17 +1483,19 @@
         }
     }
     //删除
-    function deleteRow(input) {
-         var s = input.parentNode.parentNode;
-        var sid=String(s.id);
-          var sid1 =sid.substring(6);
-        $.post("/resume/educationexperience/"+sid1+"/delete",function (data) {
+    function deleteRow() {
+
+       document.getElementById("biaodan").style.display = "none";
+        var row2 = s1[getselectrow];
+               var rowid= String(row2.id);
+               var rowid1=rowid.substring(6);
+        $.post("/resume/educationexperience/"+rowid1+"/delete",function (data) {
             var data =JSON.parse(data);
             if(data.err ==0){
                alert("删除成功")
             }
         });
-        s.remove();
+          row2.remove();
     }
 
     //XIUGAI
