@@ -81,7 +81,7 @@ textarea:focus{
 }
 .cont_right div{
     width: 306px;
-    height: 118px;
+    height: 50px;
     background-color: #FFFFFF;
 }
 .cont_right_one li{
@@ -167,7 +167,8 @@ textarea:focus{
 .floor-nav{
     height: auto;
     z-index: 999;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: #FFFFFF;
+    position: fixed;
 }
 .xian_div p{
     height: 35px;
