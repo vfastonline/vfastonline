@@ -79,7 +79,7 @@ class ResumeAdd(View):
                 resume_info_dict["user_id"] = user_obj[0]
                 resume_type_model = resume_type_model_dict.get(resume_type)
                 if resume_type == "resume":
-                    resume_obj = Resume.objects.filter(user_id = user_obj)
+                    resume_obj = Resume.objects.filter(user_id=user_obj)
                     if resume_obj.exists():
                         resume_obj[0].objects.update(**resume_info_dict)
                         obj_id = resume_obj[0].id
