@@ -541,6 +541,7 @@ def change_headimg(request):
                     resume_obj.save()
                 else:
                     Resume.objects.create(user_id=user, head_img=headimg_url)
+                return HttpResponse(json.dumps({'headimg': headimg_url}))
             else:
                 user.headimg = headimg_url
                 user.save()
