@@ -211,6 +211,7 @@
         #genghuan>svg{
             margin-top: 10px;
         }
+        .text-border>div>span>p{display: inline-block}
     </style>
 </head>
 <body>
@@ -226,7 +227,7 @@
                         <div class="resume_img">
                            <div class="info_1_head">
                                 <div class="info_1_head_1">
-                                    <img id="uheadimg_this" src="{{  Resumes.head_img }}" alt="暂无头像" style="background: url('/static/svg/geren.svg')"/>
+                                    <img id="uheadimg_this" src="{{  Resumes.head_img }}" alt="" style="background: url('/static/svg/geren.svg') no-repeat;background-size:88px 88px;"/>
                                 </div>
                              <div class="info_1_head_2">
                                  <div>
@@ -797,7 +798,7 @@
                             <div id="zhanshi">
                     {% if EducationExperiences %}
                         {% for educationexperience in EducationExperiences %}
-                                <div class="table_class" id="educa_{{ educationexperience.id }}">
+                                <div class="text-border" id="educa_{{ educationexperience.id }}">
                                     <div class="schoolname">学校名称:<span>{{ educationexperience.school }}</span> <input class='button right'  type='button' value='编辑' onclick='updateRow(this)'/></div>
                                     <div>就读时间:<span>{{ educationexperience.start_time }}</span>/<span>{{ educationexperience.end_time }}</span></div>
                                     <div>所学专业:<span>{{ educationexperience.discipline }}</span></div>
