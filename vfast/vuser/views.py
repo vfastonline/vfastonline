@@ -28,7 +28,7 @@ def test(request):
     # skill = Skill.objects.all().values()
     # for item in skill:
     #     print item
-    return render(request, 'company_employee.html')
+    return render(request, 'xinxicaiji.html')
 def userexists(request):
     """判断email, nickname是否存在"""
     try:

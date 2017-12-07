@@ -123,8 +123,8 @@
 })(window, jQuery);
 function add() {
     var todata =$("#searchForm").serializeJson();
-         console.log
-        $.post('u/collect',todata,function (data) {
+         console.log(todata)
+        $.post('/u/collect',todata,function (data) {
            data = JSON.parse(data)
             if(data.code ==0){
                console.log("发送成功")
