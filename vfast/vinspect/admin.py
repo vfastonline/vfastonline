@@ -1,10 +1,14 @@
 from django.contrib import admin
+
+from vfast.settings import tinymce_js
 from vinspect.models import Inspect, InspectOption
-# Register your models here.
 
 
 class InspectOptionAdmin(admin.ModelAdmin):
     list_display = ('title', 'A', 'B', 'C', 'D')
+
+    class Media:
+        js = tinymce_js
 
 
 admin.site.register(Inspect)

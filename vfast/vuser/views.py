@@ -1,34 +1,44 @@
 #!encoding:utf-8
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+import logging
+import os
+import random
+import time
+import traceback
+
 from django.conf import settings
 from django.db.models import Q, Sum
-from vuser.models import User, DailyTask, PtoP, DailyTaskstatus, Userplan
-from vperm.models import Role
-from vcourse.models import Path, Course, Skill
-from vrecord.models import WatchRecord, Score
+from django.http import HttpResponse, HttpResponseRedirect
+
 from vbadge.models import UserBadge
-from vfast.api import encry_password, get_validate, time_comp_now, require_login, get_day_of_day, sendmessage
-from vrecord.api import sum_score_tech
-from vuser.api import *
 from vcourse.api import track_process
+from vcourse.models import Path, Course, Skill
+from vfast.api import encry_password, get_validate, time_comp_now, require_login, get_day_of_day, sendmessage
 from vfast.error_page import *
-
-import os
-import json
-import logging
-import traceback
-import time
-import random
-
+from vperm.models import Role
+from vrecord.api import sum_score_tech
+from vrecord.models import WatchCourse
+from vrecord.models import WatchRecord, Score
+from vuser.api import *
+from vuser.models import User, DailyTask, PtoP, DailyTaskstatus, Userplan
+from vuser.skill_mastery_level import statistics_skill_mastery_level_by_path
+from vresume.models import Resume
 
 
 # Create your views here.
 def test(request):
+<<<<<<< HEAD
     # skill = Skill.objects.all().values()
     # for item in skill:
     #     print item
     return render(request, 'company_employee.html')
+=======
+    skill = Skill.objects.all().values()
+    for item in skill:
+        print item
+    return render(request, 'resume.html')
+
+
+>>>>>>> duminchao
 def userexists(request):
     """判断email, nickname是否存在"""
     try:
@@ -256,16 +266,17 @@ def dashboard(request, param):
         # 显示正在学习的路线
         else:
             path = Path.objects.get(id=user.pathid)
-            sequence = path.p_sequence
-            sql = 'select * from vcourse_course where id in  (%s) order by field (id, %s)' % (sequence, sequence)
-            courses = dictfetchall(sql)  # 获取路线在的所有课程, sequence
-            sql2 = 'select * from vrecord_watchcourse where user_id = %s AND course_id in (%s)' % (user.id, sequence)
-            courses_wathced = dictfetchall(sql2)  # 获取用户观看过当前路线的课程,是否观看完成
+
+            courses_objs, courses = path.get_after_sorted_course()
+
+            # 获取用户观看过当前路线的课程,是否观看完成
+            courses_wathced = WatchCourse.objects.filter(user=user, course__in=path.course.all())
+
             # 课程时间显示转换, 如果以看完课程,显示课程观看时间, 如果没有看完课程,显示课程总时间
             for item in courses:
-                for j in courses_wathced:
-                    if item['id'] == j['course_id']:
-                        item['viewtime'] = '%s%s' % (time_comp_now(j['createtime']), '完成')
+                for course_wathced in courses_wathced:
+                    if item["id"] == course_wathced.course_id:
+                        item['viewtime'] = '%s%s' % (time_comp_now(course_wathced.createtime), '完成')
                 if not item.has_key('viewtime'):
                     item['viewtime'] = item['totaltime']
 
@@ -279,21 +290,18 @@ def dashboard(request, param):
                     item['vtype'] = ret3[0]['vtype']
                     item['createtime'] = ret3[0]['createtime']
                 else:
-                    sql_video = "select * from vcourse_video where course_id =%s order by sequence limit 1;" % item[
-                        'id']
-                    ret_video = dictfetchall(sql_video)
-                    if len(ret_video) == 0:
+                    ret_video = Video.objects.filter(course=item["id"])
+                    if not ret_video.exists():
                         # 如果添加了课程,但是没有为课程添加视频, 默认读取第一个视频
-                        sql_v = 'select * from vcourse_video limit 1'
-                        ret_sql_v = dictfetchall(sql_v)
-                        item['video_id'] = ret_sql_v[0]['id']
-                        item['vtype'] = ret_sql_v[0]['vtype']
+                        ret_sql_v = Video.objects.order_by("sequence").first()
+                        item['video_id'] = ret_sql_v.id
+                        item['vtype'] = ret_sql_v.vtype
                         item['createtime'] = 0
-                        item['video_name'] = ret_sql_v[0]['name']
+                        item['video_name'] = ret_sql_v.name
                     else:
-                        item['video_id'] = ret_video[0]['id']
-                        item['video_name'] = ret_video[0]['name']
-                        item['vtype'] = ret_video[0]['vtype']
+                        item['video_id'] = ret_video.first().id
+                        item['video_name'] = ret_video.first().name
+                        item['vtype'] = ret_video.first().vtype
                         item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
             tmp = []
             for z in courses:
@@ -311,15 +319,33 @@ def dashboard(request, param):
                 else:
                     item['flag'] = 0
             # 进行路线的百分比
-            jindu, jindu_2 = track_process(user.id, sequence)
-            return render(request, 'dashBoard.html',
-                          {'courses_path': courses, 'jindu': jindu, 'path_name': path.name,
-                           'courses': courses_learning, 'xingxing': [0, 1, 2, 3, 4], 'path_flag': True,
-                           'tasks': tasks, 'flag': flag, 'userplan': userplan})
+            jindu, jindu_2 = track_process(user.id, courses_objs)
+            result_dict = {
+                'courses_path': courses,
+                'jindu': jindu,
+                'path_name': path.name,
+                'courses': courses_learning,
+                'xingxing': [0, 1, 2, 3, 4],
+                'path_flag': True,
+                'tasks': tasks,
+                'flag': flag,
+                'userplan': userplan
+            }
+
+            # 统计各个技能点的学习进度，页面嵌套环形图使用
+            statistics_dict = statistics_skill_mastery_level_by_path(user.id, user.pathid)
+            result_dict.update(statistics_dict)
+            
+            return render(request, 'dashBoard.html',result_dict)
 
         return render(request, 'dashBoard.html',
                       {'courses': courses_learning, 'path_flag': False, 'xingxing': [0, 1, 2, 3, 4], 'flag': flag,
-                       'tasks': tasks, 'userplan': userplan})
+                       'tasks': tasks, 'userplan': userplan,
+                       "skill_name_data": [],  # 路线下所有技能点
+                       "undone_color_data": [],  # 技能点未完成底色
+                       "inner_ring_data": [],  # 内环技能点占比
+                       "outer_ring_data": [],  # 外环技能点完成占比
+                       })
     except:
         logging.getLogger().error(traceback.format_exc())
         return render(request, '404.html')
@@ -464,7 +490,6 @@ def editpage(request):
         if request.method == 'GET':
             uid = request.session['user']['id']
             user = User.objects.get(id=uid)
-            # return render(request, 'editInfo.html', {'user': user})
             return render(request, 'personedit.html', {'user': user})
         else:
             return HttpResponse(u'请求错误')
@@ -496,12 +521,16 @@ def change_headimg(request):
         if request.method == 'POST':
             headimg = request.FILES.get('headimg', None)
             uid = request.POST.get('uid', None)
+            head_img_type = request.POST.get('head_img_type', None)
             if not headimg:
                 return HttpResponse('no headimg for upload!')
             destination = os.path.join(settings.MEDIA_ROOT, 'user_headimg')
+            if head_img_type == "resume_user_headimg":
+                destination = os.path.join(settings.MEDIA_ROOT, 'resume_user_headimg')
+            # print head_img_type
+            # print destination
             if not os.path.isdir(destination):
                 os.system('mkdir -p %s ' % destination)
-            # print destination
             user = User.objects.get(id=uid)
             filename = str(user.id) + '_' + time.strftime('%y%m%d') + '.jpg'
             logging.getLogger().error(filename)
@@ -510,8 +539,19 @@ def change_headimg(request):
                 headfile.write(chunk)
             headfile.close()
 
-            user.headimg = '/media/user_headimg/%s' % filename
-            user.save()
+            headimg_url = '/media/user_headimg/%s' % filename
+            if head_img_type == "resume_user_headimg":
+                resume_obj = Resume.objects.filter(user_id=user).first()
+                headimg_url = '/media/resume_user_headimg/%s' % filename
+                if resume_obj:
+                    resume_obj.head_img = headimg_url
+                    resume_obj.save()
+                else:
+                    Resume.objects.create(user_id=user, head_img=headimg_url)
+                return HttpResponse(json.dumps({'headimg': headimg_url}))
+            else:
+                user.headimg = headimg_url
+                user.save()
             return HttpResponse(json.dumps({'headimg': '/media/user_headimg/%s' % filename}))
         return HttpResponse('get method ok')
     except:
@@ -618,10 +658,12 @@ def editelse(request):
             blood = request.POST.get('blood')
             expect_job = request.POST.get('expect_job')
             expect_salary = request.POST.get('expect_salary')
+            intro = request.POST.get('content')
+            email = request.POST.get('email')
             print userid, birthday, expect_job
             User.objects.filter(id=userid).update(birthday=birthday, edution=edution, collegename=collegename,
                                                   borncity=borncity, realname=realname, xingzuo=xingzuo, blood=blood,
-                                                  expect_job=expect_job, expect_salary=expect_salary)
+                                                  expect_job=expect_job, expect_salary=expect_salary, intro=intro, email=email)
             return HttpResponse(json.dumps({'code': 0, 'msg': 'successfully'}))
     except:
         logging.getLogger().error(traceback.format_exc())
@@ -662,9 +704,9 @@ def ucenter(request):
                 user['track_name'] = '未加入任何路线'
             else:
                 pobj = Path.objects.get(id=user['pathid'])
-                sequence = pobj.p_sequence
+                courses, courses_values = pobj.get_after_sorted_course()
                 pathname = pobj.name
-                user['track_process'] = track_process(user['id'], sequence=sequence)[0]
+                user['track_process'] = track_process(user['id'], courses)[0]
                 user['track_name'] = pathname
         return render(request, 'xueyuanliebiao.html', {'users': users})
     except:
@@ -689,9 +731,9 @@ def uinfo(request):
                 user['track_name'] = '未加入任何路线'
             else:
                 pobj = Path.objects.get(id=user['pathid'])
-                sequence = pobj.p_sequence
+                courses, courses_valuse = pobj.get_after_sorted_course()
                 pathname = pobj.name
-                user['track_process'] = track_process(user['id'], sequence=sequence)[0]
+                user['track_process'] = track_process(user['id'], courses)[0]
                 user['track_name'] = pathname
             return render(request, 'uinfo.html', {'user': user})
         else:
@@ -725,3 +767,16 @@ def uplan(request):
 
 def studydetail(request):
     return render(request, 'xuexixiangqing.html')
+
+
+def collect(request):
+    """收集信息"""
+    try:
+        if request.method == "POST":
+            data = request.POST
+
+            logging.getLogger().error(data)
+            logging.getLogger().error(data['a'])
+            return HttpResponse('ok')
+    except:
+            return HttpResponse('not ok')
