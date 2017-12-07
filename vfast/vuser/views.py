@@ -30,11 +30,6 @@ def test(request):
     # for item in skill:
     #     print item
     return render(request, 'xinxicaiji.html')
-<<<<<<< HEAD
-=======
-
-
->>>>>>> eec8b31783afad3138ee1e64e1ce9346701f20c3
 def userexists(request):
     """判断email, nickname是否存在"""
     try:

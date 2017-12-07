@@ -259,13 +259,10 @@ function reg_submit(){
                     closeOnConfirm: false
                 },
                 function(){
-<<<<<<< HEAD
                      window.location.reload(true);
                     window.open('/course/tracks');
-=======
                     // window.location.reload(true);
                     window.location.href='/course/tracks';
->>>>>>> duminchao
                 });
             }else{
                 swal("错误！", "注册失败！", "warning");
