@@ -11,6 +11,9 @@
     <script src="/static/js/select.js"></script>
     <script src="/static/js/jquery.citys.js"></script>
     <style>
+        textarea {
+            resize: none;
+        }
         body {
             font-size: 14px;
             color: #5A646E;
@@ -58,7 +61,6 @@
         #persona-left ul.fdiv {
             display: block
         }
-
         .info_1_head {
             margin-top: 50px;
             height: 100px;
@@ -269,7 +271,6 @@
                 <ul class="fdiv">
                     <li>
                         <div class="info_1_head">
-                            <p>你的头像</p>
                             <div class="info_1_head_1">
                                 <img id="uheadimg_this" src="{{ user.headimg }}" alt=""/>
                                 <img src="/static/head/OvalBIG.svg" alt=""/>
@@ -302,6 +303,7 @@
                         </div>
                     </li>
                     <li>
+<<<<<<< HEAD
                         <div class="conmmcptwo">
                             <p>自我描述</p>
                             <div class="info_3">
@@ -309,6 +311,13 @@
                                           onblur="submitINFO('自我介绍')"
                                           style=" border: 2px solid #ECEFF1;border-radius: 4px;">{{ user.intro }}</textarea>
                             </div>
+=======
+                        <div>
+                            <P>
+                               <label for="content" style="margin-top: 10px;float: left;margin-left: 25px;">自我描述</label>
+                               <textarea name="content" style="border-radius: 5px;margin-left: 20px;border: 2px solid #ECEFF1;" id="content"  cols="75" rows="5"  form="fileForm" type="text" placeholder="个人描述">{{ user.intro }}</textarea>
+                            </P>
+>>>>>>> duminchao
                         </div>
                     </li>
                     <li>
@@ -316,7 +325,7 @@
                             <span>邮箱</span>
                             <input style="width: 240px;height: 30px;margin-left: 38px"
                                    value="{% if user.email != None %}{{ user.email }}{% endif %}"
-                                   onblur="submitINFO('邮箱')" name="email" form="fileForm" type="text" placeholder="邮箱">
+                                    name="email" form="fileForm" id="email" type="text" placeholder="邮箱">
                             <div style="float: right;width: 370px">
                                 <p style="float: left;width: 40px">生日</p>
                                 <div id="date" style="width: 340px">
@@ -373,7 +382,7 @@
                             <div style="float: right;margin-left: 50px">
                                 <span>大学名称</span>
                                 <input style="width: 240px; height: 30px; margin-left: 36px" id="collegename"
-                                       type="text">
+                                       type="text" value="{{ user.collegename }}">
                             </div>
                         </div>
                     </li>
@@ -404,7 +413,7 @@
                     <li>
                         <div style="float: left;margin-left: 20px;margin-top: 15px">
                             <span>期望职位</span>
-                            <input type="text" style="width: 240px;height: 30px;margin-left: 20px" id="expect_job">
+                            <input type="text" style="width: 240px;height: 30px;margin-left: 20px" id="expect_job" value="{{ user.expect_job }}">
                             <div style="float: right;margin-left: 50px">
                                 期望薪资
                                 <select id="select3" style="width: 240px;height: 30px;margin-left: 35px">
@@ -477,7 +486,9 @@
                             var realname = $("#realname").val();
                             var collegename = $("#collegename").val();
                             var expect_job = $("#expect_job").val();
-                            console.log(xingzuo + blood + expect_salary + edution + realname + collegename + expect_job + borncity + birthday)
+                            var email =$("#email").val();
+                            var content =$("#content").val();
+                            console.log( content+email+ xingzuo + blood + expect_salary + edution + realname + collegename + expect_job + borncity + birthday)
                             $.post("/u/editpage/editelse", {
                                 "xingzuo": xingzuo,
                                 "blood": blood,
@@ -487,7 +498,9 @@
                                 "collegename": collegename,
                                 "expect_job": expect_job,
                                 "borncity": borncity,
-                                "birthday": birthday
+                                "birthday": birthday,
+                                "email":email,
+                                "content":content
                             }, function (data) {
                                 data = JSON.parse(data);
                                 if(data.code == 0){
@@ -510,7 +523,7 @@
                         <p id="warning"></p>
                     </li>
                     <li>
-                        <input style="width: 140px;height: 30px;background-color: #5ACD91 ;" type="button" id="fasong"
+                        <input style="width: 140px;height: 40px;background-color: #5ACD91 ;color: #FFFFFF" type="button" id="fasong"
                                value="确认新密码">
                     </li>
                     <script>
@@ -587,7 +600,7 @@
                         </div>
                     </li>
                     <li>
-                        <button id="" style="background-color: #00BCD4;width: 150px;height: 30px;border: 1px solid #fff5d4">确认提交</button>
+                        <button id="" style="background-color: #5ACD91;color: #FFFFFF;width: 150px;height: 40px;border: 1px solid #fff5d4">确认提交</button>
                     </li>
                 </ul>
                 <div style="clear: none"></div>
@@ -714,7 +727,7 @@
             $("#promptDIV").css("top", "-75px");
         }, 2000)
     }
-    $("#headimg").on("change", imageCompress);
+    $("#headimg").on("change", {"head_img_type": "user_head"}, imageCompress);
 
     function submitINFO(info_name) {
         $.post("/u/editpage/editelse", $("#fileForm").serialize(), function (data) {

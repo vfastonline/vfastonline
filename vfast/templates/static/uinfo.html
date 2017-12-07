@@ -22,6 +22,9 @@
             line-height: 70px;
             color: #797B7B;
         }
+        .content_1>svg{margin-top: 18px;
+                       float: left;
+        }
         /*#F0F2F4*/
         .content_left{
             border-radius: 5px;
@@ -30,6 +33,7 @@
             background-color: #FFFFFF;
         }
         .content_right{
+            border-radius: 5px;
             width: 35%;
             float: right;
             background-color: #FFFFFF
@@ -105,6 +109,11 @@
             width: 90%;
             margin: 0 auto;
         }
+        .content_right_1>p{
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 200;
+        }
        .bnt_right_1{
            margin-top: 10px;
            margin-bottom: 10px;
@@ -153,8 +162,8 @@
     <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
      <div class="content">
             <div class="content_1">
-                <span><svg t="1505038514709" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3280" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20"><defs><style type="text/css"></style></defs><path d="M896 544H250.4l242.4 242.4L448 832 173.6 557.6 128 512l45.6-45.6L448 192l45.6 45.6L250.4 480H896v64z" p-id="3281" fill="#797B7B"></path></svg></span>
-                <span>返回学员概览页</span>
+                <svg t="1505038514709" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3280" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30"><defs><style type="text/css"></style></defs><path d="M896 544H250.4l242.4 242.4L448 832 173.6 557.6 128 512l45.6-45.6L448 192l45.6 45.6L250.4 480H896v64z" p-id="3281" fill="#797B7B"></path></svg>
+                <div style="font-size: 18px;">返回学员概览页</div>
             </div>
             <div class="content_left">
                 <div class="content_left_comm1">
@@ -235,14 +244,14 @@
                 </div>
                 <div class="content_right_1">
                     <p>计划今日学习视频个数</p>
-                    <input id="nums" type="text" name="cao" value="1" style="width: 50px;height: 20px">
+                    <input id="nums" type="text" name="cao" value="1" style="width: 50px;height: 20px;border: 1px solid #fffee8">
                 </div>
                 <div class="content_right_1">
                     <p>建议/意见</p>
                     <textarea id="opinion" name="a" style="width:100%;height:100px;" placeholder="这里写内容"></textarea>
                 </div>
                 <div class="content_right_1">
-                    <button   style="width: 100px;height: 50px;background-color: #3c763d">发布内容</button>
+                    <button   style="width: 100px;height: 50px;background-color: #00BCD4;border-radius: 5px;border: 1px solid;color: #FFFFFF">发布内容</button>
                     <!--<div class="bnt_right_1" id="fasong"><p>发布内容</p></div>-->
                 </div>
                 <input type="hidden" id="uid" value="{{ user.id }}">
@@ -254,6 +263,7 @@
                  var plan_desc = $("#plan_desc").val();
                  var nums = $("#nums").val();
                  var opinion = $("#opinion").val();
+
                  var uid = $('#uid').val()
                  console.log(plan_desc + nums + opinion)
                  $.post("/u/uplan", {

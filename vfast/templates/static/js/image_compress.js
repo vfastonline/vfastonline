@@ -1,13 +1,13 @@
 
-function imageCompress() {
+function imageCompress(event) {
   const files = this.files;
   for (var i = 0; i < files.length; i++) {
-    uploadPreview(files[i]);
+    uploadPreview(files[i], event.data.head_img_type);
 
   }
 }
 
-function uploadPreview(file) {
+function uploadPreview(file, head_img_type) {
   var reader = window.URL || window.webKitURL;
   const contentType = file.type;
   if (reader && reader.createObjectURL) {
@@ -16,7 +16,7 @@ function uploadPreview(file) {
 
     image.src = url;
     image.onload = function(){
-      const data = compress(image)
+      const data = compress(image);
         // $div = $('<div class="col-md-3"></div>').css("background-image", "url(" + data + ")");
       // $("body").append($div);
       // console.log(data.split(",")[1]);
@@ -26,6 +26,7 @@ function uploadPreview(file) {
         var form = new FormData();
         form.append("headimg",imgBlob);
         form.append("uid",$("#uid").val());
+        form.append("head_img_type",head_img_type);
         $.ajax({
                 url:"/u/editpage/change_headimg",
                 type:"post",

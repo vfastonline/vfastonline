@@ -41,14 +41,14 @@ urlpatterns = [
     url('^search', views.search_course, name='search'),
     url('^navtabs', views.search_js, name='navtabs'),
     url('^video/(\d+)/$', views.playVideo),
-    url('^practice/(\d+)/$', views.practice,),
+    url('^practice/(\d+)/$', views.practice, ),
 
     url('^add_question$', add_question, name='add_question'),
     url(r'^question$', question_detail, name='question_detail'),
     url(r'^replay$', replay_detail, name='replay_detail'),
     url(r'^live$', views.live),
     url(r'^interviewlib', views.enterprise_questions),
+    url('^resume/', include('vresume.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

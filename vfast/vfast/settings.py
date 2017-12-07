@@ -1,3 +1,4 @@
+# encoding: utf8
 """
 Django settings for vfast project.
 
@@ -23,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config = ConfigParser.ConfigParser()
 config.read(os.path.join(BASE_DIR, 'vfast.conf'))
 
-
 # mail config
 MAIL_ENABLE = config.get('mail', 'mail_enable')
 EMAIL_HOST = config.get('mail', 'email_host')
@@ -41,12 +41,11 @@ EMAIL_TIMEOUT = 5
 # host
 HOST = config.get('host', 'host')
 
-#callback_url
+# callback_url
 GITHUB_CALLBACK = config.get('callback', 'GITHUB_CALLBACK')
 GITHUB_CLIENTID = config.get('callback', 'GITHUB_CLIENTID')
 GITHUB_CLIENTSECRET = config.get('callback', 'GITHUB_CLIENTSECRET')
 GITHUB_AUTHORIZE_URL = config.get('callback', 'GITHUB_AUTHORIZE_URL')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -62,6 +61,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+#    'vfast.apps.SuitConfig',
+    'django_select2',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,6 +80,7 @@ INSTALLED_APPS = [
     'vpractice',
     'vinform',
     'vinspect',
+    'vresume',
 ]
 
 MIDDLEWARE = [
@@ -168,7 +171,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -178,7 +182,7 @@ USE_L10N = True
 
 USE_TZ = False
 
-#session cookie
+# session cookie
 SESSION_COOKIE_AGE = 1209600
 
 # Static files (CSS, JavaScript, Images)
@@ -195,3 +199,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 api.set_logging(config.get('log', 'logpath'), config.get('log', 'log_level'))
+
+tinymce_js = [
+    '/static/tinymce/js/jquery.min.js',  # 必须首先加载的jquery，手动添加文件
+    '/static/tinymce/js/tinymce/tinymce.min.js',  # tinymce自带文件
+    '/static/tinymce/js/tinymce/plugins/jquery.form.js',  # 手动添加文件
+    '/static/tinymce/js/tinymce/textarea.js',  # 手动添加文件，用户初始化参数
+]
+
+# 默认登录url
+LOGIN_URL = "/"
