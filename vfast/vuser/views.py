@@ -26,19 +26,12 @@ from vresume.models import Resume
 
 # Create your views here.
 def test(request):
-<<<<<<< HEAD
     # skill = Skill.objects.all().values()
     # for item in skill:
     #     print item
-    return render(request, 'company_employee.html')
-=======
-    skill = Skill.objects.all().values()
-    for item in skill:
-        print item
-    return render(request, 'resume.html')
+    return render(request, 'xinxicaiji.html')
 
 
->>>>>>> duminchao
 def userexists(request):
     """判断email, nickname是否存在"""
     try:

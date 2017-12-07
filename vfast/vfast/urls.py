@@ -46,12 +46,9 @@ urlpatterns = [
     url('^add_question$', add_question, name='add_question'),
     url(r'^question$', question_detail, name='question_detail'),
     url(r'^replay$', replay_detail, name='replay_detail'),
-<<<<<<< HEAD
     url(r'^live$', views.live),
     url(r'^interviewlib', views.enterprise_questions),
-=======
     url('^resume/', include('vresume.urls')),
->>>>>>> duminchao
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
