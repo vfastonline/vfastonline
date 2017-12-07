@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>信息采集</title>
+    {% include "head.html" %}
+    <style>
+        .button{
+            width: 100px;
+            height: 40px;
+            background: #00BCD4;
+            color: #EEEEEE;
+        }
+        .title-font{
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .concent{
+            width: 1000px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div style="height: 200px">
+
+</div>
+<div style="width: 1200px;margin: 0 auto;">
+   <div class="concent">
+       <form id="searchForm" action="">
+        <div class="form-group">
+            <label for="exampleInputName2" class="title-font">姓名</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Jane Doe" >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName2" class="title-font">生日</label>
+            <input type="text" class="form-control" name="birth" id="" placeholder="1993.02.05" >
+        </div>
+         <div class="form-group">
+            <label for="exampleInputName2" class="title-font">年龄</label>
+            <input type="text" class="form-control" name="age" id="age" placeholder="24" onblur="">
+        </div>
+        <div class="form-group">
+             <label for="exampleInputName" class="title-font" >学历</label>
+            <select class="form-control" name="education" id="">
+                   <option>博士及博士以上</option>
+                   <option>研究生</option>
+                   <option selected>本科</option>
+                   <option>大专</option>
+                   <option>高中及高中以下</option>
+            </select>
+        </div>
+         <div class="form-group">
+            <label for="exampleInputName2" class="title-font">专业</label>
+            <input type="text" class="form-control" id="profession" name="profession    2`" placeholder="钢筋混凝土移动工程" onblur="">
+        </div>
+         <div class="form-group">
+            <label for="exampleInputName" class="title-font" id="sex">性别</label>
+            <label class="radio-inline">
+                    <input type="radio" name="xing"  value="男">男</label>
+             <label class="radio-inline">
+             <input type="radio" name="xing" value="女">女</label>
+        </div>
+         <div class="form-group">
+            <label for="exampleInputName" class="title-font" id="beauty">颜值</label>
+            <label class="radio-inline">
+                    <input type="radio" name="yan"  value="标准">标准</label>
+             <label class="radio-inline">
+             <input type="radio" name="yan"  value="非标准">非标准</label>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName" class="title-font">是否有IT行业从业经验</label>
+            <label class="radio-inline">
+                    <input type="radio" name="it"  value="是">是</label>
+             <label class="radio-inline">
+             <input type="radio" name="it"  value="否">否</label>
+        </div>
+        <button type="button"  class="btn button" onclick="add()">提交</button>
+    </form>
+   </div>
+</div>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+</html>
+<script>
+{#     $('#education').change(function () {#}
+{#                                    var p4 = $(this).children('option:selected').val();//这就是selected的值#}
+{#                                    console.log(p4)#}
+{#                                });#}
+{#       function add() {#}
+{#              var education=$("#education").children('option:selected').val();#}
+{#              var name =$("#aname").val();#}
+{#              var birth=$("#birth").val();#}
+{#              var age=$("#age").val();#}
+{#              var profession=$("#profession").val();#}
+{#              var sex=$("input[name='xing']:checked").val();#}
+{#              var beauty =$("input[name='yan']:checked").val();#}
+{#              console.log(sex+beauty+profession+birth+education)#}
+{#    }#}
+(function(window, $) {
+    $.fn.serializeJson = function() {
+        var serializeObj = {};
+        var array = this.serializeArray();
+        var str = this.serialize();
+        $(array).each(
+                function() {
+                    if (serializeObj[this.name]) {
+                        if ($.isArray(serializeObj[this.name])) {
+                            serializeObj[this.name].push(this.value);
+                        } else {
+                            serializeObj[this.name] = [
+                                    serializeObj[this.name], this.value ];
+                        }
+                    } else {
+                        serializeObj[this.name] = this.value;
+                    }
+                });
+        return serializeObj;
+    };
+})(window, jQuery);
+function add() {
+    var todata =$("#searchForm").serializeJson();
+         console.log
+        $.post('u/collect',todata,function (data) {
+           data = JSON.parse(data)
+            if(data.code ==0){
+               console.log("发送成功")
+            }
+        })
+}
+
+</script>
