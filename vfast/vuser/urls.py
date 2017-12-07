@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^uinfo', views.uinfo, name='uinfo'),
     url(r'^uplan$', views.uplan, name='uplan'),
     url(r'^studydetail$', views.studydetail),
+    url(r'^collect$', views.collect),
 ]

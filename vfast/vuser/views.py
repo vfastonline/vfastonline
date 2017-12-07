@@ -760,3 +760,16 @@ def uplan(request):
 
 def studydetail(request):
     return render(request, 'xuexixiangqing.html')
+
+
+def collect(request):
+    """收集信息"""
+    try:
+        if request.method == "POST":
+            data = request.POST
+
+            logging.getLogger().error(data)
+            logging.getLogger().error(data['a'])
+            return HttpResponse('ok')
+    except:
+            return HttpResponse('not ok')

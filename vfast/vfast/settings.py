@@ -61,7 +61,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'vfast.apps.SuitConfig',
+#    'vfast.apps.SuitConfig',
     'django_select2',
     'colorfield',
     'django.contrib.admin',

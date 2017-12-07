@@ -119,3 +119,17 @@ class Userplan(models.Model):
     class Meta:
         verbose_name = "学习计划"
         verbose_name_plural = "学习计划"
+
+
+class Usercollect(models.Model):
+    birth = models.CharField(verbose_name='生日', max_length=30, null=True, blank=True)
+    sex = models.CharField(verbose_name='性别', max_length=30, null=True, blank=True)
+    name = models.CharField(verbose_name='名字', max_length=30, null=True, blank=True)
+    it = models.CharField(verbose_name='是否IT行业', max_length=30, null=True, blank=True)
+    education = models.CharField(verbose_name='教育', max_length=30, null=True, blank=True)
+    profession = models.CharField(verbose_name='专业', max_length=30, null=True, blank=True)
+    beauty = models.CharField(verbose_name='漂亮程度', max_length=30, null=True, blank=True)
+    age = models.CharField(verbose_name='年龄', max_length=30, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
