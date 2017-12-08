@@ -110,8 +110,8 @@ function add() {
     var todata =$("#searchForm").serializeJson();
          console.log(todata)
         $.post('/u/collect',todata,function (data) {
-           data = JSON.parse(data)
-            console.log(data)
+{#           data = JSON.parse(data)#}
+{#            console.log(data)#}
         })
 }
 </script>

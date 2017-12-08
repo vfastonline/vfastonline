@@ -258,24 +258,24 @@
             </div>
      </div>
      <script>
+         var str = location.href;
+         var ret = str.split("=")[1];
          $(document).ready(function () {
              $("button").click(function () {
                  var plan_desc = $("#plan_desc").val();
                  var nums = $("#nums").val();
                  var opinion = $("#opinion").val();
-
-                 var uid = $('#uid').val()
                  console.log(plan_desc + nums + opinion)
                  $.post("/u/uplan", {
                      plan_desc: plan_desc,
                      nums: nums,
                      opinion: opinion,
-                     uid: uid,
+                     uid: ret,
                  }, function (data, status) {
                      if (data.code == 0) {
                          alert("发布成功！");
                      } else {
-                         alert("发布失败");
+                         alert("发布失败!请登录账号后重试");
                      }
                  }, "json");
 

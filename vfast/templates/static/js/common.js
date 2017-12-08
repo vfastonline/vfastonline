@@ -259,11 +259,8 @@ function reg_submit(){
                     closeOnConfirm: false
                 },
                 function(){
-<<<<<<< HEAD
                      window.location.reload(true);
                     window.open('/course/tracks');
-=======
->>>>>>> 69b2f5ff3aebbbbeb288bbdbe206312c2c236132
                     // window.location.reload(true);
                     window.location.href='/course/tracks';
                 });
