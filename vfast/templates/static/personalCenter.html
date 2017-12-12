@@ -631,6 +631,7 @@
             </div>
             <div class="slideDIV" style="height:50px;"></div>
             <div class="info_right_2">
+
                 <div onclick="jianli()">
                     <span style="background-image: url('/static/svg/geren.svg')"></span>
                     我的简历
@@ -641,11 +642,20 @@
 
                         location.href ="/resume/"+uid+"/detail"
                     }
+                    function inspect() {
+                        location.href = "/inspect/list"
+                    }
                 </script>
                 <div onclick="location.href = '/u/editpage'">
                     <span style="background-image: url('/static/svg/bianjihei.svg')"></span>
                     账户设置
                 </div>
+                {% if request.session.login %}
+                    <div onclick="inspect()">
+                        <span style="background-image: url('/static/svg/geren.svg')"></span>
+                        活动列表页面
+                    </div>
+                {% endif %}
                 <div onclick="location.href = '/logout'">
                     <span style="background-image: url('/static/svg/logout.svg')"></span>
                     退出登录
