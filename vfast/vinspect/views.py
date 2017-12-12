@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from vinspect.models import Inspect, InspectOption, InspectResult
 from django.http import HttpResponse
-from vfast.api import require_login
+from vfast.api import require_login, Handleformdata
 from vuser.models import User
 
 import logging
@@ -48,20 +48,22 @@ def inspect_detail(request, inspectid):
 def inspect_result(request):
     """问卷调查收集"""
     try:
-        user = User.objects.get(id=2)
         if request.method == "POST":
+            userid = request.session['user']['id']
+            user = User.objects.get(id=userid)
             data = request.POST.get('data')
-            data = json.loads(data)
-            # print data
-            options = data.get('options')
-            opinion = data.get('opinion')
-            inspectid = data.get('inspectid')
+            data = Handleformdata(data)
 
+            inspectid = data['inspectid']
+            opinion = data['opinion']
+
+            data.pop('opinion')
+            data.pop('inspectid')
             inspect = Inspect.objects.get(id=inspectid)
-            # print inspect.name
-            for item in options:
-                inspectoption = InspectOption.objects.get(id=item['optionid'])
-                InspectResult.objects.create(user=user, inspect=inspect, option=item['option'],inspectoption=inspectoption)
+
+            for k, v in data.iteritems():
+                inspectoption = InspectOption.objects.get(id=int(k))
+                InspectResult.objects.create(user=user, inspect=inspect, option=v, inspectoption=inspectoption)
 
             InspectResult.objects.create(user=user, inspect=inspect, opinion=opinion)
 

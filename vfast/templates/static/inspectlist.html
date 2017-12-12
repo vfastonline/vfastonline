@@ -20,7 +20,10 @@
             width: 500px;
             height:40px;
         }
-
+        p {
+            line-height: 36px;
+            color: red;
+        }
 
     </style>
 </head>
@@ -31,7 +34,7 @@
         <ul class="inspect-ul">
 {#            <li><a href="/inspect/1"><p class="bg-info ">你好时代峻峰达康书记发</p></a></li>#}
             {% for inspect in inspects %}
-                 <li><a href="/inspect/{{ inspect.id }}"><p class="bg-info ">{{ inspect.name }}</p></a></li>
+                 <li><a href="/inspect/{{ inspect.id }}"><p class="bg-info ">问卷名称:&nbsp&nbsp&nbsp&nbsp&nbsp{{ inspect.name }}</p></a></li>
             {% endfor %}
         </ul>
 

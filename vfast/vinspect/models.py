@@ -36,7 +36,7 @@ class InspectOption(models.Model):
 class InspectResult(models.Model):
     inspect = models.ForeignKey(Inspect, on_delete=models.CASCADE)
     inspectoption = models.ForeignKey(InspectOption, verbose_name='选项', null=True)
-    option = models.CharField(verbose_name='选项', max_length=2, null=True)
+    option = models.CharField(verbose_name='选项', max_length=100, null=True)
     user = models.ForeignKey(User, verbose_name='用户', null=True)
     opinion = models.TextField(verbose_name='意见', default='')
 
