@@ -16,9 +16,13 @@ import json
 def inspect_list(request):
     """问卷调查列表页"""
     try:
-        pass
+        inspects = Inspect.objects.all()
+        print inspects
+
+        return render(request, 'inspectlist.html', {'inspects':inspects})
     except:
-        pass
+        logging.getLogger().error(traceback.format_exc())
+        return HttpResponse('error')
 
 
 def inspect_detail(request, inspectid):
@@ -40,7 +44,7 @@ def inspect_detail(request, inspectid):
         return HttpResponse(json.dumps({'code':128, 'msg':'web server 500'}))
 
 
-# @require_login()
+@require_login()
 def inspect_result(request):
     """问卷调查收集"""
     try:
