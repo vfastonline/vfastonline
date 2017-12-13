@@ -102,9 +102,9 @@
                 data = JSON.parse(data)
                 console.log(data)
                 if(data.code == 0){
-                    alert('successfully')
+                    alert(data.msg)
                 }else{
-                    alert('failed')
+                    alert(data.msg)
                 }
             })
         })
