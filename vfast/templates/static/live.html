@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include "head.html" %}
+    <script src='https://player.polyv.net/script/polyvplayer.min.js'></script>
+    <style>
+        .live_play{
+            margin: 0 auto;
+             width: 1200px;
+        }
+        .live_video{
+            width: 100%;
+            height: 600px;
+        }
+        .live_introduce{
+            background-color: #FFFFFF ;
+            color: #5A646E;
+            width: 100%;
+            border-radius: 0 0 8px 8px;
+            border-bottom: 2px solid #D4D9DD;
+        }
+        .details{
+            width: 60%;
+            float: left;
+        }
+        .details>p{
+            margin: 15px;
+        }
+        .time{
+            width: 30%;
+            float: right;
+        }
+        .time>p{
+            color: #8C96A5;
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+     <main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+         <div style="height: 50px"></div>
+         <div class="live_play">
+             <div class="live_video">
+             <div id='previewArea'></div>
+             <script>
+                 var player = polyvObject('#previewArea').previewPlayer({
+                   'width':'1200',
+                     'height':'600',
+                           'vid' : 'bk51l599cnl1k8c1l5nn79kk26p458943_k'
+                      });
+</script>
+             </div>
+             <div class="live_introduce">
+                 <div class="details">
+                     <p>九旬老太为何裸死街头？ 数百头母驴为何半夜惨叫？
+                         小卖部安全套为何屡遭黑手？ 女生宿舍内裤为何频频失窃？ 连环强 J母猪案，
+                         究竟是何人所为？ 老尼姑的门夜夜被敲，究竟是人是鬼？ 数百只小母狗意外身亡的背后又隐藏着什么？
+                         这一切的背后， 是人性的扭曲还是道德的沦丧？
+                         敬请关注今晚8点CCTV12法制频道年度巨献《王者的不归之路》 让我们跟随着镜头走进楼主的内心世界…</p>
+                 </div>
+                 <div class="time">
+                     <p id="tim1" style="font-size: 16px"></p>
+                     <p id="tim" style="font-size: 24px"></p>
+                 </div>
+                 <div style="clear: both"></div>
+             </div>
+         </div>
+     </main>
+      <script>
+         var date2 = new Date('2017/10/20 08:30:00');
+         var date3 = date2.getMonth()+1+"月"+date2.getDate()+"日"+date2.getHours()+":"+date2.getMinutes();
+         //预设时间点id
+         document.getElementById("tim1").innerHTML = date3;
+         function show(){
+           var date1 = new Date();
+           //console.log(date1);
+           var s1 = date1.getTime(),s2 = date2.getTime();
+           //console.log(s1);
+           var total = (s2 - s1)/1000;
+           //console.log(total+"s");
+           var day = parseInt(total / (24*60*60));//计算整数天数
+           if(day<10){
+             day="0"+day
+           }
+           //console.log(day+"tian");
+           var afterDay = total - day*24*60*60;//取得算出天数后剩余的秒数
+           //console.log(afterDay+"剩余秒");
+           var hour = parseInt(afterDay/(60*60));//计算整数小时数
+           if(hour<10){
+             hour="0"+hour
+           }
+           //console.log(hour+"h");
+           var afterHour = total - day*24*60*60 - hour*60*60;//取得算出小时数后剩余的秒数
+           //console.log(afterHour);
+           var min = parseInt(afterHour/60);//计算整数分
+           //console.log(min+"min");
+           if(min<10){
+             min="0"+min
+           }
+           var afterMin = Math.round(total - day*24*60*60 - hour*60*60 - min*60);//取得算出分后剩余的秒数
+           //console.log(afterMin);
+           var shengyu = "剩余:"+day+"天"+hour+"小时"+min+"分钟"/*+afterMin+"秒"*/;
+           //console.log("剩余时间"+shengyu);
+           //剩余时间点id
+           document.getElementById("tim").innerHTML =shengyu;
+         }
+         setInterval("show()",1000);
+       </script>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+</html>

@@ -21,7 +21,7 @@ hue-6-2: #e6c07b
     overflow-x: auto;
     padding: 0.5em;
     color: #abb2bf;
-    background: #282c34;
+    /*background: #343D46;*/
 }
 
 .hljs-comment,
@@ -91,4 +91,16 @@ hue-6-2: #e6c07b
 
 .hljs-link {
     text-decoration: underline;
+}
+
+.z {
+    float: left;
+}
+
+.y {
+    float: right;
+}
+
+.cl {
+    clear: both;
 }

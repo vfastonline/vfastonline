@@ -13,6 +13,7 @@ import smtplib
 import logging
 from email.mime.text import MIMEText
 from email.header import Header
+import urllib
 
 
 def get_validate(email, uid, role, fix_pwd):
@@ -271,3 +272,26 @@ def second_to_hour(n):
     else:
         a = n / 60
         return '%s分钟' % a
+
+def Handleformdata(formdata):
+    res = {}
+    for x in formdata.split('&'):
+        if x.find('=') <= 0:
+            continue
+        k, v = x.split('=', 1)
+        try:
+            v = urllib.unquote(v).encode('iso-8859-1')
+        except:
+           pass
+        if k in res and isinstance(res[k], list):
+            res[k].append(v)
+        elif k in res:
+            res[k] = [res[k], v]
+        else:
+            res[k] = v
+
+    for k in res:
+        if isinstance(res[k], list):
+            res[k] = ','.join(res[k])
+    return res
+

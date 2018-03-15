@@ -26,11 +26,10 @@ from vresume.models import Resume
 
 # Create your views here.
 def test(request):
-    skill = Skill.objects.all().values()
-    for item in skill:
-        print item
-    return render(request, 'resume.html')
-
+    # skill = Skill.objects.all().values()
+    # for item in skill:
+    #     print item
+    return render(request, 'xinxicaiji.html')
 
 def userexists(request):
     """判断email, nickname是否存在"""
@@ -760,3 +759,16 @@ def uplan(request):
 
 def studydetail(request):
     return render(request, 'xuexixiangqing.html')
+
+
+def collect(request):
+    """收集信息"""
+    try:
+        if request.method == "POST":
+            data = request.POST
+
+            logging.getLogger().error(data)
+            logging.getLogger().error(data['a'])
+            return HttpResponse('ok')
+    except:
+            return HttpResponse('not ok')

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    {% include "head.html" %}
+    <script src="https://player.polyv.net/livescript/liveplayer.js"></script>
+    <style>
+        #head_cont{
+            box-shadow: none;
+        }
+        .course_head{
+            width: 1200px;
+            height: 281px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            position: relative;
+            top: 80px;
+        }
+        .course_head_X>svg:hover{
+            cursor: pointer;
+        }
+        .course_head>h1{
+            color: #5A646E;
+            font-size: 28px;
+            margin-left: 54px;
+            padding-top: 30px;
+            font-weight: 600;
+            position: absolute;
+        }
+        .course_head>p{
+            width: 70%;
+            color: #5A646E;
+            font-size: 14px;
+            position: absolute;
+            top: 78px;
+            left: 54px;
+            margin-top: 10px;
+        }
+        .course_head_leftDIV,.course_head_rightDIV{
+            width: 32%;
+            color: #5A646E;
+            position: absolute;
+        }
+        .course_head_leftDIV{
+            top:140px;
+            left: 54px;
+        }
+        .course_head_rightDIV{
+            top:140px;
+            left: 450px;
+        }
+        .course_head_leftDIV>h2,.course_head_rightDIV>h2{
+            font-size: 18px;
+        }
+        .course_head_leftDIV>p,.course_head_rightDIV>p{
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .course_head_rightDIV>p>a{
+            text-decoration: none;
+            font-weight: bold;
+            color: #5A646E;
+        }
+        .course_head_rightDIV>p>a:hover{
+            opacity: 0.8;
+        }
+        .course_head_rightDIV>p>a:active{
+            opacity: 1;
+        }
+        .course_head>img{
+            width: 295px;
+            height: 194px;
+            position: absolute;
+            top: 40px;
+            right: 30px;
+        }
+        /*course_head END*/
+        /*course_head_BG Start*/
+        .course_head_BG{
+            background-color: #303948;
+            position: relative;
+            padding: 50px 0px 0px;
+        }
+        .course_head_BG>h1{
+            width: 1200px;
+            margin: 0 auto;
+            color: #FFFFFF;
+            font-size: 55px;
+        }
+        /*course_head_BG End*/
+        /*contentBody_course Start*/
+        .contentBody_course:after{content: "";display: block;clear: both;}
+        .contentBody_course{
+            width: 1200px;
+            margin: 30px auto 50px;
+            color: #5A646E;
+        }
+        .contentBody_course>div{
+            float: left;
+            width: 31.7%;
+            margin-bottom: 30px;
+            transition: all 0s linear;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .contentBody_course>div:hover{
+            position: relative;
+            top:-1px;
+        }
+        .contentBody_course>div>div:first-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div>div:last-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div:hover>div:first-child{
+            cursor: pointer;
+            opacity: 0.8!important;
+        }
+        .contentBody_course>div:hover>div:last-child{
+            cursor: pointer;
+        }
+        .contentBody_course>div:nth-child(3n+2){
+            margin-left:  2.4%;
+            margin-right: 2.4%;
+        }
+        .contentBody_course>div>div:first-child{
+            /*背景色 数据库取*/
+            background-color: #EF5350;
+            height: 54px;
+            padding-top: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .contentBody_course>div>div:first-child{content:"";display: block;clear: both;}
+        .contentBody_course>div>div:first-child>div:first-child{
+            float: left;
+        }
+        .contentBody_course>div>div:first-child>div:last-child{
+            float: right;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        .contentBody_course>div>div:last-child{
+            padding: 20px 30px 30px 20px ;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            height:220px;
+            position: relative;
+        }
+        .contentBody_course>div>div:last-child>p:first-child{
+            color: #B4BEC8;
+        }
+        .contentBody_course>div>div:last-child>h1{
+            font-size: 20px;
+            color: #5A646E;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(3){
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            height: 60px;
+            line-height: 20px;
+            font-size: 14px;
+            color: #5A646E;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(4){
+            color: #FFFFFF;
+            height: 24px;
+            font-size: 16px;
+            border-radius: 12px;
+            line-height: 24px;
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            transition: all 0s;
+            position: absolute;
+            bottom:20px;
+            -moz-user-select:none;/*火狐*/
+            -webkit-user-select:none;/*webkit浏览器*/
+            -ms-user-select:none;/*IE10*/
+            -khtml-user-select:none;/*早期浏览器*/
+            user-select:none;
+        }
+        .groupHover:hover{
+            box-shadow: 0px 1px 1px black;
+            bottom: 21px!important;
+        }
+        .groupHover:active{
+            box-shadow: 0px 0px 0px black;
+            bottom: 20px!important;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5){
+            height: 20px;
+            line-height: 20px;
+            font-size: 17px;
+            display: inline-block;
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            vertical-align: middle;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5)>img{
+            padding-bottom: 5px;
+        }
+        /*contentBody_course  End*/
+        .upcoming_release{
+            font-size: 16px;
+            color: #384047;
+            letter-spacing: 1px;
+            font-weight: bolder;
+            width: 1200px;
+            margin: 0px auto 30px;
+        }
+        .ur_course{
+            margin-top: 0px;
+        }
+
+        /*search_TypeList Start*/
+        .search_TypeList{
+            width:1200px;
+            margin: 130px auto 0px;
+            background: #FFFFFF;
+            box-shadow: 0 1px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+        }
+        .search_TypeList ul{
+            padding: 0px 40px;
+        }
+        .search_TypeList li{
+            float: left;
+            height: 54px;
+            line-height: 54px;
+            position: relative;
+            margin-left: 40px;
+        }
+        .search_TypeList li>b{
+            position: absolute;
+            left: 0px;
+            top: 23px;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .search_TypeList li>span{
+            position: relative;
+            font-size: 14px;
+            color: #5A646E;
+            border-radius: 15px;
+            padding: 5px 20px;
+        }
+        .search_TypeList li>span:hover{
+            cursor: pointer;
+            color: #FFFFFF;
+        }
+        /*search_TypeList End*/
+    </style>
+</head>
+<body>
+<main class="main-wrap">
+    <header id="navbar1" class="navbar1">{% include "navbar.html" %}</header>
+    <div class="slideDIV" style="height:80px;"></div>
+    <div class="search_TypeList">
+        <ul class="clearfix">
+            {% for vp in vps %}
+                <li onclick="location.href='/course/lobbylive?type={{ vp.name }}'">
+                    <b style="background-color: {{ vp.color }};"></b>
+                    {% if vp.name == tech_obj.name %}
+                    <span style="background-color: {{ tech_obj.color }};color:#FFFFFF" >{{ vp.name }}</span>
+                    {% else %}
+                        <span  onmouseover="this.style.background='{{ vp.color }}'" onmouseout="this.style.background='transparent'">{{ vp.name }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="slideDIV" style="height:100px;"></div>
+    <section class="contentBody_course">
+        {% for pub in pubs %}
+        <div>
+            <div style="background-color: {{ pub.color }};"  onclick="window.open('/course/lobbylive?cid={{ pub.id }}','_blank')">
+                <div>
+                    {% if pub.icon == 0 %}
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                    {% else %}
+                    <img src="/static/svg/project_1.svg" alt="">
+                    {% endif %}
+                </div>
+                <div>{{ pub.totaltime }}</div>
+            </div>
+            <div onclick="window.open('/course/lobbylive?cid={{ pub.id }}','_blank')">
+                <p>系列课程</p>
+                <h1>{{ pub.name }}</h1>
+                <div>{{ pub.desc |safe }}</div>
+                <div style="background-color: {{ pub.tech__color }};" class="groupHover" onclick="stopPPG(this,'/course/lobbylive?type={{ pub.tech__name }}')">{{ pub.tech__name }}</div>
+                <div>难易度：
+                    {% for n in xingxing %}
+                        {% if pub.difficult > n %}
+                            <img src="/static/svg/xingxing_1.svg" alt="">
+                        {% else %}
+                            <img src="/static/svg/xingxing.svg" alt="">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    <div class="slideDIV" style="height:150px;"></div>
+    {% if  not_pubs %}
+        <h2 class="upcoming_release">即将发布</h2>
+    {% endif %}
+    <section class="contentBody_course ur_course">
+        {% for not_pub in not_pubs %}
+            <div>
+            <div style="background-color: {{ not_pub.color }};">
+                <div>
+                    {% if not_pub.icon == 0 %}
+                    <img src="/static/svg/videoCourse_1.svg" alt="">
+                    {% else %}
+                    <img src="/static/svg/project_1.svg" alt="">
+                    {% endif %}
+                </div>
+                <div>{{ not_pub.totaltime }}</div>
+            </div>
+            <div>
+                <p>系列课程</p>
+                <h1>{{ not_pub.name }}</h1>
+                <div>{{ not_pub.desc|safe }}</div>
+                <div style="background-color: {{ not_pub.tech__color }};" class="groupHover" onclick="stopPPG(this,'/course/lobbylive?type={{ not_pub.tech__name }}')">{{ not_pub.tech__name }}</div>
+                <div>{{ not_pub.pubdate }}</div>
+            </div>
+        </div>
+        {% endfor %}
+     <div onclick="window.open('/live','_blank')">
+        <div style="background-color: #4DB6AC">
+             <div>
+                 <img src="/static/svg/zhibo.svg" alt="">
+             </div>
+             <div>
+                 2小时
+             </div>
+        </div>
+         <div>
+             <p>直播课程</p>
+                <h1>MR 的开发及应用</h1>
+                <div>Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars. In many ways, it is a big step from someone who is just fooling around with astronomy to a serious student of the science. But you and I both know that there is still another big step after buying a telescope before you really know how to use it.
+
+So it is critically important that you get just the right telescope for where you are and what your star gazing preferences are. To start with, let’s discuss the three major kinds of telescopes and then lay down some “Telescope 101″ concepts to increase your chances that you will buy the right thing.
+
+The three primary types of telescopes that the amateur astronomer might buy are the Refractor, the Reflector and the Schmidt Cassegrain telescope. The first two are named for the kind of lens that is used. It is pretty easy to see that the lens is the heart of the telescope so the kind that you will use will determine the success of your use of that telescope.
+
+The refractor lens is the simplest because it uses a convex lens to focus the light on the eyepiece. So the lens bends outwards for this purpose. The refractor telescope’s strength is in viewing planets. The reflector’s strength is in seeing more distant objects and the lens is concave or bends in. It uses mirrors to focus the image that you eventually see. The final type, the Schmidt Cassegrain telescope is the most complex and accomplishes the goals of both but it uses an involved system of mirrors to capture the image you want to see.
+
+So to select just the right kind of telescope, your objectives in using the telescope are important. To really understand the strengths and weaknesses not only of the lenses and telescope design but also in how the telescope performs in various star gazing situations, it is best to do some homework up front and get exposure to the different kinds. So before you make your first purchase…
+
+*	Above all, establish a relationship with a reputable telescope shop that employs people who know their stuff. If you buy your telescope at a Wal-Mart or department store, the odds you will get the right thing are remote.
+
+*	Pick the brains of the experts. If you are not already active in an astronomy society or club, the sales people at the telescope store will be able to guide you to the active societies in your area. Once you have connections with people who have bought telescopes, you can get advice about what works and what to avoid that is more valid than anything you will get from a web article or a salesperson at Wal-Mart.
+
+*	Try before you buy. This is another advantage of going on some field trips with the astronomy club. You can set aside some quality hours with people who know telescopes and have their rigs set up to examine their equipment, learn the key technical aspects, and try them out before you sink money in your own set up.
+
+There are other considerations to factor into your final purchase decision. How mobile must your telescope be? The tripod or other accessory decisions will change significantly with a telescope that will live on your deck versus one that you plan to take to many remote locations. Along those lines, how difficult is the set up and break down? How complex is the telescope and will you have trouble with maintenance? Network to get the answers to these and other questions. If you do your homework like this, you will find just the right telescope for this next big step in the evolution of your passion for astronomy.</div>
+                <div style="background-color: #4DB6AC;" class="groupHover" onclick="stopPPG(this,'/course/lobbylive?type={{ not_pub.tech__name }}')">MR/AR</div>
+                <div>
+                    难易度：
+                    <img src="/static/svg/xingxing_1.svg">
+                    <img src="/static/svg/xingxing_1.svg">
+                    <img src="/static/svg/xingxing_1.svg">
+                    <img src="/static/svg/xingxing.svg">
+                    <img src="/static/svg/xingxing.svg">
+                </div>
+         </div>
+     </div>
+    <div>
+        <div style="background-color: #FFC32A">
+             <div>
+                 <img src="/static/svg/zhibo.svg" alt="">
+             </div>
+             <div>
+                1.5小时
+             </div>
+        </div>
+         <div>
+             <p>直播课程</p>
+                <h1>切比雪夫不等式的应用</h1>
+                <div>Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars. In many ways, it is a big step from someone who is just fooling around with astronomy to a serious student of the science. But you and I both know that there is still another big step after buying a telescope before you really know how to use it.
+
+So it is critically important that you get just the right telescope for where you are and what your star gazing preferences are. To start with, let’s discuss the three major kinds of telescopes and then lay down some “Telescope 101″ concepts to increase your chances that you will buy the right thing.
+
+The three primary types of telescopes that the amateur astronomer might buy are the Refractor, the Reflector and the Schmidt Cassegrain telescope. The first two are named for the kind of lens that is used. It is pretty easy to see that the lens is the heart of the telescope so the kind that you will use will determine the success of your use of that telescope.
+
+The refractor lens is the simplest because it uses a convex lens to focus the light on the eyepiece. So the lens bends outwards for this purpose. The refractor telescope’s strength is in viewing planets. The reflector’s strength is in seeing more distant objects and the lens is concave or bends in. It uses mirrors to focus the image that you eventually see. The final type, the Schmidt Cassegrain telescope is the most complex and accomplishes the goals of both but it uses an involved system of mirrors to capture the image you want to see.
+
+So to select just the right kind of telescope, your objectives in using the telescope are important. To really understand the strengths and weaknesses not only of the lenses and telescope design but also in how the telescope performs in various star gazing situations, it is best to do some homework up front and get exposure to the different kinds. So before you make your first purchase…
+
+*	Above all, establish a relationship with a reputable telescope shop that employs people who know their stuff. If you buy your telescope at a Wal-Mart or department store, the odds you will get the right thing are remote.
+
+*	Pick the brains of the experts. If you are not already active in an astronomy society or club, the sales people at the telescope store will be able to guide you to the active societies in your area. Once you have connections with people who have bought telescopes, you can get advice about what works and what to avoid that is more valid than anything you will get from a web article or a salesperson at Wal-Mart.
+
+*	Try before you buy. This is another advantage of going on some field trips with the astronomy club. You can set aside some quality hours with people who know telescopes and have their rigs set up to examine their equipment, learn the key technical aspects, and try them out before you sink money in your own set up.
+
+There are other considerations to factor into your final purchase decision. How mobile must your telescope be? The tripod or other accessory decisions will change significantly with a telescope that will live on your deck versus one that you plan to take to many remote locations. Along those lines, how difficult is the set up and break down? How complex is the telescope and will you have trouble with maintenance? Network to get the answers to these and other questions. If you do your homework like this, you will find just the right telescope for this next big step in the evolution of your passion for astronomy.</div>
+                <div style="background-color:#FFC32A;" class="groupHover" onclick="stopPPG(this,'/course/lobbylive?type={{ not_pub.tech__name }}')">MR/AR</div>
+                <div>
+                    难易度：
+                    <img src="/static/svg/xingxing_1.svg">
+                    <img src="/static/svg/xingxing.svg">
+                    <img src="/static/svg/xingxing.svg">
+                    <img src="/static/svg/xingxing.svg">
+                    <img src="/static/svg/xingxing.svg">
+                </div>
+         </div>
+     </div>
+    </section>
+     <h2 class="upcoming_release">即将发布</h2>
+      <section class="contentBody_course ur_course">
+            <div>
+            <div style="background-color: #4DB6AC;">
+                <div>
+                    <img src="/static/svg/zhibo.svg" alt="">
+                </div>
+                <div>2小时</div>
+            </div>
+            <div>
+                <p>直播课程</p>
+                <h1>Hololense vs LeapMotion</h1>
+                <div>Buying the right telescope to take your love of astronomy to the next level is a big next step in the development of your passion for the stars. In many ways, it is a big step from someone who is just fooling around with astronomy to a serious student of the science. But you and I both know that there is still another big step after buying a telescope before you really know how to use it.
+
+So it is critically important that you get just the right telescope for where you are and what your star gazing preferences are. To start with, let’s discuss the three major kinds of telescopes and then lay down some “Telescope 101″ concepts to increase your chances that you will buy the right thing.
+
+The three primary types of telescopes that the amateur astronomer might buy are the Refractor, the Reflector and the Schmidt Cassegrain telescope. The first two are named for the kind of lens that is used. It is pretty easy to see that the lens is the heart of the telescope so the kind that you will use will determine the success of your use of that telescope.
+
+The refractor lens is the simplest because it uses a convex lens to focus the light on the eyepiece. So the lens bends outwards for this purpose. The refractor telescope’s strength is in viewing planets. The reflector’s strength is in seeing more distant objects and the lens is concave or bends in. It uses mirrors to focus the image that you eventually see. The final type, the Schmidt Cassegrain telescope is the most complex and accomplishes the goals of both but it uses an involved system of mirrors to capture the image you want to see.
+
+So to select just the right kind of telescope, your objectives in using the telescope are important. To really understand the strengths and weaknesses not only of the lenses and telescope design but also in how the telescope performs in various star gazing situations, it is best to do some homework up front and get exposure to the different kinds. So before you make your first purchase…
+
+*	Above all, establish a relationship with a reputable telescope shop that employs people who know their stuff. If you buy your telescope at a Wal-Mart or department store, the odds you will get the right thing are remote.
+
+*	Pick the brains of the experts. If you are not already active in an astronomy society or club, the sales people at the telescope store will be able to guide you to the active societies in your area. Once you have connections with people who have bought telescopes, you can get advice about what works and what to avoid that is more valid than anything you will get from a web article or a salesperson at Wal-Mart.
+
+*	Try before you buy. This is another advantage of going on some field trips with the astronomy club. You can set aside some quality hours with people who know telescopes and have their rigs set up to examine their equipment, learn the key technical aspects, and try them out before you sink money in your own set up.
+
+There are other considerations to factor into your final purchase decision. How mobile must your telescope be? The tripod or other accessory decisions will change significantly with a telescope that will live on your deck versus one that you plan to take to many remote locations. Along those lines, how difficult is the set up and break down? How complex is the telescope and will you have trouble with maintenance? Network to get the answers to these and other questions. If you do your homework like this, you will find just the right telescope for this next big step in the evolution of your passion for astronomy.</div>
+                <div style="background-color: #4DB6AC;" class="groupHover" onclick="stopPPG(this,'/course/courses?type={{ not_pub.tech__name }}')">MR/AR</div>
+                <div>
+                     难易度：开播时间：2017/12/6
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer_curr" id="footer_curr">{% include "footer.html" %}</footer>
+</main>
+{% include "search_div.html" %}
+{% include "feedback.html" %}
+</body>
+{% include "commonJS.html" %}
+<script>
+    window.document.onscroll = function(){
+        if($(document).scrollTop() == 0){
+            $("#head_cont").css("box-shadow","none");
+        }else{
+            $("#head_cont").css("box-shadow","0 2px 1px rgba(0,0,0,0.5)");
+        }
+    }
+</script>
+</html>

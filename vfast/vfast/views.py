@@ -9,7 +9,6 @@ from vfast.api import dictfetchall, time_comp_now, require_login
 from django.conf import settings
 from django.db.models import Q
 
-
 import logging
 import traceback
 import json
@@ -17,23 +16,13 @@ import os
 import re
 from uploader import Uploader
 
-
 import time
-def gettime(func):
-
-    def inner(request, *args, **kwargs):
-        time1 = int(time.time())
-        time.sleep(2)
-        print request.META
-
-        return func(request)
-    return inner
 
 
-@gettime
 def test(request):
     print '/test'
-    return HttpResponse('/test')
+    # return render(request, 'enterprise-interview-question.html', {'xingxing':[0,1,2,3,4]})
+    return render(request, 'company_employee.html')
 
 
 def project(request):
@@ -74,7 +63,8 @@ def search_course(request):
             tech_obj = Technology.objects.get(name=tech)
             courses = [course for course in courses if course.tech_id == tech_obj.id]
             if len(courses) == 0:
-                return render(request, 'search_Result.html', {'key_words': key_words, 'vps': vps, 'results': False, 'tech_obj': tech_obj})
+                return render(request, 'search_Result.html',
+                              {'key_words': key_words, 'vps': vps, 'results': False, 'tech_obj': tech_obj})
             else:
                 return render(request, 'search_Result.html',
                               {'results': courses, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'tech_obj': tech_obj,
@@ -83,7 +73,7 @@ def search_course(request):
             return render(request, 'search_Result.html',
                           {'results': courses, 'vps': vps, 'xingxing': [0, 1, 2, 3, 4], 'key_words': key_words})
         else:
-            return render(request, 'search_Result.html', {'key_words':key_words, 'vps':vps, 'results':False})
+            return render(request, 'search_Result.html', {'key_words': key_words, 'vps': vps, 'results': False})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponseRedirect('/search?query=')
@@ -128,7 +118,7 @@ def playVideo(request, params):
         faqs = Faq.objects.filter(video=video_obj).values()
         return render(request, 'playVideo.html',
                       {'videos': videos, 'video_obj': video_obj, 'video_process': video_process,
-                       'questions': questions, 'faqs':faqs})
+                       'questions': questions, 'faqs': faqs})
     except:
         logging.getLogger().error(traceback.format_exc())
         return HttpResponse(status=404)
@@ -305,3 +295,13 @@ def upload(request):
     # res.headers['Access-Control-Allow-Headers'] = 'X-Requested-With,X_Requested_With'
     return HttpResponse(result)
 
+
+def live(request):
+    try:
+        return render(request, 'live.html')
+    except:
+        return HttpResponse('error')
+
+
+def enterprise_questions(request):
+    return render(request, 'enterprise-interview-question.html', {'xingxing': [0, 1, 2, 3, 4]})
