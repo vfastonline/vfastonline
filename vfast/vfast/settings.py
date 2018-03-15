@@ -190,10 +190,10 @@ SESSION_COOKIE_AGE = 1209600
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'templates/static'),
-# )
-STATIC_ROOT = os.path.join(BASE_DIR, 'templates', 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'templates/static'),
+)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'templates', 'static')
 # STATIC_ROOT = '/usr/local/openresty/nginx/html/templates/static'
 IMG_ROOT = os.path.join(BASE_DIR, 'templates/')
 
