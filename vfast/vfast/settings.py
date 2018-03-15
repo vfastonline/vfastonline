@@ -15,6 +15,7 @@ import os
 import ConfigParser
 import api
 import sys
+from suit_config import *
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -61,9 +62,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-#    'vfast.apps.SuitConfig',
     'django_select2',
     'colorfield',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -189,10 +190,11 @@ SESSION_COOKIE_AGE = 1209600
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'templates/static'),
-)
-
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'templates/static'),
+# )
+STATIC_ROOT = os.path.join(BASE_DIR, 'templates', 'static')
+# STATIC_ROOT = '/usr/local/openresty/nginx/html/templates/static'
 IMG_ROOT = os.path.join(BASE_DIR, 'templates/')
 
 MEDIA_URL = '/media/'
