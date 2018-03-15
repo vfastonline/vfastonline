@@ -4,6 +4,7 @@ tinymce.init({
     menubar: false,
     convert_urls: false,
     height: 450,
+    paste_data_images: true,
     plugins: [
         'advlist autolink lists link image charmap print preview hr anchor pagebreak',
         'searchreplace wordcount visualblocks visualchars code fullscreen',
