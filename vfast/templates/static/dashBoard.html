@@ -586,155 +586,155 @@
         {% endif %}
 
 
-    <div class="contentBody_right pull-right">
-            <div>
-                <div id="main" style="width: 450px;height:450px;"></div>
-            </div>
-    <script>
-            var myChart = echarts.init(document.getElementById('main'), 'macarons');
+    <!--<div class="contentBody_right pull-right">-->
+            <!--<div>-->
+                <!--<div id="main" style="width: 450px;height:450px;"></div>-->
+            <!--</div>-->
+    <!--<script>-->
+            <!--var myChart = echarts.init(document.getElementById('main'), 'macarons');-->
 
-          var option = {
-              tooltip: {
-                  trigger: 'item',
-                  formatter: "{a} <br/>{b}: {c} ({d}%)"
-              },
-              legend: {
-                  x: 'center',
-                  y: 'bottom',
-                  //orient: 'vertical',
-                   selectedMode:false,
-                  data:{{ skill_name_data| safe}}
-              },
-              series: [
-                  {
-                      name:'所占比重',
-                      type:'pie',
-                      radius: [0, '30%'],
+          <!--var option = {-->
+              <!--tooltip: {-->
+                  <!--trigger: 'item',-->
+                  <!--formatter: "{a} <br/>{b}: {c} ({d}%)"-->
+              <!--},-->
+              <!--legend: {-->
+                  <!--x: 'center',-->
+                  <!--y: 'bottom',-->
+                  <!--//orient: 'vertical',-->
+                   <!--selectedMode:false,-->
+                  <!--data:{{ skill_name_data| safe}}-->
+              <!--},-->
+              <!--series: [-->
+                  <!--{-->
+                      <!--name:'所占比重',-->
+                      <!--type:'pie',-->
+                      <!--radius: [0, '30%'],-->
 
-                      label: {
-                          normal: {
-                              position: 'inner'
-                          }
-                      },
-                      labelLine: {
-                          normal: {
-                              show: false
-                          }
-                      },
-                        data:{{ inner_ring_data | safe}}
-                  },
-                  {
-                      name:'完成度',
-                      type:'pie',
-                      radius: ['40%', '55%'],
-                      data:{{ outer_ring_data | safe}},//.sort(function (a, b) { return a.value - b.value; }),
-                      color:{{ undone_color_data | safe}},
-                  }
-              ]
-          };
-          myChart.setOption(option);
+                      <!--label: {-->
+                          <!--normal: {-->
+                              <!--position: 'inner'-->
+                          <!--}-->
+                      <!--},-->
+                      <!--labelLine: {-->
+                          <!--normal: {-->
+                              <!--show: false-->
+                          <!--}-->
+                      <!--},-->
+                        <!--data:{{ inner_ring_data | safe}}-->
+                  <!--},-->
+                  <!--{-->
+                      <!--name:'完成度',-->
+                      <!--type:'pie',-->
+                      <!--radius: ['40%', '55%'],-->
+                      <!--data:{{ outer_ring_data | safe}},//.sort(function (a, b) { return a.value - b.value; }),-->
+                      <!--color:{{ undone_color_data | safe}},-->
+                  <!--}-->
+              <!--]-->
+          <!--};-->
+          <!--myChart.setOption(option);-->
 
 
 
-      </script>
-            <div class="plan_head">
-                <h3>今日学习计划</h3>
-                <p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>
-            </div>
-            <div class="plan_body">
-                <ul>
-                    {% for task in tasks %}
-                        {% if task.vtype == 0 and task.status == 0 %}
-                            <li class="plan_finish" onclick="location.href='/video/{{ task.video_id }}'">
-                            <img src="/static/svg/video_1.svg" alt="">
-                        {% elif task.vtype == 0 and task.status == 1 %}
-                            <li onclick="location.href='/video/{{ task.video_id }}'">
-                            <img src="/static/svg/video.svg" alt="">
-                        {% elif task.vtype == 1 and task.status == 0 %}
-                            <li class="plan_finish" onclick="location.href='/practice/{{ task.video_id }}'">
-                            <img src="/static/svg/quiz_1.svg" alt="">
-                        {% else %}
-                            <li onclick="location.href='/practice/{{ task.video_id }}'">
-                            <img src="/static/svg/quiz.svg" alt="">
-                        {% endif %}
-                        <span>{{ task.video_name }}</span>
-                        <time>{{ task.vtime }}</time>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="shabi">
-                <h3>8月份活跃度</h3>
-            </div>
-             <!--绘图形-->
-             <div class="charts">
-                <div class="ct-chart ct-perfect-fourth"></div>
-            </div>
-            {% if userplan.opinion %}
-            <div class="erbi">
-             <h3>学习建议</h3>
-             <p>{{ userplan.opinion }}</p>
-            </div>
-            {% endif %}
-            <script>
-              //图表js
+      <!--</script>-->
+            <!--<div class="plan_head">-->
+                <!--<h3>今日学习计划</h3>-->
+                <!--<p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>-->
+            <!--</div>-->
+            <!--<div class="plan_body">-->
+                <!--<ul>-->
+                    <!--{% for task in tasks %}-->
+                        <!--{% if task.vtype == 0 and task.status == 0 %}-->
+                            <!--<li class="plan_finish" onclick="location.href='/video/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/video_1.svg" alt="">-->
+                        <!--{% elif task.vtype == 0 and task.status == 1 %}-->
+                            <!--<li onclick="location.href='/video/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/video.svg" alt="">-->
+                        <!--{% elif task.vtype == 1 and task.status == 0 %}-->
+                            <!--<li class="plan_finish" onclick="location.href='/practice/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/quiz_1.svg" alt="">-->
+                        <!--{% else %}-->
+                            <!--<li onclick="location.href='/practice/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/quiz.svg" alt="">-->
+                        <!--{% endif %}-->
+                        <!--<span>{{ task.video_name }}</span>-->
+                        <!--<time>{{ task.vtime }}</time>-->
+                    <!--</li>-->
+                    <!--{% endfor %}-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="shabi">-->
+                <!--<h3>8月份活跃度</h3>-->
+            <!--</div>-->
+             <!--&lt;!&ndash;绘图形&ndash;&gt;-->
+             <!--<div class="charts">-->
+                <!--<div class="ct-chart ct-perfect-fourth"></div>-->
+            <!--</div>-->
+            <!--{% if userplan.opinion %}-->
+            <!--<div class="erbi">-->
+             <!--<h3>学习建议</h3>-->
+             <!--<p>{{ userplan.opinion }}</p>-->
+            <!--</div>-->
+            <!--{% endif %}-->
+            <!--<script>-->
+              <!--//图表js-->
 
-                        //请求数据
-                       var r = window.location.href;
-                       var d = r.substring(r.indexOf("u/"),r.length-1);
-                       var c = d.split("u/");
-                       var s = c[1];
-                         console.log(s);
-                       $.getJSON("/r/weekscore?uid="+s,{
-                           },function (data) {
-                           new Chartist.Line('.ct-chart', {
-                            labels: data.result.date,
-                            series: [
-                                {
-                                    name: '得分：',
-                                    data:data.result.vtime,
-                                }]
+                        <!--//请求数据-->
+                       <!--var r = window.location.href;-->
+                       <!--var d = r.substring(r.indexOf("u/"),r.length-1);-->
+                       <!--var c = d.split("u/");-->
+                       <!--var s = c[1];-->
+                         <!--console.log(s);-->
+                       <!--$.getJSON("/r/weekscore?uid="+s,{-->
+                           <!--},function (data) {-->
+                           <!--new Chartist.Line('.ct-chart', {-->
+                            <!--labels: data.result.date,-->
+                            <!--series: [-->
+                                <!--{-->
+                                    <!--name: '得分：',-->
+                                    <!--data:data.result.vtime,-->
+                                <!--}]-->
 
-                        });
-                        var easeOutQuad = function (x, t, b, c, d) {
-                            return -c * (t /= d) * (t - 2) + b;
-                        };
-                        var $chart = $('.ct-chart');
-                        var $toolTip = $chart
-                            .append('<div class="tooltip"></div>')
-                            .find('.tooltip')
-                            .hide();
-                        $chart.on('mouseenter', '.ct-point', function() {
-                            var $point = $(this),
-                                value = $point.attr('ct:value'),
-                                seriesName = $point.parent().attr('ct:series-name');
+                        <!--});-->
+                        <!--var easeOutQuad = function (x, t, b, c, d) {-->
+                            <!--return -c * (t /= d) * (t - 2) + b;-->
+                        <!--};-->
+                        <!--var $chart = $('.ct-chart');-->
+                        <!--var $toolTip = $chart-->
+                            <!--.append('<div class="tooltip"></div>')-->
+                            <!--.find('.tooltip')-->
+                            <!--.hide();-->
+                        <!--$chart.on('mouseenter', '.ct-point', function() {-->
+                            <!--var $point = $(this),-->
+                                <!--value = $point.attr('ct:value'),-->
+                                <!--seriesName = $point.parent().attr('ct:series-name');-->
 
-                            $point.animate({'stroke-width': '20px'}, 300, easeOutQuad);
-                            $point.animate({'stroke-background-color':'#fff'},300,easeOutQuad);
-                            $toolTip.html(seriesName + value).show();
-                        });
+                            <!--$point.animate({'stroke-width': '20px'}, 300, easeOutQuad);-->
+                            <!--$point.animate({'stroke-background-color':'#fff'},300,easeOutQuad);-->
+                            <!--$toolTip.html(seriesName + value).show();-->
+                        <!--});-->
 
-                        $chart.on('mouseleave', '.ct-point', function() {
-                            var $point = $(this);
+                        <!--$chart.on('mouseleave', '.ct-point', function() {-->
+                            <!--var $point = $(this);-->
 
-                            $point.animate({'stroke-width': '10px'}, 300, easeOutQuad);
-                            $toolTip.hide();
-                        });
+                            <!--$point.animate({'stroke-width': '10px'}, 300, easeOutQuad);-->
+                            <!--$toolTip.hide();-->
+                        <!--});-->
 
-                        $chart.on('mousemove', function(event) {
-                            $toolTip.css({
-                                left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,
-                                top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40
-                            });
-                        });
-                             console.log(data);
-                             console.log(data.result);
-                             console.log(data.result.date);
-                             console.log(data.result.score);
-                             console.log(data.result.vtime);
-                           });
-            </script>
-            </div>
+                        <!--$chart.on('mousemove', function(event) {-->
+                            <!--$toolTip.css({-->
+                                <!--left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,-->
+                                <!--top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40-->
+                            <!--});-->
+                        <!--});-->
+                             <!--console.log(data);-->
+                             <!--console.log(data.result);-->
+                             <!--console.log(data.result.date);-->
+                             <!--console.log(data.result.score);-->
+                             <!--console.log(data.result.vtime);-->
+                           <!--});-->
+            <!--</script>-->
+            <!--</div>-->
     {% if courses %}
         <div class="ke_courseING">
             <h2 class="courseING" style="margin-left: 30px;">正在进行的课程</h2>

@@ -208,7 +208,8 @@ def login(request):
                 request.session['login'] = True
                 pre_url = request.META.get('HTTP_REFERER')
                 if pre_url.split('/')[3] == '':
-                    return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))
+                    # return HttpResponse(json.dumps({'code': 0, 'url': '/u/%s/' % user['id']}, ensure_ascii=False))
+                    return HttpResponse(json.dumps({'code': 0, 'url': '/u/person'}, ensure_ascii=False))
                 else:
                     return HttpResponse(json.dumps({'code': 0, 'url': pre_url}, ensure_ascii=False))
             else:
@@ -327,7 +328,7 @@ def dashboard(request, param):
             # 统计各个技能点的学习进度，页面嵌套环形图使用
             statistics_dict = statistics_skill_mastery_level_by_path(user.id, user.pathid)
             result_dict.update(statistics_dict)
-            
+
             return render(request, 'dashBoard.html',result_dict)
 
         return render(request, 'dashBoard.html',
@@ -467,9 +468,104 @@ def person_page(request):
         # print badges
         sum_watch_video_time = WatchRecord.objects.filter(user=user_obj).aggregate(totaltime=Sum('video_time'))
 
-        return render(request, 'personalCenter.html',
-                      {'user': user_obj, 'tech_score': tech_score, 'badges': badges, 'badgesLen': len(badges),
-                       'totaltime': sum_watch_video_time['totaltime']})
+
+        #11111
+        user = user_obj
+        today = time.strftime('%Y-%m-%d')
+        userplan = Userplan.objects.filter(userid=user_obj.id, createtime=today).values().first()
+        # 显示已经学过的或者正在学习的课程
+        sql = "select vr.video_id, vv.vtype as video_type, vc.*, vt.color as tech_color, vt.name as tech_name from vrecord_watchrecord as vr, vcourse_video as vv , vcourse_course as vc , vcourse_technology as vt where vt.id=vc.tech_id and vr.user_id=%s and vr.video_id=vv.id and vr.course_id=vc.id GROUP BY id" % user.id
+        courses_learning = dictfetchall(sql)
+        task_create = task_daily(user)
+        if task_create:
+            flag, tasks = task_finish(user)  # 判断是否完成今日任务, 并返回
+        else:
+            flag, tasks = False, []
+        aaa = dict()
+
+        if user.pathid == 0 or not Path.objects.filter(id=user.pathid).exists():
+            if not WatchRecord.objects.filter(user_id=user.id).exists():
+                return HttpResponseRedirect('/course/tracks')
+
+        # 显示正在学习的路线
+        else:
+            path = Path.objects.get(id=user.pathid)
+
+            courses_objs, courses = path.get_after_sorted_course()
+
+            # 获取用户观看过当前路线的课程,是否观看完成
+            courses_wathced = WatchCourse.objects.filter(user=user, course__in=path.course.all())
+
+            # 课程时间显示转换, 如果以看完课程,显示课程观看时间, 如果没有看完课程,显示课程总时间
+            for item in courses:
+                for course_wathced in courses_wathced:
+                    if item["id"] == course_wathced.course_id:
+                        item['viewtime'] = '%s%s' % (time_comp_now(course_wathced.createtime), '完成')
+                if not item.has_key('viewtime'):
+                    item['viewtime'] = item['totaltime']
+
+                # 查找出用户观看过的视频
+                sql3 = "select vv.*, t.createtime  from (select * from vrecord_watchrecord where user_id=%s and course_id=%s order by createtime desc limit 1) as t,vcourse_video as vv where vv.id = t.video_id" % (
+                    user.id, item['id'])
+                ret3 = dictfetchall(sql3)
+                if len(ret3) == 1:
+                    item['video_id'] = ret3[0]['id']
+                    item['video_name'] = ret3[0]['name']
+                    item['vtype'] = ret3[0]['vtype']
+                    item['createtime'] = ret3[0]['createtime']
+                else:
+                    ret_video = Video.objects.filter(course=item["id"])
+                    if not ret_video.exists():
+                        # 如果添加了课程,但是没有为课程添加视频, 默认读取第一个视频
+                        ret_sql_v = Video.objects.order_by("sequence").first()
+                        item['video_id'] = ret_sql_v.id
+                        item['vtype'] = ret_sql_v.vtype
+                        item['createtime'] = 0
+                        item['video_name'] = ret_sql_v.name
+                    else:
+                        item['video_id'] = ret_video.first().id
+                        item['video_name'] = ret_video.first().name
+                        item['vtype'] = ret_video.first().vtype
+                        item['createtime'] = 0  # 未观看视频, 跳转到course的第一个视频
+            tmp = []
+            for z in courses:
+                tmp.append(str(z['createtime']))
+            tmp.sort()
+            maxdate = tmp.pop()
+            for item in courses:
+                if item['createtime'] == maxdate and maxdate != 0:
+                    item['flag'] = 1
+                    course_obj = Course.objects.get(id=item['id'])
+                    len_v = Video.objects.filter(course=course_obj).count()
+                    len_v_wathc = WatchRecord.objects.filter(course=course_obj, user=user, status=0).count()
+                    item['viewtime'] = '%s/%s' % (len_v_wathc, len_v)
+                    item['video_jindu'] = '%.2f%%' % ((len_v_wathc / 1.0 / len_v) * 100)
+                else:
+                    item['flag'] = 0
+            # 进行路线的百分比
+            jindu, jindu_2 = track_process(user.id, courses_objs)
+            print courses_learning
+            result_dict = {
+                'courses_path': courses,
+                'jindu': jindu,
+                'path_name': path.name,
+                'courses': courses_learning,
+                'xingxing': [0, 1, 2, 3, 4],
+                'path_flag': True,
+                'tasks': tasks,
+                'flag': flag,
+                'userplan': userplan
+            }
+
+            # 统计各个技能点的学习进度，页面嵌套环形图使用
+            statistics_dict = statistics_skill_mastery_level_by_path(user.id, user.pathid)
+            result_dict.update(statistics_dict)
+
+        #11111
+        result_dicta= {'user': user_obj, 'tech_score': tech_score, 'badges': badges, 'badgesLen': len(badges),
+                       'totaltime': sum_watch_video_time['totaltime']}
+        result_dicta.update(result_dict)
+        return render(request, 'personalCenter.html',result_dicta)
     except:
         logging.getLogger().error(traceback.format_exc())
         return render(request, '404.html')

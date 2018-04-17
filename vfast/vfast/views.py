@@ -41,7 +41,8 @@ def logout(request):
 def index(request):
     try:
         if request.session.get('user'):
-            return HttpResponseRedirect('/u/%s' % request.session['user']['id'])
+            # return HttpResponseRedirect('/u/%s' % request.session['user']['id'])
+            return HttpResponseRedirect('/u/person')
         else:
             return render(request, 'index.html')
     except:

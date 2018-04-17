@@ -14,6 +14,495 @@
         /*promptEL Start*/
         .promptEL{
             width: 1200px;
+            height: 100px;
+            overflow: hidden;
+            background: #5ACD91;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            margin: 50px auto 0px;
+            position: relative;
+            transition: all 0.35s ease-in-out;
+        }
+        .promptEL svg{
+            position: absolute;
+            top: 39px;
+            left: 20px;
+        }
+        .promptEL svg:hover{
+            cursor: pointer;
+        }
+        .promptEL svg:hover path{
+            fill: #607D8B;
+        }
+        .promptEL svg:active path{
+            fill: #FFFFFF;
+        }
+        .promptEL p{
+            height: 100px;
+            line-height: 100px;
+            font-size: 18px;
+            color: #FFFFFF;
+            padding-left: 70px;
+        }
+        /*promptEL END*/
+        .promptEL_plan{
+            width: 1200px;
+            height: 110px;
+            overflow: hidden;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            margin: 50px auto 0px;
+            position: relative;
+            transition: all 0.35s ease-in-out;
+            background: #5ACD91;
+        }
+        .promptEL_plan svg{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .promptEL_plan svg:hover{
+            cursor: pointer;
+        }
+        .promptEL_plan svg:hover path{
+            fill: #607D8B;
+        }
+        .promptEL_plan svg:active path{
+            fill: #FFFFFF;
+        }
+        .promptEL_plan>h3{
+            padding-left: 70px;
+            color: #FFFFFF;
+            font-size: 24px;
+            padding-top: 5px;
+        }
+        .promptEL_plan>p{
+            font-size: 18px;
+            color: #FFFFFF;
+            padding-left: 70px;
+        }
+        .promptEL_plan>div{
+            position: absolute;
+            right: 80px;
+            top: 61px;
+            font-size: 18px;
+            color: #FFFFFF;
+        }
+        .promptEL_plan>div>strong{
+            font-size: 36px;
+            line-height: 22px;
+        }
+
+
+        /*contentBody Start*/
+        .contentBody{
+            width: 1200px;
+            margin: 50px auto 0px;
+        }
+        .contentBody_left{
+            width:72%;
+            background: #FFFFFF;
+            padding-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+        }
+        .contentBody_left_head{
+            padding: 10px 30px 30px;
+        }
+        .contentBody_left_head h3{
+            font-size: 20px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .contentBody_left_head h2{
+            font-size: 24px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .contentBody_left_head h4{
+            font-size: 18px;
+            color: #384047;
+            font-weight: bolder;
+            float: right;
+            position: relative;
+            top: -40px;
+        }
+        .contentBody_right{
+            width:38%;
+{#            background: #FFFFFF;#}
+{#            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);#}
+            border-radius: 4px;
+            padding-bottom: 10px;
+        }
+        .contentBody_right>p{
+            background: #FFFFFF;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            padding-bottom: 10px;
+            border-radius: 4px;
+        }
+        /*contentBody END*/
+        /*contentBody_left_body--0-- Start*/
+        .contentBody_left_body a{
+            -webkit-transition: background 0.35s,opacity 0.35s;
+            -moz-transition: background 0.35s,opacity 0.35s;
+            -ms-transition: background 0.35s,opacity 0.35s;
+            -o-transition: background 0.35s,opacity 0.35s;
+            transition: background 0.35s,opacity 0.35s;
+        }
+        .contentBody_left_body ul{
+            margin-bottom: 0px;
+        }
+        .contentBody_left_body ul a{
+            display: block;
+            background: #F0F2F4;
+
+            height: 56px;
+        }
+        .contentBody_left_body ul a li{
+            position: relative;
+            height: 56px;
+            line-height: 56px;
+            padding: 0px 50px;
+        }
+        .contentBody_left_body ul a li span{
+            font-size: 14px;
+            color: #607D8B;
+            margin-left: 20px;
+        }
+        .contentBody_left_body ul a li time{
+            font-size: 14px;
+            color: #7B8B8E;
+            position: absolute;
+            right: 50px;
+        }
+        .contentBody_left_body ul a:hover{
+            background: #FFFFFF;
+         box-shadow: inset 0 1px 1px #D4D9DD;
+        }
+        /*contentBody_left_body--0-- End*/
+        /*contentBody_left_body--1-- Start*/
+        .contentBody_left_body ul .courseIN{
+            position: relative;
+            height:136px;
+            background: #607D8B;
+            box-shadow: inset 0 1px 0 0 #848484;
+        }
+        .contentBody_left_body ul .courseIN>div{
+            background: #4DD0E1;
+            height: 136px;
+            width:60%;
+            position: absolute;
+            z-index: 1;
+        }
+        .contentBody_left_body ul .courseIN li{
+            position: relative;
+        }
+        .contentBody_left_body ul .courseIN li div span{
+            color: #FFFFFF;
+        }
+        .contentBody_left_body ul .courseIN li div:first-child{
+            position: relative;
+            z-index: 1;
+        }
+        .contentBody_left_body ul .courseIN li div:first-child time{
+            right: 0px;
+            color: #FFFFFF;
+        }
+        .contentBody_left_body ul .courseIN li div:last-child{
+            position: relative;
+            z-index: 1;
+            padding: 0px 50px;
+        }
+        .contentBody_left_body ul .courseIN li div:last-child span{
+            font-size: 18px;
+        }
+        .contentBody_left_body ul .courseIN li div:last-child img:last-child{
+            position: absolute;
+            right: 50px;
+            height: 56px;
+            line-height: 56px;
+        }
+        .contentBody_left_body ul .courseIN:hover{
+            background: #607D8B;
+            box-shadow: inset 0 0px 0px #D4D9DD;
+            opacity:0.8;
+        }
+        /*contentBody_left_body--1-- End*/
+
+        /*plan_head Start*/
+        .plan_head{
+            padding: 20px 30px 10px;
+            background-color: #FFFFFF;
+{#            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);#}
+        }
+        .plan_head h3{
+            font-size: 20px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .plan_head p{
+            font-size: 14px;
+            color: #5A646E;
+        }
+        /*plan_head End*/
+        /*plan_body Start*/
+        .plan_body ul li{
+            position: relative;
+            height: 56px;
+            line-height: 56px;
+            padding-left: 50px;
+            padding-right: 20px;
+            background: #F0F2F4;
+            box-shadow: inset 0 1px 0 0 #D4D9DD;
+            -webkit-transition: background 0.35s,opacity 0.35s;
+            -moz-transition: background 0.35s,opacity 0.35s;
+            -ms-transition: background 0.35s,opacity 0.35s;
+            -o-transition: background 0.35s,opacity 0.35s;
+            transition: background 0.35s,opacity 0.35s;
+        }
+        .plan_body ul li:hover{
+            background: #4DD0E1;
+{#            box-shadow: inset 0 2px 5px #D4D9DD;#}
+{#            cursor: pointer;#}
+        }
+        .plan_body ul .plan_finish:hover{
+            opacity: 0.8;
+            background: #4DB6AC;
+            box-shadow: none;
+        }
+        .plan_body ul li span{
+            font-size: 14px;
+            color: #5A646E;
+            margin-left: 30px;
+        }
+        .plan_body ul li time{
+            position: absolute;
+            right: 20px;
+            font-size: 14px;
+            color: #96AAAF;
+        }
+        .plan_body ul .plan_finish{
+            background: #4DB6AC;
+        }
+        .plan_body ul .plan_finish span{
+            color: #FFFFFF;
+        }
+        .plan_body ul .plan_finish time{
+            color: #FFFFFF;
+        }
+        .plan_body ul{
+            margin-bottom: 0px;
+        }
+        /*plan_body End*/
+
+        .courseING{
+            font-size: 20px;
+            font-weight: bolder;
+            color: #384047;
+            width: 59%;
+        }
+        /*contentBody_course Start*/
+        .contentBody_course:after{content: "";display: block;clear: both;}
+        .contentBody_course{
+            width: 59%;
+            margin-top: 30px;
+            color: #5A646E;
+        }
+        .contentBody_course>div{
+            width: 720px;
+            margin-bottom: 30px;
+            transition: all 0s linear;
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.10);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .contentBody_course>div:hover{
+            position: relative;
+            top:-1px;
+        }
+        .contentBody_course>div>div:first-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div>div:last-child{
+            transition: all 0s;
+        }
+        .contentBody_course>div:hover>div:first-child{
+            cursor: pointer;
+            opacity: 0.8!important;
+        }
+        .contentBody_course>div:hover>div:last-child{
+            background-color: #FAFAFA;
+            cursor: pointer;
+        }
+        .contentBody_course>div:nth-child(3n+2){
+        }
+        .contentBody_course>div>div:first-child{
+            /*背景色 数据库取*/
+            background-color: #EF5350;
+            height: 54px;
+            padding-top: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .contentBody_course>div>div:first-child{content:"";display: block;clear: both;}
+        .contentBody_course>div>div:first-child>div:first-child{
+            float: left;
+        }
+        .contentBody_course>div>div:first-child>div:last-child{
+            float: right;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+        .contentBody_course>div>div:last-child{
+            padding: 20px 30px 30px 20px ;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            height:220px;
+            position: relative;
+        }
+        .contentBody_course>div>div:last-child>p:first-child{
+            color: #B4BEC8;
+        }
+        .contentBody_course>div>div:last-child>h1{
+            font-size: 20px;
+            color: #5A646E;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(3){
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            height: 60px;
+            line-height: 20px;
+            font-size: 14px;
+            color: #5A646E;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(4){
+            color: #FFFFFF;
+            height: 24px;
+            font-size: 16px;
+            border-radius: 12px;
+            line-height: 24px;
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            transition: all 0s;
+            position: absolute;
+            bottom:20px;
+            -moz-user-select:none;/*火狐*/
+            -webkit-user-select:none;/*webkit浏览器*/
+            -ms-user-select:none;/*IE10*/
+            -khtml-user-select:none;/*早期浏览器*/
+            user-select:none;
+        }
+        .groupHover:hover{
+            box-shadow: 0px 1px 1px black;
+            bottom: 21px!important;
+        }
+        .groupHover:active{
+            box-shadow: 0px 0px 0px black;
+            bottom: 20px!important;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5){
+            height: 20px;
+            line-height: 20px;
+            font-size: 17px;
+            display: inline-block;
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            vertical-align: middle;
+        }
+        .contentBody_course>div>div:last-child>div:nth-child(5)>img{
+            padding-bottom: 5px;
+        }
+        /*contentBody_course  End*/
+
+        /*图表样式*/
+         .charts{
+            background-color: #2F3746;
+            width: 100%;
+            height: 320px;
+        }
+        .ct-perfect-fourth{
+            width: 100%;
+            height: 310px;
+            top: 10px;
+        }
+        .tooltip {
+            width: 100px;
+            position: relative;
+            z-index: 1;
+            padding: 5px;
+            background:  rgba(255,255,255,0.90);
+            opacity: 1;
+            border-radius: 3px;
+            text-align: center;
+            pointer-events: none;
+            color: #7C828C;
+            font-size: 14px;
+            transition: opacity .1s ease-out;
+        }
+        .tooltip:after{
+            content: "";
+            position: absolute;
+            border-style: solid;
+            border-color:  rgba(255,255,255,0.90)transparent transparent;
+            border-width: 8px;
+            top: 100%;
+            left:40px;
+        }
+        .tooltip.tooltip-hidden {
+            opacity: 0;
+        }
+        .ct-grid.ct-horizontal{
+            display: none;
+        }
+        .ct-grid.ct-vertical{
+
+        }
+        .ct-label{color: #FFFFFF}
+        .ct-grid{
+            stroke:#7C828C
+        }
+        .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut{
+            stroke:#00BCD4
+        }
+        /*图表样式结束*/
+        .show{display: none;}
+        /*用屁股想到的标题*/
+        .shabi{
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+        }
+        .shabi h3{
+            font-size: 20px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .erbi h3{
+          font-size: 20px;
+            color: #384047;
+            font-weight: bolder;
+        }
+        .ke_courseING{
+            width: 60%;
+            height: 70px;
+            line-height: 70px;
+            float: left;
+        }
+    </style>
+    <style>
+
+
+        #head_cont{
+            box-shadow: none;
+        }
+        /*promptEL Start*/
+        .promptEL{
+            width: 1200px;
             height: 200px;
             background: #FFFFFF;
             box-shadow: 0 2px 0 0 rgba(181,181,181,0.10);
@@ -519,91 +1008,356 @@
                 </ul>
             </div>
             <div style="clear: both;height: 30px"></div>
-           <div style="width: 100%;height: 140px;background: #FFFFFF">
-               <ul class="tnts">
-                   <li>Cisco</li>
-                   <li>Windows</li>
-                   <li>Linux</li>
-                   <li>zabbix</li>
-                   <li>nagios</li>
-               </ul>
-            <div>
-                <div  class="ct-chart ct-golden-section dpp" id="chart1"></div>
-                 <div  class="ct-chart ct-golden-section dpp" id="chart2"></div>
-                 <div  class="ct-chart ct-golden-section dpp" id="chart3"></div>
-                  <div  class="ct-chart ct-golden-section dpp" id="chart4"></div>
-                  <div  class="ct-chart ct-golden-section dpp" id="chart5"></div>
-             </div>
-<script>
-    // Initialize a Line chart in the container with the ID chart1
-    var data = {
-        series: [5, 3,]
-    };
-    var sum = function(a, b) { return a + b };
-    new Chartist.Pie('#chart1', data, {
-        labelInterpolationFnc: function(value) {
-            return Math.round(value / data.series.reduce(sum) * 100) + '%';
-        }
-    });
 
-    // Initialize a Line chart in the container with the ID chart2
-    var data = {
-        series: [3, 3,]
-    };
-    var sum = function(a, b) { return a + b };
-    new Chartist.Pie('#chart2', data, {
-        labelInterpolationFnc: function(value) {
-            return Math.round(value / data.series.reduce(sum) * 100) + '%';
-        }
-    });
-    // Initialize a Line chart in the container with the ID chart3
-    var data = {
-        series: [3, 2]
-    };
-    var sum = function(a, b) { return a + b };
-    new Chartist.Pie('#chart3', data, {
-        labelInterpolationFnc: function(value) {
-            return Math.round(value / data.series.reduce(sum) * 100) + '%';
-        }
-    });
-    // Initialize a Line chart in the container with the ID chart4
-    var data = {
-        series: [6, 2]
-    };
-    var sum = function(a, b) { return a + b };
-    new Chartist.Pie('#chart4', data, {
-        labelInterpolationFnc: function(value) {
-            return Math.round(value / data.series.reduce(sum) * 100) + '%';
-        }
-    });
-    // Initialize a Line chart in the container with the ID chart5
-    var data = {
-        series: [3, 9]
-    };
-    var sum = function(a, b) { return a + b };
-    new Chartist.Pie('#chart5', data, {
-        labelInterpolationFnc: function(value) {
-            return Math.round(value / data.series.reduce(sum) * 100) + '%';
-        }
-    });
-</script>
-           </div>
+
+           <!--<div style="width: 100%;height: 140px;background: #FFFFFF">-->
+               <!--<ul class="tnts">-->
+                   <!--<li>Cisco</li>-->
+                   <!--<li>Windows</li>-->
+                   <!--<li>Linux</li>-->
+                   <!--<li>zabbix</li>-->
+                   <!--<li>nagios</li>-->
+               <!--</ul>-->
+            <!--<div>-->
+                <!--<div  class="ct-chart ct-golden-section dpp" id="chart1"></div>-->
+                 <!--<div  class="ct-chart ct-golden-section dpp" id="chart2"></div>-->
+                 <!--<div  class="ct-chart ct-golden-section dpp" id="chart3"></div>-->
+                  <!--<div  class="ct-chart ct-golden-section dpp" id="chart4"></div>-->
+                  <!--<div  class="ct-chart ct-golden-section dpp" id="chart5"></div>-->
+             <!--</div>-->
+<!--<script>-->
+    <!--// Initialize a Line chart in the container with the ID chart1-->
+    <!--var data = {-->
+        <!--series: [5, 3,]-->
+    <!--};-->
+    <!--var sum = function(a, b) { return a + b };-->
+    <!--new Chartist.Pie('#chart1', data, {-->
+        <!--labelInterpolationFnc: function(value) {-->
+            <!--return Math.round(value / data.series.reduce(sum) * 100) + '%';-->
+        <!--}-->
+    <!--});-->
+
+    <!--// Initialize a Line chart in the container with the ID chart2-->
+    <!--var data = {-->
+        <!--series: [3, 3,]-->
+    <!--};-->
+    <!--var sum = function(a, b) { return a + b };-->
+    <!--new Chartist.Pie('#chart2', data, {-->
+        <!--labelInterpolationFnc: function(value) {-->
+            <!--return Math.round(value / data.series.reduce(sum) * 100) + '%';-->
+        <!--}-->
+    <!--});-->
+    <!--// Initialize a Line chart in the container with the ID chart3-->
+    <!--var data = {-->
+        <!--series: [3, 2]-->
+    <!--};-->
+    <!--var sum = function(a, b) { return a + b };-->
+    <!--new Chartist.Pie('#chart3', data, {-->
+        <!--labelInterpolationFnc: function(value) {-->
+            <!--return Math.round(value / data.series.reduce(sum) * 100) + '%';-->
+        <!--}-->
+    <!--});-->
+    <!--// Initialize a Line chart in the container with the ID chart4-->
+    <!--var data = {-->
+        <!--series: [6, 2]-->
+    <!--};-->
+    <!--var sum = function(a, b) { return a + b };-->
+    <!--new Chartist.Pie('#chart4', data, {-->
+        <!--labelInterpolationFnc: function(value) {-->
+            <!--return Math.round(value / data.series.reduce(sum) * 100) + '%';-->
+        <!--}-->
+    <!--});-->
+    <!--// Initialize a Line chart in the container with the ID chart5-->
+    <!--var data = {-->
+        <!--series: [3, 9]-->
+    <!--};-->
+    <!--var sum = function(a, b) { return a + b };-->
+    <!--new Chartist.Pie('#chart5', data, {-->
+        <!--labelInterpolationFnc: function(value) {-->
+            <!--return Math.round(value / data.series.reduce(sum) * 100) + '%';-->
+        <!--}-->
+    <!--});-->
+<!--</script>-->
+           <!--</div>-->
         <div class="slideDIV" style="height:50px;"></div>
-            <div class="info_left_2">
-                <ul class="clearfix">
-                    {% for tech in tech_score %}
-                        {% if tech.name == None %}
-                            <li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>任务得分</span></li>
+            <!--<div class="info_left_2">-->
+                <!--<ul class="clearfix">-->
+                    <!--{% for tech in tech_score %}-->
+                        <!--{% if tech.name == None %}-->
+                            <!--<li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>任务得分</span></li>-->
+                        <!--{% else %}-->
+                            <!--<li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>{{ tech.name }}</span></li>-->
+                        <!--{% endif %}-->
+                    <!--{% endfor %}-->
+                <!--</ul>-->
+                <!--<hr/>-->
+                <!--<div>-->
+                    <!--总得分:<span>{{ user.totalscore }}</span>领先于<span>53%</span>的用户-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+
+
+    <div class="slideDIV" style="height:100px;"></div>
+
+    <section class="contentBody clearfix">
+        {% if path_flag %}
+        <div class="contentBody_left pull-left">
+            <div class="contentBody_left_head">
+                <h3>正在进行的路线</h3>
+                <h2>{{ path_name }}</h2>
+                <h4>{{ jindu }}</h4>
+                <div class="progressBar">
+                  <span class="blue" style="width: {{ jindu }};"></span>
+                </div>
+            </div>
+            <script>
+                //当路线进度为0时隐藏
+            </script>
+            <div class="contentBody_left_body">
+                <ul>
+                    {% for course in courses_path %}
+                        {% load mytags %}
+                        {% if course.flag == 1 %}
+                            <a href="{{ course| dashboard_get_lession_url}}" class="courseIN">
+                                <div style="width: {{ course.video_jindu }};"></div>
+                                <li>
+                                    <div>
+                                        {% if course.icon == 0 %}
+                                            <img src="/static/svg/videoCourse_1.svg" width="24px" height="24px" alt="">
+                                        {% else %}
+                                            <img src="/static/svg/project_1.svg" width="24px" height="24px" alt="">
+                                        {% endif %}
+                                        <span>{{ course.name }}</span>
+                                        <time>{{ course.viewtime }}</time>
+                                    </div>
+                                    <div>
+                                        {% if course.vtype == 0 %}
+                                            <img src="/static/svg/video_1.svg" width="24px" height="24px" alt="">
+                                        {% else %}
+                                            <img src="/static/svg/quiz_1.svg" width="24px" height="24px" alt="">
+                                        {% endif %}
+                                        <span>{{ course.video_name }}</span>
+                                        <img src="/static/svg/arrow.svg" width="16px" height="16px" alt="">
+                                    </div>
+                                </li>
+                            </a>
                         {% else %}
-                            <li><span style='color: {{ tech.color }}'>{{ tech.score }}</span>&nbsp;&nbsp;<span>{{ tech.name }}</span></li>
+                            <a href="{{ course | dashboard_get_lession_url}}">
+                                <li>
+                                    {% if course.icon == 0 %}
+                                        <img src="/static/svg/videoCourse.svg" width="24px" height="24px" alt="">
+                                    {% else %}
+                                        <img src="/static/svg/project.svg" width="24px" height="24px" alt="">
+                                    {% endif %}
+                                    <span>{{ course.name }}</span>
+                                    <time>{{ course.viewtime }}</time>
+                                </li>
+                            </a>
                         {% endif %}
                     {% endfor %}
                 </ul>
-                <hr/>
-                <div>
-                    总得分:<span>{{ user.totalscore }}</span>领先于<span>53%</span>的用户
-                </div>
             </div>
+        </div>
+        {% endif %}
+
+
+    <!--<div class="contentBody_right pull-right">-->
+            <!--<div>-->
+                <!--<div id="main" style="width: 450px;height:450px;"></div>-->
+            <!--</div>-->
+    <!--<script>-->
+            <!--var myChart = echarts.init(document.getElementById('main'), 'macarons');-->
+
+          <!--var option = {-->
+              <!--tooltip: {-->
+                  <!--trigger: 'item',-->
+                  <!--formatter: "{a} <br/>{b}: {c} ({d}%)"-->
+              <!--},-->
+              <!--legend: {-->
+                  <!--x: 'center',-->
+                  <!--y: 'bottom',-->
+                  <!--//orient: 'vertical',-->
+                   <!--selectedMode:false,-->
+                  <!--data:{{ skill_name_data| safe}}-->
+              <!--},-->
+              <!--series: [-->
+                  <!--{-->
+                      <!--name:'所占比重',-->
+                      <!--type:'pie',-->
+                      <!--radius: [0, '30%'],-->
+
+                      <!--label: {-->
+                          <!--normal: {-->
+                              <!--position: 'inner'-->
+                          <!--}-->
+                      <!--},-->
+                      <!--labelLine: {-->
+                          <!--normal: {-->
+                              <!--show: false-->
+                          <!--}-->
+                      <!--},-->
+                        <!--data:{{ inner_ring_data | safe}}-->
+                  <!--},-->
+                  <!--{-->
+                      <!--name:'完成度',-->
+                      <!--type:'pie',-->
+                      <!--radius: ['40%', '55%'],-->
+                      <!--data:{{ outer_ring_data | safe}},//.sort(function (a, b) { return a.value - b.value; }),-->
+                      <!--color:{{ undone_color_data | safe}},-->
+                  <!--}-->
+              <!--]-->
+          <!--};-->
+          <!--myChart.setOption(option);-->
+
+
+
+      <!--</script>-->
+            <!--<div class="plan_head">-->
+                <!--<h3>今日学习计划</h3>-->
+                <!--<p>您好，{{ request.session.user.nickname }}同学！根据你的最近学习情况，我们向你推荐学习课程。建议你今天完成下面的学习内容</p>-->
+            <!--</div>-->
+            <!--<div class="plan_body">-->
+                <!--<ul>-->
+                    <!--{% for task in tasks %}-->
+                        <!--{% if task.vtype == 0 and task.status == 0 %}-->
+                            <!--<li class="plan_finish" onclick="location.href='/video/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/video_1.svg" alt="">-->
+                        <!--{% elif task.vtype == 0 and task.status == 1 %}-->
+                            <!--<li onclick="location.href='/video/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/video.svg" alt="">-->
+                        <!--{% elif task.vtype == 1 and task.status == 0 %}-->
+                            <!--<li class="plan_finish" onclick="location.href='/practice/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/quiz_1.svg" alt="">-->
+                        <!--{% else %}-->
+                            <!--<li onclick="location.href='/practice/{{ task.video_id }}'">-->
+                            <!--<img src="/static/svg/quiz.svg" alt="">-->
+                        <!--{% endif %}-->
+                        <!--<span>{{ task.video_name }}</span>-->
+                        <!--<time>{{ task.vtime }}</time>-->
+                    <!--</li>-->
+                    <!--{% endfor %}-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="shabi">-->
+                <!--<h3>8月份活跃度</h3>-->
+            <!--</div>-->
+             <!--&lt;!&ndash;绘图形&ndash;&gt;-->
+             <!--<div class="charts">-->
+                <!--<div class="ct-chart ct-perfect-fourth"></div>-->
+            <!--</div>-->
+            <!--{% if userplan.opinion %}-->
+            <!--<div class="erbi">-->
+             <!--<h3>学习建议</h3>-->
+             <!--<p>{{ userplan.opinion }}</p>-->
+            <!--</div>-->
+            <!--{% endif %}-->
+            <!--<script>-->
+              <!--//图表js-->
+
+                        <!--//请求数据-->
+                       <!--var r = window.location.href;-->
+                       <!--var d = r.substring(r.indexOf("u/"),r.length-1);-->
+                       <!--var c = d.split("u/");-->
+                       <!--var s = c[1];-->
+                         <!--console.log(s);-->
+                       <!--$.getJSON("/r/weekscore?uid="+s,{-->
+                           <!--},function (data) {-->
+                           <!--new Chartist.Line('.ct-chart', {-->
+                            <!--labels: data.result.date,-->
+                            <!--series: [-->
+                                <!--{-->
+                                    <!--name: '得分：',-->
+                                    <!--data:data.result.vtime,-->
+                                <!--}]-->
+
+                        <!--});-->
+                        <!--var easeOutQuad = function (x, t, b, c, d) {-->
+                            <!--return -c * (t /= d) * (t - 2) + b;-->
+                        <!--};-->
+                        <!--var $chart = $('.ct-chart');-->
+                        <!--var $toolTip = $chart-->
+                            <!--.append('<div class="tooltip"></div>')-->
+                            <!--.find('.tooltip')-->
+                            <!--.hide();-->
+                        <!--$chart.on('mouseenter', '.ct-point', function() {-->
+                            <!--var $point = $(this),-->
+                                <!--value = $point.attr('ct:value'),-->
+                                <!--seriesName = $point.parent().attr('ct:series-name');-->
+
+                            <!--$point.animate({'stroke-width': '20px'}, 300, easeOutQuad);-->
+                            <!--$point.animate({'stroke-background-color':'#fff'},300,easeOutQuad);-->
+                            <!--$toolTip.html(seriesName + value).show();-->
+                        <!--});-->
+
+                        <!--$chart.on('mouseleave', '.ct-point', function() {-->
+                            <!--var $point = $(this);-->
+
+                            <!--$point.animate({'stroke-width': '10px'}, 300, easeOutQuad);-->
+                            <!--$toolTip.hide();-->
+                        <!--});-->
+
+                        <!--$chart.on('mousemove', function(event) {-->
+                            <!--$toolTip.css({-->
+                                <!--left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 - 10,-->
+                                <!--top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 40-->
+                            <!--});-->
+                        <!--});-->
+                             <!--console.log(data);-->
+                             <!--console.log(data.result);-->
+                             <!--console.log(data.result.date);-->
+                             <!--console.log(data.result.score);-->
+                             <!--console.log(data.result.vtime);-->
+                           <!--});-->
+            <!--</script>-->
+            <!--</div>-->
+    {% if courses %}
+        <div class="ke_courseING">
+            <h2 class="courseING" style="margin-left: 30px;">正在进行的课程</h2>
+        </div>
+    {% endif %}
+    <section class="contentBody_course">
+        {% for course in courses %}
+            <div>
+            <div style="background-color: {{ course.color }};">
+                <div>
+                    {% if course.icon == 0 %}
+                        <img src="/static/svg/videoCourse_1.svg" alt="">
+                    {% else %}
+                        <img src="/static/svg/project_1.svg" alt="">
+                    {% endif %}
+                </div>
+                <div>72小时</div>
+            </div>
+            <!--判断是跳转视频, 还是题目-->
+            {% if course.video_type == 0 %}      <!--跳转到视频-->
+                <div onclick="play_video('/video/{{ course.video_id }}')">
+            {% else %}
+                <div onclick="play_video('/practice/{{ course.video_id }}')">   <!--跳转到题目-->
+            {% endif %}
+        <p>系列课程</p>
+        <h1>{{ course.name }}</h1>
+        <div>{{ course.desc |safe}}</div>
+            <div style="background-color: {{ course.tech_color }};" class="groupHover" onclick="stopPPG(this)">{{ course.tech_name }}</div>
+        <div>难易度:
+            {% for xx in xingxing %}
+                {% if course.difficult > xx%}
+                    <img src="/static/svg/xingxing_1.svg" alt="">
+                {% else %}
+                    <img src="/static/svg/xingxing.svg" alt="">
+                {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+        </div>
+        {% endfor %}
+    </section>
+    </section>
+
+
+
+
         <div class="slideDIV" style="height:50px;"></div>
             <div class="info_left_3 clearfix" id="info_left_3">
             </div>
@@ -679,9 +1433,9 @@
 {#                    <div class="move"></div>#}
 {#                  </div>#}
 {#                </div>#}
-            <div style="height: 310px">
-               <div id="main" style="width: 300px;height:300px;"></div>
-            </div>
+            <!--<div style="height: 310px">-->
+               <!--<div id="main" style="width: 300px;height:300px;"></div>-->
+            <!--</div>-->
                  <script>
           var myChart = echarts.init(document.getElementById('main'),'macarons');
 
