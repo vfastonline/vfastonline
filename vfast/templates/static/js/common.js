@@ -374,7 +374,7 @@ function login_show(){
 
 function continue_animation(){
     if(phoneCheck&&nicknameCheck&&passwordCheck){
-        if(pcode == MD5($("#VCode").val())){
+        // if(pcode == MD5($("#VCode").val())){
             if(phoneNumber == $("#phone").val()){
                 reg_right_div.style.animation = "continue_animation 0.8s";
                 reg_right_div_2.style.animation = "continue_animation 0.8s";
@@ -386,9 +386,9 @@ function continue_animation(){
             }else{
                 swal("注册信息", "验证码与手机号不匹配，请您核对后再次输入！", "error");
             }
-        }else{
-            swal("注册信息", "验证码错误，请您核对后再次输入！", "error");
-        }
+        // }else{
+        //     swal("注册信息", "验证码错误，请您核对后再次输入！", "error");
+        // }
     }else{
         swal("注册信息", "请您补全所有必填信息，确保格式正确后继续！", "error");
     }
