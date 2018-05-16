@@ -97,7 +97,7 @@ def playVideo(request, params):
             userid = request.session['user']['id']
         except:
             return render(request, 'playVideo.html')
-        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s order by vv.sequence""" % (
+        sql = """select vv.id, vv.name, vv.notes, vv.vurl, vv.vtype, vw.user_id, vv.vtime, vv.course_id,  vw.status from  vcourse_video  as vv left join vrecord_watchrecord as vw  on  vv.id=vw.video_id and vw.user_id=%s where vv.course_id=%s order by vv.section_id, vv.sequence""" % (
             userid, video_obj.course.id)
         videos = dictfetchall(sql)
         sql_video_process = "select video_process from vrecord_watchrecord where user_id = %s and video_id =%s;" % (
