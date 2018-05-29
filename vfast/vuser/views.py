@@ -354,7 +354,6 @@ def task_daily(user):
         if ret and not d_ret:
             sql = 'select vw.*, vv.sequence from vrecord_watchrecord as vw, vcourse_video as vv where user_id = %s and vw.video_id=vv.id order by createtime desc limit 1;' % user.id
             result = dictfetchall(sql)
-            print  'ret not d_ret', user_plan['nums']
             if user_plan:
                 seqs = [str(result[0]['sequence'] + i) for i in range(1, user_plan['nums'])]
             else:
