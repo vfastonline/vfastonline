@@ -481,6 +481,7 @@ def person_page(request):
         else:
             flag, tasks = False, []
         aaa = dict()
+        result_dict = dict()
 
         if user.pathid == 0 or not Path.objects.filter(id=user.pathid).exists():
             if not WatchRecord.objects.filter(user_id=user.id).exists():
