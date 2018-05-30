@@ -235,8 +235,9 @@ def sendmessage(phone, sms_param):
             req.rec_num, req.sms_free_sign_name, req.sms_template_code,
             resp['alibaba_aliqin_fc_sms_num_send_response']))
         return True
-    except Exception, e:
-        logging.getLogger().error(e)
+    except:
+        traceback.print_exc()
+        logging.getLogger().error(traceback.format_exc())
         return False
 
 
