@@ -161,7 +161,10 @@ def course_detail(request):
                 url=""                #课程问卷调查的URL
             else:
                 v = Video.objects.filter(course_id=cid, sequence=1).values().first()  # 如果课程下面没有视频会抛出异常
-                url = '/video/%s' % v['id'] if v['vtype'] == 0 else '/practice/%s' % v['id']
+                try:
+                    url = '/video/%s' % v['id'] if v['vtype'] == 0 else '/practice/%s' % v['id']
+                except:
+                    url = "#"
 
 
             return render(request, 'course_detail.html', {'sections': sections, 'course': course,
