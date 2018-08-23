@@ -1,0 +1,9 @@
+include *.ini
+include *.conf
+include vctest
+include requirements.txt *
+include README.md
+include config.json
+recursive-include doc *
+recursive-include media *
+recursive-include templates *
