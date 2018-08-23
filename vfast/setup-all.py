@@ -14,6 +14,7 @@ def make_conda_env():
 
 def install_vfast_setup():
 	os.system("tar -zxvf vfast-1.0.tar.gz -C /usr/local/vfastonline/vfast -O > vfast")
+	os.system("mv /usr/local/vfastonline/vfast-1.0 /usr/local/vfastonline/vfast")
 	os.system("python /usr/local/vfastonline/vfast/setup.py build")
 	os.system("python /usr/local/vfastonline/vfast/setup.py install")
 
