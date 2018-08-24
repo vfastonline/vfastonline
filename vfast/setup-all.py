@@ -2,8 +2,14 @@
 import os
 
 
+def tar_vfast():
+	vfast_dir = "/usr/local/vfastonline/vfast"
+	os.system("mkdir -p %s && tar -zxvf vfast-1.0.tar.gz -C %s --strip-components 1" % (vfast_dir, vfast_dir))
+	os.system("mv media %s" % vfast_dir)
+
+
 def install_conda():
-	os.system("sh ../Anaconda2-5.2.0-Linux-x86_64.sh")
+	os.system("sh Anaconda2-5.2.0-Linux-x86_64.sh")
 
 
 def make_conda_env():
@@ -13,8 +19,6 @@ def make_conda_env():
 
 
 def install_vfast_setup():
-	os.system("tar -zxvf vfast-1.0.tar.gz -C /usr/local/vfastonline/vfast -O > vfast")
-	os.system("mv /usr/local/vfastonline/vfast-1.0 /usr/local/vfastonline/vfast")
 	os.system("python /usr/local/vfastonline/vfast/setup.py build")
 	os.system("python /usr/local/vfastonline/vfast/setup.py install")
 
@@ -33,7 +37,19 @@ def mv_uwsgi_nginx_config():
 	pass
 
 
+def install_mysql():
+	pass
+
+
+def mysql_dump():
+	"""还原数据库
+	:return:
+	"""
+	pass
+
+
 def install_all():
+	tar_vfast()
 	install_conda()
 	make_conda_env()
 	install_vfast_setup()
