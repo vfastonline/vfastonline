@@ -45,6 +45,7 @@ pip_(){
     wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate
     python get-pip.py
     echo `pip -V`
+    pip install uwsgi
 }
 
 
@@ -63,9 +64,10 @@ vfast_(){
     fi
     tar -zxvf $basepath/vfast-1.0.tar.gz -C /usr/local/vfastonline/vfast --strip-components 1
     mv -f -b $basepath/media /usr/local/vfastonline/vfast/
-    python /usr/local/vfastonline/vfast/setup.py build
-    python /usr/local/vfastonline/vfast/setup.py install
-    pip install uwsgi
+    cd /usr/local/vfastonline/vfast/
+    python setup.py build
+    python setup.py install
+    cd -
 }
 
 

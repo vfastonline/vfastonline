@@ -28,7 +28,7 @@ setup(
 	description="vfast",
 
 	# 单独的一些py脚本,不是在某些模块中
-	scripts=["manage.py", "setup-all.py"],
+	scripts=["manage.py"],
 
 	# 静态文件等，配合MANIFEST.in (package_data 参数不太好使)
 	include_package_data=True,
