@@ -10,6 +10,11 @@ mkdir -pv $pidfile
 
 function start(){
 #    echo "start uwsgi web and api.........."
+    if [ ! -d $logpath ];then
+	mkdir $logpath
+	exit
+    fi
+
     if [ -e $lock_file_path ];then
         echo -e "\033[31mUWSGI IS ALREADY START.......\033[0m"
         exit
