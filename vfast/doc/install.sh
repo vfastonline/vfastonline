@@ -6,7 +6,7 @@ PASSWORD=123456
 
 auto_ssh_copy_id() {
     expect -c "set timeout -1;
-        spawn ssh-copy-id root@$1;
+        spawn ssh-copy-id root@$1; 
         expect {
             *(yes/no)* {send -- yes\r;exp_continue;}
             *assword:* {send -- $2\r;exp_continue;}

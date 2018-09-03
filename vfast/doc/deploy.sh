@@ -12,8 +12,9 @@ yum_install() {
 mysql_(){
     service mysqld restart
     mysqladmin -u root password '111111'
-    echo $basepath
-    mysql -uroot -p111111 < $basepath/vfast.sql
+    if [ -f "$basepath/vfast.sql" ]; then
+        mysql -uroot -p111111 < $basepath/vfast.sql
+    fi
 }
 
 python_(){
@@ -63,7 +64,10 @@ vfast_(){
         mkdir -p /usr/local/vfastonline/vfast
     fi
     tar -zxvf $basepath/vfast-1.0.tar.gz -C /usr/local/vfastonline/vfast --strip-components 1
-    mv -f -b $basepath/media /usr/local/vfastonline/vfast/
+
+    if [ -d "$basepath/media" ];then
+        mv -f -b $basepath/media /usr/local/vfastonline/vfast/
+    fi
     cd /usr/local/vfastonline/vfast/
     python setup.py build
     python setup.py install
@@ -102,6 +106,7 @@ set_startup(){
     sed -i '$a\sh service mysqld restart' $1
 }
 
+echo "正在安装 zlib* openssl* mysql-server mysql mysql-devel libuuid-devel *gcc* wget"
 yum_install
 mysql_
 python_
