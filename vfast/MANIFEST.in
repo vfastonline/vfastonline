@@ -1,6 +1,5 @@
 include *.ini
 include *.conf
-include vctest
 include requirements.txt *
 include README.md
 include config.json
