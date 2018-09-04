@@ -97,3 +97,4 @@ vfast.conf
 00*.py
 *.mp4
 media/
+*.tar.gz

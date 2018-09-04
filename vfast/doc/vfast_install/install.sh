@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+basepath=$(cd `dirname $0`; pwd)
+
 # 多服务器用空格分隔
 SERVERS="172.16.155.128"
 PASSWORD=123456
@@ -26,7 +28,6 @@ ssh_copy_id_to_all
 
 for SERVER in $SERVERS
 do
-    scp -r /Users/xuhuiliang/Downloads/vfast_install root@$SERVER:/root/
-    echo "/root/vfast_install/deploy.sh $SERVER"
+    scp -r $basepath root@$SERVER:/root/
     ssh root@$SERVER /root/vfast_install/deploy.sh $SERVER
 done

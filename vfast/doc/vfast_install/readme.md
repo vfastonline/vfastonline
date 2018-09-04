@@ -1,4 +1,13 @@
+## 远程部署步骤
 
+```
+* python setup.py sdist
+* mv dist/vfast-1.0.tar.gz doc/vfast_install/
+* rm  vfastonline/vfast/dist
+* vim doc/install.sh 
+    * 修改：SERVERS，123456； SERVERS可用空格分隔填写多个，例：SERVERS="127.0.0.1 127.0.0.2"
+* sh install.sh
+```
 
 ### NGINX:
 ```
