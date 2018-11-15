@@ -27,3 +27,15 @@
 sh /etc/init.d/uwsgi stop       
 sh /etc/init.d/uwsgi start
 ```
+
+### 文件说明
+```
+media  课程视频文件
+vfast.sql  数据库备份文件
+deploy.sh   服务器部署各个服务脚本
+install.sh  远程部署脚本
+uwsgi   uwsgi服务启动停止脚本
+m.conf  nginx配置文件
+openresty_repo  yum源配置文件
+vfast-1.0.tar.gz    网站安装包
+```
