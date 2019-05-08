@@ -5,7 +5,8 @@ openresty_repo=$basepath"/openresty_repo"
 user=vfast
 
 yum_install() {
-    yum -y install zlib* openssl* mysql-server mysql mysql-devel libuuid-devel *gcc* wget
+    yum -y update
+    yum -y install zlib* openssl* mysql-server mysql-devel libuuid-devel gcc wget epel-release python-pip unzip
 }
 
 
@@ -18,7 +19,7 @@ mysql_(){
 }
 
 python_(){
-    wget http://python.org/ftp/python/2.7.2/Python-2.7.2.tar.bz2 --no-check-certificate
+#    wget http://python.org/ftp/python/2.7.2/Python-2.7.2.tar.bz2 --no-check-certificate
     tar -jxvf Python-2.7.2.tar.bz2
     cd Python-2.7.2
     ./configure
@@ -43,8 +44,6 @@ set_python(){
 }
 
 pip_(){
-    wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate
-    python get-pip.py
     echo `pip -V`
     pip install uwsgi
 }

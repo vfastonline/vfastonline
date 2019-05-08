@@ -28,6 +28,13 @@ ssh_copy_id_to_all
 
 for SERVER in $SERVERS
 do
-    scp -r $basepath root@$SERVER:/root/
-    ssh root@$SERVER /root/vfast_install/deploy.sh $SERVER
+    scp -r deploy.sh root@$SERVER:/root/
+    scp -r m.conf root@$SERVER:/root/
+    scp -r openresty_repo root@$SERVER:/root/
+    scp -r uwsgi root@$SERVER:/root/
+    scp -r vfast-1.0.tar.gz root@$SERVER:/root/
+    scp -r media root@$SERVER:/root/
+    scp -r vfast.sql root@$SERVER:/root/
+    scp -r Python-2.7.2.tar.bz2 root@$SERVER:/root/
+    ssh root@$SERVER /root/deploy.sh $SERVER
 done
